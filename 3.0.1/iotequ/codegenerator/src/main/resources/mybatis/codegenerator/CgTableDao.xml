@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.iotequ.codegenerator.dao.CgTableDao">
+  <resultMap id="BaseResultMap" type="top.iotequ.codegenerator.pojo.CgTable">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="sub_package" jdbcType="VARCHAR" property="subPackage" />
+    <result column="entity" jdbcType="VARCHAR" property="entity" />
+    <result column="template" jdbcType="VARCHAR" property="template" />
+    <result column="trial_licence" jdbcType="INTEGER" property="trialLicence" />
+    <result column="trial_days" jdbcType="INTEGER" property="trialDays" />
+    <result column="action_list" jdbcType="VARCHAR" property="actionList" />
+    <result column="imports" jdbcType="VARCHAR" property="imports" />
+    <result column="controller_extends" jdbcType="VARCHAR" property="controllerExtends" />
+    <result column="pojo_imports" jdbcType="VARCHAR" property="pojoImports" />
+    <result column="pojo_extends" jdbcType="VARCHAR" property="pojoExtends" />
+    <result column="pojo_java_code" jdbcType="VARCHAR" property="pojoJavaCode" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="flow_dyna_fields_op" jdbcType="VARCHAR" property="flowDynaFieldsOp" />
+    <result column="flow_dyna_fields_cp" jdbcType="VARCHAR" property="flowDynaFieldsCp" />
+    <result column="project_id" jdbcType="VARCHAR" property="projectId" />
+    <result column="project" jdbcType="VARCHAR" property="project" />
+    <result column="group_id" jdbcType="VARCHAR" property="groupId" />
+    <result column="module" jdbcType="VARCHAR" property="module" />
+  </resultMap>
+  <sql id = "selectSql">
+     SELECT cg_table.id,cg_table.code,cg_table.name,cg_table.title,cg_table.sub_package,cg_table.entity,cg_table.template,cg_table.trial_licence,cg_table.trial_days,cg_table.action_list,cg_table.imports,cg_table.controller_extends,cg_table.pojo_imports,cg_table.pojo_extends,cg_table.pojo_java_code,cg_table.creator,cg_table.flow_dyna_fields_op,cg_table.flow_dyna_fields_cp,cg_table.project_id,cg_project.code AS project,cg_project.group_id AS group_id,cg_project.name AS module FROM cg_table JOIN cg_project ON cg_table.project_id = cg_project.id
+  </sql>
+  <insert id="insert" parameterType="top.iotequ.codegenerator.pojo.CgTable">
+    insert into cg_table (id,code,name,title,sub_package,entity,template,trial_licence,trial_days,action_list,imports,controller_extends,pojo_imports,pojo_extends,pojo_java_code,creator,flow_dyna_fields_op,flow_dyna_fields_cp,project_id)
+      values 
+      (#{id,jdbcType=VARCHAR},#{code,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{title,jdbcType=VARCHAR},#{subPackage,jdbcType=VARCHAR},#{entity,jdbcType=VARCHAR},#{template,jdbcType=VARCHAR},#{trialLicence,jdbcType=INTEGER},#{trialDays,jdbcType=INTEGER},#{actionList,jdbcType=VARCHAR},#{imports,jdbcType=VARCHAR},#{controllerExtends,jdbcType=VARCHAR},#{pojoImports,jdbcType=VARCHAR},#{pojoExtends,jdbcType=VARCHAR},#{pojoJavaCode,jdbcType=VARCHAR},#{creator,jdbcType=VARCHAR},#{flowDynaFieldsOp,jdbcType=VARCHAR},#{flowDynaFieldsCp,jdbcType=VARCHAR},#{projectId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.codegenerator.pojo.CgTable">
+    insert into cg_table (id,code,name,title,sub_package,entity,template,trial_licence,trial_days,action_list,imports,controller_extends,pojo_imports,pojo_extends,pojo_java_code,creator,flow_dyna_fields_op,flow_dyna_fields_cp,project_id)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=VARCHAR},#{item.code,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.title,jdbcType=VARCHAR},#{item.subPackage,jdbcType=VARCHAR},#{item.entity,jdbcType=VARCHAR},#{item.template,jdbcType=VARCHAR},#{item.trialLicence,jdbcType=INTEGER},#{item.trialDays,jdbcType=INTEGER},#{item.actionList,jdbcType=VARCHAR},#{item.imports,jdbcType=VARCHAR},#{item.controllerExtends,jdbcType=VARCHAR},#{item.pojoImports,jdbcType=VARCHAR},#{item.pojoExtends,jdbcType=VARCHAR},#{item.pojoJavaCode,jdbcType=VARCHAR},#{item.creator,jdbcType=VARCHAR},#{item.flowDynaFieldsOp,jdbcType=VARCHAR},#{item.flowDynaFieldsCp,jdbcType=VARCHAR},#{item.projectId,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.codegenerator.pojo.CgTable" databaseId="Oracle">
+    insert all 
+    <foreach collection="list" item="item" index="index">
+      into cg_table (id,code,name,title,sub_package,entity,template,trial_licence,trial_days,action_list,imports,controller_extends,pojo_imports,pojo_extends,pojo_java_code,creator,flow_dyna_fields_op,flow_dyna_fields_cp,project_id) values(#{item.id,jdbcType=VARCHAR},#{item.code,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.title,jdbcType=VARCHAR},#{item.subPackage,jdbcType=VARCHAR},#{item.entity,jdbcType=VARCHAR},#{item.template,jdbcType=VARCHAR},#{item.trialLicence,jdbcType=INTEGER},#{item.trialDays,jdbcType=INTEGER},#{item.actionList,jdbcType=VARCHAR},#{item.imports,jdbcType=VARCHAR},#{item.controllerExtends,jdbcType=VARCHAR},#{item.pojoImports,jdbcType=VARCHAR},#{item.pojoExtends,jdbcType=VARCHAR},#{item.pojoJavaCode,jdbcType=VARCHAR},#{item.creator,jdbcType=VARCHAR},#{item.flowDynaFieldsOp,jdbcType=VARCHAR},#{item.flowDynaFieldsCp,jdbcType=VARCHAR},#{item.projectId,jdbcType=VARCHAR})
+    </foreach>
+    select 1 from dual
+  </insert>
+  <select id="select" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where cg_table.id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="delete" parameterType="java.lang.String">
+    delete from cg_table where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteBatch" parameterType="java.lang.String">
+    delete from cg_table where id in     <foreach item="item" index="index" collection="_parameter.split(',')" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+  <select id="selectByCodeProjectId" parameterType="map" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where cg_table.code = #{code} AND cg_table.project_id = #{projectId}
+  </select>
+  <delete id="deleteByCodeProjectId" parameterType="map" >
+    delete from cg_table where cg_table.code = #{code} AND cg_table.project_id = #{projectId}
+  </delete>
+  <delete id="deleteList" parameterType="java.util.List">
+    delete from cg_table where id in
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")"> 
+       #{item.id,jdbcType=VARCHAR}
+    </foreach>
+  </delete>
+  <update id="update" parameterType="top.iotequ.codegenerator.pojo.CgTable">
+    update cg_table set 
+      code = #{code,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      sub_package = #{subPackage,jdbcType=VARCHAR},
+      entity = #{entity,jdbcType=VARCHAR},
+      template = #{template,jdbcType=VARCHAR},
+      trial_licence = #{trialLicence,jdbcType=INTEGER},
+      trial_days = #{trialDays,jdbcType=INTEGER},
+      action_list = #{actionList,jdbcType=VARCHAR},
+      imports = #{imports,jdbcType=VARCHAR},
+      controller_extends = #{controllerExtends,jdbcType=VARCHAR},
+      pojo_imports = #{pojoImports,jdbcType=VARCHAR},
+      pojo_extends = #{pojoExtends,jdbcType=VARCHAR},
+      pojo_java_code = #{pojoJavaCode,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      flow_dyna_fields_op = #{flowDynaFieldsOp,jdbcType=VARCHAR},
+      flow_dyna_fields_cp = #{flowDynaFieldsCp,jdbcType=VARCHAR},
+      project_id = #{projectId,jdbcType=VARCHAR}
+      where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateSelective" parameterType="top.iotequ.codegenerator.pojo.CgTable">
+    update cg_table 
+      <set>
+        <if test="code != null"> code = #{code,jdbcType=VARCHAR},</if>
+        <if test="name != null"> name = #{name,jdbcType=VARCHAR},</if>
+        <if test="title != null"> title = #{title,jdbcType=VARCHAR},</if>
+        <if test="subPackage != null"> sub_package = #{subPackage,jdbcType=VARCHAR},</if>
+        <if test="entity != null"> entity = #{entity,jdbcType=VARCHAR},</if>
+        <if test="template != null"> template = #{template,jdbcType=VARCHAR},</if>
+        <if test="trialLicence != null"> trial_licence = #{trialLicence,jdbcType=INTEGER},</if>
+        <if test="trialDays != null"> trial_days = #{trialDays,jdbcType=INTEGER},</if>
+        <if test="actionList != null"> action_list = #{actionList,jdbcType=VARCHAR},</if>
+        <if test="imports != null"> imports = #{imports,jdbcType=VARCHAR},</if>
+        <if test="controllerExtends != null"> controller_extends = #{controllerExtends,jdbcType=VARCHAR},</if>
+        <if test="pojoImports != null"> pojo_imports = #{pojoImports,jdbcType=VARCHAR},</if>
+        <if test="pojoExtends != null"> pojo_extends = #{pojoExtends,jdbcType=VARCHAR},</if>
+        <if test="pojoJavaCode != null"> pojo_java_code = #{pojoJavaCode,jdbcType=VARCHAR},</if>
+        <if test="creator != null"> creator = #{creator,jdbcType=VARCHAR},</if>
+        <if test="flowDynaFieldsOp != null"> flow_dyna_fields_op = #{flowDynaFieldsOp,jdbcType=VARCHAR},</if>
+        <if test="flowDynaFieldsCp != null"> flow_dyna_fields_cp = #{flowDynaFieldsCp,jdbcType=VARCHAR},</if>
+        <if test="projectId != null"> project_id = #{projectId,jdbcType=VARCHAR},</if>
+      </set>
+      where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateBy" parameterType="top.iotequ.codegenerator.pojo.CgTable">
+    update cg_table set 
+      id = #{record.id,jdbcType=VARCHAR},
+      code = #{record.code,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      sub_package = #{record.subPackage,jdbcType=VARCHAR},
+      entity = #{record.entity,jdbcType=VARCHAR},
+      template = #{record.template,jdbcType=VARCHAR},
+      trial_licence = #{record.trialLicence,jdbcType=INTEGER},
+      trial_days = #{record.trialDays,jdbcType=INTEGER},
+      action_list = #{record.actionList,jdbcType=VARCHAR},
+      imports = #{record.imports,jdbcType=VARCHAR},
+      controller_extends = #{record.controllerExtends,jdbcType=VARCHAR},
+      pojo_imports = #{record.pojoImports,jdbcType=VARCHAR},
+      pojo_extends = #{record.pojoExtends,jdbcType=VARCHAR},
+      pojo_java_code = #{record.pojoJavaCode,jdbcType=VARCHAR},
+      creator = #{record.creator,jdbcType=VARCHAR},
+      flow_dyna_fields_op = #{record.flowDynaFieldsOp,jdbcType=VARCHAR},
+      flow_dyna_fields_cp = #{record.flowDynaFieldsCp,jdbcType=VARCHAR},
+      project_id = #{record.projectId,jdbcType=VARCHAR}
+      where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="list" parameterType="top.iotequ.codegenerator.pojo.CgTable" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+     where 1=1 
+        <if test="id != null"> and cg_table.id like #{id,jdbcType=VARCHAR} </if>
+        <if test="code != null"> and cg_table.code like #{code,jdbcType=VARCHAR} </if>
+        <if test="name != null"> and cg_table.name like #{name,jdbcType=VARCHAR} </if>
+        <if test="title != null"> and cg_table.title like #{title,jdbcType=VARCHAR} </if>
+        <if test="subPackage != null"> and cg_table.sub_package like #{subPackage,jdbcType=VARCHAR} </if>
+        <if test="entity != null"> and cg_table.entity like #{entity,jdbcType=VARCHAR} </if>
+        <if test="template != null"> and cg_table.template like #{template,jdbcType=VARCHAR} </if>
+        <if test="trialLicence != null"> and cg_table.trial_licence = #{trialLicence,jdbcType=INTEGER} </if>
+        <if test="trialDays != null"> and cg_table.trial_days = #{trialDays,jdbcType=INTEGER} </if>
+        <if test="actionList != null"> and cg_table.action_list like #{actionList,jdbcType=VARCHAR} </if>
+        <if test="imports != null"> and cg_table.imports like #{imports,jdbcType=VARCHAR} </if>
+        <if test="controllerExtends != null"> and cg_table.controller_extends like #{controllerExtends,jdbcType=VARCHAR} </if>
+        <if test="pojoImports != null"> and cg_table.pojo_imports like #{pojoImports,jdbcType=VARCHAR} </if>
+        <if test="pojoExtends != null"> and cg_table.pojo_extends like #{pojoExtends,jdbcType=VARCHAR} </if>
+        <if test="pojoJavaCode != null"> and cg_table.pojo_java_code like #{pojoJavaCode,jdbcType=VARCHAR} </if>
+        <if test="creator != null"> and cg_table.creator like #{creator,jdbcType=VARCHAR} </if>
+        <if test="flowDynaFieldsOp != null"> and cg_table.flow_dyna_fields_op like #{flowDynaFieldsOp,jdbcType=VARCHAR} </if>
+        <if test="flowDynaFieldsCp != null"> and cg_table.flow_dyna_fields_cp like #{flowDynaFieldsCp,jdbcType=VARCHAR} </if>
+        <if test="projectId != null"> and cg_table.project_id like #{projectId,jdbcType=VARCHAR} </if>
+        <if test="project != null"> and cg_project.code like #{project,jdbcType=VARCHAR} </if>
+        <if test="groupId != null"> and cg_project.group_id like #{groupId,jdbcType=VARCHAR} </if>
+        <if test="module != null"> and cg_project.name like #{module,jdbcType=VARCHAR} </if>
+  </select>
+  <select id="listBy" parameterType="map" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+        <if test="whereString != null and whereString !=''"> where ${whereString} </if>
+        <if test="orderString != null and orderString!=''"> order by ${orderString} </if>
+  </select>
+  <select id="query" parameterType="map" resultMap="BaseResultMap">
+        ${sqlString}
+  </select>
+</mapper>

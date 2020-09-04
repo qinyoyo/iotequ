@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.iotequ.codegenerator.dao.CgProjectDao">
+  <resultMap id="BaseResultMap" type="top.iotequ.codegenerator.pojo.CgProject">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="group_id" jdbcType="VARCHAR" property="groupId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="version" jdbcType="VARCHAR" property="version" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="modules" jdbcType="VARCHAR" property="modules" />
+    <result column="spring_module" jdbcType="TINYINT" property="springModule" />
+    <result column="maven_module" jdbcType="TINYINT" property="mavenModule" />
+    <result column="maven_server" jdbcType="VARCHAR" property="mavenServer" />
+    <result column="addtional_dependencies" jdbcType="VARCHAR" property="addtionalDependencies" />
+    <result column="test" jdbcType="TINYINT" property="test" />
+  </resultMap>
+  <sql id = "selectSql">
+     SELECT id,code,creator,group_id,name,version,note,modules,spring_module,maven_module,maven_server,addtional_dependencies,test FROM cg_project
+  </sql>
+  <insert id="insert" parameterType="top.iotequ.codegenerator.pojo.CgProject">
+    insert into cg_project (id,code,creator,group_id,name,version,note,modules,spring_module,maven_module,maven_server,addtional_dependencies,test)
+      values 
+      (#{id,jdbcType=VARCHAR},#{code,jdbcType=VARCHAR},#{creator,jdbcType=VARCHAR},#{groupId,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{version,jdbcType=VARCHAR},#{note,jdbcType=VARCHAR},#{modules,jdbcType=VARCHAR},#{springModule,jdbcType=TINYINT},#{mavenModule,jdbcType=TINYINT},#{mavenServer,jdbcType=VARCHAR},#{addtionalDependencies,jdbcType=VARCHAR},#{test,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.codegenerator.pojo.CgProject">
+    insert into cg_project (id,code,creator,group_id,name,version,note,modules,spring_module,maven_module,maven_server,addtional_dependencies,test)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=VARCHAR},#{item.code,jdbcType=VARCHAR},#{item.creator,jdbcType=VARCHAR},#{item.groupId,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.version,jdbcType=VARCHAR},#{item.note,jdbcType=VARCHAR},#{item.modules,jdbcType=VARCHAR},#{item.springModule,jdbcType=TINYINT},#{item.mavenModule,jdbcType=TINYINT},#{item.mavenServer,jdbcType=VARCHAR},#{item.addtionalDependencies,jdbcType=VARCHAR},#{item.test,jdbcType=TINYINT})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.codegenerator.pojo.CgProject" databaseId="Oracle">
+    insert all 
+    <foreach collection="list" item="item" index="index">
+      into cg_project (id,code,creator,group_id,name,version,note,modules,spring_module,maven_module,maven_server,addtional_dependencies,test) values(#{item.id,jdbcType=VARCHAR},#{item.code,jdbcType=VARCHAR},#{item.creator,jdbcType=VARCHAR},#{item.groupId,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.version,jdbcType=VARCHAR},#{item.note,jdbcType=VARCHAR},#{item.modules,jdbcType=VARCHAR},#{item.springModule,jdbcType=TINYINT},#{item.mavenModule,jdbcType=TINYINT},#{item.mavenServer,jdbcType=VARCHAR},#{item.addtionalDependencies,jdbcType=VARCHAR},#{item.test,jdbcType=TINYINT})
+    </foreach>
+    select 1 from dual
+  </insert>
+  <select id="select" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="delete" parameterType="java.lang.String">
+    delete from cg_project where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteBatch" parameterType="java.lang.String">
+    delete from cg_project where id in     <foreach item="item" index="index" collection="_parameter.split(',')" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+  <select id="selectByCodeCreator" parameterType="map" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where code = #{code} AND creator = #{creator}
+  </select>
+  <delete id="deleteByCodeCreator" parameterType="map" >
+    delete from cg_project where code = #{code} AND creator = #{creator}
+  </delete>
+  <delete id="deleteList" parameterType="java.util.List">
+    delete from cg_project where id in
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")"> 
+       #{item.id,jdbcType=VARCHAR}
+    </foreach>
+  </delete>
+  <update id="update" parameterType="top.iotequ.codegenerator.pojo.CgProject">
+    update cg_project set 
+      code = #{code,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      group_id = #{groupId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      version = #{version,jdbcType=VARCHAR},
+      note = #{note,jdbcType=VARCHAR},
+      modules = #{modules,jdbcType=VARCHAR},
+      spring_module = #{springModule,jdbcType=TINYINT},
+      maven_module = #{mavenModule,jdbcType=TINYINT},
+      maven_server = #{mavenServer,jdbcType=VARCHAR},
+      addtional_dependencies = #{addtionalDependencies,jdbcType=VARCHAR},
+      test = #{test,jdbcType=TINYINT}
+      where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateSelective" parameterType="top.iotequ.codegenerator.pojo.CgProject">
+    update cg_project 
+      <set>
+        <if test="code != null"> code = #{code,jdbcType=VARCHAR},</if>
+        <if test="creator != null"> creator = #{creator,jdbcType=VARCHAR},</if>
+        <if test="groupId != null"> group_id = #{groupId,jdbcType=VARCHAR},</if>
+        <if test="name != null"> name = #{name,jdbcType=VARCHAR},</if>
+        <if test="version != null"> version = #{version,jdbcType=VARCHAR},</if>
+        <if test="note != null"> note = #{note,jdbcType=VARCHAR},</if>
+        <if test="modules != null"> modules = #{modules,jdbcType=VARCHAR},</if>
+        <if test="springModule != null"> spring_module = #{springModule,jdbcType=TINYINT},</if>
+        <if test="mavenModule != null"> maven_module = #{mavenModule,jdbcType=TINYINT},</if>
+        <if test="mavenServer != null"> maven_server = #{mavenServer,jdbcType=VARCHAR},</if>
+        <if test="addtionalDependencies != null"> addtional_dependencies = #{addtionalDependencies,jdbcType=VARCHAR},</if>
+        <if test="test != null"> test = #{test,jdbcType=TINYINT},</if>
+      </set>
+      where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateBy" parameterType="top.iotequ.codegenerator.pojo.CgProject">
+    update cg_project set 
+      id = #{record.id,jdbcType=VARCHAR},
+      code = #{record.code,jdbcType=VARCHAR},
+      creator = #{record.creator,jdbcType=VARCHAR},
+      group_id = #{record.groupId,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      version = #{record.version,jdbcType=VARCHAR},
+      note = #{record.note,jdbcType=VARCHAR},
+      modules = #{record.modules,jdbcType=VARCHAR},
+      spring_module = #{record.springModule,jdbcType=TINYINT},
+      maven_module = #{record.mavenModule,jdbcType=TINYINT},
+      maven_server = #{record.mavenServer,jdbcType=VARCHAR},
+      addtional_dependencies = #{record.addtionalDependencies,jdbcType=VARCHAR},
+      test = #{record.test,jdbcType=TINYINT}
+      where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="list" parameterType="top.iotequ.codegenerator.pojo.CgProject" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+     where 1=1 
+        <if test="id != null"> and id like #{id,jdbcType=VARCHAR} </if>
+        <if test="code != null"> and code like #{code,jdbcType=VARCHAR} </if>
+        <if test="creator != null"> and creator like #{creator,jdbcType=VARCHAR} </if>
+        <if test="groupId != null"> and group_id like #{groupId,jdbcType=VARCHAR} </if>
+        <if test="name != null"> and name like #{name,jdbcType=VARCHAR} </if>
+        <if test="version != null"> and version like #{version,jdbcType=VARCHAR} </if>
+        <if test="note != null"> and note like #{note,jdbcType=VARCHAR} </if>
+        <if test="modules != null"> and modules like #{modules,jdbcType=VARCHAR} </if>
+        <if test="springModule != null"> and spring_module = #{springModule,jdbcType=TINYINT} </if>
+        <if test="mavenModule != null"> and maven_module = #{mavenModule,jdbcType=TINYINT} </if>
+        <if test="mavenServer != null"> and maven_server like #{mavenServer,jdbcType=VARCHAR} </if>
+        <if test="addtionalDependencies != null"> and addtional_dependencies like #{addtionalDependencies,jdbcType=VARCHAR} </if>
+        <if test="test != null"> and test = #{test,jdbcType=TINYINT} </if>
+  </select>
+  <select id="listBy" parameterType="map" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+        <if test="whereString != null and whereString !=''"> where ${whereString} </if>
+        <if test="orderString != null and orderString!=''"> order by ${orderString} </if>
+  </select>
+  <select id="query" parameterType="map" resultMap="BaseResultMap">
+        ${sqlString}
+  </select>
+</mapper>

@@ -1,0 +1,49 @@
+
+表：pay_pos : 交易终端
+id		int	✘	
+no	终端编号	varchar	✘	
+shop_id	归属商店	int	✘	
+security_code	安全码	varchar	√	
+work_code	工作密钥	varchar	√	
+login_id	签到ID	int	√	
+ewallet_active	钱包账户可用	tinyint(1)	✘	
+count_project_list	可用计次项目列表	varchar	√	
+time_project_list	可用计时项目列表	varchar	√	
+
+表：pay_operator : 操作员
+id		int	✘	
+name	登录名	varchar	✘	
+real_name	真实名	varchar	✘	
+password	密码	varchar	✘	
+shop_id	所属店铺	int	✘	
+user_no	用户编号	varchar	√	
+
+表：pay_shop : 商店
+id	ID	int	✘	
+corporation_id	归属公司	int	✘	
+name	店名	varchar	✘	
+linkman	联系人	varchar	✘	
+link_phone	联系电话	varchar	✘	
+address	地址	varchar	✘	
+
+表：pay_login : 签到日志
+id	ID	int	✘	
+pos_id	pos终端	int	✘	
+shop_id	商店	int	✘	
+batch_no	批次号	varchar	✘	
+login_time	签到时间	datetime	✘	
+logout_time	签退时间	datetime	√	
+device_stream	设备流水号	varchar	√	
+random_no	随机密钥	varchar	✘	
+app_version	应用版本号	varchar	✘	
+trade_count	交易次数	int	✘	
+failure_count	失败次数	int	✘	
+operator_id	操作人员	int	✘	
+
+表：pay_corporation : 运营公司
+id		int	✘	
+parent_id	上级公司	int	√	
+name	名称	varchar	✘	
+address	地址	varchar	✘	
+linkman	联系人	varchar	✘	
+linkphone	联系电话	varchar	✘	

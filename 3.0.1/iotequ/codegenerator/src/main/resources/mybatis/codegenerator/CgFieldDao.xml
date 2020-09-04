@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.iotequ.codegenerator.dao.CgFieldDao">
+  <resultMap id="BaseResultMap" type="top.iotequ.codegenerator.pojo.CgField">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="table_id" jdbcType="VARCHAR" property="tableId" />
+    <result column="order_num" jdbcType="INTEGER" property="orderNum" />
+    <result column="entity_name" jdbcType="VARCHAR" property="entityName" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="key_type" jdbcType="VARCHAR" property="keyType" />
+    <result column="default_value" jdbcType="VARCHAR" property="defaultValue" />
+    <result column="show_type" jdbcType="VARCHAR" property="showType" />
+    <result column="formatter" jdbcType="VARCHAR" property="formatter" />
+    <result column="is_null" jdbcType="VARCHAR" property="isNull" />
+    <result column="valid_expression" jdbcType="VARCHAR" property="validExpression" />
+    <result column="valid_title" jdbcType="VARCHAR" property="validTitle" />
+    <result column="dict_table" jdbcType="VARCHAR" property="dictTable" />
+    <result column="dict_field" jdbcType="VARCHAR" property="dictField" />
+    <result column="dict_multiple" jdbcType="TINYINT" property="dictMultiple" />
+    <result column="dict_text" jdbcType="VARCHAR" property="dictText" />
+    <result column="dyna_condition" jdbcType="VARCHAR" property="dynaCondition" />
+    <result column="dict_full_name" jdbcType="TINYINT" property="dictFullName" />
+    <result column="dict_parent" jdbcType="VARCHAR" property="dictParent" />
+    <result column="dict_parent_field" jdbcType="VARCHAR" property="dictParentField" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="length" jdbcType="INTEGER" property="length" />
+    <result column="numeric_precision" jdbcType="INTEGER" property="numericPrecision" />
+    <result column="numeric_scale" jdbcType="INTEGER" property="numericScale" />
+    <result column="fk_table" jdbcType="VARCHAR" property="fkTable" />
+    <result column="fk_column" jdbcType="VARCHAR" property="fkColumn" />
+    <result column="fk_on_delete" jdbcType="VARCHAR" property="fkOnDelete" />
+    <result column="fk_on_update" jdbcType="VARCHAR" property="fkOnUpdate" />
+    <result column="default_query_value" jdbcType="VARCHAR" property="defaultQueryValue" />
+  </resultMap>
+  <sql id = "selectSql">
+     SELECT id,table_id,order_num,entity_name,title,name,key_type,default_value,show_type,formatter,is_null,valid_expression,valid_title,dict_table,dict_field,dict_multiple,dict_text,dyna_condition,dict_full_name,dict_parent,dict_parent_field,type,length,numeric_precision,numeric_scale,fk_table,fk_column,fk_on_delete,fk_on_update,default_query_value FROM cg_field
+  </sql>
+  <insert id="insert" parameterType="top.iotequ.codegenerator.pojo.CgField">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String" >
+      SELECT replace(uuid(), '-', '')
+    </selectKey>
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String" databaseId="SQLServer">
+      SELECT replace(lower(newid()), '-', '')
+    </selectKey>
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String" databaseId="Oracle">
+      SELECT replace(lower(sys_guid()), '-', '') from dual
+    </selectKey>
+    insert into cg_field (id,table_id,order_num,entity_name,title,name,key_type,default_value,show_type,formatter,is_null,valid_expression,valid_title,dict_table,dict_field,dict_multiple,dict_text,dyna_condition,dict_full_name,dict_parent,dict_parent_field,type,length,numeric_precision,numeric_scale,fk_table,fk_column,fk_on_delete,fk_on_update,default_query_value)
+      values 
+      (#{id,jdbcType=VARCHAR},#{tableId,jdbcType=VARCHAR},#{orderNum,jdbcType=INTEGER},#{entityName,jdbcType=VARCHAR},#{title,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{keyType,jdbcType=VARCHAR},#{defaultValue,jdbcType=VARCHAR},#{showType,jdbcType=VARCHAR},#{formatter,jdbcType=VARCHAR},#{isNull,jdbcType=VARCHAR},#{validExpression,jdbcType=VARCHAR},#{validTitle,jdbcType=VARCHAR},#{dictTable,jdbcType=VARCHAR},#{dictField,jdbcType=VARCHAR},#{dictMultiple,jdbcType=TINYINT},#{dictText,jdbcType=VARCHAR},#{dynaCondition,jdbcType=VARCHAR},#{dictFullName,jdbcType=TINYINT},#{dictParent,jdbcType=VARCHAR},#{dictParentField,jdbcType=VARCHAR},#{type,jdbcType=VARCHAR},#{length,jdbcType=INTEGER},#{numericPrecision,jdbcType=INTEGER},#{numericScale,jdbcType=INTEGER},#{fkTable,jdbcType=VARCHAR},#{fkColumn,jdbcType=VARCHAR},#{fkOnDelete,jdbcType=VARCHAR},#{fkOnUpdate,jdbcType=VARCHAR},#{defaultQueryValue,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.codegenerator.pojo.CgField">
+    insert into cg_field (id,table_id,order_num,entity_name,title,name,key_type,default_value,show_type,formatter,is_null,valid_expression,valid_title,dict_table,dict_field,dict_multiple,dict_text,dyna_condition,dict_full_name,dict_parent,dict_parent_field,type,length,numeric_precision,numeric_scale,fk_table,fk_column,fk_on_delete,fk_on_update,default_query_value)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (replace(uuid(), '-', ''),#{item.tableId,jdbcType=VARCHAR},#{item.orderNum,jdbcType=INTEGER},#{item.entityName,jdbcType=VARCHAR},#{item.title,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.keyType,jdbcType=VARCHAR},#{item.defaultValue,jdbcType=VARCHAR},#{item.showType,jdbcType=VARCHAR},#{item.formatter,jdbcType=VARCHAR},#{item.isNull,jdbcType=VARCHAR},#{item.validExpression,jdbcType=VARCHAR},#{item.validTitle,jdbcType=VARCHAR},#{item.dictTable,jdbcType=VARCHAR},#{item.dictField,jdbcType=VARCHAR},#{item.dictMultiple,jdbcType=TINYINT},#{item.dictText,jdbcType=VARCHAR},#{item.dynaCondition,jdbcType=VARCHAR},#{item.dictFullName,jdbcType=TINYINT},#{item.dictParent,jdbcType=VARCHAR},#{item.dictParentField,jdbcType=VARCHAR},#{item.type,jdbcType=VARCHAR},#{item.length,jdbcType=INTEGER},#{item.numericPrecision,jdbcType=INTEGER},#{item.numericScale,jdbcType=INTEGER},#{item.fkTable,jdbcType=VARCHAR},#{item.fkColumn,jdbcType=VARCHAR},#{item.fkOnDelete,jdbcType=VARCHAR},#{item.fkOnUpdate,jdbcType=VARCHAR},#{item.defaultQueryValue,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.codegenerator.pojo.CgField" databaseId="SQLServer">
+    insert into cg_field (id,table_id,order_num,entity_name,title,name,key_type,default_value,show_type,formatter,is_null,valid_expression,valid_title,dict_table,dict_field,dict_multiple,dict_text,dyna_condition,dict_full_name,dict_parent,dict_parent_field,type,length,numeric_precision,numeric_scale,fk_table,fk_column,fk_on_delete,fk_on_update,default_query_value)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (replace(lower(newid()), '-', ''),#{item.tableId,jdbcType=VARCHAR},#{item.orderNum,jdbcType=INTEGER},#{item.entityName,jdbcType=VARCHAR},#{item.title,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.keyType,jdbcType=VARCHAR},#{item.defaultValue,jdbcType=VARCHAR},#{item.showType,jdbcType=VARCHAR},#{item.formatter,jdbcType=VARCHAR},#{item.isNull,jdbcType=VARCHAR},#{item.validExpression,jdbcType=VARCHAR},#{item.validTitle,jdbcType=VARCHAR},#{item.dictTable,jdbcType=VARCHAR},#{item.dictField,jdbcType=VARCHAR},#{item.dictMultiple,jdbcType=TINYINT},#{item.dictText,jdbcType=VARCHAR},#{item.dynaCondition,jdbcType=VARCHAR},#{item.dictFullName,jdbcType=TINYINT},#{item.dictParent,jdbcType=VARCHAR},#{item.dictParentField,jdbcType=VARCHAR},#{item.type,jdbcType=VARCHAR},#{item.length,jdbcType=INTEGER},#{item.numericPrecision,jdbcType=INTEGER},#{item.numericScale,jdbcType=INTEGER},#{item.fkTable,jdbcType=VARCHAR},#{item.fkColumn,jdbcType=VARCHAR},#{item.fkOnDelete,jdbcType=VARCHAR},#{item.fkOnUpdate,jdbcType=VARCHAR},#{item.defaultQueryValue,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.codegenerator.pojo.CgField" databaseId="Oracle">
+    insert all 
+    <foreach collection="list" item="item" index="index">
+      into cg_field (id,table_id,order_num,entity_name,title,name,key_type,default_value,show_type,formatter,is_null,valid_expression,valid_title,dict_table,dict_field,dict_multiple,dict_text,dyna_condition,dict_full_name,dict_parent,dict_parent_field,type,length,numeric_precision,numeric_scale,fk_table,fk_column,fk_on_delete,fk_on_update,default_query_value) values(replace(lower(sys_guid()), '-', ''),#{item.tableId,jdbcType=VARCHAR},#{item.orderNum,jdbcType=INTEGER},#{item.entityName,jdbcType=VARCHAR},#{item.title,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.keyType,jdbcType=VARCHAR},#{item.defaultValue,jdbcType=VARCHAR},#{item.showType,jdbcType=VARCHAR},#{item.formatter,jdbcType=VARCHAR},#{item.isNull,jdbcType=VARCHAR},#{item.validExpression,jdbcType=VARCHAR},#{item.validTitle,jdbcType=VARCHAR},#{item.dictTable,jdbcType=VARCHAR},#{item.dictField,jdbcType=VARCHAR},#{item.dictMultiple,jdbcType=TINYINT},#{item.dictText,jdbcType=VARCHAR},#{item.dynaCondition,jdbcType=VARCHAR},#{item.dictFullName,jdbcType=TINYINT},#{item.dictParent,jdbcType=VARCHAR},#{item.dictParentField,jdbcType=VARCHAR},#{item.type,jdbcType=VARCHAR},#{item.length,jdbcType=INTEGER},#{item.numericPrecision,jdbcType=INTEGER},#{item.numericScale,jdbcType=INTEGER},#{item.fkTable,jdbcType=VARCHAR},#{item.fkColumn,jdbcType=VARCHAR},#{item.fkOnDelete,jdbcType=VARCHAR},#{item.fkOnUpdate,jdbcType=VARCHAR},#{item.defaultQueryValue,jdbcType=VARCHAR})
+    </foreach>
+    select 1 from dual
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.codegenerator.pojo.CgField">
+    insert into cg_field (id,table_id,order_num,entity_name,title,name,key_type,default_value,show_type,formatter,is_null,valid_expression,valid_title,dict_table,dict_field,dict_multiple,dict_text,dyna_condition,dict_full_name,dict_parent,dict_parent_field,type,length,numeric_precision,numeric_scale,fk_table,fk_column,fk_on_delete,fk_on_update,default_query_value)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=VARCHAR},#{item.tableId,jdbcType=VARCHAR},#{item.orderNum,jdbcType=INTEGER},#{item.entityName,jdbcType=VARCHAR},#{item.title,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.keyType,jdbcType=VARCHAR},#{item.defaultValue,jdbcType=VARCHAR},#{item.showType,jdbcType=VARCHAR},#{item.formatter,jdbcType=VARCHAR},#{item.isNull,jdbcType=VARCHAR},#{item.validExpression,jdbcType=VARCHAR},#{item.validTitle,jdbcType=VARCHAR},#{item.dictTable,jdbcType=VARCHAR},#{item.dictField,jdbcType=VARCHAR},#{item.dictMultiple,jdbcType=TINYINT},#{item.dictText,jdbcType=VARCHAR},#{item.dynaCondition,jdbcType=VARCHAR},#{item.dictFullName,jdbcType=TINYINT},#{item.dictParent,jdbcType=VARCHAR},#{item.dictParentField,jdbcType=VARCHAR},#{item.type,jdbcType=VARCHAR},#{item.length,jdbcType=INTEGER},#{item.numericPrecision,jdbcType=INTEGER},#{item.numericScale,jdbcType=INTEGER},#{item.fkTable,jdbcType=VARCHAR},#{item.fkColumn,jdbcType=VARCHAR},#{item.fkOnDelete,jdbcType=VARCHAR},#{item.fkOnUpdate,jdbcType=VARCHAR},#{item.defaultQueryValue,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.codegenerator.pojo.CgField" databaseId="Oracle">
+    insert all 
+    <foreach collection="list" item="item" index="index">
+      into cg_field (id,table_id,order_num,entity_name,title,name,key_type,default_value,show_type,formatter,is_null,valid_expression,valid_title,dict_table,dict_field,dict_multiple,dict_text,dyna_condition,dict_full_name,dict_parent,dict_parent_field,type,length,numeric_precision,numeric_scale,fk_table,fk_column,fk_on_delete,fk_on_update,default_query_value) values(#{item.id,jdbcType=VARCHAR},#{item.tableId,jdbcType=VARCHAR},#{item.orderNum,jdbcType=INTEGER},#{item.entityName,jdbcType=VARCHAR},#{item.title,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.keyType,jdbcType=VARCHAR},#{item.defaultValue,jdbcType=VARCHAR},#{item.showType,jdbcType=VARCHAR},#{item.formatter,jdbcType=VARCHAR},#{item.isNull,jdbcType=VARCHAR},#{item.validExpression,jdbcType=VARCHAR},#{item.validTitle,jdbcType=VARCHAR},#{item.dictTable,jdbcType=VARCHAR},#{item.dictField,jdbcType=VARCHAR},#{item.dictMultiple,jdbcType=TINYINT},#{item.dictText,jdbcType=VARCHAR},#{item.dynaCondition,jdbcType=VARCHAR},#{item.dictFullName,jdbcType=TINYINT},#{item.dictParent,jdbcType=VARCHAR},#{item.dictParentField,jdbcType=VARCHAR},#{item.type,jdbcType=VARCHAR},#{item.length,jdbcType=INTEGER},#{item.numericPrecision,jdbcType=INTEGER},#{item.numericScale,jdbcType=INTEGER},#{item.fkTable,jdbcType=VARCHAR},#{item.fkColumn,jdbcType=VARCHAR},#{item.fkOnDelete,jdbcType=VARCHAR},#{item.fkOnUpdate,jdbcType=VARCHAR},#{item.defaultQueryValue,jdbcType=VARCHAR})
+    </foreach>
+    select 1 from dual
+  </insert>
+  <select id="select" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="delete" parameterType="java.lang.String">
+    delete from cg_field where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteBatch" parameterType="java.lang.String">
+    delete from cg_field where id in     <foreach item="item" index="index" collection="_parameter.split(',')" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+  <select id="selectByTableIdEntityName" parameterType="map" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where table_id = #{tableId} AND entity_name = #{entityName}
+  </select>
+  <delete id="deleteByTableIdEntityName" parameterType="map" >
+    delete from cg_field where table_id = #{tableId} AND entity_name = #{entityName}
+  </delete>
+  <delete id="deleteList" parameterType="java.util.List">
+    delete from cg_field where id in
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")"> 
+       #{item.id,jdbcType=VARCHAR}
+    </foreach>
+  </delete>
+  <update id="update" parameterType="top.iotequ.codegenerator.pojo.CgField">
+    update cg_field set 
+      table_id = #{tableId,jdbcType=VARCHAR},
+      order_num = #{orderNum,jdbcType=INTEGER},
+      entity_name = #{entityName,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      key_type = #{keyType,jdbcType=VARCHAR},
+      default_value = #{defaultValue,jdbcType=VARCHAR},
+      show_type = #{showType,jdbcType=VARCHAR},
+      formatter = #{formatter,jdbcType=VARCHAR},
+      is_null = #{isNull,jdbcType=VARCHAR},
+      valid_expression = #{validExpression,jdbcType=VARCHAR},
+      valid_title = #{validTitle,jdbcType=VARCHAR},
+      dict_table = #{dictTable,jdbcType=VARCHAR},
+      dict_field = #{dictField,jdbcType=VARCHAR},
+      dict_multiple = #{dictMultiple,jdbcType=TINYINT},
+      dict_text = #{dictText,jdbcType=VARCHAR},
+      dyna_condition = #{dynaCondition,jdbcType=VARCHAR},
+      dict_full_name = #{dictFullName,jdbcType=TINYINT},
+      dict_parent = #{dictParent,jdbcType=VARCHAR},
+      dict_parent_field = #{dictParentField,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      length = #{length,jdbcType=INTEGER},
+      numeric_precision = #{numericPrecision,jdbcType=INTEGER},
+      numeric_scale = #{numericScale,jdbcType=INTEGER},
+      fk_table = #{fkTable,jdbcType=VARCHAR},
+      fk_column = #{fkColumn,jdbcType=VARCHAR},
+      fk_on_delete = #{fkOnDelete,jdbcType=VARCHAR},
+      fk_on_update = #{fkOnUpdate,jdbcType=VARCHAR},
+      default_query_value = #{defaultQueryValue,jdbcType=VARCHAR}
+      where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateSelective" parameterType="top.iotequ.codegenerator.pojo.CgField">
+    update cg_field 
+      <set>
+        <if test="tableId != null"> table_id = #{tableId,jdbcType=VARCHAR},</if>
+        <if test="orderNum != null"> order_num = #{orderNum,jdbcType=INTEGER},</if>
+        <if test="entityName != null"> entity_name = #{entityName,jdbcType=VARCHAR},</if>
+        <if test="title != null"> title = #{title,jdbcType=VARCHAR},</if>
+        <if test="name != null"> name = #{name,jdbcType=VARCHAR},</if>
+        <if test="keyType != null"> key_type = #{keyType,jdbcType=VARCHAR},</if>
+        <if test="defaultValue != null"> default_value = #{defaultValue,jdbcType=VARCHAR},</if>
+        <if test="showType != null"> show_type = #{showType,jdbcType=VARCHAR},</if>
+        <if test="formatter != null"> formatter = #{formatter,jdbcType=VARCHAR},</if>
+        <if test="isNull != null"> is_null = #{isNull,jdbcType=VARCHAR},</if>
+        <if test="validExpression != null"> valid_expression = #{validExpression,jdbcType=VARCHAR},</if>
+        <if test="validTitle != null"> valid_title = #{validTitle,jdbcType=VARCHAR},</if>
+        <if test="dictTable != null"> dict_table = #{dictTable,jdbcType=VARCHAR},</if>
+        <if test="dictField != null"> dict_field = #{dictField,jdbcType=VARCHAR},</if>
+        <if test="dictMultiple != null"> dict_multiple = #{dictMultiple,jdbcType=TINYINT},</if>
+        <if test="dictText != null"> dict_text = #{dictText,jdbcType=VARCHAR},</if>
+        <if test="dynaCondition != null"> dyna_condition = #{dynaCondition,jdbcType=VARCHAR},</if>
+        <if test="dictFullName != null"> dict_full_name = #{dictFullName,jdbcType=TINYINT},</if>
+        <if test="dictParent != null"> dict_parent = #{dictParent,jdbcType=VARCHAR},</if>
+        <if test="dictParentField != null"> dict_parent_field = #{dictParentField,jdbcType=VARCHAR},</if>
+        <if test="type != null"> type = #{type,jdbcType=VARCHAR},</if>
+        <if test="length != null"> length = #{length,jdbcType=INTEGER},</if>
+        <if test="numericPrecision != null"> numeric_precision = #{numericPrecision,jdbcType=INTEGER},</if>
+        <if test="numericScale != null"> numeric_scale = #{numericScale,jdbcType=INTEGER},</if>
+        <if test="fkTable != null"> fk_table = #{fkTable,jdbcType=VARCHAR},</if>
+        <if test="fkColumn != null"> fk_column = #{fkColumn,jdbcType=VARCHAR},</if>
+        <if test="fkOnDelete != null"> fk_on_delete = #{fkOnDelete,jdbcType=VARCHAR},</if>
+        <if test="fkOnUpdate != null"> fk_on_update = #{fkOnUpdate,jdbcType=VARCHAR},</if>
+        <if test="defaultQueryValue != null"> default_query_value = #{defaultQueryValue,jdbcType=VARCHAR},</if>
+      </set>
+      where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateBy" parameterType="top.iotequ.codegenerator.pojo.CgField">
+    update cg_field set 
+      id = #{record.id,jdbcType=VARCHAR},
+      table_id = #{record.tableId,jdbcType=VARCHAR},
+      order_num = #{record.orderNum,jdbcType=INTEGER},
+      entity_name = #{record.entityName,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      key_type = #{record.keyType,jdbcType=VARCHAR},
+      default_value = #{record.defaultValue,jdbcType=VARCHAR},
+      show_type = #{record.showType,jdbcType=VARCHAR},
+      formatter = #{record.formatter,jdbcType=VARCHAR},
+      is_null = #{record.isNull,jdbcType=VARCHAR},
+      valid_expression = #{record.validExpression,jdbcType=VARCHAR},
+      valid_title = #{record.validTitle,jdbcType=VARCHAR},
+      dict_table = #{record.dictTable,jdbcType=VARCHAR},
+      dict_field = #{record.dictField,jdbcType=VARCHAR},
+      dict_multiple = #{record.dictMultiple,jdbcType=TINYINT},
+      dict_text = #{record.dictText,jdbcType=VARCHAR},
+      dyna_condition = #{record.dynaCondition,jdbcType=VARCHAR},
+      dict_full_name = #{record.dictFullName,jdbcType=TINYINT},
+      dict_parent = #{record.dictParent,jdbcType=VARCHAR},
+      dict_parent_field = #{record.dictParentField,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      length = #{record.length,jdbcType=INTEGER},
+      numeric_precision = #{record.numericPrecision,jdbcType=INTEGER},
+      numeric_scale = #{record.numericScale,jdbcType=INTEGER},
+      fk_table = #{record.fkTable,jdbcType=VARCHAR},
+      fk_column = #{record.fkColumn,jdbcType=VARCHAR},
+      fk_on_delete = #{record.fkOnDelete,jdbcType=VARCHAR},
+      fk_on_update = #{record.fkOnUpdate,jdbcType=VARCHAR},
+      default_query_value = #{record.defaultQueryValue,jdbcType=VARCHAR}
+      where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="list" parameterType="top.iotequ.codegenerator.pojo.CgField" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+     where 1=1 
+        <if test="id != null"> and id like #{id,jdbcType=VARCHAR} </if>
+        <if test="tableId != null"> and table_id like #{tableId,jdbcType=VARCHAR} </if>
+        <if test="orderNum != null"> and order_num = #{orderNum,jdbcType=INTEGER} </if>
+        <if test="entityName != null"> and entity_name like #{entityName,jdbcType=VARCHAR} </if>
+        <if test="title != null"> and title like #{title,jdbcType=VARCHAR} </if>
+        <if test="name != null"> and name like #{name,jdbcType=VARCHAR} </if>
+        <if test="keyType != null"> and key_type like #{keyType,jdbcType=VARCHAR} </if>
+        <if test="defaultValue != null"> and default_value like #{defaultValue,jdbcType=VARCHAR} </if>
+        <if test="showType != null"> and show_type like #{showType,jdbcType=VARCHAR} </if>
+        <if test="formatter != null"> and formatter like #{formatter,jdbcType=VARCHAR} </if>
+        <if test="isNull != null"> and is_null = #{isNull,jdbcType=VARCHAR} </if>
+        <if test="validExpression != null"> and valid_expression like #{validExpression,jdbcType=VARCHAR} </if>
+        <if test="validTitle != null"> and valid_title like #{validTitle,jdbcType=VARCHAR} </if>
+        <if test="dictTable != null"> and dict_table like #{dictTable,jdbcType=VARCHAR} </if>
+        <if test="dictField != null"> and dict_field like #{dictField,jdbcType=VARCHAR} </if>
+        <if test="dictMultiple != null"> and dict_multiple = #{dictMultiple,jdbcType=TINYINT} </if>
+        <if test="dictText != null"> and dict_text like #{dictText,jdbcType=VARCHAR} </if>
+        <if test="dynaCondition != null"> and dyna_condition like #{dynaCondition,jdbcType=VARCHAR} </if>
+        <if test="dictFullName != null"> and dict_full_name = #{dictFullName,jdbcType=TINYINT} </if>
+        <if test="dictParent != null"> and dict_parent like #{dictParent,jdbcType=VARCHAR} </if>
+        <if test="dictParentField != null"> and dict_parent_field like #{dictParentField,jdbcType=VARCHAR} </if>
+        <if test="type != null"> and type like #{type,jdbcType=VARCHAR} </if>
+        <if test="length != null"> and length = #{length,jdbcType=INTEGER} </if>
+        <if test="numericPrecision != null"> and numeric_precision = #{numericPrecision,jdbcType=INTEGER} </if>
+        <if test="numericScale != null"> and numeric_scale = #{numericScale,jdbcType=INTEGER} </if>
+        <if test="fkTable != null"> and fk_table like #{fkTable,jdbcType=VARCHAR} </if>
+        <if test="fkColumn != null"> and fk_column like #{fkColumn,jdbcType=VARCHAR} </if>
+        <if test="fkOnDelete != null"> and fk_on_delete like #{fkOnDelete,jdbcType=VARCHAR} </if>
+        <if test="fkOnUpdate != null"> and fk_on_update like #{fkOnUpdate,jdbcType=VARCHAR} </if>
+        <if test="defaultQueryValue != null"> and default_query_value like #{defaultQueryValue,jdbcType=VARCHAR} </if>
+  </select>
+  <select id="listBy" parameterType="map" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+        <if test="whereString != null and whereString !=''"> where ${whereString} </if>
+        <if test="orderString != null and orderString!=''"> order by ${orderString} </if>
+  </select>
+  <select id="query" parameterType="map" resultMap="BaseResultMap">
+        ${sqlString}
+  </select>
+</mapper>

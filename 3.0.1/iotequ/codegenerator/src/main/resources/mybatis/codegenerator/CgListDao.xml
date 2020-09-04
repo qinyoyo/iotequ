@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.iotequ.codegenerator.dao.CgListDao">
+  <resultMap id="BaseResultMap" type="top.iotequ.codegenerator.pojo.CgList">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="table_id" jdbcType="VARCHAR" property="tableId" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="head_title" jdbcType="VARCHAR" property="headTitle" />
+    <result column="tag_title" jdbcType="VARCHAR" property="tagTitle" />
+    <result column="edit_inline" jdbcType="TINYINT" property="editInline" />
+    <result column="detail_inline" jdbcType="TINYINT" property="detailInline" />
+    <result column="sons" jdbcType="VARCHAR" property="sons" />
+    <result column="son_fields" jdbcType="VARCHAR" property="sonFields" />
+    <result column="son_align" jdbcType="VARCHAR" property="sonAlign" />
+    <result column="generator_type" jdbcType="INTEGER" property="generatorType" />
+    <result column="title_field" jdbcType="VARCHAR" property="titleField" />
+    <result column="parent_entity" jdbcType="VARCHAR" property="parentEntity" />
+    <result column="tree_show_entity" jdbcType="VARCHAR" property="treeShowEntity" />
+    <result column="show_search" jdbcType="TINYINT" property="showSearch" />
+    <result column="toolbar_mode" jdbcType="INTEGER" property="toolbarMode" />
+    <result column="table_height" jdbcType="INTEGER" property="tableHeight" />
+    <result column="pagination" jdbcType="TINYINT" property="pagination" />
+    <result column="order_by" jdbcType="VARCHAR" property="orderBy" />
+    <result column="sort_field" jdbcType="VARCHAR" property="sortField" />
+    <result column="stripe" jdbcType="TINYINT" property="stripe" />
+    <result column="border" jdbcType="TINYINT" property="border" />
+    <result column="state_entity" jdbcType="VARCHAR" property="stateEntity" />
+    <result column="max_height" jdbcType="INTEGER" property="maxHeight" />
+    <result column="highlight_current_row" jdbcType="TINYINT" property="highlightCurrentRow" />
+    <result column="multiple" jdbcType="TINYINT" property="multiple" />
+    <result column="show_summary" jdbcType="TINYINT" property="showSummary" />
+    <result column="span_entities" jdbcType="VARCHAR" property="spanEntities" />
+    <result column="show_header" jdbcType="TINYINT" property="showHeader" />
+    <result column="images" jdbcType="VARCHAR" property="images" />
+    <result column="view_properties" jdbcType="VARCHAR" property="viewProperties" />
+    <result column="table_properties" jdbcType="VARCHAR" property="tableProperties" />
+    <result column="sons_properties" jdbcType="VARCHAR" property="sonsProperties" />
+    <result column="action_list" jdbcType="VARCHAR" property="actionList" />
+    <result column="flow_data_url" jdbcType="VARCHAR" property="flowDataUrl" />
+    <result column="local_export" jdbcType="TINYINT" property="localExport" />
+  </resultMap>
+  <sql id = "selectSql">
+     SELECT id,name,path,table_id,icon,head_title,tag_title,edit_inline,detail_inline,sons,son_fields,son_align,generator_type,title_field,parent_entity,tree_show_entity,show_search,toolbar_mode,table_height,pagination,order_by,sort_field,stripe,border,state_entity,max_height,highlight_current_row,multiple,show_summary,span_entities,show_header,images,view_properties,table_properties,sons_properties,action_list,flow_data_url,local_export FROM cg_list
+  </sql>
+  <insert id="insert" parameterType="top.iotequ.codegenerator.pojo.CgList">
+    insert into cg_list (id,name,path,table_id,icon,head_title,tag_title,edit_inline,detail_inline,sons,son_fields,son_align,generator_type,title_field,parent_entity,tree_show_entity,show_search,toolbar_mode,table_height,pagination,order_by,sort_field,stripe,border,state_entity,max_height,highlight_current_row,multiple,show_summary,span_entities,show_header,images,view_properties,table_properties,sons_properties,action_list,flow_data_url,local_export)
+      values 
+      (#{id,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{path,jdbcType=VARCHAR},#{tableId,jdbcType=VARCHAR},#{icon,jdbcType=VARCHAR},#{headTitle,jdbcType=VARCHAR},#{tagTitle,jdbcType=VARCHAR},#{editInline,jdbcType=TINYINT},#{detailInline,jdbcType=TINYINT},#{sons,jdbcType=VARCHAR},#{sonFields,jdbcType=VARCHAR},#{sonAlign,jdbcType=VARCHAR},#{generatorType,jdbcType=INTEGER},#{titleField,jdbcType=VARCHAR},#{parentEntity,jdbcType=VARCHAR},#{treeShowEntity,jdbcType=VARCHAR},#{showSearch,jdbcType=TINYINT},#{toolbarMode,jdbcType=INTEGER},#{tableHeight,jdbcType=INTEGER},#{pagination,jdbcType=TINYINT},#{orderBy,jdbcType=VARCHAR},#{sortField,jdbcType=VARCHAR},#{stripe,jdbcType=TINYINT},#{border,jdbcType=TINYINT},#{stateEntity,jdbcType=VARCHAR},#{maxHeight,jdbcType=INTEGER},#{highlightCurrentRow,jdbcType=TINYINT},#{multiple,jdbcType=TINYINT},#{showSummary,jdbcType=TINYINT},#{spanEntities,jdbcType=VARCHAR},#{showHeader,jdbcType=TINYINT},#{images,jdbcType=VARCHAR},#{viewProperties,jdbcType=VARCHAR},#{tableProperties,jdbcType=VARCHAR},#{sonsProperties,jdbcType=VARCHAR},#{actionList,jdbcType=VARCHAR},#{flowDataUrl,jdbcType=VARCHAR},#{localExport,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.codegenerator.pojo.CgList">
+    insert into cg_list (id,name,path,table_id,icon,head_title,tag_title,edit_inline,detail_inline,sons,son_fields,son_align,generator_type,title_field,parent_entity,tree_show_entity,show_search,toolbar_mode,table_height,pagination,order_by,sort_field,stripe,border,state_entity,max_height,highlight_current_row,multiple,show_summary,span_entities,show_header,images,view_properties,table_properties,sons_properties,action_list,flow_data_url,local_export)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.path,jdbcType=VARCHAR},#{item.tableId,jdbcType=VARCHAR},#{item.icon,jdbcType=VARCHAR},#{item.headTitle,jdbcType=VARCHAR},#{item.tagTitle,jdbcType=VARCHAR},#{item.editInline,jdbcType=TINYINT},#{item.detailInline,jdbcType=TINYINT},#{item.sons,jdbcType=VARCHAR},#{item.sonFields,jdbcType=VARCHAR},#{item.sonAlign,jdbcType=VARCHAR},#{item.generatorType,jdbcType=INTEGER},#{item.titleField,jdbcType=VARCHAR},#{item.parentEntity,jdbcType=VARCHAR},#{item.treeShowEntity,jdbcType=VARCHAR},#{item.showSearch,jdbcType=TINYINT},#{item.toolbarMode,jdbcType=INTEGER},#{item.tableHeight,jdbcType=INTEGER},#{item.pagination,jdbcType=TINYINT},#{item.orderBy,jdbcType=VARCHAR},#{item.sortField,jdbcType=VARCHAR},#{item.stripe,jdbcType=TINYINT},#{item.border,jdbcType=TINYINT},#{item.stateEntity,jdbcType=VARCHAR},#{item.maxHeight,jdbcType=INTEGER},#{item.highlightCurrentRow,jdbcType=TINYINT},#{item.multiple,jdbcType=TINYINT},#{item.showSummary,jdbcType=TINYINT},#{item.spanEntities,jdbcType=VARCHAR},#{item.showHeader,jdbcType=TINYINT},#{item.images,jdbcType=VARCHAR},#{item.viewProperties,jdbcType=VARCHAR},#{item.tableProperties,jdbcType=VARCHAR},#{item.sonsProperties,jdbcType=VARCHAR},#{item.actionList,jdbcType=VARCHAR},#{item.flowDataUrl,jdbcType=VARCHAR},#{item.localExport,jdbcType=TINYINT})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.codegenerator.pojo.CgList" databaseId="Oracle">
+    insert all 
+    <foreach collection="list" item="item" index="index">
+      into cg_list (id,name,path,table_id,icon,head_title,tag_title,edit_inline,detail_inline,sons,son_fields,son_align,generator_type,title_field,parent_entity,tree_show_entity,show_search,toolbar_mode,table_height,pagination,order_by,sort_field,stripe,border,state_entity,max_height,highlight_current_row,multiple,show_summary,span_entities,show_header,images,view_properties,table_properties,sons_properties,action_list,flow_data_url,local_export) values(#{item.id,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.path,jdbcType=VARCHAR},#{item.tableId,jdbcType=VARCHAR},#{item.icon,jdbcType=VARCHAR},#{item.headTitle,jdbcType=VARCHAR},#{item.tagTitle,jdbcType=VARCHAR},#{item.editInline,jdbcType=TINYINT},#{item.detailInline,jdbcType=TINYINT},#{item.sons,jdbcType=VARCHAR},#{item.sonFields,jdbcType=VARCHAR},#{item.sonAlign,jdbcType=VARCHAR},#{item.generatorType,jdbcType=INTEGER},#{item.titleField,jdbcType=VARCHAR},#{item.parentEntity,jdbcType=VARCHAR},#{item.treeShowEntity,jdbcType=VARCHAR},#{item.showSearch,jdbcType=TINYINT},#{item.toolbarMode,jdbcType=INTEGER},#{item.tableHeight,jdbcType=INTEGER},#{item.pagination,jdbcType=TINYINT},#{item.orderBy,jdbcType=VARCHAR},#{item.sortField,jdbcType=VARCHAR},#{item.stripe,jdbcType=TINYINT},#{item.border,jdbcType=TINYINT},#{item.stateEntity,jdbcType=VARCHAR},#{item.maxHeight,jdbcType=INTEGER},#{item.highlightCurrentRow,jdbcType=TINYINT},#{item.multiple,jdbcType=TINYINT},#{item.showSummary,jdbcType=TINYINT},#{item.spanEntities,jdbcType=VARCHAR},#{item.showHeader,jdbcType=TINYINT},#{item.images,jdbcType=VARCHAR},#{item.viewProperties,jdbcType=VARCHAR},#{item.tableProperties,jdbcType=VARCHAR},#{item.sonsProperties,jdbcType=VARCHAR},#{item.actionList,jdbcType=VARCHAR},#{item.flowDataUrl,jdbcType=VARCHAR},#{item.localExport,jdbcType=TINYINT})
+    </foreach>
+    select 1 from dual
+  </insert>
+  <select id="select" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="delete" parameterType="java.lang.String">
+    delete from cg_list where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteBatch" parameterType="java.lang.String">
+    delete from cg_list where id in     <foreach item="item" index="index" collection="_parameter.split(',')" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+  <select id="selectByPathTableId" parameterType="map" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where path = #{path} AND table_id = #{tableId}
+  </select>
+  <delete id="deleteByPathTableId" parameterType="map" >
+    delete from cg_list where path = #{path} AND table_id = #{tableId}
+  </delete>
+  <delete id="deleteList" parameterType="java.util.List">
+    delete from cg_list where id in
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")"> 
+       #{item.id,jdbcType=VARCHAR}
+    </foreach>
+  </delete>
+  <update id="update" parameterType="top.iotequ.codegenerator.pojo.CgList">
+    update cg_list set 
+      name = #{name,jdbcType=VARCHAR},
+      path = #{path,jdbcType=VARCHAR},
+      table_id = #{tableId,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      head_title = #{headTitle,jdbcType=VARCHAR},
+      tag_title = #{tagTitle,jdbcType=VARCHAR},
+      edit_inline = #{editInline,jdbcType=TINYINT},
+      detail_inline = #{detailInline,jdbcType=TINYINT},
+      sons = #{sons,jdbcType=VARCHAR},
+      son_fields = #{sonFields,jdbcType=VARCHAR},
+      son_align = #{sonAlign,jdbcType=VARCHAR},
+      generator_type = #{generatorType,jdbcType=INTEGER},
+      title_field = #{titleField,jdbcType=VARCHAR},
+      parent_entity = #{parentEntity,jdbcType=VARCHAR},
+      tree_show_entity = #{treeShowEntity,jdbcType=VARCHAR},
+      show_search = #{showSearch,jdbcType=TINYINT},
+      toolbar_mode = #{toolbarMode,jdbcType=INTEGER},
+      table_height = #{tableHeight,jdbcType=INTEGER},
+      pagination = #{pagination,jdbcType=TINYINT},
+      order_by = #{orderBy,jdbcType=VARCHAR},
+      sort_field = #{sortField,jdbcType=VARCHAR},
+      stripe = #{stripe,jdbcType=TINYINT},
+      border = #{border,jdbcType=TINYINT},
+      state_entity = #{stateEntity,jdbcType=VARCHAR},
+      max_height = #{maxHeight,jdbcType=INTEGER},
+      highlight_current_row = #{highlightCurrentRow,jdbcType=TINYINT},
+      multiple = #{multiple,jdbcType=TINYINT},
+      show_summary = #{showSummary,jdbcType=TINYINT},
+      span_entities = #{spanEntities,jdbcType=VARCHAR},
+      show_header = #{showHeader,jdbcType=TINYINT},
+      images = #{images,jdbcType=VARCHAR},
+      view_properties = #{viewProperties,jdbcType=VARCHAR},
+      table_properties = #{tableProperties,jdbcType=VARCHAR},
+      sons_properties = #{sonsProperties,jdbcType=VARCHAR},
+      action_list = #{actionList,jdbcType=VARCHAR},
+      flow_data_url = #{flowDataUrl,jdbcType=VARCHAR},
+      local_export = #{localExport,jdbcType=TINYINT}
+      where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateSelective" parameterType="top.iotequ.codegenerator.pojo.CgList">
+    update cg_list 
+      <set>
+        <if test="name != null"> name = #{name,jdbcType=VARCHAR},</if>
+        <if test="path != null"> path = #{path,jdbcType=VARCHAR},</if>
+        <if test="tableId != null"> table_id = #{tableId,jdbcType=VARCHAR},</if>
+        <if test="icon != null"> icon = #{icon,jdbcType=VARCHAR},</if>
+        <if test="headTitle != null"> head_title = #{headTitle,jdbcType=VARCHAR},</if>
+        <if test="tagTitle != null"> tag_title = #{tagTitle,jdbcType=VARCHAR},</if>
+        <if test="editInline != null"> edit_inline = #{editInline,jdbcType=TINYINT},</if>
+        <if test="detailInline != null"> detail_inline = #{detailInline,jdbcType=TINYINT},</if>
+        <if test="sons != null"> sons = #{sons,jdbcType=VARCHAR},</if>
+        <if test="sonFields != null"> son_fields = #{sonFields,jdbcType=VARCHAR},</if>
+        <if test="sonAlign != null"> son_align = #{sonAlign,jdbcType=VARCHAR},</if>
+        <if test="generatorType != null"> generator_type = #{generatorType,jdbcType=INTEGER},</if>
+        <if test="titleField != null"> title_field = #{titleField,jdbcType=VARCHAR},</if>
+        <if test="parentEntity != null"> parent_entity = #{parentEntity,jdbcType=VARCHAR},</if>
+        <if test="treeShowEntity != null"> tree_show_entity = #{treeShowEntity,jdbcType=VARCHAR},</if>
+        <if test="showSearch != null"> show_search = #{showSearch,jdbcType=TINYINT},</if>
+        <if test="toolbarMode != null"> toolbar_mode = #{toolbarMode,jdbcType=INTEGER},</if>
+        <if test="tableHeight != null"> table_height = #{tableHeight,jdbcType=INTEGER},</if>
+        <if test="pagination != null"> pagination = #{pagination,jdbcType=TINYINT},</if>
+        <if test="orderBy != null"> order_by = #{orderBy,jdbcType=VARCHAR},</if>
+        <if test="sortField != null"> sort_field = #{sortField,jdbcType=VARCHAR},</if>
+        <if test="stripe != null"> stripe = #{stripe,jdbcType=TINYINT},</if>
+        <if test="border != null"> border = #{border,jdbcType=TINYINT},</if>
+        <if test="stateEntity != null"> state_entity = #{stateEntity,jdbcType=VARCHAR},</if>
+        <if test="maxHeight != null"> max_height = #{maxHeight,jdbcType=INTEGER},</if>
+        <if test="highlightCurrentRow != null"> highlight_current_row = #{highlightCurrentRow,jdbcType=TINYINT},</if>
+        <if test="multiple != null"> multiple = #{multiple,jdbcType=TINYINT},</if>
+        <if test="showSummary != null"> show_summary = #{showSummary,jdbcType=TINYINT},</if>
+        <if test="spanEntities != null"> span_entities = #{spanEntities,jdbcType=VARCHAR},</if>
+        <if test="showHeader != null"> show_header = #{showHeader,jdbcType=TINYINT},</if>
+        <if test="images != null"> images = #{images,jdbcType=VARCHAR},</if>
+        <if test="viewProperties != null"> view_properties = #{viewProperties,jdbcType=VARCHAR},</if>
+        <if test="tableProperties != null"> table_properties = #{tableProperties,jdbcType=VARCHAR},</if>
+        <if test="sonsProperties != null"> sons_properties = #{sonsProperties,jdbcType=VARCHAR},</if>
+        <if test="actionList != null"> action_list = #{actionList,jdbcType=VARCHAR},</if>
+        <if test="flowDataUrl != null"> flow_data_url = #{flowDataUrl,jdbcType=VARCHAR},</if>
+        <if test="localExport != null"> local_export = #{localExport,jdbcType=TINYINT},</if>
+      </set>
+      where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateBy" parameterType="top.iotequ.codegenerator.pojo.CgList">
+    update cg_list set 
+      id = #{record.id,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      path = #{record.path,jdbcType=VARCHAR},
+      table_id = #{record.tableId,jdbcType=VARCHAR},
+      icon = #{record.icon,jdbcType=VARCHAR},
+      head_title = #{record.headTitle,jdbcType=VARCHAR},
+      tag_title = #{record.tagTitle,jdbcType=VARCHAR},
+      edit_inline = #{record.editInline,jdbcType=TINYINT},
+      detail_inline = #{record.detailInline,jdbcType=TINYINT},
+      sons = #{record.sons,jdbcType=VARCHAR},
+      son_fields = #{record.sonFields,jdbcType=VARCHAR},
+      son_align = #{record.sonAlign,jdbcType=VARCHAR},
+      generator_type = #{record.generatorType,jdbcType=INTEGER},
+      title_field = #{record.titleField,jdbcType=VARCHAR},
+      parent_entity = #{record.parentEntity,jdbcType=VARCHAR},
+      tree_show_entity = #{record.treeShowEntity,jdbcType=VARCHAR},
+      show_search = #{record.showSearch,jdbcType=TINYINT},
+      toolbar_mode = #{record.toolbarMode,jdbcType=INTEGER},
+      table_height = #{record.tableHeight,jdbcType=INTEGER},
+      pagination = #{record.pagination,jdbcType=TINYINT},
+      order_by = #{record.orderBy,jdbcType=VARCHAR},
+      sort_field = #{record.sortField,jdbcType=VARCHAR},
+      stripe = #{record.stripe,jdbcType=TINYINT},
+      border = #{record.border,jdbcType=TINYINT},
+      state_entity = #{record.stateEntity,jdbcType=VARCHAR},
+      max_height = #{record.maxHeight,jdbcType=INTEGER},
+      highlight_current_row = #{record.highlightCurrentRow,jdbcType=TINYINT},
+      multiple = #{record.multiple,jdbcType=TINYINT},
+      show_summary = #{record.showSummary,jdbcType=TINYINT},
+      span_entities = #{record.spanEntities,jdbcType=VARCHAR},
+      show_header = #{record.showHeader,jdbcType=TINYINT},
+      images = #{record.images,jdbcType=VARCHAR},
+      view_properties = #{record.viewProperties,jdbcType=VARCHAR},
+      table_properties = #{record.tableProperties,jdbcType=VARCHAR},
+      sons_properties = #{record.sonsProperties,jdbcType=VARCHAR},
+      action_list = #{record.actionList,jdbcType=VARCHAR},
+      flow_data_url = #{record.flowDataUrl,jdbcType=VARCHAR},
+      local_export = #{record.localExport,jdbcType=TINYINT}
+      where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="list" parameterType="top.iotequ.codegenerator.pojo.CgList" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+     where 1=1 
+        <if test="id != null"> and id like #{id,jdbcType=VARCHAR} </if>
+        <if test="name != null"> and name like #{name,jdbcType=VARCHAR} </if>
+        <if test="path != null"> and path like #{path,jdbcType=VARCHAR} </if>
+        <if test="tableId != null"> and table_id like #{tableId,jdbcType=VARCHAR} </if>
+        <if test="icon != null"> and icon like #{icon,jdbcType=VARCHAR} </if>
+        <if test="headTitle != null"> and head_title like #{headTitle,jdbcType=VARCHAR} </if>
+        <if test="tagTitle != null"> and tag_title like #{tagTitle,jdbcType=VARCHAR} </if>
+        <if test="editInline != null"> and edit_inline = #{editInline,jdbcType=TINYINT} </if>
+        <if test="detailInline != null"> and detail_inline = #{detailInline,jdbcType=TINYINT} </if>
+        <if test="sons != null"> and sons like #{sons,jdbcType=VARCHAR} </if>
+        <if test="sonFields != null"> and son_fields like #{sonFields,jdbcType=VARCHAR} </if>
+        <if test="sonAlign != null"> and son_align like #{sonAlign,jdbcType=VARCHAR} </if>
+        <if test="generatorType != null"> and generator_type = #{generatorType,jdbcType=INTEGER} </if>
+        <if test="titleField != null"> and title_field like #{titleField,jdbcType=VARCHAR} </if>
+        <if test="parentEntity != null"> and parent_entity like #{parentEntity,jdbcType=VARCHAR} </if>
+        <if test="treeShowEntity != null"> and tree_show_entity like #{treeShowEntity,jdbcType=VARCHAR} </if>
+        <if test="showSearch != null"> and show_search = #{showSearch,jdbcType=TINYINT} </if>
+        <if test="toolbarMode != null"> and toolbar_mode = #{toolbarMode,jdbcType=INTEGER} </if>
+        <if test="tableHeight != null"> and table_height = #{tableHeight,jdbcType=INTEGER} </if>
+        <if test="pagination != null"> and pagination = #{pagination,jdbcType=TINYINT} </if>
+        <if test="orderBy != null"> and order_by like #{orderBy,jdbcType=VARCHAR} </if>
+        <if test="sortField != null"> and sort_field like #{sortField,jdbcType=VARCHAR} </if>
+        <if test="stripe != null"> and stripe = #{stripe,jdbcType=TINYINT} </if>
+        <if test="border != null"> and border = #{border,jdbcType=TINYINT} </if>
+        <if test="stateEntity != null"> and state_entity like #{stateEntity,jdbcType=VARCHAR} </if>
+        <if test="maxHeight != null"> and max_height = #{maxHeight,jdbcType=INTEGER} </if>
+        <if test="highlightCurrentRow != null"> and highlight_current_row = #{highlightCurrentRow,jdbcType=TINYINT} </if>
+        <if test="multiple != null"> and multiple = #{multiple,jdbcType=TINYINT} </if>
+        <if test="showSummary != null"> and show_summary = #{showSummary,jdbcType=TINYINT} </if>
+        <if test="spanEntities != null"> and span_entities like #{spanEntities,jdbcType=VARCHAR} </if>
+        <if test="showHeader != null"> and show_header = #{showHeader,jdbcType=TINYINT} </if>
+        <if test="images != null"> and images like #{images,jdbcType=VARCHAR} </if>
+        <if test="viewProperties != null"> and view_properties like #{viewProperties,jdbcType=VARCHAR} </if>
+        <if test="tableProperties != null"> and table_properties like #{tableProperties,jdbcType=VARCHAR} </if>
+        <if test="sonsProperties != null"> and sons_properties like #{sonsProperties,jdbcType=VARCHAR} </if>
+        <if test="actionList != null"> and action_list like #{actionList,jdbcType=VARCHAR} </if>
+        <if test="flowDataUrl != null"> and flow_data_url like #{flowDataUrl,jdbcType=VARCHAR} </if>
+        <if test="localExport != null"> and local_export = #{localExport,jdbcType=TINYINT} </if>
+  </select>
+  <select id="listBy" parameterType="map" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+        <if test="whereString != null and whereString !=''"> where ${whereString} </if>
+        <if test="orderString != null and orderString!=''"> order by ${orderString} </if>
+  </select>
+  <select id="query" parameterType="map" resultMap="BaseResultMap">
+        ${sqlString}
+  </select>
+</mapper>

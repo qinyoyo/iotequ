@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.iotequ.attendance.data.dao.AdDataDao">
+  <resultMap id="BaseResultMap" type="top.iotequ.attendance.data.pojo.AdData">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="rec_source" jdbcType="VARCHAR" property="recSource" />
+    <result column="rec_type" jdbcType="INTEGER" property="recType" />
+    <result column="rec_time" jdbcType="TIMESTAMP" property="recTime" />
+    <result column="is_used" jdbcType="TINYINT" property="isUsed" />
+    <result column="employee_no" jdbcType="VARCHAR" property="employeeNo" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="is_attendance" jdbcType="TINYINT" property="isAttendance" />
+    <result column="org_code" jdbcType="INTEGER" property="orgCode" />
+    <result column="date_date" jdbcType="DATE" property="dateDate" />
+    <result column="date_time" jdbcType="TIME" property="dateTime" />
+  </resultMap>
+  <sql id = "selectSql">
+     SELECT ad_data.id,ad_data.rec_source,ad_data.rec_type,ad_data.rec_time,ad_data.is_used,ad_data.employee_no,employee_no_sys_user.real_name AS real_name,ad_employee.is_attendance AS is_attendance,employee_no_sys_user.org_code AS org_code,date(rec_time) as date_date,time(rec_time) as date_time FROM ad_data LEFT JOIN ad_employee ON ad_data.employee_no = ad_employee.employee_no LEFT JOIN sys_user employee_no_sys_user ON ad_employee.id = employee_no_sys_user.id
+  </sql>
+  <insert id="insert" parameterType="top.iotequ.attendance.data.pojo.AdData">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String" >
+      SELECT replace(uuid(), '-', '')
+    </selectKey>
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String" databaseId="SQLServer">
+      SELECT replace(lower(newid()), '-', '')
+    </selectKey>
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String" databaseId="Oracle">
+      SELECT replace(lower(sys_guid()), '-', '') from dual
+    </selectKey>
+    insert into ad_data (id,rec_source,rec_type,rec_time,is_used,employee_no)
+      values 
+      (#{id,jdbcType=VARCHAR},#{recSource,jdbcType=VARCHAR},#{recType,jdbcType=INTEGER},#{recTime,jdbcType=TIMESTAMP},#{isUsed,jdbcType=TINYINT},#{employeeNo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.attendance.data.pojo.AdData">
+    insert into ad_data (id,rec_source,rec_type,rec_time,is_used,employee_no)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (replace(uuid(), '-', ''),#{item.recSource,jdbcType=VARCHAR},#{item.recType,jdbcType=INTEGER},#{item.recTime,jdbcType=TIMESTAMP},#{item.isUsed,jdbcType=TINYINT},#{item.employeeNo,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.attendance.data.pojo.AdData" databaseId="SQLServer">
+    insert into ad_data (id,rec_source,rec_type,rec_time,is_used,employee_no)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (replace(lower(newid()), '-', ''),#{item.recSource,jdbcType=VARCHAR},#{item.recType,jdbcType=INTEGER},#{item.recTime,jdbcType=TIMESTAMP},#{item.isUsed,jdbcType=TINYINT},#{item.employeeNo,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.attendance.data.pojo.AdData" databaseId="Oracle">
+    insert all 
+    <foreach collection="list" item="item" index="index">
+      into ad_data (id,rec_source,rec_type,rec_time,is_used,employee_no) values(replace(lower(sys_guid()), '-', ''),#{item.recSource,jdbcType=VARCHAR},#{item.recType,jdbcType=INTEGER},#{item.recTime,jdbcType=TIMESTAMP},#{item.isUsed,jdbcType=TINYINT},#{item.employeeNo,jdbcType=VARCHAR})
+    </foreach>
+    select 1 from dual
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.attendance.data.pojo.AdData">
+    insert into ad_data (id,rec_source,rec_type,rec_time,is_used,employee_no)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=VARCHAR},#{item.recSource,jdbcType=VARCHAR},#{item.recType,jdbcType=INTEGER},#{item.recTime,jdbcType=TIMESTAMP},#{item.isUsed,jdbcType=TINYINT},#{item.employeeNo,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.attendance.data.pojo.AdData" databaseId="Oracle">
+    insert all 
+    <foreach collection="list" item="item" index="index">
+      into ad_data (id,rec_source,rec_type,rec_time,is_used,employee_no) values(#{item.id,jdbcType=VARCHAR},#{item.recSource,jdbcType=VARCHAR},#{item.recType,jdbcType=INTEGER},#{item.recTime,jdbcType=TIMESTAMP},#{item.isUsed,jdbcType=TINYINT},#{item.employeeNo,jdbcType=VARCHAR})
+    </foreach>
+    select 1 from dual
+  </insert>
+  <select id="select" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where ad_data.id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="delete" parameterType="java.lang.String">
+    delete from ad_data where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteBatch" parameterType="java.lang.String">
+    delete from ad_data where id in     <foreach item="item" index="index" collection="_parameter.split(',')" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+  <select id="selectByEmployeeNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where ad_data.employee_no = #{employeeNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByEmployeeNo" parameterType="java.lang.String">
+    delete from ad_data where employee_no = #{employeeNo,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteBatchByEmployeeNo" parameterType="java.lang.String">
+    delete from ad_data where employee_no in     <foreach item="item" index="index" collection="_parameter.split(',')" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+  <delete id="deleteList" parameterType="java.util.List">
+    delete from ad_data where id in
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")"> 
+       #{item.id,jdbcType=VARCHAR}
+    </foreach>
+  </delete>
+  <update id="update" parameterType="top.iotequ.attendance.data.pojo.AdData">
+    update ad_data set 
+      rec_source = #{recSource,jdbcType=VARCHAR},
+      rec_type = #{recType,jdbcType=INTEGER},
+      rec_time = #{recTime,jdbcType=TIMESTAMP},
+      is_used = #{isUsed,jdbcType=TINYINT},
+      employee_no = #{employeeNo,jdbcType=VARCHAR}
+      where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateSelective" parameterType="top.iotequ.attendance.data.pojo.AdData">
+    update ad_data 
+      <set>
+        <if test="recSource != null"> rec_source = #{recSource,jdbcType=VARCHAR},</if>
+        <if test="recType != null"> rec_type = #{recType,jdbcType=INTEGER},</if>
+        <if test="recTime != null"> rec_time = #{recTime,jdbcType=TIMESTAMP},</if>
+        <if test="isUsed != null"> is_used = #{isUsed,jdbcType=TINYINT},</if>
+        <if test="employeeNo != null"> employee_no = #{employeeNo,jdbcType=VARCHAR},</if>
+      </set>
+      where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateBy" parameterType="top.iotequ.attendance.data.pojo.AdData">
+    update ad_data set 
+      id = #{record.id,jdbcType=VARCHAR},
+      rec_source = #{record.recSource,jdbcType=VARCHAR},
+      rec_type = #{record.recType,jdbcType=INTEGER},
+      rec_time = #{record.recTime,jdbcType=TIMESTAMP},
+      is_used = #{record.isUsed,jdbcType=TINYINT},
+      employee_no = #{record.employeeNo,jdbcType=VARCHAR}
+      where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="list" parameterType="top.iotequ.attendance.data.pojo.AdData" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+     where 1=1 
+        <if test="id != null"> and ad_data.id like #{id,jdbcType=VARCHAR} </if>
+        <if test="recSource != null"> and ad_data.rec_source like #{recSource,jdbcType=VARCHAR} </if>
+        <if test="recType != null"> and ad_data.rec_type = #{recType,jdbcType=INTEGER} </if>
+        <if test="recTime != null"> and ad_data.rec_time like #{recTime,jdbcType=TIMESTAMP} </if>
+        <if test="isUsed != null"> and ad_data.is_used = #{isUsed,jdbcType=TINYINT} </if>
+        <if test="employeeNo != null"> and ad_data.employee_no like #{employeeNo,jdbcType=VARCHAR} </if>
+        <if test="realName != null"> and employee_no_sys_user.real_name like #{realName,jdbcType=VARCHAR} </if>
+        <if test="isAttendance != null"> and ad_employee.is_attendance = #{isAttendance,jdbcType=TINYINT} </if>
+        <if test="orgCode != null"> and employee_no_sys_user.org_code = #{orgCode,jdbcType=INTEGER} </if>
+  </select>
+  <select id="listBy" parameterType="map" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+        <if test="whereString != null and whereString !=''"> where ${whereString} </if>
+        <if test="orderString != null and orderString!=''"> order by ${orderString} </if>
+  </select>
+  <select id="query" parameterType="map" resultMap="BaseResultMap">
+        ${sqlString}
+  </select>
+</mapper>

@@ -1,0 +1,338 @@
+
+<template>
+  <div :class="mobile || height==0 ? 'cg-form':'cg-form just-v-scroll'" :style="mobile || height==0?'':'height:'+height+'px'">
+    <el-form ref="cgForm" v-loading="recordLoading" :model="record" v-cg-form-adjust
+                          :class="className" :rules="rules" 
+             :label-position="labelPosition" :label-width="labelWidth" :size="$store.state.app.size" 
+             hide-required-asterisk >
+      <el-row :gutter="mobile?0:20">
+        <el-col :span="12">
+          <el-form-item class="cg-item-text cg-auto-focus" :label="$t('ewBill.field.no')" prop="no" :size="$store.state.app.size" >
+            <el-input v-model="record.no" name="no" 
+                      type="text" :maxlength="32" show-word-limit 
+                      :label="$t('ewBill.field.no')" :placeholder="$t('system.message.needValue')" 
+                      :readonly="isDetail" resize autofocus validate-event />
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item class="cg-item-boolean" :label="$t('ewBill.field.canceled')" prop="canceled" :size="$store.state.app.size" >
+            <el-switch v-model="record.canceled" name="canceled" :active-text="mobile?'':$t('ewBill.field.canceled')" inactive-text="" :disabled="isDetail"  />
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row :gutter="mobile?0:20">
+        <el-col :span="12">
+          <el-form-item class="cg-item-boolean" :label="$t('ewBill.field.isCharge')" prop="isCharge" :size="$store.state.app.size" >
+            <el-switch v-model="record.isCharge" name="isCharge" :active-text="mobile?'':$t('ewBill.field.isCharge')" inactive-text="" :disabled="isDetail"  />
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item class="cg-item-text" :label="$t('ewBill.field.userNo')" prop="userNo" :size="$store.state.app.size" >
+            <el-input v-model="record.userNo" name="userNo" 
+                      type="text" :maxlength="45" show-word-limit 
+                      :label="$t('ewBill.field.userNo')" :placeholder="$t('system.message.needValue')" 
+                      :readonly="isDetail" resize autofocus validate-event />
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row :gutter="mobile?0:20">
+        <el-col :span="12">
+          <el-form-item class="cg-item-text" :label="$t('ewBill.field.batchNo')" prop="batchNo" :size="$store.state.app.size" >
+            <el-input v-model="record.batchNo" name="batchNo" 
+                      type="text" :maxlength="45" show-word-limit 
+                      :label="$t('ewBill.field.batchNo')" :placeholder="$t('system.message.needValue')" 
+                      :readonly="isDetail" resize autofocus validate-event />
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item class="cg-item-datetime" :label="$t('ewBill.field.dt')" prop="dt" :size="$store.state.app.size" >
+            <span slot="label"><cg-icon icon="fa fa-calendar-plus-o" :size="14" :width="20"/>{{$t('ewBill.field.dt')}}</span>
+            <cg-date-picker v-model="record.dt" name="dt" 
+                            :align="mobile?'right':'center'" type="datetime" :title="$t('ewBill.field.dt')" :readonly="isDetail" 
+                            />
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row :gutter="mobile?0:20">
+        <el-col :span="12">
+          <el-form-item class="cg-item-number" :label="$t('ewBill.field.operationType')" prop="operationType" :size="$store.state.app.size" >
+            <cg-number-input v-model="record.operationType" name="operationType" 
+                             :readonly="isDetail" 
+                             :label="$t('ewBill.field.operationType')" :placeholder="$t('system.message.needValue')" :precision="0" 
+                             :min="0" :step="1" :title="$t('system.message.valueRange') + ': 0 - *'" />
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item class="cg-item-checkbox" :label="$t('ewBill.field.costType')" prop="costType" :size="$store.state.app.size" >
+            <cg-checkbox v-model="record.costType" name="costType" :dictionary="dictionary.dictCostType" :readonly="isDetail"  />
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row :gutter="mobile?0:20">
+        <el-col :span="12">
+          <el-form-item class="cg-item-number" :label="$t('ewBill.field.projectId')" prop="projectId" :size="$store.state.app.size" >
+            <cg-number-input v-model="record.projectId" name="projectId" 
+                             :readonly="isDetail" 
+                             :label="$t('ewBill.field.projectId')" :placeholder="$t('system.message.needValue')" :precision="0" 
+                             :min="0" :step="1" :title="$t('system.message.valueRange') + ': 0 - *'" />
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item class="cg-item-text" :label="$t('ewBill.field.projectName')" prop="projectName" :size="$store.state.app.size" >
+            <el-input v-model="record.projectName" name="projectName" 
+                      type="text" :maxlength="45" show-word-limit 
+                      :label="$t('ewBill.field.projectName')" :placeholder="$t('system.message.needValue')" 
+                      :readonly="isDetail" resize autofocus validate-event />
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row :gutter="mobile?0:20">
+        <el-col :span="12">
+          <el-form-item class="cg-item-number" :label="$t('ewBill.field.projectPrice')" prop="projectPrice" :size="$store.state.app.size" >
+            <cg-number-input v-model="record.projectPrice" name="projectPrice" 
+                             :readonly="isDetail" 
+                             :label="$t('ewBill.field.projectPrice')" :placeholder="$t('system.message.needValue')" :precision="0" 
+                             :min="1" :step="1" :title="$t('system.message.valueRange') + ': 1 - *'" />
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item class="cg-item-number" :label="$t('ewBill.field.amount')" prop="amount" :size="$store.state.app.size" >
+            <cg-number-input v-model="record.amount" name="amount" 
+                             :readonly="isDetail" 
+                             :label="$t('ewBill.field.amount')" :placeholder="$t('system.message.needValue')" :precision="0" 
+                             :min="0" :step="1" :title="$t('system.message.valueRange') + ': 0 - *'" />
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row :gutter="mobile?0:20">
+        <el-col :span="12">
+          <el-form-item class="cg-item-number" :label="$t('ewBill.field.amountBefore')" prop="amountBefore" :size="$store.state.app.size" >
+            <cg-number-input v-model="record.amountBefore" name="amountBefore" 
+                             :readonly="isDetail" 
+                             :label="$t('ewBill.field.amountBefore')" :placeholder="$t('system.message.needValue')" :precision="0" 
+                             :min="0" :step="1" :title="$t('system.message.valueRange') + ': 0 - *'" />
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item class="cg-item-number" :label="$t('ewBill.field.bonus')" prop="bonus" :size="$store.state.app.size" >
+            <cg-number-input v-model="record.bonus" name="bonus" 
+                             :readonly="isDetail" 
+                             :label="$t('ewBill.field.bonus')" :placeholder="$t('system.message.needValue')" :precision="0" 
+                             :min="0" :step="1" :title="$t('system.message.valueRange') + ': 0 - *'" />
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row :gutter="mobile?0:20">
+        <el-col :span="12">
+          <el-form-item class="cg-item-number" :label="$t('ewBill.field.bonusBefore')" prop="bonusBefore" :size="$store.state.app.size" >
+            <cg-number-input v-model="record.bonusBefore" name="bonusBefore" 
+                             :readonly="isDetail" 
+                             :label="$t('ewBill.field.bonusBefore')" :placeholder="$t('system.message.needValue')" :precision="0" 
+                             :min="0" :step="1" :title="$t('system.message.valueRange') + ': 0 - *'" />
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item class="cg-item-text" :label="$t('ewBill.field.deviceNo')" prop="deviceNo" :size="$store.state.app.size" >
+            <el-input v-model="record.deviceNo" name="deviceNo" 
+                      type="text" :maxlength="45" show-word-limit 
+                      :label="$t('ewBill.field.deviceNo')" :placeholder="$t('system.message.needValue')" 
+                      :readonly="isDetail" resize autofocus validate-event />
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row :gutter="mobile?0:20">
+        <el-col :span="12">
+          <el-form-item class="cg-item-left_join" :label="$t('ewBill.field.shopId')" prop="shopId" :size="$store.state.app.size" >
+            <el-input v-model="record.shopId" name="shopId" 
+                      type="left_join" :maxlength="45" show-word-limit 
+                      :label="$t('ewBill.field.shopId')" :placeholder="$t('system.message.needValue')" 
+                      :readonly="isDetail" resize autofocus validate-event />
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item class="cg-item-text" :label="$t('ewBill.field.deviceStream')" prop="deviceStream" :size="$store.state.app.size" >
+            <el-input v-model="record.deviceStream" name="deviceStream" 
+                      type="text" :maxlength="45" show-word-limit 
+                      :label="$t('ewBill.field.deviceStream')" :placeholder="$t('system.message.needValue')" 
+                      :readonly="isDetail" resize autofocus validate-event />
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row :gutter="mobile?0:20">
+        <el-col :span="12">
+          <el-form-item class="cg-item-datetime" :label="$t('ewBill.field.deviceDt')" prop="deviceDt" :size="$store.state.app.size" >
+            <span slot="label"><cg-icon icon="fa fa-calendar-plus-o" :size="14" :width="20"/>{{$t('ewBill.field.deviceDt')}}</span>
+            <cg-date-picker v-model="record.deviceDt" name="deviceDt" 
+                            :align="mobile?'right':'center'" type="datetime" :title="$t('ewBill.field.deviceDt')" :readonly="isDetail" 
+                            />
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item class="cg-item-text" :label="$t('ewBill.field.tradeNo')" prop="tradeNo" :size="$store.state.app.size" >
+            <el-input v-model="record.tradeNo" name="tradeNo" 
+                      type="text" :maxlength="45" show-word-limit 
+                      :label="$t('ewBill.field.tradeNo')" :placeholder="$t('system.message.needValue')" 
+                      :readonly="isDetail" resize autofocus validate-event />
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row :gutter="mobile?0:20">
+        <el-col :span="12">
+          <el-form-item class="cg-item-text" :label="$t('ewBill.field.operatorNo')" prop="operatorNo" :size="$store.state.app.size" >
+            <el-input v-model="record.operatorNo" name="operatorNo" 
+                      type="text" :maxlength="45" show-word-limit 
+                      :label="$t('ewBill.field.operatorNo')" :placeholder="$t('system.message.needValue')" 
+                      :readonly="isDetail" resize autofocus validate-event />
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item class="cg-item-text" :label="$t('ewBill.field.linkNo')" prop="linkNo" :size="$store.state.app.size" >
+            <el-input v-model="record.linkNo" name="linkNo" 
+                      type="text" :maxlength="45" show-word-limit 
+                      :label="$t('ewBill.field.linkNo')" :placeholder="$t('system.message.unknown')" clearable 
+                      :readonly="isDetail" resize autofocus validate-event />
+          </el-form-item>
+        </el-col>
+      </el-row>
+    </el-form>
+    <div v-if="!isDetail" class="cg-form-buttons">
+      <el-divider />
+      <el-button v-if="hasAuthorityOf(myself,baseUrl,'edit',record)" class="cg-button" type="primary" plain :disabled="!recordChanged"
+                 icon="el-icon-check" @click.native="submit()">
+        {{ $t('system.action.save') }}
+      </el-button>
+      <el-button v-if="!mobile && showInDialog" class="cg-button" plain icon="el-icon-close"
+                 @click.native="$emit('closeDialog')">
+        {{ $t('system.action.close') }}
+      </el-button>
+    </div>
+  </div>
+</template>
+<script>
+import cg from '@/utils/cg'
+import cgForm from '@/utils/cgForm'
+import rulesObject from './rules.js'
+const mixins = []
+const mixinContext = require.context('.', false, /CgFormEwBill-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default {
+  name: 'CgFormEwBill',
+  mixins,
+  props: {
+    dialogParams: {
+      type: Object,
+      default: null
+    },
+    showInDialog: {
+      type: Boolean,
+      default: false
+    },
+    height: {
+      type: Number,
+      default: 0
+    },
+    queryById: [Number, String]
+  },
+  data() {
+    return {
+      myself: this,
+      path: 'record',
+      title: this.$t('ewBill.title.'+this.path),
+      rules: {},
+      idField: 'no',
+      noSaved: this.openParams().record && typeof this.openParams().record === 'object' ? this.openParams().record.no : null,
+      onChange: typeof this.openParams().onChange === 'function' ? this.openParams().onChange : null,
+      recordChanged: false,
+      recordLoading: false,
+      fixedFields: typeof this.openParams().fixedFields === 'object' ? this.openParams().fixedFields : {},
+      openMode: this.openParams().openMode ? this.openParams().openMode : null,
+      record: this.openParams().record && typeof this.openParams().record === 'object' ? this.openParams().record : {},
+      needDefaultFromServer: false,
+      dictionary: {
+        dictCostType: this.getDictionary('1,2,3','钱包,计次,计时')
+      },
+      generatorName: 'ewBill',
+      baseUrl: '/ewallet/ewBill'
+    }
+  },
+  computed: {
+    mobile() {
+      return this.$store.state.app.device === 'mobile'
+    },
+    hasMenu() {
+      return false
+    },
+    className() {
+      return (this.mobile?'cg-form-cell ':'')+'cg-no-border cg-form-ewbill'
+    },
+    labelWidth() {
+      return this.className.indexOf('cg-form-cell')>=0? '100px' : undefined
+    },
+    labelPosition() {
+      return this.className.indexOf('cg-form-cell')>=0? 'left':'top'
+    },
+    isDetail() {
+      return this.openMode === 'view'
+    },
+    isNew() {
+      return false
+    },
+    isEdit() {
+      return false
+    }
+  },
+  watch: {
+    record: {
+      handler() {
+        this.recordChanged = true
+        this.just4elInputNumberNullBug()
+      },
+      deep: true
+    },
+    queryById: {
+      handler(n, o) {
+        if (n) this.doAction('refresh', {id: n})
+      },
+      immediate: true
+    }
+  },
+  created() {
+    this.rules = rulesObject.getRules(this)
+    cgForm.form_getQueryDictionary(this)
+    if (this.queryById) {
+      cgForm.form_getRecordFromServer(this,this.queryById)
+      this.queryRefreshId = this.queryById
+    } else if (this.isNew) cgForm.form_createNewRecord(this)
+    else if ((this.isEdit || this.isDetail) && this.openParams().id && typeof this.openParams().record !== 'object') {
+      cgForm.form_getRecordFromServer(this,this.openParams().id)
+      this.queryRefreshId = this.openParams().id
+    }
+    else if (this.needLoadDictionary) cgForm.form_getDictionary(this)
+    this.just4elInputNumberNullBug()
+  },
+  mounted() {
+    cgForm.form_mounted(this)
+  },
+  methods: {
+    openParams: function() {
+      return this.dialogParams ? this.dialogParams : this.$route.query
+    },
+    just4elInputNumberNullBug: function() {
+      if (this.record.operationType === null) this.record.operationType = undefined
+      if (this.record.projectId === null) this.record.projectId = undefined
+      if (this.record.projectPrice === null) this.record.projectPrice = undefined
+      if (this.record.amount === null) this.record.amount = undefined
+      if (this.record.amountBefore === null) this.record.amountBefore = undefined
+      if (this.record.bonus === null) this.record.bonus = undefined
+      if (this.record.bonusBefore === null) this.record.bonusBefore = undefined
+    },
+    submit: function() {
+      if (this.recordChanged) cgForm.form_submit(this, 'save',true)
+    },
+    doAction(action, options) {
+      cgForm.form_doAction(this, action, options)
+    },
+    ...cg
+  }
+}
+</script>

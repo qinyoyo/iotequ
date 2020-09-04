@@ -1,0 +1,296 @@
+@keyframes slideUpIn {
+  from {
+      transform: translate3d(0, 50%, 0);
+  }
+
+  to {
+      transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slideUpOut {
+  from {
+      transform: translate3d(0, 0, 0);
+  }
+
+  to {
+      visibility: hidden;
+      transform: translate3d(0, 100%, 0);
+  }
+}
+
+.mobile {
+  .el-dialog {
+    width: 100%!important;
+    min-height: 100%!important;
+    margin: 0;
+  }
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+  .el-dialog__header {
+    padding: 10px;
+    .el-dialog__headerbtn {
+      position: absolute;
+      top: 14px;
+      right: 10px;
+      padding: 0;
+      background: transparent;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+  }
+  .cg-back__headerbtn {
+      margin-top: 6px;
+      height: 16px;
+      padding: 0;
+      background: transparent;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      font-size: 16px;  
+    }  
+  .cg-form-cell {
+    .el-form-item{
+      border-bottom: 1px solid #eae9e9;
+      padding-top: 16px;
+      .el-form-item__content {
+        line-height: 26px!important;
+        .el-radio-group {
+          padding-top: 5px;
+          text-align: right;
+          width: 100%;
+        }
+      }
+      .cg-image .el-image {
+        text-align: right;
+      }
+
+      .el-input-number {
+          width: 200px !important;
+          float: right;
+          padding-right: 40px;
+      }
+      .is-disabled.el-input-number {
+        padding-right: 0;
+      }
+      .el-input-number__increase, .el-input-number__decrease {
+        height: 26px;
+        width: 26px;
+        border-radius: 26px;
+        line-height: 26px;
+        border: 1px solid #DCDFE6;
+      }
+      .el-form-item__label {
+        line-height: 26px!important;
+        width:auto!important;
+      }
+      .el-input__inner {
+        border: none;
+        border-bottom: none;
+        border-radius: 0;
+        text-align: right;
+        padding: 0;
+      }
+      .el-select, .el-cascader{
+          .el-input__inner {
+            padding-right:26px;
+          }
+          .el-input__suffix-inner .el-input__icon {
+            line-height: unset;
+            width: 16px;  
+          }
+      }
+      .el-input-group__append {
+          padding: 0 6px 0 0; 
+      }
+      .el-input-group__prepend, .el-input-group__append {
+        background-color: #ffffff00;
+        border: none;
+        .el-input__inner {
+            text-align: left;
+        }
+      }
+      .el-input__suffix .el-input__count {
+        display: none;
+      }
+      .el-input__suffix .el-input__clear {
+        transform: translate(12px,-18px);
+      }
+    }
+    .cg-item-image .el-form-item__content {
+      border-bottom: none!important;
+    }
+  }
+  .cg-child .el-tabs__content .cg-form {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .cg-child.el-tabs {
+    padding:10px 0;
+  }
+  .el-form--label-top .el-form-item label {
+    line-height: 10px;
+    font-size: 10px;
+    height: 10px;
+    padding: 4px 12px 0 0!important;
+  }
+  .el-form--label-right .el-form-item label {
+    height: 26px;
+  }
+  .el-message-box {
+    left: 50px;
+    right: 50px;
+    width: unset;
+  }
+  .el-switch {
+    width:100%;
+    .el-switch__core {
+      position: absolute;
+      right:0px;
+    }
+    .el-switch__label--right {
+      margin-left: 0;
+      position: absolute;
+      left:0px;
+    }
+    .el-switch__label--left {
+      display: none;
+    }
+  }
+  .cg-no-border {
+    .el-form-item{
+      margin-bottom: 0;
+      .el-input__inner, .el-input__icon, .el-input, .el-cascader, .el-select {
+        height:unset;
+        line-height: 26px;  
+      }      
+    }
+    .el-form-item__error {
+      top: -16px;
+      text-align: right;
+      width: 100%;
+      position: absolute;
+    }
+    .el-input-number__increase, .el-input-number__decrease {
+      height: 26px;
+      line-height: 26px;
+      border: 1px solid #DCDFE6;
+    }
+    .el-input-group__append, .el-input-group__prepend {
+      height: 26px!important;
+    }
+    .el-textarea .el-input__count {
+      height:26px;
+    }
+  }
+  .el-card {
+    border: 0;
+  }
+  .el-card__header {
+    height: 50px;
+    padding: 12px 5px 0px 5px;
+  }
+  .cg-list .el-card__body {
+    padding: 0 5px;
+    overflow-y: auto;
+  }
+  .cg-form .el-card__body {
+    padding: 0 20px;
+  }
+  .el-col {
+    width: 100%;
+  }
+  .el-transfer__buttons {
+    width:20%;
+    padding: 0 20px;
+    
+  }
+  .el-transfer-panel {
+    width:40%;
+  }
+  .el-transfer__buttons .el-button {
+    width: 100%;
+    padding: 0;
+    height:32px;
+  }
+  .grid-box {
+    display: grid;
+    grid-auto-flow: row;
+    width: 100%;
+    .grid-cell{
+      color: #fff;
+      font-size: 50px;
+      height: 90px;
+      text-align: center;
+    }    
+  }
+  @media screen and (max-aspect-ratio: 13/9) {  // portrait
+    .grid-box {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .el-col {
+      width: 100%;
+    }
+  }
+  @media screen and (min-aspect-ratio: 13/9) {
+    .grid-box {
+      grid-template-rows: repeat(3, 1fr); 
+    }
+    .el-col-1,.el-col-2,.el-col-3,.el-col-4,.el-col-5,.el-col-6,.el-col-7,.el-col-8,.el-col-9,.el-col-10,.el-col-11,.el-col-12 {
+      width: 50%;
+    }
+    .el-col-13,.el-col-14,.el-col-15,.el-col-16,.el-col-17,.el-col-18,.el-col-19,.el-col-20,.el-col-21,.el-col-22,.el-col-23,.el-col-24 {
+      width: 100%;
+    }      
+  }
+  .el-drawer {
+    :focus { 
+      outline: none;
+    }
+  }
+
+  .el-drawer.btt {
+    -webkit-animation: slideUpOut 0.3s!important;
+    animation: slideUpOut 0.3s!important;
+  } 
+  .el-drawer__open .el-drawer.btt {
+    -webkit-animation: slideUpIn 0.3s!important;
+    animation: slideUpIn 0.3s!important;
+  }
+  .el-drawer.btt, .el-drawer.rtl {
+    background-color: #f0f0f0;
+    .el-button {
+      padding: 0;
+      margin: 0 5px;
+      width: 40px;
+      height: 40px;
+      color: #000000;
+      background: #ffffff;
+      border-color: #ffffff;
+      font-size: 20px;
+      border-radius: 8px;
+      outline: none
+    }
+    .button-text {
+      height: 16px;
+      font-size: 12px;
+      color: black;
+    }
+  } 
+  .action-sheet-home {
+      width: 32px;
+      position: absolute;
+      left: 10px; 
+      cursor: pointer;
+  }
+  .action-sheet-title {
+      padding-left: 32px;
+  }
+  .el-cascader__dropdown {
+    overflow: auto!important;
+    width:100%;
+  }
+}

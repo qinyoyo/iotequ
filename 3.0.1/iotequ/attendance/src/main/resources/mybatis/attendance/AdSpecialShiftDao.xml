@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.iotequ.attendance.specialshift.dao.AdSpecialShiftDao">
+  <resultMap id="BaseResultMap" type="top.iotequ.attendance.specialshift.pojo.AdSpecialShift">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="shift_mode" jdbcType="INTEGER" property="shiftMode" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="mode_property" jdbcType="INTEGER" property="modeProperty" />
+    <result column="start_date" jdbcType="DATE" property="startDate" />
+    <result column="end_date" jdbcType="DATE" property="endDate" />
+    <result column="org_codes" jdbcType="VARCHAR" property="orgCodes" />
+    <result column="sex_property" jdbcType="INTEGER" property="sexProperty" />
+    <result column="age_property0" jdbcType="INTEGER" property="ageProperty0" />
+    <result column="age_property1" jdbcType="INTEGER" property="ageProperty1" />
+    <result column="level_property0" jdbcType="INTEGER" property="levelProperty0" />
+    <result column="level_property1" jdbcType="INTEGER" property="levelProperty1" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+  <sql id = "selectSql">
+     SELECT id,shift_mode,name,mode_property,start_date,end_date,org_codes,sex_property,age_property0,age_property1,level_property0,level_property1,description FROM ad_special_shift
+  </sql>
+  <insert id="insert" parameterType="top.iotequ.attendance.specialshift.pojo.AdSpecialShift">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer" databaseId="SQLServer">
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into ad_special_shift (shift_mode,name,mode_property,start_date,end_date,org_codes,sex_property,age_property0,age_property1,level_property0,level_property1,description)
+      values 
+      (#{shiftMode,jdbcType=INTEGER},#{name,jdbcType=VARCHAR},#{modeProperty,jdbcType=INTEGER},#{startDate,jdbcType=DATE},#{endDate,jdbcType=DATE},#{orgCodes,jdbcType=VARCHAR},#{sexProperty,jdbcType=INTEGER},#{ageProperty0,jdbcType=INTEGER},#{ageProperty1,jdbcType=INTEGER},#{levelProperty0,jdbcType=INTEGER},#{levelProperty1,jdbcType=INTEGER},#{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insert" parameterType="top.iotequ.attendance.specialshift.pojo.AdSpecialShift" databaseId="Oracle">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer" >
+      SELECT SEQUENCE_AD_SPECIAL_SHIFT.nextval from DUAL
+    </selectKey>
+    insert into ad_special_shift (id,shift_mode,name,mode_property,start_date,end_date,org_codes,sex_property,age_property0,age_property1,level_property0,level_property1,description)
+      values 
+      (#{id,jdbcType=INTEGER},#{shiftMode,jdbcType=INTEGER},#{name,jdbcType=VARCHAR},#{modeProperty,jdbcType=INTEGER},#{startDate,jdbcType=DATE},#{endDate,jdbcType=DATE},#{orgCodes,jdbcType=VARCHAR},#{sexProperty,jdbcType=INTEGER},#{ageProperty0,jdbcType=INTEGER},#{ageProperty1,jdbcType=INTEGER},#{levelProperty0,jdbcType=INTEGER},#{levelProperty1,jdbcType=INTEGER},#{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.attendance.specialshift.pojo.AdSpecialShift">
+    insert into ad_special_shift (shift_mode,name,mode_property,start_date,end_date,org_codes,sex_property,age_property0,age_property1,level_property0,level_property1,description)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.shiftMode,jdbcType=INTEGER},#{item.name,jdbcType=VARCHAR},#{item.modeProperty,jdbcType=INTEGER},#{item.startDate,jdbcType=DATE},#{item.endDate,jdbcType=DATE},#{item.orgCodes,jdbcType=VARCHAR},#{item.sexProperty,jdbcType=INTEGER},#{item.ageProperty0,jdbcType=INTEGER},#{item.ageProperty1,jdbcType=INTEGER},#{item.levelProperty0,jdbcType=INTEGER},#{item.levelProperty1,jdbcType=INTEGER},#{item.description,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.attendance.specialshift.pojo.AdSpecialShift" databaseId="Oracle">
+     insert into ad_special_shift (id,shift_mode,name,mode_property,start_date,end_date,org_codes,sex_property,age_property0,age_property1,level_property0,level_property1,description)
+       select SEQUENCE_AD_SPECIAL_SHIFT.nextval,cd.* from(
+          <foreach collection="list" item="item" index="index" separator="union all">
+             select #{item.shiftMode,jdbcType=INTEGER},#{item.name,jdbcType=VARCHAR},#{item.modeProperty,jdbcType=INTEGER},#{item.startDate,jdbcType=DATE},#{item.endDate,jdbcType=DATE},#{item.orgCodes,jdbcType=VARCHAR},#{item.sexProperty,jdbcType=INTEGER},#{item.ageProperty0,jdbcType=INTEGER},#{item.ageProperty1,jdbcType=INTEGER},#{item.levelProperty0,jdbcType=INTEGER},#{item.levelProperty1,jdbcType=INTEGER},#{item.description,jdbcType=VARCHAR} from dual
+          </foreach>
+       ) cd
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.attendance.specialshift.pojo.AdSpecialShift">
+    insert into ad_special_shift (id,shift_mode,name,mode_property,start_date,end_date,org_codes,sex_property,age_property0,age_property1,level_property0,level_property1,description)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=INTEGER},#{item.shiftMode,jdbcType=INTEGER},#{item.name,jdbcType=VARCHAR},#{item.modeProperty,jdbcType=INTEGER},#{item.startDate,jdbcType=DATE},#{item.endDate,jdbcType=DATE},#{item.orgCodes,jdbcType=VARCHAR},#{item.sexProperty,jdbcType=INTEGER},#{item.ageProperty0,jdbcType=INTEGER},#{item.ageProperty1,jdbcType=INTEGER},#{item.levelProperty0,jdbcType=INTEGER},#{item.levelProperty1,jdbcType=INTEGER},#{item.description,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.attendance.specialshift.pojo.AdSpecialShift" databaseId="SQLServer">
+    set IDENTITY_INSERT ad_special_shift ON 
+    insert into ad_special_shift (id,shift_mode,name,mode_property,start_date,end_date,org_codes,sex_property,age_property0,age_property1,level_property0,level_property1,description)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=INTEGER},#{item.shiftMode,jdbcType=INTEGER},#{item.name,jdbcType=VARCHAR},#{item.modeProperty,jdbcType=INTEGER},#{item.startDate,jdbcType=DATE},#{item.endDate,jdbcType=DATE},#{item.orgCodes,jdbcType=VARCHAR},#{item.sexProperty,jdbcType=INTEGER},#{item.ageProperty0,jdbcType=INTEGER},#{item.ageProperty1,jdbcType=INTEGER},#{item.levelProperty0,jdbcType=INTEGER},#{item.levelProperty1,jdbcType=INTEGER},#{item.description,jdbcType=VARCHAR})
+    </foreach>
+    set IDENTITY_INSERT ad_special_shift OFF 
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.attendance.specialshift.pojo.AdSpecialShift" databaseId="Oracle">
+    insert all 
+    <foreach collection="list" item="item" index="index">
+      into ad_special_shift (id,shift_mode,name,mode_property,start_date,end_date,org_codes,sex_property,age_property0,age_property1,level_property0,level_property1,description) values(#{item.id,jdbcType=INTEGER},#{item.shiftMode,jdbcType=INTEGER},#{item.name,jdbcType=VARCHAR},#{item.modeProperty,jdbcType=INTEGER},#{item.startDate,jdbcType=DATE},#{item.endDate,jdbcType=DATE},#{item.orgCodes,jdbcType=VARCHAR},#{item.sexProperty,jdbcType=INTEGER},#{item.ageProperty0,jdbcType=INTEGER},#{item.ageProperty1,jdbcType=INTEGER},#{item.levelProperty0,jdbcType=INTEGER},#{item.levelProperty1,jdbcType=INTEGER},#{item.description,jdbcType=VARCHAR})
+    </foreach>
+    select 1 from dual
+  </insert>
+  <select id="select" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from ad_special_shift where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteBatch" parameterType="java.lang.String">
+    delete from ad_special_shift where id in (${_parameter})
+  </delete>
+  <delete id="deleteList" parameterType="java.util.List">
+    delete from ad_special_shift where id in
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")"> 
+       #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </delete>
+  <update id="update" parameterType="top.iotequ.attendance.specialshift.pojo.AdSpecialShift">
+    update ad_special_shift set 
+      shift_mode = #{shiftMode,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      mode_property = #{modeProperty,jdbcType=INTEGER},
+      start_date = #{startDate,jdbcType=DATE},
+      end_date = #{endDate,jdbcType=DATE},
+      org_codes = #{orgCodes,jdbcType=VARCHAR},
+      sex_property = #{sexProperty,jdbcType=INTEGER},
+      age_property0 = #{ageProperty0,jdbcType=INTEGER},
+      age_property1 = #{ageProperty1,jdbcType=INTEGER},
+      level_property0 = #{levelProperty0,jdbcType=INTEGER},
+      level_property1 = #{levelProperty1,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR}
+      where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateSelective" parameterType="top.iotequ.attendance.specialshift.pojo.AdSpecialShift">
+    update ad_special_shift 
+      <set>
+        <if test="shiftMode != null"> shift_mode = #{shiftMode,jdbcType=INTEGER},</if>
+        <if test="name != null"> name = #{name,jdbcType=VARCHAR},</if>
+        <if test="modeProperty != null"> mode_property = #{modeProperty,jdbcType=INTEGER},</if>
+        <if test="startDate != null"> start_date = #{startDate,jdbcType=DATE},</if>
+        <if test="endDate != null"> end_date = #{endDate,jdbcType=DATE},</if>
+        <if test="orgCodes != null"> org_codes = #{orgCodes,jdbcType=VARCHAR},</if>
+        <if test="sexProperty != null"> sex_property = #{sexProperty,jdbcType=INTEGER},</if>
+        <if test="ageProperty0 != null"> age_property0 = #{ageProperty0,jdbcType=INTEGER},</if>
+        <if test="ageProperty1 != null"> age_property1 = #{ageProperty1,jdbcType=INTEGER},</if>
+        <if test="levelProperty0 != null"> level_property0 = #{levelProperty0,jdbcType=INTEGER},</if>
+        <if test="levelProperty1 != null"> level_property1 = #{levelProperty1,jdbcType=INTEGER},</if>
+        <if test="description != null"> description = #{description,jdbcType=VARCHAR},</if>
+      </set>
+      where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateBy" parameterType="top.iotequ.attendance.specialshift.pojo.AdSpecialShift">
+    update ad_special_shift set 
+      id = #{record.id,jdbcType=INTEGER},
+      shift_mode = #{record.shiftMode,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      mode_property = #{record.modeProperty,jdbcType=INTEGER},
+      start_date = #{record.startDate,jdbcType=DATE},
+      end_date = #{record.endDate,jdbcType=DATE},
+      org_codes = #{record.orgCodes,jdbcType=VARCHAR},
+      sex_property = #{record.sexProperty,jdbcType=INTEGER},
+      age_property0 = #{record.ageProperty0,jdbcType=INTEGER},
+      age_property1 = #{record.ageProperty1,jdbcType=INTEGER},
+      level_property0 = #{record.levelProperty0,jdbcType=INTEGER},
+      level_property1 = #{record.levelProperty1,jdbcType=INTEGER},
+      description = #{record.description,jdbcType=VARCHAR}
+      where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="list" parameterType="top.iotequ.attendance.specialshift.pojo.AdSpecialShift" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+     where 1=1 
+        <if test="id != null"> and id = #{id,jdbcType=INTEGER} </if>
+        <if test="shiftMode != null"> and shift_mode = #{shiftMode,jdbcType=INTEGER} </if>
+        <if test="name != null"> and name like #{name,jdbcType=VARCHAR} </if>
+        <if test="modeProperty != null"> and mode_property = #{modeProperty,jdbcType=INTEGER} </if>
+        <if test="startDate != null"> and start_date like #{startDate,jdbcType=DATE} </if>
+        <if test="endDate != null"> and end_date like #{endDate,jdbcType=DATE} </if>
+        <if test="orgCodes != null"> and org_codes like #{orgCodes,jdbcType=VARCHAR} </if>
+        <if test="sexProperty != null"> and sex_property = #{sexProperty,jdbcType=INTEGER} </if>
+        <if test="ageProperty0 != null"> and age_property0 = #{ageProperty0,jdbcType=INTEGER} </if>
+        <if test="ageProperty1 != null"> and age_property1 = #{ageProperty1,jdbcType=INTEGER} </if>
+        <if test="levelProperty0 != null"> and level_property0 = #{levelProperty0,jdbcType=INTEGER} </if>
+        <if test="levelProperty1 != null"> and level_property1 = #{levelProperty1,jdbcType=INTEGER} </if>
+        <if test="description != null"> and description like #{description,jdbcType=VARCHAR} </if>
+  </select>
+  <select id="listBy" parameterType="map" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+        <if test="whereString != null and whereString !=''"> where ${whereString} </if>
+        <if test="orderString != null and orderString!=''"> order by ${orderString} </if>
+  </select>
+  <select id="query" parameterType="map" resultMap="BaseResultMap">
+        ${sqlString}
+  </select>
+</mapper>

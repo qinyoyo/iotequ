@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.iotequ.ewallet.dao.EwBillDao">
+  <resultMap id="BaseResultMap" type="top.iotequ.ewallet.pojo.EwBill">
+    <id column="no" jdbcType="VARCHAR" property="no" />
+    <result column="canceled" jdbcType="TINYINT" property="canceled" />
+    <result column="is_charge" jdbcType="TINYINT" property="isCharge" />
+    <result column="user_no" jdbcType="VARCHAR" property="userNo" />
+    <result column="batch_no" jdbcType="VARCHAR" property="batchNo" />
+    <result column="dt" jdbcType="TIMESTAMP" property="dt" />
+    <result column="operation_type" jdbcType="INTEGER" property="operationType" />
+    <result column="cost_type" jdbcType="INTEGER" property="costType" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="project_price" jdbcType="INTEGER" property="projectPrice" />
+    <result column="amount" jdbcType="INTEGER" property="amount" />
+    <result column="amount_before" jdbcType="INTEGER" property="amountBefore" />
+    <result column="bonus" jdbcType="INTEGER" property="bonus" />
+    <result column="bonus_before" jdbcType="INTEGER" property="bonusBefore" />
+    <result column="device_no" jdbcType="VARCHAR" property="deviceNo" />
+    <result column="device_stream" jdbcType="VARCHAR" property="deviceStream" />
+    <result column="device_dt" jdbcType="TIMESTAMP" property="deviceDt" />
+    <result column="trade_no" jdbcType="VARCHAR" property="tradeNo" />
+    <result column="operator_no" jdbcType="VARCHAR" property="operatorNo" />
+    <result column="check_code" jdbcType="VARCHAR" property="checkCode" />
+    <result column="link_no" jdbcType="VARCHAR" property="linkNo" />
+    <result column="login_id" jdbcType="INTEGER" property="loginId" />
+    <result column="shop_id" jdbcType="VARCHAR" property="shopId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+  </resultMap>
+  <sql id = "selectSql">
+     SELECT ew_bill.no,ew_bill.canceled,ew_bill.is_charge,ew_bill.user_no,ew_bill.batch_no,ew_bill.dt,ew_bill.operation_type,ew_bill.cost_type,ew_bill.project_id,ew_bill.project_name,ew_bill.project_price,ew_bill.amount,ew_bill.amount_before,ew_bill.bonus,ew_bill.bonus_before,ew_bill.device_no,ew_bill.device_stream,ew_bill.device_dt,ew_bill.trade_no,ew_bill.operator_no,ew_bill.check_code,ew_bill.link_no,ew_bill.login_id,ew_bill.shop_id,pay_shop.name AS name FROM ew_bill LEFT JOIN pay_shop ON ew_bill.shop_id = pay_shop.id
+  </sql>
+  <insert id="insert" parameterType="top.iotequ.ewallet.pojo.EwBill">
+    insert into ew_bill (no,canceled,is_charge,user_no,batch_no,dt,operation_type,cost_type,project_id,project_name,project_price,amount,amount_before,bonus,bonus_before,device_no,device_stream,device_dt,trade_no,operator_no,check_code,link_no,login_id,shop_id)
+      values 
+      (#{no,jdbcType=VARCHAR},#{canceled,jdbcType=TINYINT},#{isCharge,jdbcType=TINYINT},#{userNo,jdbcType=VARCHAR},#{batchNo,jdbcType=VARCHAR},#{dt,jdbcType=TIMESTAMP},#{operationType,jdbcType=INTEGER},#{costType,jdbcType=INTEGER},#{projectId,jdbcType=INTEGER},#{projectName,jdbcType=VARCHAR},#{projectPrice,jdbcType=INTEGER},#{amount,jdbcType=INTEGER},#{amountBefore,jdbcType=INTEGER},#{bonus,jdbcType=INTEGER},#{bonusBefore,jdbcType=INTEGER},#{deviceNo,jdbcType=VARCHAR},#{deviceStream,jdbcType=VARCHAR},#{deviceDt,jdbcType=TIMESTAMP},#{tradeNo,jdbcType=VARCHAR},#{operatorNo,jdbcType=VARCHAR},#{checkCode,jdbcType=VARCHAR},#{linkNo,jdbcType=VARCHAR},#{loginId,jdbcType=INTEGER},#{shopId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.ewallet.pojo.EwBill">
+    insert into ew_bill (no,canceled,is_charge,user_no,batch_no,dt,operation_type,cost_type,project_id,project_name,project_price,amount,amount_before,bonus,bonus_before,device_no,device_stream,device_dt,trade_no,operator_no,check_code,link_no,login_id,shop_id)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.no,jdbcType=VARCHAR},#{item.canceled,jdbcType=TINYINT},#{item.isCharge,jdbcType=TINYINT},#{item.userNo,jdbcType=VARCHAR},#{item.batchNo,jdbcType=VARCHAR},#{item.dt,jdbcType=TIMESTAMP},#{item.operationType,jdbcType=INTEGER},#{item.costType,jdbcType=INTEGER},#{item.projectId,jdbcType=INTEGER},#{item.projectName,jdbcType=VARCHAR},#{item.projectPrice,jdbcType=INTEGER},#{item.amount,jdbcType=INTEGER},#{item.amountBefore,jdbcType=INTEGER},#{item.bonus,jdbcType=INTEGER},#{item.bonusBefore,jdbcType=INTEGER},#{item.deviceNo,jdbcType=VARCHAR},#{item.deviceStream,jdbcType=VARCHAR},#{item.deviceDt,jdbcType=TIMESTAMP},#{item.tradeNo,jdbcType=VARCHAR},#{item.operatorNo,jdbcType=VARCHAR},#{item.checkCode,jdbcType=VARCHAR},#{item.linkNo,jdbcType=VARCHAR},#{item.loginId,jdbcType=INTEGER},#{item.shopId,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.ewallet.pojo.EwBill" databaseId="Oracle">
+    insert all 
+    <foreach collection="list" item="item" index="index">
+      into ew_bill (no,canceled,is_charge,user_no,batch_no,dt,operation_type,cost_type,project_id,project_name,project_price,amount,amount_before,bonus,bonus_before,device_no,device_stream,device_dt,trade_no,operator_no,check_code,link_no,login_id,shop_id) values(#{item.no,jdbcType=VARCHAR},#{item.canceled,jdbcType=TINYINT},#{item.isCharge,jdbcType=TINYINT},#{item.userNo,jdbcType=VARCHAR},#{item.batchNo,jdbcType=VARCHAR},#{item.dt,jdbcType=TIMESTAMP},#{item.operationType,jdbcType=INTEGER},#{item.costType,jdbcType=INTEGER},#{item.projectId,jdbcType=INTEGER},#{item.projectName,jdbcType=VARCHAR},#{item.projectPrice,jdbcType=INTEGER},#{item.amount,jdbcType=INTEGER},#{item.amountBefore,jdbcType=INTEGER},#{item.bonus,jdbcType=INTEGER},#{item.bonusBefore,jdbcType=INTEGER},#{item.deviceNo,jdbcType=VARCHAR},#{item.deviceStream,jdbcType=VARCHAR},#{item.deviceDt,jdbcType=TIMESTAMP},#{item.tradeNo,jdbcType=VARCHAR},#{item.operatorNo,jdbcType=VARCHAR},#{item.checkCode,jdbcType=VARCHAR},#{item.linkNo,jdbcType=VARCHAR},#{item.loginId,jdbcType=INTEGER},#{item.shopId,jdbcType=VARCHAR})
+    </foreach>
+    select 1 from dual
+  </insert>
+  <select id="select" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where ew_bill.no = #{no,jdbcType=VARCHAR}
+  </select>
+  <delete id="delete" parameterType="java.lang.String">
+    delete from ew_bill where no = #{no,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteBatch" parameterType="java.lang.String">
+    delete from ew_bill where no in     <foreach item="item" index="index" collection="_parameter.split(',')" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+  <select id="selectByIsCharge" parameterType="java.lang.Boolean" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where ew_bill.is_charge = #{isCharge,jdbcType=TINYINT}
+  </select>
+  <delete id="deleteByIsCharge" parameterType="java.lang.Boolean">
+    delete from ew_bill where is_charge = #{isCharge,jdbcType=TINYINT}
+  </delete>
+  <delete id="deleteBatchByIsCharge" parameterType="java.lang.String">
+    delete from ew_bill where is_charge in (${_parameter})
+  </delete>
+  <select id="selectByUserNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where ew_bill.user_no = #{userNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByUserNo" parameterType="java.lang.String">
+    delete from ew_bill where user_no = #{userNo,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteBatchByUserNo" parameterType="java.lang.String">
+    delete from ew_bill where user_no in     <foreach item="item" index="index" collection="_parameter.split(',')" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+  <select id="selectByDt" parameterType="java.util.Date" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where ew_bill.dt = #{dt,jdbcType=TIMESTAMP}
+  </select>
+  <delete id="deleteByDt" parameterType="java.util.Date">
+    delete from ew_bill where dt = #{dt,jdbcType=TIMESTAMP}
+  </delete>
+  <delete id="deleteBatchByDt" parameterType="java.lang.String">
+    delete from ew_bill where dt in     <foreach item="item" index="index" collection="_parameter.split(',')" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+  <select id="selectByCostType" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where ew_bill.cost_type = #{costType,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByCostType" parameterType="java.lang.Integer">
+    delete from ew_bill where cost_type = #{costType,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteBatchByCostType" parameterType="java.lang.String">
+    delete from ew_bill where cost_type in (${_parameter})
+  </delete>
+  <select id="selectByProjectId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where ew_bill.project_id = #{projectId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByProjectId" parameterType="java.lang.Integer">
+    delete from ew_bill where project_id = #{projectId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteBatchByProjectId" parameterType="java.lang.String">
+    delete from ew_bill where project_id in (${_parameter})
+  </delete>
+  <select id="selectByTradeNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where ew_bill.trade_no = #{tradeNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByTradeNo" parameterType="java.lang.String">
+    delete from ew_bill where trade_no = #{tradeNo,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteBatchByTradeNo" parameterType="java.lang.String">
+    delete from ew_bill where trade_no in     <foreach item="item" index="index" collection="_parameter.split(',')" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+  <select id="selectByOperatorNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where ew_bill.operator_no = #{operatorNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByOperatorNo" parameterType="java.lang.String">
+    delete from ew_bill where operator_no = #{operatorNo,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteBatchByOperatorNo" parameterType="java.lang.String">
+    delete from ew_bill where operator_no in     <foreach item="item" index="index" collection="_parameter.split(',')" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+  <select id="selectByLoginId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where ew_bill.login_id = #{loginId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByLoginId" parameterType="java.lang.Integer">
+    delete from ew_bill where login_id = #{loginId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteBatchByLoginId" parameterType="java.lang.String">
+    delete from ew_bill where login_id in (${_parameter})
+  </delete>
+  <select id="selectByShopId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where ew_bill.shop_id = #{shopId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByShopId" parameterType="java.lang.String">
+    delete from ew_bill where shop_id = #{shopId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteBatchByShopId" parameterType="java.lang.String">
+    delete from ew_bill where shop_id in     <foreach item="item" index="index" collection="_parameter.split(',')" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+  <delete id="deleteList" parameterType="java.util.List">
+    delete from ew_bill where no in
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")"> 
+       #{item.no,jdbcType=VARCHAR}
+    </foreach>
+  </delete>
+  <update id="update" parameterType="top.iotequ.ewallet.pojo.EwBill">
+    update ew_bill set 
+      canceled = #{canceled,jdbcType=TINYINT},
+      is_charge = #{isCharge,jdbcType=TINYINT},
+      user_no = #{userNo,jdbcType=VARCHAR},
+      batch_no = #{batchNo,jdbcType=VARCHAR},
+      dt = #{dt,jdbcType=TIMESTAMP},
+      operation_type = #{operationType,jdbcType=INTEGER},
+      cost_type = #{costType,jdbcType=INTEGER},
+      project_id = #{projectId,jdbcType=INTEGER},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      project_price = #{projectPrice,jdbcType=INTEGER},
+      amount = #{amount,jdbcType=INTEGER},
+      amount_before = #{amountBefore,jdbcType=INTEGER},
+      bonus = #{bonus,jdbcType=INTEGER},
+      bonus_before = #{bonusBefore,jdbcType=INTEGER},
+      device_no = #{deviceNo,jdbcType=VARCHAR},
+      device_stream = #{deviceStream,jdbcType=VARCHAR},
+      device_dt = #{deviceDt,jdbcType=TIMESTAMP},
+      trade_no = #{tradeNo,jdbcType=VARCHAR},
+      operator_no = #{operatorNo,jdbcType=VARCHAR},
+      check_code = #{checkCode,jdbcType=VARCHAR},
+      link_no = #{linkNo,jdbcType=VARCHAR},
+      login_id = #{loginId,jdbcType=INTEGER},
+      shop_id = #{shopId,jdbcType=VARCHAR}
+      where no = #{no,jdbcType=VARCHAR}
+  </update>
+  <update id="updateSelective" parameterType="top.iotequ.ewallet.pojo.EwBill">
+    update ew_bill 
+      <set>
+        <if test="canceled != null"> canceled = #{canceled,jdbcType=TINYINT},</if>
+        <if test="isCharge != null"> is_charge = #{isCharge,jdbcType=TINYINT},</if>
+        <if test="userNo != null"> user_no = #{userNo,jdbcType=VARCHAR},</if>
+        <if test="batchNo != null"> batch_no = #{batchNo,jdbcType=VARCHAR},</if>
+        <if test="dt != null"> dt = #{dt,jdbcType=TIMESTAMP},</if>
+        <if test="operationType != null"> operation_type = #{operationType,jdbcType=INTEGER},</if>
+        <if test="costType != null"> cost_type = #{costType,jdbcType=INTEGER},</if>
+        <if test="projectId != null"> project_id = #{projectId,jdbcType=INTEGER},</if>
+        <if test="projectName != null"> project_name = #{projectName,jdbcType=VARCHAR},</if>
+        <if test="projectPrice != null"> project_price = #{projectPrice,jdbcType=INTEGER},</if>
+        <if test="amount != null"> amount = #{amount,jdbcType=INTEGER},</if>
+        <if test="amountBefore != null"> amount_before = #{amountBefore,jdbcType=INTEGER},</if>
+        <if test="bonus != null"> bonus = #{bonus,jdbcType=INTEGER},</if>
+        <if test="bonusBefore != null"> bonus_before = #{bonusBefore,jdbcType=INTEGER},</if>
+        <if test="deviceNo != null"> device_no = #{deviceNo,jdbcType=VARCHAR},</if>
+        <if test="deviceStream != null"> device_stream = #{deviceStream,jdbcType=VARCHAR},</if>
+        <if test="deviceDt != null"> device_dt = #{deviceDt,jdbcType=TIMESTAMP},</if>
+        <if test="tradeNo != null"> trade_no = #{tradeNo,jdbcType=VARCHAR},</if>
+        <if test="operatorNo != null"> operator_no = #{operatorNo,jdbcType=VARCHAR},</if>
+        <if test="checkCode != null"> check_code = #{checkCode,jdbcType=VARCHAR},</if>
+        <if test="linkNo != null"> link_no = #{linkNo,jdbcType=VARCHAR},</if>
+        <if test="loginId != null"> login_id = #{loginId,jdbcType=INTEGER},</if>
+        <if test="shopId != null"> shop_id = #{shopId,jdbcType=VARCHAR},</if>
+      </set>
+      where no = #{no,jdbcType=VARCHAR}
+  </update>
+  <update id="updateBy" parameterType="top.iotequ.ewallet.pojo.EwBill">
+    update ew_bill set 
+      no = #{record.no,jdbcType=VARCHAR},
+      canceled = #{record.canceled,jdbcType=TINYINT},
+      is_charge = #{record.isCharge,jdbcType=TINYINT},
+      user_no = #{record.userNo,jdbcType=VARCHAR},
+      batch_no = #{record.batchNo,jdbcType=VARCHAR},
+      dt = #{record.dt,jdbcType=TIMESTAMP},
+      operation_type = #{record.operationType,jdbcType=INTEGER},
+      cost_type = #{record.costType,jdbcType=INTEGER},
+      project_id = #{record.projectId,jdbcType=INTEGER},
+      project_name = #{record.projectName,jdbcType=VARCHAR},
+      project_price = #{record.projectPrice,jdbcType=INTEGER},
+      amount = #{record.amount,jdbcType=INTEGER},
+      amount_before = #{record.amountBefore,jdbcType=INTEGER},
+      bonus = #{record.bonus,jdbcType=INTEGER},
+      bonus_before = #{record.bonusBefore,jdbcType=INTEGER},
+      device_no = #{record.deviceNo,jdbcType=VARCHAR},
+      device_stream = #{record.deviceStream,jdbcType=VARCHAR},
+      device_dt = #{record.deviceDt,jdbcType=TIMESTAMP},
+      trade_no = #{record.tradeNo,jdbcType=VARCHAR},
+      operator_no = #{record.operatorNo,jdbcType=VARCHAR},
+      check_code = #{record.checkCode,jdbcType=VARCHAR},
+      link_no = #{record.linkNo,jdbcType=VARCHAR},
+      login_id = #{record.loginId,jdbcType=INTEGER},
+      shop_id = #{record.shopId,jdbcType=VARCHAR}
+      where no = #{no,jdbcType=VARCHAR}
+  </update>
+  <select id="list" parameterType="top.iotequ.ewallet.pojo.EwBill" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+     where 1=1 
+        <if test="no != null"> and ew_bill.no like #{no,jdbcType=VARCHAR} </if>
+        <if test="canceled != null"> and ew_bill.canceled = #{canceled,jdbcType=TINYINT} </if>
+        <if test="isCharge != null"> and ew_bill.is_charge = #{isCharge,jdbcType=TINYINT} </if>
+        <if test="userNo != null"> and ew_bill.user_no like #{userNo,jdbcType=VARCHAR} </if>
+        <if test="batchNo != null"> and ew_bill.batch_no like #{batchNo,jdbcType=VARCHAR} </if>
+        <if test="dt != null"> and ew_bill.dt like #{dt,jdbcType=TIMESTAMP} </if>
+        <if test="operationType != null"> and ew_bill.operation_type = #{operationType,jdbcType=INTEGER} </if>
+        <if test="costType != null"> and ew_bill.cost_type = #{costType,jdbcType=INTEGER} </if>
+        <if test="projectId != null"> and ew_bill.project_id = #{projectId,jdbcType=INTEGER} </if>
+        <if test="projectName != null"> and ew_bill.project_name like #{projectName,jdbcType=VARCHAR} </if>
+        <if test="projectPrice != null"> and ew_bill.project_price = #{projectPrice,jdbcType=INTEGER} </if>
+        <if test="amount != null"> and ew_bill.amount = #{amount,jdbcType=INTEGER} </if>
+        <if test="amountBefore != null"> and ew_bill.amount_before = #{amountBefore,jdbcType=INTEGER} </if>
+        <if test="bonus != null"> and ew_bill.bonus = #{bonus,jdbcType=INTEGER} </if>
+        <if test="bonusBefore != null"> and ew_bill.bonus_before = #{bonusBefore,jdbcType=INTEGER} </if>
+        <if test="deviceNo != null"> and ew_bill.device_no like #{deviceNo,jdbcType=VARCHAR} </if>
+        <if test="deviceStream != null"> and ew_bill.device_stream like #{deviceStream,jdbcType=VARCHAR} </if>
+        <if test="deviceDt != null"> and ew_bill.device_dt like #{deviceDt,jdbcType=TIMESTAMP} </if>
+        <if test="tradeNo != null"> and ew_bill.trade_no like #{tradeNo,jdbcType=VARCHAR} </if>
+        <if test="operatorNo != null"> and ew_bill.operator_no like #{operatorNo,jdbcType=VARCHAR} </if>
+        <if test="checkCode != null"> and ew_bill.check_code like #{checkCode,jdbcType=VARCHAR} </if>
+        <if test="linkNo != null"> and ew_bill.link_no like #{linkNo,jdbcType=VARCHAR} </if>
+        <if test="loginId != null"> and ew_bill.login_id = #{loginId,jdbcType=INTEGER} </if>
+        <if test="shopId != null"> and ew_bill.shop_id like #{shopId,jdbcType=VARCHAR} </if>
+        <if test="name != null"> and pay_shop.name like #{name,jdbcType=VARCHAR} </if>
+  </select>
+  <select id="listBy" parameterType="map" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+        <if test="whereString != null and whereString !=''"> where ${whereString} </if>
+        <if test="orderString != null and orderString!=''"> order by ${orderString} </if>
+  </select>
+  <select id="query" parameterType="map" resultMap="BaseResultMap">
+        ${sqlString}
+  </select>
+</mapper>

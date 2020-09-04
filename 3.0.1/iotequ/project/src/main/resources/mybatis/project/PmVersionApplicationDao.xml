@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.iotequ.project.version.dao.PmVersionApplicationDao">
+  <resultMap id="BaseResultMap" type="top.iotequ.project.version.pojo.PmVersionApplication">
+    <id column="id" jdbcType="CHAR" property="id" />
+    <result column="flow_state" jdbcType="INTEGER" property="flowState" />
+    <result column="flow_register_time" jdbcType="TIMESTAMP" property="flowRegisterTime" />
+    <result column="project" jdbcType="VARCHAR" property="project" />
+    <result column="application_type" jdbcType="INTEGER" property="applicationType" />
+    <result column="customer" jdbcType="VARCHAR" property="customer" />
+    <result column="licence" jdbcType="VARCHAR" property="licence" />
+    <result column="contract_no" jdbcType="VARCHAR" property="contractNo" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="version_info" jdbcType="VARCHAR" property="versionInfo" />
+    <result column="flow_note" jdbcType="VARCHAR" property="flowNote" />
+    <result column="add_file" jdbcType="VARCHAR" property="addFile" />
+    <result column="flow_copy_to_list" jdbcType="VARCHAR" property="flowCopyToList" />
+    <result column="dict_list_flow_copy_to_list" jdbcType="VARCHAR" property="dictListFlowCopyToList" />
+    <result column="flow_register_by" jdbcType="VARCHAR" property="flowRegisterBy" />
+    <result column="register_by_name" jdbcType="VARCHAR" property="registerByName" />
+    <result column="flow_next_operator" jdbcType="VARCHAR" property="flowNextOperator" />
+    <result column="next_operator_name" jdbcType="VARCHAR" property="nextOperatorName" />
+  </resultMap>
+  <sql id = "selectSql">
+     SELECT pm_version_application.id,pm_version_application.flow_state,pm_version_application.flow_register_time,pm_version_application.project,pm_version_application.application_type,pm_version_application.customer,pm_version_application.licence,pm_version_application.contract_no,pm_version_application.description,pm_version_application.version_info,pm_version_application.flow_note,pm_version_application.add_file,pm_version_application.flow_copy_to_list,
+      (select group_concat(real_name) from sys_user where FIND_IN_SET(id,pm_version_application.flow_copy_to_list)) AS dict_list_flow_copy_to_list
+      ,pm_version_application.flow_register_by,sys_user.real_name AS register_by_name,pm_version_application.flow_next_operator,sys_user1.real_name AS next_operator_name FROM pm_version_application LEFT JOIN sys_user ON pm_version_application.flow_register_by = sys_user.id LEFT JOIN sys_user sys_user1 ON pm_version_application.flow_next_operator = sys_user1.id
+  </sql>
+  <sql id = "selectSql" databaseId="SQLServer">
+     SELECT pm_version_application.id,pm_version_application.flow_state,pm_version_application.flow_register_time,pm_version_application.project,pm_version_application.application_type,pm_version_application.customer,pm_version_application.licence,pm_version_application.contract_no,pm_version_application.description,pm_version_application.version_info,pm_version_application.flow_note,pm_version_application.add_file,pm_version_application.flow_copy_to_list,
+      (select CAST(real_name as varchar)+',' from sys_user  where CHARINDEX(','+CAST(id as varchar)+',',','+pm_version_application.flow_copy_to_list+',') >0 for xml path('')) AS dict_list_flow_copy_to_list
+      ,pm_version_application.flow_register_by,sys_user.real_name AS register_by_name,pm_version_application.flow_next_operator,sys_user1.real_name AS next_operator_name FROM pm_version_application LEFT JOIN sys_user ON pm_version_application.flow_register_by = sys_user.id LEFT JOIN sys_user sys_user1 ON pm_version_application.flow_next_operator = sys_user1.id
+  </sql>
+  <sql id = "selectSql" databaseId="Oracle">
+     SELECT pm_version_application.id,pm_version_application.flow_state,pm_version_application.flow_register_time,pm_version_application.project,pm_version_application.application_type,pm_version_application.customer,pm_version_application.licence,pm_version_application.contract_no,pm_version_application.description,pm_version_application.version_info,pm_version_application.flow_note,pm_version_application.add_file,pm_version_application.flow_copy_to_list,
+      (select  LISTAGG(real_name,',') WITHIN GROUP(ORDER BY id) from sys_user where INSTR(','||pm_version_application.flow_copy_to_list||',',','||to_char(id)||',')>0) AS dict_list_flow_copy_to_list
+      ,pm_version_application.flow_register_by,sys_user.real_name AS register_by_name,pm_version_application.flow_next_operator,sys_user1.real_name AS next_operator_name FROM pm_version_application LEFT JOIN sys_user ON pm_version_application.flow_register_by = sys_user.id LEFT JOIN sys_user sys_user1 ON pm_version_application.flow_next_operator = sys_user1.id
+  </sql>
+  <insert id="insert" parameterType="top.iotequ.project.version.pojo.PmVersionApplication">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String" >
+      SELECT replace(uuid(), '-', '')
+    </selectKey>
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String" databaseId="SQLServer">
+      SELECT replace(lower(newid()), '-', '')
+    </selectKey>
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String" databaseId="Oracle">
+      SELECT replace(lower(sys_guid()), '-', '') from dual
+    </selectKey>
+    insert into pm_version_application (id,flow_state,flow_register_time,project,application_type,customer,licence,contract_no,description,version_info,flow_note,add_file,flow_copy_to_list,flow_register_by,flow_next_operator)
+      values 
+      (#{id,jdbcType=CHAR},#{flowState,jdbcType=INTEGER},#{flowRegisterTime,jdbcType=TIMESTAMP},#{project,jdbcType=VARCHAR},#{applicationType,jdbcType=INTEGER},#{customer,jdbcType=VARCHAR},#{licence,jdbcType=VARCHAR},#{contractNo,jdbcType=VARCHAR},#{description,jdbcType=VARCHAR},#{versionInfo,jdbcType=VARCHAR},#{flowNote,jdbcType=VARCHAR},#{addFile,jdbcType=VARCHAR},#{flowCopyToList,jdbcType=VARCHAR},#{flowRegisterBy,jdbcType=VARCHAR},#{flowNextOperator,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.project.version.pojo.PmVersionApplication">
+    insert into pm_version_application (id,flow_state,flow_register_time,project,application_type,customer,licence,contract_no,description,version_info,flow_note,add_file,flow_copy_to_list,flow_register_by,flow_next_operator)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (replace(uuid(), '-', ''),#{item.flowState,jdbcType=INTEGER},#{item.flowRegisterTime,jdbcType=TIMESTAMP},#{item.project,jdbcType=VARCHAR},#{item.applicationType,jdbcType=INTEGER},#{item.customer,jdbcType=VARCHAR},#{item.licence,jdbcType=VARCHAR},#{item.contractNo,jdbcType=VARCHAR},#{item.description,jdbcType=VARCHAR},#{item.versionInfo,jdbcType=VARCHAR},#{item.flowNote,jdbcType=VARCHAR},#{item.addFile,jdbcType=VARCHAR},#{item.flowCopyToList,jdbcType=VARCHAR},#{item.flowRegisterBy,jdbcType=VARCHAR},#{item.flowNextOperator,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.project.version.pojo.PmVersionApplication" databaseId="SQLServer">
+    insert into pm_version_application (id,flow_state,flow_register_time,project,application_type,customer,licence,contract_no,description,version_info,flow_note,add_file,flow_copy_to_list,flow_register_by,flow_next_operator)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (replace(lower(newid()), '-', ''),#{item.flowState,jdbcType=INTEGER},#{item.flowRegisterTime,jdbcType=TIMESTAMP},#{item.project,jdbcType=VARCHAR},#{item.applicationType,jdbcType=INTEGER},#{item.customer,jdbcType=VARCHAR},#{item.licence,jdbcType=VARCHAR},#{item.contractNo,jdbcType=VARCHAR},#{item.description,jdbcType=VARCHAR},#{item.versionInfo,jdbcType=VARCHAR},#{item.flowNote,jdbcType=VARCHAR},#{item.addFile,jdbcType=VARCHAR},#{item.flowCopyToList,jdbcType=VARCHAR},#{item.flowRegisterBy,jdbcType=VARCHAR},#{item.flowNextOperator,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.project.version.pojo.PmVersionApplication" databaseId="Oracle">
+    insert all 
+    <foreach collection="list" item="item" index="index">
+      into pm_version_application (id,flow_state,flow_register_time,project,application_type,customer,licence,contract_no,description,version_info,flow_note,add_file,flow_copy_to_list,flow_register_by,flow_next_operator) values(replace(lower(sys_guid()), '-', ''),#{item.flowState,jdbcType=INTEGER},#{item.flowRegisterTime,jdbcType=TIMESTAMP},#{item.project,jdbcType=VARCHAR},#{item.applicationType,jdbcType=INTEGER},#{item.customer,jdbcType=VARCHAR},#{item.licence,jdbcType=VARCHAR},#{item.contractNo,jdbcType=VARCHAR},#{item.description,jdbcType=VARCHAR},#{item.versionInfo,jdbcType=VARCHAR},#{item.flowNote,jdbcType=VARCHAR},#{item.addFile,jdbcType=VARCHAR},#{item.flowCopyToList,jdbcType=VARCHAR},#{item.flowRegisterBy,jdbcType=VARCHAR},#{item.flowNextOperator,jdbcType=VARCHAR})
+    </foreach>
+    select 1 from dual
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.project.version.pojo.PmVersionApplication">
+    insert into pm_version_application (id,flow_state,flow_register_time,project,application_type,customer,licence,contract_no,description,version_info,flow_note,add_file,flow_copy_to_list,flow_register_by,flow_next_operator)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=CHAR},#{item.flowState,jdbcType=INTEGER},#{item.flowRegisterTime,jdbcType=TIMESTAMP},#{item.project,jdbcType=VARCHAR},#{item.applicationType,jdbcType=INTEGER},#{item.customer,jdbcType=VARCHAR},#{item.licence,jdbcType=VARCHAR},#{item.contractNo,jdbcType=VARCHAR},#{item.description,jdbcType=VARCHAR},#{item.versionInfo,jdbcType=VARCHAR},#{item.flowNote,jdbcType=VARCHAR},#{item.addFile,jdbcType=VARCHAR},#{item.flowCopyToList,jdbcType=VARCHAR},#{item.flowRegisterBy,jdbcType=VARCHAR},#{item.flowNextOperator,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.project.version.pojo.PmVersionApplication" databaseId="Oracle">
+    insert all 
+    <foreach collection="list" item="item" index="index">
+      into pm_version_application (id,flow_state,flow_register_time,project,application_type,customer,licence,contract_no,description,version_info,flow_note,add_file,flow_copy_to_list,flow_register_by,flow_next_operator) values(#{item.id,jdbcType=CHAR},#{item.flowState,jdbcType=INTEGER},#{item.flowRegisterTime,jdbcType=TIMESTAMP},#{item.project,jdbcType=VARCHAR},#{item.applicationType,jdbcType=INTEGER},#{item.customer,jdbcType=VARCHAR},#{item.licence,jdbcType=VARCHAR},#{item.contractNo,jdbcType=VARCHAR},#{item.description,jdbcType=VARCHAR},#{item.versionInfo,jdbcType=VARCHAR},#{item.flowNote,jdbcType=VARCHAR},#{item.addFile,jdbcType=VARCHAR},#{item.flowCopyToList,jdbcType=VARCHAR},#{item.flowRegisterBy,jdbcType=VARCHAR},#{item.flowNextOperator,jdbcType=VARCHAR})
+    </foreach>
+    select 1 from dual
+  </insert>
+  <select id="select" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where pm_version_application.id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="delete" parameterType="java.lang.String">
+    delete from pm_version_application where id = #{id,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteBatch" parameterType="java.lang.String">
+    delete from pm_version_application where id in     <foreach item="item" index="index" collection="_parameter.split(',')" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+  <select id="selectByProject" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where pm_version_application.project = #{project,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByProject" parameterType="java.lang.String">
+    delete from pm_version_application where project = #{project,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteBatchByProject" parameterType="java.lang.String">
+    delete from pm_version_application where project in     <foreach item="item" index="index" collection="_parameter.split(',')" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+  <delete id="deleteList" parameterType="java.util.List">
+    delete from pm_version_application where id in
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")"> 
+       #{item.id,jdbcType=CHAR}
+    </foreach>
+  </delete>
+  <update id="update" parameterType="top.iotequ.project.version.pojo.PmVersionApplication">
+    update pm_version_application set 
+      flow_state = #{flowState,jdbcType=INTEGER},
+      flow_register_time = #{flowRegisterTime,jdbcType=TIMESTAMP},
+      project = #{project,jdbcType=VARCHAR},
+      application_type = #{applicationType,jdbcType=INTEGER},
+      customer = #{customer,jdbcType=VARCHAR},
+      licence = #{licence,jdbcType=VARCHAR},
+      contract_no = #{contractNo,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      version_info = #{versionInfo,jdbcType=VARCHAR},
+      flow_note = #{flowNote,jdbcType=VARCHAR},
+      add_file = #{addFile,jdbcType=VARCHAR},
+      flow_copy_to_list = #{flowCopyToList,jdbcType=VARCHAR},
+      flow_register_by = #{flowRegisterBy,jdbcType=VARCHAR},
+      flow_next_operator = #{flowNextOperator,jdbcType=VARCHAR}
+      where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateSelective" parameterType="top.iotequ.project.version.pojo.PmVersionApplication">
+    update pm_version_application 
+      <set>
+        <if test="flowState != null"> flow_state = #{flowState,jdbcType=INTEGER},</if>
+        <if test="flowRegisterTime != null"> flow_register_time = #{flowRegisterTime,jdbcType=TIMESTAMP},</if>
+        <if test="project != null"> project = #{project,jdbcType=VARCHAR},</if>
+        <if test="applicationType != null"> application_type = #{applicationType,jdbcType=INTEGER},</if>
+        <if test="customer != null"> customer = #{customer,jdbcType=VARCHAR},</if>
+        <if test="licence != null"> licence = #{licence,jdbcType=VARCHAR},</if>
+        <if test="contractNo != null"> contract_no = #{contractNo,jdbcType=VARCHAR},</if>
+        <if test="description != null"> description = #{description,jdbcType=VARCHAR},</if>
+        <if test="versionInfo != null"> version_info = #{versionInfo,jdbcType=VARCHAR},</if>
+        <if test="flowNote != null"> flow_note = #{flowNote,jdbcType=VARCHAR},</if>
+        <if test="addFile != null"> add_file = #{addFile,jdbcType=VARCHAR},</if>
+        <if test="flowCopyToList != null"> flow_copy_to_list = #{flowCopyToList,jdbcType=VARCHAR},</if>
+        <if test="flowRegisterBy != null"> flow_register_by = #{flowRegisterBy,jdbcType=VARCHAR},</if>
+        <if test="flowNextOperator != null"> flow_next_operator = #{flowNextOperator,jdbcType=VARCHAR},</if>
+      </set>
+      where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateBy" parameterType="top.iotequ.project.version.pojo.PmVersionApplication">
+    update pm_version_application set 
+      id = #{record.id,jdbcType=CHAR},
+      flow_state = #{record.flowState,jdbcType=INTEGER},
+      flow_register_time = #{record.flowRegisterTime,jdbcType=TIMESTAMP},
+      project = #{record.project,jdbcType=VARCHAR},
+      application_type = #{record.applicationType,jdbcType=INTEGER},
+      customer = #{record.customer,jdbcType=VARCHAR},
+      licence = #{record.licence,jdbcType=VARCHAR},
+      contract_no = #{record.contractNo,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      version_info = #{record.versionInfo,jdbcType=VARCHAR},
+      flow_note = #{record.flowNote,jdbcType=VARCHAR},
+      add_file = #{record.addFile,jdbcType=VARCHAR},
+      flow_copy_to_list = #{record.flowCopyToList,jdbcType=VARCHAR},
+      flow_register_by = #{record.flowRegisterBy,jdbcType=VARCHAR},
+      flow_next_operator = #{record.flowNextOperator,jdbcType=VARCHAR}
+      where id = #{id,jdbcType=CHAR}
+  </update>
+  <select id="list" parameterType="top.iotequ.project.version.pojo.PmVersionApplication" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+     where 1=1 
+        <if test="id != null"> and pm_version_application.id like #{id,jdbcType=CHAR} </if>
+        <if test="flowState != null"> and pm_version_application.flow_state = #{flowState,jdbcType=INTEGER} </if>
+        <if test="flowRegisterTime != null"> and pm_version_application.flow_register_time like #{flowRegisterTime,jdbcType=TIMESTAMP} </if>
+        <if test="project != null"> and pm_version_application.project like #{project,jdbcType=VARCHAR} </if>
+        <if test="applicationType != null"> and pm_version_application.application_type = #{applicationType,jdbcType=INTEGER} </if>
+        <if test="customer != null"> and pm_version_application.customer like #{customer,jdbcType=VARCHAR} </if>
+        <if test="licence != null"> and pm_version_application.licence like #{licence,jdbcType=VARCHAR} </if>
+        <if test="contractNo != null"> and pm_version_application.contract_no like #{contractNo,jdbcType=VARCHAR} </if>
+        <if test="description != null"> and pm_version_application.description like #{description,jdbcType=VARCHAR} </if>
+        <if test="versionInfo != null"> and pm_version_application.version_info like #{versionInfo,jdbcType=VARCHAR} </if>
+        <if test="flowNote != null"> and pm_version_application.flow_note like #{flowNote,jdbcType=VARCHAR} </if>
+        <if test="addFile != null"> and pm_version_application.add_file like #{addFile,jdbcType=VARCHAR} </if>
+        <if test="flowCopyToList != null"> and pm_version_application.flow_copy_to_list like #{flowCopyToList,jdbcType=VARCHAR} </if>
+        <if test="flowRegisterBy != null"> and pm_version_application.flow_register_by like #{flowRegisterBy,jdbcType=VARCHAR} </if>
+        <if test="registerByName != null"> and sys_user.real_name like #{registerByName,jdbcType=VARCHAR} </if>
+        <if test="flowNextOperator != null"> and pm_version_application.flow_next_operator like #{flowNextOperator,jdbcType=VARCHAR} </if>
+        <if test="nextOperatorName != null"> and sys_user1.real_name like #{nextOperatorName,jdbcType=VARCHAR} </if>
+  </select>
+  <select id="listBy" parameterType="map" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+        <if test="whereString != null and whereString !=''"> where ${whereString} </if>
+        <if test="orderString != null and orderString!=''"> order by ${orderString} </if>
+  </select>
+  <select id="query" parameterType="map" resultMap="BaseResultMap">
+        ${sqlString}
+  </select>
+</mapper>

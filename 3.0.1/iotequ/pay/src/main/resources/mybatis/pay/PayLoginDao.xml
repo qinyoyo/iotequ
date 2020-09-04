@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.iotequ.pay.dao.PayLoginDao">
+  <resultMap id="BaseResultMap" type="top.iotequ.pay.pojo.PayLogin">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="pos_id" jdbcType="INTEGER" property="posId" />
+    <result column="shop_id" jdbcType="INTEGER" property="shopId" />
+    <result column="batch_no" jdbcType="VARCHAR" property="batchNo" />
+    <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
+    <result column="logout_time" jdbcType="TIMESTAMP" property="logoutTime" />
+    <result column="device_stream" jdbcType="VARCHAR" property="deviceStream" />
+    <result column="random_no" jdbcType="VARCHAR" property="randomNo" />
+    <result column="app_version" jdbcType="VARCHAR" property="appVersion" />
+    <result column="trade_count" jdbcType="INTEGER" property="tradeCount" />
+    <result column="failure_count" jdbcType="INTEGER" property="failureCount" />
+    <result column="operator_id" jdbcType="INTEGER" property="operatorId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+  </resultMap>
+  <sql id = "selectSql">
+     SELECT pay_login.id,pay_login.pos_id,pay_login.shop_id,pay_login.batch_no,pay_login.login_time,pay_login.logout_time,pay_login.device_stream,pay_login.random_no,pay_login.app_version,pay_login.trade_count,pay_login.failure_count,pay_login.operator_id,pay_operator.name AS name FROM pay_login LEFT JOIN pay_operator ON pay_login.operator_id = pay_operator.id
+  </sql>
+  <insert id="insert" parameterType="top.iotequ.pay.pojo.PayLogin">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer" databaseId="SQLServer">
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into pay_login (pos_id,shop_id,batch_no,login_time,logout_time,device_stream,random_no,app_version,trade_count,failure_count,operator_id)
+      values 
+      (#{posId,jdbcType=INTEGER},#{shopId,jdbcType=INTEGER},#{batchNo,jdbcType=VARCHAR},#{loginTime,jdbcType=TIMESTAMP},#{logoutTime,jdbcType=TIMESTAMP},#{deviceStream,jdbcType=VARCHAR},#{randomNo,jdbcType=VARCHAR},#{appVersion,jdbcType=VARCHAR},#{tradeCount,jdbcType=INTEGER},#{failureCount,jdbcType=INTEGER},#{operatorId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insert" parameterType="top.iotequ.pay.pojo.PayLogin" databaseId="Oracle">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer" >
+      SELECT SEQUENCE_PAY_LOGIN.nextval from DUAL
+    </selectKey>
+    insert into pay_login (id,pos_id,shop_id,batch_no,login_time,logout_time,device_stream,random_no,app_version,trade_count,failure_count,operator_id)
+      values 
+      (#{id,jdbcType=INTEGER},#{posId,jdbcType=INTEGER},#{shopId,jdbcType=INTEGER},#{batchNo,jdbcType=VARCHAR},#{loginTime,jdbcType=TIMESTAMP},#{logoutTime,jdbcType=TIMESTAMP},#{deviceStream,jdbcType=VARCHAR},#{randomNo,jdbcType=VARCHAR},#{appVersion,jdbcType=VARCHAR},#{tradeCount,jdbcType=INTEGER},#{failureCount,jdbcType=INTEGER},#{operatorId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.pay.pojo.PayLogin">
+    insert into pay_login (pos_id,shop_id,batch_no,login_time,logout_time,device_stream,random_no,app_version,trade_count,failure_count,operator_id)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.posId,jdbcType=INTEGER},#{item.shopId,jdbcType=INTEGER},#{item.batchNo,jdbcType=VARCHAR},#{item.loginTime,jdbcType=TIMESTAMP},#{item.logoutTime,jdbcType=TIMESTAMP},#{item.deviceStream,jdbcType=VARCHAR},#{item.randomNo,jdbcType=VARCHAR},#{item.appVersion,jdbcType=VARCHAR},#{item.tradeCount,jdbcType=INTEGER},#{item.failureCount,jdbcType=INTEGER},#{item.operatorId,jdbcType=INTEGER})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.pay.pojo.PayLogin" databaseId="Oracle">
+     insert into pay_login (id,pos_id,shop_id,batch_no,login_time,logout_time,device_stream,random_no,app_version,trade_count,failure_count,operator_id)
+       select SEQUENCE_PAY_LOGIN.nextval,cd.* from(
+          <foreach collection="list" item="item" index="index" separator="union all">
+             select #{item.posId,jdbcType=INTEGER},#{item.shopId,jdbcType=INTEGER},#{item.batchNo,jdbcType=VARCHAR},#{item.loginTime,jdbcType=TIMESTAMP},#{item.logoutTime,jdbcType=TIMESTAMP},#{item.deviceStream,jdbcType=VARCHAR},#{item.randomNo,jdbcType=VARCHAR},#{item.appVersion,jdbcType=VARCHAR},#{item.tradeCount,jdbcType=INTEGER},#{item.failureCount,jdbcType=INTEGER},#{item.operatorId,jdbcType=INTEGER} from dual
+          </foreach>
+       ) cd
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.pay.pojo.PayLogin">
+    insert into pay_login (id,pos_id,shop_id,batch_no,login_time,logout_time,device_stream,random_no,app_version,trade_count,failure_count,operator_id)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=INTEGER},#{item.posId,jdbcType=INTEGER},#{item.shopId,jdbcType=INTEGER},#{item.batchNo,jdbcType=VARCHAR},#{item.loginTime,jdbcType=TIMESTAMP},#{item.logoutTime,jdbcType=TIMESTAMP},#{item.deviceStream,jdbcType=VARCHAR},#{item.randomNo,jdbcType=VARCHAR},#{item.appVersion,jdbcType=VARCHAR},#{item.tradeCount,jdbcType=INTEGER},#{item.failureCount,jdbcType=INTEGER},#{item.operatorId,jdbcType=INTEGER})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.pay.pojo.PayLogin" databaseId="SQLServer">
+    set IDENTITY_INSERT pay_login ON 
+    insert into pay_login (id,pos_id,shop_id,batch_no,login_time,logout_time,device_stream,random_no,app_version,trade_count,failure_count,operator_id)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=INTEGER},#{item.posId,jdbcType=INTEGER},#{item.shopId,jdbcType=INTEGER},#{item.batchNo,jdbcType=VARCHAR},#{item.loginTime,jdbcType=TIMESTAMP},#{item.logoutTime,jdbcType=TIMESTAMP},#{item.deviceStream,jdbcType=VARCHAR},#{item.randomNo,jdbcType=VARCHAR},#{item.appVersion,jdbcType=VARCHAR},#{item.tradeCount,jdbcType=INTEGER},#{item.failureCount,jdbcType=INTEGER},#{item.operatorId,jdbcType=INTEGER})
+    </foreach>
+    set IDENTITY_INSERT pay_login OFF 
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.pay.pojo.PayLogin" databaseId="Oracle">
+    insert all 
+    <foreach collection="list" item="item" index="index">
+      into pay_login (id,pos_id,shop_id,batch_no,login_time,logout_time,device_stream,random_no,app_version,trade_count,failure_count,operator_id) values(#{item.id,jdbcType=INTEGER},#{item.posId,jdbcType=INTEGER},#{item.shopId,jdbcType=INTEGER},#{item.batchNo,jdbcType=VARCHAR},#{item.loginTime,jdbcType=TIMESTAMP},#{item.logoutTime,jdbcType=TIMESTAMP},#{item.deviceStream,jdbcType=VARCHAR},#{item.randomNo,jdbcType=VARCHAR},#{item.appVersion,jdbcType=VARCHAR},#{item.tradeCount,jdbcType=INTEGER},#{item.failureCount,jdbcType=INTEGER},#{item.operatorId,jdbcType=INTEGER})
+    </foreach>
+    select 1 from dual
+  </insert>
+  <select id="select" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where pay_login.id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from pay_login where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteBatch" parameterType="java.lang.String">
+    delete from pay_login where id in (${_parameter})
+  </delete>
+  <delete id="deleteList" parameterType="java.util.List">
+    delete from pay_login where id in
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")"> 
+       #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </delete>
+  <update id="update" parameterType="top.iotequ.pay.pojo.PayLogin">
+    update pay_login set 
+      pos_id = #{posId,jdbcType=INTEGER},
+      shop_id = #{shopId,jdbcType=INTEGER},
+      batch_no = #{batchNo,jdbcType=VARCHAR},
+      login_time = #{loginTime,jdbcType=TIMESTAMP},
+      logout_time = #{logoutTime,jdbcType=TIMESTAMP},
+      device_stream = #{deviceStream,jdbcType=VARCHAR},
+      random_no = #{randomNo,jdbcType=VARCHAR},
+      app_version = #{appVersion,jdbcType=VARCHAR},
+      trade_count = #{tradeCount,jdbcType=INTEGER},
+      failure_count = #{failureCount,jdbcType=INTEGER},
+      operator_id = #{operatorId,jdbcType=INTEGER}
+      where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateSelective" parameterType="top.iotequ.pay.pojo.PayLogin">
+    update pay_login 
+      <set>
+        <if test="posId != null"> pos_id = #{posId,jdbcType=INTEGER},</if>
+        <if test="shopId != null"> shop_id = #{shopId,jdbcType=INTEGER},</if>
+        <if test="batchNo != null"> batch_no = #{batchNo,jdbcType=VARCHAR},</if>
+        <if test="loginTime != null"> login_time = #{loginTime,jdbcType=TIMESTAMP},</if>
+        <if test="logoutTime != null"> logout_time = #{logoutTime,jdbcType=TIMESTAMP},</if>
+        <if test="deviceStream != null"> device_stream = #{deviceStream,jdbcType=VARCHAR},</if>
+        <if test="randomNo != null"> random_no = #{randomNo,jdbcType=VARCHAR},</if>
+        <if test="appVersion != null"> app_version = #{appVersion,jdbcType=VARCHAR},</if>
+        <if test="tradeCount != null"> trade_count = #{tradeCount,jdbcType=INTEGER},</if>
+        <if test="failureCount != null"> failure_count = #{failureCount,jdbcType=INTEGER},</if>
+        <if test="operatorId != null"> operator_id = #{operatorId,jdbcType=INTEGER},</if>
+      </set>
+      where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateBy" parameterType="top.iotequ.pay.pojo.PayLogin">
+    update pay_login set 
+      id = #{record.id,jdbcType=INTEGER},
+      pos_id = #{record.posId,jdbcType=INTEGER},
+      shop_id = #{record.shopId,jdbcType=INTEGER},
+      batch_no = #{record.batchNo,jdbcType=VARCHAR},
+      login_time = #{record.loginTime,jdbcType=TIMESTAMP},
+      logout_time = #{record.logoutTime,jdbcType=TIMESTAMP},
+      device_stream = #{record.deviceStream,jdbcType=VARCHAR},
+      random_no = #{record.randomNo,jdbcType=VARCHAR},
+      app_version = #{record.appVersion,jdbcType=VARCHAR},
+      trade_count = #{record.tradeCount,jdbcType=INTEGER},
+      failure_count = #{record.failureCount,jdbcType=INTEGER},
+      operator_id = #{record.operatorId,jdbcType=INTEGER}
+      where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="list" parameterType="top.iotequ.pay.pojo.PayLogin" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+     where 1=1 
+        <if test="id != null"> and pay_login.id = #{id,jdbcType=INTEGER} </if>
+        <if test="posId != null"> and pay_login.pos_id = #{posId,jdbcType=INTEGER} </if>
+        <if test="shopId != null"> and pay_login.shop_id = #{shopId,jdbcType=INTEGER} </if>
+        <if test="batchNo != null"> and pay_login.batch_no like #{batchNo,jdbcType=VARCHAR} </if>
+        <if test="loginTime != null"> and pay_login.login_time like #{loginTime,jdbcType=TIMESTAMP} </if>
+        <if test="logoutTime != null"> and pay_login.logout_time like #{logoutTime,jdbcType=TIMESTAMP} </if>
+        <if test="deviceStream != null"> and pay_login.device_stream like #{deviceStream,jdbcType=VARCHAR} </if>
+        <if test="randomNo != null"> and pay_login.random_no like #{randomNo,jdbcType=VARCHAR} </if>
+        <if test="appVersion != null"> and pay_login.app_version like #{appVersion,jdbcType=VARCHAR} </if>
+        <if test="tradeCount != null"> and pay_login.trade_count = #{tradeCount,jdbcType=INTEGER} </if>
+        <if test="failureCount != null"> and pay_login.failure_count = #{failureCount,jdbcType=INTEGER} </if>
+        <if test="operatorId != null"> and pay_login.operator_id = #{operatorId,jdbcType=INTEGER} </if>
+        <if test="name != null"> and pay_operator.name like #{name,jdbcType=VARCHAR} </if>
+  </select>
+  <select id="listBy" parameterType="map" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+        <if test="whereString != null and whereString !=''"> where ${whereString} </if>
+        <if test="orderString != null and orderString!=''"> order by ${orderString} </if>
+  </select>
+  <select id="query" parameterType="map" resultMap="BaseResultMap">
+        ${sqlString}
+  </select>
+</mapper>

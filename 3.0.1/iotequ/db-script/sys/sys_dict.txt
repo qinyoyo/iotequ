@@ -1,0 +1,70 @@
+
+表：sys_user : 用户
+id	uuid主键	varchar(32)	✘	
+icon	头像	text	√	
+name	用户名	varchar(32)	✘	
+real_name	真实名	varchar(32)	✘	
+sex	性别	varchar(1)	√	
+birth_date	生日	date	√	
+reg_time	注册时间	datetime	√	
+mobile_phone	手机号码	varchar(32)	√	
+email	邮箱	varchar(50)	√	
+wechat_openid	微信	varchar(50)	√	
+org_code	部门	int(11)	√	
+employee_no	工号	varchar(32)	√	
+org_privilege	数据权限部门	int(11)	√	
+role_list	角色序列	varchar(200)	√	
+locked	被锁定	tinyint(1)	✘	
+state	激活	tinyint(1)	✘	
+id_type	证件类型	int(11)	✘	
+id_number	证件号码	varchar(45)	✘	
+expired_time	账号过期时间	date	√	
+password_expired_time	密码过期时间	date	√	
+password	密码	varchar(32)	✘	
+password_error_times		int(11)	✘	
+
+表：sys_user : 用户
+id	uuid主键	varchar(32)	✘	
+name	用户名	varchar(32)	✘	
+real_name	真实名	varchar(32)	✘	
+birth_date	生日	date	√	
+org_code	部门	int(11)	√	
+employee_no	工号	varchar(32)	√	
+mobile_phone	手机号码	varchar(32)	√	
+sex	性别	varchar(1)	√	
+locked	被锁定	tinyint(1)	✘	
+state	激活	tinyint(1)	✘	
+id_type	证件类型	int(11)	✘	
+id_number	证件号码	varchar(45)	✘	
+email	邮箱	varchar(50)	√	
+reg_time	注册时间	datetime	√	
+role_list	角色序列	varchar(200)	√	
+org_privilege	数据权限部门	int(11)	√	
+expired_time	账号过期时间	date	√	
+password_expired_time	密码过期时间	date	√	
+icon	头像	text	√	
+password	密码	varchar(32)	✘	
+wechat_openid	微信openId	varchar(50)	√	
+password_error_times		int(11)	✘	
+
+表：sys_task : 调度任务
+id		int(11)	✘	
+name	任务名	varchar(45)	✘	
+description	详细说明	varchar(300)	√	
+scedule_years	调度年	varchar(100)	✘	
+schedule_months	调度月	varchar(100)	✘	
+schedule_days	调度日	varchar(100)	✘	
+schedule_weeks	调度星期	varchar(100)	✘	
+schedule_hours	调度时	varchar(100)	✘	
+schedule_minutes	调度分	varchar(100)	✘	
+class_name	类名	varchar(100)	✘	
+mothod_name	方法	varchar(500)	✘	
+is_static	静态方法	tinyint(1)	✘	
+parames	参数	varchar(100)	√	
+is_running	运行中	tinyint(1)	✘	
+
+表：sys_role : 角色
+id		int(11)	✘	
+code	代码	varchar(8)	✘	
+name	名称	varchar(45)	✘	
+note	说明	varchar(64)	√	

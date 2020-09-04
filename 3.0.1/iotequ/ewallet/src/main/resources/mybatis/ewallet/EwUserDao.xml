@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.iotequ.ewallet.dao.EwUserDao">
+  <resultMap id="BaseResultMap" type="top.iotequ.ewallet.pojo.EwUser">
+    <id column="user_no" jdbcType="VARCHAR" property="userNo" />
+    <result column="is_active" jdbcType="TINYINT" property="isActive" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="gender" jdbcType="INTEGER" property="gender" />
+    <result column="id_type" jdbcType="INTEGER" property="idType" />
+    <result column="id_no" jdbcType="VARCHAR" property="idNo" />
+    <result column="mobile_phone" jdbcType="VARCHAR" property="mobilePhone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="wechat_openid" jdbcType="VARCHAR" property="wechatOpenid" />
+    <result column="birth_date" jdbcType="DATE" property="birthDate" />
+    <result column="member_group" jdbcType="VARCHAR" property="memberGroup" />
+    <result column="bonus_point" jdbcType="INTEGER" property="bonusPoint" />
+    <result column="amount_money" jdbcType="INTEGER" property="amountMoney" />
+    <result column="cost_limit" jdbcType="INTEGER" property="costLimit" />
+    <result column="day_limit" jdbcType="INTEGER" property="dayLimit" />
+    <result column="active_since" jdbcType="TIMESTAMP" property="activeSince" />
+    <result column="expire_at" jdbcType="TIMESTAMP" property="expireAt" />
+    <result column="check_code" jdbcType="VARCHAR" property="checkCode" />
+  </resultMap>
+  <sql id = "selectSql">
+     SELECT user_no,is_active,name,gender,id_type,id_no,mobile_phone,email,wechat_openid,birth_date,member_group,bonus_point,amount_money,cost_limit,day_limit,active_since,expire_at,check_code FROM ew_user
+  </sql>
+  <insert id="insert" parameterType="top.iotequ.ewallet.pojo.EwUser">
+    insert into ew_user (user_no,is_active,name,gender,id_type,id_no,mobile_phone,email,wechat_openid,birth_date,member_group,bonus_point,amount_money,cost_limit,day_limit,active_since,expire_at,check_code)
+      values 
+      (#{userNo,jdbcType=VARCHAR},#{isActive,jdbcType=TINYINT},#{name,jdbcType=VARCHAR},#{gender,jdbcType=INTEGER},#{idType,jdbcType=INTEGER},#{idNo,jdbcType=VARCHAR},#{mobilePhone,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR},#{wechatOpenid,jdbcType=VARCHAR},#{birthDate,jdbcType=DATE},#{memberGroup,jdbcType=VARCHAR},#{bonusPoint,jdbcType=INTEGER},#{amountMoney,jdbcType=INTEGER},#{costLimit,jdbcType=INTEGER},#{dayLimit,jdbcType=INTEGER},#{activeSince,jdbcType=TIMESTAMP},#{expireAt,jdbcType=TIMESTAMP},#{checkCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.ewallet.pojo.EwUser">
+    insert into ew_user (user_no,is_active,name,gender,id_type,id_no,mobile_phone,email,wechat_openid,birth_date,member_group,bonus_point,amount_money,cost_limit,day_limit,active_since,expire_at,check_code)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.userNo,jdbcType=VARCHAR},#{item.isActive,jdbcType=TINYINT},#{item.name,jdbcType=VARCHAR},#{item.gender,jdbcType=INTEGER},#{item.idType,jdbcType=INTEGER},#{item.idNo,jdbcType=VARCHAR},#{item.mobilePhone,jdbcType=VARCHAR},#{item.email,jdbcType=VARCHAR},#{item.wechatOpenid,jdbcType=VARCHAR},#{item.birthDate,jdbcType=DATE},#{item.memberGroup,jdbcType=VARCHAR},#{item.bonusPoint,jdbcType=INTEGER},#{item.amountMoney,jdbcType=INTEGER},#{item.costLimit,jdbcType=INTEGER},#{item.dayLimit,jdbcType=INTEGER},#{item.activeSince,jdbcType=TIMESTAMP},#{item.expireAt,jdbcType=TIMESTAMP},#{item.checkCode,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.ewallet.pojo.EwUser" databaseId="Oracle">
+    insert all 
+    <foreach collection="list" item="item" index="index">
+      into ew_user (user_no,is_active,name,gender,id_type,id_no,mobile_phone,email,wechat_openid,birth_date,member_group,bonus_point,amount_money,cost_limit,day_limit,active_since,expire_at,check_code) values(#{item.userNo,jdbcType=VARCHAR},#{item.isActive,jdbcType=TINYINT},#{item.name,jdbcType=VARCHAR},#{item.gender,jdbcType=INTEGER},#{item.idType,jdbcType=INTEGER},#{item.idNo,jdbcType=VARCHAR},#{item.mobilePhone,jdbcType=VARCHAR},#{item.email,jdbcType=VARCHAR},#{item.wechatOpenid,jdbcType=VARCHAR},#{item.birthDate,jdbcType=DATE},#{item.memberGroup,jdbcType=VARCHAR},#{item.bonusPoint,jdbcType=INTEGER},#{item.amountMoney,jdbcType=INTEGER},#{item.costLimit,jdbcType=INTEGER},#{item.dayLimit,jdbcType=INTEGER},#{item.activeSince,jdbcType=TIMESTAMP},#{item.expireAt,jdbcType=TIMESTAMP},#{item.checkCode,jdbcType=VARCHAR})
+    </foreach>
+    select 1 from dual
+  </insert>
+  <select id="select" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where user_no = #{userNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="delete" parameterType="java.lang.String">
+    delete from ew_user where user_no = #{userNo,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteBatch" parameterType="java.lang.String">
+    delete from ew_user where user_no in     <foreach item="item" index="index" collection="_parameter.split(',')" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+  <select id="selectByMobilePhone" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where mobile_phone = #{mobilePhone,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByMobilePhone" parameterType="java.lang.String">
+    delete from ew_user where mobile_phone = #{mobilePhone,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteBatchByMobilePhone" parameterType="java.lang.String">
+    delete from ew_user where mobile_phone in     <foreach item="item" index="index" collection="_parameter.split(',')" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+  <select id="selectByEmail" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where email = #{email,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByEmail" parameterType="java.lang.String">
+    delete from ew_user where email = #{email,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteBatchByEmail" parameterType="java.lang.String">
+    delete from ew_user where email in     <foreach item="item" index="index" collection="_parameter.split(',')" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+  <select id="selectByWechatOpenid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where wechat_openid = #{wechatOpenid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByWechatOpenid" parameterType="java.lang.String">
+    delete from ew_user where wechat_openid = #{wechatOpenid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteBatchByWechatOpenid" parameterType="java.lang.String">
+    delete from ew_user where wechat_openid in     <foreach item="item" index="index" collection="_parameter.split(',')" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+  <delete id="deleteList" parameterType="java.util.List">
+    delete from ew_user where user_no in
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")"> 
+       #{item.userNo,jdbcType=VARCHAR}
+    </foreach>
+  </delete>
+  <update id="update" parameterType="top.iotequ.ewallet.pojo.EwUser">
+    update ew_user set 
+      is_active = #{isActive,jdbcType=TINYINT},
+      name = #{name,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=INTEGER},
+      id_type = #{idType,jdbcType=INTEGER},
+      id_no = #{idNo,jdbcType=VARCHAR},
+      mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      wechat_openid = #{wechatOpenid,jdbcType=VARCHAR},
+      birth_date = #{birthDate,jdbcType=DATE},
+      member_group = #{memberGroup,jdbcType=VARCHAR},
+      bonus_point = #{bonusPoint,jdbcType=INTEGER},
+      amount_money = #{amountMoney,jdbcType=INTEGER},
+      cost_limit = #{costLimit,jdbcType=INTEGER},
+      day_limit = #{dayLimit,jdbcType=INTEGER},
+      active_since = #{activeSince,jdbcType=TIMESTAMP},
+      expire_at = #{expireAt,jdbcType=TIMESTAMP},
+      check_code = #{checkCode,jdbcType=VARCHAR}
+      where user_no = #{userNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateSelective" parameterType="top.iotequ.ewallet.pojo.EwUser">
+    update ew_user 
+      <set>
+        <if test="isActive != null"> is_active = #{isActive,jdbcType=TINYINT},</if>
+        <if test="name != null"> name = #{name,jdbcType=VARCHAR},</if>
+        <if test="gender != null"> gender = #{gender,jdbcType=INTEGER},</if>
+        <if test="idType != null"> id_type = #{idType,jdbcType=INTEGER},</if>
+        <if test="idNo != null"> id_no = #{idNo,jdbcType=VARCHAR},</if>
+        <if test="mobilePhone != null"> mobile_phone = #{mobilePhone,jdbcType=VARCHAR},</if>
+        <if test="email != null"> email = #{email,jdbcType=VARCHAR},</if>
+        <if test="wechatOpenid != null"> wechat_openid = #{wechatOpenid,jdbcType=VARCHAR},</if>
+        <if test="birthDate != null"> birth_date = #{birthDate,jdbcType=DATE},</if>
+        <if test="memberGroup != null"> member_group = #{memberGroup,jdbcType=VARCHAR},</if>
+        <if test="bonusPoint != null"> bonus_point = #{bonusPoint,jdbcType=INTEGER},</if>
+        <if test="amountMoney != null"> amount_money = #{amountMoney,jdbcType=INTEGER},</if>
+        <if test="costLimit != null"> cost_limit = #{costLimit,jdbcType=INTEGER},</if>
+        <if test="dayLimit != null"> day_limit = #{dayLimit,jdbcType=INTEGER},</if>
+        <if test="activeSince != null"> active_since = #{activeSince,jdbcType=TIMESTAMP},</if>
+        <if test="expireAt != null"> expire_at = #{expireAt,jdbcType=TIMESTAMP},</if>
+        <if test="checkCode != null"> check_code = #{checkCode,jdbcType=VARCHAR},</if>
+      </set>
+      where user_no = #{userNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateBy" parameterType="top.iotequ.ewallet.pojo.EwUser">
+    update ew_user set 
+      user_no = #{record.userNo,jdbcType=VARCHAR},
+      is_active = #{record.isActive,jdbcType=TINYINT},
+      name = #{record.name,jdbcType=VARCHAR},
+      gender = #{record.gender,jdbcType=INTEGER},
+      id_type = #{record.idType,jdbcType=INTEGER},
+      id_no = #{record.idNo,jdbcType=VARCHAR},
+      mobile_phone = #{record.mobilePhone,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      wechat_openid = #{record.wechatOpenid,jdbcType=VARCHAR},
+      birth_date = #{record.birthDate,jdbcType=DATE},
+      member_group = #{record.memberGroup,jdbcType=VARCHAR},
+      bonus_point = #{record.bonusPoint,jdbcType=INTEGER},
+      amount_money = #{record.amountMoney,jdbcType=INTEGER},
+      cost_limit = #{record.costLimit,jdbcType=INTEGER},
+      day_limit = #{record.dayLimit,jdbcType=INTEGER},
+      active_since = #{record.activeSince,jdbcType=TIMESTAMP},
+      expire_at = #{record.expireAt,jdbcType=TIMESTAMP},
+      check_code = #{record.checkCode,jdbcType=VARCHAR}
+      where user_no = #{userNo,jdbcType=VARCHAR}
+  </update>
+  <select id="list" parameterType="top.iotequ.ewallet.pojo.EwUser" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+     where 1=1 
+        <if test="userNo != null"> and user_no like #{userNo,jdbcType=VARCHAR} </if>
+        <if test="isActive != null"> and is_active = #{isActive,jdbcType=TINYINT} </if>
+        <if test="name != null"> and name like #{name,jdbcType=VARCHAR} </if>
+        <if test="gender != null"> and gender = #{gender,jdbcType=INTEGER} </if>
+        <if test="idType != null"> and id_type = #{idType,jdbcType=INTEGER} </if>
+        <if test="idNo != null"> and id_no like #{idNo,jdbcType=VARCHAR} </if>
+        <if test="mobilePhone != null"> and mobile_phone like #{mobilePhone,jdbcType=VARCHAR} </if>
+        <if test="email != null"> and email like #{email,jdbcType=VARCHAR} </if>
+        <if test="wechatOpenid != null"> and wechat_openid like #{wechatOpenid,jdbcType=VARCHAR} </if>
+        <if test="birthDate != null"> and birth_date like #{birthDate,jdbcType=DATE} </if>
+        <if test="memberGroup != null"> and member_group like #{memberGroup,jdbcType=VARCHAR} </if>
+        <if test="bonusPoint != null"> and bonus_point = #{bonusPoint,jdbcType=INTEGER} </if>
+        <if test="amountMoney != null"> and amount_money = #{amountMoney,jdbcType=INTEGER} </if>
+        <if test="costLimit != null"> and cost_limit = #{costLimit,jdbcType=INTEGER} </if>
+        <if test="dayLimit != null"> and day_limit = #{dayLimit,jdbcType=INTEGER} </if>
+        <if test="activeSince != null"> and active_since like #{activeSince,jdbcType=TIMESTAMP} </if>
+        <if test="expireAt != null"> and expire_at like #{expireAt,jdbcType=TIMESTAMP} </if>
+        <if test="checkCode != null"> and check_code like #{checkCode,jdbcType=VARCHAR} </if>
+  </select>
+  <select id="listBy" parameterType="map" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+        <if test="whereString != null and whereString !=''"> where ${whereString} </if>
+        <if test="orderString != null and orderString!=''"> order by ${orderString} </if>
+  </select>
+  <select id="query" parameterType="map" resultMap="BaseResultMap">
+        ${sqlString}
+  </select>
+</mapper>

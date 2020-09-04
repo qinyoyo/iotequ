@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.iotequ.codegenerator.dao.CgButtonDao">
+  <resultMap id="BaseResultMap" type="top.iotequ.codegenerator.pojo.CgButton">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="table_id" jdbcType="VARCHAR" property="tableId" />
+    <result column="order_num" jdbcType="INTEGER" property="orderNum" />
+    <result column="action" jdbcType="VARCHAR" property="action" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="append_class" jdbcType="VARCHAR" property="appendClass" />
+    <result column="action_property" jdbcType="VARCHAR" property="actionProperty" />
+    <result column="row_property" jdbcType="VARCHAR" property="rowProperty" />
+    <result column="display_properties" jdbcType="VARCHAR" property="displayProperties" />
+    <result column="confirm_text" jdbcType="VARCHAR" property="confirmText" />
+    <result column="is_refresh_list" jdbcType="TINYINT" property="isRefreshList" />
+  </resultMap>
+  <sql id = "selectSql">
+     SELECT id,table_id,order_num,action,title,icon,append_class,action_property,row_property,display_properties,confirm_text,is_refresh_list FROM cg_button
+  </sql>
+  <insert id="insert" parameterType="top.iotequ.codegenerator.pojo.CgButton">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String" >
+      SELECT replace(uuid(), '-', '')
+    </selectKey>
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String" databaseId="SQLServer">
+      SELECT replace(lower(newid()), '-', '')
+    </selectKey>
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String" databaseId="Oracle">
+      SELECT replace(lower(sys_guid()), '-', '') from dual
+    </selectKey>
+    insert into cg_button (id,table_id,order_num,action,title,icon,append_class,action_property,row_property,display_properties,confirm_text,is_refresh_list)
+      values 
+      (#{id,jdbcType=VARCHAR},#{tableId,jdbcType=VARCHAR},#{orderNum,jdbcType=INTEGER},#{action,jdbcType=VARCHAR},#{title,jdbcType=VARCHAR},#{icon,jdbcType=VARCHAR},#{appendClass,jdbcType=VARCHAR},#{actionProperty,jdbcType=VARCHAR},#{rowProperty,jdbcType=VARCHAR},#{displayProperties,jdbcType=VARCHAR},#{confirmText,jdbcType=VARCHAR},#{isRefreshList,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.codegenerator.pojo.CgButton">
+    insert into cg_button (id,table_id,order_num,action,title,icon,append_class,action_property,row_property,display_properties,confirm_text,is_refresh_list)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (replace(uuid(), '-', ''),#{item.tableId,jdbcType=VARCHAR},#{item.orderNum,jdbcType=INTEGER},#{item.action,jdbcType=VARCHAR},#{item.title,jdbcType=VARCHAR},#{item.icon,jdbcType=VARCHAR},#{item.appendClass,jdbcType=VARCHAR},#{item.actionProperty,jdbcType=VARCHAR},#{item.rowProperty,jdbcType=VARCHAR},#{item.displayProperties,jdbcType=VARCHAR},#{item.confirmText,jdbcType=VARCHAR},#{item.isRefreshList,jdbcType=TINYINT})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.codegenerator.pojo.CgButton" databaseId="SQLServer">
+    insert into cg_button (id,table_id,order_num,action,title,icon,append_class,action_property,row_property,display_properties,confirm_text,is_refresh_list)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (replace(lower(newid()), '-', ''),#{item.tableId,jdbcType=VARCHAR},#{item.orderNum,jdbcType=INTEGER},#{item.action,jdbcType=VARCHAR},#{item.title,jdbcType=VARCHAR},#{item.icon,jdbcType=VARCHAR},#{item.appendClass,jdbcType=VARCHAR},#{item.actionProperty,jdbcType=VARCHAR},#{item.rowProperty,jdbcType=VARCHAR},#{item.displayProperties,jdbcType=VARCHAR},#{item.confirmText,jdbcType=VARCHAR},#{item.isRefreshList,jdbcType=TINYINT})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.codegenerator.pojo.CgButton" databaseId="Oracle">
+    insert all 
+    <foreach collection="list" item="item" index="index">
+      into cg_button (id,table_id,order_num,action,title,icon,append_class,action_property,row_property,display_properties,confirm_text,is_refresh_list) values(replace(lower(sys_guid()), '-', ''),#{item.tableId,jdbcType=VARCHAR},#{item.orderNum,jdbcType=INTEGER},#{item.action,jdbcType=VARCHAR},#{item.title,jdbcType=VARCHAR},#{item.icon,jdbcType=VARCHAR},#{item.appendClass,jdbcType=VARCHAR},#{item.actionProperty,jdbcType=VARCHAR},#{item.rowProperty,jdbcType=VARCHAR},#{item.displayProperties,jdbcType=VARCHAR},#{item.confirmText,jdbcType=VARCHAR},#{item.isRefreshList,jdbcType=TINYINT})
+    </foreach>
+    select 1 from dual
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.codegenerator.pojo.CgButton">
+    insert into cg_button (id,table_id,order_num,action,title,icon,append_class,action_property,row_property,display_properties,confirm_text,is_refresh_list)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=VARCHAR},#{item.tableId,jdbcType=VARCHAR},#{item.orderNum,jdbcType=INTEGER},#{item.action,jdbcType=VARCHAR},#{item.title,jdbcType=VARCHAR},#{item.icon,jdbcType=VARCHAR},#{item.appendClass,jdbcType=VARCHAR},#{item.actionProperty,jdbcType=VARCHAR},#{item.rowProperty,jdbcType=VARCHAR},#{item.displayProperties,jdbcType=VARCHAR},#{item.confirmText,jdbcType=VARCHAR},#{item.isRefreshList,jdbcType=TINYINT})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.codegenerator.pojo.CgButton" databaseId="Oracle">
+    insert all 
+    <foreach collection="list" item="item" index="index">
+      into cg_button (id,table_id,order_num,action,title,icon,append_class,action_property,row_property,display_properties,confirm_text,is_refresh_list) values(#{item.id,jdbcType=VARCHAR},#{item.tableId,jdbcType=VARCHAR},#{item.orderNum,jdbcType=INTEGER},#{item.action,jdbcType=VARCHAR},#{item.title,jdbcType=VARCHAR},#{item.icon,jdbcType=VARCHAR},#{item.appendClass,jdbcType=VARCHAR},#{item.actionProperty,jdbcType=VARCHAR},#{item.rowProperty,jdbcType=VARCHAR},#{item.displayProperties,jdbcType=VARCHAR},#{item.confirmText,jdbcType=VARCHAR},#{item.isRefreshList,jdbcType=TINYINT})
+    </foreach>
+    select 1 from dual
+  </insert>
+  <select id="select" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="delete" parameterType="java.lang.String">
+    delete from cg_button where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteBatch" parameterType="java.lang.String">
+    delete from cg_button where id in     <foreach item="item" index="index" collection="_parameter.split(',')" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+  <select id="selectByTableIdAction" parameterType="map" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where table_id = #{tableId} AND action = #{action}
+  </select>
+  <delete id="deleteByTableIdAction" parameterType="map" >
+    delete from cg_button where table_id = #{tableId} AND action = #{action}
+  </delete>
+  <delete id="deleteList" parameterType="java.util.List">
+    delete from cg_button where id in
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")"> 
+       #{item.id,jdbcType=VARCHAR}
+    </foreach>
+  </delete>
+  <update id="update" parameterType="top.iotequ.codegenerator.pojo.CgButton">
+    update cg_button set 
+      table_id = #{tableId,jdbcType=VARCHAR},
+      order_num = #{orderNum,jdbcType=INTEGER},
+      action = #{action,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      append_class = #{appendClass,jdbcType=VARCHAR},
+      action_property = #{actionProperty,jdbcType=VARCHAR},
+      row_property = #{rowProperty,jdbcType=VARCHAR},
+      display_properties = #{displayProperties,jdbcType=VARCHAR},
+      confirm_text = #{confirmText,jdbcType=VARCHAR},
+      is_refresh_list = #{isRefreshList,jdbcType=TINYINT}
+      where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateSelective" parameterType="top.iotequ.codegenerator.pojo.CgButton">
+    update cg_button 
+      <set>
+        <if test="tableId != null"> table_id = #{tableId,jdbcType=VARCHAR},</if>
+        <if test="orderNum != null"> order_num = #{orderNum,jdbcType=INTEGER},</if>
+        <if test="action != null"> action = #{action,jdbcType=VARCHAR},</if>
+        <if test="title != null"> title = #{title,jdbcType=VARCHAR},</if>
+        <if test="icon != null"> icon = #{icon,jdbcType=VARCHAR},</if>
+        <if test="appendClass != null"> append_class = #{appendClass,jdbcType=VARCHAR},</if>
+        <if test="actionProperty != null"> action_property = #{actionProperty,jdbcType=VARCHAR},</if>
+        <if test="rowProperty != null"> row_property = #{rowProperty,jdbcType=VARCHAR},</if>
+        <if test="displayProperties != null"> display_properties = #{displayProperties,jdbcType=VARCHAR},</if>
+        <if test="confirmText != null"> confirm_text = #{confirmText,jdbcType=VARCHAR},</if>
+        <if test="isRefreshList != null"> is_refresh_list = #{isRefreshList,jdbcType=TINYINT},</if>
+      </set>
+      where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateBy" parameterType="top.iotequ.codegenerator.pojo.CgButton">
+    update cg_button set 
+      id = #{record.id,jdbcType=VARCHAR},
+      table_id = #{record.tableId,jdbcType=VARCHAR},
+      order_num = #{record.orderNum,jdbcType=INTEGER},
+      action = #{record.action,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      icon = #{record.icon,jdbcType=VARCHAR},
+      append_class = #{record.appendClass,jdbcType=VARCHAR},
+      action_property = #{record.actionProperty,jdbcType=VARCHAR},
+      row_property = #{record.rowProperty,jdbcType=VARCHAR},
+      display_properties = #{record.displayProperties,jdbcType=VARCHAR},
+      confirm_text = #{record.confirmText,jdbcType=VARCHAR},
+      is_refresh_list = #{record.isRefreshList,jdbcType=TINYINT}
+      where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="list" parameterType="top.iotequ.codegenerator.pojo.CgButton" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+     where 1=1 
+        <if test="id != null"> and id like #{id,jdbcType=VARCHAR} </if>
+        <if test="tableId != null"> and table_id like #{tableId,jdbcType=VARCHAR} </if>
+        <if test="orderNum != null"> and order_num = #{orderNum,jdbcType=INTEGER} </if>
+        <if test="action != null"> and action like #{action,jdbcType=VARCHAR} </if>
+        <if test="title != null"> and title like #{title,jdbcType=VARCHAR} </if>
+        <if test="icon != null"> and icon like #{icon,jdbcType=VARCHAR} </if>
+        <if test="appendClass != null"> and append_class like #{appendClass,jdbcType=VARCHAR} </if>
+        <if test="actionProperty != null"> and action_property like #{actionProperty,jdbcType=VARCHAR} </if>
+        <if test="rowProperty != null"> and row_property like #{rowProperty,jdbcType=VARCHAR} </if>
+        <if test="displayProperties != null"> and display_properties like #{displayProperties,jdbcType=VARCHAR} </if>
+        <if test="confirmText != null"> and confirm_text like #{confirmText,jdbcType=VARCHAR} </if>
+        <if test="isRefreshList != null"> and is_refresh_list = #{isRefreshList,jdbcType=TINYINT} </if>
+  </select>
+  <select id="listBy" parameterType="map" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+        <if test="whereString != null and whereString !=''"> where ${whereString} </if>
+        <if test="orderString != null and orderString!=''"> order by ${orderString} </if>
+  </select>
+  <select id="query" parameterType="map" resultMap="BaseResultMap">
+        ${sqlString}
+  </select>
+</mapper>

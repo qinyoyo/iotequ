@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.iotequ.project.people.dao.PmPeopleDao">
+  <resultMap id="BaseResultMap" type="top.iotequ.project.people.pojo.PmPeople">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="group_id" jdbcType="INTEGER" property="groupId" />
+    <result column="group_name" jdbcType="VARCHAR" property="groupName" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="org_code" jdbcType="INTEGER" property="orgCode" />
+    <result column="mobile_phone" jdbcType="VARCHAR" property="mobilePhone" />
+  </resultMap>
+  <sql id = "selectSql">
+     SELECT pm_people.id,pm_people_group.id AS group_id,pm_people_group.name AS group_name,sys_user.id AS user_id,sys_user.real_name AS real_name,sys_user.sex AS sex,sys_user.org_code AS org_code,sys_user.mobile_phone AS mobile_phone FROM pm_people RIGHT JOIN pm_people_group ON pm_people.group_id = pm_people_group.id RIGHT JOIN sys_user ON pm_people.user_id = sys_user.id
+  </sql>
+  <insert id="insert" parameterType="top.iotequ.project.people.pojo.PmPeople">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer" databaseId="SQLServer">
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into pm_people (group_id,user_id)
+      values 
+      (#{groupId,jdbcType=INTEGER},#{userId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insert" parameterType="top.iotequ.project.people.pojo.PmPeople" databaseId="Oracle">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer" >
+      SELECT SEQUENCE_PM_PEOPLE.nextval from DUAL
+    </selectKey>
+    insert into pm_people (id,group_id,user_id)
+      values 
+      (#{id,jdbcType=INTEGER},#{groupId,jdbcType=INTEGER},#{userId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.project.people.pojo.PmPeople">
+    insert into pm_people (group_id,user_id)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.groupId,jdbcType=INTEGER},#{item.userId,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.project.people.pojo.PmPeople" databaseId="Oracle">
+     insert into pm_people (id,group_id,user_id)
+       select SEQUENCE_PM_PEOPLE.nextval,cd.* from(
+          <foreach collection="list" item="item" index="index" separator="union all">
+             select #{item.groupId,jdbcType=INTEGER},#{item.userId,jdbcType=VARCHAR} from dual
+          </foreach>
+       ) cd
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.project.people.pojo.PmPeople">
+    insert into pm_people (id,group_id,user_id)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=INTEGER},#{item.groupId,jdbcType=INTEGER},#{item.userId,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.project.people.pojo.PmPeople" databaseId="SQLServer">
+    set IDENTITY_INSERT pm_people ON 
+    insert into pm_people (id,group_id,user_id)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=INTEGER},#{item.groupId,jdbcType=INTEGER},#{item.userId,jdbcType=VARCHAR})
+    </foreach>
+    set IDENTITY_INSERT pm_people OFF 
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.project.people.pojo.PmPeople" databaseId="Oracle">
+    insert all 
+    <foreach collection="list" item="item" index="index">
+      into pm_people (id,group_id,user_id) values(#{item.id,jdbcType=INTEGER},#{item.groupId,jdbcType=INTEGER},#{item.userId,jdbcType=VARCHAR})
+    </foreach>
+    select 1 from dual
+  </insert>
+  <select id="select" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where pm_people.id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from pm_people where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteBatch" parameterType="java.lang.String">
+    delete from pm_people where id in (${_parameter})
+  </delete>
+  <select id="selectByGroupIdUserId" parameterType="map" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where pm_people_group.id = #{groupId} AND sys_user.id = #{userId}
+  </select>
+  <delete id="deleteByGroupIdUserId" parameterType="map" >
+    delete from pm_people where pm_people_group.id = #{groupId} AND sys_user.id = #{userId}
+  </delete>
+  <delete id="deleteList" parameterType="java.util.List">
+    delete from pm_people where id in
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")"> 
+       #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </delete>
+  <update id="update" parameterType="top.iotequ.project.people.pojo.PmPeople">
+    update pm_people set 
+      group_id = #{groupId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=VARCHAR}
+      where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateSelective" parameterType="top.iotequ.project.people.pojo.PmPeople">
+    update pm_people 
+      <set>
+        <if test="groupId != null"> group_id = #{groupId,jdbcType=INTEGER},</if>
+        <if test="userId != null"> user_id = #{userId,jdbcType=VARCHAR},</if>
+      </set>
+      where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateBy" parameterType="top.iotequ.project.people.pojo.PmPeople">
+    update pm_people set 
+      id = #{record.id,jdbcType=INTEGER},
+      group_id = #{record.groupId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=VARCHAR}
+      where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="list" parameterType="top.iotequ.project.people.pojo.PmPeople" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+     where 1=1 
+        <if test="id != null"> and pm_people.id = #{id,jdbcType=INTEGER} </if>
+        <if test="groupId != null"> and pm_people_group.id = #{groupId,jdbcType=INTEGER} </if>
+        <if test="groupName != null"> and pm_people_group.name like #{groupName,jdbcType=VARCHAR} </if>
+        <if test="userId != null"> and sys_user.id like #{userId,jdbcType=VARCHAR} </if>
+        <if test="realName != null"> and sys_user.real_name like #{realName,jdbcType=VARCHAR} </if>
+        <if test="sex != null"> and sys_user.sex like #{sex,jdbcType=VARCHAR} </if>
+        <if test="orgCode != null"> and sys_user.org_code = #{orgCode,jdbcType=INTEGER} </if>
+        <if test="mobilePhone != null"> and sys_user.mobile_phone like #{mobilePhone,jdbcType=VARCHAR} </if>
+  </select>
+  <select id="listBy" parameterType="map" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+        <if test="whereString != null and whereString !=''"> where ${whereString} </if>
+        <if test="orderString != null and orderString!=''"> order by ${orderString} </if>
+  </select>
+  <select id="query" parameterType="map" resultMap="BaseResultMap">
+        ${sqlString}
+  </select>
+</mapper>

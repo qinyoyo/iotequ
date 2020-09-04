@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.iotequ.attendance.approvelist.dao.AdApproveListDao">
+  <resultMap id="BaseResultMap" type="top.iotequ.attendance.approvelist.pojo.AdApproveList">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="approve_time" jdbcType="TIMESTAMP" property="approveTime" />
+    <result column="state1" jdbcType="INTEGER" property="state1" />
+    <result column="state0" jdbcType="INTEGER" property="state0" />
+    <result column="approve_note" jdbcType="VARCHAR" property="approveNote" />
+    <result column="adjust_id" jdbcType="VARCHAR" property="adjustId" />
+    <result column="approver" jdbcType="VARCHAR" property="approver" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+  </resultMap>
+  <sql id = "selectSql">
+     SELECT ad_approve_list.id,ad_approve_list.approve_time,ad_approve_list.state1,ad_approve_list.state0,ad_approve_list.approve_note,ad_approve_list.adjust_id,ad_approve_list.approver,sys_user.real_name AS real_name FROM ad_approve_list LEFT JOIN sys_user ON ad_approve_list.approver = sys_user.id
+  </sql>
+  <insert id="insert" parameterType="top.iotequ.attendance.approvelist.pojo.AdApproveList">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer" databaseId="SQLServer">
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into ad_approve_list (approve_time,state1,state0,approve_note,adjust_id,approver)
+      values 
+      (#{approveTime,jdbcType=TIMESTAMP},#{state1,jdbcType=INTEGER},#{state0,jdbcType=INTEGER},#{approveNote,jdbcType=VARCHAR},#{adjustId,jdbcType=VARCHAR},#{approver,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insert" parameterType="top.iotequ.attendance.approvelist.pojo.AdApproveList" databaseId="Oracle">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer" >
+      SELECT SEQUENCE_AD_APPROVE_LIST.nextval from DUAL
+    </selectKey>
+    insert into ad_approve_list (id,approve_time,state1,state0,approve_note,adjust_id,approver)
+      values 
+      (#{id,jdbcType=INTEGER},#{approveTime,jdbcType=TIMESTAMP},#{state1,jdbcType=INTEGER},#{state0,jdbcType=INTEGER},#{approveNote,jdbcType=VARCHAR},#{adjustId,jdbcType=VARCHAR},#{approver,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.attendance.approvelist.pojo.AdApproveList">
+    insert into ad_approve_list (approve_time,state1,state0,approve_note,adjust_id,approver)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.approveTime,jdbcType=TIMESTAMP},#{item.state1,jdbcType=INTEGER},#{item.state0,jdbcType=INTEGER},#{item.approveNote,jdbcType=VARCHAR},#{item.adjustId,jdbcType=VARCHAR},#{item.approver,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.attendance.approvelist.pojo.AdApproveList" databaseId="Oracle">
+     insert into ad_approve_list (id,approve_time,state1,state0,approve_note,adjust_id,approver)
+       select SEQUENCE_AD_APPROVE_LIST.nextval,cd.* from(
+          <foreach collection="list" item="item" index="index" separator="union all">
+             select #{item.approveTime,jdbcType=TIMESTAMP},#{item.state1,jdbcType=INTEGER},#{item.state0,jdbcType=INTEGER},#{item.approveNote,jdbcType=VARCHAR},#{item.adjustId,jdbcType=VARCHAR},#{item.approver,jdbcType=VARCHAR} from dual
+          </foreach>
+       ) cd
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.attendance.approvelist.pojo.AdApproveList">
+    insert into ad_approve_list (id,approve_time,state1,state0,approve_note,adjust_id,approver)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=INTEGER},#{item.approveTime,jdbcType=TIMESTAMP},#{item.state1,jdbcType=INTEGER},#{item.state0,jdbcType=INTEGER},#{item.approveNote,jdbcType=VARCHAR},#{item.adjustId,jdbcType=VARCHAR},#{item.approver,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.attendance.approvelist.pojo.AdApproveList" databaseId="SQLServer">
+    set IDENTITY_INSERT ad_approve_list ON 
+    insert into ad_approve_list (id,approve_time,state1,state0,approve_note,adjust_id,approver)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=INTEGER},#{item.approveTime,jdbcType=TIMESTAMP},#{item.state1,jdbcType=INTEGER},#{item.state0,jdbcType=INTEGER},#{item.approveNote,jdbcType=VARCHAR},#{item.adjustId,jdbcType=VARCHAR},#{item.approver,jdbcType=VARCHAR})
+    </foreach>
+    set IDENTITY_INSERT ad_approve_list OFF 
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.attendance.approvelist.pojo.AdApproveList" databaseId="Oracle">
+    insert all 
+    <foreach collection="list" item="item" index="index">
+      into ad_approve_list (id,approve_time,state1,state0,approve_note,adjust_id,approver) values(#{item.id,jdbcType=INTEGER},#{item.approveTime,jdbcType=TIMESTAMP},#{item.state1,jdbcType=INTEGER},#{item.state0,jdbcType=INTEGER},#{item.approveNote,jdbcType=VARCHAR},#{item.adjustId,jdbcType=VARCHAR},#{item.approver,jdbcType=VARCHAR})
+    </foreach>
+    select 1 from dual
+  </insert>
+  <select id="select" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where ad_approve_list.id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from ad_approve_list where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteBatch" parameterType="java.lang.String">
+    delete from ad_approve_list where id in (${_parameter})
+  </delete>
+  <delete id="deleteList" parameterType="java.util.List">
+    delete from ad_approve_list where id in
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")"> 
+       #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </delete>
+  <update id="update" parameterType="top.iotequ.attendance.approvelist.pojo.AdApproveList">
+    update ad_approve_list set 
+      approve_time = #{approveTime,jdbcType=TIMESTAMP},
+      state1 = #{state1,jdbcType=INTEGER},
+      state0 = #{state0,jdbcType=INTEGER},
+      approve_note = #{approveNote,jdbcType=VARCHAR},
+      adjust_id = #{adjustId,jdbcType=VARCHAR},
+      approver = #{approver,jdbcType=VARCHAR}
+      where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateSelective" parameterType="top.iotequ.attendance.approvelist.pojo.AdApproveList">
+    update ad_approve_list 
+      <set>
+        <if test="approveTime != null"> approve_time = #{approveTime,jdbcType=TIMESTAMP},</if>
+        <if test="state1 != null"> state1 = #{state1,jdbcType=INTEGER},</if>
+        <if test="state0 != null"> state0 = #{state0,jdbcType=INTEGER},</if>
+        <if test="approveNote != null"> approve_note = #{approveNote,jdbcType=VARCHAR},</if>
+        <if test="adjustId != null"> adjust_id = #{adjustId,jdbcType=VARCHAR},</if>
+        <if test="approver != null"> approver = #{approver,jdbcType=VARCHAR},</if>
+      </set>
+      where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateBy" parameterType="top.iotequ.attendance.approvelist.pojo.AdApproveList">
+    update ad_approve_list set 
+      id = #{record.id,jdbcType=INTEGER},
+      approve_time = #{record.approveTime,jdbcType=TIMESTAMP},
+      state1 = #{record.state1,jdbcType=INTEGER},
+      state0 = #{record.state0,jdbcType=INTEGER},
+      approve_note = #{record.approveNote,jdbcType=VARCHAR},
+      adjust_id = #{record.adjustId,jdbcType=VARCHAR},
+      approver = #{record.approver,jdbcType=VARCHAR}
+      where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="list" parameterType="top.iotequ.attendance.approvelist.pojo.AdApproveList" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+     where 1=1 
+        <if test="id != null"> and ad_approve_list.id = #{id,jdbcType=INTEGER} </if>
+        <if test="approveTime != null"> and ad_approve_list.approve_time like #{approveTime,jdbcType=TIMESTAMP} </if>
+        <if test="state1 != null"> and ad_approve_list.state1 = #{state1,jdbcType=INTEGER} </if>
+        <if test="state0 != null"> and ad_approve_list.state0 = #{state0,jdbcType=INTEGER} </if>
+        <if test="approveNote != null"> and ad_approve_list.approve_note like #{approveNote,jdbcType=VARCHAR} </if>
+        <if test="adjustId != null"> and ad_approve_list.adjust_id like #{adjustId,jdbcType=VARCHAR} </if>
+        <if test="approver != null"> and ad_approve_list.approver like #{approver,jdbcType=VARCHAR} </if>
+        <if test="realName != null"> and sys_user.real_name like #{realName,jdbcType=VARCHAR} </if>
+  </select>
+  <select id="listBy" parameterType="map" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+        <if test="whereString != null and whereString !=''"> where ${whereString} </if>
+        <if test="orderString != null and orderString!=''"> order by ${orderString} </if>
+  </select>
+  <select id="query" parameterType="map" resultMap="BaseResultMap">
+        ${sqlString}
+  </select>
+</mapper>

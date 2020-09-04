@@ -1,0 +1,72 @@
+export default {
+  devPeople: {
+    title: {
+      list: 'devPeople',
+      select: 'devPeopleSelect',
+      record: 'devPeople',
+      groupDevPeopleRealName: 'groupDevPeopleRealName',
+      groupDevPeopleCardNo: 'groupDevPeopleCardNo',
+      sample: 'devVeinSample',
+      code: 'DevPeople'
+    },
+    action: {
+      getRegistered: 'GetRegistered',
+      syncRegFingersConfirm: 'Confirm SyncRegFingers',
+      syncRegFingers: 'SyncRegFingers',
+      sample: 'Sample',
+      connectDevice: 'ConnectDevice',
+      registerFinger: 'RegisterFinger',
+      verifyFinger: 'VerifyFinger',
+      matchFinger: 'MatchFinger',
+      removeFingerConfirm: 'Confirm RemoveFinger',
+      removeFinger: 'RemoveFinger',
+      resetDevice: 'ResetDevice'
+    },
+    route: {
+      listTag: 'devPeople',
+      selectTag: 'devPeopleSelect',
+      recordTag: 'devPeople',
+      sampleTag: 'devVeinSample'
+    },
+    field: {
+      userNoValid: 'Please input correct value for userNo',
+      userNo: 'UserNo',
+      realName: 'RealName',
+      sex: 'Sex',
+      birthDate: 'BirthDate',
+      orgCode: 'OrgCode',
+      dutyRank: 'DutyRank',
+      cardNoValid: 'Please input correct value for cardNo',
+      cardNo: 'CardNo',
+      idType: 'IdType',
+      idNumber: 'IdNumber',
+      userType_0: '管理员',
+      userType_1: '普通人员',
+      userType: 'UserType',
+      mobilePhone: 'MobilePhone',
+      email: 'Email',
+      registerType: 'RegisterType',
+      validDate: 'ValidDate',
+      expiredDate: 'ExpiredDate',
+      regTime: 'RegTime',
+      devPassword: 'DevPassword',
+      regFingers: 'RegFingers',
+      note: 'Note',
+      idNation: 'IdNation',
+      photo: 'Photo',
+      homeAddr: 'HomeAddr',
+      fingerNo1: 'FingerNo1',
+      fingerNo2: 'FingerNo2',
+      fingerType_0: '右食指',
+      fingerType_1: '右中指',
+      fingerType_2: '右无名指',
+      fingerType_3: '左食指',
+      fingerType_4: '左中指',
+      fingerType_5: '左无名指',
+      fingerType_6: '自定义1',
+      fingerType_7: '自定义2',
+      fingerType: 'FingerType',
+      warning: 'Warning'
+    }
+  }
+}

@@ -1,0 +1,116 @@
+
+表：ad_special_shift_time : 特殊排班时间表
+id		int	✘	
+special_shift_id	特殊排班编号	int	✘	
+name	名称	varchar	✘	
+start_time	开始时间	time(6)	✘	
+end_time	结束时间	time(6)	✘	
+
+表：ad_shift_time : 排班时间表
+id		int	✘	
+shift_id	排班编号	int	✘	
+name	详细描述	varchar	✘	
+week_days	工作日序列	varchar	✘	
+start_work_time	上班时间	time(6)	✘	
+end_work_time	下班时间	time(6)	✘	
+
+表：ad_org : 考勤部门信息表
+shift_id	部门排班	int	√	
+manage_limit	审核权限	int	√	
+deviation	允许误差	int	√	
+float_limit	浮动范围	int	√	
+absent_limit	旷工底限	int	√	
+free_work_limit	自由加班起限	int	√	
+org_code	机构代码	int	✘	
+hr	人事	varchar	√	
+manager	考勤审核人	varchar	√	
+
+表：ad_exception : 节假日调休安排
+id		int	✘	
+shift_id	排班编号	int	✘	
+end_date	结束日期(含)	date	✘	
+start_date	开始日期	date	✘	
+week_day	工作属性	int	✘	
+description	详细描述	varchar	√	
+
+表：ad_employee : 考勤职员表
+employee_no	工号	varchar	✘	
+em_level	职务级别	int	✘	
+is_attendance	是否考勤	tinyint(1)	✘	
+enter_date	入职日期	date	√	
+leave_date	离职日期	date	√	
+overtime_minutes	可调休时间	int	✘	
+shift_id	考勤排班	int	√	
+id	用户	varchar	✘	
+
+表：ad_approve_list : 审核信息表
+id		int	✘	
+approve_time	审批时间	datetime	✘	
+state1	审批后状态	int	√	f:{String.valueOf(AdUtil.st_waiting):等待审批  String.valueOf(AdUtil.st_doing):审批中  String.valueOf(AdUtil.st_passed):批准  String.valueOf(AdUtil.st_refused)}:未批准  
+state0	初始状态	int	√	f:{String.valueOf(AdUtil.st_waiting):等待审批  String.valueOf(AdUtil.st_doing):审批中  String.valueOf(AdUtil.st_passed):批准  String.valueOf(AdUtil.st_refused)}:未批准  
+approve_note	审批意见	varchar	√	
+adjust_id	考勤调整单编号	varchar	✘	
+approver	审批人	varchar	√	
+
+表：ad_special_shift : 特殊排班表
+id		int	✘	
+shift_mode	排班属性	int	✘	f:{String.valueOf(AdUtil.ss_free):休假  String.valueOf(AdUtil.ss_adjust_shift):调整排班  String.valueOf(AdUtil.ss_overwork)}:安排加班  
+name	名称	varchar	✘	
+mode_property	考勤模式	int	√	f:{String.valueOf(AdUtil.md_attendance):完整考勤  String.valueOf(AdUtil.md_sign_in)}:签到模式  
+start_date	启用时间	date	✘	
+end_date	结束时间(含)	date	✘	
+org_codes	部门	varchar	✘	
+sex_property	性别	int	√	
+age_property0	年龄0	int	√	
+age_property1	年龄1	int	√	
+level_property0	职级0	int	√	
+level_property1	职级1	int	√	
+description	备注	varchar	√	
+
+表：ad_shift : 考勤排班表
+id		int	✘	
+name	排班名称	varchar	✘	
+ad_mode	考勤模式	int	✘	f:{String.valueOf(AdUtil.md_attendance):完整考勤  String.valueOf(AdUtil.md_sign_in)}:签到模式  
+start_date	启用日期	date	✘	
+end_date	终止时间(含)	date	✘	
+minutes_per_day	工作时长(分)	int	✘	
+description	描述	varchar	√	
+
+表：ad_day_result : 日考勤结果
+id		int	✘	
+org_code	部门	int	✘	
+org_name	部门名	varchar	✘	
+employee	员工	varchar	✘	
+real_name	姓名	varchar	✘	
+ad_date	日期	date	✘	
+shift_name	班次	varchar	✘	
+state	考勤	int	✘	
+state_name	考勤描述	varchar	✘	
+times	次数	int	✘	
+minutes	时长	int	✘	
+work_minutes	工作时长	int	✘	
+shift_id	班次排序	int	✘	
+employee_no	工号	varchar	✘	
+
+表：ad_data : 考勤数据
+id		varchar	✘	
+rec_source	来源	varchar	√	
+rec_type	类别	int	✘	f:{String.valueOf(AdUtil.workOn):上班  String.valueOf(AdUtil.workOff):下班  String.valueOf(AdUtil.workUnknown)}:未知  
+rec_time	时间	datetime	✘	
+is_used	被使用	tinyint(1)	✘	
+employee_no	工号	varchar	✘	
+
+表：ad_adjust : 考勤调整
+id	id	char	✘	
+org_code	部门	int	✘	
+adjust_type	调整类别	int	√	f:{String.valueOf(AdUtil.ad_add_data):数据补登  String.valueOf(AdUtil.ad_business_local):市内出差  String.valueOf(AdUtil.ad_business_out):外地出差    String.valueOf(AdUtil.ad_leave_s):事假  String.valueOf(AdUtil.ad_leave_b):病假  String.valueOf(AdUtil.ad_leave_c):产假    String.valueOf(AdUtil.ad_leave_n):年假  String.valueOf(AdUtil.ad_leave_t):调休  String.valueOf(AdUtil.ad_overwork)}:加班  
+state	审批状态	int	✘	f:{String.valueOf(AdUtil.st_waiting):等待审批  String.valueOf(AdUtil.st_doing):审批中  String.valueOf(AdUtil.st_passed):批准  String.valueOf(AdUtil.st_refused)}:未批准  
+register_time	登记时间	datetime	✘	
+start_time	开始时间	datetime	√	
+end_time	结束时间	datetime	√	
+description	详情描述	varchar	✘	
+approve_org	审批部门	int	√	
+add_file	附件	varchar	√	
+employee	职员	varchar	✘	
+hr	人事	varchar	√	
+approver	后续审批人	varchar	√	

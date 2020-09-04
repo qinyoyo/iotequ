@@ -1,0 +1,16 @@
+{
+	"title":"Svein Tech. Ltd.",
+	"footer":"©2020 Svein　<a href=\"http://www.beian.miit.gov.cn/\" target=\"_blank\" class=\"text\">渝ICP备18008004号-1</a>",
+	"server":"/api",
+	"title1":"Vue Iotequ Framework",
+	"footer1":"©2020 Qinyoyo　<a href=\"http://www.beian.miit.gov.cn/\" target=\"_blank\" class=\"text\">渝ICP备17011611号-1</a>",
+	"server1":"http://49.4.123.61:8188",
+	"baseUrl":"",
+	"showSettings":true,
+	"tagsView":true,
+	"fixedHeader":false,
+	"sidebarLogo":true,
+	"errorLog":"production",
+	"strongPassword": true,
+	"loginStyle": "margin: 0 auto; width:360px"
+}

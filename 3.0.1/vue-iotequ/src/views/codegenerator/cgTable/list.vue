@@ -1,0 +1,202 @@
+<template>
+  <div class="cg-list">
+    <el-card shadow="hover">
+      <div slot="header">
+        <cg-header homeMenu :showMaster="getShowMaster()" icon="el-icon-s-operation" :hasMenu="hasMenu()"
+                   :title="title" :content="content" @goBack="goBack" @menuAction="showActionSheet" @showDetail="showDetail"
+        />
+      </div>
+      <div v-if="mobile">
+        <div v-show="showMaster" class="cg-father">
+          <CgListCgTable ref="cgList" @detail="doShowDetail" @rowClick="rowClick" @refreshed="refreshed" :fixedQueryRecord="fixedQueryRecord" />
+        </div>
+        <el-tabs v-show="!showMaster" v-model="selectedSon" class="cg-child">
+            <el-tab-pane :label="$t('cgTable.title.record')" name="cgList_son0" :style="{height: childHeight+'px'}">
+              <CgFormCgTable ref="cgList_son0" :height="childHeight" :queryById.sync="son0Condition" />
+            </el-tab-pane>
+            <el-tab-pane :label="$t('cgField.title.list')" name="cgList_son1" :style="{height: childHeight+'px'}">
+              <CgListCgField ref="cgList_son1" :height="childHeight" :fixedQueryRecord.sync="son1Condition" />
+            </el-tab-pane>
+            <el-tab-pane :label="$t('cgButton.title.list')" name="cgList_son2" :style="{height: childHeight+'px'}">
+              <CgListCgButton ref="cgList_son2" :height="childHeight" :fixedQueryRecord.sync="son2Condition" />
+            </el-tab-pane>
+            <el-tab-pane :label="$t('cgList.title.list')" name="cgList_son3" :style="{height: childHeight+'px'}">
+              <ListViewCgList ref="cgList_son3" :height="childHeight" :fixedQueryRecord.sync="son3Condition" />
+            </el-tab-pane>
+            <el-tab-pane :label="$t('cgForm.title.list')" name="cgList_son4" :style="{height: childHeight+'px'}">
+              <ListViewCgForm ref="cgList_son4" :height="childHeight" :fixedQueryRecord.sync="son4Condition" />
+            </el-tab-pane>
+        </el-tabs>
+      </div>
+      <div v-else class="components-container" :style="'height:'+clientHeight+'px'">
+        <split-pane :default-percent="40" split="vertical">
+          <template slot="paneL">
+            <div class="cg-father">
+              <CgListCgTable ref="cgList" @rowClick="rowClick" @refreshed="refreshed" :fixedQueryRecord="fixedQueryRecord" :height="fatherHeight" />
+            </div>
+          </template>
+          <template slot="paneR">
+            <el-tabs v-model="selectedSon" class="cg-child" type="border-card">
+              <el-tab-pane :label="$t('cgTable.title.record')" name="cgList_son0" :style="{height: childHeight+'px'}">
+                <CgFormCgTable ref="cgList_son0" :height="childHeight" :queryById.sync="son0Condition" />
+              </el-tab-pane>
+              <el-tab-pane :label="$t('cgField.title.list')" name="cgList_son1" :style="{height: childHeight+'px'}">
+                <CgListCgField ref="cgList_son1" :height="childHeight" :fixedQueryRecord.sync="son1Condition" />
+              </el-tab-pane>
+              <el-tab-pane :label="$t('cgButton.title.list')" name="cgList_son2" :style="{height: childHeight+'px'}">
+                <CgListCgButton ref="cgList_son2" :height="childHeight" :fixedQueryRecord.sync="son2Condition" />
+              </el-tab-pane>
+              <el-tab-pane :label="$t('cgList.title.list')" name="cgList_son3" :style="{height: childHeight+'px'}">
+                <ListViewCgList ref="cgList_son3" :height="childHeight" :fixedQueryRecord.sync="son3Condition" />
+              </el-tab-pane>
+              <el-tab-pane :label="$t('cgForm.title.list')" name="cgList_son4" :style="{height: childHeight+'px'}">
+                <ListViewCgForm ref="cgList_son4" :height="childHeight" :fixedQueryRecord.sync="son4Condition" />
+              </el-tab-pane>
+            </el-tabs>
+          </template>
+        </split-pane>
+      </div>
+    </el-card>
+  </div>
+</template>
+
+<script>
+import cg from '@/utils/cg'
+import cgList from '@/utils/cgList'
+import CgListCgTable from './CgListCgTable.vue'
+import CgFormCgTable from '@/views/codegenerator/cgTable/CgFormCgTable.vue'
+import CgListCgField from '@/views/codegenerator/cgField/CgListCgField.vue'
+import CgListCgButton from '@/views/codegenerator/cgButton/CgListCgButton.vue'
+import ListViewCgList from '@/views/codegenerator/cgList/list.vue'
+import ListViewCgForm from '@/views/codegenerator/cgForm/list.vue'
+const mixins = []
+const mixinContext = require.context('.', false, /list-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default {
+  name: 'CgTableList',
+  components: { CgListCgTable, CgFormCgTable, CgListCgField, CgListCgButton, ListViewCgList, ListViewCgForm },
+  mixins,
+  props: {
+    height: {
+      type: Number,
+      default: 0
+    },
+    fixedQueryRecord: {
+      type: Object,
+      default: () => { return {} }
+    }
+  },
+  data() {
+    return {
+      clientHeight: this.height ? this.height : cg.containerHeight(),
+      fatherHeight: (this.height ? this.height : cg.containerHeight()),
+      childHeight: (this.height?this.height:cg.containerHeight())-70,
+      showMaster: true,
+      selectedSon: 'cgList_son0',
+      son0Condition: 'null',
+      son1Condition: {
+        tableId: 'null'
+      },
+      son2Condition: {
+        tableId: 'null'
+      },
+      son3Condition: {
+        tableId: 'null'
+      },
+      son4Condition: {
+        tableId: 'null'
+      },
+      contentSubTitle: '',
+      path: 'list',
+      generatorName: 'cgTable',
+      baseUrl: '/codegenerator/cgTable'
+    }
+  },
+  watch: {
+    fixedQueryRecord: {
+      handler(n, o) {
+        if (n && Object.keys(n).length > 0 && this.$refs.cgList && typeof this.$refs.cgList.doAction === 'function') this.$refs.cgList.doAction('refresh')
+      },
+      deep: true,
+      immediate: true
+    }
+  },
+  computed: {
+    mobile() {
+      return this.$store.state.app.device === 'mobile'
+    },
+    title() {
+      if (this.showMaster || !this.mobile) return this.$t('system.action.list')
+      else return this.$t('system.action.detail')
+    },
+    content() {
+      if (this.showMaster || !this.mobile) return this.$t('cgTable.title.list') + (!this.mobile && this.contentSubTitle?' - '+this.contentSubTitle:'')
+      else return this.contentSubTitle ? this.contentSubTitle : this.$t('cgTable.title.list')
+    }
+  },
+  methods: {
+    goBack() {
+      if (this.mobile) {
+        if (this.showMaster) cg.goBack()
+        else {
+          if (this.$refs[this.selectedSon] && this.$refs[this.selectedSon].showMaster !== undefined) {
+            if (!this.$refs[this.selectedSon].showMaster) this.$refs[this.selectedSon].showMaster = true
+            else this.showMaster = true
+          } else this.showMaster = true
+        }
+      }
+    },
+    hasMenu() {
+      if (!this.mobile) return false
+      else if (this.showMaster) return true
+      else if (this.$refs[this.selectedSon] && typeof this.$refs[this.selectedSon].hasMenu === 'function') return this.$refs[this.selectedSon].hasMenu()
+      else return false
+    },
+    showActionSheet() {
+      if (this.showMaster && typeof this.$refs.cgList.showActionSheet === 'function') this.$refs.cgList.showActionSheet()
+      else if (this.$refs[this.selectedSon] && typeof this.$refs[this.selectedSon].showActionSheet === 'function') this.$refs[this.selectedSon].showActionSheet()
+    },
+    getShowMaster() {
+      if (!this.mobile) return undefined
+      else if (this.showMaster) return true
+      else if (this.$refs[this.selectedSon] && this.$refs[this.selectedSon].showMaster !== undefined) return this.$refs[this.selectedSon].showMaster
+      else return undefined
+    },
+    showDetail() {
+      if (!this.mobile) return
+      else if (this.showMaster) this.doShowDetail()
+      else if (this.$refs[this.selectedSon] && this.$refs[this.selectedSon].showMaster && typeof this.$refs[this.selectedSon].doShowDetail ==='function') this.$refs[this.selectedSon].doShowDetail()
+    },
+    setChildrenParams(row) {
+      if (row && row.id) this.son0Condition = row.id
+      else this.son0Condition = 'null'
+      if (row && row.id) this.son1Condition.tableId = row.id
+      else this.son1Condition.tableId = 'null'
+      if (row && row.id) this.son2Condition.tableId = row.id
+      else this.son2Condition.tableId = 'null'
+      if (row && row.id) this.son3Condition.tableId = row.id
+      else this.son3Condition.tableId = 'null'
+      if (row && row.id) this.son4Condition.tableId = row.id
+      else this.son4Condition.tableId = 'null'
+    },
+    rowClick({ row, column, event }) {
+      this.contentSubTitle = row ? row.title : ''
+      if (!this.mobile) this.setChildrenParams(row)
+    },
+    refreshed(listObject) {
+      const row = cgList.list_getCurrentRow(listObject)
+      if (this.$refs.cgList_son0 && this.$refs.cgList_son0.hasOwnProperty('needLoadDictionary')) this.$refs.cgList_son0.needLoadDictionary = true
+      if (this.$refs.cgList_son1 && this.$refs.cgList_son1.hasOwnProperty('needLoadDictionary')) this.$refs.cgList_son1.needLoadDictionary = true
+      if (this.$refs.cgList_son2 && this.$refs.cgList_son2.hasOwnProperty('needLoadDictionary')) this.$refs.cgList_son2.needLoadDictionary = true
+      if (this.$refs.cgList_son3 && this.$refs.cgList_son3.hasOwnProperty('needLoadDictionary')) this.$refs.cgList_son3.needLoadDictionary = true
+      if (this.$refs.cgList_son4 && this.$refs.cgList_son4.hasOwnProperty('needLoadDictionary')) this.$refs.cgList_son4.needLoadDictionary = true
+      this.setChildrenParams(row)
+    },
+    doShowDetail(row) {
+      if (!row) row = cgList.list_getCurrentRow(this.$refs.cgList)
+      this.showMaster = false
+      this.setChildrenParams(row)
+    },
+  }
+}
+</script>

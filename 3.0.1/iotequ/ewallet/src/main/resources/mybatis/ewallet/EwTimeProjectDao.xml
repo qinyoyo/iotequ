@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.iotequ.ewallet.dao.EwTimeProjectDao">
+  <resultMap id="BaseResultMap" type="top.iotequ.ewallet.pojo.EwTimeProject">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="base_value" jdbcType="INTEGER" property="baseValue" />
+    <result column="base_price" jdbcType="INTEGER" property="basePrice" />
+    <result column="bonus_point" jdbcType="DOUBLE" property="bonusPoint" />
+    <result column="start_time" jdbcType="TIME" property="startTime" />
+    <result column="end_time" jdbcType="TIME" property="endTime" />
+  </resultMap>
+  <sql id = "selectSql">
+     SELECT id,icon,name,base_value,base_price,bonus_point,start_time,end_time FROM ew_time_project
+  </sql>
+  <insert id="insert" parameterType="top.iotequ.ewallet.pojo.EwTimeProject">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer" databaseId="SQLServer">
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into ew_time_project (icon,name,base_value,base_price,bonus_point,start_time,end_time)
+      values 
+      (#{icon,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{baseValue,jdbcType=INTEGER},#{basePrice,jdbcType=INTEGER},#{bonusPoint,jdbcType=DOUBLE},#{startTime,jdbcType=TIME},#{endTime,jdbcType=TIME})
+  </insert>
+  <insert id="insert" parameterType="top.iotequ.ewallet.pojo.EwTimeProject" databaseId="Oracle">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer" >
+      SELECT SEQUENCE_EW_TIME_PROJECT.nextval from DUAL
+    </selectKey>
+    insert into ew_time_project (id,icon,name,base_value,base_price,bonus_point,start_time,end_time)
+      values 
+      (#{id,jdbcType=INTEGER},#{icon,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{baseValue,jdbcType=INTEGER},#{basePrice,jdbcType=INTEGER},#{bonusPoint,jdbcType=DOUBLE},#{startTime,jdbcType=TIME},#{endTime,jdbcType=TIME})
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.ewallet.pojo.EwTimeProject">
+    insert into ew_time_project (icon,name,base_value,base_price,bonus_point,start_time,end_time)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.icon,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.baseValue,jdbcType=INTEGER},#{item.basePrice,jdbcType=INTEGER},#{item.bonusPoint,jdbcType=DOUBLE},#{item.startTime,jdbcType=TIME},#{item.endTime,jdbcType=TIME})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.ewallet.pojo.EwTimeProject" databaseId="Oracle">
+     insert into ew_time_project (id,icon,name,base_value,base_price,bonus_point,start_time,end_time)
+       select SEQUENCE_EW_TIME_PROJECT.nextval,cd.* from(
+          <foreach collection="list" item="item" index="index" separator="union all">
+             select #{item.icon,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.baseValue,jdbcType=INTEGER},#{item.basePrice,jdbcType=INTEGER},#{item.bonusPoint,jdbcType=DOUBLE},#{item.startTime,jdbcType=TIME},#{item.endTime,jdbcType=TIME} from dual
+          </foreach>
+       ) cd
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.ewallet.pojo.EwTimeProject">
+    insert into ew_time_project (id,icon,name,base_value,base_price,bonus_point,start_time,end_time)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=INTEGER},#{item.icon,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.baseValue,jdbcType=INTEGER},#{item.basePrice,jdbcType=INTEGER},#{item.bonusPoint,jdbcType=DOUBLE},#{item.startTime,jdbcType=TIME},#{item.endTime,jdbcType=TIME})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.ewallet.pojo.EwTimeProject" databaseId="SQLServer">
+    set IDENTITY_INSERT ew_time_project ON 
+    insert into ew_time_project (id,icon,name,base_value,base_price,bonus_point,start_time,end_time)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=INTEGER},#{item.icon,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.baseValue,jdbcType=INTEGER},#{item.basePrice,jdbcType=INTEGER},#{item.bonusPoint,jdbcType=DOUBLE},#{item.startTime,jdbcType=TIME},#{item.endTime,jdbcType=TIME})
+    </foreach>
+    set IDENTITY_INSERT ew_time_project OFF 
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.ewallet.pojo.EwTimeProject" databaseId="Oracle">
+    insert all 
+    <foreach collection="list" item="item" index="index">
+      into ew_time_project (id,icon,name,base_value,base_price,bonus_point,start_time,end_time) values(#{item.id,jdbcType=INTEGER},#{item.icon,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.baseValue,jdbcType=INTEGER},#{item.basePrice,jdbcType=INTEGER},#{item.bonusPoint,jdbcType=DOUBLE},#{item.startTime,jdbcType=TIME},#{item.endTime,jdbcType=TIME})
+    </foreach>
+    select 1 from dual
+  </insert>
+  <select id="select" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from ew_time_project where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteBatch" parameterType="java.lang.String">
+    delete from ew_time_project where id in (${_parameter})
+  </delete>
+  <delete id="deleteList" parameterType="java.util.List">
+    delete from ew_time_project where id in
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")"> 
+       #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </delete>
+  <update id="update" parameterType="top.iotequ.ewallet.pojo.EwTimeProject">
+    update ew_time_project set 
+      icon = #{icon,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      base_value = #{baseValue,jdbcType=INTEGER},
+      base_price = #{basePrice,jdbcType=INTEGER},
+      bonus_point = #{bonusPoint,jdbcType=DOUBLE},
+      start_time = #{startTime,jdbcType=TIME},
+      end_time = #{endTime,jdbcType=TIME}
+      where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateSelective" parameterType="top.iotequ.ewallet.pojo.EwTimeProject">
+    update ew_time_project 
+      <set>
+        <if test="icon != null"> icon = #{icon,jdbcType=VARCHAR},</if>
+        <if test="name != null"> name = #{name,jdbcType=VARCHAR},</if>
+        <if test="baseValue != null"> base_value = #{baseValue,jdbcType=INTEGER},</if>
+        <if test="basePrice != null"> base_price = #{basePrice,jdbcType=INTEGER},</if>
+        <if test="bonusPoint != null"> bonus_point = #{bonusPoint,jdbcType=DOUBLE},</if>
+        <if test="startTime != null"> start_time = #{startTime,jdbcType=TIME},</if>
+        <if test="endTime != null"> end_time = #{endTime,jdbcType=TIME},</if>
+      </set>
+      where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateBy" parameterType="top.iotequ.ewallet.pojo.EwTimeProject">
+    update ew_time_project set 
+      id = #{record.id,jdbcType=INTEGER},
+      icon = #{record.icon,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      base_value = #{record.baseValue,jdbcType=INTEGER},
+      base_price = #{record.basePrice,jdbcType=INTEGER},
+      bonus_point = #{record.bonusPoint,jdbcType=DOUBLE},
+      start_time = #{record.startTime,jdbcType=TIME},
+      end_time = #{record.endTime,jdbcType=TIME}
+      where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="list" parameterType="top.iotequ.ewallet.pojo.EwTimeProject" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+     where 1=1 
+        <if test="id != null"> and id = #{id,jdbcType=INTEGER} </if>
+        <if test="icon != null"> and icon like #{icon,jdbcType=VARCHAR} </if>
+        <if test="name != null"> and name like #{name,jdbcType=VARCHAR} </if>
+        <if test="baseValue != null"> and base_value = #{baseValue,jdbcType=INTEGER} </if>
+        <if test="basePrice != null"> and base_price = #{basePrice,jdbcType=INTEGER} </if>
+        <if test="bonusPoint != null"> and bonus_point = #{bonusPoint,jdbcType=DOUBLE} </if>
+        <if test="startTime != null"> and start_time like #{startTime,jdbcType=TIME} </if>
+        <if test="endTime != null"> and end_time like #{endTime,jdbcType=TIME} </if>
+  </select>
+  <select id="listBy" parameterType="map" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+        <if test="whereString != null and whereString !=''"> where ${whereString} </if>
+        <if test="orderString != null and orderString!=''"> order by ${orderString} </if>
+  </select>
+  <select id="query" parameterType="map" resultMap="BaseResultMap">
+        ${sqlString}
+  </select>
+</mapper>

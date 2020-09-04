@@ -1,0 +1,90 @@
+
+表：ew_user_time : 计时钱包
+id	id	int	✘	
+amount_time	计时时长	int	✘	
+check_code	检验码	varchar	✘	
+cost_limit	消费限额	int	✘	
+day_limit	日限额	int	✘	
+user_no	用户号	varchar	✘	
+time_id	计时项目编号	int	✘	
+
+表：ew_user_count : 计次钱包
+id		int	✘	
+amount_count	计次总数	int	✘	
+check_code	检验码	varchar	✘	
+cost_limit	消费限额	int	✘	
+day_limit	日限额	int	✘	
+user_no	账户	varchar	✘	
+count_id	计次项目	int	✘	
+
+表：ew_user : 电子钱包
+user_no	账户号	varchar	✘	
+is_active	激活	tinyint(1)	√	
+name	姓名	varchar	✘	
+gender	性别	int	✘	
+id_type	证件类别	int	✘	
+id_no	证件号码	varchar	✘	
+mobile_phone	手机号码	varchar	√	
+email	邮箱	varchar	√	
+wechat_openid	微信号	varchar	√	
+birth_date	生日	date	√	
+member_group	会员级别	varchar	√	
+bonus_point	积分	int	✘	
+amount_money	余额	int	✘	
+cost_limit	消费限额	int	✘	
+day_limit	日限额	int	✘	
+active_since	生效时间	datetime	√	
+expire_at	有效期限	datetime	√	
+check_code	检验码	varchar	✘	
+
+表：ew_time_project : 计时消费项目
+id	编号	int	✘	
+icon	图标	varchar	√	
+name	消费名称	varchar	✘	
+base_value	基本消费单元	int	✘	
+base_price	基础价格	int	✘	
+bonus_point	基本单元默认积分	double(12,2)	✘	
+start_time	有效开始时间	time(6)	√	
+end_time	有效结束时间	time(6)	√	
+
+表：ew_device : 授信设备
+id		int	✘	
+device_no	设备号	varchar	✘	
+shop_id	商家编号	varchar	✘	
+privilege_list	消费权限	varchar	✘	1:金额消费  2:计次消费  3:计时消费  
+
+表：ew_count_project : 计次消费项目
+id	编号	int	✘	
+icon	图标	varchar	√	
+name	消费名称	varchar	✘	
+base_price	基础价格	int	✘	
+base_value	基本消费单元	int	✘	
+bonus_point	每单元默认积分数	double(12,2)	✘	
+start_time	有效开始时间	time(6)	√	
+end_time	有效结束时间	time(6)	√	
+
+表：ew_bill : 消费明细
+no	流水号	varchar	✘	
+canceled	已取消	tinyint(1)	✘	
+is_charge	是否充值	tinyint(1)	✘	
+user_no	用户编号	varchar	✘	
+batch_no	批次号	varchar	✘	
+dt	时间	datetime	✘	
+operation_type	操作代码	int	✘	
+cost_type	交易类别	int	✘	1:钱包  2:计次  3:计时  
+project_id	交易项目	int	✘	
+project_name	交易名称	varchar	✘	
+project_price	产品单价	int	✘	
+amount	交易额	int	✘	
+amount_before	交易前钱包值	int	✘	
+bonus	获得积分	int	✘	
+bonus_before	交易前积分	int	✘	
+device_no	设备编号	varchar	✘	
+device_stream	设备流水	varchar	✘	
+device_dt	设备时间	datetime	✘	
+trade_no	订单号	varchar	✘	
+operator_no	操作员编号	varchar	✘	
+check_code	检验码	varchar	✘	
+link_no	关联流水号	varchar	√	
+login_id	签到id	int	✘	
+shop_id	商户编号	varchar	✘	

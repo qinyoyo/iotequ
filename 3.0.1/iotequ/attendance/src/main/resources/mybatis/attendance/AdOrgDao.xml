@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.iotequ.attendance.org.dao.AdOrgDao">
+  <resultMap id="BaseResultMap" type="top.iotequ.attendance.org.pojo.AdOrg">
+    <id column="org_code" jdbcType="INTEGER" property="orgCode" />
+    <result column="shift_id" jdbcType="INTEGER" property="shiftId" />
+    <result column="manage_limit" jdbcType="INTEGER" property="manageLimit" />
+    <result column="deviation" jdbcType="INTEGER" property="deviation" />
+    <result column="float_limit" jdbcType="INTEGER" property="floatLimit" />
+    <result column="absent_limit" jdbcType="INTEGER" property="absentLimit" />
+    <result column="free_work_limit" jdbcType="INTEGER" property="freeWorkLimit" />
+    <result column="sys_org_code" jdbcType="INTEGER" property="sysOrgCode" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="parent" jdbcType="INTEGER" property="parent" />
+    <result column="hr" jdbcType="VARCHAR" property="hr" />
+    <result column="hr_name" jdbcType="VARCHAR" property="hrName" />
+    <result column="manager" jdbcType="VARCHAR" property="manager" />
+    <result column="manager_name" jdbcType="VARCHAR" property="managerName" />
+    <result column="manager_org_code" jdbcType="INTEGER" property="managerOrgCode" />
+  </resultMap>
+  <sql id = "selectSql">
+     SELECT sys_org.org_code AS org_code,ad_org.shift_id,ad_org.manage_limit,ad_org.deviation,ad_org.float_limit,ad_org.absent_limit,ad_org.free_work_limit,sys_org.org_code AS sys_org_code,sys_org.name AS name,sys_org.parent AS parent,ad_org.hr,sys_user.real_name AS hr_name,ad_org.manager,sys_user1.real_name AS manager_name,sys_user1.org_code AS manager_org_code FROM ad_org RIGHT JOIN sys_org ON ad_org.org_code = sys_org.org_code LEFT JOIN sys_user ON ad_org.hr = sys_user.id LEFT JOIN sys_user sys_user1 ON ad_org.manager = sys_user1.id
+  </sql>
+  <sql id = "realSelectSql">
+     SELECT ad_org.org_code,ad_org.shift_id,ad_org.manage_limit,ad_org.deviation,ad_org.float_limit,ad_org.absent_limit,ad_org.free_work_limit,sys_org.org_code AS sys_org_code,sys_org.name AS name,sys_org.parent AS parent,ad_org.hr,sys_user.real_name AS hr_name,ad_org.manager,sys_user1.real_name AS manager_name,sys_user1.org_code AS manager_org_code FROM ad_org RIGHT JOIN sys_org ON ad_org.org_code = sys_org.org_code LEFT JOIN sys_user ON ad_org.hr = sys_user.id LEFT JOIN sys_user sys_user1 ON ad_org.manager = sys_user1.id
+  </sql>
+  <insert id="insert" parameterType="top.iotequ.attendance.org.pojo.AdOrg">
+    insert into ad_org (org_code,shift_id,manage_limit,deviation,float_limit,absent_limit,free_work_limit,hr,manager)
+      values 
+      (#{orgCode,jdbcType=INTEGER},#{shiftId,jdbcType=INTEGER},#{manageLimit,jdbcType=INTEGER},#{deviation,jdbcType=INTEGER},#{floatLimit,jdbcType=INTEGER},#{absentLimit,jdbcType=INTEGER},#{freeWorkLimit,jdbcType=INTEGER},#{hr,jdbcType=VARCHAR},#{manager,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.attendance.org.pojo.AdOrg">
+    insert into ad_org (org_code,shift_id,manage_limit,deviation,float_limit,absent_limit,free_work_limit,hr,manager)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.orgCode,jdbcType=INTEGER},#{item.shiftId,jdbcType=INTEGER},#{item.manageLimit,jdbcType=INTEGER},#{item.deviation,jdbcType=INTEGER},#{item.floatLimit,jdbcType=INTEGER},#{item.absentLimit,jdbcType=INTEGER},#{item.freeWorkLimit,jdbcType=INTEGER},#{item.hr,jdbcType=VARCHAR},#{item.manager,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.attendance.org.pojo.AdOrg" databaseId="Oracle">
+    insert all 
+    <foreach collection="list" item="item" index="index">
+      into ad_org (org_code,shift_id,manage_limit,deviation,float_limit,absent_limit,free_work_limit,hr,manager) values(#{item.orgCode,jdbcType=INTEGER},#{item.shiftId,jdbcType=INTEGER},#{item.manageLimit,jdbcType=INTEGER},#{item.deviation,jdbcType=INTEGER},#{item.floatLimit,jdbcType=INTEGER},#{item.absentLimit,jdbcType=INTEGER},#{item.freeWorkLimit,jdbcType=INTEGER},#{item.hr,jdbcType=VARCHAR},#{item.manager,jdbcType=VARCHAR})
+    </foreach>
+    select 1 from dual
+  </insert>
+  <select id="select" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where sys_org.org_code = #{orgCode,jdbcType=INTEGER}
+  </select>
+  <select id="realSelect" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <include refid="realSelectSql" /> where ad_org.org_code = #{orgCode,jdbcType=INTEGER}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from ad_org where org_code = #{orgCode,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteBatch" parameterType="java.lang.String">
+    delete from ad_org where org_code in (${_parameter})
+  </delete>
+  <delete id="deleteList" parameterType="java.util.List">
+    delete from ad_org where org_code in
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")"> 
+       #{item.orgCode,jdbcType=INTEGER}
+    </foreach>
+  </delete>
+  <update id="update" parameterType="top.iotequ.attendance.org.pojo.AdOrg">
+    update ad_org set 
+      shift_id = #{shiftId,jdbcType=INTEGER},
+      manage_limit = #{manageLimit,jdbcType=INTEGER},
+      deviation = #{deviation,jdbcType=INTEGER},
+      float_limit = #{floatLimit,jdbcType=INTEGER},
+      absent_limit = #{absentLimit,jdbcType=INTEGER},
+      free_work_limit = #{freeWorkLimit,jdbcType=INTEGER},
+      hr = #{hr,jdbcType=VARCHAR},
+      manager = #{manager,jdbcType=VARCHAR}
+      where org_code = #{orgCode,jdbcType=INTEGER}
+  </update>
+  <update id="updateSelective" parameterType="top.iotequ.attendance.org.pojo.AdOrg">
+    update ad_org 
+      <set>
+        <if test="shiftId != null"> shift_id = #{shiftId,jdbcType=INTEGER},</if>
+        <if test="manageLimit != null"> manage_limit = #{manageLimit,jdbcType=INTEGER},</if>
+        <if test="deviation != null"> deviation = #{deviation,jdbcType=INTEGER},</if>
+        <if test="floatLimit != null"> float_limit = #{floatLimit,jdbcType=INTEGER},</if>
+        <if test="absentLimit != null"> absent_limit = #{absentLimit,jdbcType=INTEGER},</if>
+        <if test="freeWorkLimit != null"> free_work_limit = #{freeWorkLimit,jdbcType=INTEGER},</if>
+        <if test="hr != null"> hr = #{hr,jdbcType=VARCHAR},</if>
+        <if test="manager != null"> manager = #{manager,jdbcType=VARCHAR},</if>
+      </set>
+      where org_code = #{orgCode,jdbcType=INTEGER}
+  </update>
+  <update id="updateBy" parameterType="top.iotequ.attendance.org.pojo.AdOrg">
+    update ad_org set 
+      shift_id = #{record.shiftId,jdbcType=INTEGER},
+      manage_limit = #{record.manageLimit,jdbcType=INTEGER},
+      deviation = #{record.deviation,jdbcType=INTEGER},
+      float_limit = #{record.floatLimit,jdbcType=INTEGER},
+      absent_limit = #{record.absentLimit,jdbcType=INTEGER},
+      free_work_limit = #{record.freeWorkLimit,jdbcType=INTEGER},
+      org_code = #{record.orgCode,jdbcType=INTEGER},
+      hr = #{record.hr,jdbcType=VARCHAR},
+      manager = #{record.manager,jdbcType=VARCHAR}
+      where org_code = #{orgCode,jdbcType=INTEGER}
+  </update>
+  <select id="list" parameterType="top.iotequ.attendance.org.pojo.AdOrg" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+     where 1=1 
+        <if test="shiftId != null"> and ad_org.shift_id = #{shiftId,jdbcType=INTEGER} </if>
+        <if test="manageLimit != null"> and ad_org.manage_limit = #{manageLimit,jdbcType=INTEGER} </if>
+        <if test="deviation != null"> and ad_org.deviation = #{deviation,jdbcType=INTEGER} </if>
+        <if test="floatLimit != null"> and ad_org.float_limit = #{floatLimit,jdbcType=INTEGER} </if>
+        <if test="absentLimit != null"> and ad_org.absent_limit = #{absentLimit,jdbcType=INTEGER} </if>
+        <if test="freeWorkLimit != null"> and ad_org.free_work_limit = #{freeWorkLimit,jdbcType=INTEGER} </if>
+        <if test="orgCode != null"> and sys_org.org_code = #{orgCode,jdbcType=INTEGER} </if>
+        <if test="sysOrgCode != null"> and sys_org.org_code = #{sysOrgCode,jdbcType=INTEGER} </if>
+        <if test="name != null"> and sys_org.name like #{name,jdbcType=VARCHAR} </if>
+        <if test="parent != null"> and sys_org.parent = #{parent,jdbcType=INTEGER} </if>
+        <if test="hr != null"> and ad_org.hr like #{hr,jdbcType=VARCHAR} </if>
+        <if test="hrName != null"> and sys_user.real_name like #{hrName,jdbcType=VARCHAR} </if>
+        <if test="manager != null"> and ad_org.manager like #{manager,jdbcType=VARCHAR} </if>
+        <if test="managerName != null"> and sys_user1.real_name like #{managerName,jdbcType=VARCHAR} </if>
+        <if test="managerOrgCode != null"> and sys_user1.org_code = #{managerOrgCode,jdbcType=INTEGER} </if>
+  </select>
+  <select id="listBy" parameterType="map" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+        <if test="whereString != null and whereString !=''"> where ${whereString} </if>
+        <if test="orderString != null and orderString!=''"> order by ${orderString} </if>
+  </select>
+  <select id="query" parameterType="map" resultMap="BaseResultMap">
+        ${sqlString}
+  </select>
+</mapper>

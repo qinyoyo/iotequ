@@ -1,0 +1,48 @@
+
+表：pm_people : 项目人员
+id	编号	int	✘	
+group_id	职能分组	int	✘	
+user_id	职员	varchar	✘	
+
+表：pm_version_application : 版本申请
+id	id	char	✘	
+flow_state	状态	int	✘	
+flow_register_time	申请时间	datetime	✘	
+project	项目	varchar	✘	
+application_type	申请类别	int	✘	
+customer	使用单位	varchar	✘	
+licence	授权说明	varchar	✘	
+contract_no	合同号	varchar	√	
+description	详情描述	varchar	✘	
+version_info	发放版本号详情	varchar	√	
+flow_note	已处理意见	varchar	√	
+add_file	附件	varchar	√	
+flow_register_by	申请人	varchar	✘	
+flow_next_operator	即将处理人	varchar	√	
+flow_copy_to_list	抄送列表	varchar	√	
+
+表：pm_project : 项目及产品列表
+id	id	char	✘	
+flow_state	状态	int	✘	
+flow_register_time	登记时间	datetime	✘	
+name	名称	varchar	✘	
+type	类别	int	✘	
+customer	客户信息	varchar	√	
+market_size	市场规模(万)	int	√	
+human_cost	人力投入(人月)	int	√	
+material_cost	物料成本(万)	int	√	
+code	版本编码	varchar	√	
+description	详细描述	varchar	√	
+flow_note	已处理意见	varchar	√	
+add_file	附件	varchar	√	
+flow_register_by	登记人	varchar	✘	
+flow_next_operator	下一步处理人	varchar	√	
+flow_copy_to_list	抄送列表	varchar	√	
+
+表：pm_people_group : 职能人员分组
+id	编号	int	✘	
+parent	上级	int	√	
+name	名称	varchar	✘	
+group_type	类别	varchar	✘	
+enabled	激活	tinyint(1)	✘	
+description	职能描述	varchar	√	

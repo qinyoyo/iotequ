@@ -1,0 +1,8 @@
+
+表：pm_people_group : 职能人员分组
+id	编号	int(11)	✘	
+parent	上级	int	√	
+name	名称	varchar(45)	✘	
+group_type	类别	varchar(45)	✘	
+enabled	激活	tinyint(1)	✘	
+description	职能描述	varchar(200)	√	

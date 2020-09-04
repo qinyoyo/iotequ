@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.iotequ.project.product.dao.PmProjectDao">
+  <resultMap id="BaseResultMap" type="top.iotequ.project.product.pojo.PmProject">
+    <id column="id" jdbcType="CHAR" property="id" />
+    <result column="flow_state" jdbcType="INTEGER" property="flowState" />
+    <result column="flow_register_time" jdbcType="TIMESTAMP" property="flowRegisterTime" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="customer" jdbcType="VARCHAR" property="customer" />
+    <result column="market_size" jdbcType="INTEGER" property="marketSize" />
+    <result column="human_cost" jdbcType="INTEGER" property="humanCost" />
+    <result column="material_cost" jdbcType="INTEGER" property="materialCost" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="flow_note" jdbcType="VARCHAR" property="flowNote" />
+    <result column="add_file" jdbcType="VARCHAR" property="addFile" />
+    <result column="flow_copy_to_list" jdbcType="VARCHAR" property="flowCopyToList" />
+    <result column="dict_list_flow_copy_to_list" jdbcType="VARCHAR" property="dictListFlowCopyToList" />
+    <result column="flow_register_by" jdbcType="VARCHAR" property="flowRegisterBy" />
+    <result column="register_by_name" jdbcType="VARCHAR" property="registerByName" />
+    <result column="flow_next_operator" jdbcType="VARCHAR" property="flowNextOperator" />
+    <result column="next_operator_name" jdbcType="VARCHAR" property="nextOperatorName" />
+  </resultMap>
+  <sql id = "selectSql">
+     SELECT pm_project.id,pm_project.flow_state,pm_project.flow_register_time,pm_project.name,pm_project.type,pm_project.customer,pm_project.market_size,pm_project.human_cost,pm_project.material_cost,pm_project.code,pm_project.description,pm_project.flow_note,pm_project.add_file,pm_project.flow_copy_to_list,
+      (select group_concat(real_name) from sys_user where FIND_IN_SET(id,pm_project.flow_copy_to_list)) AS dict_list_flow_copy_to_list
+      ,pm_project.flow_register_by,sys_user.real_name AS register_by_name,pm_project.flow_next_operator,sys_user1.real_name AS next_operator_name FROM pm_project LEFT JOIN sys_user ON pm_project.flow_register_by = sys_user.id LEFT JOIN sys_user sys_user1 ON pm_project.flow_next_operator = sys_user1.id
+  </sql>
+  <sql id = "selectSql" databaseId="SQLServer">
+     SELECT pm_project.id,pm_project.flow_state,pm_project.flow_register_time,pm_project.name,pm_project.type,pm_project.customer,pm_project.market_size,pm_project.human_cost,pm_project.material_cost,pm_project.code,pm_project.description,pm_project.flow_note,pm_project.add_file,pm_project.flow_copy_to_list,
+      (select CAST(real_name as varchar)+',' from sys_user  where CHARINDEX(','+CAST(id as varchar)+',',','+pm_project.flow_copy_to_list+',') >0 for xml path('')) AS dict_list_flow_copy_to_list
+      ,pm_project.flow_register_by,sys_user.real_name AS register_by_name,pm_project.flow_next_operator,sys_user1.real_name AS next_operator_name FROM pm_project LEFT JOIN sys_user ON pm_project.flow_register_by = sys_user.id LEFT JOIN sys_user sys_user1 ON pm_project.flow_next_operator = sys_user1.id
+  </sql>
+  <sql id = "selectSql" databaseId="Oracle">
+     SELECT pm_project.id,pm_project.flow_state,pm_project.flow_register_time,pm_project.name,pm_project.type,pm_project.customer,pm_project.market_size,pm_project.human_cost,pm_project.material_cost,pm_project.code,pm_project.description,pm_project.flow_note,pm_project.add_file,pm_project.flow_copy_to_list,
+      (select  LISTAGG(real_name,',') WITHIN GROUP(ORDER BY id) from sys_user where INSTR(','||pm_project.flow_copy_to_list||',',','||to_char(id)||',')>0) AS dict_list_flow_copy_to_list
+      ,pm_project.flow_register_by,sys_user.real_name AS register_by_name,pm_project.flow_next_operator,sys_user1.real_name AS next_operator_name FROM pm_project LEFT JOIN sys_user ON pm_project.flow_register_by = sys_user.id LEFT JOIN sys_user sys_user1 ON pm_project.flow_next_operator = sys_user1.id
+  </sql>
+  <insert id="insert" parameterType="top.iotequ.project.product.pojo.PmProject">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String" >
+      SELECT replace(uuid(), '-', '')
+    </selectKey>
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String" databaseId="SQLServer">
+      SELECT replace(lower(newid()), '-', '')
+    </selectKey>
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String" databaseId="Oracle">
+      SELECT replace(lower(sys_guid()), '-', '') from dual
+    </selectKey>
+    insert into pm_project (id,flow_state,flow_register_time,name,type,customer,market_size,human_cost,material_cost,code,description,flow_note,add_file,flow_copy_to_list,flow_register_by,flow_next_operator)
+      values 
+      (#{id,jdbcType=CHAR},#{flowState,jdbcType=INTEGER},#{flowRegisterTime,jdbcType=TIMESTAMP},#{name,jdbcType=VARCHAR},#{type,jdbcType=INTEGER},#{customer,jdbcType=VARCHAR},#{marketSize,jdbcType=INTEGER},#{humanCost,jdbcType=INTEGER},#{materialCost,jdbcType=INTEGER},#{code,jdbcType=VARCHAR},#{description,jdbcType=VARCHAR},#{flowNote,jdbcType=VARCHAR},#{addFile,jdbcType=VARCHAR},#{flowCopyToList,jdbcType=VARCHAR},#{flowRegisterBy,jdbcType=VARCHAR},#{flowNextOperator,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.project.product.pojo.PmProject">
+    insert into pm_project (id,flow_state,flow_register_time,name,type,customer,market_size,human_cost,material_cost,code,description,flow_note,add_file,flow_copy_to_list,flow_register_by,flow_next_operator)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (replace(uuid(), '-', ''),#{item.flowState,jdbcType=INTEGER},#{item.flowRegisterTime,jdbcType=TIMESTAMP},#{item.name,jdbcType=VARCHAR},#{item.type,jdbcType=INTEGER},#{item.customer,jdbcType=VARCHAR},#{item.marketSize,jdbcType=INTEGER},#{item.humanCost,jdbcType=INTEGER},#{item.materialCost,jdbcType=INTEGER},#{item.code,jdbcType=VARCHAR},#{item.description,jdbcType=VARCHAR},#{item.flowNote,jdbcType=VARCHAR},#{item.addFile,jdbcType=VARCHAR},#{item.flowCopyToList,jdbcType=VARCHAR},#{item.flowRegisterBy,jdbcType=VARCHAR},#{item.flowNextOperator,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.project.product.pojo.PmProject" databaseId="SQLServer">
+    insert into pm_project (id,flow_state,flow_register_time,name,type,customer,market_size,human_cost,material_cost,code,description,flow_note,add_file,flow_copy_to_list,flow_register_by,flow_next_operator)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (replace(lower(newid()), '-', ''),#{item.flowState,jdbcType=INTEGER},#{item.flowRegisterTime,jdbcType=TIMESTAMP},#{item.name,jdbcType=VARCHAR},#{item.type,jdbcType=INTEGER},#{item.customer,jdbcType=VARCHAR},#{item.marketSize,jdbcType=INTEGER},#{item.humanCost,jdbcType=INTEGER},#{item.materialCost,jdbcType=INTEGER},#{item.code,jdbcType=VARCHAR},#{item.description,jdbcType=VARCHAR},#{item.flowNote,jdbcType=VARCHAR},#{item.addFile,jdbcType=VARCHAR},#{item.flowCopyToList,jdbcType=VARCHAR},#{item.flowRegisterBy,jdbcType=VARCHAR},#{item.flowNextOperator,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.project.product.pojo.PmProject" databaseId="Oracle">
+    insert all 
+    <foreach collection="list" item="item" index="index">
+      into pm_project (id,flow_state,flow_register_time,name,type,customer,market_size,human_cost,material_cost,code,description,flow_note,add_file,flow_copy_to_list,flow_register_by,flow_next_operator) values(replace(lower(sys_guid()), '-', ''),#{item.flowState,jdbcType=INTEGER},#{item.flowRegisterTime,jdbcType=TIMESTAMP},#{item.name,jdbcType=VARCHAR},#{item.type,jdbcType=INTEGER},#{item.customer,jdbcType=VARCHAR},#{item.marketSize,jdbcType=INTEGER},#{item.humanCost,jdbcType=INTEGER},#{item.materialCost,jdbcType=INTEGER},#{item.code,jdbcType=VARCHAR},#{item.description,jdbcType=VARCHAR},#{item.flowNote,jdbcType=VARCHAR},#{item.addFile,jdbcType=VARCHAR},#{item.flowCopyToList,jdbcType=VARCHAR},#{item.flowRegisterBy,jdbcType=VARCHAR},#{item.flowNextOperator,jdbcType=VARCHAR})
+    </foreach>
+    select 1 from dual
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.project.product.pojo.PmProject">
+    insert into pm_project (id,flow_state,flow_register_time,name,type,customer,market_size,human_cost,material_cost,code,description,flow_note,add_file,flow_copy_to_list,flow_register_by,flow_next_operator)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=CHAR},#{item.flowState,jdbcType=INTEGER},#{item.flowRegisterTime,jdbcType=TIMESTAMP},#{item.name,jdbcType=VARCHAR},#{item.type,jdbcType=INTEGER},#{item.customer,jdbcType=VARCHAR},#{item.marketSize,jdbcType=INTEGER},#{item.humanCost,jdbcType=INTEGER},#{item.materialCost,jdbcType=INTEGER},#{item.code,jdbcType=VARCHAR},#{item.description,jdbcType=VARCHAR},#{item.flowNote,jdbcType=VARCHAR},#{item.addFile,jdbcType=VARCHAR},#{item.flowCopyToList,jdbcType=VARCHAR},#{item.flowRegisterBy,jdbcType=VARCHAR},#{item.flowNextOperator,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.project.product.pojo.PmProject" databaseId="Oracle">
+    insert all 
+    <foreach collection="list" item="item" index="index">
+      into pm_project (id,flow_state,flow_register_time,name,type,customer,market_size,human_cost,material_cost,code,description,flow_note,add_file,flow_copy_to_list,flow_register_by,flow_next_operator) values(#{item.id,jdbcType=CHAR},#{item.flowState,jdbcType=INTEGER},#{item.flowRegisterTime,jdbcType=TIMESTAMP},#{item.name,jdbcType=VARCHAR},#{item.type,jdbcType=INTEGER},#{item.customer,jdbcType=VARCHAR},#{item.marketSize,jdbcType=INTEGER},#{item.humanCost,jdbcType=INTEGER},#{item.materialCost,jdbcType=INTEGER},#{item.code,jdbcType=VARCHAR},#{item.description,jdbcType=VARCHAR},#{item.flowNote,jdbcType=VARCHAR},#{item.addFile,jdbcType=VARCHAR},#{item.flowCopyToList,jdbcType=VARCHAR},#{item.flowRegisterBy,jdbcType=VARCHAR},#{item.flowNextOperator,jdbcType=VARCHAR})
+    </foreach>
+    select 1 from dual
+  </insert>
+  <select id="select" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where pm_project.id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="delete" parameterType="java.lang.String">
+    delete from pm_project where id = #{id,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteBatch" parameterType="java.lang.String">
+    delete from pm_project where id in     <foreach item="item" index="index" collection="_parameter.split(',')" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+  <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where pm_project.name = #{name,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByName" parameterType="java.lang.String">
+    delete from pm_project where name = #{name,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteBatchByName" parameterType="java.lang.String">
+    delete from pm_project where name in     <foreach item="item" index="index" collection="_parameter.split(',')" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+  <select id="selectByCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where pm_project.code = #{code,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByCode" parameterType="java.lang.String">
+    delete from pm_project where code = #{code,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteBatchByCode" parameterType="java.lang.String">
+    delete from pm_project where code in     <foreach item="item" index="index" collection="_parameter.split(',')" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+  <delete id="deleteList" parameterType="java.util.List">
+    delete from pm_project where id in
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")"> 
+       #{item.id,jdbcType=CHAR}
+    </foreach>
+  </delete>
+  <update id="update" parameterType="top.iotequ.project.product.pojo.PmProject">
+    update pm_project set 
+      flow_state = #{flowState,jdbcType=INTEGER},
+      flow_register_time = #{flowRegisterTime,jdbcType=TIMESTAMP},
+      name = #{name,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      customer = #{customer,jdbcType=VARCHAR},
+      market_size = #{marketSize,jdbcType=INTEGER},
+      human_cost = #{humanCost,jdbcType=INTEGER},
+      material_cost = #{materialCost,jdbcType=INTEGER},
+      code = #{code,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      flow_note = #{flowNote,jdbcType=VARCHAR},
+      add_file = #{addFile,jdbcType=VARCHAR},
+      flow_copy_to_list = #{flowCopyToList,jdbcType=VARCHAR},
+      flow_register_by = #{flowRegisterBy,jdbcType=VARCHAR},
+      flow_next_operator = #{flowNextOperator,jdbcType=VARCHAR}
+      where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateSelective" parameterType="top.iotequ.project.product.pojo.PmProject">
+    update pm_project 
+      <set>
+        <if test="flowState != null"> flow_state = #{flowState,jdbcType=INTEGER},</if>
+        <if test="flowRegisterTime != null"> flow_register_time = #{flowRegisterTime,jdbcType=TIMESTAMP},</if>
+        <if test="name != null"> name = #{name,jdbcType=VARCHAR},</if>
+        <if test="type != null"> type = #{type,jdbcType=INTEGER},</if>
+        <if test="customer != null"> customer = #{customer,jdbcType=VARCHAR},</if>
+        <if test="marketSize != null"> market_size = #{marketSize,jdbcType=INTEGER},</if>
+        <if test="humanCost != null"> human_cost = #{humanCost,jdbcType=INTEGER},</if>
+        <if test="materialCost != null"> material_cost = #{materialCost,jdbcType=INTEGER},</if>
+        <if test="code != null"> code = #{code,jdbcType=VARCHAR},</if>
+        <if test="description != null"> description = #{description,jdbcType=VARCHAR},</if>
+        <if test="flowNote != null"> flow_note = #{flowNote,jdbcType=VARCHAR},</if>
+        <if test="addFile != null"> add_file = #{addFile,jdbcType=VARCHAR},</if>
+        <if test="flowCopyToList != null"> flow_copy_to_list = #{flowCopyToList,jdbcType=VARCHAR},</if>
+        <if test="flowRegisterBy != null"> flow_register_by = #{flowRegisterBy,jdbcType=VARCHAR},</if>
+        <if test="flowNextOperator != null"> flow_next_operator = #{flowNextOperator,jdbcType=VARCHAR},</if>
+      </set>
+      where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateBy" parameterType="top.iotequ.project.product.pojo.PmProject">
+    update pm_project set 
+      id = #{record.id,jdbcType=CHAR},
+      flow_state = #{record.flowState,jdbcType=INTEGER},
+      flow_register_time = #{record.flowRegisterTime,jdbcType=TIMESTAMP},
+      name = #{record.name,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      customer = #{record.customer,jdbcType=VARCHAR},
+      market_size = #{record.marketSize,jdbcType=INTEGER},
+      human_cost = #{record.humanCost,jdbcType=INTEGER},
+      material_cost = #{record.materialCost,jdbcType=INTEGER},
+      code = #{record.code,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      flow_note = #{record.flowNote,jdbcType=VARCHAR},
+      add_file = #{record.addFile,jdbcType=VARCHAR},
+      flow_copy_to_list = #{record.flowCopyToList,jdbcType=VARCHAR},
+      flow_register_by = #{record.flowRegisterBy,jdbcType=VARCHAR},
+      flow_next_operator = #{record.flowNextOperator,jdbcType=VARCHAR}
+      where id = #{id,jdbcType=CHAR}
+  </update>
+  <select id="list" parameterType="top.iotequ.project.product.pojo.PmProject" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+     where 1=1 
+        <if test="id != null"> and pm_project.id like #{id,jdbcType=CHAR} </if>
+        <if test="flowState != null"> and pm_project.flow_state = #{flowState,jdbcType=INTEGER} </if>
+        <if test="flowRegisterTime != null"> and pm_project.flow_register_time like #{flowRegisterTime,jdbcType=TIMESTAMP} </if>
+        <if test="name != null"> and pm_project.name like #{name,jdbcType=VARCHAR} </if>
+        <if test="type != null"> and pm_project.type = #{type,jdbcType=INTEGER} </if>
+        <if test="customer != null"> and pm_project.customer like #{customer,jdbcType=VARCHAR} </if>
+        <if test="marketSize != null"> and pm_project.market_size = #{marketSize,jdbcType=INTEGER} </if>
+        <if test="humanCost != null"> and pm_project.human_cost = #{humanCost,jdbcType=INTEGER} </if>
+        <if test="materialCost != null"> and pm_project.material_cost = #{materialCost,jdbcType=INTEGER} </if>
+        <if test="code != null"> and pm_project.code like #{code,jdbcType=VARCHAR} </if>
+        <if test="description != null"> and pm_project.description like #{description,jdbcType=VARCHAR} </if>
+        <if test="flowNote != null"> and pm_project.flow_note like #{flowNote,jdbcType=VARCHAR} </if>
+        <if test="addFile != null"> and pm_project.add_file like #{addFile,jdbcType=VARCHAR} </if>
+        <if test="flowCopyToList != null"> and pm_project.flow_copy_to_list like #{flowCopyToList,jdbcType=VARCHAR} </if>
+        <if test="flowRegisterBy != null"> and pm_project.flow_register_by like #{flowRegisterBy,jdbcType=VARCHAR} </if>
+        <if test="registerByName != null"> and sys_user.real_name like #{registerByName,jdbcType=VARCHAR} </if>
+        <if test="flowNextOperator != null"> and pm_project.flow_next_operator like #{flowNextOperator,jdbcType=VARCHAR} </if>
+        <if test="nextOperatorName != null"> and sys_user1.real_name like #{nextOperatorName,jdbcType=VARCHAR} </if>
+  </select>
+  <select id="listBy" parameterType="map" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+        <if test="whereString != null and whereString !=''"> where ${whereString} </if>
+        <if test="orderString != null and orderString!=''"> order by ${orderString} </if>
+  </select>
+  <select id="query" parameterType="map" resultMap="BaseResultMap">
+        ${sqlString}
+  </select>
+</mapper>

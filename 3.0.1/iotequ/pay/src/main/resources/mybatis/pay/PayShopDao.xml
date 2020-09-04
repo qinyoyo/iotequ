@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.iotequ.pay.dao.PayShopDao">
+  <resultMap id="BaseResultMap" type="top.iotequ.pay.pojo.PayShop">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="corporation_id" jdbcType="INTEGER" property="corporationId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="linkman" jdbcType="VARCHAR" property="linkman" />
+    <result column="link_phone" jdbcType="VARCHAR" property="linkPhone" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+  </resultMap>
+  <sql id = "selectSql">
+     SELECT id,corporation_id,name,linkman,link_phone,address FROM pay_shop
+  </sql>
+  <insert id="insert" parameterType="top.iotequ.pay.pojo.PayShop">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer" databaseId="SQLServer">
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into pay_shop (corporation_id,name,linkman,link_phone,address)
+      values 
+      (#{corporationId,jdbcType=INTEGER},#{name,jdbcType=VARCHAR},#{linkman,jdbcType=VARCHAR},#{linkPhone,jdbcType=VARCHAR},#{address,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insert" parameterType="top.iotequ.pay.pojo.PayShop" databaseId="Oracle">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer" >
+      SELECT SEQUENCE_PAY_SHOP.nextval from DUAL
+    </selectKey>
+    insert into pay_shop (id,corporation_id,name,linkman,link_phone,address)
+      values 
+      (#{id,jdbcType=INTEGER},#{corporationId,jdbcType=INTEGER},#{name,jdbcType=VARCHAR},#{linkman,jdbcType=VARCHAR},#{linkPhone,jdbcType=VARCHAR},#{address,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.pay.pojo.PayShop">
+    insert into pay_shop (corporation_id,name,linkman,link_phone,address)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.corporationId,jdbcType=INTEGER},#{item.name,jdbcType=VARCHAR},#{item.linkman,jdbcType=VARCHAR},#{item.linkPhone,jdbcType=VARCHAR},#{item.address,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.pay.pojo.PayShop" databaseId="Oracle">
+     insert into pay_shop (id,corporation_id,name,linkman,link_phone,address)
+       select SEQUENCE_PAY_SHOP.nextval,cd.* from(
+          <foreach collection="list" item="item" index="index" separator="union all">
+             select #{item.corporationId,jdbcType=INTEGER},#{item.name,jdbcType=VARCHAR},#{item.linkman,jdbcType=VARCHAR},#{item.linkPhone,jdbcType=VARCHAR},#{item.address,jdbcType=VARCHAR} from dual
+          </foreach>
+       ) cd
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.pay.pojo.PayShop">
+    insert into pay_shop (id,corporation_id,name,linkman,link_phone,address)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=INTEGER},#{item.corporationId,jdbcType=INTEGER},#{item.name,jdbcType=VARCHAR},#{item.linkman,jdbcType=VARCHAR},#{item.linkPhone,jdbcType=VARCHAR},#{item.address,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.pay.pojo.PayShop" databaseId="SQLServer">
+    set IDENTITY_INSERT pay_shop ON 
+    insert into pay_shop (id,corporation_id,name,linkman,link_phone,address)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=INTEGER},#{item.corporationId,jdbcType=INTEGER},#{item.name,jdbcType=VARCHAR},#{item.linkman,jdbcType=VARCHAR},#{item.linkPhone,jdbcType=VARCHAR},#{item.address,jdbcType=VARCHAR})
+    </foreach>
+    set IDENTITY_INSERT pay_shop OFF 
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.pay.pojo.PayShop" databaseId="Oracle">
+    insert all 
+    <foreach collection="list" item="item" index="index">
+      into pay_shop (id,corporation_id,name,linkman,link_phone,address) values(#{item.id,jdbcType=INTEGER},#{item.corporationId,jdbcType=INTEGER},#{item.name,jdbcType=VARCHAR},#{item.linkman,jdbcType=VARCHAR},#{item.linkPhone,jdbcType=VARCHAR},#{item.address,jdbcType=VARCHAR})
+    </foreach>
+    select 1 from dual
+  </insert>
+  <select id="select" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from pay_shop where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteBatch" parameterType="java.lang.String">
+    delete from pay_shop where id in (${_parameter})
+  </delete>
+  <delete id="deleteList" parameterType="java.util.List">
+    delete from pay_shop where id in
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")"> 
+       #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </delete>
+  <update id="update" parameterType="top.iotequ.pay.pojo.PayShop">
+    update pay_shop set 
+      corporation_id = #{corporationId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      linkman = #{linkman,jdbcType=VARCHAR},
+      link_phone = #{linkPhone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR}
+      where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateSelective" parameterType="top.iotequ.pay.pojo.PayShop">
+    update pay_shop 
+      <set>
+        <if test="corporationId != null"> corporation_id = #{corporationId,jdbcType=INTEGER},</if>
+        <if test="name != null"> name = #{name,jdbcType=VARCHAR},</if>
+        <if test="linkman != null"> linkman = #{linkman,jdbcType=VARCHAR},</if>
+        <if test="linkPhone != null"> link_phone = #{linkPhone,jdbcType=VARCHAR},</if>
+        <if test="address != null"> address = #{address,jdbcType=VARCHAR},</if>
+      </set>
+      where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateBy" parameterType="top.iotequ.pay.pojo.PayShop">
+    update pay_shop set 
+      id = #{record.id,jdbcType=INTEGER},
+      corporation_id = #{record.corporationId,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      linkman = #{record.linkman,jdbcType=VARCHAR},
+      link_phone = #{record.linkPhone,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR}
+      where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="list" parameterType="top.iotequ.pay.pojo.PayShop" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+     where 1=1 
+        <if test="id != null"> and id = #{id,jdbcType=INTEGER} </if>
+        <if test="corporationId != null"> and corporation_id = #{corporationId,jdbcType=INTEGER} </if>
+        <if test="name != null"> and name like #{name,jdbcType=VARCHAR} </if>
+        <if test="linkman != null"> and linkman like #{linkman,jdbcType=VARCHAR} </if>
+        <if test="linkPhone != null"> and link_phone like #{linkPhone,jdbcType=VARCHAR} </if>
+        <if test="address != null"> and address like #{address,jdbcType=VARCHAR} </if>
+  </select>
+  <select id="listBy" parameterType="map" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+        <if test="whereString != null and whereString !=''"> where ${whereString} </if>
+        <if test="orderString != null and orderString!=''"> order by ${orderString} </if>
+  </select>
+  <select id="query" parameterType="map" resultMap="BaseResultMap">
+        ${sqlString}
+  </select>
+</mapper>

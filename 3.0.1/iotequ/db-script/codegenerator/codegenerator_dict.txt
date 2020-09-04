@@ -1,0 +1,177 @@
+
+表：cg_list_field : 列表视图字段定义
+id	ID	int	✘	
+list_id	listID	varchar	✘	
+order_num	排序	int	✘	
+entity_field	表entity字段	varchar	✘	
+query_mode	查询模式	int	✘	0:无  1:自动  2:筛选  3:范围  
+fix	固定列	tinyint(1)	✘	
+expand	展开列	tinyint(1)	✘	
+overflow_tooltip	提示隐藏内容	tinyint(1)	✘	
+align	对齐	varchar	✘	
+header_align	表头对齐	varchar	√	
+width	默认宽度	int	✘	
+column_properties	列属性	longtext	√	
+hidden	隐藏字段	tinyint(1)	✘	
+edit_inline	行内编辑	tinyint(1)	✘	
+default_query_value	缺省查询条件	varchar	√	
+cell_display_slot	自定义字段显示	varchar	√	
+show_type	修改控件类型为	varchar	√	
+
+表：cg_list : 列表视图定义
+id	ID	varchar	✘	
+name	名称	varchar	✘	
+path	路径最后一级	varchar	✘	
+table_id	对应表单	varchar	✘	
+icon	图标	varchar	√	
+head_title	列表标题	varchar	✘	
+tag_title	tag标题	varchar	√	
+edit_inline	行内编辑	tinyint(1)	✘	
+detail_inline	行内详情	tinyint(1)	✘	
+sons	子表	varchar	√	
+son_fields	子表外键字段列表	varchar	√	
+son_align	主从表排列	varchar	✘	v:左右排列  h:上下排列  
+generator_type	主表宽度	int	✘	
+title_field	显示在子表标题里的主表字段	varchar	√	
+parent_entity	tree的父级Entity	varchar	√	
+tree_show_entity	树显示Entity	varchar	√	
+show_search	显示模糊查询	tinyint(1)	✘	
+toolbar_mode	工具条显示模式	int	✘	1:工具条  2:菜单  
+table_height	表高	int	✘	
+pagination	是否分页	tinyint(1)	✘	
+order_by	默认排序	varchar	√	
+sort_field	拖拽排序字段	varchar	√	
+stripe	斑马纹风格	tinyint(1)	✘	
+border	边框	tinyint(1)	✘	
+state_entity	状态字段或函数	varchar	√	
+max_height	最大高度	int	√	
+highlight_current_row	单选高亮	tinyint(1)	✘	
+multiple	多选	tinyint(1)	✘	
+show_summary	统计栏	tinyint(1)	√	
+span_entities	合并字段	varchar	√	
+show_header	显示表头	tinyint(1)	✘	
+images	顶部轮播图像	varchar	√	
+view_properties	视图属性	longtext	√	
+table_properties	列表属性	longtext	√	
+sons_properties	子组件属性	longtext	√	
+action_list	功能清单	varchar	√	
+flow_data_url	流程状态数据url	varchar	√	
+local_export	本地导出	tinyint(1)	✘	
+
+表：cg_form_field : 表单字段定义
+id	id	int	✘	
+form_id	formId	varchar	✘	
+order_num	排序	int	✘	
+entity_field	表字段	varchar	✘	
+width	宽度	int	✘	
+group_title	分组标签	varchar	√	
+item_properties	输入控件属性	longtext	√	
+form_item_properties	form_item属性	longtext	√	
+readonly	只读	tinyint(1)	✘	
+must_input	必填	tinyint(1)	✘	
+icon	图标	varchar	√	
+href	超链接	varchar	√	
+hidden	隐藏	tinyint(1)	✘	
+validate_as_title	显示title提示	tinyint(1)	✘	
+slot_templates	slot模板	longtext	√	
+show_type	更改控件类型为	varchar	√	
+
+表：cg_form : 表单定义表
+id	ID	varchar	✘	
+name	名称	varchar	✘	
+path	路径	varchar	✘	
+table_id	对应表定义	varchar	✘	
+head_title	form标题	varchar	✘	
+is_flow	是否流程定义	tinyint(1)	✘	
+icon	图标	varchar	√	
+tag_title	tag标题	varchar	✘	
+label_position	字段标签位置	varchar	✘	
+is_dialog	对话框模式	tinyint(1)	✘	
+continue_add	连续编辑	tinyint(1)	✘	
+images	顶部轮播图像	varchar	√	
+view_properties	视图属性	longtext	√	
+form_properties	表单属性	longtext	√	
+slot_templates	slot模板	longtext	√	
+action_list	功能清单	varchar	√	
+
+表：cg_field : 字段定义表
+id	主键ID	varchar	✘	
+table_id	表ID	varchar	✘	
+order_num	排序	int	✘	
+entity_name	Entity名	varchar	✘	
+title	标题	varchar	✘	
+name	字段名	varchar	√	
+key_type	索引	varchar	✘	0:无  1:自增长主键  2:uuid主键  3:普通主键  4:唯一索引  5:非唯一索引  11:联合唯一索引1  12:联合唯一索引2  13:联合唯一索引3  
+default_value	默认值	varchar	√	
+show_type	表单控件类型	varchar	✘	
+formatter	显示格式	varchar	√	
+is_null	可空	varchar	✘	
+valid_expression	校验正则表达式	varchar	√	
+valid_title	校验提示	varchar	√	
+dict_table	字典表或SQL语句	varchar	√	
+dict_field	字典code	varchar	√	
+dict_multiple	多选	tinyint(1)	✘	
+dict_text	字典Text	varchar	√	
+dyna_condition	动态条件	varchar	√	
+dict_full_name	显示全名	tinyint(1)	✘	
+dict_parent	父亲字段名	varchar	√	
+dict_parent_field	树键值字段	varchar	√	
+type	字段类型	varchar	✘	
+length	字段长	int	√	
+numeric_precision	小数位长	int	√	
+numeric_scale	小数精度	int	√	
+fk_table	关联主表	varchar	√	
+fk_column	关联主表字段	varchar	√	
+fk_on_delete	On Delete	varchar	√	CASCADE:同步删除子表  SET NULL:设置为空  NO ACTION:不允许删除  RESTRICT:高权限不允许删除  
+fk_on_update	On Update	varchar	√	CASCADE:同步更新子表  SET NULL:设置为空  NO ACTION:不允许更新  RESTRICT:高权限不允许更新  
+default_query_value		varchar	√	
+
+表：cg_button : 按钮定义
+id	id	varchar	✘	
+table_id	所属表单	varchar	✘	
+order_num	排序	int	✘	
+action	操作代码	varchar	✘	
+title	标题	varchar	✘	
+icon	图标	varchar	✘	
+append_class	执行函数或参数	varchar	√	
+action_property	行为属性	varchar	✘	js:仅前端函数  go:页面跳转  pg:自定义函数调用后端  aj:仅后端操作  
+row_property	行属性	varchar	✘	sr:单行  mr:多行  nr:行无关  
+display_properties	显示属性	varchar	√	hm:手机隐藏  hp:PC隐藏  tb:工具条显示  rw:行显示  ed:编辑显示  gs:分组开始  
+confirm_text	操作前提示	varchar	√	
+is_refresh_list	操作后刷新列表	tinyint(1)	✘	
+
+表：cg_table : 表单定义
+id	主键ID	varchar	✘	
+code	cg代码	varchar	✘	
+name	数据库表	varchar	√	
+title	标题	varchar	✘	
+sub_package	子包	varchar	√	
+entity	Entity类名	varchar	√	
+template	模板名	varchar	✘	
+trial_licence	试用licence	int	√	
+trial_days	试用天数	int	√	
+action_list	功能列表	varchar	√	
+imports	import列表	varchar	√	
+controller_extends	controller基类以及实现接口	varchar	√	
+pojo_imports	pojo基类列表	varchar	√	
+pojo_extends	pojo实现接口和继承类	varchar	√	
+pojo_java_code	pojo自定义代码	longtext	√	
+creator	创建人	varchar	✘	
+flow_dyna_fields_op	处理人关联字段	varchar	√	
+flow_dyna_fields_cp	抄送人关联字段	varchar	√	
+project_id	项目id	varchar	✘	
+
+表：cg_project : 项目
+id	id	varchar	✘	
+code	代码	varchar	✘	
+creator	创建人	varchar	✘	
+group_id	组织机构	varchar	✘	
+name	项目名称	varchar	✘	
+version	版本	varchar	✘	
+note	项目描述	varchar	√	
+modules	包含的iotequ模块	varchar	√	
+spring_module	spring模块	tinyint(1)	✘	
+maven_module	maven模块	tinyint(1)	✘	
+maven_server	内部maven库地址	varchar	√	
+addtional_dependencies	附件依赖	longtext	√	
+test	test依赖模块	tinyint(1)	✘	

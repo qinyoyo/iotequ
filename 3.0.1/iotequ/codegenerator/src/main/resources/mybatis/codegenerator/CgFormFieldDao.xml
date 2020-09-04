@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.iotequ.codegenerator.dao.CgFormFieldDao">
+  <resultMap id="BaseResultMap" type="top.iotequ.codegenerator.pojo.CgFormField">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="form_id" jdbcType="VARCHAR" property="formId" />
+    <result column="order_num" jdbcType="INTEGER" property="orderNum" />
+    <result column="entity_field" jdbcType="VARCHAR" property="entityField" />
+    <result column="width" jdbcType="INTEGER" property="width" />
+    <result column="group_title" jdbcType="VARCHAR" property="groupTitle" />
+    <result column="item_properties" jdbcType="VARCHAR" property="itemProperties" />
+    <result column="form_item_properties" jdbcType="VARCHAR" property="formItemProperties" />
+    <result column="readonly" jdbcType="TINYINT" property="readonly" />
+    <result column="must_input" jdbcType="TINYINT" property="mustInput" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="href" jdbcType="VARCHAR" property="href" />
+    <result column="hidden" jdbcType="TINYINT" property="hidden" />
+    <result column="validate_as_title" jdbcType="TINYINT" property="validateAsTitle" />
+    <result column="slot_templates" jdbcType="VARCHAR" property="slotTemplates" />
+    <result column="show_type" jdbcType="VARCHAR" property="showType" />
+  </resultMap>
+  <sql id = "selectSql">
+     SELECT id,form_id,order_num,entity_field,width,group_title,item_properties,form_item_properties,readonly,must_input,icon,href,hidden,validate_as_title,slot_templates,show_type FROM cg_form_field
+  </sql>
+  <insert id="insert" parameterType="top.iotequ.codegenerator.pojo.CgFormField">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer" databaseId="SQLServer">
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into cg_form_field (form_id,order_num,entity_field,width,group_title,item_properties,form_item_properties,readonly,must_input,icon,href,hidden,validate_as_title,slot_templates,show_type)
+      values 
+      (#{formId,jdbcType=VARCHAR},#{orderNum,jdbcType=INTEGER},#{entityField,jdbcType=VARCHAR},#{width,jdbcType=INTEGER},#{groupTitle,jdbcType=VARCHAR},#{itemProperties,jdbcType=VARCHAR},#{formItemProperties,jdbcType=VARCHAR},#{readonly,jdbcType=TINYINT},#{mustInput,jdbcType=TINYINT},#{icon,jdbcType=VARCHAR},#{href,jdbcType=VARCHAR},#{hidden,jdbcType=TINYINT},#{validateAsTitle,jdbcType=TINYINT},#{slotTemplates,jdbcType=VARCHAR},#{showType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insert" parameterType="top.iotequ.codegenerator.pojo.CgFormField" databaseId="Oracle">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer" >
+      SELECT SEQUENCE_CG_FORM_FIELD.nextval from DUAL
+    </selectKey>
+    insert into cg_form_field (id,form_id,order_num,entity_field,width,group_title,item_properties,form_item_properties,readonly,must_input,icon,href,hidden,validate_as_title,slot_templates,show_type)
+      values 
+      (#{id,jdbcType=INTEGER},#{formId,jdbcType=VARCHAR},#{orderNum,jdbcType=INTEGER},#{entityField,jdbcType=VARCHAR},#{width,jdbcType=INTEGER},#{groupTitle,jdbcType=VARCHAR},#{itemProperties,jdbcType=VARCHAR},#{formItemProperties,jdbcType=VARCHAR},#{readonly,jdbcType=TINYINT},#{mustInput,jdbcType=TINYINT},#{icon,jdbcType=VARCHAR},#{href,jdbcType=VARCHAR},#{hidden,jdbcType=TINYINT},#{validateAsTitle,jdbcType=TINYINT},#{slotTemplates,jdbcType=VARCHAR},#{showType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.codegenerator.pojo.CgFormField">
+    insert into cg_form_field (form_id,order_num,entity_field,width,group_title,item_properties,form_item_properties,readonly,must_input,icon,href,hidden,validate_as_title,slot_templates,show_type)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.formId,jdbcType=VARCHAR},#{item.orderNum,jdbcType=INTEGER},#{item.entityField,jdbcType=VARCHAR},#{item.width,jdbcType=INTEGER},#{item.groupTitle,jdbcType=VARCHAR},#{item.itemProperties,jdbcType=VARCHAR},#{item.formItemProperties,jdbcType=VARCHAR},#{item.readonly,jdbcType=TINYINT},#{item.mustInput,jdbcType=TINYINT},#{item.icon,jdbcType=VARCHAR},#{item.href,jdbcType=VARCHAR},#{item.hidden,jdbcType=TINYINT},#{item.validateAsTitle,jdbcType=TINYINT},#{item.slotTemplates,jdbcType=VARCHAR},#{item.showType,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.codegenerator.pojo.CgFormField" databaseId="Oracle">
+     insert into cg_form_field (id,form_id,order_num,entity_field,width,group_title,item_properties,form_item_properties,readonly,must_input,icon,href,hidden,validate_as_title,slot_templates,show_type)
+       select SEQUENCE_CG_FORM_FIELD.nextval,cd.* from(
+          <foreach collection="list" item="item" index="index" separator="union all">
+             select #{item.formId,jdbcType=VARCHAR},#{item.orderNum,jdbcType=INTEGER},#{item.entityField,jdbcType=VARCHAR},#{item.width,jdbcType=INTEGER},#{item.groupTitle,jdbcType=VARCHAR},#{item.itemProperties,jdbcType=VARCHAR},#{item.formItemProperties,jdbcType=VARCHAR},#{item.readonly,jdbcType=TINYINT},#{item.mustInput,jdbcType=TINYINT},#{item.icon,jdbcType=VARCHAR},#{item.href,jdbcType=VARCHAR},#{item.hidden,jdbcType=TINYINT},#{item.validateAsTitle,jdbcType=TINYINT},#{item.slotTemplates,jdbcType=VARCHAR},#{item.showType,jdbcType=VARCHAR} from dual
+          </foreach>
+       ) cd
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.codegenerator.pojo.CgFormField">
+    insert into cg_form_field (id,form_id,order_num,entity_field,width,group_title,item_properties,form_item_properties,readonly,must_input,icon,href,hidden,validate_as_title,slot_templates,show_type)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=INTEGER},#{item.formId,jdbcType=VARCHAR},#{item.orderNum,jdbcType=INTEGER},#{item.entityField,jdbcType=VARCHAR},#{item.width,jdbcType=INTEGER},#{item.groupTitle,jdbcType=VARCHAR},#{item.itemProperties,jdbcType=VARCHAR},#{item.formItemProperties,jdbcType=VARCHAR},#{item.readonly,jdbcType=TINYINT},#{item.mustInput,jdbcType=TINYINT},#{item.icon,jdbcType=VARCHAR},#{item.href,jdbcType=VARCHAR},#{item.hidden,jdbcType=TINYINT},#{item.validateAsTitle,jdbcType=TINYINT},#{item.slotTemplates,jdbcType=VARCHAR},#{item.showType,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.codegenerator.pojo.CgFormField" databaseId="SQLServer">
+    set IDENTITY_INSERT cg_form_field ON 
+    insert into cg_form_field (id,form_id,order_num,entity_field,width,group_title,item_properties,form_item_properties,readonly,must_input,icon,href,hidden,validate_as_title,slot_templates,show_type)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=INTEGER},#{item.formId,jdbcType=VARCHAR},#{item.orderNum,jdbcType=INTEGER},#{item.entityField,jdbcType=VARCHAR},#{item.width,jdbcType=INTEGER},#{item.groupTitle,jdbcType=VARCHAR},#{item.itemProperties,jdbcType=VARCHAR},#{item.formItemProperties,jdbcType=VARCHAR},#{item.readonly,jdbcType=TINYINT},#{item.mustInput,jdbcType=TINYINT},#{item.icon,jdbcType=VARCHAR},#{item.href,jdbcType=VARCHAR},#{item.hidden,jdbcType=TINYINT},#{item.validateAsTitle,jdbcType=TINYINT},#{item.slotTemplates,jdbcType=VARCHAR},#{item.showType,jdbcType=VARCHAR})
+    </foreach>
+    set IDENTITY_INSERT cg_form_field OFF 
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.codegenerator.pojo.CgFormField" databaseId="Oracle">
+    insert all 
+    <foreach collection="list" item="item" index="index">
+      into cg_form_field (id,form_id,order_num,entity_field,width,group_title,item_properties,form_item_properties,readonly,must_input,icon,href,hidden,validate_as_title,slot_templates,show_type) values(#{item.id,jdbcType=INTEGER},#{item.formId,jdbcType=VARCHAR},#{item.orderNum,jdbcType=INTEGER},#{item.entityField,jdbcType=VARCHAR},#{item.width,jdbcType=INTEGER},#{item.groupTitle,jdbcType=VARCHAR},#{item.itemProperties,jdbcType=VARCHAR},#{item.formItemProperties,jdbcType=VARCHAR},#{item.readonly,jdbcType=TINYINT},#{item.mustInput,jdbcType=TINYINT},#{item.icon,jdbcType=VARCHAR},#{item.href,jdbcType=VARCHAR},#{item.hidden,jdbcType=TINYINT},#{item.validateAsTitle,jdbcType=TINYINT},#{item.slotTemplates,jdbcType=VARCHAR},#{item.showType,jdbcType=VARCHAR})
+    </foreach>
+    select 1 from dual
+  </insert>
+  <select id="select" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from cg_form_field where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteBatch" parameterType="java.lang.String">
+    delete from cg_form_field where id in (${_parameter})
+  </delete>
+  <select id="selectByFormIdEntityField" parameterType="map" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where form_id = #{formId} AND entity_field = #{entityField}
+  </select>
+  <delete id="deleteByFormIdEntityField" parameterType="map" >
+    delete from cg_form_field where form_id = #{formId} AND entity_field = #{entityField}
+  </delete>
+  <delete id="deleteList" parameterType="java.util.List">
+    delete from cg_form_field where id in
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")"> 
+       #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </delete>
+  <update id="update" parameterType="top.iotequ.codegenerator.pojo.CgFormField">
+    update cg_form_field set 
+      form_id = #{formId,jdbcType=VARCHAR},
+      order_num = #{orderNum,jdbcType=INTEGER},
+      entity_field = #{entityField,jdbcType=VARCHAR},
+      width = #{width,jdbcType=INTEGER},
+      group_title = #{groupTitle,jdbcType=VARCHAR},
+      item_properties = #{itemProperties,jdbcType=VARCHAR},
+      form_item_properties = #{formItemProperties,jdbcType=VARCHAR},
+      readonly = #{readonly,jdbcType=TINYINT},
+      must_input = #{mustInput,jdbcType=TINYINT},
+      icon = #{icon,jdbcType=VARCHAR},
+      href = #{href,jdbcType=VARCHAR},
+      hidden = #{hidden,jdbcType=TINYINT},
+      validate_as_title = #{validateAsTitle,jdbcType=TINYINT},
+      slot_templates = #{slotTemplates,jdbcType=VARCHAR},
+      show_type = #{showType,jdbcType=VARCHAR}
+      where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateSelective" parameterType="top.iotequ.codegenerator.pojo.CgFormField">
+    update cg_form_field 
+      <set>
+        <if test="formId != null"> form_id = #{formId,jdbcType=VARCHAR},</if>
+        <if test="orderNum != null"> order_num = #{orderNum,jdbcType=INTEGER},</if>
+        <if test="entityField != null"> entity_field = #{entityField,jdbcType=VARCHAR},</if>
+        <if test="width != null"> width = #{width,jdbcType=INTEGER},</if>
+        <if test="groupTitle != null"> group_title = #{groupTitle,jdbcType=VARCHAR},</if>
+        <if test="itemProperties != null"> item_properties = #{itemProperties,jdbcType=VARCHAR},</if>
+        <if test="formItemProperties != null"> form_item_properties = #{formItemProperties,jdbcType=VARCHAR},</if>
+        <if test="readonly != null"> readonly = #{readonly,jdbcType=TINYINT},</if>
+        <if test="mustInput != null"> must_input = #{mustInput,jdbcType=TINYINT},</if>
+        <if test="icon != null"> icon = #{icon,jdbcType=VARCHAR},</if>
+        <if test="href != null"> href = #{href,jdbcType=VARCHAR},</if>
+        <if test="hidden != null"> hidden = #{hidden,jdbcType=TINYINT},</if>
+        <if test="validateAsTitle != null"> validate_as_title = #{validateAsTitle,jdbcType=TINYINT},</if>
+        <if test="slotTemplates != null"> slot_templates = #{slotTemplates,jdbcType=VARCHAR},</if>
+        <if test="showType != null"> show_type = #{showType,jdbcType=VARCHAR},</if>
+      </set>
+      where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateBy" parameterType="top.iotequ.codegenerator.pojo.CgFormField">
+    update cg_form_field set 
+      id = #{record.id,jdbcType=INTEGER},
+      form_id = #{record.formId,jdbcType=VARCHAR},
+      order_num = #{record.orderNum,jdbcType=INTEGER},
+      entity_field = #{record.entityField,jdbcType=VARCHAR},
+      width = #{record.width,jdbcType=INTEGER},
+      group_title = #{record.groupTitle,jdbcType=VARCHAR},
+      item_properties = #{record.itemProperties,jdbcType=VARCHAR},
+      form_item_properties = #{record.formItemProperties,jdbcType=VARCHAR},
+      readonly = #{record.readonly,jdbcType=TINYINT},
+      must_input = #{record.mustInput,jdbcType=TINYINT},
+      icon = #{record.icon,jdbcType=VARCHAR},
+      href = #{record.href,jdbcType=VARCHAR},
+      hidden = #{record.hidden,jdbcType=TINYINT},
+      validate_as_title = #{record.validateAsTitle,jdbcType=TINYINT},
+      slot_templates = #{record.slotTemplates,jdbcType=VARCHAR},
+      show_type = #{record.showType,jdbcType=VARCHAR}
+      where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="list" parameterType="top.iotequ.codegenerator.pojo.CgFormField" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+     where 1=1 
+        <if test="id != null"> and id = #{id,jdbcType=INTEGER} </if>
+        <if test="formId != null"> and form_id like #{formId,jdbcType=VARCHAR} </if>
+        <if test="orderNum != null"> and order_num = #{orderNum,jdbcType=INTEGER} </if>
+        <if test="entityField != null"> and entity_field like #{entityField,jdbcType=VARCHAR} </if>
+        <if test="width != null"> and width = #{width,jdbcType=INTEGER} </if>
+        <if test="groupTitle != null"> and group_title like #{groupTitle,jdbcType=VARCHAR} </if>
+        <if test="itemProperties != null"> and item_properties like #{itemProperties,jdbcType=VARCHAR} </if>
+        <if test="formItemProperties != null"> and form_item_properties like #{formItemProperties,jdbcType=VARCHAR} </if>
+        <if test="readonly != null"> and readonly = #{readonly,jdbcType=TINYINT} </if>
+        <if test="mustInput != null"> and must_input = #{mustInput,jdbcType=TINYINT} </if>
+        <if test="icon != null"> and icon like #{icon,jdbcType=VARCHAR} </if>
+        <if test="href != null"> and href like #{href,jdbcType=VARCHAR} </if>
+        <if test="hidden != null"> and hidden = #{hidden,jdbcType=TINYINT} </if>
+        <if test="validateAsTitle != null"> and validate_as_title = #{validateAsTitle,jdbcType=TINYINT} </if>
+        <if test="slotTemplates != null"> and slot_templates like #{slotTemplates,jdbcType=VARCHAR} </if>
+        <if test="showType != null"> and show_type like #{showType,jdbcType=VARCHAR} </if>
+  </select>
+  <select id="listBy" parameterType="map" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+        <if test="whereString != null and whereString !=''"> where ${whereString} </if>
+        <if test="orderString != null and orderString!=''"> order by ${orderString} </if>
+  </select>
+  <select id="query" parameterType="map" resultMap="BaseResultMap">
+        ${sqlString}
+  </select>
+</mapper>
