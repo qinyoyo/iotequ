@@ -67,13 +67,7 @@ generator:
     localMode : true
 
 #授权，svas配置
-svas:
-   matchTestSyncMinutes: 0  # 打开验证测试并设置同步等待时间
-   matchTrace: false        # 验证跟踪
-   thresh: 380              # 默认阈值
-   userNoPrefix : "023"     # userNo 前缀
-   userNoMminLength: 10     # userNo 最小长度
-
+2090-B663-7907-628A-2796-148D-6039-7195:
    sn : 2090-B663-7907-628A-2796-148D-6039-7195
    sn_dev_reader : D51C-6B94-A9DE-0841-2B64-27E0-5227-B376
    sn_ad_employee : DCB5-13ED-D426-85D3-169B-BBBC-0BD5-74DA
@@ -81,12 +75,20 @@ svas:
    sn_pm_people : 6544-FDCF-0B1B-80B5-EE22-202C-1308-05EC
    sn_pm_project : 6544-FDCF-1C1B-9ABC-E826-3D1E-3C1D-18F3
 
-#   sn: FFC2-EADF-E88E-80C3-7798-6ACE-0B6F-9F20
-#   sn_dev_reader: ED79-E6B8-A0BD-10C0-5721-133E-B571-5939
-#   sn_ad_employee: 7DE2-7047-AA16-F937-948F-489B-2966-7CD5
-#   sn_pm_people_group: D71D-BDA3-15A2-D060-4F21-F316-1E87-6E83
-#   sn_pm_people: D71D-BDA3-15A2-D060-4F0E-F93B-0197-7183
-#   sn_pm_project: D71D-BDA3-02A2-CA69-490A-E409-2E82-6C9C
+F265-49BD-87BC-FC8B-04F7-5A81-CDD9-9507:
+   sn: FFC2-EADF-E88E-80C3-7798-6ACE-0B6F-9F20
+   sn_dev_reader: ED79-E6B8-A0BD-10C0-5721-133E-B571-5939
+   sn_ad_employee: 7DE2-7047-AA16-F937-948F-489B-2966-7CD5
+   sn_pm_people_group: D71D-BDA3-15A2-D060-4F21-F316-1E87-6E83
+   sn_pm_people: D71D-BDA3-15A2-D060-4F0E-F93B-0197-7183
+   sn_pm_project: D71D-BDA3-02A2-CA69-490A-E409-2E82-6C9C
+
+svas:
+   matchTestSyncMinutes: 0  # 打开验证测试并设置同步等待时间
+   matchTrace: false        # 验证跟踪
+   thresh: 380              # 默认阈值
+   userNoPrefix : "023"     # userNo 前缀
+   userNoMminLength: 10     # userNo 最小长度
 
    datasource:
       host: localhost

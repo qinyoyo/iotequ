@@ -167,6 +167,15 @@ Vue.prototype.$dialog = function(component, options) {
   }
 }
 
+const initialized_context = require.context('@/extend-src', false, /\/initialized(\-[a-z0-9]+)*\.js$/)
+initialized_context.keys().forEach(key=>{
+  const obj = initialized_context(key).default
+  if (obj) {
+    Object.keys(obj).forEach(f=>{
+      if (typeof obj[f] == 'function') obj[f]()
+    })
+  }
+})
 
 try { // cookie remember-me 不可读，自动检查一次
     store.dispatch('user/getInfo', true) // 解决刷新页面后丢失route的问题,remember-me 自动登录

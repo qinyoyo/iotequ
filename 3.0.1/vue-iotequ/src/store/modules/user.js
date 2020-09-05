@@ -170,7 +170,15 @@ const actions = {
           commit('SET_VERSIONS', data.versionInfo)
         }
         else commit('SET_VERSIONS', [])
-
+        const context = require.context('@/extend-src', false, /\/login(\-[a-z0-9]+)*\.js$/)
+        context.keys().forEach(key=>{
+          const obj = context(key).default
+          if (obj) {
+            Object.keys(obj).forEach(f=>{
+              if (typeof obj[f] == 'function') obj[f]()
+            })
+          }
+        })
         resolve(data)
       }).catch(error => {
         reject(error)
@@ -209,7 +217,15 @@ const actions = {
 
         // reset visited views and cached views
         dispatch('tagsView/delAllViews', null, { root: true })
-
+        const context = require.context('@/extend-src', false, /\/logout(\-[a-z0-9]+)*\.js$/)
+        context.keys().forEach(key=>{
+          const obj = context(key).default
+          if (obj) {
+            Object.keys(obj).forEach(f=>{
+              if (typeof obj[f] == 'function') obj[f]()
+            })
+          }
+        })
         resolve()
       }).catch(error => {
         reject(error)

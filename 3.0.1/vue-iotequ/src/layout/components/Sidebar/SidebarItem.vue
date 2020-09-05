@@ -40,7 +40,13 @@ import Item from './Item'
 import AppLink from './Link'
 import FixiOSBug from './FixiOSBug'
 import { request } from '@/utils/request'
-import menuActions from '@/menu-actions'
+
+let menuActions = {}
+const context = require.context('@/extend-src', false, /\/menu\-action(\-[a-z0-9]+)*\.js$/)
+context.keys().forEach(key=>{
+  menuActions = Object.assign(menuActions,context(key).default)
+})
+
 export default {
   name: 'SidebarItem',
   components: { Item, AppLink },

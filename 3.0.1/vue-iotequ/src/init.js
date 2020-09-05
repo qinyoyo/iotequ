@@ -14,3 +14,13 @@ if(xhr.status===200) {
     },JSON.parse(xhr.responseText))
     console.log(window.userSettings)
 } else alert("打开配置文件/static/settings.json出错")
+
+const initial_context = require.context('@/extend-src', false, /\/initial(\-[a-z0-9]+)*\.js$/)
+initial_context.keys().forEach(key=>{
+  const obj = initial_context(key).default
+  if (obj) {
+    Object.keys(obj).forEach(f=>{
+      if (typeof obj[f] == 'function') obj[f]()
+    })
+  }
+})
