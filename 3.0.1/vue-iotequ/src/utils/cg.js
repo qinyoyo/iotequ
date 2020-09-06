@@ -930,6 +930,10 @@ export function jump2Url(url, params, $router) {
 
 export default {
   dateAdd: time.dateAdd,
+  timeRange: time.timeRange,
+  timeStartOf: time.startOf,
+  timeEndOf: time.endOf,
+  toDate:time.toDate,
   hasValue,
   addClass,
   removeClass,

@@ -228,8 +228,6 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
-        name: '',
-        auth: '',
       }, this.fixedQueryRecord)
     },
     editInlineAdd() {

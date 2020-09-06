@@ -254,10 +254,6 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
-        orgCode: '',
-        realName: '',
-        sex: '',
-        mobilePhone: '',
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

@@ -20,19 +20,19 @@
         <i slot="header" class="el-icon-menu"/>
       </el-table-column>
       <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter no-tab-index" width="36" />
-      <cg-table-column prop="realName" :page="1" :label="$t('adEmployee.field.id')" align="left" >
+      <cg-table-column prop="realName" :page="1" :label="$t('adEmployee.field.id')" sortable align="left" >
         <template slot-scope="scope">
           {{ scope.row.realName }}
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="sex" type="dict" :page="1" :label="$t('sysUser.field.sex')" align="left" >
+      <cg-table-column prop="sex" type="dict" :page="1" :label="$t('sysUser.field.sex')" sortable align="left" >
         <template slot-scope="scope">
           {{ dictValue(scope.row.sex,dictionary.dictSex,false,true) }}
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="employeeNo" :page="1" :label="$t('adEmployee.field.employeeNo')" align="left" >
+      <cg-table-column prop="employeeNo" :page="1" :label="$t('adEmployee.field.employeeNo')" sortable align="left" >
         <template slot-scope="scope">
           {{ scope.row.employeeNo }}
         </template>
@@ -44,7 +44,7 @@
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="isAttendance" :page="1" :label="$t('adEmployee.field.isAttendance')" align="center" >
+      <cg-table-column prop="isAttendance" :page="1" :label="$t('adEmployee.field.isAttendance')" sortable align="center" >
         <template slot-scope="scope">
           <cg-icon :color="scope.row.isAttendance?'#46a6ff':'grey'" :icon="scope.row.isAttendance?'fa fa-check-circle':'fa fa-circle-o'"/>
         </template>
@@ -90,6 +90,42 @@
                      :top="contextMenu.top" :left="contextMenu.left" 
                      @hide="contextMenu.visible = false" @select="(a)=>doAction(a, {row: contextMenu.row, trElement: contextMenu.trElement})"
     />
+    <cg-query-condition v-model="showQuery" :modal="!joinMode" :queryRecord="queryRecord"
+                        @refresh="doAction('refresh')" @reset="queryRecord=initialQueryRecord()">
+      <el-form-item :label="$t('system.action.fuzzyQuery')" prop="search" :size="$store.state.app.size">
+        <el-input v-model="queryRecord.search" type="text" name="search" clearable resize autofocus
+                  prefix-icon="el-icon-search" :placeholder="$t('system.message.fuzzyQueryTip')" @keyup.enter.native="doAction('refresh')" />
+      </el-form-item>
+      <el-form-item v-show="queryRecord.search" :label="$t('system.action.field')" prop="searchFields" :size="$store.state.app.size">
+        <cg-select v-model="queryRecord.searchFields" dictionary="id|adEmployee.field.id,id|sysUser.field.sex,employeeNo|adEmployee.field.employeeNo,isAttendance|adEmployee.field.isAttendance," multiple/>
+      </el-form-item>
+      <el-divider />
+      <div v-show="!queryRecord.search">
+        <cg-join v-model="idJoinVisible">
+          <CgListUserJoin slot="popover" ref="idJoin" openID="id-join" :height="joinHeight()" :joinShow="idJoinVisible" joinMultiple
+            :originSelections="queryRecord.id" selectionKey="id" joinMode @closeJoinList="(rows)=>{ getJoinFields('id',rows)}" @showJoinList="idJoinVisible=true"/>
+        <el-form-item slot="reference" :label="$t('adEmployee.field.id')" prop="realName" :size="$store.state.app.size">
+          <el-input v-model="queryRecord.realName" type="text" name="realName"
+                    :readonly="fixedQueryRecord.realName?true:false" :label="$t('adEmployee.field.id')" clearable resize autofocus />
+        </el-form-item>
+        </cg-join>
+        <el-form-item slot="reference" :label="$t('sysUser.field.sex')" prop="sex" :size="$store.state.app.size">
+          <cg-select v-model="queryRecord.sex" :dictionary="dictionary.dictSex"
+                     :disabled="fixedQueryRecord.sex?true:false"  :allow-create="!mobile" multiple clearable />
+        </el-form-item>
+        </cg-join>
+        <el-form-item :label="$t('adEmployee.field.employeeNo')" prop="employeeNo" :size="$store.state.app.size">
+          <el-input v-model="queryRecord.employeeNo" type="text" name="employeeNo"
+                    :readonly="fixedQueryRecord.employeeNo?true:false" :label="$t('adEmployee.field.employeeNo')" clearable resize autofocus />
+        </el-form-item>
+        <el-form-item :label="$t('adEmployee.field.isAttendance')" prop="isAttendance" :size="$store.state.app.size">
+          <el-checkbox-group v-model="queryRecord.isAttendance" :max="1">
+            <el-checkbox name="isAttendance" :label="true" :disabled="fixedQueryRecord.isAttendance?true:false">{{ $t('system.action.yes') }}</el-checkbox>
+            <el-checkbox name="isAttendance" :label="false" :disabled="fixedQueryRecord.isAttendance?true:false">{{ $t('system.action.no') }}</el-checkbox>
+          </el-checkbox-group>
+        </el-form-item>
+      </div>
+    </cg-query-condition>
   </div>
 </template>
 
@@ -186,8 +222,8 @@ export default {
       return this.openID ? 'cg-list-ademployee cg-list-ademployee' + '-'+this.openID : 'cg-list-ademployee'
     },
     allActions() {
-      if (this.joinMode) return 'refresh'
-      else return ',list,view,edit,localExport,'
+      if (this.joinMode) return 'refresh,query'
+      else return 'query,,list,view,edit,localExport,'
     }
   },
   watch: {
@@ -245,6 +281,7 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        isAttendance: [],
       }, this.fixedQueryRecord)
     },
     getJoinFields(field,rows) {

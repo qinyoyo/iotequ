@@ -307,10 +307,6 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
-        adjustType: '',
-        orgCode: '',
-        state: '',
-        startTime: '',
       }, this.fixedQueryRecord)
     },
     getJoinFields(field,rows) {

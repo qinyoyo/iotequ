@@ -270,8 +270,6 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
-        name: '',
-        formName: '',
       }, this.fixedQueryRecord)
     },
     groupFields({ row, column, rowIndex, columnIndex }) {

@@ -248,7 +248,6 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
-        realName: '',
       }, this.fixedQueryRecord)
     },
     groupFields({ row, column, rowIndex, columnIndex }) {

@@ -219,7 +219,7 @@
           </el-form-item>
           <el-row :gutter="mobile?0:20">
             <el-col :span="8">
-              <el-form-item class="cg-item-boolean" :label="$t('cgList.field.localExport')" prop="localExport" :size="$store.state.app.size" >
+              <el-form-item class="cg-item-boolean" :label="$t('cgList.field.localExport')" :title="$t('cgList.field.localExportValid')" prop="localExport" :size="$store.state.app.size" >
                 <el-switch v-model="record.localExport" name="localExport" :active-text="mobile?'':$t('cgList.field.localExport')" inactive-text="" :disabled="isDetail"  />
               </el-form-item>
             </el-col>

@@ -311,10 +311,6 @@ export default {
     initialQueryRecord() {
       return Object.assign({
         readTime: [],
-        createTime: '',
-        senderName: '',
-        title: '',
-        content: '',
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

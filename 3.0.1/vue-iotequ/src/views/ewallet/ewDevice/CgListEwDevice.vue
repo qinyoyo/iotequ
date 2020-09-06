@@ -244,8 +244,6 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
-        deviceNo: '',
-        shopId: '',
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

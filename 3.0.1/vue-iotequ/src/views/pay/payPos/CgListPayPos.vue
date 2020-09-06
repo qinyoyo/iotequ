@@ -261,7 +261,6 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
-        no: '',
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

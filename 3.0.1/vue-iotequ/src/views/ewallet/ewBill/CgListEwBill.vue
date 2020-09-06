@@ -338,13 +338,7 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
-        no: '',
         isCharge: [],
-        userNo: '',
-        dt: '',
-        costType: '',
-        shopId: '',
-        operatorNo: '',
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

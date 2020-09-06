@@ -13,7 +13,7 @@
                 <CgListCgProject slot="popover" ref="projectIdJoin" openID="projectid-join" :height="500" :joinShow="projectIdJoinVisible" :joinMultiple="false"
                                  :originSelections="record.projectId" selectionKey="id" joinMode @closeJoinList="(rows)=>{ getJoinFields('projectId',rows)}"
                                  @showJoinList="projectIdJoinVisible=true" />
-                <el-form-item class="cg-item-text cg-auto-focus" slot="reference" :label="$t('cgProject.field.name')" prop="module" :size="$store.state.app.size" >
+                <el-form-item class="cg-item-text cg-auto-focus" slot="reference" :label="$t('cgProject.field.name')" :title="$t('cgProject.field.nameValid')" prop="module" :size="$store.state.app.size" >
                   <el-input v-model="record.module" name="module" 
                             type="text" :maxlength="36" show-word-limit 
                             :label="$t('cgProject.field.name')" :placeholder="$t('system.message.needValue')" 
@@ -22,7 +22,7 @@
               </cg-join>
             </el-col>
             <el-col :span="12">
-              <el-form-item class="cg-item-text" :label="$t('cgProject.field.groupId')" prop="groupId" :size="$store.state.app.size" >
+              <el-form-item class="cg-item-text" :label="$t('cgProject.field.groupId')" :title="$t('cgProject.field.groupIdValid')" prop="groupId" :size="$store.state.app.size" >
                 <el-input v-model="record.groupId" name="groupId" 
                           type="text" :maxlength="45" show-word-limit 
                           :label="$t('cgProject.field.groupId')" :placeholder="$t('system.message.needValue')" 

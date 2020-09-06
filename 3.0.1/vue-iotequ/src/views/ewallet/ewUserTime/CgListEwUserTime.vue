@@ -264,7 +264,6 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
-        userNo: '',
       }, this.fixedQueryRecord)
     },
     getJoinFields(field,rows) {

@@ -279,9 +279,6 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
-        tableId: '',
-        listName: '',
-        name: '',
       }, this.fixedQueryRecord)
     },
     groupFields({ row, column, rowIndex, columnIndex }) {

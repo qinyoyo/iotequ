@@ -340,10 +340,6 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
-        name: '',
-        flowState: '',
-        type: '',
-        customer: '',
       }, this.fixedQueryRecord)
     },
     getJoinFields(field,rows) {

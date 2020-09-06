@@ -354,12 +354,7 @@ export default {
     initialQueryRecord() {
       return Object.assign({
         isActive: [],
-        name: '',
-        idNo: '',
-        mobilePhone: '',
-        email: '',
-        memberGroup: '',
-        activeSince: '',
+        wechatOpenid: [],
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

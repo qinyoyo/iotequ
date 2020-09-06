@@ -276,10 +276,6 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
-        devNo: '',
-        orgCode: '',
-        userNo: '',
-        status: '',
       }, this.fixedQueryRecord)
     },
     groupFields({ row, column, rowIndex, columnIndex }) {

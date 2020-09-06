@@ -314,9 +314,6 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
-        orgCode: '',
-        realName: '',
-        mobilePhone: '',
       }, this.fixedQueryRecord)
     },
     groupFields({ row, column, rowIndex, columnIndex }) {

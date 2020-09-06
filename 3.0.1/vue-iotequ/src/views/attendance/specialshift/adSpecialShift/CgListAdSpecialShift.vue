@@ -241,7 +241,6 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
-        startDate: '',
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

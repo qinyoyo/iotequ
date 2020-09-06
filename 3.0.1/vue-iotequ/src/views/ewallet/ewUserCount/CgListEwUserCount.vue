@@ -249,7 +249,6 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
-        userNo: '',
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

@@ -604,11 +604,10 @@ export default {
     initialQueryRecord() {
       return Object.assign({
         <#list fields as f>
-        <#if f.queryMode==3 && f.showType=='number'>
-        ${f.entityName}_start: undefined,
-        ${f.entityName}_end: undefined,
-        <#elseif f.queryMode gt 0>
-        ${f.entityName}: <#if f.defaultQueryValue?? && f.defaultQueryValue?trim!=''>${f.defaultQueryValue}<#elseif f.showType == 'boolean' || f.showType == 'false_if_null'>[]<#elseif f.showType=='number'>undefined<#else>''</#if>,
+        <#if f.queryMode gt 0 && f.defaultQueryValue?? && f.defaultQueryValue?trim!=''>
+        ${f.entityName}: ${f.defaultQueryValue},
+        <#elseif f.queryMode gt 0 && f.showType == 'boolean' || f.showType == 'false_if_null'>
+        ${f.entityName}: [],
         </#if>
         </#list>
       }, this.fixedQueryRecord)

@@ -282,7 +282,6 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
-        entityField: '',
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

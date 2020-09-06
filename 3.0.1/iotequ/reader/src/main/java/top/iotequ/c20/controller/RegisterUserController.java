@@ -42,8 +42,7 @@ public class RegisterUserController {
 	private SvasService svasService;
 	@Autowired
 	private DevPeopleDao devPeopleDao;
-	@Autowired
-	private DevEventDao devEventDao;
+
 	@Autowired
 	private DevPeopleService devPeopleService;
 	@Autowired
@@ -230,14 +229,6 @@ public class RegisterUserController {
 		int orgCode = getOrgCode(log.c20info, log.userNo);
 		Date dt = DateUtil.string2Date(log.date, "yyyy/MM/dd HH:mm:ss");
 		try {
-			DevEvent devEvent = new DevEvent();
-			devEvent.setDevNo(log.c20info.devNo);
-			devEvent.setUserNo(log.userNo);
-			devEvent.setTime(dt);
-			devEvent.setStatus(0);
-			devEvent.setOrgCode(orgCode);
-			devEvent.setDevType("C20");
-			devEventDao.insert(devEvent);
 
 			DeviceEvent event = new DeviceEvent(this);
 			event.setDeviceType("C20");
@@ -246,6 +237,8 @@ public class RegisterUserController {
 			event.setTime(dt);
 			event.setUserNo(log.userNo);
 			event.put("orgCode", orgCode);
+			event.setWarning(log.warningfinger > 0);
+
 			applicationContext.publishEvent(event);
 
 		} catch (Exception e) {

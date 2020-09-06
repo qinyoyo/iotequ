@@ -233,8 +233,6 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
-        orgCode: '',
-        realName: '',
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

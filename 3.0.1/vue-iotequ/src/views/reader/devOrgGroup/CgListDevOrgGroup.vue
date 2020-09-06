@@ -238,7 +238,6 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
-        orgId: '',
         isIncludeSubOrg: [],
       }, this.fixedQueryRecord)
     },

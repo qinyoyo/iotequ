@@ -51,8 +51,8 @@ private static final Logger log = LoggerFactory.getLogger(CgAdAdjustService.clas
     public Map<String,Object> getDictionary(AdAdjust obj, Boolean useTree, String dynaFields) {
         Map<String,Object> map=new HashMap<>();
         if (Objects.isNull(dynaFields) || StringUtil.containsItem(dynaFields,"orgCode")) {
-            if (useTree) map.put("dictOrgCode", DictionaryUtil.getTreeViewData(obj,"sys_org","org_code","name","parent","org_code",null,null,null));
-            else map.put("dictOrgCode", DictionaryUtil.getDictListFromDatabase(obj,"sys_org","org_code","name",null,false,null));
+            if (useTree) map.put("dictOrgCode", DictionaryUtil.getTreeViewData(obj,"select org_code,name from sys_org","org_code","name","parent","org_code",null,null,null));
+            else map.put("dictOrgCode", DictionaryUtil.getDictListFromDatabase(obj,"select org_code,name from sys_org","org_code","name",null,false,null));
         }
         if (Objects.isNull(dynaFields) || StringUtil.containsItem(dynaFields,"adjustType")) map.put("dictAdjustType", DictionaryUtil.getDictList(dictAdjustTypeValue,dictAdjustTypeText));
         if (Objects.isNull(dynaFields) || StringUtil.containsItem(dynaFields,"state")) map.put("dictState", DictionaryUtil.getDictList(dictStateValue,dictStateText));

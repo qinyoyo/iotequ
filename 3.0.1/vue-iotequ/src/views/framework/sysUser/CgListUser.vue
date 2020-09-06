@@ -353,14 +353,7 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
-        orgCode: '',
-        name: '',
-        realName: '',
-        sex: '',
-        mobilePhone: '',
-        idType: '',
-        birthDate: '',
-        roleList: '',
+        wechatOpenid: [],
       }, this.fixedQueryRecord)
     },
     groupFields({ row, column, rowIndex, columnIndex }) {

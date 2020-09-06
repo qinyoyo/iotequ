@@ -35,8 +35,6 @@ public class CallbackController {
 	@Autowired
 	private DevReaderDao readerDao;
 	@Autowired
-	private DevEventDao eventDao;
-	@Autowired
 	private DevPeopleDao peopleDao;
 	@Autowired
 	private SvasService svasService;
@@ -85,7 +83,6 @@ public class CallbackController {
 		else {
 			Date dt= DateUtil.string2Date(body.getString("date"), "yyyyMMddHHmmss");
 			if (dt!=null) {
-				DevEvent devEvent=new DevEvent();
 				DeviceEvent event = new DeviceEvent(this);
 				String uno=null;
 				try { uno = body.getString("userNum");	} catch (Exception e) {};
@@ -107,15 +104,7 @@ public class CallbackController {
 				event.put("status",status);
 				event.put("orgCode", deviceOrgCode);
 
-				devEvent.setDevNo(dno);
-				devEvent.setUserNo(uno);
-				devEvent.setTime(dt);
-				devEvent.setStatus(status);
-				devEvent.setDevType(reader.getType());
-				devEvent.setOrgCode(deviceOrgCode);
-
 				applicationContext.publishEvent(event);
-				eventDao.insert(devEvent);
 			} else log.error("error date format of {}",body.getString("date"));
 		}
 	}

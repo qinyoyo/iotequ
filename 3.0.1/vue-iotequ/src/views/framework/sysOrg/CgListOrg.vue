@@ -233,8 +233,6 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
-        name: '',
-        phone: '',
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

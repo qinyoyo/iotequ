@@ -283,10 +283,7 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
-        dateDate: '',
-        recType: '',
-        recSourceType: '',
-        recSource: '',
+        dateDate: this.timeRange('this month'),
       }, this.fixedQueryRecord)
     },
     groupFields({ row, column, rowIndex, columnIndex }) {

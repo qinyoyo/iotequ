@@ -281,9 +281,6 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
-        time: '',
-        keyword: '',
-        note: '',
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

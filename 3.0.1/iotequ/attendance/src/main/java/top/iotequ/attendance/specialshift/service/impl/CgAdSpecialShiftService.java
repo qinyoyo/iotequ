@@ -50,8 +50,8 @@ private static final Logger log = LoggerFactory.getLogger(CgAdSpecialShiftServic
         if (Objects.isNull(dynaFields) || StringUtil.containsItem(dynaFields,"shiftMode")) map.put("dictShiftMode", DictionaryUtil.getDictList(dictShiftModeValue,dictShiftModeText));
         if (Objects.isNull(dynaFields) || StringUtil.containsItem(dynaFields,"modeProperty")) map.put("dictModeProperty", DictionaryUtil.getDictList(dictModePropertyValue,dictModePropertyText));
         if (Objects.isNull(dynaFields) || StringUtil.containsItem(dynaFields,"orgCodes")) {
-            if (useTree) map.put("dictOrgCodes", DictionaryUtil.getTreeViewData(obj,"sys_org","org_code","name","parent",null,null,null,null));
-            else map.put("dictOrgCodes", DictionaryUtil.getDictListFromDatabase(obj,"sys_org","org_code","name",null,false,null));
+            if (useTree) map.put("dictOrgCodes", DictionaryUtil.getTreeViewData(obj,"select org_code,name from sys_org","org_code","name","parent",null,null,null,null));
+            else map.put("dictOrgCodes", DictionaryUtil.getDictListFromDatabase(obj,"select org_code,name from sys_org","org_code","name",null,false,null));
         }
         if (Objects.isNull(dynaFields) || StringUtil.containsItem(dynaFields,"sexProperty")) map.put("dictSexProperty", DictionaryUtil.getDictListFromDatabase(obj,"sys_sex",null,null,null,false,null));
         return map;

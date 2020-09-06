@@ -259,9 +259,6 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
-        dict: '',
-        code: '',
-        text: '',
       }, this.fixedQueryRecord)
     },
     groupFields({ row, column, rowIndex, columnIndex }) {

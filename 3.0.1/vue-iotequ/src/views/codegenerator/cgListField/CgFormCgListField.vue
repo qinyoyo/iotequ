@@ -23,7 +23,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-form-item class="cg-item-text" :label="$t('cgListField.field.defaultQueryValue')" prop="defaultQueryValue" :size="$store.state.app.size" >
+          <el-form-item class="cg-item-text" :label="$t('cgListField.field.defaultQueryValue')" :title="$t('cgListField.field.defaultQueryValueValid')" prop="defaultQueryValue" :size="$store.state.app.size" >
             <el-input v-model="record.defaultQueryValue" name="defaultQueryValue" 
                       type="text" :maxlength="200" show-word-limit 
                       :label="$t('cgListField.field.defaultQueryValue')" :placeholder="$t('system.message.unknown')" clearable 

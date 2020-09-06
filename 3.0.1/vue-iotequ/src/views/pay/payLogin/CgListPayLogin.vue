@@ -277,10 +277,6 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
-        shopId: '',
-        operatorId: '',
-        batchNo: '',
-        loginTime: '',
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

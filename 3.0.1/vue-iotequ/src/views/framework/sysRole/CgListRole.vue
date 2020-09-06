@@ -219,8 +219,6 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
-        code: '',
-        name: '',
       }, this.fixedQueryRecord)
     },
     editInlineAdd() {

@@ -301,9 +301,6 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
-        module: '',
-        code: '',
-        name: '',
       }, this.fixedQueryRecord)
     },
     groupFields({ row, column, rowIndex, columnIndex }) {

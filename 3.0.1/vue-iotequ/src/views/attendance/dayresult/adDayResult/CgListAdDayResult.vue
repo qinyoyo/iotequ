@@ -304,8 +304,6 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
-        orgCode: '',
-        realName: '',
         adDate: [time.startOf(time.dateAdd(new Date(),-1,'day'),'day'),time.endOf(time.dateAdd(new Date(),-1,'day'))],
       }, this.fixedQueryRecord)
     },
