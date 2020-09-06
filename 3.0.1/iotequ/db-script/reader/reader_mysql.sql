@@ -114,6 +114,7 @@ ALTER TABLE `dev_org_group` ADD CONSTRAINT  `ui_dev_org_group01` UNIQUE (`group_
 DROP TABLE IF EXISTS `dev_event`;
 CREATE TABLE `dev_event` (
   `id` char(32) NOT NULL PRIMARY KEY,
+  `dev_type` varchar(45) DEFAULT 'D10' NOT NULL COMMENT '设备类别',
   `dev_no` varchar(45) NOT NULL COMMENT '设备号',
   `org_code` int(11) NULL COMMENT '部门',
   `user_no` varchar(45) NULL COMMENT '用户',

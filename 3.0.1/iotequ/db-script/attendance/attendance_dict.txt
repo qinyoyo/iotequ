@@ -94,10 +94,11 @@ employee_no	工号	varchar	✘
 
 表：ad_data : 考勤数据
 id		varchar	✘	
+rec_source_type	来源类别	varchar	✘	
 rec_source	来源	varchar	√	
 rec_type	类别	int	✘	f:{String.valueOf(AdUtil.workOn):上班  String.valueOf(AdUtil.workOff):下班  String.valueOf(AdUtil.workUnknown)}:未知  
 rec_time	时间	datetime	✘	
-is_used	被使用	tinyint(1)	✘	
+is_used	被使用	boolean	✘	
 employee_no	工号	varchar	✘	
 
 表：ad_adjust : 考勤调整

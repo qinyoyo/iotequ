@@ -9,6 +9,7 @@ export default {
     },
     field: {
       id: 'Id',
+      recSourceType: 'RecSourceType',
       recSource: 'RecSource',
       recType_0: '上班',
       recType_1: '下班',

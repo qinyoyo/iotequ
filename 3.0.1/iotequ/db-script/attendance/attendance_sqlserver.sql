@@ -190,10 +190,11 @@ GO
 CREATE TABLE [dbo].[ad_data] (
   [id] char(32) NOT NULL PRIMARY KEY,
   [employee_no] varchar(45) NOT NULL,
+  [rec_source_type] varchar(45) DEFAULT ('D10') NOT NULL,
   [rec_source] varchar(45) NULL,
   [rec_type] int DEFAULT ((3)) NOT NULL,
   [rec_time] datetime NOT NULL,
-  [is_used] bit DEFAULT ((0)) NOT NULL
+  [is_used] bit DEFAULT ('0') NOT NULL
 )
 GO
 ALTER TABLE [dbo].[ad_data] SET (LOCK_ESCALATION = TABLE)

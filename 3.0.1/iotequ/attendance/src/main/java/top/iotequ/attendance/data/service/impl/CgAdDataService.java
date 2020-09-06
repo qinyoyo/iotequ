@@ -72,6 +72,9 @@ private static final Logger log = LoggerFactory.getLogger(CgAdDataService.class)
         if (adData.getRealName()==null) {
             adData.setRealName("");
         }
+        if (adData.getRecSourceType()==null) {
+            adData.setRecSourceType("D10");
+        }
         if (adData.getRecType()==null) {
             adData.setRecType(3);
         }

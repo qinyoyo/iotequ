@@ -9,6 +9,7 @@ export default {
     },
     field: {
       id: 'Id',
+      devType: 'DevType',
       devNo: 'DevNo',
       orgCode: 'OrgCode',
       status: 'Status',

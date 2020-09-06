@@ -58,4 +58,19 @@ private static final Logger log = LoggerFactory.getLogger(CgDevEventService.clas
         if (Objects.nonNull(devEvent)) {
         }
     }
+    @Override
+    public void changeNull2Default(DevEvent devEvent) {
+        if (devEvent.getId()==null) {
+            devEvent.setId("");
+        }
+        if (devEvent.getDevType()==null) {
+            devEvent.setDevType("D10");
+        }
+        if (devEvent.getDevNo()==null) {
+            devEvent.setDevNo("");
+        }
+        if (devEvent.getTime()==null) {
+            devEvent.setTime(new Date());
+        }
+    }
 }

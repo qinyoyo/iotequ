@@ -78,6 +78,7 @@ org_id	部门	int	✘
 
 表：dev_event : 设备事件
 id		varchar	✘	
+dev_type	设备类别	varchar	✘	
 dev_no	设备号	varchar	✘	
 org_code	部门	int	√	
 status	状态	int	√	

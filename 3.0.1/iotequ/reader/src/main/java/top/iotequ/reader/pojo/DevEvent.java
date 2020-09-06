@@ -34,6 +34,10 @@ public class DevEvent implements CgEntity {
     @CgFieldAnnotation(name="dev_event.id",jdbcType="VARCHAR",length=36,nullable=false,format="@")
     private String id;
 
+    @SerializedName(value = "devType", alternate = {"dev_type","DEV_TYPE"})
+    @CgFieldAnnotation(name="dev_event.dev_type",jdbcType="VARCHAR",length=45,nullable=false,format="@")
+    private String devType;		//设备类别 db field:dev_type
+
     @SerializedName(value = "devNo", alternate = {"dev_no","DEV_NO"})
     @CgFieldAnnotation(name="dev_event.dev_no",jdbcType="VARCHAR",length=45,nullable=false,format="@")
     private String devNo;		//设备号 db field:dev_no

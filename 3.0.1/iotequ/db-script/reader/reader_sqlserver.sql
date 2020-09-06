@@ -212,6 +212,7 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[dev
 GO
 CREATE TABLE [dbo].[dev_event] (
   [id] char(32) NOT NULL PRIMARY KEY,
+  [dev_type] varchar(45) DEFAULT ('D10') NOT NULL,
   [dev_no] varchar(45) NOT NULL,
   [org_code] int NULL,
   [user_no] varchar(45) NULL,

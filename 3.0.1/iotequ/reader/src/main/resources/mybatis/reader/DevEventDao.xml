@@ -3,6 +3,7 @@
 <mapper namespace="top.iotequ.reader.dao.DevEventDao">
   <resultMap id="BaseResultMap" type="top.iotequ.reader.pojo.DevEvent">
     <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="dev_type" jdbcType="VARCHAR" property="devType" />
     <result column="dev_no" jdbcType="VARCHAR" property="devNo" />
     <result column="org_code" jdbcType="INTEGER" property="orgCode" />
     <result column="status" jdbcType="INTEGER" property="status" />
@@ -11,7 +12,7 @@
     <result column="real_name" jdbcType="VARCHAR" property="realName" />
   </resultMap>
   <sql id = "selectSql">
-     SELECT dev_event.id,dev_event.dev_no,dev_event.org_code,dev_event.status,dev_event.time,dev_event.user_no,dev_people.real_name AS real_name FROM dev_event LEFT JOIN dev_people ON dev_event.user_no = dev_people.user_no
+     SELECT dev_event.id,dev_event.dev_type,dev_event.dev_no,dev_event.org_code,dev_event.status,dev_event.time,dev_event.user_no,dev_people.real_name AS real_name FROM dev_event LEFT JOIN dev_people ON dev_event.user_no = dev_people.user_no
   </sql>
   <insert id="insert" parameterType="top.iotequ.reader.pojo.DevEvent">
     <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String" >
@@ -23,42 +24,42 @@
     <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String" databaseId="Oracle">
       SELECT replace(lower(sys_guid()), '-', '') from dual
     </selectKey>
-    insert into dev_event (id,dev_no,org_code,status,time,user_no)
+    insert into dev_event (id,dev_type,dev_no,org_code,status,time,user_no)
       values 
-      (#{id,jdbcType=VARCHAR},#{devNo,jdbcType=VARCHAR},#{orgCode,jdbcType=INTEGER},#{status,jdbcType=INTEGER},#{time,jdbcType=TIMESTAMP},#{userNo,jdbcType=VARCHAR})
+      (#{id,jdbcType=VARCHAR},#{devType,jdbcType=VARCHAR},#{devNo,jdbcType=VARCHAR},#{orgCode,jdbcType=INTEGER},#{status,jdbcType=INTEGER},#{time,jdbcType=TIMESTAMP},#{userNo,jdbcType=VARCHAR})
   </insert>
   <insert id="insertBatchWithoutId" parameterType="top.iotequ.reader.pojo.DevEvent">
-    insert into dev_event (id,dev_no,org_code,status,time,user_no)
+    insert into dev_event (id,dev_type,dev_no,org_code,status,time,user_no)
       values 
     <foreach collection="list" item="item" index="index" separator=",">
-      (replace(uuid(), '-', ''),#{item.devNo,jdbcType=VARCHAR},#{item.orgCode,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.time,jdbcType=TIMESTAMP},#{item.userNo,jdbcType=VARCHAR})
+      (replace(uuid(), '-', ''),#{item.devType,jdbcType=VARCHAR},#{item.devNo,jdbcType=VARCHAR},#{item.orgCode,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.time,jdbcType=TIMESTAMP},#{item.userNo,jdbcType=VARCHAR})
     </foreach>
   </insert>
   <insert id="insertBatchWithoutId" parameterType="top.iotequ.reader.pojo.DevEvent" databaseId="SQLServer">
-    insert into dev_event (id,dev_no,org_code,status,time,user_no)
+    insert into dev_event (id,dev_type,dev_no,org_code,status,time,user_no)
       values 
     <foreach collection="list" item="item" index="index" separator=",">
-      (replace(lower(newid()), '-', ''),#{item.devNo,jdbcType=VARCHAR},#{item.orgCode,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.time,jdbcType=TIMESTAMP},#{item.userNo,jdbcType=VARCHAR})
+      (replace(lower(newid()), '-', ''),#{item.devType,jdbcType=VARCHAR},#{item.devNo,jdbcType=VARCHAR},#{item.orgCode,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.time,jdbcType=TIMESTAMP},#{item.userNo,jdbcType=VARCHAR})
     </foreach>
   </insert>
   <insert id="insertBatchWithoutId" parameterType="top.iotequ.reader.pojo.DevEvent" databaseId="Oracle">
     insert all 
     <foreach collection="list" item="item" index="index">
-      into dev_event (id,dev_no,org_code,status,time,user_no) values(replace(lower(sys_guid()), '-', ''),#{item.devNo,jdbcType=VARCHAR},#{item.orgCode,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.time,jdbcType=TIMESTAMP},#{item.userNo,jdbcType=VARCHAR})
+      into dev_event (id,dev_type,dev_no,org_code,status,time,user_no) values(replace(lower(sys_guid()), '-', ''),#{item.devType,jdbcType=VARCHAR},#{item.devNo,jdbcType=VARCHAR},#{item.orgCode,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.time,jdbcType=TIMESTAMP},#{item.userNo,jdbcType=VARCHAR})
     </foreach>
     select 1 from dual
   </insert>
   <insert id="insertBatchWithId" parameterType="top.iotequ.reader.pojo.DevEvent">
-    insert into dev_event (id,dev_no,org_code,status,time,user_no)
+    insert into dev_event (id,dev_type,dev_no,org_code,status,time,user_no)
       values 
     <foreach collection="list" item="item" index="index" separator=",">
-      (#{item.id,jdbcType=VARCHAR},#{item.devNo,jdbcType=VARCHAR},#{item.orgCode,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.time,jdbcType=TIMESTAMP},#{item.userNo,jdbcType=VARCHAR})
+      (#{item.id,jdbcType=VARCHAR},#{item.devType,jdbcType=VARCHAR},#{item.devNo,jdbcType=VARCHAR},#{item.orgCode,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.time,jdbcType=TIMESTAMP},#{item.userNo,jdbcType=VARCHAR})
     </foreach>
   </insert>
   <insert id="insertBatchWithId" parameterType="top.iotequ.reader.pojo.DevEvent" databaseId="Oracle">
     insert all 
     <foreach collection="list" item="item" index="index">
-      into dev_event (id,dev_no,org_code,status,time,user_no) values(#{item.id,jdbcType=VARCHAR},#{item.devNo,jdbcType=VARCHAR},#{item.orgCode,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.time,jdbcType=TIMESTAMP},#{item.userNo,jdbcType=VARCHAR})
+      into dev_event (id,dev_type,dev_no,org_code,status,time,user_no) values(#{item.id,jdbcType=VARCHAR},#{item.devType,jdbcType=VARCHAR},#{item.devNo,jdbcType=VARCHAR},#{item.orgCode,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.time,jdbcType=TIMESTAMP},#{item.userNo,jdbcType=VARCHAR})
     </foreach>
     select 1 from dual
   </insert>
@@ -81,6 +82,7 @@
   </delete>
   <update id="update" parameterType="top.iotequ.reader.pojo.DevEvent">
     update dev_event set 
+      dev_type = #{devType,jdbcType=VARCHAR},
       dev_no = #{devNo,jdbcType=VARCHAR},
       org_code = #{orgCode,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
@@ -91,6 +93,7 @@
   <update id="updateSelective" parameterType="top.iotequ.reader.pojo.DevEvent">
     update dev_event 
       <set>
+        <if test="devType != null"> dev_type = #{devType,jdbcType=VARCHAR},</if>
         <if test="devNo != null"> dev_no = #{devNo,jdbcType=VARCHAR},</if>
         <if test="orgCode != null"> org_code = #{orgCode,jdbcType=INTEGER},</if>
         <if test="status != null"> status = #{status,jdbcType=INTEGER},</if>
@@ -102,6 +105,7 @@
   <update id="updateBy" parameterType="top.iotequ.reader.pojo.DevEvent">
     update dev_event set 
       id = #{record.id,jdbcType=VARCHAR},
+      dev_type = #{record.devType,jdbcType=VARCHAR},
       dev_no = #{record.devNo,jdbcType=VARCHAR},
       org_code = #{record.orgCode,jdbcType=INTEGER},
       status = #{record.status,jdbcType=INTEGER},
@@ -113,6 +117,7 @@
     <include refid="selectSql" />
      where 1=1 
         <if test="id != null"> and dev_event.id like #{id,jdbcType=VARCHAR} </if>
+        <if test="devType != null"> and dev_event.dev_type like #{devType,jdbcType=VARCHAR} </if>
         <if test="devNo != null"> and dev_event.dev_no like #{devNo,jdbcType=VARCHAR} </if>
         <if test="orgCode != null"> and dev_event.org_code = #{orgCode,jdbcType=INTEGER} </if>
         <if test="status != null"> and dev_event.status = #{status,jdbcType=INTEGER} </if>

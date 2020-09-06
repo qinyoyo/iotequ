@@ -26,6 +26,12 @@
         </template>
 
       </cg-table-column>
+      <cg-table-column prop="devType" :page="paginationCurrentPage" :label="$t('devEvent.field.devType')" align="left" >
+        <template slot-scope="scope">
+          {{ scope.row.devType }}
+        </template>
+
+      </cg-table-column>
       <cg-table-column prop="devNo" :page="paginationCurrentPage" :label="$t('devEvent.field.devNo')" sortable align="left" >
         <template slot-scope="scope">
           {{ scope.row.devNo }}

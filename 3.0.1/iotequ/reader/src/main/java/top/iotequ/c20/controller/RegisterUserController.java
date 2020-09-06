@@ -4,6 +4,7 @@ import com.dyna.codec.DynaLog;
 import com.google.gson.Gson;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,9 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import top.iotequ.c20.controller.C20HttpServer.*;
 import top.iotequ.c20.controller.C20HttpServer.UserBaseInfoRsp.C20Finger;
+import top.iotequ.framework.event.DeviceEvent;
 import top.iotequ.framework.event.PeopleInfoChangedEvent;
 import top.iotequ.framework.util.*;
+import top.iotequ.reader.dao.DevEventDao;
 import top.iotequ.reader.dao.DevPeopleDao;
+import top.iotequ.reader.pojo.DevEvent;
 import top.iotequ.reader.pojo.DevPeople;
 import top.iotequ.svasclient.SvasService;
 import top.iotequ.svasclient.SvasTypes.SvasMatchInfo;
@@ -39,8 +43,11 @@ public class RegisterUserController {
 	@Autowired
 	private DevPeopleDao devPeopleDao;
 	@Autowired
+	private DevEventDao devEventDao;
+	@Autowired
 	private DevPeopleService devPeopleService;
-
+	@Autowired
+	ApplicationContext applicationContext;
 	// 注册指静脉用户信息
 	@RequestMapping(value = Links.C20DeviceBIND, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public JSONObject BindingDevice(@RequestBody C20HttpServer.C20BindInfo bindInfo) {
@@ -223,9 +230,24 @@ public class RegisterUserController {
 		int orgCode = getOrgCode(log.c20info, log.userNo);
 		Date dt = DateUtil.string2Date(log.date, "yyyy/MM/dd HH:mm:ss");
 		try {
-			SqlUtil.sqlExecute("insert into dev_event (id,dev_no,user_no,time,status,org_code) values(?,?,?,?,?,?)", StringUtil.uuid(),log.c20info.devNo,log.userNo,dt,0,orgCode);
-			Integer orgCode1=SqlUtil.sqlQueryInteger("select org_code from dev_people where user_no=?", log.userNo);
-			SqlUtil.sqlExist("insert ad_data(id,employee_no,rec_time,rec_type,rec_source,is_used) values(?,?,?,?,?,?)",StringUtil.uuid(),log.userNo,new Date(),0,log.c20info.devNo,0);
+			DevEvent devEvent = new DevEvent();
+			devEvent.setDevNo(log.c20info.devNo);
+			devEvent.setUserNo(log.userNo);
+			devEvent.setTime(dt);
+			devEvent.setStatus(0);
+			devEvent.setOrgCode(orgCode);
+			devEvent.setDevType("C20");
+			devEventDao.insert(devEvent);
+
+			DeviceEvent event = new DeviceEvent(this);
+			event.setDeviceType("C20");
+			event.setDeviceNo(log.c20info.devNo);
+			event.setDeviceMode("AD");
+			event.setTime(dt);
+			event.setUserNo(log.userNo);
+			event.put("orgCode", orgCode);
+			applicationContext.publishEvent(event);
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			status=false;
@@ -278,8 +300,11 @@ public class RegisterUserController {
 
 	private int getOrgCode(C20BindInfo c20info, String userNo) throws Exception {
 
-		Integer orgCode = SqlUtil.sqlQueryInteger("select org_code from dev_c20 where dev_no=? and sn_no=?",
-				c20info.devNo, c20info.SN);// 查询编号是否存在
+		Integer orgCode = null;
+		try {
+			orgCode = SqlUtil.sqlQueryInteger("select org_code from dev_c20 where dev_no=? and sn_no=?",
+					c20info.devNo, c20info.SN);// 查询编号是否存在
+		} catch (Exception e) {}
 		if (orgCode == null && userNo != null) {
 			orgCode = SqlUtil.sqlQueryInteger("select org_code from dev_people where user_no=?", userNo);
 			if (orgCode != null) {
@@ -289,7 +314,7 @@ public class RegisterUserController {
 			if (orgCode != null)
 				return orgCode.intValue();
 		}
-		return -1;
+		return 0;
 	}
 
 }

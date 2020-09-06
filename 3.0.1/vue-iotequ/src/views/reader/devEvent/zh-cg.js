@@ -9,6 +9,7 @@ export default {
     },
     field: {
       id: '',
+      devType: '设备类别',
       devNo: '设备号',
       orgCode: '部门',
       status: '状态',

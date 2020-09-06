@@ -143,10 +143,11 @@ DROP TABLE IF EXISTS `ad_data`;
 CREATE TABLE `ad_data` (
   `id` char(32) NOT NULL PRIMARY KEY,
   `employee_no` varchar(45) NOT NULL COMMENT '工号',
+  `rec_source_type` varchar(45) DEFAULT 'D10' NOT NULL COMMENT '来源类别',
   `rec_source` varchar(45) NULL COMMENT '来源',
   `rec_type` int(11) DEFAULT 3 NOT NULL COMMENT '类别',
   `rec_time` datetime NOT NULL COMMENT '时间',
-  `is_used` tinyint(1) DEFAULT 0 NOT NULL COMMENT '被使用'
+  `is_used` tinyint(1) DEFAULT '0' NOT NULL COMMENT '被使用'
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '考勤数据' ROW_FORMAT = Dynamic;
 CREATE INDEX `index_ad_data_employee_no` ON `ad_data`(`employee_no`);
 

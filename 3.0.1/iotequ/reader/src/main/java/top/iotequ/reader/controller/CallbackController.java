@@ -78,7 +78,6 @@ public class CallbackController {
 	@RequestMapping(value = D10ClientService.Callback_Record)
 	public void record(@RequestBody JSONObject body) {
 		log.debug("Callback_Record：{}",body);
-		Map<String,Object> map=new HashMap<String,Object>();
 		String dno=body.getString("devnum");
 		DevReader reader=readerDao.selectByReaderNo(dno);
 		if (reader==null) log.info("设备不存在：{}",dno);
@@ -86,29 +85,37 @@ public class CallbackController {
 		else {
 			Date dt= DateUtil.string2Date(body.getString("date"), "yyyyMMddHHmmss");
 			if (dt!=null) {
-				String uno=body.getString("userNum");
-				Integer status=body.getInt("status");
-				map.put("userNo", uno);
-				map.put("deviceNo",dno);
-				map.put("status", status);
-				map.put("time",dt);
-				if (reader!=null) {
-					DevEvent event=new DevEvent();
-					event.setDevNo(dno);
-					event.setUserNo(uno);
-					event.setTime(dt);
-					event.setStatus(status);
-					Integer deviceOrgCode=0;
-					try {
-						deviceOrgCode = SqlUtil.sqlQueryInteger(false, "select org_code from dev_reader_group where id=?", reader.getReaderGroup());
-					} catch (Exception e) {	}
-					event.setOrgCode(deviceOrgCode);
-					map.put("orgCode", deviceOrgCode);
-					String mode=reader.getDevMode();
-					map.put("mode", mode);
-					applicationContext.publishEvent(new DeviceEvent(this,"D10",map));
-					eventDao.insert(event);
-				}
+				DevEvent devEvent=new DevEvent();
+				DeviceEvent event = new DeviceEvent(this);
+				String uno=null;
+				try { uno = body.getString("userNum");	} catch (Exception e) {};
+				Integer status=null;
+				try { status = body.getInt("status"); } catch (Exception e) {}
+				Integer deviceOrgCode=0;
+				try {
+					deviceOrgCode = SqlUtil.sqlQueryInteger(false, "select org_code from dev_reader_group where id=?", reader.getReaderGroup());
+				} catch (Exception e) {	}
+				Boolean warning = null;
+				try { warning = body.getBoolean("warning"); } catch (Exception e) {}
+
+				event.setDeviceType(reader.getType());
+				event.setDeviceNo(dno);
+				event.setDeviceMode(reader.getDevMode());
+				event.setTime(dt);
+				event.setUserNo(uno);
+				event.setWarning(warning);
+				event.put("status",status);
+				event.put("orgCode", deviceOrgCode);
+
+				devEvent.setDevNo(dno);
+				devEvent.setUserNo(uno);
+				devEvent.setTime(dt);
+				devEvent.setStatus(status);
+				devEvent.setDevType(reader.getType());
+				devEvent.setOrgCode(deviceOrgCode);
+
+				applicationContext.publishEvent(event);
+				eventDao.insert(devEvent);
 			} else log.error("error date format of {}",body.getString("date"));
 		}
 	}

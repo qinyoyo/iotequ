@@ -56,6 +56,12 @@
         </template>
 
       </cg-table-column>
+      <cg-table-column prop="recSourceType" :page="paginationCurrentPage" :label="$t('adData.field.recSourceType')" sortable align="left" >
+        <template slot-scope="scope">
+          {{ scope.row.recSourceType }}
+        </template>
+
+      </cg-table-column>
       <cg-table-column prop="recSource" :page="paginationCurrentPage" :label="$t('adData.field.recSource')" sortable align="left" >
         <template slot-scope="scope">
           {{ scope.row.recSource }}
@@ -105,7 +111,7 @@
                   prefix-icon="el-icon-search" :placeholder="$t('system.message.fuzzyQueryTip')" @keyup.enter.native="doAction('refresh')" />
       </el-form-item>
       <el-form-item v-show="queryRecord.search" :label="$t('system.action.field')" prop="searchFields" :size="$store.state.app.size">
-        <cg-select v-model="queryRecord.searchFields" dictionary="dateDate|adData.field.dateDate,recType|adData.field.recType,recSource|adData.field.recSource," multiple/>
+        <cg-select v-model="queryRecord.searchFields" dictionary="dateDate|adData.field.dateDate,recType|adData.field.recType,recSourceType|adData.field.recSourceType,recSource|adData.field.recSource," multiple/>
       </el-form-item>
       <el-divider />
       <div v-show="!queryRecord.search">
@@ -116,6 +122,10 @@
         <el-form-item :label="$t('adData.field.recType')" prop="recType" :size="$store.state.app.size">
           <cg-select v-model="queryRecord.recType" :dictionary="dictionary.dictRecType"
                      :disabled="fixedQueryRecord.recType?true:false"  :allow-create="!mobile" multiple clearable />
+        </el-form-item>
+        <el-form-item :label="$t('adData.field.recSourceType')" prop="recSourceType" :size="$store.state.app.size">
+          <el-input v-model="queryRecord.recSourceType" type="text" name="recSourceType"
+                    :readonly="fixedQueryRecord.recSourceType?true:false" :label="$t('adData.field.recSourceType')" clearable resize autofocus />
         </el-form-item>
         <el-form-item :label="$t('adData.field.recSource')" prop="recSource" :size="$store.state.app.size">
           <el-input v-model="queryRecord.recSource" type="text" name="recSource"
@@ -275,6 +285,7 @@ export default {
       return Object.assign({
         dateDate: '',
         recType: '',
+        recSourceType: '',
         recSource: '',
       }, this.fixedQueryRecord)
     },

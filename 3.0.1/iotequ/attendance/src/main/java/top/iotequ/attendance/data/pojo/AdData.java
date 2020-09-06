@@ -39,6 +39,10 @@ public class AdData implements CgEntity {
     @CgFieldAnnotation(name="ad_data.id",jdbcType="VARCHAR",length=36,nullable=false,format="@")
     private String id;
 
+    @SerializedName(value = "recSourceType", alternate = {"rec_source_type","REC_SOURCE_TYPE"})
+    @CgFieldAnnotation(name="ad_data.rec_source_type",jdbcType="VARCHAR",length=45,nullable=false,format="@")
+    private String recSourceType;		//来源类别 db field:rec_source_type
+
     @SerializedName(value = "recSource", alternate = {"rec_source","REC_SOURCE"})
     @CgFieldAnnotation(name="ad_data.rec_source",jdbcType="VARCHAR",length=45,nullable=true,format="@")
     private String recSource;		//来源 db field:rec_source
@@ -54,7 +58,7 @@ public class AdData implements CgEntity {
     private Date recTime;		//时间 db field:rec_time
 
     @SerializedName(value = "isUsed", alternate = {"is_used","IS_USED"})
-    @CgFieldAnnotation(name="ad_data.is_used",jdbcType="TINYINT",nullable=false,format="")
+    @CgFieldAnnotation(name="ad_data.is_used",jdbcType="VARCHAR",nullable=false,format="")
     private Boolean isUsed;		//被使用 db field:is_used
 
     @SerializedName(value = "employeeNo", alternate = {"employee_no","EMPLOYEE_NO"})
