@@ -233,7 +233,8 @@ public class DateUtil {
 	 * @param birth 生日
 	 * @return 周岁
 	 */
-	static public int age(Date birth) {
+	static public Integer age(Date birth) {
+		if (birth==null) return null;
 		Calendar ca = Calendar.getInstance();
 		ca.setTime(birth);
 		int by = ca.get(Calendar.YEAR), bm = ca.get(Calendar.MONTH), bd = ca.get(Calendar.DAY_OF_MONTH);

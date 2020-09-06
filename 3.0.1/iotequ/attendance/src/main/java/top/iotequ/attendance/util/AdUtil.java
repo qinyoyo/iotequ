@@ -261,7 +261,7 @@ public class AdUtil {
 	}
 
 	public static CalcParameter calcEmployeeAttendance(AdEmployee em,Date date) {
-		if (em==null || date==null) return null;
+		if (em==null || Util.isEmpty(em.getEmployeeNo()) || date==null) return null;
 		if (!Util.boolValue(em.getIsAttendance())) return null; // 不需要考勤
 		Date date0=DateUtil.startOf(date, DateUtil.DAY);
 		Date dt=em.getEnterDate();
@@ -306,8 +306,8 @@ public class AdUtil {
 				ICgService adEmployeeService=(ICgService)Util.getBean("adEmployeeService");
 				String filter=SqlUtil.licenceCondition("ad_employee", "id", adEmployeeService.getLicence());
 				List<AdEmployee> users=Util.getBean(AdEmployeeDao.class).listBy(
-						"org_code="+o.getOrgCode()+" and is_attendance=1"+(filter==null?"":" and "+filter),					
-						"employee_no");
+						"sys_user.org_code="+o.getOrgCode()+" and ad_employee.is_attendance=1"+(filter==null?"":" and "+filter),
+						"ad_employee.employee_no");
 				for (AdEmployee e:users) {
 					calcParameter=calcEmployeeAttendance(e,o,date,null,useSms);
 				}
@@ -337,7 +337,7 @@ public class AdUtil {
 					if (freeWorkLimit==null) freeWorkLimit=parent.getFreeWorkLimit();
 				} else pid=null;
 			}
-			me.setShiftId(shift);
+			me.setShiftId(shift==null?0:shift);
 			me.setDeviation(deviation==null?0:deviation);
 			me.setFloatLimit(floatLimit==null?0:floatLimit);
 			me.setAbsentLimit(absentLimit==null?0:absentLimit);
@@ -349,6 +349,7 @@ public class AdUtil {
 	 private static boolean matchOrg(String[] orgList,Integer code) {
 		if (orgList==null) return true;
 		for (String s:orgList) {
+			if (Util.isEmpty(s)) continue;
 			if (OrgUtil.isOrgChildren(code,Integer.parseInt(s))) return true;
 		}
 		return false;
@@ -356,7 +357,9 @@ public class AdUtil {
 	 
 	//计算某个人的考勤数据，org部门的数据已经从父级部门更新过,否则出错,内部调用	
 	private static CalcParameter calcEmployeeAttendance(AdEmployee em,AdOrg org,Date date,CalcParameter calcParameter,boolean useSms) {
-		if (em==null || org==null || date==null || em.getEmployeeNo()==null) return calcParameter;
+		if (em==null || org==null || date==null || Util.isEmpty(em.getEmployeeNo())) return calcParameter;
+		Integer	shift = (em.getShiftId()==null?org.getShiftId() : em.getShiftId());
+		if (shift==null || shift==0) return calcParameter;
 		//删除原有数据
 		String dt=DateUtil.date2String(date,"yyyy-MM-dd");
 		try {
@@ -368,10 +371,11 @@ public class AdUtil {
 		if (em.getLeaveDate()!=null && DateUtil.startOf(date,DateUtil.DAY).getTime()>=DateUtil.startOf(em.getLeaveDate(),DateUtil.DAY).getTime())  return calcParameter;  // 离职后，不计算
 
 		Integer orgCode=em.getOrgCode();
-		int age=DateUtil.age(em.getBirthDate()),level=em.getEmLevel(),sex=Integer.valueOf(em.getSex()),
-			shift = (em.getShiftId()==null?org.getShiftId() : em.getShiftId()), 
-			deviation=org.getDeviation(),floatLimit=org.getFloatLimit(),
-			absentLimit=org.getAbsentLimit(),freeWorkLimit=org.getFreeWorkLimit();
+		Integer age=DateUtil.age(em.getBirthDate()),level=em.getEmLevel(),sex=em.getSex()==null?null:Integer.valueOf(em.getSex());
+		int 	deviation=org.getDeviation()==null?0:org.getDeviation(),
+				floatLimit=org.getFloatLimit()==null?0:org.getFloatLimit(),
+				absentLimit=org.getAbsentLimit()==null?0:org.getAbsentLimit(),
+				freeWorkLimit=org.getFreeWorkLimit()==null?0:org.getFreeWorkLimit();
 		if (calcParameter==null || !calcParameter.sameAs(shift, date)) 
 			calcParameter=new CalcParameter(shift,date);
 		ArrayList<AdTimeRange> rgWork=null,rgOverWork=null,rgFree=null;
@@ -380,11 +384,11 @@ public class AdUtil {
 			for (SpecialShift ss:calcParameter.specialShift) {
 				if (matchOrg(ss.orgCodes,orgCode) 
 					&& (ss.adMode==null || ss.adMode == calcParameter.adMode)	
-					&& (ss.sexProperty==null || ss.sexProperty==sex) 
-					&& (ss.ageProperty0==null || ss.ageProperty0<=age)	
-					&& (ss.ageProperty1==null || ss.ageProperty1>=age)	
-					&& (ss.levelProperty0==null || ss.levelProperty0<=level)	
-					&& (ss.levelProperty1==null || ss.ageProperty1>=level)	) {
+					&& (ss.sexProperty==null || (sex!=null && ss.sexProperty==sex))
+					&& (ss.ageProperty0==null || (age!=null && ss.ageProperty0<=age))
+					&& (ss.ageProperty1==null || (age!=null && ss.ageProperty1>=age))
+					&& (ss.levelProperty0==null || (level!=null && ss.levelProperty0<=level))
+					&& (ss.levelProperty1==null || (level!=null && ss.ageProperty1>=level))	) {
 					if (ss.mode==AdUtil.ss_free && ss.range==null) // 全天休假
 						{ dayFree=true ; break; }
 					else if (ss.mode==AdUtil.ss_free)  rgFree=ss.range;
@@ -563,20 +567,23 @@ public class AdUtil {
 		AdOrg org = findOrg(orgCode);
 		if (org==null) return null;
 
-		int age=DateUtil.age(em.getBirthDate()),level=em.getEmLevel(),sex=Integer.valueOf(em.getSex()),
-			shift=org.getShiftId(), deviation=org.getDeviation(),floatLimit=org.getFloatLimit();
+		Integer age=DateUtil.age(em.getBirthDate()),level=em.getEmLevel(),sex=em.getSex()==null?null:Integer.valueOf(em.getSex()),
+			 	shift = org.getShiftId();
+		int		deviation=org.getDeviation()==null?0:org.getDeviation(),
+				floatLimit=org.getFloatLimit()==null?0:org.getFloatLimit();
+		if (shift==null || shift==0) return null;
 		CalcParameter	calcParameter=new CalcParameter(shift,date);
 		ArrayList<AdTimeRange> rgWork=null,rgOverWork=null,rgFree=null;
 		boolean dayFree=false;  // 全天休假
 		if (calcParameter.specialShift!=null && calcParameter.specialShift.size()>0) {
 			for (SpecialShift ss:calcParameter.specialShift) {
 				if (matchOrg(ss.orgCodes,orgCode) 
-					&& (ss.adMode==null || ss.adMode == calcParameter.adMode)	
-					&& (ss.sexProperty==null || ss.sexProperty==sex) 
-					&& (ss.ageProperty0==null || ss.ageProperty0<=age)	
-					&& (ss.ageProperty1==null || ss.ageProperty1>=age)	
-					&& (ss.levelProperty0==null || ss.levelProperty0<=level)	
-					&& (ss.levelProperty1==null || ss.ageProperty1>=level)	) {
+					&& (ss.adMode==null || ss.adMode == calcParameter.adMode)
+					&& (ss.sexProperty==null || (sex!=null && ss.sexProperty==sex))
+					&& (ss.ageProperty0==null || (age!=null && ss.ageProperty0<=age))
+					&& (ss.ageProperty1==null || (age!=null && ss.ageProperty1>=age))
+					&& (ss.levelProperty0==null || (level!=null && ss.levelProperty0<=level))
+					&& (ss.levelProperty1==null || (level!=null && ss.ageProperty1>=level))	) {
 					if (ss.mode==AdUtil.ss_free && ss.range==null) // 全天休假
 						{ dayFree=true ; break; }
 					else if (ss.mode==AdUtil.ss_free)  rgFree=ss.range;
