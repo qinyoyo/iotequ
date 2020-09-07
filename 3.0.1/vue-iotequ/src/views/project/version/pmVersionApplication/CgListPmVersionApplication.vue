@@ -117,7 +117,7 @@
         </el-form-item>
         <el-form-item :label="$t('pmVersionApplication.field.customer')" prop="customer" :size="$store.state.app.size">
           <el-input v-model="queryRecord.customer" type="text" name="customer"
-                    :readonly="fixedQueryRecord.customer?true:false" :label="$t('pmVersionApplication.field.customer')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.customer?true:false" :label="$t('pmVersionApplication.field.customer')" clearable resize autofocus/>
         </el-form-item>
       </div>
     </cg-query-condition>
@@ -181,6 +181,7 @@ export default {
       showActionView: false,
       defaultOrder: 'flow_register_time desc',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: ['flowState','applicationType','project','customer'],
       formPath: '/project/version/pmVersionApplication/record',
       listLoading: false,
       rows: [],
@@ -315,6 +316,12 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        flowState: null,
+        flowRegisterTime: null,
+        registerByName: null,
+        applicationType: null,
+        project: null,
+        customer: null,
       }, this.fixedQueryRecord)
     },
     getJoinFields(field,rows) {

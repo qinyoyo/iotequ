@@ -111,7 +111,7 @@
       <div v-show="!queryRecord.search">
         <el-form-item :label="$t('cgFormField.field.entityField')" prop="entityField" :size="$store.state.app.size">
           <el-input v-model="queryRecord.entityField" type="text" name="entityField"
-                    :readonly="fixedQueryRecord.entityField?true:false" :label="$t('cgFormField.field.entityField')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.entityField?true:false" :label="$t('cgFormField.field.entityField')" clearable resize autofocus/>
         </el-form-item>
       </div>
     </cg-query-condition>
@@ -175,6 +175,7 @@ export default {
       showActionView: false,
       defaultOrder: 'order_num asc',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: ['entityField'],
       formPath: '/codegenerator/cgFormField/record',
       listLoading: false,
       rows: [],
@@ -282,6 +283,13 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        showType: null,
+        entityField: null,
+        readonly: null,
+        mustInput: null,
+        hidden: null,
+        validateAsTitle: null,
+        groupTitle: null,
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

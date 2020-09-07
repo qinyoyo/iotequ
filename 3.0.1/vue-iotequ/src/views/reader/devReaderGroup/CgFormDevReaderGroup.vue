@@ -9,9 +9,10 @@
         <el-col :span="12">
           <el-form-item class="cg-item-text cg-auto-focus" :label="$t('devReaderGroup.field.name')" prop="name" :size="$store.state.app.size" >
             <el-input v-model="record.name" name="name" 
-                      type="text" :maxlength="20" show-word-limit 
+                      type="text" 
                       :label="$t('devReaderGroup.field.name')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="20" show-word-limit />
           </el-form-item>
         </el-col>
         <el-col :span="12">

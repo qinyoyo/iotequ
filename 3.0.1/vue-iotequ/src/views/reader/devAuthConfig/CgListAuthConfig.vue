@@ -158,6 +158,7 @@ export default {
       showActionView: false,
       defaultOrder: 'id desc',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: [],
       formPath: '/reader/devAuthConfig/record',
       listLoading: false,
       rows: [],
@@ -245,6 +246,12 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        beginAt: null,
+        endAt: null,
+        startTime: null,
+        endTime: null,
+        onlyWorkDay: null,
+        auth: null,
       }, this.fixedQueryRecord)
     },
     editInlineAdd() {

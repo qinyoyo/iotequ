@@ -165,6 +165,7 @@ export default {
       showActionView: false,
       defaultOrder: 'org_code',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: [],
       formPath: '/attendance/org/adOrg/record',
       listLoading: false,
       rows: [],
@@ -263,6 +264,15 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        orgCode: null,
+        name: null,
+        parent: null,
+        shiftId: null,
+        managerName: null,
+        hrName: null,
+        hr: null,
+        manager: null,
+        managerOrgCode: null,
       }, this.fixedQueryRecord)
     },
     getJoinFields(field,rows) {

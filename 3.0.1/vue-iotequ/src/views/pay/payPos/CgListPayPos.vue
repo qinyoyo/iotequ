@@ -105,7 +105,7 @@
       <div v-show="!queryRecord.search">
         <el-form-item :label="$t('payPos.field.no')" prop="no" :size="$store.state.app.size">
           <el-input v-model="queryRecord.no" type="text" name="no"
-                    :readonly="fixedQueryRecord.no?true:false" :label="$t('payPos.field.no')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.no?true:false" :label="$t('payPos.field.no')" clearable resize autofocus/>
         </el-form-item>
       </div>
     </cg-query-condition>
@@ -167,6 +167,7 @@ export default {
       showActionView: false,
       defaultOrder: 'shop_id,id',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: ['no'],
       formPath: '/pay/payPos/record',
       listLoading: false,
       rows: [],
@@ -261,6 +262,11 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        no: null,
+        shopId: null,
+        ewalletActive: null,
+        countProjectList: null,
+        timeProjectList: null,
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

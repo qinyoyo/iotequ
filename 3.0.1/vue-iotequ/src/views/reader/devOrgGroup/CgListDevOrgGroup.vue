@@ -82,7 +82,7 @@
       <div v-show="!queryRecord.search">
         <el-form-item :label="$t('devOrgGroup.field.orgId')" prop="orgId" :size="$store.state.app.size">
           <el-input v-model="queryRecord.orgId" type="text" name="orgId"
-                    :readonly="fixedQueryRecord.orgId?true:false" :label="$t('devOrgGroup.field.orgId')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.orgId?true:false" :label="$t('devOrgGroup.field.orgId')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('devOrgGroup.field.isIncludeSubOrg')" prop="isIncludeSubOrg" :size="$store.state.app.size">
           <el-checkbox-group v-model="queryRecord.isIncludeSubOrg" :max="1">
@@ -154,6 +154,7 @@ export default {
       showActionView: false,
       defaultOrder: 'id desc',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: ['orgId','isIncludeSubOrg'],
       formPath: '/reader/devOrgGroup/record',
       listLoading: false,
       rows: [],
@@ -238,7 +239,9 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        orgId: null,
         isIncludeSubOrg: [],
+        orgName: null,
       }, this.fixedQueryRecord)
     },
     getJoinFields(field,rows) {

@@ -193,6 +193,7 @@ export default {
       showActionView: false,
       defaultOrder: 'register_time desc',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: ['adjustType','orgCode','state','startTime'],
       formPath: '/attendance/adjust/adAdjust/record',
       listLoading: false,
       rows: [],
@@ -307,6 +308,15 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        adjustType: null,
+        realName: null,
+        orgCode: null,
+        state: null,
+        hrRealName: null,
+        approverName: null,
+        startTime: null,
+        endTime: null,
+        registerTime: null,
       }, this.fixedQueryRecord)
     },
     getJoinFields(field,rows) {

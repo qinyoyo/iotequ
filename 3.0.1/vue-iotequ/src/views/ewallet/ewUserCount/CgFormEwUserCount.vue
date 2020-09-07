@@ -7,9 +7,10 @@
              hide-required-asterisk >
       <el-form-item class="cg-item-left_join cg-auto-focus" :label="$t('ewUserCount.field.userNo')" prop="userNo" :size="$store.state.app.size" >
         <el-input v-model="record.userNo" name="userNo" 
-                  type="left_join" :maxlength="45" show-word-limit 
+                  type="left_join" 
                   :label="$t('ewUserCount.field.userNo')" :placeholder="$t('system.message.needValue')" 
-                  :readonly="isDetail" resize autofocus validate-event />
+                  resize autofocus validate-event 
+                  :readonly="isDetail" :maxlength="45" show-word-limit />
       </el-form-item>
       <el-row :gutter="mobile?0:20">
         <el-col :span="12">
@@ -17,7 +18,8 @@
             <el-input v-model="record.countId" name="countId" 
                       type="left_join" 
                       :label="$t('ewUserCount.field.countId')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" />
           </el-form-item>
         </el-col>
         <el-col :span="12">

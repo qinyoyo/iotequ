@@ -634,6 +634,11 @@ export function setJoinValues(record, field, join, rows) {
   }
 }
 
+export function clearJoinValues(obj,ref) {
+  if (obj && obj.$refs[ref]) {
+    obj.$refs[ref].$refs.cgList.clearSelection()
+  }
+}
 // 从字典检索值，支持属性字典(兼容2.2.2，子序列字段名为nodes) value值(单个值或逗号序列) dict字典
 // fullname是否显示全名 stringOutput是否已逗号序列方式输出
 export function dictValue(value, dict, fullname, stringOutput) {
@@ -958,6 +963,7 @@ export default {
   treeNode2Rows,
   appendRow,
   setJoinValues,
+  clearJoinValues,
   dictValue,
   dictIndex,
   validDictValue,

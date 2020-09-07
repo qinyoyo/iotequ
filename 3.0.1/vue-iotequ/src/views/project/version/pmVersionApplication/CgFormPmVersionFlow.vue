@@ -21,9 +21,10 @@
                                 @showJoinList="flowRegisterByJoinVisible=true" />
                 <el-form-item class="cg-item-text" slot="reference" :label="$t('pmVersionApplication.field.flowRegisterBy')" prop="registerByName" :size="$store.state.app.size" >
                   <el-input v-model="record.registerByName" name="registerByName" 
-                            type="text" :maxlength="32" show-word-limit 
+                            type="text" 
                             :label="$t('pmVersionApplication.field.flowRegisterBy')" :placeholder="$t('system.message.needValue')" 
-                            readonly resize autofocus validate-event />
+                            resize autofocus validate-event 
+                            readonly :maxlength="32" show-word-limit />
                 </el-form-item>
               </cg-join>
             </el-col>
@@ -54,25 +55,28 @@
             <el-col :span="8">
               <el-form-item class="cg-item-text" :label="$t('pmVersionApplication.field.contractNo')" prop="contractNo" :size="$store.state.app.size" >
                 <el-input v-model="record.contractNo" name="contractNo" 
-                          type="text" :maxlength="45" show-word-limit 
-                          :label="$t('pmVersionApplication.field.contractNo')" :placeholder="$t('system.message.unknown')" clearable 
-                          readonly resize autofocus validate-event />
+                          type="text" 
+                          :label="$t('pmVersionApplication.field.contractNo')" :placeholder="$t('system.message.unknown')" 
+                          resize autofocus validate-event 
+                          readonly :maxlength="45" show-word-limit clearable />
               </el-form-item>
             </el-col>
             <el-col :span="16">
               <el-form-item class="cg-item-text" :label="$t('pmVersionApplication.field.customer')" prop="customer" :size="$store.state.app.size" >
                 <el-input v-model="record.customer" name="customer" 
-                          type="text" :maxlength="20" show-word-limit 
+                          type="text" 
                           :label="$t('pmVersionApplication.field.customer')" :placeholder="$t('system.message.needValue')" 
-                          readonly resize autofocus validate-event />
+                          resize autofocus validate-event 
+                          readonly :maxlength="20" show-word-limit />
               </el-form-item>
             </el-col>
           </el-row>
           <el-form-item class="cg-item-text" :label="$t('pmVersionApplication.field.licence')" prop="licence" :size="$store.state.app.size" >
             <el-input v-model="record.licence" name="licence" 
-                      type="text" :maxlength="100" show-word-limit 
+                      type="text" 
                       :label="$t('pmVersionApplication.field.licence')" :placeholder="$t('system.message.needValue')" 
-                      readonly resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      readonly :maxlength="100" show-word-limit />
           </el-form-item>
           <el-form-item class="cg-item-textarea" :label="$t('pmVersionApplication.field.description')" prop="description" :size="$store.state.app.size" >
             <el-input v-model="record.description" name="description" 

@@ -9,17 +9,19 @@
         <el-col :span="8">
           <el-form-item class="cg-item-text cg-auto-focus" :label="$t('sysTask.field.name')" prop="name" :size="$store.state.app.size" >
             <el-input v-model="record.name" name="name" 
-                      type="text" :maxlength="45" show-word-limit 
+                      type="text" 
                       :label="$t('sysTask.field.name')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="45" show-word-limit />
           </el-form-item>
         </el-col>
         <el-col :span="16">
           <el-form-item class="cg-item-text" :label="$t('sysTask.field.description')" prop="description" :size="$store.state.app.size" >
             <el-input v-model="record.description" name="description" 
-                      type="text" :maxlength="300" show-word-limit 
-                      :label="$t('sysTask.field.description')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="text" 
+                      :label="$t('sysTask.field.description')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="300" show-word-limit clearable />
           </el-form-item>
         </el-col>
       </el-row>
@@ -27,25 +29,28 @@
         <el-col :span="8">
           <el-form-item class="cg-item-text" :label="$t('sysTask.field.sceduleYears')" prop="sceduleYears" :size="$store.state.app.size" >
             <el-input v-model="record.sceduleYears" name="sceduleYears" 
-                      type="text" :maxlength="100" show-word-limit 
+                      type="text" 
                       :label="$t('sysTask.field.sceduleYears')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="100" show-word-limit />
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item class="cg-item-text" :label="$t('sysTask.field.scheduleMonths')" prop="scheduleMonths" :size="$store.state.app.size" >
             <el-input v-model="record.scheduleMonths" name="scheduleMonths" 
-                      type="text" :maxlength="100" show-word-limit 
+                      type="text" 
                       :label="$t('sysTask.field.scheduleMonths')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="100" show-word-limit />
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item class="cg-item-text" :label="$t('sysTask.field.scheduleDays')" prop="scheduleDays" :size="$store.state.app.size" >
             <el-input v-model="record.scheduleDays" name="scheduleDays" 
-                      type="text" :maxlength="100" show-word-limit 
+                      type="text" 
                       :label="$t('sysTask.field.scheduleDays')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="100" show-word-limit />
           </el-form-item>
         </el-col>
       </el-row>
@@ -53,25 +58,28 @@
         <el-col :span="8">
           <el-form-item class="cg-item-text" :label="$t('sysTask.field.scheduleWeeks')" prop="scheduleWeeks" :size="$store.state.app.size" >
             <el-input v-model="record.scheduleWeeks" name="scheduleWeeks" 
-                      type="text" :maxlength="100" show-word-limit 
+                      type="text" 
                       :label="$t('sysTask.field.scheduleWeeks')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="100" show-word-limit />
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item class="cg-item-text" :label="$t('sysTask.field.scheduleHours')" prop="scheduleHours" :size="$store.state.app.size" >
             <el-input v-model="record.scheduleHours" name="scheduleHours" 
-                      type="text" :maxlength="100" show-word-limit 
+                      type="text" 
                       :label="$t('sysTask.field.scheduleHours')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="100" show-word-limit />
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item class="cg-item-text" :label="$t('sysTask.field.scheduleMinutes')" prop="scheduleMinutes" :size="$store.state.app.size" >
             <el-input v-model="record.scheduleMinutes" name="scheduleMinutes" 
-                      type="text" :maxlength="100" show-word-limit 
+                      type="text" 
                       :label="$t('sysTask.field.scheduleMinutes')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="100" show-word-limit />
           </el-form-item>
         </el-col>
       </el-row>
@@ -79,17 +87,19 @@
         <el-col :span="8">
           <el-form-item class="cg-item-text" :label="$t('sysTask.field.className')" prop="className" :size="$store.state.app.size" >
             <el-input v-model="record.className" name="className" 
-                      type="text" :maxlength="100" show-word-limit 
+                      type="text" 
                       :label="$t('sysTask.field.className')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="100" show-word-limit />
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item class="cg-item-text" :label="$t('sysTask.field.mothodName')" prop="mothodName" :size="$store.state.app.size" >
             <el-input v-model="record.mothodName" name="mothodName" 
-                      type="text" :maxlength="500" show-word-limit 
+                      type="text" 
                       :label="$t('sysTask.field.mothodName')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="500" show-word-limit />
           </el-form-item>
         </el-col>
         <el-col :span="8">
@@ -102,9 +112,10 @@
         <el-col :span="16">
           <el-form-item class="cg-item-text" :label="$t('sysTask.field.parames')" prop="parames" :size="$store.state.app.size" >
             <el-input v-model="record.parames" name="parames" 
-                      type="text" :maxlength="100" show-word-limit 
-                      :label="$t('sysTask.field.parames')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="text" 
+                      :label="$t('sysTask.field.parames')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="100" show-word-limit clearable />
           </el-form-item>
         </el-col>
         <el-col :span="8">

@@ -16,9 +16,10 @@
         <el-col :span="12">
           <el-form-item class="cg-item-text" :label="$t('payShop.field.name')" prop="name" :size="$store.state.app.size" >
             <el-input v-model="record.name" name="name" 
-                      type="text" :maxlength="45" show-word-limit 
+                      type="text" 
                       :label="$t('payShop.field.name')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="45" show-word-limit />
           </el-form-item>
         </el-col>
       </el-row>
@@ -26,25 +27,28 @@
         <el-col :span="12">
           <el-form-item class="cg-item-text" :label="$t('payShop.field.linkman')" prop="linkman" :size="$store.state.app.size" >
             <el-input v-model="record.linkman" name="linkman" 
-                      type="text" :maxlength="45" show-word-limit 
+                      type="text" 
                       :label="$t('payShop.field.linkman')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="45" show-word-limit />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item class="cg-item-text" :label="$t('payShop.field.linkPhone')" prop="linkPhone" :size="$store.state.app.size" >
             <el-input v-model="record.linkPhone" name="linkPhone" 
-                      type="text" :maxlength="45" show-word-limit 
+                      type="text" 
                       :label="$t('payShop.field.linkPhone')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="45" show-word-limit />
           </el-form-item>
         </el-col>
       </el-row>
       <el-form-item class="cg-item-text" :label="$t('payShop.field.address')" prop="address" :size="$store.state.app.size" >
         <el-input v-model="record.address" name="address" 
-                  type="text" :maxlength="45" show-word-limit 
+                  type="text" 
                   :label="$t('payShop.field.address')" :placeholder="$t('system.message.needValue')" 
-                  :readonly="isDetail" resize autofocus validate-event />
+                  resize autofocus validate-event 
+                  :readonly="isDetail" :maxlength="45" show-word-limit />
       </el-form-item>
     </el-form>
     <div v-if="!isDetail" class="cg-form-buttons">

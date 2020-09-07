@@ -93,7 +93,7 @@
       <div v-show="!queryRecord.search">
         <el-form-item :label="$t('payOperator.field.realName')" prop="realName" :size="$store.state.app.size">
           <el-input v-model="queryRecord.realName" type="text" name="realName"
-                    :readonly="fixedQueryRecord.realName?true:false" :label="$t('payOperator.field.realName')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.realName?true:false" :label="$t('payOperator.field.realName')" clearable resize autofocus/>
         </el-form-item>
       </div>
     </cg-query-condition>
@@ -155,6 +155,7 @@ export default {
       showActionView: false,
       defaultOrder: 'id',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: ['realName'],
       formPath: '/pay/payOperator/record',
       listLoading: false,
       rows: [],
@@ -248,6 +249,10 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        name: null,
+        realName: null,
+        shopId: null,
+        userNo: null,
       }, this.fixedQueryRecord)
     },
     groupFields({ row, column, rowIndex, columnIndex }) {

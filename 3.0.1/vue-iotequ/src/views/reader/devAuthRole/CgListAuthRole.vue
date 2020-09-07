@@ -123,6 +123,7 @@ export default {
       showActionView: false,
       defaultOrder: 'id desc',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: [],
       formPath: '/reader/devAuthRole/record',
       listLoading: false,
       rows: [],
@@ -207,6 +208,8 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        roleId: null,
+        name: null,
       }, this.fixedQueryRecord)
     },
     editInlineAdd() {

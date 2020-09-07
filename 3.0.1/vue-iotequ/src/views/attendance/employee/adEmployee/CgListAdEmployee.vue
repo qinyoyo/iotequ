@@ -97,7 +97,7 @@
                   prefix-icon="el-icon-search" :placeholder="$t('system.message.fuzzyQueryTip')" @keyup.enter.native="doAction('refresh')" />
       </el-form-item>
       <el-form-item v-show="queryRecord.search" :label="$t('system.action.field')" prop="searchFields" :size="$store.state.app.size">
-        <cg-select v-model="queryRecord.searchFields" dictionary="id|adEmployee.field.id,id|sysUser.field.sex,employeeNo|adEmployee.field.employeeNo,isAttendance|adEmployee.field.isAttendance," multiple/>
+        <cg-select v-model="queryRecord.searchFields" dictionary="realName|adEmployee.field.id,sex|sysUser.field.sex,employeeNo|adEmployee.field.employeeNo,isAttendance|adEmployee.field.isAttendance," multiple/>
       </el-form-item>
       <el-divider />
       <div v-show="!queryRecord.search">
@@ -106,7 +106,7 @@
             :originSelections="queryRecord.id" selectionKey="id" joinMode @closeJoinList="(rows)=>{ getJoinFields('id',rows)}" @showJoinList="idJoinVisible=true"/>
         <el-form-item slot="reference" :label="$t('adEmployee.field.id')" prop="realName" :size="$store.state.app.size">
           <el-input v-model="queryRecord.realName" type="text" name="realName"
-                    :readonly="fixedQueryRecord.realName?true:false" :label="$t('adEmployee.field.id')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.realName?true:false" :label="$t('adEmployee.field.id')" clearable resize autofocus @clear="clearJoinValues(myself,'idJoin')"/>
         </el-form-item>
         </cg-join>
         <el-form-item slot="reference" :label="$t('sysUser.field.sex')" prop="sex" :size="$store.state.app.size">
@@ -116,7 +116,7 @@
         </cg-join>
         <el-form-item :label="$t('adEmployee.field.employeeNo')" prop="employeeNo" :size="$store.state.app.size">
           <el-input v-model="queryRecord.employeeNo" type="text" name="employeeNo"
-                    :readonly="fixedQueryRecord.employeeNo?true:false" :label="$t('adEmployee.field.employeeNo')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.employeeNo?true:false" :label="$t('adEmployee.field.employeeNo')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('adEmployee.field.isAttendance')" prop="isAttendance" :size="$store.state.app.size">
           <el-checkbox-group v-model="queryRecord.isAttendance" :max="1">
@@ -188,6 +188,7 @@ export default {
       showActionView: false,
       defaultOrder: 'org_code,employee_no',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: ['id','id','employeeNo','isAttendance'],
       formPath: '/attendance/employee/adEmployee/record',
       listLoading: false,
       rows: [],
@@ -281,7 +282,15 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        realName: null,
+        sex: null,
+        employeeNo: null,
         isAttendance: [],
+        enterDate: null,
+        leaveDate: null,
+        shiftId: null,
+        orgCode: null,
+        birthDate: null,
       }, this.fixedQueryRecord)
     },
     getJoinFields(field,rows) {

@@ -69,7 +69,7 @@
       <div v-show="!queryRecord.search">
         <el-form-item :label="$t('devAuthGroup.field.name')" prop="name" :size="$store.state.app.size">
           <el-input v-model="queryRecord.name" type="text" name="name"
-                    :readonly="fixedQueryRecord.name?true:false" :label="$t('devAuthGroup.field.name')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.name?true:false" :label="$t('devAuthGroup.field.name')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('devAuthGroup.field.auth')" prop="auth" :size="$store.state.app.size">
           <cg-select v-model="queryRecord.auth" :dictionary="dictionary.dictAuth"
@@ -137,6 +137,7 @@ export default {
       showActionView: false,
       defaultOrder: 'id desc',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: ['name','auth'],
       formPath: '/reader/devAuthGroup/record',
       listLoading: false,
       rows: [],
@@ -228,6 +229,9 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        groupId: null,
+        name: null,
+        auth: null,
       }, this.fixedQueryRecord)
     },
     editInlineAdd() {

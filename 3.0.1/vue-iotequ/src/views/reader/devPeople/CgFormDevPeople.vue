@@ -11,9 +11,10 @@
             <el-col :span="8">
               <el-form-item class="cg-item-text cg-auto-focus" :label="$t('devPeople.field.realName')" prop="realName" :size="$store.state.app.size" >
                 <el-input v-model="record.realName" name="realName" 
-                          type="text" :maxlength="32" show-word-limit 
+                          type="text" 
                           :label="$t('devPeople.field.realName')" :placeholder="$t('system.message.needValue')" 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="32" show-word-limit />
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -40,17 +41,19 @@
             <el-col :span="8">
               <el-form-item class="cg-item-text" :label="$t('devPeople.field.idNumber')" prop="idNumber" :size="$store.state.app.size" >
                 <el-input v-model="record.idNumber" name="idNumber" 
-                          type="text" :maxlength="45" show-word-limit 
+                          type="text" 
                           :label="$t('devPeople.field.idNumber')" :placeholder="$t('system.message.needValue')" 
-                          :readonly="!isNew" resize autofocus validate-event />
+                          resize autofocus validate-event 
+                          :readonly="!isNew" :maxlength="45" show-word-limit />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item class="cg-item-text" :label="$t('devPeople.field.idNation')" prop="idNation" :size="$store.state.app.size" >
                 <el-input v-model="record.idNation" name="idNation" 
-                          type="text" :maxlength="100" show-word-limit 
-                          :label="$t('devPeople.field.idNation')" :placeholder="$t('system.message.unknown')" clearable 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          type="text" 
+                          :label="$t('devPeople.field.idNation')" :placeholder="$t('system.message.unknown')" 
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="100" show-word-limit clearable />
               </el-form-item>
             </el-col>
           </el-row>
@@ -74,25 +77,28 @@
           </el-row>
           <el-form-item class="cg-item-text" :label="$t('devPeople.field.homeAddr')" prop="homeAddr" :size="$store.state.app.size" >
             <el-input v-model="record.homeAddr" name="homeAddr" 
-                      type="text" :maxlength="200" show-word-limit 
-                      :label="$t('devPeople.field.homeAddr')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="text" 
+                      :label="$t('devPeople.field.homeAddr')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="200" show-word-limit clearable />
           </el-form-item>
           <el-row :gutter="mobile?0:20">
             <el-col :span="8">
               <el-form-item class="cg-item-text" :label="$t('devPeople.field.mobilePhone')" prop="mobilePhone" :size="$store.state.app.size" >
                 <el-input v-model="record.mobilePhone" name="mobilePhone" 
-                          type="text" :maxlength="32" show-word-limit 
-                          :label="$t('devPeople.field.mobilePhone')" :placeholder="$t('system.message.unknown')" clearable 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          type="text" 
+                          :label="$t('devPeople.field.mobilePhone')" :placeholder="$t('system.message.unknown')" 
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="32" show-word-limit clearable />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item class="cg-item-text" :label="$t('devPeople.field.email')" prop="email" :size="$store.state.app.size" >
                 <el-input v-model="record.email" name="email" 
-                          type="text" :maxlength="50" show-word-limit 
-                          :label="$t('devPeople.field.email')" :placeholder="$t('system.message.unknown')" clearable 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          type="text" 
+                          :label="$t('devPeople.field.email')" :placeholder="$t('system.message.unknown')" 
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="50" show-word-limit clearable />
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -115,17 +121,19 @@
             <el-col :span="12">
               <el-form-item class="cg-item-text cg-auto-focus" :label="$t('devPeople.field.cardNo')" prop="cardNo" :size="$store.state.app.size" >
                 <el-input v-model="record.cardNo" name="cardNo" 
-                          type="text" :maxlength="45" show-word-limit 
-                          :label="$t('devPeople.field.cardNo')" :placeholder="$t('system.message.unknown')" clearable 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          type="text" 
+                          :label="$t('devPeople.field.cardNo')" :placeholder="$t('system.message.unknown')" 
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="45" show-word-limit clearable />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item class="cg-item-text" :label="$t('devPeople.field.devPassword')" prop="devPassword" :size="$store.state.app.size" >
                 <el-input v-model="record.devPassword" name="devPassword" 
-                          type="text" :maxlength="32" show-word-limit 
-                          :label="$t('devPeople.field.devPassword')" :placeholder="$t('system.message.unknown')" clearable 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          type="text" 
+                          :label="$t('devPeople.field.devPassword')" :placeholder="$t('system.message.unknown')" 
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="32" show-word-limit clearable />
               </el-form-item>
             </el-col>
           </el-row>
@@ -153,17 +161,19 @@
             <el-col :span="12">
               <el-form-item class="cg-item-text" :label="$t('devPeople.field.dutyRank')" prop="dutyRank" :size="$store.state.app.size" >
                 <el-input v-model="record.dutyRank" name="dutyRank" 
-                          type="text" :maxlength="36" show-word-limit 
-                          :label="$t('devPeople.field.dutyRank')" :placeholder="$t('system.message.unknown')" clearable 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          type="text" 
+                          :label="$t('devPeople.field.dutyRank')" :placeholder="$t('system.message.unknown')" 
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="36" show-word-limit clearable />
               </el-form-item>
             </el-col>
           </el-row>
           <el-form-item class="cg-item-text" :label="$t('devPeople.field.note')" prop="note" :size="$store.state.app.size" >
             <el-input v-model="record.note" name="note" 
-                      type="text" :maxlength="100" show-word-limit 
-                      :label="$t('devPeople.field.note')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="text" 
+                      :label="$t('devPeople.field.note')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="100" show-word-limit clearable />
           </el-form-item>
         </el-tab-pane>
       </el-tabs>

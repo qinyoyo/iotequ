@@ -159,7 +159,7 @@
       <div v-show="!queryRecord.search">
         <el-form-item :label="$t('ewBill.field.no')" prop="no" :size="$store.state.app.size">
           <el-input v-model="queryRecord.no" type="text" name="no"
-                    :readonly="fixedQueryRecord.no?true:false" :label="$t('ewBill.field.no')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.no?true:false" :label="$t('ewBill.field.no')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('ewBill.field.isCharge')" prop="isCharge" :size="$store.state.app.size">
           <el-checkbox-group v-model="queryRecord.isCharge" :max="1">
@@ -169,7 +169,7 @@
         </el-form-item>
         <el-form-item :label="$t('ewBill.field.userNo')" prop="userNo" :size="$store.state.app.size">
           <el-input v-model="queryRecord.userNo" type="text" name="userNo"
-                    :readonly="fixedQueryRecord.userNo?true:false" :label="$t('ewBill.field.userNo')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.userNo?true:false" :label="$t('ewBill.field.userNo')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('ewBill.field.dt')" prop="dt" :size="$store.state.app.size">
           <cg-date-picker v-model="queryRecord.dt" :title="$t('ewBill.field.dt')" name="dt" :align="mobile?'right':'center'" type="datetimerange" :picker-options="datePickerOptions()"
@@ -181,11 +181,11 @@
         </el-form-item>
         <el-form-item :label="$t('ewBill.field.shopId')" prop="shopId" :size="$store.state.app.size">
           <el-input v-model="queryRecord.shopId" type="text" name="shopId"
-                    :readonly="fixedQueryRecord.shopId?true:false" :label="$t('ewBill.field.shopId')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.shopId?true:false" :label="$t('ewBill.field.shopId')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('ewBill.field.operatorNo')" prop="operatorNo" :size="$store.state.app.size">
           <el-input v-model="queryRecord.operatorNo" type="text" name="operatorNo"
-                    :readonly="fixedQueryRecord.operatorNo?true:false" :label="$t('ewBill.field.operatorNo')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.operatorNo?true:false" :label="$t('ewBill.field.operatorNo')" clearable resize autofocus/>
         </el-form-item>
       </div>
     </cg-query-condition>
@@ -247,6 +247,7 @@ export default {
       showActionView: false,
       defaultOrder: 'no desc',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: ['no','isCharge','userNo','dt','costType','shopId','operatorNo'],
       formPath: '/ewallet/ewBill/record',
       listLoading: false,
       rows: [],
@@ -338,7 +339,19 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        no: null,
+        canceled: null,
         isCharge: [],
+        userNo: null,
+        batchNo: null,
+        dt: null,
+        costType: null,
+        projectName: null,
+        deviceNo: null,
+        shopId: null,
+        deviceDt: null,
+        tradeNo: null,
+        operatorNo: null,
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

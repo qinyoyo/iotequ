@@ -151,6 +151,7 @@ export default {
       showActionView: false,
       defaultOrder: 'order_num',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: [],
       formPath: '/codegenerator/cgButton/record',
       listLoading: false,
       rows: [],
@@ -243,6 +244,13 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        action: null,
+        title: null,
+        icon: null,
+        appendClass: null,
+        actionProperty: null,
+        rowProperty: null,
+        displayProperties: null,
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

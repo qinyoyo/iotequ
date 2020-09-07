@@ -9,17 +9,19 @@
         <el-col :span="8">
           <el-form-item class="cg-item-text" :label="$t('devPeople.field.userNo')" prop="userNo" :size="$store.state.app.size" >
             <el-input v-model="record.userNo" name="userNo" 
-                      type="text" :maxlength="15" show-word-limit 
+                      type="text" 
                       :label="$t('devPeople.field.userNo')" :placeholder="$t('system.message.needValue')" 
-                      readonly resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      readonly :maxlength="15" show-word-limit />
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item class="cg-item-text" :label="$t('devPeople.field.realName')" prop="realName" :size="$store.state.app.size" >
             <el-input v-model="record.realName" name="realName" 
-                      type="text" :maxlength="32" show-word-limit 
+                      type="text" 
                       :label="$t('devPeople.field.realName')" :placeholder="$t('system.message.needValue')" 
-                      readonly resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      readonly :maxlength="32" show-word-limit />
           </el-form-item>
         </el-col>
         <el-col :span="8">

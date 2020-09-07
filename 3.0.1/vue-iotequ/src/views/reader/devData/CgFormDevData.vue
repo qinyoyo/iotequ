@@ -31,9 +31,10 @@
                          @showJoinList="readerSelectionJoinVisible=true" />
         <el-form-item v-if="record.deviceSelectionMode=='2'" class="cg-item-text" slot="reference" :label="$t('devData.field.readerSelection')" prop="readerName" :size="$store.state.app.size" >
           <el-input v-model="record.readerName" name="readerName" 
-                    type="text" :maxlength="30" show-word-limit 
+                    type="text" 
                     :label="$t('devData.field.readerSelection')" :placeholder="$t('system.message.needValue')" 
-                    readonly resize autofocus validate-event />
+                    resize autofocus validate-event 
+                    readonly :maxlength="30" show-word-limit />
         </el-form-item>
       </cg-join>
       <el-form-item class="cg-item-radio" :label="$t('devData.field.userSelectionMode')" prop="userSelectionMode" :size="$store.state.app.size" >
@@ -59,9 +60,10 @@
                                @showJoinList="userSelectionJoinVisible=true" />
         <el-form-item v-if="record.userSelectionMode=='2'" class="cg-item-text" slot="reference" :label="$t('devData.field.userSelection')" prop="userName" :size="$store.state.app.size" >
           <el-input v-model="record.userName" name="userName" 
-                    type="text" :maxlength="32" show-word-limit 
+                    type="text" 
                     :label="$t('devData.field.userSelection')" :placeholder="$t('system.message.needValue')" 
-                    readonly resize autofocus validate-event />
+                    resize autofocus validate-event 
+                    readonly :maxlength="32" show-word-limit />
         </el-form-item>
       </cg-join>
       <el-row :gutter="mobile?0:20">

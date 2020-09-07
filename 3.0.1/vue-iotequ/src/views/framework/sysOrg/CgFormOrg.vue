@@ -9,9 +9,10 @@
         <el-col :span="12">
           <el-form-item class="cg-item-text cg-auto-focus" :label="$t('sysOrg.field.name')" prop="name" :size="$store.state.app.size" >
             <el-input v-model="record.name" name="name" 
-                      type="text" :maxlength="32" show-word-limit 
+                      type="text" 
                       :label="$t('sysOrg.field.name')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="32" show-word-limit />
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -26,17 +27,19 @@
         <el-col :span="12">
           <el-form-item class="cg-item-tel" :label="$t('sysOrg.field.phone')" prop="phone" :size="$store.state.app.size" >
             <el-input v-model="record.phone" name="phone" 
-                      type="tel" :maxlength="32" show-word-limit 
-                      :label="$t('sysOrg.field.phone')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="tel" 
+                      :label="$t('sysOrg.field.phone')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="32" show-word-limit clearable />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item class="cg-item-tel" :label="$t('sysOrg.field.fax')" prop="fax" :size="$store.state.app.size" >
             <el-input v-model="record.fax" name="fax" 
-                      type="tel" :maxlength="32" show-word-limit 
-                      :label="$t('sysOrg.field.fax')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="tel" 
+                      :label="$t('sysOrg.field.fax')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="32" show-word-limit clearable />
           </el-form-item>
         </el-col>
       </el-row>
@@ -50,9 +53,10 @@
         <el-col :span="12">
           <el-form-item class="cg-item-text" :label="$t('sysOrg.field.address')" prop="address" :size="$store.state.app.size" >
             <el-input v-model="record.address" name="address" 
-                      type="text" :maxlength="100" show-word-limit 
-                      :label="$t('sysOrg.field.address')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="text" 
+                      :label="$t('sysOrg.field.address')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="100" show-word-limit clearable />
           </el-form-item>
         </el-col>
       </el-row>

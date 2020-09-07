@@ -126,6 +126,7 @@ export default {
       showActionView: false,
       defaultOrder: 'start_date,week_day',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: [],
       formPath: '/attendance/exception/adException/record',
       listLoading: false,
       rows: [],
@@ -216,6 +217,10 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        startDate: null,
+        endDate: null,
+        weekDay: null,
+        description: null,
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

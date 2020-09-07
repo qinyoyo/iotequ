@@ -117,15 +117,15 @@
       <div v-show="!queryRecord.search">
         <el-form-item :label="$t('cgField.field.entityName')" prop="entityName" :size="$store.state.app.size">
           <el-input v-model="queryRecord.entityName" type="text" name="entityName"
-                    :readonly="fixedQueryRecord.entityName?true:false" :label="$t('cgField.field.entityName')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.entityName?true:false" :label="$t('cgField.field.entityName')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('cgField.field.name')" prop="name" :size="$store.state.app.size">
           <el-input v-model="queryRecord.name" type="text" name="name"
-                    :readonly="fixedQueryRecord.name?true:false" :label="$t('cgField.field.name')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.name?true:false" :label="$t('cgField.field.name')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('cgField.field.title')" prop="title" :size="$store.state.app.size">
           <el-input v-model="queryRecord.title" type="text" name="title"
-                    :readonly="fixedQueryRecord.title?true:false" :label="$t('cgField.field.title')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.title?true:false" :label="$t('cgField.field.title')" clearable resize autofocus/>
         </el-form-item>
       </div>
     </cg-query-condition>
@@ -189,6 +189,7 @@ export default {
       showActionView: false,
       defaultOrder: 'table_id,order_num',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: ['entityName','name','title'],
       formPath: '/codegenerator/cgField/record',
       listLoading: false,
       rows: [],
@@ -286,6 +287,18 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        fkTable: null,
+        fkColumn: null,
+        fkOnDelete: null,
+        fkOnUpdate: null,
+        entityName: null,
+        name: null,
+        title: null,
+        showType: null,
+        type: null,
+        keyType: null,
+        isNull: null,
+        defaultValue: null,
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

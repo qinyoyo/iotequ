@@ -13,9 +13,10 @@
                             @showJoinList="idJoinVisible=true" />
             <el-form-item class="cg-item-text" slot="reference" :label="$t('adEmployee.field.id')" prop="realName" :size="$store.state.app.size" >
               <el-input v-model="record.realName" name="realName" 
-                        type="text" :maxlength="32" show-word-limit 
+                        type="text" 
                         :label="$t('adEmployee.field.id')" :placeholder="$t('system.message.needValue')" 
-                        readonly resize autofocus validate-event />
+                        resize autofocus validate-event 
+                        readonly :maxlength="32" show-word-limit />
             </el-form-item>
           </cg-join>
         </el-col>
@@ -31,9 +32,10 @@
         <el-col :span="12">
           <el-form-item class="cg-item-text cg-auto-focus" :label="$t('adEmployee.field.employeeNo')" prop="employeeNo" :size="$store.state.app.size" >
             <el-input v-model="record.employeeNo" name="employeeNo" 
-                      type="text" :maxlength="32" show-word-limit 
+                      type="text" 
                       :label="$t('adEmployee.field.employeeNo')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="32" show-word-limit />
           </el-form-item>
         </el-col>
         <el-col :span="12">

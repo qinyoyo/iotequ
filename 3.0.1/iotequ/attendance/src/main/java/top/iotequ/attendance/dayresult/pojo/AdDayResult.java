@@ -22,7 +22,7 @@ import java.util.*;
 //  Pojo entity : AdDayResult (日考勤结果)
 @CgTableAnnotation(name="ad_day_result",
                    title="adDayResult",
-                   join="INNER JOIN ad_employee ON ad_day_result.employee_no = ad_employee.employee_no",
+                   join="INNER JOIN ad_employee ON ad_day_result.employee_no = ad_employee.employee_no LEFT JOIN sys_user employee_no_sys_user ON ad_employee.id = employee_no_sys_user.id",
                    baseUrl="/attendance/dayresult/adDayResult",
                    hasLicence=false,
                    pkType="Integer",
@@ -93,6 +93,9 @@ public class AdDayResult implements CgEntity {
     @SerializedName(value = "isAttendance", alternate = {"is_attendance","IS_ATTENDANCE"})
     @CgFieldAnnotation(name="ad_employee.is_attendance",jdbcType="VARCHAR")
     private Boolean isAttendance;
+    @SerializedName(value = "employeeNoAdEmployeeRealName", alternate = {"employee_no_ad_employee_real_name","EMPLOYEE_NO_AD_EMPLOYEE_REAL_NAME"})
+    @CgFieldAnnotation(name="employee_no_sys_user.real_name",jdbcType="VARCHAR")
+    private String employeeNoAdEmployeeRealName;
 
     @Override public Object getPkValue(){ return getId(); }
     @Override

@@ -148,6 +148,7 @@ export default {
       showActionView: false,
       defaultOrder: 'id desc',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: [],
       formPath: '/reader/devReader/record',
       listLoading: false,
       rows: [],
@@ -310,6 +311,20 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        readerGroup: null,
+        alignMethod: null,
+        blacklightTime: null,
+        menuTime: null,
+        wengenform: null,
+        wengenOutput: null,
+        name: null,
+        readerNo: null,
+        ip: null,
+        type: null,
+        connectType: null,
+        devMode: null,
+        isOnline: null,
+        isTimeSync: null,
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

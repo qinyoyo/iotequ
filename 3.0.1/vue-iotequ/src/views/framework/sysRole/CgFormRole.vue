@@ -7,21 +7,24 @@
              hide-required-asterisk >
       <el-form-item class="cg-item-text cg-auto-focus" :label="$t('sysRole.field.code')" prop="code" :size="$store.state.app.size" >
         <el-input v-model="record.code" name="code" 
-                  type="text" :maxlength="8" show-word-limit 
+                  type="text" 
                   :label="$t('sysRole.field.code')" :placeholder="$t('system.message.needValue')" 
-                  :readonly="isDetail" resize autofocus validate-event />
+                  resize autofocus validate-event 
+                  :readonly="isDetail" :maxlength="8" show-word-limit />
       </el-form-item>
       <el-form-item class="cg-item-text" :label="$t('sysRole.field.name')" prop="name" :size="$store.state.app.size" >
         <el-input v-model="record.name" name="name" 
-                  type="text" :maxlength="45" show-word-limit 
+                  type="text" 
                   :label="$t('sysRole.field.name')" :placeholder="$t('system.message.needValue')" 
-                  :readonly="isDetail" resize autofocus validate-event />
+                  resize autofocus validate-event 
+                  :readonly="isDetail" :maxlength="45" show-word-limit />
       </el-form-item>
       <el-form-item class="cg-item-text" :label="$t('sysRole.field.note')" prop="note" :size="$store.state.app.size" >
         <el-input v-model="record.note" name="note" 
-                  type="text" :maxlength="64" show-word-limit 
-                  :label="$t('sysRole.field.note')" :placeholder="$t('system.message.unknown')" clearable 
-                  :readonly="isDetail" resize autofocus validate-event />
+                  type="text" 
+                  :label="$t('sysRole.field.note')" :placeholder="$t('system.message.unknown')" 
+                  resize autofocus validate-event 
+                  :readonly="isDetail" :maxlength="64" show-word-limit clearable />
       </el-form-item>
     </el-form>
     <div v-if="!isDetail" class="cg-form-buttons">

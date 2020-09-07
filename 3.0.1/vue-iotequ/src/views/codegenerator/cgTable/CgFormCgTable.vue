@@ -15,18 +15,20 @@
                                  @showJoinList="projectIdJoinVisible=true" />
                 <el-form-item class="cg-item-text cg-auto-focus" slot="reference" :label="$t('cgProject.field.name')" :title="$t('cgProject.field.nameValid')" prop="module" :size="$store.state.app.size" >
                   <el-input v-model="record.module" name="module" 
-                            type="text" :maxlength="36" show-word-limit 
+                            type="text" 
                             :label="$t('cgProject.field.name')" :placeholder="$t('system.message.needValue')" 
-                            readonly resize autofocus validate-event />
+                            resize autofocus validate-event 
+                            readonly :maxlength="36" show-word-limit />
                 </el-form-item>
               </cg-join>
             </el-col>
             <el-col :span="12">
               <el-form-item class="cg-item-text" :label="$t('cgProject.field.groupId')" :title="$t('cgProject.field.groupIdValid')" prop="groupId" :size="$store.state.app.size" >
                 <el-input v-model="record.groupId" name="groupId" 
-                          type="text" :maxlength="45" show-word-limit 
+                          type="text" 
                           :label="$t('cgProject.field.groupId')" :placeholder="$t('system.message.needValue')" 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="45" show-word-limit />
               </el-form-item>
             </el-col>
           </el-row>
@@ -35,17 +37,19 @@
               <el-form-item class="cg-item-text" :label="$t('cgTable.field.code')" :title="$t('cgTable.field.codeValid')" prop="code" :size="$store.state.app.size" >
                 <el-input v-model="record.code" name="code" 
                           @input="record.entity=uppercaseFirst(camelString(record.project+'_'+record.code))"
-                          type="text" :maxlength="45" show-word-limit 
+                          type="text" 
                           :label="$t('cgTable.field.code')" :placeholder="$t('system.message.needValue')" 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="45" show-word-limit />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item class="cg-item-text" :label="$t('cgTable.field.title')" :title="$t('cgTable.field.titleValid')" prop="title" :size="$store.state.app.size" >
                 <el-input v-model="record.title" name="title" 
-                          type="text" :maxlength="32" show-word-limit 
+                          type="text" 
                           :label="$t('cgTable.field.title')" :placeholder="$t('system.message.needValue')" 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="32" show-word-limit />
               </el-form-item>
             </el-col>
           </el-row>
@@ -53,9 +57,10 @@
             <el-col :span="12">
               <el-form-item class="cg-item-text" :label="$t('cgTable.field.name')" :title="$t('cgTable.field.nameValid')" prop="name" :size="$store.state.app.size" >
                 <el-input v-model="record.name" name="name" 
-                          type="text" :maxlength="32" show-word-limit 
-                          :label="$t('cgTable.field.name')" :placeholder="$t('system.message.unknown')" clearable 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          type="text" 
+                          :label="$t('cgTable.field.name')" :placeholder="$t('system.message.unknown')" 
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="32" show-word-limit clearable />
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -69,17 +74,19 @@
             <el-col :span="12">
               <el-form-item class="cg-item-text" :label="$t('cgTable.field.entity')" :title="$t('cgTable.field.entityValid')" prop="entity" :size="$store.state.app.size" >
                 <el-input v-model="record.entity" name="entity" 
-                          type="text" :maxlength="32" show-word-limit 
+                          type="text" 
                           :label="$t('cgTable.field.entity')" :placeholder="$t('system.message.needValue')" 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="32" show-word-limit />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item class="cg-item-text" :label="$t('cgTable.field.subPackage')" :title="$t('cgTable.field.subPackageValid')" prop="subPackage" :size="$store.state.app.size" >
                 <el-input v-model="record.subPackage" name="subPackage" 
-                          type="text" :maxlength="30" show-word-limit 
-                          :label="$t('cgTable.field.subPackage')" :placeholder="$t('system.message.unknown')" clearable 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          type="text" 
+                          :label="$t('cgTable.field.subPackage')" :placeholder="$t('system.message.unknown')" 
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="30" show-word-limit clearable />
               </el-form-item>
             </el-col>
           </el-row>
@@ -105,9 +112,10 @@
         <el-tab-pane :label="groupPaneTitle('cgTable.title.groupCgTableImports')">
           <el-form-item class="cg-item-text cg-auto-focus" :label="$t('cgTable.field.imports')" prop="imports" :size="$store.state.app.size" >
             <el-input v-model="record.imports" name="imports" 
-                      type="text" :maxlength="500" show-word-limit 
-                      :label="$t('cgTable.field.imports')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="text" 
+                      :label="$t('cgTable.field.imports')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="500" show-word-limit clearable />
           </el-form-item>
           <el-form-item class="cg-item-checkbox" :label="$t('cgTable.field.actionList')" :title="$t('cgTable.field.actionListValid')" prop="actionList" :size="$store.state.app.size" >
             <cg-checkbox v-model="record.actionList" name="actionList" :dictionary="dictionary.dictActionList" :readonly="isDetail"  />
@@ -128,15 +136,17 @@
           </el-row>
           <el-form-item class="cg-item-text" :label="$t('cgTable.field.pojoImports')" prop="pojoImports" :size="$store.state.app.size" >
             <el-input v-model="record.pojoImports" name="pojoImports" 
-                      type="text" :maxlength="500" show-word-limit 
-                      :label="$t('cgTable.field.pojoImports')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="text" 
+                      :label="$t('cgTable.field.pojoImports')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="500" show-word-limit clearable />
           </el-form-item>
           <el-form-item class="cg-item-text" :label="$t('cgTable.field.pojoExtends')" prop="pojoExtends" :size="$store.state.app.size" >
             <el-input v-model="record.pojoExtends" name="pojoExtends" 
-                      type="text" :maxlength="200" show-word-limit 
-                      :label="$t('cgTable.field.pojoExtends')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="text" 
+                      :label="$t('cgTable.field.pojoExtends')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="200" show-word-limit clearable />
           </el-form-item>
           <el-form-item class="cg-item-textarea" :label="$t('cgTable.field.pojoJavaCode')" prop="pojoJavaCode" :size="$store.state.app.size" >
             <el-input v-model="record.pojoJavaCode" name="pojoJavaCode" 

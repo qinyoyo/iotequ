@@ -142,6 +142,7 @@ export default {
       showActionView: false,
       defaultOrder: 'flow_id,time desc',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: [],
       formPath: '/framework/sysFlowProcess/record',
       listLoading: false,
       rows: [],
@@ -227,6 +228,13 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        operation: null,
+        selection: null,
+        stateName0: null,
+        stateName1: null,
+        operator: null,
+        time: null,
+        nextOperator: null,
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

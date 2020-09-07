@@ -17,9 +17,10 @@
             <el-col :span="16">
               <el-form-item class="cg-item-text" :label="$t('pmProject.field.name')" prop="name" :size="$store.state.app.size" >
                 <el-input v-model="record.name" name="name" 
-                          type="text" :maxlength="45" show-word-limit 
+                          type="text" 
                           :label="$t('pmProject.field.name')" :placeholder="$t('system.message.needValue')" 
-                          readonly resize autofocus validate-event />
+                          resize autofocus validate-event 
+                          readonly :maxlength="45" show-word-limit />
               </el-form-item>
             </el-col>
           </el-row>
@@ -37,9 +38,10 @@
                                 @showJoinList="flowRegisterByJoinVisible=true" />
                 <el-form-item class="cg-item-text" slot="reference" :label="$t('pmProject.field.flowRegisterBy')" prop="registerByName" :size="$store.state.app.size" >
                   <el-input v-model="record.registerByName" name="registerByName" 
-                            type="text" :maxlength="32" show-word-limit 
+                            type="text" 
                             :label="$t('pmProject.field.flowRegisterBy')" :placeholder="$t('system.message.needValue')" 
-                            readonly resize autofocus validate-event />
+                            resize autofocus validate-event 
+                            readonly :maxlength="32" show-word-limit />
                 </el-form-item>
               </cg-join>
             </el-col>
@@ -86,9 +88,10 @@
           </el-row>
           <el-form-item class="cg-item-text" :label="$t('pmProject.field.code')" prop="code" :size="$store.state.app.size" >
             <el-input v-model="record.code" name="code" 
-                      type="text" :maxlength="45" show-word-limit 
-                      :label="$t('pmProject.field.code')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="text" 
+                      :label="$t('pmProject.field.code')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="45" show-word-limit clearable />
           </el-form-item>
           <el-form-item class="cg-item-textarea" :label="$t('pmProject.field.description')" prop="description" :size="$store.state.app.size" >
             <el-input v-model="record.description" name="description" 

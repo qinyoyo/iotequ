@@ -111,11 +111,11 @@
         </el-form-item>
         <el-form-item :label="$t('sysMessage.field.senderName')" prop="senderName" :size="$store.state.app.size">
           <el-input v-model="queryRecord.senderName" type="text" name="senderName"
-                    :readonly="fixedQueryRecord.senderName?true:false" :label="$t('sysMessage.field.senderName')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.senderName?true:false" :label="$t('sysMessage.field.senderName')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('sysMessage.field.title')" prop="title" :size="$store.state.app.size">
           <el-input v-model="queryRecord.title" type="text" name="title"
-                    :readonly="fixedQueryRecord.title?true:false" :label="$t('sysMessage.field.title')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.title?true:false" :label="$t('sysMessage.field.title')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('sysMessage.field.content')" prop="content" :size="$store.state.app.size">
           <el-input v-model="queryRecord.content" type="textarea" name="content" :label="$t('sysMessage.field.content')" clearable
@@ -182,6 +182,7 @@ export default {
       showActionView: false,
       defaultOrder: 'create_time desc',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: ['readTime','createTime','senderName','title','content'],
       formPath: '/framework/sysMessage/record',
       listLoading: false,
       rows: [],
@@ -311,6 +312,10 @@ export default {
     initialQueryRecord() {
       return Object.assign({
         readTime: [],
+        createTime: null,
+        senderName: null,
+        title: null,
+        content: null,
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

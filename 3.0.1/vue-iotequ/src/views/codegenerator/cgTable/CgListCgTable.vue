@@ -77,7 +77,7 @@
                   prefix-icon="el-icon-search" :placeholder="$t('system.message.fuzzyQueryTip')" @keyup.enter.native="doAction('refresh')" />
       </el-form-item>
       <el-form-item v-show="queryRecord.search" :label="$t('system.action.field')" prop="searchFields" :size="$store.state.app.size">
-        <cg-select v-model="queryRecord.searchFields" dictionary="projectId|cgProject.field.name,code|cgTable.field.code,name|cgTable.field.name," multiple/>
+        <cg-select v-model="queryRecord.searchFields" dictionary="module|cgProject.field.name,code|cgTable.field.code,name|cgTable.field.name," multiple/>
       </el-form-item>
       <el-divider />
       <div v-show="!queryRecord.search">
@@ -91,11 +91,11 @@
         </cg-join>
         <el-form-item :label="$t('cgTable.field.code')" prop="code" :size="$store.state.app.size">
           <el-input v-model="queryRecord.code" type="text" name="code"
-                    :readonly="fixedQueryRecord.code?true:false" :label="$t('cgTable.field.code')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.code?true:false" :label="$t('cgTable.field.code')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('cgTable.field.name')" prop="name" :size="$store.state.app.size">
           <el-input v-model="queryRecord.name" type="text" name="name"
-                    :readonly="fixedQueryRecord.name?true:false" :label="$t('cgTable.field.name')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.name?true:false" :label="$t('cgTable.field.name')" clearable resize autofocus/>
         </el-form-item>
       </div>
     </cg-query-condition>
@@ -161,6 +161,7 @@ export default {
       showActionView: false,
       defaultOrder: 'module,code',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: ['projectId','code','name'],
       formPath: '/codegenerator/cgTable/record',
       listLoading: false,
       rows: [],
@@ -301,6 +302,17 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        template: null,
+        actionList: null,
+        flowDynaFieldsOp: null,
+        flowDynaFieldsCp: null,
+        tableId: null,
+        id: null,
+        project: null,
+        module: null,
+        code: null,
+        title: null,
+        name: null,
       }, this.fixedQueryRecord)
     },
     groupFields({ row, column, rowIndex, columnIndex }) {

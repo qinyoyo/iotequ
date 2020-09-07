@@ -134,6 +134,7 @@ export default {
       showActionView: false,
       defaultOrder: 'org_code,employee_no',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: [],
       formPath: '/attendance/employee/adEmployee/record',
       listLoading: false,
       rows: [],
@@ -221,6 +222,9 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        realName: null,
+        orgCode: null,
+        employeeNo: null,
       }, this.fixedQueryRecord)
     },
     getJoinFields(field,rows) {

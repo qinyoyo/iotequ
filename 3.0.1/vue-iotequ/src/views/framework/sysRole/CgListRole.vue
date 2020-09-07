@@ -68,11 +68,11 @@
       <div>
         <el-form-item :label="$t('sysRole.field.code')" prop="code" :size="$store.state.app.size">
           <el-input v-model="queryRecord.code" type="text" name="code"
-                    :readonly="fixedQueryRecord.code?true:false" :label="$t('sysRole.field.code')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.code?true:false" :label="$t('sysRole.field.code')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('sysRole.field.name')" prop="name" :size="$store.state.app.size">
           <el-input v-model="queryRecord.name" type="text" name="name"
-                    :readonly="fixedQueryRecord.name?true:false" :label="$t('sysRole.field.name')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.name?true:false" :label="$t('sysRole.field.name')" clearable resize autofocus/>
         </el-form-item>
       </div>
     </cg-query-condition>
@@ -136,6 +136,7 @@ export default {
       showActionView: false,
       defaultOrder: 'id asc',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: ['code','name'],
       formPath: '/framework/sysRole/record',
       listLoading: false,
       rows: [],
@@ -219,6 +220,9 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        code: null,
+        name: null,
+        note: null,
       }, this.fixedQueryRecord)
     },
     editInlineAdd() {

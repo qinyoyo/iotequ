@@ -99,7 +99,7 @@
       <div v-show="!queryRecord.search">
         <el-form-item :label="$t('ewUserCount.field.userNo')" prop="userNo" :size="$store.state.app.size">
           <el-input v-model="queryRecord.userNo" type="text" name="userNo"
-                    :readonly="fixedQueryRecord.userNo?true:false" :label="$t('ewUserCount.field.userNo')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.userNo?true:false" :label="$t('ewUserCount.field.userNo')" clearable resize autofocus/>
         </el-form-item>
       </div>
     </cg-query-condition>
@@ -161,6 +161,7 @@ export default {
       showActionView: false,
       defaultOrder: 'id',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: ['userNo'],
       formPath: '/ewallet/ewUserCount/record',
       listLoading: false,
       rows: [],
@@ -249,6 +250,8 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        userNo: null,
+        countId: null,
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

@@ -433,7 +433,7 @@ npm run lint -- --fix
   
       - 关联字段：与本字段相等的关联视图的字段
   
-      - 插入字段列表：join到本记录的关联视图的entity字段列表(dict_list只能插入一个字段)
+      - 插入字段列表：join到本记录的关联视图的entity字段列表(dict_list只能插入一个字段).定义多个以逗号分隔。每一个引入字段定义为:  [[新的标题=]新的数据库名称=]引入的字段实体类名称
     
       - 关联筛选条件：
     
@@ -757,11 +757,35 @@ vueObject 为表单cgForm，列表cgList对象，getRecordfunc为一个函数，
 
 ## 常用参考
 
+- 前端功能扩展
+
+  - 扩展文件在 src/extend-src下
+
+  - initial-xxx.js 开始初始化的执行函数，可以定义多个，依次执行
+
+  - initialized-xxx.js 初始化完成后执行的函数
+
+  - login-xxx.js 登录后执行的函数
+
+  - logout-xxx.js 退出登录执行的函数
+
+  - menu-actions-xxx.js 为主菜单定义可以调用的函数
+
+  - 定义方法参见各个demo.js文件
+
+    
+
 - 定义菜单项
 
   - 功能地址必填，指定路由路径。定义路由跳转地址和设定菜单执行权限，如果用户不具备该路由权限，该菜单项不会显示
-  - 操作函数：为一个menu-actions.js文件定义的函数名称。为空时，进行路由切换。如果为request，则通过get访问后端地址，后端地址为路由路径指定
+
+  - 操作函数：为一个menu-actions-xxx.js文件定义的函数名称。为空时，进行路由切换。如果为request，则通过get访问后端地址，后端地址为路由路径指定
+
   - 附加参数为一个json串，用于给操作函数传递参数，或为空
+
+  - 显示或隐藏菜单：调用 src/utils/menu.js中定义的hideMenu或showMenu函数，参数为显示或隐藏的完整路由路径（完整匹配），及 menu定义的功能地址。如一菜单匹配，其所有子菜单也会被显示或隐藏。该功能仅仅限制菜单的显示，而无关后端权限。
+
+    
 
 - 对话框函数
 
@@ -792,7 +816,7 @@ vueObject 为表单cgForm，列表cgList对象，getRecordfunc为一个函数，
           type: String,
           default: null
         },
-        ......
+        ......	
       },
       data() {
         return {

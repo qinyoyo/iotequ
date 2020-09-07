@@ -111,7 +111,7 @@
       <div v-show="!queryRecord.search">
         <el-form-item :label="$t('devEvent.field.devNo')" prop="devNo" :size="$store.state.app.size">
           <el-input v-model="queryRecord.devNo" type="text" name="devNo"
-                    :readonly="fixedQueryRecord.devNo?true:false" :label="$t('devEvent.field.devNo')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.devNo?true:false" :label="$t('devEvent.field.devNo')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('devEvent.field.orgCode')" prop="orgCode" :size="$store.state.app.size">
           <cg-cascader v-model="queryRecord.orgCode" name="orgCode"  multiple collapse-tags clearable
@@ -119,7 +119,7 @@
         </el-form-item>
         <el-form-item :label="$t('devEvent.field.userNo')" prop="userNo" :size="$store.state.app.size">
           <el-input v-model="queryRecord.userNo" type="text" name="userNo"
-                    :readonly="fixedQueryRecord.userNo?true:false" :label="$t('devEvent.field.userNo')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.userNo?true:false" :label="$t('devEvent.field.userNo')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('devEvent.field.status')" prop="status" :size="$store.state.app.size">
           <cg-select v-model="queryRecord.status" :dictionary="dictionary.dictStatus"
@@ -187,6 +187,7 @@ export default {
       showActionView: false,
       defaultOrder: 'time desc',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: ['devNo','orgCode','userNo','status'],
       formPath: '/reader/devEvent/record',
       listLoading: false,
       rows: [],
@@ -276,6 +277,14 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        datDate: null,
+        devType: null,
+        devNo: null,
+        orgCode: null,
+        realName: null,
+        userNo: null,
+        datTime: null,
+        status: null,
       }, this.fixedQueryRecord)
     },
     groupFields({ row, column, rowIndex, columnIndex }) {

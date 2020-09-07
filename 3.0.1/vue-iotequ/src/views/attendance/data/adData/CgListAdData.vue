@@ -38,7 +38,7 @@
         </template>
 
       </cg-table-column>
-      <el-table-column prop="realName" width="100" :label="$t('adData.field.realName')" align="left" >
+      <el-table-column prop="realName" width="100" :label="$t('adData.field.realName')" sortable align="left" >
         <template slot-scope="scope">
           {{ scope.row.realName }}
         </template>
@@ -111,7 +111,7 @@
                   prefix-icon="el-icon-search" :placeholder="$t('system.message.fuzzyQueryTip')" @keyup.enter.native="doAction('refresh')" />
       </el-form-item>
       <el-form-item v-show="queryRecord.search" :label="$t('system.action.field')" prop="searchFields" :size="$store.state.app.size">
-        <cg-select v-model="queryRecord.searchFields" dictionary="dateDate|adData.field.dateDate,recType|adData.field.recType,recSourceType|adData.field.recSourceType,recSource|adData.field.recSource," multiple/>
+        <cg-select v-model="queryRecord.searchFields" dictionary="dateDate|adData.field.dateDate,realName|adData.field.realName,recType|adData.field.recType,recSourceType|adData.field.recSourceType,recSource|adData.field.recSource," multiple/>
       </el-form-item>
       <el-divider />
       <div v-show="!queryRecord.search">
@@ -119,17 +119,25 @@
           <cg-date-picker v-model="queryRecord.dateDate" :title="$t('adData.field.dateDate')" name="dateDate" :align="mobile?'right':'center'" type="daterange" :picker-options="datePickerOptions()"
                           :readonly="fixedQueryRecord.dateDate?true:false"  clearable />
         </el-form-item>
+        <cg-join v-model="employeeNoJoinVisible">
+          <CgListAdEmployee slot="popover" ref="employeeNoJoin" openID="employeeno-join" :height="joinHeight()" :joinShow="employeeNoJoinVisible" joinMultiple
+            :originSelections="queryRecord.employeeNo" selectionKey="employeeNo" joinMode @closeJoinList="(rows)=>{ getJoinFields('employeeNo',rows)}" @showJoinList="employeeNoJoinVisible=true"/>
+        <el-form-item slot="reference" :label="$t('adData.field.realName')" prop="realName" :size="$store.state.app.size">
+          <el-input v-model="queryRecord.realName" type="text" name="realName"
+                    :readonly="fixedQueryRecord.realName?true:false" :label="$t('adData.field.realName')" clearable resize autofocus @clear="clearJoinValues(myself,'employeeNoJoin')"/>
+        </el-form-item>
+        </cg-join>
         <el-form-item :label="$t('adData.field.recType')" prop="recType" :size="$store.state.app.size">
           <cg-select v-model="queryRecord.recType" :dictionary="dictionary.dictRecType"
                      :disabled="fixedQueryRecord.recType?true:false"  :allow-create="!mobile" multiple clearable />
         </el-form-item>
         <el-form-item :label="$t('adData.field.recSourceType')" prop="recSourceType" :size="$store.state.app.size">
           <el-input v-model="queryRecord.recSourceType" type="text" name="recSourceType"
-                    :readonly="fixedQueryRecord.recSourceType?true:false" :label="$t('adData.field.recSourceType')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.recSourceType?true:false" :label="$t('adData.field.recSourceType')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('adData.field.recSource')" prop="recSource" :size="$store.state.app.size">
           <el-input v-model="queryRecord.recSource" type="text" name="recSource"
-                    :readonly="fixedQueryRecord.recSource?true:false" :label="$t('adData.field.recSource')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.recSource?true:false" :label="$t('adData.field.recSource')" clearable resize autofocus/>
         </el-form-item>
       </div>
     </cg-query-condition>
@@ -193,6 +201,7 @@ export default {
       showActionView: false,
       defaultOrder: 'date_date desc, org_code, date_time',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: ['dateDate','employeeNo','recType','recSourceType','recSource'],
       formPath: '/attendance/data/adData/record',
       listLoading: false,
       rows: [],
@@ -284,6 +293,14 @@ export default {
     initialQueryRecord() {
       return Object.assign({
         dateDate: this.timeRange('this month'),
+        orgCode: null,
+        employeeNo: null,
+        realName: null,
+        dateTime: null,
+        recType: null,
+        recSourceType: null,
+        recSource: null,
+        recTime: null,
       }, this.fixedQueryRecord)
     },
     groupFields({ row, column, rowIndex, columnIndex }) {

@@ -85,7 +85,7 @@
         </el-form-item>
         <el-form-item :label="$t('devPeople.field.realName')" prop="realName" :size="$store.state.app.size">
           <el-input v-model="queryRecord.realName" type="text" name="realName"
-                    :readonly="fixedQueryRecord.realName?true:false" :label="$t('devPeople.field.realName')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.realName?true:false" :label="$t('devPeople.field.realName')" clearable resize autofocus/>
         </el-form-item>
       </div>
     </cg-query-condition>
@@ -147,6 +147,7 @@ export default {
       showActionView: false,
       defaultOrder: 'org_code,real_name',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: ['orgCode','realName'],
       formPath: '/reader/devPeople/record',
       listLoading: false,
       rows: [],
@@ -233,6 +234,9 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        orgCode: null,
+        realName: null,
+        userNo: null,
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

@@ -9,17 +9,19 @@
         <el-col :span="12">
           <el-form-item class="cg-item-text cg-auto-focus" :label="$t('cgProject.field.code')" prop="code" :size="$store.state.app.size" >
             <el-input v-model="record.code" name="code" 
-                      type="text" :maxlength="10" show-word-limit 
+                      type="text" 
                       :label="$t('cgProject.field.code')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="10" show-word-limit />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item class="cg-item-text" :label="$t('cgProject.field.name')" :title="$t('cgProject.field.nameValid')" prop="name" :size="$store.state.app.size" >
             <el-input v-model="record.name" name="name" 
-                      type="text" :maxlength="36" show-word-limit 
+                      type="text" 
                       :label="$t('cgProject.field.name')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="36" show-word-limit />
           </el-form-item>
         </el-col>
       </el-row>
@@ -27,25 +29,28 @@
         <el-col :span="12">
           <el-form-item class="cg-item-text" :label="$t('cgProject.field.version')" prop="version" :size="$store.state.app.size" >
             <el-input v-model="record.version" name="version" 
-                      type="text" :maxlength="36" show-word-limit 
+                      type="text" 
                       :label="$t('cgProject.field.version')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="36" show-word-limit />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item class="cg-item-text" :label="$t('cgProject.field.groupId')" prop="groupId" :size="$store.state.app.size" >
             <el-input v-model="record.groupId" name="groupId" 
-                      type="text" :maxlength="45" show-word-limit 
+                      type="text" 
                       :label="$t('cgProject.field.groupId')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="45" show-word-limit />
           </el-form-item>
         </el-col>
       </el-row>
       <el-form-item class="cg-item-text" :label="$t('cgProject.field.note')" prop="note" :size="$store.state.app.size" >
         <el-input v-model="record.note" name="note" 
-                  type="text" :maxlength="100" show-word-limit 
-                  :label="$t('cgProject.field.note')" :placeholder="$t('system.message.unknown')" clearable 
-                  :readonly="isDetail" resize autofocus validate-event />
+                  type="text" 
+                  :label="$t('cgProject.field.note')" :placeholder="$t('system.message.unknown')" 
+                  resize autofocus validate-event 
+                  :readonly="isDetail" :maxlength="100" show-word-limit clearable />
       </el-form-item>
       <el-form-item class="cg-item-select" :label="$t('cgProject.field.modules')" prop="modules" :size="$store.state.app.size" >
         <cg-select v-model="record.modules" name="modules"
@@ -53,9 +58,10 @@
       </el-form-item>
       <el-form-item class="cg-item-url" :label="$t('cgProject.field.mavenServer')" prop="mavenServer" :size="$store.state.app.size" >
         <el-input v-model="record.mavenServer" name="mavenServer" 
-                  type="url" :maxlength="100" show-word-limit 
-                  :label="$t('cgProject.field.mavenServer')" :placeholder="$t('system.message.unknown')" clearable 
-                  :readonly="isDetail" resize autofocus validate-event />
+                  type="url" 
+                  :label="$t('cgProject.field.mavenServer')" :placeholder="$t('system.message.unknown')" 
+                  resize autofocus validate-event 
+                  :readonly="isDetail" :maxlength="100" show-word-limit clearable />
       </el-form-item>
       <el-row :gutter="mobile?0:20">
         <el-col :span="8">

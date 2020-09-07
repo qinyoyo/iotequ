@@ -11,9 +11,10 @@
             <el-col :span="12">
               <el-form-item class="cg-item-text cg-auto-focus" :label="$t('cgListField.field.entityField')" prop="entityField" :size="$store.state.app.size" >
                 <el-input v-model="record.entityField" name="entityField" 
-                          type="text" :maxlength="45" show-word-limit 
+                          type="text" 
                           :label="$t('cgListField.field.entityField')" :placeholder="$t('system.message.needValue')" 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="45" show-word-limit />
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -25,9 +26,10 @@
           </el-row>
           <el-form-item class="cg-item-text" :label="$t('cgListField.field.defaultQueryValue')" :title="$t('cgListField.field.defaultQueryValueValid')" prop="defaultQueryValue" :size="$store.state.app.size" >
             <el-input v-model="record.defaultQueryValue" name="defaultQueryValue" 
-                      type="text" :maxlength="200" show-word-limit 
-                      :label="$t('cgListField.field.defaultQueryValue')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="text" 
+                      :label="$t('cgListField.field.defaultQueryValue')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="200" show-word-limit clearable />
           </el-form-item>
           <el-row :gutter="mobile?0:20">
             <el-col :span="12">
@@ -46,9 +48,10 @@
             <el-col :span="12">
               <el-form-item class="cg-item-text" :label="$t('cgListField.field.align')" prop="align" :size="$store.state.app.size" >
                 <el-input v-model="record.align" name="align" 
-                          type="text" :maxlength="45" show-word-limit 
+                          type="text" 
                           :label="$t('cgListField.field.align')" :placeholder="$t('system.message.needValue')" 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="45" show-word-limit />
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -86,9 +89,10 @@
             <el-col :span="12">
               <el-form-item class="cg-item-text" :label="$t('cgListField.field.headerAlign')" prop="headerAlign" :size="$store.state.app.size" >
                 <el-input v-model="record.headerAlign" name="headerAlign" 
-                          type="text" :maxlength="45" show-word-limit 
-                          :label="$t('cgListField.field.headerAlign')" :placeholder="$t('system.message.unknown')" clearable 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          type="text" 
+                          :label="$t('cgListField.field.headerAlign')" :placeholder="$t('system.message.unknown')" 
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="45" show-word-limit clearable />
               </el-form-item>
             </el-col>
           </el-row>
@@ -112,9 +116,10 @@
           </el-form-item>
           <el-form-item class="cg-item-text" :label="$t('cgListField.field.cellDisplaySlot')" prop="cellDisplaySlot" :size="$store.state.app.size" >
             <el-input v-model="record.cellDisplaySlot" name="cellDisplaySlot" 
-                      type="text" :maxlength="500" show-word-limit 
-                      :label="$t('cgListField.field.cellDisplaySlot')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="text" 
+                      :label="$t('cgListField.field.cellDisplaySlot')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="500" show-word-limit clearable />
           </el-form-item>
         </el-tab-pane>
       </el-tabs>

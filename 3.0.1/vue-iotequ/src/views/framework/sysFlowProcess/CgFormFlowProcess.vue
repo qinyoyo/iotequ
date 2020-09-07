@@ -9,17 +9,19 @@
         <el-col :span="12">
           <el-form-item class="cg-item-text cg-auto-focus" :label="$t('sysFlowProcess.field.operation')" prop="operation" :size="$store.state.app.size" >
             <el-input v-model="record.operation" name="operation" 
-                      type="text" :maxlength="36" show-word-limit 
-                      :label="$t('sysFlowProcess.field.operation')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="text" 
+                      :label="$t('sysFlowProcess.field.operation')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="36" show-word-limit clearable />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item class="cg-item-text" :label="$t('sysFlowProcess.field.selection')" prop="selection" :size="$store.state.app.size" >
             <el-input v-model="record.selection" name="selection" 
-                      type="text" :maxlength="36" show-word-limit 
-                      :label="$t('sysFlowProcess.field.selection')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="text" 
+                      :label="$t('sysFlowProcess.field.selection')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="36" show-word-limit clearable />
           </el-form-item>
         </el-col>
       </el-row>
@@ -27,17 +29,19 @@
         <el-col :span="12">
           <el-form-item class="cg-item-text" :label="$t('sysFlowProcess.field.stateName0')" prop="stateName0" :size="$store.state.app.size" >
             <el-input v-model="record.stateName0" name="stateName0" 
-                      type="text" :maxlength="45" show-word-limit 
-                      :label="$t('sysFlowProcess.field.stateName0')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="text" 
+                      :label="$t('sysFlowProcess.field.stateName0')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="45" show-word-limit clearable />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item class="cg-item-text" :label="$t('sysFlowProcess.field.stateName1')" prop="stateName1" :size="$store.state.app.size" >
             <el-input v-model="record.stateName1" name="stateName1" 
-                      type="text" :maxlength="45" show-word-limit 
-                      :label="$t('sysFlowProcess.field.stateName1')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="text" 
+                      :label="$t('sysFlowProcess.field.stateName1')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="45" show-word-limit clearable />
           </el-form-item>
         </el-col>
       </el-row>
@@ -45,9 +49,10 @@
         <el-col :span="12">
           <el-form-item class="cg-item-left_join" :label="$t('sysFlowProcess.field.operator')" prop="operator" :size="$store.state.app.size" >
             <el-input v-model="record.operator" name="operator" 
-                      type="left_join" :maxlength="36" show-word-limit 
+                      type="left_join" 
                       :label="$t('sysFlowProcess.field.operator')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="36" show-word-limit />
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -63,17 +68,19 @@
         <el-col :span="12">
           <el-form-item class="cg-item-text" :label="$t('sysFlowProcess.field.note')" prop="note" :size="$store.state.app.size" >
             <el-input v-model="record.note" name="note" 
-                      type="text" :maxlength="200" show-word-limit 
-                      :label="$t('sysFlowProcess.field.note')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="text" 
+                      :label="$t('sysFlowProcess.field.note')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="200" show-word-limit clearable />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item class="cg-item-left_join" :label="$t('sysFlowProcess.field.nextOperator')" prop="nextOperator" :size="$store.state.app.size" >
             <el-input v-model="record.nextOperator" name="nextOperator" 
-                      type="left_join" :maxlength="45" show-word-limit 
-                      :label="$t('sysFlowProcess.field.nextOperator')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="left_join" 
+                      :label="$t('sysFlowProcess.field.nextOperator')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="45" show-word-limit clearable />
           </el-form-item>
         </el-col>
       </el-row>

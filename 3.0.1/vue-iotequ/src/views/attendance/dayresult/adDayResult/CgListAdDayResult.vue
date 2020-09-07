@@ -26,7 +26,13 @@
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="realName" :page="paginationCurrentPage" :label="$t('adDayResult.field.realName')" sortable align="left" >
+      <cg-table-column prop="employeeNo" :page="paginationCurrentPage" :label="$t('adDayResult.field.employeeNo')" align="left" >
+        <template slot-scope="scope">
+          {{ scope.row.employeeNo }}
+        </template>
+
+      </cg-table-column>
+      <cg-table-column prop="realName" :page="paginationCurrentPage" :label="$t('adDayResult.field.realName')" align="left" >
         <template slot-scope="scope">
           {{ scope.row.realName }}
         </template>
@@ -111,7 +117,7 @@
                   prefix-icon="el-icon-search" :placeholder="$t('system.message.fuzzyQueryTip')" @keyup.enter.native="doAction('refresh')" />
       </el-form-item>
       <el-form-item v-show="queryRecord.search" :label="$t('system.action.field')" prop="searchFields" :size="$store.state.app.size">
-        <cg-select v-model="queryRecord.searchFields" dictionary="orgCode|adDayResult.field.orgCode,realName|adDayResult.field.realName,adDate|adDayResult.field.adDate," multiple/>
+        <cg-select v-model="queryRecord.searchFields" dictionary="orgCode|adDayResult.field.orgCode,employeeNoAdEmployeeRealName|sysUser.field.realName,adDate|adDayResult.field.adDate," multiple/>
       </el-form-item>
       <el-divider />
       <div v-show="!queryRecord.search">
@@ -119,10 +125,14 @@
           <cg-cascader v-model="queryRecord.orgCode" name="orgCode"  multiple collapse-tags clearable
                        :disabled="fixedQueryRecord.orgCode?true:false" :dictionary="dictionary.dictOrgCode"/>
         </el-form-item>
-        <el-form-item :label="$t('adDayResult.field.realName')" prop="realName" :size="$store.state.app.size">
-          <el-input v-model="queryRecord.realName" type="text" name="realName"
-                    :readonly="fixedQueryRecord.realName?true:false" :label="$t('adDayResult.field.realName')" clearable resize autofocus />
+        <cg-join v-model="employeeNoJoinVisible">
+          <CgListAdEmployee slot="popover" ref="employeeNoJoin" openID="employeeno-join" :height="joinHeight()" :joinShow="employeeNoJoinVisible" joinMultiple
+            :originSelections="queryRecord.employeeNo" selectionKey="employeeNo" joinMode @closeJoinList="(rows)=>{ getJoinFields('employeeNo',rows)}" @showJoinList="employeeNoJoinVisible=true"/>
+        <el-form-item slot="reference" :label="$t('sysUser.field.realName')" prop="employeeNoAdEmployeeRealName" :size="$store.state.app.size">
+          <el-input v-model="queryRecord.employeeNoAdEmployeeRealName" type="text" name="employeeNoAdEmployeeRealName"
+                    :readonly="fixedQueryRecord.employeeNoAdEmployeeRealName?true:false" :label="$t('sysUser.field.realName')" clearable resize autofocus @clear="clearJoinValues(myself,'employeeNoJoin')"/>
         </el-form-item>
+        </cg-join>
         <el-form-item :label="$t('adDayResult.field.adDate')" prop="adDate" :size="$store.state.app.size">
           <cg-date-picker v-model="queryRecord.adDate" :title="$t('adDayResult.field.adDate')" name="adDate" :align="mobile?'right':'center'" type="daterange" :picker-options="datePickerOptions()"
                           :readonly="fixedQueryRecord.adDate?true:false"  clearable />
@@ -137,6 +147,7 @@ import cgList from '@/utils/cgList'
 import cg from '@/utils/cg'
 import {hasAuthority} from '@/utils/cg'
 import time from '@/utils/time'
+import CgListAdEmployee from '@/views/attendance/employee/adEmployee/CgListAdEmployee.vue'
 const mixins = []
 const mixinContext = require.context('.', false, /CgListAdDayResult-mixin\.(js|vue)$/)
 mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
@@ -177,6 +188,7 @@ export default {
       default: () => { return {} }
     }
   },
+  components: { CgListAdEmployee },
   data() {
     return {
       cgList,
@@ -187,6 +199,7 @@ export default {
       showActionView: false,
       defaultOrder: 'org_code,employee_no,ad_date,shift_id,state',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: ['orgCode','employeeNo','adDate'],
       formPath: '/attendance/dayresult/adDayResult/record',
       listLoading: false,
       rows: [],
@@ -198,6 +211,7 @@ export default {
 			  dictOrgCode: []
 		  },
       needLoadDictionary: true,
+      employeeNoJoinVisible: false,
       paginationCurrentPage: 1,
       paginationPageSize: this.$store.state.app.device === 'mobile' ? 10 : 30,
       paginationTotalRecords: 0,
@@ -304,11 +318,28 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        orgCode: null,
+        orgName: null,
+        employeeNo: null,
+        employeeNoAdEmployeeRealName: null,
+        realName: null,
         adDate: [time.startOf(time.dateAdd(new Date(),-1,'day'),'day'),time.endOf(time.dateAdd(new Date(),-1,'day'))],
+        shiftName: null,
+        stateName: null,
       }, this.fixedQueryRecord)
     },
     groupFields({ row, column, rowIndex, columnIndex }) {
       return cgList.list_groupFields(this, this.groupByEntityFields.split(','), row, column, rowIndex, columnIndex)
+    },
+    getJoinFields(field,rows) {
+      const joinDefine = {
+        employeeNo: {
+          valueField: 'employeeNo',
+          fields: 'isAttendance=isAttendance,employeeNoAdEmployeeRealName=realName'
+        },
+      }
+      this[field+'JoinVisible'] = false
+      this.setJoinValues(this.queryRecord, field, joinDefine[field], rows)
     },
     doAction(action, options) {
       this.queryRecord = Object.assign(this.queryRecord, this.fixedQueryRecord)

@@ -17,9 +17,10 @@
         <el-col :span="12">
           <el-form-item class="cg-item-text" :label="$t('cgButton.field.action')" :title="$t('cgButton.field.actionValid')" prop="action" :size="$store.state.app.size" >
             <el-input v-model="record.action" name="action" 
-                      type="text" :maxlength="45" show-word-limit 
+                      type="text" 
                       :label="$t('cgButton.field.action')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="45" show-word-limit />
           </el-form-item>
         </el-col>
       </el-row>
@@ -27,17 +28,19 @@
         <el-col :span="12">
           <el-form-item class="cg-item-text" :label="$t('cgButton.field.title')" prop="title" :size="$store.state.app.size" >
             <el-input v-model="record.title" name="title" 
-                      type="text" :maxlength="45" show-word-limit 
+                      type="text" 
                       :label="$t('cgButton.field.title')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="45" show-word-limit />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item class="cg-item-text" :label="$t('cgButton.field.icon')" prop="icon" :size="$store.state.app.size" >
             <el-input v-model="record.icon" name="icon" 
-                      type="text" :maxlength="45" show-word-limit 
+                      type="text" 
                       :label="$t('cgButton.field.icon')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="45" show-word-limit />
           </el-form-item>
         </el-col>
       </el-row>
@@ -55,9 +58,10 @@
       </el-row>
       <el-form-item class="cg-item-text" :label="$t('cgButton.field.appendClass')" :title="$t('cgButton.field.appendClassValid')" prop="appendClass" :size="$store.state.app.size" >
         <el-input v-model="record.appendClass" name="appendClass" 
-                  type="text" :maxlength="200" show-word-limit 
-                  :label="$t('cgButton.field.appendClass')" :placeholder="$t('system.message.unknown')" clearable 
-                  :readonly="isDetail" resize autofocus validate-event />
+                  type="text" 
+                  :label="$t('cgButton.field.appendClass')" :placeholder="$t('system.message.unknown')" 
+                  resize autofocus validate-event 
+                  :readonly="isDetail" :maxlength="200" show-word-limit clearable />
       </el-form-item>
       <el-form-item class="cg-item-checkbox" :label="$t('cgButton.field.displayProperties')" prop="displayProperties" :size="$store.state.app.size" >
         <cg-checkbox v-model="record.displayProperties" name="displayProperties" :dictionary="dictionary.dictDisplayProperties" :readonly="isDetail"  />
@@ -66,9 +70,10 @@
         <el-col :span="16">
           <el-form-item class="cg-item-text" :label="$t('cgButton.field.confirmText')" :title="$t('cgButton.field.confirmTextValid')" prop="confirmText" :size="$store.state.app.size" >
             <el-input v-model="record.confirmText" name="confirmText" 
-                      type="text" :maxlength="100" show-word-limit 
-                      :label="$t('cgButton.field.confirmText')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="text" 
+                      :label="$t('cgButton.field.confirmText')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="100" show-word-limit clearable />
           </el-form-item>
         </el-col>
         <el-col :span="8">

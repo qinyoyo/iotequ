@@ -17,9 +17,10 @@
             <el-col :span="12">
               <el-form-item class="cg-item-text" :label="$t('cgForm.field.name')" prop="name" :size="$store.state.app.size" >
                 <el-input v-model="record.name" name="name" 
-                          type="text" :maxlength="45" show-word-limit 
+                          type="text" 
                           :label="$t('cgForm.field.name')" :placeholder="$t('system.message.needValue')" 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="45" show-word-limit />
               </el-form-item>
             </el-col>
           </el-row>
@@ -42,37 +43,42 @@
           </el-row>
           <el-form-item class="cg-item-text" :label="$t('cgForm.field.path')" :title="$t('cgForm.field.pathValid')" prop="path" :size="$store.state.app.size" >
             <el-input v-model="record.path" name="path" 
-                      type="text" :maxlength="200" show-word-limit 
+                      type="text" 
                       :label="$t('cgForm.field.path')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="200" show-word-limit />
           </el-form-item>
           <el-form-item class="cg-item-text" :label="$t('cgForm.field.icon')" :title="$t('cgForm.field.iconValid')" prop="icon" :size="$store.state.app.size" >
             <el-input v-model="record.icon" name="icon" 
-                      type="text" :maxlength="300" show-word-limit 
-                      :label="$t('cgForm.field.icon')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="text" 
+                      :label="$t('cgForm.field.icon')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="300" show-word-limit clearable />
           </el-form-item>
           <el-form-item class="cg-item-text" :label="$t('cgForm.field.headTitle')" :title="$t('cgForm.field.headTitleValid')" prop="headTitle" :size="$store.state.app.size" >
             <el-input v-model="record.headTitle" name="headTitle" 
-                      type="text" :maxlength="400" show-word-limit 
+                      type="text" 
                       :label="$t('cgForm.field.headTitle')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="400" show-word-limit />
           </el-form-item>
           <el-row :gutter="mobile?0:20">
             <el-col :span="12">
               <el-form-item class="cg-item-text" :label="$t('cgForm.field.tagTitle')" prop="tagTitle" :size="$store.state.app.size" >
                 <el-input v-model="record.tagTitle" name="tagTitle" 
-                          type="text" :maxlength="45" show-word-limit 
+                          type="text" 
                           :label="$t('cgForm.field.tagTitle')" :placeholder="$t('system.message.needValue')" 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="45" show-word-limit />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item class="cg-item-text" :label="$t('cgForm.field.labelPosition')" prop="labelPosition" :size="$store.state.app.size" >
                 <el-input v-model="record.labelPosition" name="labelPosition" 
-                          type="text" :maxlength="45" show-word-limit 
+                          type="text" 
                           :label="$t('cgForm.field.labelPosition')" :placeholder="$t('system.message.needValue')" 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="45" show-word-limit />
               </el-form-item>
             </el-col>
           </el-row>
@@ -80,9 +86,10 @@
         <el-tab-pane :label="groupPaneTitle('cgForm.title.groupCgFormImages')">
           <el-form-item class="cg-item-text cg-auto-focus" :label="$t('cgForm.field.images')" prop="images" :size="$store.state.app.size" >
             <el-input v-model="record.images" name="images" 
-                      type="text" :maxlength="200" show-word-limit 
-                      :label="$t('cgForm.field.images')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="text" 
+                      :label="$t('cgForm.field.images')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="200" show-word-limit clearable />
           </el-form-item>
           <el-form-item class="cg-item-checkbox" :label="$t('cgForm.field.actionList')" prop="actionList" :size="$store.state.app.size" >
             <cg-checkbox v-model="record.actionList" name="actionList" :dictionary="dictionary.dictActionList" :readonly="isDetail"  />
@@ -102,8 +109,9 @@
           <el-form-item class="cg-item-text" :label="$t('cgForm.field.slotTemplates')" prop="slotTemplates" :size="$store.state.app.size" >
             <el-input v-model="record.slotTemplates" name="slotTemplates" 
                       type="text" 
-                      :label="$t('cgForm.field.slotTemplates')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      :label="$t('cgForm.field.slotTemplates')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" clearable />
           </el-form-item>
         </el-tab-pane>
       </el-tabs>

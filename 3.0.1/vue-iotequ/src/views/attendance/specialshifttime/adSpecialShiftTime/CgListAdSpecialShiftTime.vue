@@ -120,6 +120,7 @@ export default {
       showActionView: false,
       defaultOrder: 'special_shift_id,start_time',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: [],
       formPath: '/attendance/specialshifttime/adSpecialShiftTime/record',
       listLoading: false,
       rows: [],
@@ -210,6 +211,9 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        name: null,
+        startTime: null,
+        endTime: null,
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

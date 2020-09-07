@@ -7,9 +7,10 @@
              hide-required-asterisk >
       <el-form-item class="cg-item-text cg-auto-focus" :label="$t('devAuthGroup.field.name')" prop="name" :size="$store.state.app.size" >
         <el-input v-model="record.name" name="name" 
-                  type="text" :maxlength="45" show-word-limit 
+                  type="text" 
                   :label="$t('devAuthGroup.field.name')" :placeholder="$t('system.message.needValue')" 
-                  :readonly="isDetail" resize autofocus validate-event />
+                  resize autofocus validate-event 
+                  :readonly="isDetail" :maxlength="45" show-word-limit />
       </el-form-item>
       <el-form-item class="cg-item-select" :label="$t('devAuthGroup.field.auth')" prop="auth" :size="$store.state.app.size" >
         <cg-select v-model="record.auth" name="auth"

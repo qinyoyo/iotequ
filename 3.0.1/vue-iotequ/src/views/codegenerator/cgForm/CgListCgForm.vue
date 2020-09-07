@@ -110,11 +110,11 @@
       <div v-show="!queryRecord.search">
         <el-form-item :label="$t('cgForm.field.name')" prop="name" :size="$store.state.app.size">
           <el-input v-model="queryRecord.name" type="text" name="name"
-                    :readonly="fixedQueryRecord.name?true:false" :label="$t('cgForm.field.name')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.name?true:false" :label="$t('cgForm.field.name')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('')" prop="formName" :size="$store.state.app.size">
           <el-input v-model="queryRecord.formName" type="text" name="formName"
-                    :readonly="fixedQueryRecord.formName?true:false" :label="$t('')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.formName?true:false" :label="$t('')" clearable resize autofocus/>
         </el-form-item>
       </div>
     </cg-query-condition>
@@ -176,6 +176,7 @@ export default {
       showActionView: false,
       defaultOrder: 'name',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: ['name','formName'],
       formPath: '/codegenerator/cgForm/record',
       listLoading: false,
       rows: [],
@@ -270,6 +271,19 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        tableId: null,
+        actionList: null,
+        id: null,
+        formId: null,
+        name: null,
+        formName: null,
+        icon: null,
+        headTitle: null,
+        tagTitle: null,
+        isFlow: null,
+        isDialog: null,
+        continueAdd: null,
+        labelPosition: null,
       }, this.fixedQueryRecord)
     },
     groupFields({ row, column, rowIndex, columnIndex }) {

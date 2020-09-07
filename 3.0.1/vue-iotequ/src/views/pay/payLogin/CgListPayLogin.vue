@@ -115,11 +115,11 @@
         </el-form-item>
         <el-form-item :label="$t('payLogin.field.operatorId')" prop="operatorId" :size="$store.state.app.size">
           <el-input v-model="queryRecord.operatorId" type="text" name="operatorId"
-                    :readonly="fixedQueryRecord.operatorId?true:false" :label="$t('payLogin.field.operatorId')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.operatorId?true:false" :label="$t('payLogin.field.operatorId')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('payLogin.field.batchNo')" prop="batchNo" :size="$store.state.app.size">
           <el-input v-model="queryRecord.batchNo" type="text" name="batchNo"
-                    :readonly="fixedQueryRecord.batchNo?true:false" :label="$t('payLogin.field.batchNo')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.batchNo?true:false" :label="$t('payLogin.field.batchNo')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('payLogin.field.loginTime')" prop="loginTime" :size="$store.state.app.size">
           <cg-date-picker v-model="queryRecord.loginTime" :title="$t('payLogin.field.loginTime')" name="loginTime" :align="mobile?'right':'center'" type="datetimerange" :picker-options="datePickerOptions()"
@@ -185,6 +185,7 @@ export default {
       showActionView: false,
       defaultOrder: 'id desc',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: ['shopId','operatorId','batchNo','loginTime'],
       formPath: '/pay/payLogin/record',
       listLoading: false,
       rows: [],
@@ -277,6 +278,13 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        shopId: null,
+        operatorId: null,
+        batchNo: null,
+        loginTime: null,
+        logoutTime: null,
+        deviceStream: null,
+        appVersion: null,
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

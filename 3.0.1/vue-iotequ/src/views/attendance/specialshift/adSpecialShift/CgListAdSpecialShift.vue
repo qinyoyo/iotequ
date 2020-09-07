@@ -147,6 +147,7 @@ export default {
       showActionView: false,
       defaultOrder: 'start_date desc,shift_mode',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: ['startDate'],
       formPath: '/attendance/specialshift/adSpecialShift/record',
       listLoading: false,
       rows: [],
@@ -241,6 +242,14 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        orgCodes: null,
+        sexProperty: null,
+        specialShiftId: null,
+        shiftMode: null,
+        name: null,
+        modeProperty: null,
+        startDate: null,
+        endDate: null,
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

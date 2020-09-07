@@ -100,11 +100,12 @@ export default {
       if (listObject.queryRecord.searchFields)
       params.search = listObject.queryRecord.search
       if (listObject.queryRecord.searchFields) entities = listObject.queryRecord.searchFields.split(',')
-    } else {
+    } else if (listObject.queryRecordFields && listObject.queryRecordFields.length > 0) {
       keys.forEach( key => {
         if (key == 'search' || key == 'searchFields') return
         const realKey = (key.endsWith('_start') ? key.substring(0,key.length - 6) 
           : (key.endsWith('_end') ? key.substring(0,key.length - 4) : key))
+        if (listObject.queryRecordFields.indexOf(realKey)<0) return  
         const value = listObject.queryRecord[key]
         const isArray = (Object.prototype.toString.call(value) === '[object Array]')
         if (isArray && value.length > 0 && !fixedQueryRecord[realKey])

@@ -90,11 +90,11 @@
       <div v-show="!queryRecord.search">
         <el-form-item :label="$t('sysMenu.field.name')" prop="name" :size="$store.state.app.size">
           <el-input v-model="queryRecord.name" type="text" name="name"
-                    :readonly="fixedQueryRecord.name?true:false" :label="$t('sysMenu.field.name')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.name?true:false" :label="$t('sysMenu.field.name')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('sysMenu.field.action')" prop="action" :size="$store.state.app.size">
           <el-input v-model="queryRecord.action" type="text" name="action"
-                    :readonly="fixedQueryRecord.action?true:false" :label="$t('sysMenu.field.action')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.action?true:false" :label="$t('sysMenu.field.action')" clearable resize autofocus/>
         </el-form-item>
       </div>
     </cg-query-condition>
@@ -158,6 +158,7 @@ export default {
       showActionView: false,
       defaultOrder: 'sort_num',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: ['name','action'],
       formPath: '/framework/sysMenu/record',
       listLoading: false,
       rows: [],
@@ -249,6 +250,11 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        parent: null,
+        name: null,
+        isDivider: null,
+        mobileHidden: null,
+        action: null,
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

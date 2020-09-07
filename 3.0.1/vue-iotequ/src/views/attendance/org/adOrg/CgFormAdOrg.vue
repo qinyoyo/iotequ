@@ -13,9 +13,10 @@
                        @showJoinList="orgCodeJoinVisible=true" />
             <el-form-item class="cg-item-text" slot="reference" :label="$t('sysOrg.field.name')" prop="name" :size="$store.state.app.size" >
               <el-input v-model="record.name" name="name" 
-                        type="text" :maxlength="32" show-word-limit 
-                        :label="$t('sysOrg.field.name')" :placeholder="$t('system.message.unknown')" clearable 
-                        readonly resize autofocus validate-event />
+                        type="text" 
+                        :label="$t('sysOrg.field.name')" :placeholder="$t('system.message.unknown')" 
+                        resize autofocus validate-event 
+                        readonly :maxlength="32" show-word-limit clearable />
             </el-form-item>
           </cg-join>
         </el-col>
@@ -34,9 +35,10 @@
                             @showJoinList="hrJoinVisible=true" />
             <el-form-item class="cg-item-text" slot="reference" :label="$t('adOrg.field.hr')" prop="hrName" :size="$store.state.app.size" >
               <el-input v-model="record.hrName" name="hrName" 
-                        type="text" :maxlength="32" show-word-limit 
-                        :label="$t('adOrg.field.hr')" :placeholder="$t('system.message.unknown')" clearable 
-                        readonly resize autofocus validate-event />
+                        type="text" 
+                        :label="$t('adOrg.field.hr')" :placeholder="$t('system.message.unknown')" 
+                        resize autofocus validate-event 
+                        readonly :maxlength="32" show-word-limit clearable />
             </el-form-item>
           </cg-join>
         </el-col>
@@ -47,9 +49,10 @@
                             @showJoinList="managerJoinVisible=true" />
             <el-form-item class="cg-item-text" slot="reference" :label="$t('adOrg.field.manager')" prop="managerName" :size="$store.state.app.size" >
               <el-input v-model="record.managerName" name="managerName" 
-                        type="text" :maxlength="32" show-word-limit 
-                        :label="$t('adOrg.field.manager')" :placeholder="$t('system.message.unknown')" clearable 
-                        readonly resize autofocus validate-event />
+                        type="text" 
+                        :label="$t('adOrg.field.manager')" :placeholder="$t('system.message.unknown')" 
+                        resize autofocus validate-event 
+                        readonly :maxlength="32" show-word-limit clearable />
             </el-form-item>
           </cg-join>
         </el-col>

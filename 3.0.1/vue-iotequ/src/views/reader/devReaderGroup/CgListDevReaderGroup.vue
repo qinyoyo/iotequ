@@ -130,6 +130,7 @@ export default {
       showActionView: false,
       defaultOrder: 'id desc',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: [],
       formPath: '/reader/devReaderGroup/record',
       listLoading: false,
       rows: [],
@@ -225,6 +226,13 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        name: null,
+        orgCode: null,
+        authGroupList: null,
+        orgAuth: null,
+        subOrgAuth: null,
+        parent: null,
+        readerGroup: null,
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

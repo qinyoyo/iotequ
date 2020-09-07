@@ -117,7 +117,7 @@
       <div v-show="!queryRecord.search">
         <el-form-item :label="$t('ewCountProject.field.name')" prop="name" :size="$store.state.app.size">
           <el-input v-model="queryRecord.name" type="text" name="name"
-                    :readonly="fixedQueryRecord.name?true:false" :label="$t('ewCountProject.field.name')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.name?true:false" :label="$t('ewCountProject.field.name')" clearable resize autofocus/>
         </el-form-item>
       </div>
     </cg-query-condition>
@@ -179,6 +179,7 @@ export default {
       showActionView: false,
       defaultOrder: 'id',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: ['name'],
       formPath: '/ewallet/ewCountProject/record',
       listLoading: false,
       rows: [],
@@ -267,6 +268,10 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        icon: null,
+        name: null,
+        startTime: null,
+        endTime: null,
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

@@ -17,7 +17,8 @@
             <el-input v-model="record.operatorId" name="operatorId" 
                       type="left_join" 
                       :label="$t('payLogin.field.operatorId')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" />
           </el-form-item>
         </el-col>
       </el-row>
@@ -25,9 +26,10 @@
         <el-col :span="12">
           <el-form-item class="cg-item-text" :label="$t('payLogin.field.batchNo')" prop="batchNo" :size="$store.state.app.size" >
             <el-input v-model="record.batchNo" name="batchNo" 
-                      type="text" :maxlength="45" show-word-limit 
+                      type="text" 
                       :label="$t('payLogin.field.batchNo')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="45" show-word-limit />
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -51,9 +53,10 @@
         <el-col :span="12">
           <el-form-item class="cg-item-text" :label="$t('payLogin.field.deviceStream')" prop="deviceStream" :size="$store.state.app.size" >
             <el-input v-model="record.deviceStream" name="deviceStream" 
-                      type="text" :maxlength="45" show-word-limit 
-                      :label="$t('payLogin.field.deviceStream')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="text" 
+                      :label="$t('payLogin.field.deviceStream')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="45" show-word-limit clearable />
           </el-form-item>
         </el-col>
       </el-row>
@@ -61,9 +64,10 @@
         <el-col :span="12">
           <el-form-item class="cg-item-text" :label="$t('payLogin.field.appVersion')" prop="appVersion" :size="$store.state.app.size" >
             <el-input v-model="record.appVersion" name="appVersion" 
-                      type="text" :maxlength="45" show-word-limit 
+                      type="text" 
                       :label="$t('payLogin.field.appVersion')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="45" show-word-limit />
           </el-form-item>
         </el-col>
       </el-row>

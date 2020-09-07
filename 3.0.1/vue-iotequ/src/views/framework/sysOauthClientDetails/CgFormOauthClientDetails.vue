@@ -15,9 +15,10 @@
         <el-col :span="12">
           <el-form-item class="cg-item-text" :label="$t('sysOauthClientDetails.field.scope')" prop="scope" :size="$store.state.app.size" >
             <el-input v-model="record.scope" name="scope" 
-                      type="text" :maxlength="255" show-word-limit 
+                      type="text" 
                       :label="$t('sysOauthClientDetails.field.scope')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="255" show-word-limit />
           </el-form-item>
         </el-col>
       </el-row>
@@ -25,17 +26,19 @@
         <el-col :span="12">
           <el-form-item class="cg-item-text" :label="$t('sysOauthClientDetails.field.clientId')" prop="clientId" :size="$store.state.app.size" >
             <el-input v-model="record.clientId" name="clientId" 
-                      type="text" :maxlength="255" show-word-limit 
+                      type="text" 
                       :label="$t('sysOauthClientDetails.field.clientId')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="255" show-word-limit />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item class="cg-item-text" :label="$t('sysOauthClientDetails.field.clientSecret')" prop="clientSecret" :size="$store.state.app.size" >
             <el-input v-model="record.clientSecret" name="clientSecret" 
-                      type="text" :maxlength="255" show-word-limit 
+                      type="text" 
                       :label="$t('sysOauthClientDetails.field.clientSecret')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="255" show-word-limit />
           </el-form-item>
         </el-col>
       </el-row>
@@ -49,9 +52,10 @@
         <el-col :span="12">
           <el-form-item v-show="record.authorizedGrantTypes=='authorization_code' || record.authorizedGrantTypes=='implicit'" class="cg-item-text" :label="$t('sysOauthClientDetails.field.webServerRedirectUri')" prop="webServerRedirectUri" :size="$store.state.app.size" >
             <el-input v-model="record.webServerRedirectUri" name="webServerRedirectUri" 
-                      type="text" :maxlength="255" show-word-limit 
-                      :label="$t('sysOauthClientDetails.field.webServerRedirectUri')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="text" 
+                      :label="$t('sysOauthClientDetails.field.webServerRedirectUri')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="255" show-word-limit clearable />
           </el-form-item>
         </el-col>
       </el-row>
@@ -81,21 +85,24 @@
       </el-form-item>
       <el-form-item class="cg-item-text" :label="$t('sysOauthClientDetails.field.decription')" prop="decription" :size="$store.state.app.size" >
         <el-input v-model="record.decription" name="decription" 
-                  type="text" :maxlength="200" show-word-limit 
-                  :label="$t('sysOauthClientDetails.field.decription')" :placeholder="$t('system.message.unknown')" clearable 
-                  :readonly="isDetail" resize autofocus validate-event />
+                  type="text" 
+                  :label="$t('sysOauthClientDetails.field.decription')" :placeholder="$t('system.message.unknown')" 
+                  resize autofocus validate-event 
+                  :readonly="isDetail" :maxlength="200" show-word-limit clearable />
       </el-form-item>
       <el-form-item class="cg-item-text" :label="$t('sysOauthClientDetails.field.secret')" prop="secret" :size="$store.state.app.size" >
         <el-input v-model="record.secret" name="secret" 
-                  type="text" :maxlength="36" show-word-limit 
-                  :label="$t('sysOauthClientDetails.field.secret')" :placeholder="$t('system.message.unknown')" clearable 
-                  readonly resize autofocus validate-event />
+                  type="text" 
+                  :label="$t('sysOauthClientDetails.field.secret')" :placeholder="$t('system.message.unknown')" 
+                  resize autofocus validate-event 
+                  readonly :maxlength="36" show-word-limit clearable />
       </el-form-item>
       <el-form-item class="cg-item-text" :label="$t('sysOauthClientDetails.field.authUrl')" prop="authUrl" :size="$store.state.app.size" >
         <el-input v-model="record.authUrl" name="authUrl" 
-                  type="text" :maxlength="36" show-word-limit 
-                  :label="$t('sysOauthClientDetails.field.authUrl')" :placeholder="$t('system.message.unknown')" clearable 
-                  readonly resize autofocus validate-event />
+                  type="text" 
+                  :label="$t('sysOauthClientDetails.field.authUrl')" :placeholder="$t('system.message.unknown')" 
+                  resize autofocus validate-event 
+                  readonly :maxlength="36" show-word-limit clearable />
       </el-form-item>
     </el-form>
     <div v-if="!isDetail" class="cg-form-buttons">

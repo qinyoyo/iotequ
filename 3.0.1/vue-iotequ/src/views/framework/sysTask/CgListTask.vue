@@ -136,6 +136,7 @@ export default {
       showActionView: false,
       defaultOrder: 'id desc',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: [],
       formPath: '/framework/sysTask/record',
       listLoading: false,
       rows: [],
@@ -221,6 +222,12 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        run: null,
+        name: null,
+        description: null,
+        className: null,
+        mothodName: null,
+        isRunning: null,
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

@@ -261,7 +261,7 @@
                   prefix-icon="el-icon-search" :placeholder="$t('system.message.fuzzyQueryTip')" @keyup.enter.native="doAction('refresh')" />
       </el-form-item>
       <el-form-item v-show="queryRecord.search" :label="$t('system.action.field')" prop="searchFields" :size="$store.state.app.size">
-        <cg-select v-model="queryRecord.searchFields" dictionary="<#list fields as f><#if f.queryMode?? && f.queryMode gt 0><#if f.id?starts_with("join:") || f.id?starts_with("list:")><#assign joinFields = f.id?split(":") />${joinFields[1]}|${f.title},<#else>${f.entityName}|${f.title},</#if></#if></#list>" multiple/>
+        <cg-select v-model="queryRecord.searchFields" dictionary="<#list fields as f><#if f.queryMode?? && f.queryMode gt 0>${f.entityName}|${f.title},</#if></#list>" multiple/>
       </el-form-item>
       <el-divider />
       </#if>
@@ -319,7 +319,7 @@
             </el-checkbox-group>
           <#else>
           <el-input v-model="queryRecord.${f.entityName}" type="text" name="${f.entityName}"<#if f.faIcon?? && f.faIcon?trim!=''> prefix-icon="${f.faIcon}"</#if>
-                    :readonly="fixedQueryRecord.${f.entityName}?true:false" :label="$t('${f.title}')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.${f.entityName}?true:false" :label="$t('${f.title}')" clearable resize autofocus<#if popoverinner> @clear="clearJoinValues(myself,'${joinFields[1]}Join')"</#if>/>
           </#if>
         </el-form-item>
           <#if popoverinner>
@@ -406,6 +406,7 @@ export default {
       <#assign firstField = true />
       defaultOrder: <#if LP.orderBy?? && LP.orderBy?trim !="">'${LP.orderBy?trim}'<#elseif LP.sortField?? && LP.sortField?trim!=''>'${getDbName(LP.sortField)} asc'<#elseif createTimeField=="">'${pk.name} desc'<#else>'${createTimeField} desc'</#if>,
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: [<#assign firstItemInArray=true /><#list fields as f><#if f.queryMode?? && f.queryMode gt 0><#if firstItemInArray><#assign firstItemInArray=false /><#else>,</#if>'<#if f.id?starts_with("join:") || f.id?starts_with("list:")><#assign joinFields = f.id?split(":") />${joinFields[1]}<#else>${f.entityName}</#if>'</#if></#list>],
       formPath: '/${moduleName}/<#if subModule??>${subModule}/</#if>${generatorName}/record',
       listLoading: false,
       rows: [],
@@ -608,6 +609,8 @@ export default {
         ${f.entityName}: ${f.defaultQueryValue},
         <#elseif f.queryMode gt 0 && f.showType == 'boolean' || f.showType == 'false_if_null'>
         ${f.entityName}: [],
+        <#elseif f.showType != 'number'>
+        ${f.entityName}: null,
         </#if>
         </#list>
       }, this.fixedQueryRecord)

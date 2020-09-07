@@ -9,17 +9,19 @@
         <el-col :span="12">
           <el-form-item class="cg-item-text cg-auto-focus" :label="$t('ewDevice.field.deviceNo')" prop="deviceNo" :size="$store.state.app.size" >
             <el-input v-model="record.deviceNo" name="deviceNo" 
-                      type="text" :maxlength="45" show-word-limit 
+                      type="text" 
                       :label="$t('ewDevice.field.deviceNo')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="45" show-word-limit />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item class="cg-item-text" :label="$t('ewDevice.field.shopId')" prop="shopId" :size="$store.state.app.size" >
             <el-input v-model="record.shopId" name="shopId" 
-                      type="text" :maxlength="45" show-word-limit 
+                      type="text" 
                       :label="$t('ewDevice.field.shopId')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="45" show-word-limit />
           </el-form-item>
         </el-col>
       </el-row>

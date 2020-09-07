@@ -121,11 +121,11 @@
         </el-form-item>
         <el-form-item :label="$t('devPeople.field.realName')" prop="realName" :size="$store.state.app.size">
           <el-input v-model="queryRecord.realName" type="text" name="realName"
-                    :readonly="fixedQueryRecord.realName?true:false" :label="$t('devPeople.field.realName')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.realName?true:false" :label="$t('devPeople.field.realName')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('devPeople.field.mobilePhone')" prop="mobilePhone" :size="$store.state.app.size">
           <el-input v-model="queryRecord.mobilePhone" type="text" name="mobilePhone"
-                    :readonly="fixedQueryRecord.mobilePhone?true:false" :label="$t('devPeople.field.mobilePhone')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.mobilePhone?true:false" :label="$t('devPeople.field.mobilePhone')" clearable resize autofocus/>
         </el-form-item>
       </div>
     </cg-query-condition>
@@ -187,6 +187,7 @@ export default {
       showActionView: false,
       defaultOrder: 'org_code,sex,real_name',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: ['orgCode','realName','mobilePhone'],
       formPath: '/reader/devPeople/record',
       listLoading: false,
       rows: [],
@@ -314,6 +315,19 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        userType: null,
+        registerType: null,
+        fingerNo1: null,
+        fingerNo2: null,
+        fingerType: null,
+        userNo: null,
+        orgCode: null,
+        realName: null,
+        sex: null,
+        birthDate: null,
+        idType: null,
+        mobilePhone: null,
+        email: null,
       }, this.fixedQueryRecord)
     },
     groupFields({ row, column, rowIndex, columnIndex }) {

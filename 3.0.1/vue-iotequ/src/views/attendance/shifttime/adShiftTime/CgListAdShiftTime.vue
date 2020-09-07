@@ -126,6 +126,7 @@ export default {
       showActionView: false,
       defaultOrder: 'week_days,start_work_time',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: [],
       formPath: '/attendance/shifttime/adShiftTime/record',
       listLoading: false,
       rows: [],
@@ -217,6 +218,10 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        name: null,
+        weekDays: null,
+        startWorkTime: null,
+        endWorkTime: null,
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

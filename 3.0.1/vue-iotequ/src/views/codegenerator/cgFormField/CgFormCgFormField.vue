@@ -11,17 +11,19 @@
             <el-col :span="12">
               <el-form-item class="cg-item-text cg-auto-focus" :label="$t('cgFormField.field.entityField')" prop="entityField" :size="$store.state.app.size" >
                 <el-input v-model="record.entityField" name="entityField" 
-                          type="text" :maxlength="45" show-word-limit 
+                          type="text" 
                           :label="$t('cgFormField.field.entityField')" :placeholder="$t('system.message.needValue')" 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="45" show-word-limit />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item class="cg-item-text" :label="$t('cgFormField.field.groupTitle')" prop="groupTitle" :size="$store.state.app.size" >
                 <el-input v-model="record.groupTitle" name="groupTitle" 
-                          type="text" :maxlength="45" show-word-limit 
-                          :label="$t('cgFormField.field.groupTitle')" :placeholder="$t('system.message.unknown')" clearable 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          type="text" 
+                          :label="$t('cgFormField.field.groupTitle')" :placeholder="$t('system.message.unknown')" 
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="45" show-word-limit clearable />
               </el-form-item>
             </el-col>
           </el-row>
@@ -35,9 +37,10 @@
             <el-col :span="12">
               <el-form-item class="cg-item-text" :label="$t('cgFormField.field.icon')" prop="icon" :size="$store.state.app.size" >
                 <el-input v-model="record.icon" name="icon" 
-                          type="text" :maxlength="64" show-word-limit 
-                          :label="$t('cgFormField.field.icon')" :placeholder="$t('system.message.unknown')" clearable 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          type="text" 
+                          :label="$t('cgFormField.field.icon')" :placeholder="$t('system.message.unknown')" 
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="64" show-word-limit clearable />
               </el-form-item>
             </el-col>
           </el-row>
@@ -105,9 +108,10 @@
           </el-form-item>
           <el-form-item class="cg-item-text" :label="$t('cgFormField.field.href')" prop="href" :size="$store.state.app.size" >
             <el-input v-model="record.href" name="href" 
-                      type="text" :maxlength="64" show-word-limit 
-                      :label="$t('cgFormField.field.href')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="text" 
+                      :label="$t('cgFormField.field.href')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="64" show-word-limit clearable />
           </el-form-item>
         </el-tab-pane>
       </el-tabs>

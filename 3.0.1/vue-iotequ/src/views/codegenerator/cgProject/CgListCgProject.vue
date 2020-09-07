@@ -118,6 +118,7 @@ export default {
       showActionView: false,
       defaultOrder: 'id desc',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: [],
       formPath: '/codegenerator/cgProject/record',
       listLoading: false,
       rows: [],
@@ -238,6 +239,12 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        modules: null,
+        id: null,
+        code: null,
+        name: null,
+        groupId: null,
+        note: null,
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

@@ -11,9 +11,10 @@
                                @showJoinList="userNoJoinVisible=true" />
         <el-form-item class="cg-item-text cg-auto-focus" slot="reference" :label="$t('devPeopleGroup.field.userNo')" prop="realName" :size="$store.state.app.size" >
           <el-input v-model="record.realName" name="realName" 
-                    type="text" :maxlength="32" show-word-limit 
+                    type="text" 
                     :label="$t('devPeopleGroup.field.userNo')" :placeholder="$t('system.message.needValue')" 
-                    readonly resize autofocus validate-event />
+                    resize autofocus validate-event 
+                     clearable @clear="clearJoinValues(myself,'userNoJoin')"/>
         </el-form-item>
       </cg-join>
     </el-form>

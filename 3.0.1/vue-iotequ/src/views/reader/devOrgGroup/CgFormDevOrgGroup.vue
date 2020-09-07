@@ -14,9 +14,10 @@
                    @showJoinList="orgIdJoinVisible=true" />
         <el-form-item class="cg-item-text" slot="reference" :label="$t('devOrgGroup.field.orgId')" prop="orgName" :size="$store.state.app.size" >
           <el-input v-model="record.orgName" name="orgName" 
-                    type="text" :maxlength="32" show-word-limit 
+                    type="text" 
                     :label="$t('devOrgGroup.field.orgId')" :placeholder="$t('system.message.needValue')" 
-                    readonly resize autofocus validate-event />
+                    resize autofocus validate-event 
+                     clearable @clear="clearJoinValues(myself,'orgIdJoin')"/>
         </el-form-item>
       </cg-join>
     </el-form>

@@ -103,11 +103,11 @@
         </el-form-item>
         <el-form-item :label="$t('sysLog.field.keyword')" prop="keyword" :size="$store.state.app.size">
           <el-input v-model="queryRecord.keyword" type="text" name="keyword"
-                    :readonly="fixedQueryRecord.keyword?true:false" :label="$t('sysLog.field.keyword')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.keyword?true:false" :label="$t('sysLog.field.keyword')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('sysLog.field.note')" prop="note" :size="$store.state.app.size">
           <el-input v-model="queryRecord.note" type="text" name="note"
-                    :readonly="fixedQueryRecord.note?true:false" :label="$t('sysLog.field.note')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.note?true:false" :label="$t('sysLog.field.note')" clearable resize autofocus/>
         </el-form-item>
       </div>
     </cg-query-condition>
@@ -169,6 +169,7 @@ export default {
       showActionView: false,
       defaultOrder: 'time desc',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: ['time','keyword','note'],
       formPath: '/framework/sysLog/record',
       listLoading: false,
       rows: [],
@@ -281,6 +282,11 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        time: null,
+        keyword: null,
+        userType: null,
+        userInfo: null,
+        note: null,
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

@@ -150,6 +150,7 @@ export default {
       showActionView: false,
       defaultOrder: 'id',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: [],
       formPath: '/pay/payShop/record',
       listLoading: false,
       rows: [],
@@ -243,6 +244,11 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        corporationId: null,
+        name: null,
+        linkman: null,
+        linkPhone: null,
+        address: null,
       }, this.fixedQueryRecord)
     },
     groupFields({ row, column, rowIndex, columnIndex }) {

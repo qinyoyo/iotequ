@@ -15,17 +15,19 @@
             <el-col :span="12">
               <el-form-item class="cg-item-text cg-auto-focus" :label="$t('sysUser.field.name')" prop="name" :size="$store.state.app.size" >
                 <el-input v-model="record.name" name="name" 
-                          type="text" :maxlength="32" show-word-limit 
+                          type="text" 
                           :label="$t('sysUser.field.name')" :placeholder="$t('system.message.needValue')" 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="32" show-word-limit />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item class="cg-item-text" :label="$t('sysUser.field.realName')" prop="realName" :size="$store.state.app.size" >
                 <el-input v-model="record.realName" name="realName" 
-                          type="text" :maxlength="32" show-word-limit 
+                          type="text" 
                           :label="$t('sysUser.field.realName')" :placeholder="$t('system.message.needValue')" 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="32" show-word-limit />
               </el-form-item>
             </el-col>
           </el-row>
@@ -55,9 +57,10 @@
             <el-col :span="12">
               <el-form-item class="cg-item-text" :label="$t('sysUser.field.idNumber')" prop="idNumber" :size="$store.state.app.size" >
                 <el-input v-model="record.idNumber" name="idNumber" 
-                          type="text" :maxlength="45" show-word-limit 
+                          type="text" 
                           :label="$t('sysUser.field.idNumber')" :placeholder="$t('system.message.needValue')" 
-                          :readonly="!isNew" resize autofocus validate-event />
+                          resize autofocus validate-event 
+                          :readonly="!isNew" :maxlength="45" show-word-limit />
               </el-form-item>
             </el-col>
           </el-row>
@@ -85,17 +88,19 @@
             <el-col :span="12">
               <el-form-item class="cg-item-tel cg-auto-focus" :label="$t('sysUser.field.mobilePhone')" prop="mobilePhone" :size="$store.state.app.size" >
                 <el-input v-model="record.mobilePhone" name="mobilePhone" 
-                          type="tel" :maxlength="32" show-word-limit 
-                          :label="$t('sysUser.field.mobilePhone')" :placeholder="$t('system.message.unknown')" clearable 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          type="tel" 
+                          :label="$t('sysUser.field.mobilePhone')" :placeholder="$t('system.message.unknown')" 
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="32" show-word-limit clearable />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item class="cg-item-email" :label="$t('sysUser.field.email')" prop="email" :size="$store.state.app.size" >
                 <el-input v-model="record.email" name="email" 
-                          type="email" :maxlength="50" show-word-limit 
-                          :label="$t('sysUser.field.email')" :placeholder="$t('system.message.unknown')" clearable 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          type="email" 
+                          :label="$t('sysUser.field.email')" :placeholder="$t('system.message.unknown')" 
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="50" show-word-limit clearable />
               </el-form-item>
             </el-col>
           </el-row>

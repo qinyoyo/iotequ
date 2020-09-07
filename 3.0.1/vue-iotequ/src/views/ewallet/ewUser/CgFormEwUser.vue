@@ -14,9 +14,10 @@
         <el-col :span="8">
           <el-form-item class="cg-item-text" :label="$t('ewUser.field.name')" prop="name" :size="$store.state.app.size" >
             <el-input v-model="record.name" name="name" 
-                      type="text" :maxlength="32" show-word-limit 
+                      type="text" 
                       :label="$t('ewUser.field.name')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="32" show-word-limit />
           </el-form-item>
         </el-col>
         <el-col :span="8">
@@ -35,9 +36,10 @@
         <el-col :span="16">
           <el-form-item class="cg-item-text" :label="$t('ewUser.field.idNo')" prop="idNo" :size="$store.state.app.size" >
             <el-input v-model="record.idNo" name="idNo" 
-                      type="text" :maxlength="45" show-word-limit 
+                      type="text" 
                       :label="$t('ewUser.field.idNo')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="45" show-word-limit />
           </el-form-item>
         </el-col>
       </el-row>
@@ -45,17 +47,19 @@
         <el-col :span="8">
           <el-form-item class="cg-item-text" :label="$t('ewUser.field.mobilePhone')" prop="mobilePhone" :size="$store.state.app.size" >
             <el-input v-model="record.mobilePhone" name="mobilePhone" 
-                      type="text" :maxlength="45" show-word-limit 
-                      :label="$t('ewUser.field.mobilePhone')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="text" 
+                      :label="$t('ewUser.field.mobilePhone')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="45" show-word-limit clearable />
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item class="cg-item-text" :label="$t('ewUser.field.email')" prop="email" :size="$store.state.app.size" >
             <el-input v-model="record.email" name="email" 
-                      type="text" :maxlength="45" show-word-limit 
-                      :label="$t('ewUser.field.email')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="text" 
+                      :label="$t('ewUser.field.email')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="45" show-word-limit clearable />
           </el-form-item>
         </el-col>
         <el-col :span="8">
@@ -76,9 +80,10 @@
         <el-col :span="8">
           <el-form-item class="cg-item-text" :label="$t('ewUser.field.memberGroup')" prop="memberGroup" :size="$store.state.app.size" >
             <el-input v-model="record.memberGroup" name="memberGroup" 
-                      type="text" :maxlength="45" show-word-limit 
-                      :label="$t('ewUser.field.memberGroup')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="text" 
+                      :label="$t('ewUser.field.memberGroup')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="45" show-word-limit clearable />
           </el-form-item>
         </el-col>
         <el-col :span="8">

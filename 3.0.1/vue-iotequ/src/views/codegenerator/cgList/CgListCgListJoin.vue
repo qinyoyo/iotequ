@@ -118,6 +118,7 @@ export default {
       showActionView: false,
       defaultOrder: ' asc',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: [],
       formPath: '/codegenerator/cgList/record',
       listLoading: false,
       rows: [],
@@ -214,6 +215,18 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        sons: null,
+        sonAlign: null,
+        titleField: null,
+        parentEntity: null,
+        treeShowEntity: null,
+        toolbarMode: null,
+        sortField: null,
+        spanEntities: null,
+        actionList: null,
+        headTitle: null,
+        name: null,
+        tableId: null,
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

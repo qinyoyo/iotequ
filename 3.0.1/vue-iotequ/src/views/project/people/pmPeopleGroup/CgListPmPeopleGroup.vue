@@ -118,6 +118,7 @@ export default {
       showActionView: false,
       defaultOrder: 'group_type,id',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: [],
       formPath: '/project/people/pmPeopleGroup/record',
       listLoading: false,
       rows: [],
@@ -210,6 +211,11 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        parent: null,
+        name: null,
+        groupType: null,
+        enabled: null,
+        groupId: null,
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

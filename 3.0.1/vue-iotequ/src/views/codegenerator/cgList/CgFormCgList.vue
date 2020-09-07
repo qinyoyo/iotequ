@@ -17,17 +17,19 @@
             <el-col :span="8">
               <el-form-item class="cg-item-text" :label="$t('cgList.field.name')" prop="name" :size="$store.state.app.size" >
                 <el-input v-model="record.name" name="name" 
-                          type="text" :maxlength="50" show-word-limit 
+                          type="text" 
                           :label="$t('cgList.field.name')" :placeholder="$t('system.message.needValue')" 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="50" show-word-limit />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item class="cg-item-text" :label="$t('cgList.field.path')" :title="$t('cgList.field.pathValid')" prop="path" :size="$store.state.app.size" >
                 <el-input v-model="record.path" name="path" 
-                          type="text" :maxlength="45" show-word-limit 
+                          type="text" 
                           :label="$t('cgList.field.path')" :placeholder="$t('system.message.needValue')" 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="45" show-word-limit />
               </el-form-item>
             </el-col>
           </el-row>
@@ -35,25 +37,28 @@
             <el-col :span="8">
               <el-form-item class="cg-item-text" :label="$t('cgList.field.icon')" prop="icon" :size="$store.state.app.size" >
                 <el-input v-model="record.icon" name="icon" 
-                          type="text" :maxlength="45" show-word-limit 
-                          :label="$t('cgList.field.icon')" :placeholder="$t('system.message.unknown')" clearable 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          type="text" 
+                          :label="$t('cgList.field.icon')" :placeholder="$t('system.message.unknown')" 
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="45" show-word-limit clearable />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item class="cg-item-text" :label="$t('cgList.field.headTitle')" prop="headTitle" :size="$store.state.app.size" >
                 <el-input v-model="record.headTitle" name="headTitle" 
-                          type="text" :maxlength="64" show-word-limit 
+                          type="text" 
                           :label="$t('cgList.field.headTitle')" :placeholder="$t('system.message.needValue')" 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="64" show-word-limit />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item class="cg-item-text" :label="$t('cgList.field.tagTitle')" prop="tagTitle" :size="$store.state.app.size" >
                 <el-input v-model="record.tagTitle" name="tagTitle" 
-                          type="text" :maxlength="45" show-word-limit 
+                          type="text" 
                           :label="$t('cgList.field.tagTitle')" :placeholder="$t('system.message.needValue')" 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="45" show-word-limit />
               </el-form-item>
             </el-col>
           </el-row>
@@ -84,9 +89,10 @@
           </el-form-item>
           <el-form-item class="cg-item-text" :label="$t('cgList.field.sonFields')" :title="$t('cgList.field.sonFieldsValid')" prop="sonFields" :size="$store.state.app.size" >
             <el-input v-model="record.sonFields" name="sonFields" 
-                      type="text" :maxlength="100" show-word-limit 
-                      :label="$t('cgList.field.sonFields')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="text" 
+                      :label="$t('cgList.field.sonFields')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="100" show-word-limit clearable />
           </el-form-item>
           <el-row :gutter="mobile?0:20">
             <el-col :span="12">
@@ -210,9 +216,10 @@
         <el-tab-pane :label="groupPaneTitle('cgList.title.groupCgListImages')">
           <el-form-item class="cg-item-text cg-auto-focus" :label="$t('cgList.field.images')" prop="images" :size="$store.state.app.size" >
             <el-input v-model="record.images" name="images" 
-                      type="text" :maxlength="200" show-word-limit 
-                      :label="$t('cgList.field.images')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="text" 
+                      :label="$t('cgList.field.images')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="200" show-word-limit clearable />
           </el-form-item>
           <el-form-item class="cg-item-checkbox" :label="$t('cgList.field.actionList')" prop="actionList" :size="$store.state.app.size" >
             <cg-checkbox v-model="record.actionList" name="actionList" :dictionary="dictionary.dictActionList" :readonly="isDetail"  />
@@ -226,9 +233,10 @@
             <el-col :span="16">
               <el-form-item class="cg-item-text" :label="$t('cgList.field.orderBy')" prop="orderBy" :size="$store.state.app.size" >
                 <el-input v-model="record.orderBy" name="orderBy" 
-                          type="text" :maxlength="100" show-word-limit 
-                          :label="$t('cgList.field.orderBy')" :placeholder="$t('system.message.unknown')" clearable 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          type="text" 
+                          :label="$t('cgList.field.orderBy')" :placeholder="$t('system.message.unknown')" 
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="100" show-word-limit clearable />
               </el-form-item>
             </el-col>
           </el-row>

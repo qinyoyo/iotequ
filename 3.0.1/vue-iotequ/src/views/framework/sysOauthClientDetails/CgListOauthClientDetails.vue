@@ -167,6 +167,7 @@ export default {
       showActionView: false,
       defaultOrder: 'client_id desc',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: [],
       formPath: '/framework/sysOauthClientDetails/record',
       listLoading: false,
       rows: [],
@@ -262,6 +263,14 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        autoapprove: null,
+        authorizedGrantTypes: null,
+        clientId: null,
+        secret: null,
+        scope: null,
+        authorities: null,
+        webServerRedirectUri: null,
+        decription: null,
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

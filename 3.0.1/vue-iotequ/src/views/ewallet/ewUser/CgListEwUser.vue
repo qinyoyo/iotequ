@@ -177,23 +177,23 @@
         </el-form-item>
         <el-form-item :label="$t('ewUser.field.name')" prop="name" :size="$store.state.app.size">
           <el-input v-model="queryRecord.name" type="text" name="name"
-                    :readonly="fixedQueryRecord.name?true:false" :label="$t('ewUser.field.name')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.name?true:false" :label="$t('ewUser.field.name')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('ewUser.field.idNo')" prop="idNo" :size="$store.state.app.size">
           <el-input v-model="queryRecord.idNo" type="text" name="idNo"
-                    :readonly="fixedQueryRecord.idNo?true:false" :label="$t('ewUser.field.idNo')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.idNo?true:false" :label="$t('ewUser.field.idNo')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('ewUser.field.mobilePhone')" prop="mobilePhone" :size="$store.state.app.size">
           <el-input v-model="queryRecord.mobilePhone" type="text" name="mobilePhone"
-                    :readonly="fixedQueryRecord.mobilePhone?true:false" :label="$t('ewUser.field.mobilePhone')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.mobilePhone?true:false" :label="$t('ewUser.field.mobilePhone')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('ewUser.field.email')" prop="email" :size="$store.state.app.size">
           <el-input v-model="queryRecord.email" type="text" name="email"
-                    :readonly="fixedQueryRecord.email?true:false" :label="$t('ewUser.field.email')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.email?true:false" :label="$t('ewUser.field.email')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('ewUser.field.memberGroup')" prop="memberGroup" :size="$store.state.app.size">
           <el-input v-model="queryRecord.memberGroup" type="text" name="memberGroup"
-                    :readonly="fixedQueryRecord.memberGroup?true:false" :label="$t('ewUser.field.memberGroup')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.memberGroup?true:false" :label="$t('ewUser.field.memberGroup')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('ewUser.field.activeSince')" prop="activeSince" :size="$store.state.app.size">
           <cg-date-picker v-model="queryRecord.activeSince" :title="$t('ewUser.field.activeSince')" name="activeSince" :align="mobile?'right':'center'" type="datetimerange" :picker-options="datePickerOptions()"
@@ -259,6 +259,7 @@ export default {
       showActionView: false,
       defaultOrder: 'user_no',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: ['isActive','name','idNo','mobilePhone','email','memberGroup','activeSince'],
       formPath: '/ewallet/ewUser/record',
       listLoading: false,
       rows: [],
@@ -353,8 +354,19 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        userNo: null,
         isActive: [],
+        name: null,
+        gender: null,
+        idType: null,
+        idNo: null,
+        mobilePhone: null,
+        email: null,
         wechatOpenid: [],
+        birthDate: null,
+        memberGroup: null,
+        activeSince: null,
+        expireAt: null,
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

@@ -126,6 +126,7 @@ export default {
       showActionView: false,
       defaultOrder: 'group_id,user_id',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: [],
       formPath: '/project/people/pmPeople/record',
       listLoading: false,
       rows: [],
@@ -218,6 +219,12 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        groupId: null,
+        userId: null,
+        realName: null,
+        sex: null,
+        orgCode: null,
+        mobilePhone: null,
       }, this.fixedQueryRecord)
     },
     getJoinFields(field,rows) {

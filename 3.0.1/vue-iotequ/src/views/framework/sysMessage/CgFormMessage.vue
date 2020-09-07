@@ -27,25 +27,28 @@
         <el-col :span="12">
           <el-form-item class="cg-item-text" :label="$t('sysMessage.field.receiverName')" prop="receiverName" :size="$store.state.app.size" >
             <el-input v-model="record.receiverName" name="receiverName" 
-                      type="text" :maxlength="50" show-word-limit 
-                      :label="$t('sysMessage.field.receiverName')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="text" 
+                      :label="$t('sysMessage.field.receiverName')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="50" show-word-limit clearable />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item class="cg-item-text" :label="$t('sysMessage.field.senderName')" prop="senderName" :size="$store.state.app.size" >
             <el-input v-model="record.senderName" name="senderName" 
-                      type="text" :maxlength="50" show-word-limit 
-                      :label="$t('sysMessage.field.senderName')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="text" 
+                      :label="$t('sysMessage.field.senderName')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="50" show-word-limit clearable />
           </el-form-item>
         </el-col>
       </el-row>
       <el-form-item class="cg-item-text" :label="$t('sysMessage.field.title')" prop="title" :size="$store.state.app.size" >
         <el-input v-model="record.title" name="title" 
-                  type="text" :maxlength="100" show-word-limit 
+                  type="text" 
                   :label="$t('sysMessage.field.title')" :placeholder="$t('system.message.needValue')" 
-                  :readonly="isDetail" resize autofocus validate-event />
+                  resize autofocus validate-event 
+                  :readonly="isDetail" :maxlength="100" show-word-limit />
       </el-form-item>
       <el-form-item class="cg-item-textarea" :label="$t('sysMessage.field.content')" prop="content" :size="$store.state.app.size" >
         <el-input v-model="record.content" name="content" 

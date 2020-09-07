@@ -87,11 +87,11 @@
       <div v-show="!queryRecord.search">
         <el-form-item :label="$t('ewDevice.field.deviceNo')" prop="deviceNo" :size="$store.state.app.size">
           <el-input v-model="queryRecord.deviceNo" type="text" name="deviceNo"
-                    :readonly="fixedQueryRecord.deviceNo?true:false" :label="$t('ewDevice.field.deviceNo')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.deviceNo?true:false" :label="$t('ewDevice.field.deviceNo')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('ewDevice.field.shopId')" prop="shopId" :size="$store.state.app.size">
           <el-input v-model="queryRecord.shopId" type="text" name="shopId"
-                    :readonly="fixedQueryRecord.shopId?true:false" :label="$t('ewDevice.field.shopId')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.shopId?true:false" :label="$t('ewDevice.field.shopId')" clearable resize autofocus/>
         </el-form-item>
       </div>
     </cg-query-condition>
@@ -153,6 +153,7 @@ export default {
       showActionView: false,
       defaultOrder: 'id',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: ['deviceNo','shopId'],
       formPath: '/ewallet/ewDevice/record',
       listLoading: false,
       rows: [],
@@ -244,6 +245,9 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        deviceNo: null,
+        shopId: null,
+        privilegeList: null,
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

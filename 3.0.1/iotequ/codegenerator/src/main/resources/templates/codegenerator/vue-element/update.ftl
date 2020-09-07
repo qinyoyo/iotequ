@@ -139,9 +139,10 @@
       <#if !isEmpty(f.itemProperties!'')>
       ${HD}<#nt>          ${f.itemProperties?trim}
       </#if>
-      ${HD}<#nt>          <#if f.formatter?? && (f.formatter=='mobile' || f.formatter=='fixed')><@WF f "type" "tel"/><#else><@WF f "type" "${f.showType}"/></#if><#if f.length?? && f.length gt 0><@WF f ":maxlength" f.length?c+""/><@WF f "show-word-limit"/></#if>
-      ${HD}<#nt>          <@WF f ":label" "$t('"+f.title+"')"/><@WF f ":placeholder" "$t('system.message."+(f.mustInput || !f.isNull)?string("needValue","unknown")+"')"/><#if f.isNull && !f.mustInput><@WF f "clearable"/></#if><#if f.faIcon?? && f.faIcon?trim!=''><@WF f "prefix-icon" f.faIcon/></#if>
-      ${HD}<#nt>          <@READONLY f /><#if f.showType == 'password'><@WF f "show-password"/></#if><@WF f "resize"/><@WF f "autofocus"/><@WF f "validate-event"/><#if !f.slotTemplates?? || f.slotTemplates?trim==''>/</#if>>
+      ${HD}<#nt>          <#if f.formatter?? && (f.formatter=='mobile' || f.formatter=='fixed')><@WF f "type" "tel"/><#else><@WF f "type" "${f.showType}"/></#if>
+      ${HD}<#nt>          <@WF f ":label" "$t('"+f.title+"')"/><@WF f ":placeholder" "$t('system.message."+(f.mustInput || !f.isNull)?string("needValue","unknown")+"')"/><#if f.faIcon?? && f.faIcon?trim!=''><@WF f "prefix-icon" f.faIcon/></#if>
+      ${HD}<#nt>          <#if f.showType == 'password'><@WF f "show-password"/></#if><@WF f "resize"/><@WF f "autofocus"/><@WF f "validate-event"/>
+      ${HD}<#nt>          <#if fastMultiJoinField?? && fastMultiJoinField!=''> clearable @clear="clearJoinValues(myself,'${fastMultiJoinField}Join')"<#else><@READONLY f /><#if f.length?? && f.length gt 0><@WF f ":maxlength" f.length?c+""/><@WF f "show-word-limit"/></#if><#if f.isNull && !f.mustInput><@WF f "clearable"/></#if></#if><#if !f.slotTemplates?? || f.slotTemplates?trim==''>/</#if>>
 <#if f.slotTemplates?? && f.slotTemplates?trim!=''>
 ${f.slotTemplates}
       ${HD}<#nt></el-input>

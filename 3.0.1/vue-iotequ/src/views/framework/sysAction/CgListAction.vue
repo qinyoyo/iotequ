@@ -86,15 +86,15 @@
       <div>
         <el-form-item :label="$t('sysAction.field.note')" prop="note" :size="$store.state.app.size">
           <el-input v-model="queryRecord.note" type="text" name="note"
-                    :readonly="fixedQueryRecord.note?true:false" :label="$t('sysAction.field.note')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.note?true:false" :label="$t('sysAction.field.note')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('sysAction.field.value')" prop="value" :size="$store.state.app.size">
           <el-input v-model="queryRecord.value" type="text" name="value"
-                    :readonly="fixedQueryRecord.value?true:false" :label="$t('sysAction.field.value')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.value?true:false" :label="$t('sysAction.field.value')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('sysAction.field.params')" prop="params" :size="$store.state.app.size">
           <el-input v-model="queryRecord.params" type="text" name="params"
-                    :readonly="fixedQueryRecord.params?true:false" :label="$t('sysAction.field.params')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.params?true:false" :label="$t('sysAction.field.params')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('sysAction.field.method')" prop="method" :size="$store.state.app.size">
           <cg-select v-model="queryRecord.method" :dictionary="dictionary.dictMethod"
@@ -160,6 +160,7 @@ export default {
       showActionView: false,
       defaultOrder: 'value',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: ['note','value','params','method'],
       formPath: '/framework/sysAction/record',
       listLoading: false,
       rows: [],
@@ -268,6 +269,10 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        note: null,
+        value: null,
+        params: null,
+        method: null,
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

@@ -138,6 +138,7 @@ export default {
       showActionView: false,
       defaultOrder: 'id desc',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: [],
       formPath: '/attendance/shift/adShift/record',
       listLoading: false,
       rows: [],
@@ -229,6 +230,12 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        shiftId: null,
+        name: null,
+        adMode: null,
+        startDate: null,
+        endDate: null,
+        description: null,
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

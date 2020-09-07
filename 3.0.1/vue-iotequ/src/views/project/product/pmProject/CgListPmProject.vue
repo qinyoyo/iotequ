@@ -111,7 +111,7 @@
       <div v-show="!queryRecord.search">
         <el-form-item :label="$t('pmProject.field.name')" prop="name" :size="$store.state.app.size">
           <el-input v-model="queryRecord.name" type="text" name="name"
-                    :readonly="fixedQueryRecord.name?true:false" :label="$t('pmProject.field.name')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.name?true:false" :label="$t('pmProject.field.name')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('pmProject.field.flowState')" prop="flowState" :size="$store.state.app.size">
           <cg-select v-model="queryRecord.flowState" :dictionary="dictionary.dictFlowState"
@@ -188,6 +188,7 @@ export default {
       showActionView: false,
       defaultOrder: 'flow_register_time desc',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: ['name','flowState','type','customer'],
       formPath: '/project/product/pmProject/record',
       listLoading: false,
       rows: [],
@@ -340,6 +341,13 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        name: null,
+        flowState: null,
+        type: null,
+        flowRegisterTime: null,
+        customer: null,
+        registerByName: null,
+        nextOperatorName: null,
       }, this.fixedQueryRecord)
     },
     getJoinFields(field,rows) {

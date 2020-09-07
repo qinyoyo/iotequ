@@ -115,11 +115,11 @@
         </el-form-item>
         <el-form-item :label="$t('')" prop="listName" :size="$store.state.app.size">
           <el-input v-model="queryRecord.listName" type="text" name="listName"
-                    :readonly="fixedQueryRecord.listName?true:false" :label="$t('')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.listName?true:false" :label="$t('')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('cgList.field.name')" prop="name" :size="$store.state.app.size">
           <el-input v-model="queryRecord.name" type="text" name="name"
-                    :readonly="fixedQueryRecord.name?true:false" :label="$t('cgList.field.name')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.name?true:false" :label="$t('cgList.field.name')" clearable resize autofocus/>
         </el-form-item>
       </div>
     </cg-query-condition>
@@ -181,6 +181,7 @@ export default {
       showActionView: false,
       defaultOrder: 'name',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: ['tableId','listName','name'],
       formPath: '/codegenerator/cgList/record',
       listLoading: false,
       rows: [],
@@ -279,6 +280,25 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        sons: null,
+        sonAlign: null,
+        titleField: null,
+        parentEntity: null,
+        treeShowEntity: null,
+        toolbarMode: null,
+        spanEntities: null,
+        actionList: null,
+        id: null,
+        listId: null,
+        tableId: null,
+        listName: null,
+        name: null,
+        headTitle: null,
+        tagTitle: null,
+        pagination: null,
+        editInline: null,
+        sortField: null,
+        multiple: null,
       }, this.fixedQueryRecord)
     },
     groupFields({ row, column, rowIndex, columnIndex }) {

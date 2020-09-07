@@ -97,15 +97,15 @@
       <div v-show="!queryRecord.search">
         <el-form-item :label="$t('sysDataDict.field.dict')" prop="dict" :size="$store.state.app.size">
           <el-input v-model="queryRecord.dict" type="text" name="dict"
-                    :readonly="fixedQueryRecord.dict?true:false" :label="$t('sysDataDict.field.dict')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.dict?true:false" :label="$t('sysDataDict.field.dict')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('sysDataDict.field.code')" prop="code" :size="$store.state.app.size">
           <el-input v-model="queryRecord.code" type="text" name="code"
-                    :readonly="fixedQueryRecord.code?true:false" :label="$t('sysDataDict.field.code')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.code?true:false" :label="$t('sysDataDict.field.code')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('sysDataDict.field.text')" prop="text" :size="$store.state.app.size">
           <el-input v-model="queryRecord.text" type="text" name="text"
-                    :readonly="fixedQueryRecord.text?true:false" :label="$t('sysDataDict.field.text')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.text?true:false" :label="$t('sysDataDict.field.text')" clearable resize autofocus/>
         </el-form-item>
       </div>
     </cg-query-condition>
@@ -169,6 +169,7 @@ export default {
       showActionView: false,
       defaultOrder: 'dict,order_num',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: ['dict','code','text'],
       formPath: '/framework/sysDataDict/record',
       listLoading: false,
       rows: [],
@@ -259,6 +260,9 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        dict: null,
+        code: null,
+        text: null,
       }, this.fixedQueryRecord)
     },
     groupFields({ row, column, rowIndex, columnIndex }) {

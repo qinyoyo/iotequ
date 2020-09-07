@@ -74,11 +74,11 @@
       <div>
         <el-form-item :label="$t('sysOrg.field.name')" prop="name" :size="$store.state.app.size">
           <el-input v-model="queryRecord.name" type="text" name="name"
-                    :readonly="fixedQueryRecord.name?true:false" :label="$t('sysOrg.field.name')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.name?true:false" :label="$t('sysOrg.field.name')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('sysOrg.field.phone')" prop="phone" :size="$store.state.app.size">
           <el-input v-model="queryRecord.phone" type="text" name="phone"
-                    :readonly="fixedQueryRecord.phone?true:false" :label="$t('sysOrg.field.phone')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.phone?true:false" :label="$t('sysOrg.field.phone')" clearable resize autofocus/>
         </el-form-item>
       </div>
     </cg-query-condition>
@@ -140,6 +140,7 @@ export default {
       showActionView: false,
       defaultOrder: 'org_code',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: ['name','phone'],
       formPath: '/framework/sysOrg/record',
       listLoading: false,
       rows: [],
@@ -233,6 +234,11 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        name: null,
+        parent: null,
+        phone: null,
+        fax: null,
+        roleList: null,
       }, this.fixedQueryRecord)
     },
     doAction(action, options) {

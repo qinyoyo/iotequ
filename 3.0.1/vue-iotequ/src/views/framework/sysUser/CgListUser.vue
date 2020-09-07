@@ -152,11 +152,11 @@
         </el-form-item>
         <el-form-item :label="$t('sysUser.field.name')" prop="name" :size="$store.state.app.size">
           <el-input v-model="queryRecord.name" type="text" name="name"
-                    :readonly="fixedQueryRecord.name?true:false" :label="$t('sysUser.field.name')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.name?true:false" :label="$t('sysUser.field.name')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('sysUser.field.realName')" prop="realName" :size="$store.state.app.size">
           <el-input v-model="queryRecord.realName" type="text" name="realName"
-                    :readonly="fixedQueryRecord.realName?true:false" :label="$t('sysUser.field.realName')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.realName?true:false" :label="$t('sysUser.field.realName')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('sysUser.field.sex')" prop="sex" :size="$store.state.app.size">
           <cg-select v-model="queryRecord.sex" :dictionary="dictionary.dictSex"
@@ -164,7 +164,7 @@
         </el-form-item>
         <el-form-item :label="$t('sysUser.field.mobilePhone')" prop="mobilePhone" :size="$store.state.app.size">
           <el-input v-model="queryRecord.mobilePhone" type="text" name="mobilePhone"
-                    :readonly="fixedQueryRecord.mobilePhone?true:false" :label="$t('sysUser.field.mobilePhone')" clearable resize autofocus />
+                    :readonly="fixedQueryRecord.mobilePhone?true:false" :label="$t('sysUser.field.mobilePhone')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('sysUser.field.idType')" prop="idType" :size="$store.state.app.size">
           <cg-select v-model="queryRecord.idType" :dictionary="dictionary.dictIdType"
@@ -238,6 +238,7 @@ export default {
       showActionView: false,
       defaultOrder: 'org_code,real_name',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: ['orgCode','name','realName','sex','mobilePhone','idType','birthDate','roleList'],
       formPath: '/framework/sysUser/record',
       listLoading: false,
       rows: [],
@@ -353,6 +354,18 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        orgPrivilege: null,
+        orgCode: null,
+        icon: null,
+        name: null,
+        realName: null,
+        sex: null,
+        mobilePhone: null,
+        email: null,
+        idType: null,
+        birthDate: null,
+        roleList: null,
+        regTime: null,
         wechatOpenid: [],
       }, this.fixedQueryRecord)
     },

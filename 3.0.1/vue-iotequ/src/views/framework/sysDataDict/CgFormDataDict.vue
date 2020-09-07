@@ -9,17 +9,19 @@
         <el-col :span="12">
           <el-form-item class="cg-item-text cg-auto-focus" :label="$t('sysDataDict.field.dict')" prop="dict" :size="$store.state.app.size" >
             <el-input v-model="record.dict" name="dict" 
-                      type="text" :maxlength="45" show-word-limit 
+                      type="text" 
                       :label="$t('sysDataDict.field.dict')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="45" show-word-limit />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item class="cg-item-text" :label="$t('sysDataDict.field.code')" prop="code" :size="$store.state.app.size" >
             <el-input v-model="record.code" name="code" 
-                      type="text" :maxlength="45" show-word-limit 
+                      type="text" 
                       :label="$t('sysDataDict.field.code')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="45" show-word-limit />
           </el-form-item>
         </el-col>
       </el-row>
@@ -28,9 +30,10 @@
           <el-form-item class="cg-item-text" :label="$t('sysDataDict.field.text')" prop="text" :size="$store.state.app.size" >
             <el-input v-model="record.text" name="text" 
                       v-i18n-view
-                      type="text" :maxlength="100" show-word-limit 
+                      type="text" 
                       :label="$t('sysDataDict.field.text')" :placeholder="$t('system.message.needValue')" 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="100" show-word-limit />
           </el-form-item>
         </el-col>
         <el-col :span="12">

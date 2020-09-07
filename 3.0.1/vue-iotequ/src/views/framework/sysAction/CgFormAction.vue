@@ -7,21 +7,24 @@
              hide-required-asterisk >
       <el-form-item class="cg-item-text cg-auto-focus" :label="$t('sysAction.field.note')" prop="note" :size="$store.state.app.size" >
         <el-input v-model="record.note" name="note" 
-                  type="text" :maxlength="200" show-word-limit 
-                  :label="$t('sysAction.field.note')" :placeholder="$t('system.message.unknown')" clearable 
-                  :readonly="isDetail" resize autofocus validate-event />
+                  type="text" 
+                  :label="$t('sysAction.field.note')" :placeholder="$t('system.message.unknown')" 
+                  resize autofocus validate-event 
+                  :readonly="isDetail" :maxlength="200" show-word-limit clearable />
       </el-form-item>
       <el-form-item class="cg-item-text" :label="$t('sysAction.field.value')" prop="value" :size="$store.state.app.size" >
         <el-input v-model="record.value" name="value" 
-                  type="text" :maxlength="100" show-word-limit 
+                  type="text" 
                   :label="$t('sysAction.field.value')" :placeholder="$t('system.message.needValue')" 
-                  :readonly="isDetail" resize autofocus validate-event />
+                  resize autofocus validate-event 
+                  :readonly="isDetail" :maxlength="100" show-word-limit />
       </el-form-item>
       <el-form-item class="cg-item-text" :label="$t('sysAction.field.params')" prop="params" :size="$store.state.app.size" >
         <el-input v-model="record.params" name="params" 
-                  type="text" :maxlength="100" show-word-limit 
-                  :label="$t('sysAction.field.params')" :placeholder="$t('system.message.unknown')" clearable 
-                  :readonly="isDetail" resize autofocus validate-event />
+                  type="text" 
+                  :label="$t('sysAction.field.params')" :placeholder="$t('system.message.unknown')" 
+                  resize autofocus validate-event 
+                  :readonly="isDetail" :maxlength="100" show-word-limit clearable />
       </el-form-item>
       <el-form-item class="cg-item-checkbox" :label="$t('sysAction.field.method')" prop="method" :size="$store.state.app.size" >
         <cg-checkbox v-model="record.method" name="method" :dictionary="dictionary.dictMethod" :readonly="isDetail"  />

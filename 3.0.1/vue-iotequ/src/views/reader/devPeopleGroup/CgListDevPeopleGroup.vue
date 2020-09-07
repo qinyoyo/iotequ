@@ -128,6 +128,7 @@ export default {
       showActionView: false,
       defaultOrder: 'id desc',
       queryRecord: this.initialQueryRecord(),
+      queryRecordFields: [],
       formPath: '/reader/devPeopleGroup/record',
       listLoading: false,
       rows: [],
@@ -215,6 +216,8 @@ export default {
     },
     initialQueryRecord() {
       return Object.assign({
+        realName: null,
+        orgCode: null,
       }, this.fixedQueryRecord)
     },
     getJoinFields(field,rows) {

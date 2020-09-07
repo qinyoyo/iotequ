@@ -11,25 +11,28 @@
             <el-col :span="8">
               <el-form-item class="cg-item-text cg-auto-focus" :label="$t('cgField.field.title')" :title="$t('cgField.field.titleValid')" prop="title" :size="$store.state.app.size" >
                 <el-input v-model="record.title" name="title" 
-                          type="text" :maxlength="32" show-word-limit 
+                          type="text" 
                           :label="$t('cgField.field.title')" :placeholder="$t('system.message.needValue')" 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="32" show-word-limit />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item class="cg-item-text" :label="$t('cgField.field.name')" :title="$t('cgField.field.nameValid')" prop="name" :size="$store.state.app.size" >
                 <el-input v-model="record.name" name="name" 
-                          type="text" :maxlength="32" show-word-limit 
-                          :label="$t('cgField.field.name')" :placeholder="$t('system.message.unknown')" clearable 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          type="text" 
+                          :label="$t('cgField.field.name')" :placeholder="$t('system.message.unknown')" 
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="32" show-word-limit clearable />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item class="cg-item-text" :label="$t('cgField.field.entityName')" :title="$t('cgField.field.entityNameValid')" prop="entityName" :size="$store.state.app.size" >
                 <el-input v-model="record.entityName" name="entityName" 
-                          type="text" :maxlength="45" show-word-limit 
+                          type="text" 
                           :label="$t('cgField.field.entityName')" :placeholder="$t('system.message.needValue')" 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="45" show-word-limit />
               </el-form-item>
             </el-col>
           </el-row>
@@ -56,62 +59,70 @@
           </el-row>
           <el-form-item v-show="record.showType!='html'" class="cg-item-text" :label="$t('cgField.field.defaultValue')" :title="$t('cgField.field.defaultValueValid')" prop="defaultValue" :size="$store.state.app.size" >
             <el-input v-model="record.defaultValue" name="defaultValue" 
-                      type="text" :maxlength="200" show-word-limit 
-                      :label="$t('cgField.field.defaultValue')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event >
+                      type="text" 
+                      :label="$t('cgField.field.defaultValue')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="200" show-word-limit clearable >
                   <cg-select v-model="defaultPrepend" slot="prepend" style="width: 100px" :dictionary="dictionaryJsJava" />
             </el-input>
           </el-form-item>
           <el-form-item v-show="record.showType!='html'" :label="getLabel('formatter')" :title="getTitle('formatter')" class="cg-item-text" prop="formatter" :size="$store.state.app.size" >
             <el-input v-model="record.formatter" name="formatter" 
-                      type="text" :maxlength="100" show-word-limit 
-                      :label="$t('cgField.field.formatter')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event >
+                      type="text" 
+                      :label="$t('cgField.field.formatter')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="100" show-word-limit clearable >
                   <cg-select v-model="formatterPrepend" slot="prepend" style="width: 100px"  :dictionary="dictionaryJs" />
             </el-input>
           </el-form-item>
           <el-form-item v-show="record.showType!='html'" :label="getLabel('validExpression')" :title="getTitle('validExpression')" class="cg-item-text" prop="validExpression" :size="$store.state.app.size" >
             <el-input v-model="record.validExpression" name="validExpression" 
-                      type="text" :maxlength="200" show-word-limit 
-                      :label="$t('cgField.field.validExpression')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event >
+                      type="text" 
+                      :label="$t('cgField.field.validExpression')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="200" show-word-limit clearable >
               <el-button slot="append" icon="el-icon-circle-check" @click="testValidExpression()" />
             </el-input>
           </el-form-item>
           <el-form-item :label="getLabel('validTitle')" :title="getTitle('validTitle')" class="cg-item-text" prop="validTitle" :size="$store.state.app.size" >
             <el-input v-model="record.validTitle" name="validTitle" 
-                      type="text" :maxlength="1000" show-word-limit 
-                      :label="$t('cgField.field.validTitle')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="text" 
+                      :label="$t('cgField.field.validTitle')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="1000" show-word-limit clearable />
           </el-form-item>
         </el-tab-pane>
         <el-tab-pane :label="groupPaneTitle('cgField.title.groupCgFieldDictTable')">
           <el-form-item :label="getLabel('dictTable')" :title="getTitle('dictTable')" class="cg-item-text cg-auto-focus" prop="dictTable" :size="$store.state.app.size" >
             <el-input v-model="record.dictTable" name="dictTable" 
                       :readonly="isDetail || joinMode" :clearable="selectMode" @change="dictTableChange"
-                      type="text" :maxlength="200" show-word-limit 
+                      type="text" 
                       :label="$t('cgField.field.dictTable')" :placeholder="$t('system.message.unknown')" 
-                      resize autofocus validate-event >
+                      resize autofocus validate-event 
+                      :maxlength="200" show-word-limit >
               <cg-select slot="prepend" v-model="record.dictTable" nullText="输入列表或sql" :clearable="selectMode" style="width:300px" :dictionary="dictDictTable()" :allow-create="selectMode"/>
             </el-input>
           </el-form-item>
           <el-form-item :label="getLabel('dictField')" :title="getTitle('dictField')" class="cg-item-text" prop="dictField" :size="$store.state.app.size" >
             <el-input v-model="record.dictField" name="dictField" 
-                      type="text" :maxlength="1000" show-word-limit 
-                      :label="$t('cgField.field.dictField')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="text" 
+                      :label="$t('cgField.field.dictField')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="1000" show-word-limit clearable />
           </el-form-item>
           <el-form-item :label="getLabel('dictText')" :title="getTitle('dictText')" class="cg-item-text" prop="dictText" :size="$store.state.app.size" >
             <el-input v-model="record.dictText" name="dictText" 
-                      type="text" :maxlength="1000" show-word-limit 
-                      :label="$t('cgField.field.dictText')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="text" 
+                      :label="$t('cgField.field.dictText')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="1000" show-word-limit clearable />
           </el-form-item>
           <el-form-item v-show="joinMode || useSelect" :label="getLabel('dynaCondition')" :title="getTitle('dynaCondition')" class="cg-item-text" prop="dynaCondition" :size="$store.state.app.size" >
             <el-input v-model="record.dynaCondition" name="dynaCondition" 
-                      type="text" :maxlength="200" show-word-limit 
-                      :label="$t('cgField.field.dynaCondition')" :placeholder="$t('system.message.unknown')" clearable 
-                      :readonly="isDetail" resize autofocus validate-event />
+                      type="text" 
+                      :label="$t('cgField.field.dynaCondition')" :placeholder="$t('system.message.unknown')" 
+                      resize autofocus validate-event 
+                      :readonly="isDetail" :maxlength="200" show-word-limit clearable />
           </el-form-item>
           <el-row :gutter="mobile?0:20">
             <el-col :span="8">
@@ -122,17 +133,19 @@
             <el-col :span="8">
               <el-form-item v-show="useSelect" class="cg-item-text" :label="$t('cgField.field.dictParent')" :title="$t('cgField.field.dictParentValid')" prop="dictParent" :size="$store.state.app.size" >
                 <el-input v-model="record.dictParent" name="dictParent" 
-                          type="text" :maxlength="100" show-word-limit 
-                          :label="$t('cgField.field.dictParent')" :placeholder="$t('system.message.unknown')" clearable 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          type="text" 
+                          :label="$t('cgField.field.dictParent')" :placeholder="$t('system.message.unknown')" 
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="100" show-word-limit clearable />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item v-show="useSelect" class="cg-item-text" :label="$t('cgField.field.dictParentField')" :title="$t('cgField.field.dictParentFieldValid')" prop="dictParentField" :size="$store.state.app.size" >
                 <el-input v-model="record.dictParentField" name="dictParentField" 
-                          type="text" :maxlength="100" show-word-limit 
-                          :label="$t('cgField.field.dictParentField')" :placeholder="$t('system.message.unknown')" clearable 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          type="text" 
+                          :label="$t('cgField.field.dictParentField')" :placeholder="$t('system.message.unknown')" 
+                          resize autofocus validate-event 
+                          :readonly="isDetail" :maxlength="100" show-word-limit clearable />
               </el-form-item>
             </el-col>
           </el-row>
@@ -170,16 +183,18 @@
               <el-form-item class="cg-item-text" :label="$t('cgField.field.numericPrecision')" prop="numericPrecision" :size="$store.state.app.size" >
                 <el-input v-model="record.numericPrecision" name="numericPrecision" 
                           type="text" 
-                          :label="$t('cgField.field.numericPrecision')" :placeholder="$t('system.message.unknown')" clearable 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          :label="$t('cgField.field.numericPrecision')" :placeholder="$t('system.message.unknown')" 
+                          resize autofocus validate-event 
+                          :readonly="isDetail" clearable />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item class="cg-item-text" :label="$t('cgField.field.numericScale')" prop="numericScale" :size="$store.state.app.size" >
                 <el-input v-model="record.numericScale" name="numericScale" 
                           type="text" 
-                          :label="$t('cgField.field.numericScale')" :placeholder="$t('system.message.unknown')" clearable 
-                          :readonly="isDetail" resize autofocus validate-event />
+                          :label="$t('cgField.field.numericScale')" :placeholder="$t('system.message.unknown')" 
+                          resize autofocus validate-event 
+                          :readonly="isDetail" clearable />
               </el-form-item>
             </el-col>
           </el-row>
