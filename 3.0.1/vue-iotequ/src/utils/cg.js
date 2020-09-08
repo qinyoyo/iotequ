@@ -933,6 +933,12 @@ export function jump2Url(url, params, $router) {
   }
 }
 
+export function displayTabPane(tabsObject, paneIndex, show) {
+  if (tabsObject && tabsObject.$children && tabsObject.$children.length>0 && tabsObject.$children[0].$refs && 
+      tabsObject.$children[0].$refs.tabs && tabsObject.$children[0].$refs.tabs.length > paneIndex) {
+    tabsObject.$children[0].$refs.tabs[paneIndex].style.display = (show ? 'inline-block' : 'none')
+  }  
+}
 export default {
   dateAdd: time.dateAdd,
   timeRange: time.timeRange,
@@ -981,5 +987,6 @@ export default {
   joinHeight,
   focusField,
   autoFocus,
-  jump2Url
+  jump2Url,
+  displayTabPane
 }

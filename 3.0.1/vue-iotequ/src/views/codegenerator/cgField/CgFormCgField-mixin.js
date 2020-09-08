@@ -70,13 +70,8 @@ export default {
         : (this.dictionary.dictDataDict ? this.dictionary.dictDataDict : [])
     },
     checkAndSetDomProperties() {
-      if (this.$refs.tabs && this.$refs.tabs.$children[0].$refs.tabs && this.$refs.tabs.$children[0].$refs.tabs.length >=3) {
-        this.$refs.tabs.$children[0].$refs.tabs[1].style.display =
-          this.joinMode || this.selectMode ? 'inline-block' : 'none'
-        this.$refs.tabs.$children[0].$refs.tabs[2].style.display =
-          (this.record.showType !== 'html' && this.record.name && this.record.name.indexOf(':') < 0
-            ? 'inline-block' : 'none')
-      }
+      this.displayTabPane(this.$refs.tabs, 1, this.joinMode || this.selectMode)
+      this.displayTabPane(this.$refs.tabs, 2, this.record.showType !== 'html' && this.record.name && this.record.name.indexOf(':') < 0)
     },
     getActionParams(action, options, id) {
       return {
