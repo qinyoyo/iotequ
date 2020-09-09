@@ -320,9 +320,10 @@ public class AdUtil {
 	 private static List<AdOrg> getAdOrgList() {
 		List<AdOrg> list=Util.getBean(AdOrgDao.class).listBy(null,"org_code"); 
 		for (AdOrg me:list) {
-			Integer pid=me.getParent(), shift=me.getShiftId(), deviation=me.getDeviation(),
+			Integer pid=me.getParent(), shift=me.getShiftId(), deviation=me.getDeviation(), managerOrgCode = me.getManagerOrgCode(),
 					floatLimit=me.getFloatLimit(),absentLimit=me.getAbsentLimit(),freeWorkLimit=me.getFreeWorkLimit();
-			while (pid!=null && pid!=0 && (shift==null || deviation==null || floatLimit==null ||
+			String  manager = me.getManager(), hr = me.getHr(), managerName = me.getManagerName(), hrName = me.getHrName();
+			while (pid!=null && pid!=0 && (shift==null || deviation==null || floatLimit==null || Util.isEmpty(manager) || Util.isEmpty(hr) ||
 					absentLimit==null || floatLimit==null )) {
 				AdOrg parent=null;
 				for (AdOrg p : list) {
@@ -335,6 +336,15 @@ public class AdUtil {
 					if (floatLimit==null) floatLimit=parent.getFloatLimit();
 					if (absentLimit==null) absentLimit=parent.getAbsentLimit();
 					if (freeWorkLimit==null) freeWorkLimit=parent.getFreeWorkLimit();
+					if (Util.isEmpty(manager)) {
+						manager=parent.getManager();
+						managerOrgCode = parent.getManagerOrgCode();
+						managerName = parent.getManagerName();
+					}
+					if (Util.isEmpty(hr)) {
+						hr = parent.getHr();
+						hrName = parent.getHrName();
+					}
 				} else pid=null;
 			}
 			me.setShiftId(shift==null?0:shift);
@@ -342,6 +352,11 @@ public class AdUtil {
 			me.setFloatLimit(floatLimit==null?0:floatLimit);
 			me.setAbsentLimit(absentLimit==null?0:absentLimit);
 			me.setFreeWorkLimit(freeWorkLimit==null?0:freeWorkLimit);
+			me.setManager(manager);
+			me.setManagerName(managerName);
+			me.setManagerOrgCode(managerOrgCode);
+			me.setHr(hr);
+			me.setHrName(hrName);
 		}	
 		return list;
 	}
@@ -704,26 +719,16 @@ public class AdUtil {
 	
 	//获得员工的审批信息
 	public static Object getManageInfo(String id,String field,boolean getOrg) {
-		Integer orgCode=null;
 		try {
-			orgCode = SqlUtil.sqlQueryInteger(false,"select org_code as org from sys_user where id=?",id);
-		} catch (Exception e) {	}
-		while (orgCode!=null && orgCode!=0) {
-			String sql="SELECT ad_org.manager,ad_org.org_code as org,sys_org.parent,ad_org.hr FROM ad_org JOIN sys_org ON ad_org.org_code=sys_org.org_code where ad_org.org_code=?";
-			List<Map<String, Object>> list=null;
-			try {
-				list = SqlUtil.sqlQuery(false,sql, orgCode);
-			} catch (Exception e) {	}
-			if (list!=null && list.size()>0) {
-				Object o=list.get(0).get(field);
-				if (!Util.isEmpty(o) && ("hr".equals(field) || !o.toString().equals(id))) {    //  manager排除本人,hr不排除本人
-					if (getOrg)
-						return (Integer)list.get(0).get("org");
-					else
-						return o.toString();
-				}
-				orgCode = (Integer)list.get(0).get("parent");
-			} else break;
+			Integer orgCode = SqlUtil.sqlQueryInteger(false,"select org_code as org from sys_user where id=?",id);
+			if (orgCode!=null) {
+				AdOrg org = findOrg(orgCode);
+				if (org==null) return null;
+				if ("hr".equals(field)) return org.getHr();
+				else if (getOrg) return org.getManagerOrgCode();
+				else return org.getManager();
+			}
+		} catch (Exception e) {
 		}
 		return null;
 	}

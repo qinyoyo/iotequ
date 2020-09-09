@@ -25,11 +25,11 @@ export default  {
             { required: true, message: vueObject.$t('system.message.needValue') + ':' + vueObject.$t('sysRole.field.code'), trigger: 'blur' },
             {
                 validator: (rule, value, callback) => {
-                  if (!value) callback()
-                  else {
-                    if (!/^[a-z][a-zA-Z_0-9]*$/.test(value)) callback(new Error(vueObject.$t(vueObject.$te('sysRole.field.codeValid') ? 'sysRole.field.codeValid' : 'system.message.errorValue')))
-                    else callback()
-                  }
+                    if (!value) callback()
+                    else {
+                       if (!/^[a-z][a-zA-Z_0-9]*$/.test(value)) callback(new Error(vueObject.$t(vueObject.$te('sysRole.field.codeValid') ? 'sysRole.field.codeValid' : 'system.message.errorValue')))
+                       else callback()
+                    }
                 },
                 trigger: 'blur'
             }
@@ -38,11 +38,11 @@ export default  {
             { required: true, message: vueObject.$t('system.message.needValue') + ':' + vueObject.$t('sysRole.field.name'), trigger: 'blur' },
             {
                 validator: (rule, value, callback) => {
-                  if (!value) callback()
-                  else {
-                    if (!/^(\S.*?\S|\S)$/.test(value)) callback(new Error(vueObject.$t(vueObject.$te('sysRole.field.nameValid') ? 'sysRole.field.nameValid' : 'system.message.errorValue')))
-                    else callback()
-                  }
+                    if (!value) callback()
+                    else {
+                       if (!/^(\S.*?\S|\S)$/.test(value)) callback(new Error(vueObject.$t(vueObject.$te('sysRole.field.nameValid') ? 'sysRole.field.nameValid' : 'system.message.errorValue')))
+                       else callback()
+                    }
                 },
                 trigger: 'blur'
             }

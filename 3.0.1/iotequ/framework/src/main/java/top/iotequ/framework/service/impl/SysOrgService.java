@@ -37,7 +37,8 @@ public class SysOrgService extends CgSysOrgService {
 	}
 	private void reloadOrg()  {
 		OrgUtil.getSystemOrgData();
-		SystemParameterChangedEvent.sendReloadOrgEvent(null);
+		SystemParameterChangedEvent event = new SystemParameterChangedEvent(this,SystemParameterChangedEvent.SP_ORG_RELOAD);
+		Util.publishEvent(event);
 	}
 	@Override
 	public  void afterDelete(String ids, HttpServletRequest request, RestJson j) throws IotequException{

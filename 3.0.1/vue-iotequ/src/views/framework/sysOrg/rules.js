@@ -26,11 +26,11 @@ export default  {
             { required: true, message: vueObject.$t('system.message.needValue') + ':' + vueObject.$t('sysOrg.field.name'), trigger: 'blur' },
             {
                 validator: (rule, value, callback) => {
-                  if (!value) callback()
-                  else {
-                    if (!/^(\S.*?\S|\S)$/.test(value)) callback(new Error(vueObject.$t(vueObject.$te('sysOrg.field.nameValid') ? 'sysOrg.field.nameValid' : 'system.message.errorValue')))
-                    else callback()
-                  }
+                    if (!value) callback()
+                    else {
+                       if (!/^(\S.*?\S|\S)$/.test(value)) callback(new Error(vueObject.$t(vueObject.$te('sysOrg.field.nameValid') ? 'sysOrg.field.nameValid' : 'system.message.errorValue')))
+                       else callback()
+                    }
                 },
                 trigger: 'blur'
             }
@@ -38,15 +38,15 @@ export default  {
          phone:[
             {
                 validator: (rule, value, callback) => {
-                  if (!value) callback()
-                  else {
-                    const checked = invalidMessage('fixed',value)
-                    if (typeof checked === 'boolean') {
-                        if (checked) callback()
-                        else callback(new Error(vueObject.$t(vueObject.$te('sysOrg.field.phoneValid') ? 'sysOrg.field.phoneValid' : 'system.message.errorValue')))
-                    } else if (typeof checked == 'string' && checked) callback(new Error(checked))
-                    else callback()
-                  }
+                    if (!value) callback()
+                    else {
+                       const checked = invalidMessage('fixed',value)
+                       if (typeof checked === 'boolean') {
+                           if (checked) callback()
+                           else callback(new Error(vueObject.$t(vueObject.$te('sysOrg.field.phoneValid') ? 'sysOrg.field.phoneValid' : 'system.message.errorValue')))
+                       } else if (typeof checked == 'string' && checked) callback(new Error(checked))
+                       else callback()
+                    }
                 },
                 trigger: 'blur'
             }
@@ -54,15 +54,15 @@ export default  {
          fax:[
             {
                 validator: (rule, value, callback) => {
-                  if (!value) callback()
-                  else {
-                    const checked = invalidMessage('fixed',value)
-                    if (typeof checked === 'boolean') {
-                        if (checked) callback()
-                        else callback(new Error(vueObject.$t(vueObject.$te('sysOrg.field.faxValid') ? 'sysOrg.field.faxValid' : 'system.message.errorValue')))
-                    } else if (typeof checked == 'string' && checked) callback(new Error(checked))
-                    else callback()
-                  }
+                    if (!value) callback()
+                    else {
+                       const checked = invalidMessage('fixed',value)
+                       if (typeof checked === 'boolean') {
+                           if (checked) callback()
+                           else callback(new Error(vueObject.$t(vueObject.$te('sysOrg.field.faxValid') ? 'sysOrg.field.faxValid' : 'system.message.errorValue')))
+                       } else if (typeof checked == 'string' && checked) callback(new Error(checked))
+                       else callback()
+                    }
                 },
                 trigger: 'blur'
             }

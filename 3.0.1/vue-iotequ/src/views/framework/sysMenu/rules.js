@@ -28,11 +28,11 @@ export default  {
             { required: true, message: vueObject.$t('system.message.needValue') + ':' + vueObject.$t('sysMenu.field.name'), trigger: 'blur' },
             {
                 validator: (rule, value, callback) => {
-                  if (!value) callback()
-                  else {
-                    if (!/^(\S.*?\S|\S)$/.test(value)) callback(new Error(vueObject.$t(vueObject.$te('sysMenu.field.nameValid') ? 'sysMenu.field.nameValid' : 'system.message.errorValue')))
-                    else callback()
-                  }
+                    if (!value) callback()
+                    else {
+                       if (!/^(\S.*?\S|\S)$/.test(value)) callback(new Error(vueObject.$t(vueObject.$te('sysMenu.field.nameValid') ? 'sysMenu.field.nameValid' : 'system.message.errorValue')))
+                       else callback()
+                    }
                 },
                 trigger: 'blur'
             }

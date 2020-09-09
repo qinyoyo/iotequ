@@ -7,10 +7,15 @@ export default {
       } else if (when=='end') return this.$t('adAdjust.field.endTime')
       else return this.$t('adAdjust.field.startTime')
     },
-    validCheckDate() {
-      if (this.record.adjustType=='10' && !this.record.startTime && !this.record.endTime) return '必须输入上班或下班时间'
-      else if (this.record.adjustType!='10' && (!this.record.startTime || !this.record.endTime)) return '必须输入开始和结束时间'
-      else return true
+    validCheckDate(value, isOffWorkTime) {
+      if (isOffWorkTime) {
+        if (this.record.adjustType=='10' && !this.record.startTime && !this.record.endTime) return '必须输入上班或下班时间'
+        else if (this.record.adjustType!='10' && !this.record.endTime) return '必须输入结束时间'
+        else return true
+      } else {
+        if (this.record.adjustType!='10' && !this.record.startTime) return '必须输入开始时间'
+        else return true        
+      }
     }
   }
 }

@@ -158,7 +158,7 @@ public class SysPermissionTreeController {
             j.setMessage(e);
         } finally {
             securityService.refreshPermission();
-            SystemParameterChangedEvent.sendPeemissionInitialEvent(null);
+            SystemParameterChangedEvent.sendPeemissionInitialEvent(this,null);
         }
         return j;
     }

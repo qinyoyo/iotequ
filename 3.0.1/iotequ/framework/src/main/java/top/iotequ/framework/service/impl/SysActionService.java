@@ -21,7 +21,7 @@ public class SysActionService extends CgSysActionService {
 	public RestJson doAction(String action, String ids, HttpServletRequest request) throws IotequException {
 		if ("initial".equals(action)) {
 			securityService.initialPermission();
-			SystemParameterChangedEvent.sendPeemissionInitialEvent(null);
+			SystemParameterChangedEvent.sendPeemissionInitialEvent(this,null);
 		}
 		return new RestJson();
 	}

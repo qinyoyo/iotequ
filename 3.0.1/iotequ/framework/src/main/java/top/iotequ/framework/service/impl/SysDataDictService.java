@@ -19,7 +19,7 @@ public class SysDataDictService extends CgSysDataDictService {
 	};
 	void loadDict() {
 		SpringContext.getDictData();
-		SystemParameterChangedEvent.sendDataDictEvent(null);
+		SystemParameterChangedEvent.sendDataDictEvent(this,null);
 	}
 	@Override
 	public  void beforeSave(DataDict obj0, DataDict obj, boolean updateSelective, HttpServletRequest request) throws IotequException {

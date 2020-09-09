@@ -184,7 +184,7 @@ public class AdAdjustFlowService extends SysFlowProcessService<AdAdjust> {
 
     @Override
     public void checkParameters(AdAdjust adAdjust) throws IotequException {
-        if (Util.isEmpty(adAdjust.getDescription())) throw new IotequException(IotequThrowable.PARAMETER_ERROR,"description");
+        //if (Util.isEmpty(adAdjust.getDescription())) throw new IotequException(IotequThrowable.PARAMETER_ERROR,"description");
         Date dt0=adAdjust.getStartTime(),dt1=adAdjust.getEndTime();
         int typ = adAdjust.getAdjustType();
         if (typ == AdUtil.ad_add_data && dt0==null && dt1==null)  throw new IotequException(IotequThrowable.PARAMETER_ERROR,"time");

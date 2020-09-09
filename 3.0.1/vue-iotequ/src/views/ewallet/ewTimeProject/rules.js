@@ -34,11 +34,11 @@ export default  {
             { required: true, message: vueObject.$t('system.message.needValue') + ':' + vueObject.$t('ewTimeProject.field.bonusPoint'), trigger: 'blur' },
             {
                 validator: (rule, value, callback) => {
-                  if (!value) callback()
-                  else {
-                    if (!/^(\-|\+)?\d+(\.\d+)?$/.test(value)) callback(new Error(vueObject.$t(vueObject.$te('ewTimeProject.field.bonusPointValid') ? 'ewTimeProject.field.bonusPointValid' : 'system.message.errorValue')))
-                    else callback()
-                  }
+                    if (!value) callback()
+                    else {
+                       if (!/^(\-|\+)?\d+(\.\d+)?$/.test(value)) callback(new Error(vueObject.$t(vueObject.$te('ewTimeProject.field.bonusPointValid') ? 'ewTimeProject.field.bonusPointValid' : 'system.message.errorValue')))
+                       else callback()
+                    }
                 },
                 trigger: 'blur'
             }

@@ -33,15 +33,12 @@ export default  {
          startTime:[
             {
                 validator: (rule, value, callback) => {
-                  if (!value) callback()
-                  else {
                     const checked = (vueObject.validCheckDate(value))
                     if (typeof checked === 'boolean') {
-                        if (checked) callback()
-                        else callback(new Error(vueObject.$t(vueObject.$te('adAdjust.field.startTimeValid') ? 'adAdjust.field.startTimeValid' : 'system.message.errorValue')))
+                       if (checked) callback()
+                       else callback(new Error(vueObject.$t(vueObject.$te('adAdjust.field.startTimeValid') ? 'adAdjust.field.startTimeValid' : 'system.message.errorValue')))
                     } else if (typeof checked == 'string' && checked) callback(new Error(checked))
                     else callback()
-                  }
                 },
                 trigger: 'blur'
             }
@@ -49,15 +46,12 @@ export default  {
          endTime:[
             {
                 validator: (rule, value, callback) => {
-                  if (!value) callback()
-                  else {
-                    const checked = (vueObject.validCheckDate(value))
+                    const checked = (vueObject.validCheckDate(value,true))
                     if (typeof checked === 'boolean') {
-                        if (checked) callback()
-                        else callback(new Error(vueObject.$t(vueObject.$te('adAdjust.field.endTimeValid') ? 'adAdjust.field.endTimeValid' : 'system.message.errorValue')))
+                       if (checked) callback()
+                       else callback(new Error(vueObject.$t(vueObject.$te('adAdjust.field.endTimeValid') ? 'adAdjust.field.endTimeValid' : 'system.message.errorValue')))
                     } else if (typeof checked == 'string' && checked) callback(new Error(checked))
                     else callback()
-                  }
                 },
                 trigger: 'blur'
             }

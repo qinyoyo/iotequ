@@ -26,11 +26,11 @@ export default  {
             { required: true, message: vueObject.$t('system.message.needValue') + ':' + vueObject.$t('sysUser.field.name'), trigger: 'blur' },
             {
                 validator: (rule, value, callback) => {
-                  if (!value) callback()
-                  else {
-                    if (!/^(\S.*?\S|\S)$/.test(value)) callback(new Error(vueObject.$t(vueObject.$te('sysUser.field.nameValid') ? 'sysUser.field.nameValid' : 'system.message.errorValue')))
-                    else callback()
-                  }
+                    if (!value) callback()
+                    else {
+                       if (!/^(\S.*?\S|\S)$/.test(value)) callback(new Error(vueObject.$t(vueObject.$te('sysUser.field.nameValid') ? 'sysUser.field.nameValid' : 'system.message.errorValue')))
+                       else callback()
+                    }
                 },
                 trigger: 'blur'
             }
@@ -39,11 +39,11 @@ export default  {
             { required: true, message: vueObject.$t('system.message.needValue') + ':' + vueObject.$t('sysUser.field.realName'), trigger: 'blur' },
             {
                 validator: (rule, value, callback) => {
-                  if (!value) callback()
-                  else {
-                    if (!/^(\S.*?\S|\S)$/.test(value)) callback(new Error(vueObject.$t(vueObject.$te('sysUser.field.realNameValid') ? 'sysUser.field.realNameValid' : 'system.message.errorValue')))
-                    else callback()
-                  }
+                    if (!value) callback()
+                    else {
+                       if (!/^(\S.*?\S|\S)$/.test(value)) callback(new Error(vueObject.$t(vueObject.$te('sysUser.field.realNameValid') ? 'sysUser.field.realNameValid' : 'system.message.errorValue')))
+                       else callback()
+                    }
                 },
                 trigger: 'blur'
             }
@@ -51,15 +51,15 @@ export default  {
          mobilePhone:[
             {
                 validator: (rule, value, callback) => {
-                  if (!value) callback()
-                  else {
-                    const checked = invalidMessage('mobile',value)
-                    if (typeof checked === 'boolean') {
-                        if (checked) callback()
-                        else callback(new Error(vueObject.$t(vueObject.$te('sysUser.field.mobilePhoneValid') ? 'sysUser.field.mobilePhoneValid' : 'system.message.errorValue')))
-                    } else if (typeof checked == 'string' && checked) callback(new Error(checked))
-                    else callback()
-                  }
+                    if (!value) callback()
+                    else {
+                       const checked = invalidMessage('mobile',value)
+                       if (typeof checked === 'boolean') {
+                           if (checked) callback()
+                           else callback(new Error(vueObject.$t(vueObject.$te('sysUser.field.mobilePhoneValid') ? 'sysUser.field.mobilePhoneValid' : 'system.message.errorValue')))
+                       } else if (typeof checked == 'string' && checked) callback(new Error(checked))
+                       else callback()
+                    }
                 },
                 trigger: 'blur'
             }
@@ -67,15 +67,15 @@ export default  {
          email:[
             {
                 validator: (rule, value, callback) => {
-                  if (!value) callback()
-                  else {
-                    const checked = invalidMessage('email',value)
-                    if (typeof checked === 'boolean') {
-                        if (checked) callback()
-                        else callback(new Error(vueObject.$t(vueObject.$te('sysUser.field.emailValid') ? 'sysUser.field.emailValid' : 'system.message.errorValue')))
-                    } else if (typeof checked == 'string' && checked) callback(new Error(checked))
-                    else callback()
-                  }
+                    if (!value) callback()
+                    else {
+                       const checked = invalidMessage('email',value)
+                       if (typeof checked === 'boolean') {
+                           if (checked) callback()
+                           else callback(new Error(vueObject.$t(vueObject.$te('sysUser.field.emailValid') ? 'sysUser.field.emailValid' : 'system.message.errorValue')))
+                       } else if (typeof checked == 'string' && checked) callback(new Error(checked))
+                       else callback()
+                    }
                 },
                 trigger: 'blur'
             }

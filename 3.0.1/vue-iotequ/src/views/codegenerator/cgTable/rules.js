@@ -34,15 +34,12 @@ export default  {
          name:[
             {
                 validator: (rule, value, callback) => {
-                  if (!value) callback()
-                  else {
                     const checked = (!value || value==(getRecord().project+'_'+getRecord().code))
                     if (typeof checked === 'boolean') {
-                        if (checked) callback()
-                        else callback(new Error(vueObject.$t(vueObject.$te('cgTable.field.nameValid') ? 'cgTable.field.nameValid' : 'system.message.errorValue')))
+                       if (checked) callback()
+                       else callback(new Error(vueObject.$t(vueObject.$te('cgTable.field.nameValid') ? 'cgTable.field.nameValid' : 'system.message.errorValue')))
                     } else if (typeof checked == 'string' && checked) callback(new Error(checked))
                     else callback()
-                  }
                 },
                 trigger: 'blur'
             }
@@ -53,11 +50,11 @@ export default  {
          subPackage:[
             {
                 validator: (rule, value, callback) => {
-                  if (!value) callback()
-                  else {
-                    if (!/^[a-z,A-Z,_]+$/.test(value)) callback(new Error(vueObject.$t(vueObject.$te('cgTable.field.subPackageValid') ? 'cgTable.field.subPackageValid' : 'system.message.errorValue')))
-                    else callback()
-                  }
+                    if (!value) callback()
+                    else {
+                       if (!/^[a-z,A-Z,_]+$/.test(value)) callback(new Error(vueObject.$t(vueObject.$te('cgTable.field.subPackageValid') ? 'cgTable.field.subPackageValid' : 'system.message.errorValue')))
+                       else callback()
+                    }
                 },
                 trigger: 'blur'
             }

@@ -28,15 +28,12 @@ export default  {
             { required: true, message: vueObject.$t('system.message.needValue') + ':' + vueObject.$t('cgForm.field.path'), trigger: 'blur' },
             {
                 validator: (rule, value, callback) => {
-                  if (!value) callback()
-                  else {
                     const checked = ((getRecord().isFlow && /^[a-z][a-zA-Z0-9_]*(,[a-z][a-zA-Z0-9_]*)*$/.test(value)) || (!getRecord().isFlow && /^[a-z][a-zA-Z0-9_]*$/.test(value)))
                     if (typeof checked === 'boolean') {
-                        if (checked) callback()
-                        else callback(new Error(vueObject.$t(vueObject.$te('cgForm.field.pathValid') ? 'cgForm.field.pathValid' : 'system.message.errorValue')))
+                       if (checked) callback()
+                       else callback(new Error(vueObject.$t(vueObject.$te('cgForm.field.pathValid') ? 'cgForm.field.pathValid' : 'system.message.errorValue')))
                     } else if (typeof checked == 'string' && checked) callback(new Error(checked))
                     else callback()
-                  }
                 },
                 trigger: 'blur'
             }
@@ -48,15 +45,12 @@ export default  {
             { required: true, message: vueObject.$t('system.message.needValue') + ':' + vueObject.$t('cgForm.field.headTitle'), trigger: 'blur' },
             {
                 validator: (rule, value, callback) => {
-                  if (!value) callback()
-                  else {
                     const checked = ((getRecord().isFlow && /^[^,]+(,[^,]+)*$/.test(value)) || (!getRecord().isFlow && /^[^,]+$/.test(value)))
                     if (typeof checked === 'boolean') {
-                        if (checked) callback()
-                        else callback(new Error(vueObject.$t(vueObject.$te('cgForm.field.headTitleValid') ? 'cgForm.field.headTitleValid' : 'system.message.errorValue')))
+                       if (checked) callback()
+                       else callback(new Error(vueObject.$t(vueObject.$te('cgForm.field.headTitleValid') ? 'cgForm.field.headTitleValid' : 'system.message.errorValue')))
                     } else if (typeof checked == 'string' && checked) callback(new Error(checked))
                     else callback()
-                  }
                 },
                 trigger: 'blur'
             }
@@ -67,15 +61,12 @@ export default  {
          icon:[
             {
                 validator: (rule, value, callback) => {
-                  if (!value) callback()
-                  else {
                     const checked = ((getRecord().isFlow && /^[a-zA-z0-9 \-_]+(,[a-zA-z0-9 \-_]+)*$/.test(value)) || (!getRecord().isFlow && /^[a-zA-z0-9 \-_]+$/.test(value)))
                     if (typeof checked === 'boolean') {
-                        if (checked) callback()
-                        else callback(new Error(vueObject.$t(vueObject.$te('cgForm.field.iconValid') ? 'cgForm.field.iconValid' : 'system.message.errorValue')))
+                       if (checked) callback()
+                       else callback(new Error(vueObject.$t(vueObject.$te('cgForm.field.iconValid') ? 'cgForm.field.iconValid' : 'system.message.errorValue')))
                     } else if (typeof checked == 'string' && checked) callback(new Error(checked))
                     else callback()
-                  }
                 },
                 trigger: 'blur'
             }

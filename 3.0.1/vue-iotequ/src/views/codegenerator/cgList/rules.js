@@ -65,11 +65,11 @@ export default  {
             { required: true, message: vueObject.$t('system.message.needValue') + ':' + vueObject.$t('cgList.field.tableHeight'), trigger: 'blur' },
             {
                 validator: (rule, value, callback) => {
-                  if (!value) callback()
-                  else {
-                    if (!/^0$/.test(value)) callback(new Error(vueObject.$t(vueObject.$te('cgList.field.tableHeightValid') ? 'cgList.field.tableHeightValid' : 'system.message.errorValue')))
-                    else callback()
-                  }
+                    if (!value) callback()
+                    else {
+                       if (!/^0$/.test(value)) callback(new Error(vueObject.$t(vueObject.$te('cgList.field.tableHeightValid') ? 'cgList.field.tableHeightValid' : 'system.message.errorValue')))
+                       else callback()
+                    }
                 },
                 trigger: 'blur'
             }

@@ -36,15 +36,12 @@ export default  {
          code:[
             {
                 validator: (rule, value, callback) => {
-                  if (!value) callback()
-                  else {
                     const checked = (value || !vueObject.flowAction ||  vueObject.flowAction!='publish')
                     if (typeof checked === 'boolean') {
-                        if (checked) callback()
-                        else callback(new Error(vueObject.$t(vueObject.$te('pmProject.field.codeValid') ? 'pmProject.field.codeValid' : 'system.message.errorValue')))
+                       if (checked) callback()
+                       else callback(new Error(vueObject.$t(vueObject.$te('pmProject.field.codeValid') ? 'pmProject.field.codeValid' : 'system.message.errorValue')))
                     } else if (typeof checked == 'string' && checked) callback(new Error(checked))
                     else callback()
-                  }
                 },
                 trigger: 'blur'
             }

@@ -64,15 +64,15 @@ export default  {
          mavenServer:[
             {
                 validator: (rule, value, callback) => {
-                  if (!value) callback()
-                  else {
-                    const checked = invalidMessage('url',value)
-                    if (typeof checked === 'boolean') {
-                        if (checked) callback()
-                        else callback(new Error(vueObject.$t(vueObject.$te('cgProject.field.mavenServerValid') ? 'cgProject.field.mavenServerValid' : 'system.message.errorValue')))
-                    } else if (typeof checked == 'string' && checked) callback(new Error(checked))
-                    else callback()
-                  }
+                    if (!value) callback()
+                    else {
+                       const checked = invalidMessage('url',value)
+                       if (typeof checked === 'boolean') {
+                           if (checked) callback()
+                           else callback(new Error(vueObject.$t(vueObject.$te('cgProject.field.mavenServerValid') ? 'cgProject.field.mavenServerValid' : 'system.message.errorValue')))
+                       } else if (typeof checked == 'string' && checked) callback(new Error(checked))
+                       else callback()
+                    }
                 },
                 trigger: 'blur'
             }

@@ -28,11 +28,11 @@ export default  {
             { required: true, message: vueObject.$t('system.message.needValue') + ':' + vueObject.$t('cgButton.field.action'), trigger: 'blur' },
             {
                 validator: (rule, value, callback) => {
-                  if (!value) callback()
-                  else {
-                    if (!/^[a-z][a-z0-9]+([A-Z][a-z0-9]+)*$/.test(value)) callback(new Error(vueObject.$t(vueObject.$te('cgButton.field.actionValid') ? 'cgButton.field.actionValid' : 'system.message.errorValue')))
-                    else callback()
-                  }
+                    if (!value) callback()
+                    else {
+                       if (!/^[a-z][a-z0-9]+([A-Z][a-z0-9]+)*$/.test(value)) callback(new Error(vueObject.$t(vueObject.$te('cgButton.field.actionValid') ? 'cgButton.field.actionValid' : 'system.message.errorValue')))
+                       else callback()
+                    }
                 },
                 trigger: 'blur'
             }
@@ -46,11 +46,11 @@ export default  {
          appendClass:[
             {
                 validator: (rule, value, callback) => {
-                  if (!value) callback()
-                  else {
-                    if (!/^[a-zA-Z][\.a-zA-Z0-9_]*\(.*\)|{\s*\w+\s*:\s*('.*'|\[.*\]|[^\,\'\[\]]+)\s*(,\s*\w+\s*:\s*('.*'|\[.*\]|[^\,\'\[\]]+)\s*)*}$/.test(value)) callback(new Error(vueObject.$t(vueObject.$te('cgButton.field.appendClassValid') ? 'cgButton.field.appendClassValid' : 'system.message.errorValue')))
-                    else callback()
-                  }
+                    if (!value) callback()
+                    else {
+                       if (!/^[a-zA-Z][\.a-zA-Z0-9_]*\(.*\)|{\s*\w+\s*:\s*('.*'|\[.*\]|[^\,\'\[\]]+)\s*(,\s*\w+\s*:\s*('.*'|\[.*\]|[^\,\'\[\]]+)\s*)*}$/.test(value)) callback(new Error(vueObject.$t(vueObject.$te('cgButton.field.appendClassValid') ? 'cgButton.field.appendClassValid' : 'system.message.errorValue')))
+                       else callback()
+                    }
                 },
                 trigger: 'blur'
             }

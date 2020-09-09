@@ -50,38 +50,45 @@ export default  {
             { required: true, message: vueObject.$t('system.message.needValue') + ':' + vueObject.$t('${f.title}'), trigger: 'blur' }<#if USERULE>,</#if>
             </#if>
             <#if USERULE>
-            <#assign checked = false />
+            <#assign nullCallback = false, checked = false />
             {
                 validator: (rule, value, callback) => {
-                  <#if !f.mustInput>
-                  if (!value<#if f.type=='int' || f.type=='double'> && value!=0</#if>) callback()
-                  else {
-                  </#if>
-                    <#if f.validExpression?? && f.validExpression?trim!=''>
-                    <#if f.validExpression?trim?length gt 3 && f.validExpression?trim?substring(0,3)=="js:">
+                <#if f.validExpression?? && f.validExpression?trim!='' && f.validExpression?trim?length gt 3 && f.validExpression?trim?substring(0,3)=="js:">
                     const checked = (${f.validExpression?trim?substring(3)?replace("this.record.","getRecord().")?replace("this.","vueObject.")})
-                    <#assign checked = true />
-                    <#elseif f.validExpression=='mobile' || f.validExpression=='fixed' || f.validExpression=='phone' || f.validExpression=='passport' || f.validExpression=='idcard'>
-                    const checked = invalidMessage('${f.validExpression}',value)
+                    if (typeof checked === 'boolean') {
+                       if (checked) callback()
+                       else callback(new Error(vueObject.$t(vueObject.$te('${f.title}Valid') ? '${f.title}Valid' : 'system.message.errorValue')))
+                    } else if (typeof checked == 'string' && checked) callback(new Error(checked))
+                    else callback()
+                <#else>
+                    <#if !f.mustInput>
+                    if (!value<#if f.type=='int' || f.type=='double'> && value!=0</#if>) callback()
+                    else {
+                    <#assign nullCallback=true />
+                    </#if>
+                    <#if f.validExpression?? && f.validExpression?trim!=''>
+                    <#if f.validExpression=='mobile' || f.validExpression=='fixed' || f.validExpression=='phone' || f.validExpression=='passport' || f.validExpression=='idcard'>
+                    <#if nullCallback>   </#if>const checked = invalidMessage('${f.validExpression}',value)
                     <#assign checked = true />
                     <#else>
-                    if (!/<#if !f.validExpression?trim?starts_with('^')>^</#if>${f.validExpression?trim}<#if !f.validExpression?trim?ends_with('$')>$</#if>/.test(value)) callback(new Error(vueObject.$t(vueObject.$te('${f.title}Valid') ? '${f.title}Valid' : 'system.message.errorValue')))
-                    else callback()
+                    <#if nullCallback>   </#if>if (!/<#if !f.validExpression?trim?starts_with('^')>^</#if>${f.validExpression?trim}<#if !f.validExpression?trim?ends_with('$')>$</#if>/.test(value)) callback(new Error(vueObject.$t(vueObject.$te('${f.title}Valid') ? '${f.title}Valid' : 'system.message.errorValue')))
+                    <#if nullCallback>   </#if>else callback()
                     </#if>
                     <#elseif f.showType=='url' || f.showType=='email'>
-                    const checked = invalidMessage('${f.showType}',value)
+                    <#if nullCallback>   </#if>const checked = invalidMessage('${f.showType}',value)
                     <#assign checked = true />
                     </#if>
                     <#if checked>
-                    if (typeof checked === 'boolean') {
-                        if (checked) callback()
-                        else callback(new Error(vueObject.$t(vueObject.$te('${f.title}Valid') ? '${f.title}Valid' : 'system.message.errorValue')))
-                    } else if (typeof checked == 'string' && checked) callback(new Error(checked))
-                    else callback()
+                    <#if nullCallback>   </#if>if (typeof checked === 'boolean') {
+                    <#if nullCallback>   </#if>    if (checked) callback()
+                    <#if nullCallback>   </#if>    else callback(new Error(vueObject.$t(vueObject.$te('${f.title}Valid') ? '${f.title}Valid' : 'system.message.errorValue')))
+                    <#if nullCallback>   </#if>} else if (typeof checked == 'string' && checked) callback(new Error(checked))
+                    <#if nullCallback>   </#if>else callback()
                     </#if>
-                  <#if !f.mustInput>
-                  }
-                  </#if>
+                    <#if nullCallback>
+                    }
+                    </#if>
+                 </#if>
                 },
                 trigger: 'blur'
             }

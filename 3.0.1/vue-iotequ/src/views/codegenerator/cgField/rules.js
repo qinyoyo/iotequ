@@ -30,8 +30,8 @@ export default  {
                 validator: (rule, value, callback) => {
                     const checked = ((!getRecord().name && /^[a-z][a-z0-9]+([A-Z][a-z0-9]+)*$/.test(value)) || (value===vueObject.camelString(getRecord().name.split(':')[0])))
                     if (typeof checked === 'boolean') {
-                        if (checked) callback()
-                        else callback(new Error(vueObject.$t(vueObject.$te('cgField.field.entityNameValid') ? 'cgField.field.entityNameValid' : 'system.message.errorValue')))
+                       if (checked) callback()
+                       else callback(new Error(vueObject.$t(vueObject.$te('cgField.field.entityNameValid') ? 'cgField.field.entityNameValid' : 'system.message.errorValue')))
                     } else if (typeof checked == 'string' && checked) callback(new Error(checked))
                     else callback()
                 },
@@ -44,11 +44,11 @@ export default  {
          name:[
             {
                 validator: (rule, value, callback) => {
-                  if (!value) callback()
-                  else {
-                    if (!/^[a-z][a-z0-9]*(_[a-z0-9]+)*(:.*)*$/.test(value)) callback(new Error(vueObject.$t(vueObject.$te('cgField.field.nameValid') ? 'cgField.field.nameValid' : 'system.message.errorValue')))
-                    else callback()
-                  }
+                    if (!value) callback()
+                    else {
+                       if (!/^[a-z][a-z0-9]*(_[a-z0-9]+)*(:.*)*$/.test(value)) callback(new Error(vueObject.$t(vueObject.$te('cgField.field.nameValid') ? 'cgField.field.nameValid' : 'system.message.errorValue')))
+                       else callback()
+                    }
                 },
                 trigger: 'blur'
             }
