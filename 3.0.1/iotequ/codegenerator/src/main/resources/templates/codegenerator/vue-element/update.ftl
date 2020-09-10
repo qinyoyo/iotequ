@@ -595,7 +595,9 @@ export default {
         return {
             <#list fields as f>
             <#if f.defaultValue?? && f.defaultValue?trim!="" >
-            <#if f.defaultValue?trim?length gt 3 && f.defaultValue?trim?substring(0,3)=="js:" >
+            <#if f.defaultValue?trim=="null">
+            ${f.entityName}: null,
+            <#elseif f.defaultValue?trim?length gt 3 && f.defaultValue?trim?substring(0,3)=="js:" >
             ${f.entityName}: ${f.defaultValue?trim?substring(3)},
             <#elseif (f.defaultValue?trim?length gt 4 && f.defaultValue?trim?substring(0,4)=="sql:") || (f.defaultValue?trim?length gt 2 && f.defaultValue?trim?substring(0,2)=="f:")  >
             <#continue>

@@ -265,7 +265,7 @@ export default {
     newRecord: function() {
         return {
             registerTime: new Date(),
-            realName: '',
+            realName: null,
             orgCode: 0,
             adjustType: 10,
             state: 0,

@@ -899,6 +899,7 @@ public class GenService implements ApplicationContextAware {
                 map.put("id", f.getId()); // f.id 可能为join信息
                 if (f.getId().startsWith("join:") || f.getId().startsWith("list:")) { // f 为join字段
                     getJoinProperties(allFields,joinedFields,f);
+                    if (!item.getHidden()) map.put("defaultValue","null");  // join弹出字段必须定义缺省值 null
                 }
                 list.add(map);
             } else {  // 附加字段，目前只支持 text

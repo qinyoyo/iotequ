@@ -56,14 +56,14 @@ export default {
   components: { CgListCgForm, CgFormCgForm, CgListCgFormField },
   mixins,
   props: {
+    fixedQueryRecord: {
+      type: Object,
+      default: () => { return {} }
+    },
     height: {
       type: Number,
       default: 0
     },
-    fixedQueryRecord: {
-      type: Object,
-      default: () => { return {} }
-    }
   },
   data() {
     return {
@@ -81,6 +81,9 @@ export default {
       generatorName: 'cgForm',
       baseUrl: '/codegenerator/cgForm'
     }
+  },
+  created() {
+    this.$route.query && this.$route.query.fixedQueryRecord && (this.fixedQueryRecord = Object.assign(this.fixedQueryRecord,this.$route.query.fixedQueryRecord))
   },
   watch: {
     fixedQueryRecord: {

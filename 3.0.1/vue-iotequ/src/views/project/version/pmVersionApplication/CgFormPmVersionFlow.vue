@@ -271,6 +271,7 @@ export default {
     newRecord: function() {
         return {
             flowState: 1,
+            registerByName: null,
             applicationType: 0,
             project: '',
             customer: '',

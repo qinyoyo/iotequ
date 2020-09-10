@@ -279,6 +279,7 @@ export default {
     newRecord: function() {
         return {
             flowState: 1,
+            registerByName: null,
             type: 1,
             name: '',
         }

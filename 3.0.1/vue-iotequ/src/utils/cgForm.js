@@ -171,18 +171,18 @@ export default {
         onSuccess: res => {
           if (res && res.hasOwnProperty('success') && res.success) {
             if (res.data) {
-              formObject.record = Object.assign({},newRecord,res.data)
-            } else formObject.record = Object.assign({},newRecord)
+              formObject.record = Object.assign(formObject.record,newRecord,res.data)
+            } else formObject.record = Object.assign(formObject.record,newRecord)
           }
           func()
         },
         onError: () => { 
-          formObject.record = Object.assign({},newRecord) 
+          formObject.record = Object.assign(formObject.record,newRecord) 
           func()
         }
       })
     } else {
-      formObject.record = Object.assign({},newRecord)
+      formObject.record = Object.assign(formObject.record,newRecord)
       func()
       return new Promise((resolve, reject) =>{
         resolve(null)

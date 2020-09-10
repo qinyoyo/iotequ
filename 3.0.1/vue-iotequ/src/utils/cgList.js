@@ -480,7 +480,10 @@ export default {
       this.list_getDataFromServer(listObject)
     }
     else if (action === 'query') listObject.showQuery = true
-    else if (action === 'add') this.list_openRecordView({listObject, row: null, path: listObject.formPath, openMode: 'add'})
+    else if (action === 'add') {
+      const row = options && options.needRow ? this.list_checkSelections(listObject, false) : null
+      this.list_openRecordView({listObject, row, path: listObject.formPath, openMode: 'add'})
+    }
     else if (action === 'view' || action === 'edit' || action.indexOf('flow.') == 0) {
       const row = options && options.row ? options.row : this.list_checkSelections(listObject, false)
       if (row) {

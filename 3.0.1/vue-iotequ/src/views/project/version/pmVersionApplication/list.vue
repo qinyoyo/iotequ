@@ -48,14 +48,14 @@ export default {
   components: { CgListPmVersionApplication },
   mixins,
   props: {
+    fixedQueryRecord: {
+      type: Object,
+      default: () => { return {} }
+    },
     height: {
       type: Number,
       default: 0
     },
-    fixedQueryRecord: {
-      type: Object,
-      default: () => { return {} }
-    }
   },
   data() {
     return {
@@ -69,6 +69,9 @@ export default {
       generatorName: 'pmVersionApplication',
       baseUrl: '/project/version/pmVersionApplication'
     }
+  },
+  created() {
+    this.$route.query && this.$route.query.fixedQueryRecord && (this.fixedQueryRecord = Object.assign(this.fixedQueryRecord,this.$route.query.fixedQueryRecord))
   },
   watch: {
     fixedQueryRecord: {

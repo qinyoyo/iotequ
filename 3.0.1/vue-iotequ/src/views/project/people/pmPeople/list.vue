@@ -6,7 +6,7 @@
                    :title="title" :content="content" @goBack="goBack" @menuAction="showActionSheet"
         />
       </div>
-      <CgListPmPeople ref="cgList" :height="clientHeight" @detail="doShowDetail"/>
+      <CgListPmPeople ref="cgList" :height="clientHeight" @detail="doShowDetail" :fixedQueryRecord="fixedQueryRecord"/>
     </el-card>
   </div>
 </template>
@@ -22,6 +22,12 @@ export default {
   name: 'PmPeopleList',
   components: { CgListPmPeople },
   mixins,
+  props: {
+    fixedQueryRecord: {
+      type: Object,
+      default: () => { return {} }
+    },
+  },
   data() {
     return {
       clientHeight: this.height ? this.height : cg.containerHeight(),
@@ -32,14 +38,8 @@ export default {
       baseUrl: '/project/people/pmPeople'
     }
   },
-  watch: {
-    fixedQueryRecord: {
-      handler(n, o) {
-        if (n && Object.keys(n).length > 0 && this.$refs.cgList && typeof this.$refs.cgList.doAction === 'function') this.$refs.cgList.doAction('refresh')
-      },
-      deep: true,
-      immediate: true
-    }
+  created() {
+    this.$route.query && this.$route.query.fixedQueryRecord && (this.fixedQueryRecord = Object.assign(this.fixedQueryRecord,this.$route.query.fixedQueryRecord))
   },
   computed: {
     mobile() {

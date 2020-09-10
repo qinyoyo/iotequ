@@ -59,7 +59,7 @@
         </split-pane>
       </div>
       <#else>
-      <CgList${LP.name?cap_first} ref="cgList"<#if !isEmpty(LP.viewProperties!)> ${LP.viewProperties?trim}</#if><#if canUse('height',LP.viewProperties!'')> :height="clientHeight"</#if><#if canUse('detail',LP.viewProperties!'')> @detail="doShowDetail"</#if><#if LP.titleField?? && LP.titleField?trim!='' && canUse('rowClick',LP.viewProperties!'')> @rowClick="rowClick"</#if>/>
+      <CgList${LP.name?cap_first} ref="cgList"<#if !isEmpty(LP.viewProperties!)> ${LP.viewProperties?trim}</#if><#if canUse('height',LP.viewProperties!'')> :height="clientHeight"</#if><#if canUse('detail',LP.viewProperties!'')> @detail="doShowDetail"</#if><#if canUse('fixedQueryRecord',LP.viewProperties!'')> :fixedQueryRecord="fixedQueryRecord"</#if><#if LP.titleField?? && LP.titleField?trim!='' && canUse('rowClick',LP.viewProperties!'')> @rowClick="rowClick"</#if>/>
       </#if>
     </el-card>
   </div>
@@ -83,18 +83,18 @@ export default {
   name: '${LP.name?cap_first}List',
   components: { CgList${LP.name?cap_first}<#if sons??><#list sons as son><#if son.componentPath??>, ${son.component}</#if></#list></#if> },
   mixins,
-  <#if sons??>
   props: {
+    fixedQueryRecord: {
+      type: Object,
+      default: () => { return {} }
+    },
+    <#if sons??>
     height: {
       type: Number,
       default: 0
     },
-    fixedQueryRecord: {
-      type: Object,
-      default: () => { return {} }
-    }
+    </#if>
   },
-  </#if>
   data() {
     return {
       clientHeight: this.height ? this.height : cg.containerHeight(),
@@ -121,6 +121,10 @@ export default {
       baseUrl: '/${moduleName}/<#if subModule??>${subModule}/</#if>${generatorName}'
     }
   },
+  created() {
+    this.$route.query && this.$route.query.fixedQueryRecord && (this.fixedQueryRecord = Object.assign(this.fixedQueryRecord,this.$route.query.fixedQueryRecord))
+  },
+  <#if sons??>
   watch: {
     fixedQueryRecord: {
       handler(n, o) {
@@ -130,6 +134,7 @@ export default {
       immediate: true
     }
   },
+  </#if>
   computed: {
     mobile() {
       return this.$store.state.app.device === 'mobile'

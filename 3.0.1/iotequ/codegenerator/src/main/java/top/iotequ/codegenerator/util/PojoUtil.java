@@ -76,10 +76,21 @@ public class PojoUtil {
                                 sb.append("import top.iotequ.framework.serializer.jackson.DatetimeSerializer;\n");
                                 imdtser=true;
                             } else if (!imdser && "date".equals(jf.getShowType())) {
-                                sb.append("import top.iotequ.framework.serializer.jackson.DateSerializer;\n");
+                                sb.append("import top.iotequ.framework.serializer.jackson.DateSerializer;\n")
+                                        .append("import top.iotequ.framework.serializer.gson.GsonDateTypeAdapter;\n");
+                                if (!imgson) {
+                                    sb.append("import com.google.gson.annotations.JsonAdapter;\n");
+                                    imgson=true;
+                                }
+
                                 imdser=true;
                             } else if (!imtser && "time".equals(jf.getShowType())) {
-                                sb.append("import top.iotequ.framework.serializer.jackson.TimeSerializer;\n");
+                                sb.append("import top.iotequ.framework.serializer.jackson.TimeSerializer;\n")
+                                        .append("import top.iotequ.framework.serializer.gson.GsonTimeTypeAdapter;\n");
+                                if (!imgson) {
+                                    sb.append("import com.google.gson.annotations.JsonAdapter;\n");
+                                    imgson=true;
+                                }
                                 imtser=true;
                             }
                         } else if (TypeUtil.javaType(jf).indexOf("BigDecimal") >= 0 && !imbd) {

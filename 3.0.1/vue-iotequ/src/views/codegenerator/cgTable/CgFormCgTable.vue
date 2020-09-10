@@ -299,6 +299,8 @@ export default {
     newRecord: function() {
         return {
             creator: this.$store.state.user.name,
+            module: null,
+            groupId: null,
             code: '',
             title: '',
             template: '',

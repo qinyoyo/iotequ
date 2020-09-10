@@ -139,7 +139,7 @@ export default {
     },
     newRecord: function() {
         return {
-            realName: '',
+            realName: null,
         }
     },
     submit: function() {

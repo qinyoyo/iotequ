@@ -246,6 +246,7 @@ export default {
     },
     newRecord: function() {
         return {
+            registerByName: null,
             flowState: 1,
             applicationType: 0,
             project: '',

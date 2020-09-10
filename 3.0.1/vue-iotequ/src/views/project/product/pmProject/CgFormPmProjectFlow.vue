@@ -311,6 +311,7 @@ export default {
             type: 1,
             name: '',
             flowState: 1,
+            registerByName: null,
             flowSelection: 'approve',
         }
     },
