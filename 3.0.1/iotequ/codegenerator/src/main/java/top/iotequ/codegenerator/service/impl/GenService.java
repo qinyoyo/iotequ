@@ -716,7 +716,7 @@ public class GenService implements ApplicationContextAware {
         if (gp.getSpringModule()) {
             freeMarkerWriterProject("yml.ftl", basePath + "src/main/resources/application.yml", gp);
             freeMarkerWriterProject("iotequ.ftl", basePath + "iotequ.yml", gp);
-            if (gp.getSpringModule()) freeMarkerWriterProject("starter.ftl", basePath + "src/main/java/" +
+            freeMarkerWriterProject("starter.ftl", basePath + "src/main/java/" +
                     gp.getGroupId().replace(".", "/") +
                     "/" + StringUtil.firstLetterUpper(StringUtil.camelString(gp.getName())) + "Application.java", gp);
         }

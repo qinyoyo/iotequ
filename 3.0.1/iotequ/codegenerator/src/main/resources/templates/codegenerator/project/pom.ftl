@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.2.0.RELEASE</version>
+		<version>2.3.3.RELEASE</version>
 		<relativePath />
 	</parent>
 
@@ -46,7 +46,7 @@
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
 			<artifactId>mybatis-spring-boot-starter</artifactId>
-			<version>2.1.1</version>
+			<version>2.1.3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -62,8 +62,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.10</version>
-			<scope>provided</scope>
+			<optional>true</optional>
 		</dependency>
 		<#if gp.addtionalDependencies ??>
 		${gp.addtionalDependencies}
@@ -73,25 +72,16 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<version>RELEASE</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-test</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.mybatis.spring.boot</groupId>
-			<artifactId>mybatis-spring-boot-starter-test</artifactId>
-			<version>2.1.0</version>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
         </#if>
@@ -115,7 +105,6 @@
 			<properties>
 				<build.groupId>org.springframework.boot</build.groupId>
 				<build.artifactId>spring-boot-maven-plugin</build.artifactId>
-				<build.version>2.2.0.RELEASE</build.version>
 				<build.excludes></build.excludes>
 				<resource.excludes></resource.excludes>
 			</properties>
@@ -128,7 +117,6 @@
 			<properties>
 				<build.groupId>org.apache.maven.plugins</build.groupId>
 				<build.artifactId>maven-compiler-plugin</build.artifactId>
-				<build.version>3.8.1</build.version>
 				<build.excludes>${gp.groupId?replace('.','/')}/${camelName?cap_first}Application.java</build.excludes>
 				<resource.excludes>application.yml</resource.excludes>
 			</properties>
@@ -139,9 +127,11 @@
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
+				<#if gp.mavenModule && gp.springModule>
 				<excludes>
 					<exclude>${D}{resource.excludes}</exclude>
 				</excludes>
+				</#if>
 			</resource>
 		</resources>
 		<finalName>${D}{project.artifactId}-${D}{project.version}</finalName>
@@ -150,18 +140,15 @@
 			<#if gp.mavenModule && gp.springModule>
 				<groupId>${D}{build.groupId}</groupId>
 				<artifactId>${D}{build.artifactId}</artifactId>
-				<version>${D}{build.version}</version>
 				<configuration>
 					<excludes>${D}{build.excludes}</excludes>
 				</configuration>
 			<#elseif gp.mavenModule>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
 			<#else>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>2.2.0.RELEASE</version>
 			</#if>
 			</plugin>
 			<plugin>

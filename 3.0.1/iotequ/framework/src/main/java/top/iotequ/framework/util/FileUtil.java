@@ -11,7 +11,7 @@ import top.iotequ.framework.exception.IotequThrowable;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import javax.validation.constraints.NotNull;
+import lombok.NonNull;
 import java.io.*;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -89,7 +89,7 @@ public class FileUtil {
      * @param name 参考文件名
      * @return 上传文件存储文件名，不包含路径
      */
-    static public String uploadFilename(String entityName, @NotNull String pkId, String name) {
+    static public String uploadFilename(String entityName, @NonNull String pkId, String name) {
         String nm = Util.isEmpty(entityName, "");
         if (!Util.isEmpty(pkId)) {
             if (nm.isEmpty()) nm = pkId;
@@ -110,7 +110,7 @@ public class FileUtil {
      * @param name 参考名
      * @return File对象
      */
-    static public File uploadFile(String generatorName,String entityName, @NotNull String pkId, String name) {
+    static public File uploadFile(String generatorName,String entityName, @NonNull String pkId, String name) {
         String uploadPath = Util.getBean(Environment.class).getProperty("spring.upload-path");
         if (!Util.isEmpty(name) && (name.indexOf("/")>=0 || name.indexOf("\\")>=0)) { // 文件名包含路径，直接读取
             if (name.startsWith("~/") || name.startsWith("~\\")) return new File(uploadPath,name.substring(2));
@@ -125,7 +125,7 @@ public class FileUtil {
      * @param name 参考名
      * @return File对象
      */
-    static public File uploadFile(Class<?> clazz,String entityName, @NotNull String pkId, String name) {
+    static public File uploadFile(Class<?> clazz,String entityName, @NonNull String pkId, String name) {
         CgTableAnnotation annotation=clazz.getAnnotation(CgTableAnnotation.class);
         if (annotation!=null) {
             return uploadFile(annotation.generatorName(),entityName,pkId,name);

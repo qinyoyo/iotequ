@@ -31,7 +31,7 @@ import top.iotequ.framework.bean.SpringContext;
 import top.iotequ.framework.serializer.gson.*;
 import org.apache.commons.codec.binary.Base64;
 import javax.servlet.http.*;
-import javax.validation.constraints.NotNull;
+import lombok.NonNull;
 import java.io.*;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
@@ -777,7 +777,7 @@ public class Util {
      * @param trialDays 试用天数
      * @return 剩余天数
      */
-    static public int getTrialDaysLeft(@NotNull String module, int trialDays) {
+    static public int getTrialDaysLeft(@NonNull String module, int trialDays) {
         Date dt = Util.getVersionBuildTime(module);
         int ds = (int) ((new Date().getTime() - dt.getTime()) / 1000 / 3600 / 24);
         if (ds >= trialDays) return 0;
@@ -834,7 +834,7 @@ public class Util {
         }
     }
 
-    private static String additionalPropertyFile(@NotNull String path, @NotNull String fileName) {
+    private static String additionalPropertyFile(@NonNull String path, @NonNull String fileName) {
         PropertiesPropertySourceLoader propLoader = new PropertiesPropertySourceLoader();
         YamlPropertySourceLoader yamlLoader = new YamlPropertySourceLoader();
         String ext = null;
@@ -871,14 +871,14 @@ public class Util {
         return null;
     }
 
-    private static String additionalPropertyFile(@NotNull String fileName) {
+    private static String additionalPropertyFile(@NonNull String fileName) {
         String path = SpringContext.getProjectHomeDirection();
         if (isEmpty(path)) return null;
         String fullName = additionalPropertyFile(path, fileName);
         return fullName;
     }
 
-    public static void sendVerifyCodeToMobile(@NotNull String mobilePhone) throws IotequException {
+    public static void sendVerifyCodeToMobile(@NonNull String mobilePhone) throws IotequException {
         // 调用验证码发送外部接口
         Object o = Util.getSessionAttribute(SEND_VERIFY_CODE_TIME + mobilePhone);
         if (o != null) {
@@ -941,7 +941,7 @@ public class Util {
         }
     }
 
-    public static void mobileVerifyCodeCheck(@NotNull String mobilePhone, @NotNull String vc) throws IotequException {
+    public static void mobileVerifyCodeCheck(@NonNull String mobilePhone, @NonNull String vc) throws IotequException {
         Object o = Util.getSessionAttribute(SEND_VERIFY_CODE_TIME + mobilePhone);
         if (o != null) {
             Object v = Util.getSessionAttribute(SENT_VERIFY_CODE + mobilePhone);
@@ -958,7 +958,7 @@ public class Util {
         }
     }
 
-    private static void getProjectHomeDiretion(@NotNull Class<?> clazz) {
+    private static void getProjectHomeDiretion(@NonNull Class<?> clazz) {
         if ("file".equals(clazz.getResource("").getProtocol())) {  // ide模式，使用上級目錄
             runInIdeMode = true;
             String path = getPath(clazz);
@@ -978,7 +978,7 @@ public class Util {
      * @return 版本信息
      */
 
-    static public String getVersion(@NotNull String module) {
+    static public String getVersion(@NonNull String module) {
         IotequVersionInfo ver = IotequVersionInfo.getVersion(module);
         if (ver != null) {
             return ver.getVersion();
@@ -990,7 +990,7 @@ public class Util {
      *
      * @return 版本build时间
      */
-    static public Date getVersionBuildTime(@NotNull String module) {
+    static public Date getVersionBuildTime(@NonNull String module) {
         IotequVersionInfo ver = IotequVersionInfo.getVersion(module);
         if (ver != null) {
             Date dt = ver.getBuildTime();
@@ -1006,7 +1006,7 @@ public class Util {
                 .intValue();
     }
 
-    public static void commonApplicationRun(@NotNull Class<?> clazz, String applicationProperties, String customerProperties, String[] args) {
+    public static void commonApplicationRun(@NonNull Class<?> clazz, String applicationProperties, String customerProperties, String[] args) {
         getProjectHomeDiretion(clazz);
         int pid = getProcessID();
         try {

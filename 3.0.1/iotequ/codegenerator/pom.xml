@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.2.0.RELEASE</version>
+		<version>2.3.3.RELEASE</version>
 		<relativePath />
 	</parent>
 
@@ -41,7 +41,7 @@
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
 			<artifactId>mybatis-spring-boot-starter</artifactId>
-			<version>2.1.1</version>
+			<version>2.1.3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -56,8 +56,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.10</version>
-			<scope>provided</scope>
+			<optional>true</optional>
 		</dependency>
 				<dependency>
 			<groupId>com.google.code.gson</groupId>
@@ -84,7 +83,6 @@
 			<properties>
 				<build.groupId>org.springframework.boot</build.groupId>
 				<build.artifactId>spring-boot-maven-plugin</build.artifactId>
-				<build.version>2.2.0.RELEASE</build.version>
 				<build.excludes></build.excludes>
 				<resource.excludes></resource.excludes>
 			</properties>
@@ -97,7 +95,6 @@
 			<properties>
 				<build.groupId>org.apache.maven.plugins</build.groupId>
 				<build.artifactId>maven-compiler-plugin</build.artifactId>
-				<build.version>3.8.1</build.version>
 				<build.excludes>top/iotequ/CodegeneratorApplication.java</build.excludes>
 				<resource.excludes>application.yml</resource.excludes>
 			</properties>
@@ -117,7 +114,6 @@
 			<plugin>
 				<groupId>${build.groupId}</groupId>
 				<artifactId>${build.artifactId}</artifactId>
-				<version>${build.version}</version>
 				<configuration>
 					<excludes>${build.excludes}</excludes>
 				</configuration>

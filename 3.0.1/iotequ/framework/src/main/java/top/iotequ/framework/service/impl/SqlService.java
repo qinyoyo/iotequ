@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.validation.constraints.NotNull;
+import lombok.NonNull;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -160,7 +160,7 @@ public class SqlService {
 		}
 	}
 	
-	public int getRowCount(@NotNull String table,@NotNull String pkField,Object  id) {	
+	public int getRowCount(@NonNull String table,@NonNull String pkField,Object  id) {
 		String sql=String.format("select count(*) from %s where %s<=?",table,pkField);
 		try {
 			Object num=queryField( false,sql,id);
@@ -170,7 +170,7 @@ public class SqlService {
 		} catch (Exception e) {}
 		return 0;
 	}
-	public int checkTableLicenceLeft(@NotNull String table,@NotNull String pkField,int licence) {
+	public int checkTableLicenceLeft(@NonNull String table,@NonNull String pkField,int licence) {
 		String sql = String.format("select count(*) from %s",table);
 		try {
 			Object o = queryField(false,sql);		
@@ -194,7 +194,7 @@ public class SqlService {
 			} else return licence - rows;
 		} catch (Exception e) { return licence;}
 	}
-	public String licenceCondition(@NotNull String table,@NotNull String pkField,int licence) {
+	public String licenceCondition(@NonNull String table,@NonNull String pkField,int licence) {
 		String sql = String.format("select count(*) from %s",table);
 		try {
 			Object o = queryField(false,sql);
@@ -221,7 +221,7 @@ public class SqlService {
 			} else return null;
 		} catch (Exception e) { return null;}
 	}
-	public Object maxIdInLicence(@NotNull String table,@NotNull String pkField,int licence) {
+	public Object maxIdInLicence(@NonNull String table,@NonNull String pkField,int licence) {
 		try {
 			String sql=null;
 			String dbId=sqlSessionTemplate.getConfiguration().getDatabaseId();	

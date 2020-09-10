@@ -1,12 +1,11 @@
 package top.iotequ.framework.util;
 
+import lombok.NonNull;
 import lombok.Getter;
 import org.springframework.boot.system.ApplicationHome;
 
-import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.FileFilter;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.jar.*;
 
@@ -18,7 +17,7 @@ public class IotequVersionInfo {
     private String version;
     private Date buildTime;
     private boolean isIotequModule=false;
-    static public void readVersionInfo(@NotNull Class<?> clazz) {
+    static public void readVersionInfo(@NonNull Class<?> clazz) {
         ApplicationHome home = new ApplicationHome(clazz);
         String path = home.getSource().getAbsolutePath();
         if (path.endsWith("\\target\\classes") || path.endsWith("/target/classes")) {
@@ -59,7 +58,7 @@ public class IotequVersionInfo {
             return;
         }
     }
-    public static IotequVersionInfo getVersion(@NotNull String module) {
+    public static IotequVersionInfo getVersion(@NonNull String module) {
         if (!Util.isEmpty(IotequVersionInfoList)) {
             for (IotequVersionInfo md : IotequVersionInfoList) {
                 if (module.equals(md.module)) return md;

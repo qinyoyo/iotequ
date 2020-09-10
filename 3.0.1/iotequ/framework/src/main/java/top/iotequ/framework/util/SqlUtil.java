@@ -11,8 +11,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.constraints.NotNull;
 
+import lombok.NonNull;
 import org.springframework.core.env.Environment;
 
 import org.springframework.dao.*;
@@ -622,7 +622,7 @@ public class SqlUtil {
 	 * @param id 主键值
 	 * @return 行号
 	 */
-	public static int getRowCount(@NotNull String table,@NotNull String pkField,Object  id) {
+	public static int getRowCount(@NonNull String table,@NonNull String pkField,Object  id) {
 		if (id==null) return 0;
 		else {
 			SqlService sqlService = SpringContext.getBean(SqlService.class);
@@ -771,15 +771,15 @@ public class SqlUtil {
 	 * @param licence licence值
 	 * @return 剩余licence数 
 	 */
-	static public int checkTableLicenceLeft(@NotNull String table,@NotNull String pkField,int licence) {
+	static public int checkTableLicenceLeft(@NonNull String table,@NonNull String pkField,int licence) {
 		SqlService sqlService = SpringContext.getBean(SqlService.class);
 		return sqlService.checkTableLicenceLeft(table,pkField,licence);
 	}
-	static public String licenceCondition(@NotNull String table,@NotNull String pkField,int licence) {
+	static public String licenceCondition(@NonNull String table,@NonNull String pkField,int licence) {
 		SqlService sqlService = SpringContext.getBean(SqlService.class);
 		return sqlService.licenceCondition(table,pkField,licence);
 	}
-	static public Object maxIdInLicence(@NotNull String table,@NotNull String pkField,int licence) {
+	static public Object maxIdInLicence(@NonNull String table,@NonNull String pkField,int licence) {
 		SqlService sqlService = SpringContext.getBean(SqlService.class);
 		return sqlService.maxIdInLicence(table,pkField,licence);
 	}
