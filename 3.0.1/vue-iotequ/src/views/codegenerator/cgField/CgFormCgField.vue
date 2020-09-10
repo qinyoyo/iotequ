@@ -404,8 +404,8 @@ export default {
     newRecord: function() {
         return {
             tableId: '',
-            title: '',
-            entityName: '',
+            title: null,
+            entityName: null,
             showType: 'text',
             dictMultiple: false,
             orderNum: 0,
