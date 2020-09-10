@@ -45,12 +45,12 @@ public class UploadController {
 			if (ext==null || (!ext.equals(".png") && !ext.equals(".gif")&& !ext.equals(".jpg") && !ext.equals(".jpeg"))) throw new Exception("No suport file type");		
 			if (Util.isEmpty(name)) name="0"+ext;
 			else	name=name.split("\\.")[0]+ext;
-			File outf=FileUtil.uploadFile(path,field,id,name);
-			log.debug("upload image {}",outf.getAbsolutePath());
+			File outf = FileUtil.uploadFile(path, field, id, name);
+			log.debug("upload image {}", outf.getAbsolutePath());
 			if (!outf.getParentFile().exists()) outf.getParentFile().mkdirs();
 			if (outf.exists()) {
 				outf.delete();
-			} 
+			}
 			file.transferTo(outf);
 			if ("sysUser".equals(path)) {
 				String sql="update sys_user set icon=? where id=?";
