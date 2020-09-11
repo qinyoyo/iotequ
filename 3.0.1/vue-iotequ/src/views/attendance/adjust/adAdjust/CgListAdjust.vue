@@ -141,7 +141,6 @@ import cgList from '@/utils/cgList'
 import cg from '@/utils/cg'
 import {hasAuthority} from '@/utils/cg'
 import time from '@/utils/time'
-import CgListUserJoin from '@/views/framework/sysUser/CgListUserJoin.vue'
 const mixins = []
 const mixinContext = require.context('.', false, /CgListAdjust-mixin\.(js|vue)$/)
 mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
@@ -182,7 +181,6 @@ export default {
       default: () => { return {} }
     }
   },
-  components: { CgListUserJoin },
   data() {
     return {
       cgList,
@@ -218,9 +216,6 @@ export default {
           groupid: 20
         }
       ],
-      employeeJoinVisible: false,
-      hrJoinVisible: false,
-      approverJoinVisible: false,
       paginationCurrentPage: 1,
       paginationPageSize: this.$store.state.app.device === 'mobile' ? 10 : 30,
       paginationTotalRecords: 0,
@@ -242,11 +237,6 @@ export default {
     },
     className() {
       return this.openID ? 'cg-list-adjust cg-list-adjust' + '-'+this.openID : 'cg-list-adjust'
-    },
-    employeeDynaCondition() {
-      return {
-        orgCode: this.queryRecord.orgCode
-      }
     },
     allActions() {
       if (this.joinMode) return 'refresh,query'
@@ -318,24 +308,6 @@ export default {
         endTime: null,
         registerTime: null,
       }, this.fixedQueryRecord)
-    },
-    getJoinFields(field,rows) {
-      const joinDefine = {
-        employee: {
-          valueField: 'id',
-          fields: 'realName=realName'
-        },
-        hr: {
-          valueField: 'id',
-          fields: 'hrRealName=realName'
-        },
-        approver: {
-          valueField: 'id',
-          fields: 'approverName=realName'
-        },
-      }
-      this[field+'JoinVisible'] = false
-      this.setJoinValues(this.queryRecord, field, joinDefine[field], rows)
     },
     doAction(action, options) {
       this.queryRecord = Object.assign(this.queryRecord, this.fixedQueryRecord)

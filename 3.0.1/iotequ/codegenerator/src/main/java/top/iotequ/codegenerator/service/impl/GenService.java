@@ -786,7 +786,7 @@ public class GenService implements ApplicationContextAware {
                 map.put("id", f.getId()); // f.id 可能为join信息
                 if (!Util.isEmpty(item.getShowType()))
                     map.put("showType", item.getShowType());  // item 未定义 showType，使用字段的showType
-                if (f.getId().startsWith("join:") || f.getId().startsWith("list:")) { // f 为join字段
+                if ((f.getId().startsWith("join:") || f.getId().startsWith("list:")) && item.getQueryMode() > 0 && item.getQueryMode()!=2) { // list 的join仅仅用于非筛选查询
                     getJoinProperties(allFields,joinedFields,f);
                 }
                 list.add(map);

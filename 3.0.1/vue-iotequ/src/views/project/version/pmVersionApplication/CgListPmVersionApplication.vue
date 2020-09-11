@@ -129,7 +129,6 @@ import cgList from '@/utils/cgList'
 import cg from '@/utils/cg'
 import {hasAuthority} from '@/utils/cg'
 import time from '@/utils/time'
-import CgListUserJoin from '@/views/framework/sysUser/CgListUserJoin.vue'
 const mixins = []
 const mixinContext = require.context('.', false, /CgListPmVersionApplication-mixin\.(js|vue)$/)
 mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
@@ -170,7 +169,6 @@ export default {
       default: () => { return {} }
     }
   },
-  components: { CgListUserJoin },
   data() {
     return {
       cgList,
@@ -233,7 +231,6 @@ export default {
           groupid: 20
         }
       ],
-      flowRegisterByJoinVisible: false,
       paginationCurrentPage: 1,
       paginationPageSize: this.$store.state.app.device === 'mobile' ? 10 : 30,
       paginationTotalRecords: 0,
@@ -323,16 +320,6 @@ export default {
         project: null,
         customer: null,
       }, this.fixedQueryRecord)
-    },
-    getJoinFields(field,rows) {
-      const joinDefine = {
-        flowRegisterBy: {
-          valueField: 'id',
-          fields: 'registerByName=realName'
-        },
-      }
-      this[field+'JoinVisible'] = false
-      this.setJoinValues(this.queryRecord, field, joinDefine[field], rows)
     },
     doAction(action, options) {
       this.queryRecord = Object.assign(this.queryRecord, this.fixedQueryRecord)

@@ -123,7 +123,6 @@ import cgList from '@/utils/cgList'
 import cg from '@/utils/cg'
 import {hasAuthority} from '@/utils/cg'
 import time from '@/utils/time'
-import CgListEwTimeProject from '@/views/ewallet/ewTimeProject/CgListEwTimeProject.vue'
 const mixins = []
 const mixinContext = require.context('.', false, /CgListEwUserTime-mixin\.(js|vue)$/)
 mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
@@ -164,7 +163,6 @@ export default {
       default: () => { return {} }
     }
   },
-  components: { CgListEwTimeProject },
   data() {
     return {
       cgList,
@@ -183,7 +181,6 @@ export default {
       localExport: false,
       parentField: null,
       idField: 'id',
-      timeIdJoinVisible: false,
       paginationCurrentPage: 1,
       paginationPageSize: this.$store.state.app.device === 'mobile' ? 10 : 30,
       paginationTotalRecords: 0,
@@ -270,16 +267,6 @@ export default {
         startTime: null,
         endTime: null,
       }, this.fixedQueryRecord)
-    },
-    getJoinFields(field,rows) {
-      const joinDefine = {
-        timeId: {
-          valueField: 'id',
-          fields: 'projectName=name,basePrice=basePrice,startTime=startTime,endTime=endTime'
-        },
-      }
-      this[field+'JoinVisible'] = false
-      this.setJoinValues(this.queryRecord, field, joinDefine[field], rows)
     },
     doAction(action, options) {
       this.queryRecord = Object.assign(this.queryRecord, this.fixedQueryRecord)

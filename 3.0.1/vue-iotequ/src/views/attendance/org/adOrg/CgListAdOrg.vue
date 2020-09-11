@@ -110,8 +110,6 @@ import cgList from '@/utils/cgList'
 import cg from '@/utils/cg'
 import {hasAuthority} from '@/utils/cg'
 import time from '@/utils/time'
-import CgListOrg from '@/views/framework/sysOrg/CgListOrg.vue'
-import CgListUserJoin from '@/views/framework/sysUser/CgListUserJoin.vue'
 import rulesObject from './rules.js'
 const mixins = []
 const mixinContext = require.context('.', false, /CgListAdOrg-mixin\.(js|vue)$/)
@@ -153,7 +151,6 @@ export default {
       default: () => { return {} }
     }
   },
-  components: { CgListOrg, CgListUserJoin },
   data() {
     return {
       cgList,
@@ -180,9 +177,6 @@ export default {
 			  dictManagerOrgCode: []
 		  },
       needLoadDictionary: true,
-      orgCodeJoinVisible: false,
-      managerJoinVisible: false,
-      hrJoinVisible: false,
       paginationPageSize: 0,
       sortableFields: [],
       sortableFieldsOrder: [],
@@ -274,24 +268,6 @@ export default {
         manager: null,
         managerOrgCode: null,
       }, this.fixedQueryRecord)
-    },
-    getJoinFields(field,rows) {
-      const joinDefine = {
-        orgCode: {
-          valueField: 'orgCode',
-          fields: 'sysOrgCode=orgCode,name=name,parent=parent'
-        },
-        manager: {
-          valueField: 'id',
-          fields: 'managerName=realName,managerOrgCode=orgCode'
-        },
-        hr: {
-          valueField: 'id',
-          fields: 'hrName=realName'
-        },
-      }
-      this[field+'JoinVisible'] = false
-      this.setJoinValues(this.queryRecord, field, joinDefine[field], rows)
     },
     doAction(action, options) {
       this.queryRecord = Object.assign(this.queryRecord, this.fixedQueryRecord)

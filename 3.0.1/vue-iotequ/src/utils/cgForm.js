@@ -324,12 +324,12 @@ export default {
       else {
         formObject.record = query.record
         formObject[formObject.idField + 'Saved'] = query.record[formObject.idField]
-        if (formObject.isNew) formObject.openMode = 'view'
+        if (!formObject.openMode) formObject.openMode = 'view'
       }
     } else if (query.hasOwnProperty('id') && query.id) {
       this.form_getRecordFromServer(formObject, query.id)
       formObject[formObject.idField + 'Saved'] = query.id
-      if (formObject.isNew) formObject.openMode = 'view'
+      if (!formObject.openMode) formObject.openMode = 'view'
     } else if (formObject.isNew) {
       this.form_createNewRecord(formObject)
       formObject.openMode = 'add'

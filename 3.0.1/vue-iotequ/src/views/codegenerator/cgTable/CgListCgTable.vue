@@ -81,14 +81,10 @@
       </el-form-item>
       <el-divider />
       <div v-show="!queryRecord.search">
-        <cg-join v-model="projectIdJoinVisible">
-          <CgListCgProject slot="popover" ref="projectIdJoin" openID="projectid-join" :height="joinHeight()" :joinShow="projectIdJoinVisible" joinMultiple
-            :originSelections="queryRecord.projectId" selectionKey="id" joinMode @closeJoinList="(rows)=>{ getJoinFields('projectId',rows)}" @showJoinList="projectIdJoinVisible=true"/>
-        <el-form-item slot="reference" :label="$t('cgProject.field.name')" prop="module" :size="$store.state.app.size">
+        <el-form-item :label="$t('cgProject.field.name')" prop="module" :size="$store.state.app.size">
           <cg-select v-model="queryRecord.module" :dictionary="filterQueryDictionary.module"
                      :disabled="fixedQueryRecord.module?true:false" allow-create multiple clearable />
         </el-form-item>
-        </cg-join>
         <el-form-item :label="$t('cgTable.field.code')" prop="code" :size="$store.state.app.size">
           <el-input v-model="queryRecord.code" type="text" name="code"
                     :readonly="fixedQueryRecord.code?true:false" :label="$t('cgTable.field.code')" clearable resize autofocus/>
@@ -107,7 +103,6 @@ import cgList from '@/utils/cgList'
 import cg from '@/utils/cg'
 import {hasAuthority} from '@/utils/cg'
 import time from '@/utils/time'
-import CgListCgProject from '@/views/codegenerator/cgProject/CgListCgProject.vue'
 import rulesObject from './rules.js'
 const mixins = []
 const mixinContext = require.context('.', false, /CgListCgTable-mixin\.(js|vue)$/)
@@ -149,7 +144,6 @@ export default {
       default: () => { return {} }
     }
   },
-  components: { CgListCgProject },
   data() {
     return {
       cgList,
@@ -161,7 +155,7 @@ export default {
       showActionView: false,
       defaultOrder: 'module,code',
       queryRecord: this.initialQueryRecord(),
-      queryRecordFields: ['projectId','code','name'],
+      queryRecordFields: ['module','code','name'],
       formPath: '/codegenerator/cgTable/record',
       listLoading: false,
       rows: [],
@@ -178,7 +172,6 @@ export default {
       filterQueryDictionary: {
         module: [],
       },
-      projectIdJoinVisible: false,
       paginationPageSize: 0,
       sortableFields: [],
       sortableFieldsOrder: [],
@@ -317,16 +310,6 @@ export default {
     },
     groupFields({ row, column, rowIndex, columnIndex }) {
       return cgList.list_groupFields(this, this.groupByEntityFields.split(','), row, column, rowIndex, columnIndex)
-    },
-    getJoinFields(field,rows) {
-      const joinDefine = {
-        projectId: {
-          valueField: 'id',
-          fields: 'project=code,groupId=groupId,module=name'
-        },
-      }
-      this[field+'JoinVisible'] = false
-      this.setJoinValues(this.queryRecord, field, joinDefine[field], rows)
     },
     doAction(action, options) {
       this.queryRecord = Object.assign(this.queryRecord, this.fixedQueryRecord)

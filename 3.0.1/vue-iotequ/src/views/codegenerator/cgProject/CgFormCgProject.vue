@@ -213,7 +213,7 @@ export default {
             creator: this.$store.state.user.name,
             code: '',
             name: '',
-            version: '3.0.0-SNAPSHOT',
+            version: '3.0.1-SNAPSHOT',
             groupId: 'top.iotequ',
             modules: 'framework',
             springModule: true,

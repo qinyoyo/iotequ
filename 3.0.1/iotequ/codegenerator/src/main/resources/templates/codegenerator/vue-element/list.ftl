@@ -269,7 +269,7 @@
         <#list fields as f>
         <#if f.queryMode?? && f.queryMode gt 0>
         <#assign INDEX = INDEX + 1 />
-        <#if f.id?starts_with("join:") || f.id?starts_with("list:")>
+        <#if (f.id?starts_with("join:") || f.id?starts_with("list:")) && f.queryMode != 2>
           <#assign joinFields = f.id?split(":")/>
         <#if joinedFileds?index_of(','+joinFields[1]+',') lt 0>
         <#assign joinedFileds = joinedFileds + ','+ joinFields[1] +',' />
@@ -406,7 +406,7 @@ export default {
       <#assign firstField = true />
       defaultOrder: <#if LP.orderBy?? && LP.orderBy?trim !="">'${LP.orderBy?trim}'<#elseif LP.sortField?? && LP.sortField?trim!=''>'${getDbName(LP.sortField)} asc'<#elseif createTimeField=="">'${pk.name} desc'<#else>'${createTimeField} desc'</#if>,
       queryRecord: this.initialQueryRecord(),
-      queryRecordFields: [<#assign firstItemInArray=true /><#list fields as f><#if f.queryMode?? && f.queryMode gt 0><#if firstItemInArray><#assign firstItemInArray=false /><#else>,</#if>'<#if f.id?starts_with("join:") || f.id?starts_with("list:")><#assign joinFields = f.id?split(":") />${joinFields[1]}<#else>${f.entityName}</#if>'</#if></#list>],
+      queryRecordFields: [<#assign firstItemInArray=true /><#list fields as f><#if f.queryMode?? && f.queryMode gt 0><#if firstItemInArray><#assign firstItemInArray=false /><#else>,</#if>'<#if (f.id?starts_with("join:") || f.id?starts_with("list:")) && f.queryMode != 2><#assign joinFields = f.id?split(":") />${joinFields[1]}<#else>${f.entityName}</#if>'</#if></#list>],
       formPath: '/${moduleName}/<#if subModule??>${subModule}/</#if>${generatorName}/record',
       listLoading: false,
       rows: [],
