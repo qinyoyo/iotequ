@@ -1,6 +1,7 @@
 package top.iotequ.framework.bean;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -19,7 +20,7 @@ import static top.iotequ.framework.util.StringUtil.uuid;
 
 @Component
 public class SpringContext implements ApplicationContextAware {
-    private static final Logger log = Util.getInfoLogger(SpringContext.class);
+    private static final Logger log = LoggerFactory.getLogger(SpringContext.class);
     public static Map<String, List<Map<String, Object>>> systemDataDict = null;
     private static ApplicationContext applicationContext = null;
     private static DataDictDao dictDaoInstance;
@@ -75,6 +76,8 @@ public class SpringContext implements ApplicationContextAware {
     public void setApplicationContext(ApplicationContext context) throws BeansException {
         dictDaoInstance = dictDao;
         if (applicationContext == null) {
+            String level = Util.getLevel(log);
+            Util.setLevel(log,"all");
             List<IotequVersionInfo> versions = IotequVersionInfo.getAllVersions();
             if (!Util.isEmpty(versions)) {
                 log.info("-----------------------------------------Version infomation-----------------------------------");
@@ -93,6 +96,7 @@ public class SpringContext implements ApplicationContextAware {
             log.info("Home direction = " + projectHomeDirection);
             log.info("Node id = " + nodeId);
             log.info("----------------------------------------------------------------------------------------------");
+            if (level!=null) Util.setLevel(log,level);
         }
     }
 

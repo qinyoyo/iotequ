@@ -999,16 +999,18 @@ public class Util {
         return new Date();
     }
 
-    public static int getProcessID() {
+    public static int getProcessID(Logger log) {
         RuntimeMXBean runtimeMXBean = ManagementFactory.getRuntimeMXBean();
-        System.out.println(runtimeMXBean.getName());
+        log.info(runtimeMXBean.getName());
         return Integer.valueOf(runtimeMXBean.getName().split("@")[0])
                 .intValue();
     }
 
     public static void commonApplicationRun(@NonNull Class<?> clazz, String applicationProperties, String customerProperties, String[] args) {
+        Logger log = LoggerFactory.getLogger(Util.class);
+        setLevel(log,"all");
         getProjectHomeDiretion(clazz);
-        int pid = getProcessID();
+        int pid = getProcessID(log);
         try {
             FileUtil.writeToFile(String.valueOf(pid), new File(SpringContext.getProjectHomeDirection(),"pid.log"));
         } catch (Exception e) {}
@@ -1016,7 +1018,7 @@ public class Util {
         SpringApplicationBuilder appBuilder = new SpringApplicationBuilder(clazz);
         appBuilder.properties("file.encoding=UTF-8");
         String myPropertyFile = additionalPropertyFile(customerProperties == null ? "iotequ" : customerProperties);
-        if (myPropertyFile != null) System.out.println("Use additional user property file : " + myPropertyFile);
+        if (myPropertyFile != null) log.info("Use additional user property file : " + myPropertyFile);
         if (applicationProperties != null) {
             String location = "spring.config.location=classpath:/" + applicationProperties +
                     (myPropertyFile == null ? "" : "," + myPropertyFile);
@@ -1039,17 +1041,19 @@ public class Util {
             }
         }
     }
-    public static Logger getLogger(Class<?> clazz, Level level) {
-        Logger log = LoggerFactory.getLogger(clazz);
-        if (log!=null && level!=null && log instanceof ch.qos.logback.classic.Logger) {
-            ((ch.qos.logback.classic.Logger)log).setLevel(level);
-        }
-        return log;
-    }
-    public static Logger getInfoLogger(Class<?> clazz) {
-        return getLogger(clazz,Level.ALL);
-    }
 
+    public static void setLevel(Logger log, String level) {
+        if (log!=null && level!=null && log instanceof ch.qos.logback.classic.Logger) {
+            ((ch.qos.logback.classic.Logger)log).setLevel(Level.toLevel(level));
+        }
+    }
+    public static String getLevel(Logger log) {
+        if (log!=null && log instanceof ch.qos.logback.classic.Logger) {
+            Level level = ((ch.qos.logback.classic.Logger)log).getLevel();
+            if (level!=null) return level.levelStr;
+        }
+        return null;
+    }
     public static String getImageBase64String(File file) throws IotequException {
         if (file==null) throw new IotequException(IotequThrowable.NULL_OBJECT,"file is null");
         String fileContentBase64 = null;

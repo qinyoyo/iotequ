@@ -45,7 +45,8 @@ spring:
       time-zone: GMT+8
 #日志输出
 logging:
-   file: log/iotequ.log
+   file: 
+      name: log/iotequ.log
    level: 
       root: error
       org.springframework: error
