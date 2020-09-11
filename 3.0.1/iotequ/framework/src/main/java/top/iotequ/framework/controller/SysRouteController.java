@@ -83,7 +83,7 @@ public class SysRouteController  {
 		}
 	}
 	@RequestMapping(value = "/updateSelective",method = {RequestMethod.PUT,RequestMethod.POST})
-	public ResponseEntity<Map<String, Object>> updateSelective(@RequestBody List<SysRoute> sysRouteList, HttpServletRequest request, HttpServletResponse response) {
+	public ResponseEntity<Map<String, Object>> updateSelective(@RequestBody List<Map<String,Object>> sysRouteList, HttpServletRequest request, HttpServletResponse response) {
 		try {
 			return cgService.updateSelective(sysRouteList).toResponse();
 		} catch (Exception e) {

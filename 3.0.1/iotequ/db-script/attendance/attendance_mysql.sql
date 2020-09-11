@@ -59,7 +59,7 @@ DROP TABLE IF EXISTS `ad_employee`;
 CREATE TABLE `ad_employee` (
   `id` varchar(36) NOT NULL PRIMARY KEY COMMENT '用户',
   `employee_no` varchar(32) NOT NULL UNIQUE COMMENT '工号',
-  `em_level` int(11) DEFAULT 1 NOT NULL COMMENT '职务级别',
+  `em_level` int(11) NULL COMMENT '职务级别',
   `is_attendance` tinyint(1) DEFAULT 1 NOT NULL COMMENT '是否考勤',
   `enter_date` date NULL COMMENT '入职日期',
   `leave_date` date NULL COMMENT '离职日期',

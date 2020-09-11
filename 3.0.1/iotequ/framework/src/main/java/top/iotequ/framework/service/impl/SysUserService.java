@@ -34,7 +34,7 @@ public class SysUserService extends CgSysUserService implements ApplicationListe
 				User user = EntityUtil.entityCopyFrom(User.class, event.getPeople());
 				if (EntityUtil.isEntityEmpty(user)) return;
 				user.setId(event.getPeople().getUserNo());
-				userDao.updateSelective(user);
+				userDao.updateSelective(EntityUtil.mapFromEntity(user));
 				user = userDao.select(user.getId());
 			}
 		} catch (Exception e) {}

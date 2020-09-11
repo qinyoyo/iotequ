@@ -6,6 +6,7 @@
 package top.iotequ.attendance.shift.dao;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
+import java.util.Map;
 import top.iotequ.framework.service.IDaoService;
 import top.iotequ.attendance.shift.pojo.AdShift;
 import java.util.*;
@@ -20,7 +21,7 @@ public interface AdShiftDao  extends IDaoService<AdShift> {
     int deleteBatch(String ids);
     int deleteList(List<AdShift> list);
     int update(AdShift record);
-    int updateSelective(AdShift record);
+    int updateSelective(Map<String,Object> record);
     int updateBy(@Param("record")AdShift record,@Param("id")Integer id);
     //条件为所有非空字段 and，String采用like的查询模式，其他为=
     List<AdShift> list(AdShift record);

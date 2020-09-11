@@ -83,7 +83,7 @@ public class SysMenuController  {
 		}
 	}
 	@RequestMapping(value = "/updateSelective",method = {RequestMethod.PUT,RequestMethod.POST})
-	public ResponseEntity<Map<String, Object>> updateSelective(@RequestBody List<Menu> menuList, HttpServletRequest request, HttpServletResponse response) {
+	public ResponseEntity<Map<String, Object>> updateSelective(@RequestBody List<Map<String,Object>> menuList, HttpServletRequest request, HttpServletResponse response) {
 		try {
 			return cgService.updateSelective(menuList).toResponse();
 		} catch (Exception e) {

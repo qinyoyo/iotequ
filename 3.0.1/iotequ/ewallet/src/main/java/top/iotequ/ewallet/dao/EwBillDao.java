@@ -6,6 +6,7 @@
 package top.iotequ.ewallet.dao;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
+import java.util.Map;
 import top.iotequ.framework.service.IDaoService;
 import top.iotequ.ewallet.pojo.EwBill;
 import java.util.*;
@@ -46,7 +47,7 @@ public interface EwBillDao  extends IDaoService<EwBill> {
     int deleteBatchByShopId(String shopIds);
     int deleteList(List<EwBill> list);
     int update(EwBill record);
-    int updateSelective(EwBill record);
+    int updateSelective(Map<String,Object> record);
     int updateBy(@Param("record")EwBill record,@Param("no")String id);
     //条件为所有非空字段 and，String采用like的查询模式，其他为=
     List<EwBill> list(EwBill record);

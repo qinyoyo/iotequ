@@ -83,7 +83,7 @@ public class EwTimeProjectController  {
 		}
 	}
 	@RequestMapping(value = "/updateSelective",method = {RequestMethod.PUT,RequestMethod.POST})
-	public ResponseEntity<Map<String, Object>> updateSelective(@RequestBody List<EwTimeProject> ewTimeProjectList, HttpServletRequest request, HttpServletResponse response) {
+	public ResponseEntity<Map<String, Object>> updateSelective(@RequestBody List<Map<String,Object>> ewTimeProjectList, HttpServletRequest request, HttpServletResponse response) {
 		try {
 			return cgService.updateSelective(ewTimeProjectList).toResponse();
 		} catch (Exception e) {

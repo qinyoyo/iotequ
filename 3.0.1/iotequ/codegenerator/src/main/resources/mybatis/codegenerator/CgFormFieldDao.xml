@@ -119,24 +119,39 @@
       show_type = #{showType,jdbcType=VARCHAR}
       where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateSelective" parameterType="top.iotequ.codegenerator.pojo.CgFormField">
+  <update id="updateSelective" parameterType="java.util.Map">
     update cg_form_field 
       <set>
-        <if test="formId != null"> form_id = #{formId,jdbcType=VARCHAR},</if>
-        <if test="orderNum != null"> order_num = #{orderNum,jdbcType=INTEGER},</if>
-        <if test="entityField != null"> entity_field = #{entityField,jdbcType=VARCHAR},</if>
-        <if test="width != null"> width = #{width,jdbcType=INTEGER},</if>
-        <if test="groupTitle != null"> group_title = #{groupTitle,jdbcType=VARCHAR},</if>
-        <if test="itemProperties != null"> item_properties = #{itemProperties,jdbcType=VARCHAR},</if>
-        <if test="formItemProperties != null"> form_item_properties = #{formItemProperties,jdbcType=VARCHAR},</if>
-        <if test="readonly != null"> readonly = #{readonly,jdbcType=TINYINT},</if>
-        <if test="mustInput != null"> must_input = #{mustInput,jdbcType=TINYINT},</if>
-        <if test="icon != null"> icon = #{icon,jdbcType=VARCHAR},</if>
-        <if test="href != null"> href = #{href,jdbcType=VARCHAR},</if>
-        <if test="hidden != null"> hidden = #{hidden,jdbcType=TINYINT},</if>
-        <if test="validateAsTitle != null"> validate_as_title = #{validateAsTitle,jdbcType=TINYINT},</if>
-        <if test="slotTemplates != null"> slot_templates = #{slotTemplates,jdbcType=VARCHAR},</if>
-        <if test="showType != null"> show_type = #{showType,jdbcType=VARCHAR},</if>
+        <if test='formId == "[null]"'> form_id = NULL, </if>
+        <if test='formId != null and formId != "[null]"'> form_id = #{formId,jdbcType=VARCHAR},</if>
+        <if test='orderNum == "[null]"'> order_num = NULL, </if>
+        <if test='orderNum != null and orderNum != "[null]"'> order_num = #{orderNum,jdbcType=INTEGER},</if>
+        <if test='entityField == "[null]"'> entity_field = NULL, </if>
+        <if test='entityField != null and entityField != "[null]"'> entity_field = #{entityField,jdbcType=VARCHAR},</if>
+        <if test='width == "[null]"'> width = NULL, </if>
+        <if test='width != null and width != "[null]"'> width = #{width,jdbcType=INTEGER},</if>
+        <if test='groupTitle == "[null]"'> group_title = NULL, </if>
+        <if test='groupTitle != null and groupTitle != "[null]"'> group_title = #{groupTitle,jdbcType=VARCHAR},</if>
+        <if test='itemProperties == "[null]"'> item_properties = NULL, </if>
+        <if test='itemProperties != null and itemProperties != "[null]"'> item_properties = #{itemProperties,jdbcType=VARCHAR},</if>
+        <if test='formItemProperties == "[null]"'> form_item_properties = NULL, </if>
+        <if test='formItemProperties != null and formItemProperties != "[null]"'> form_item_properties = #{formItemProperties,jdbcType=VARCHAR},</if>
+        <if test='readonly == "[null]"'> readonly = NULL, </if>
+        <if test='readonly != null and readonly != "[null]"'> readonly = #{readonly,jdbcType=TINYINT},</if>
+        <if test='mustInput == "[null]"'> must_input = NULL, </if>
+        <if test='mustInput != null and mustInput != "[null]"'> must_input = #{mustInput,jdbcType=TINYINT},</if>
+        <if test='icon == "[null]"'> icon = NULL, </if>
+        <if test='icon != null and icon != "[null]"'> icon = #{icon,jdbcType=VARCHAR},</if>
+        <if test='href == "[null]"'> href = NULL, </if>
+        <if test='href != null and href != "[null]"'> href = #{href,jdbcType=VARCHAR},</if>
+        <if test='hidden == "[null]"'> hidden = NULL, </if>
+        <if test='hidden != null and hidden != "[null]"'> hidden = #{hidden,jdbcType=TINYINT},</if>
+        <if test='validateAsTitle == "[null]"'> validate_as_title = NULL, </if>
+        <if test='validateAsTitle != null and validateAsTitle != "[null]"'> validate_as_title = #{validateAsTitle,jdbcType=TINYINT},</if>
+        <if test='slotTemplates == "[null]"'> slot_templates = NULL, </if>
+        <if test='slotTemplates != null and slotTemplates != "[null]"'> slot_templates = #{slotTemplates,jdbcType=VARCHAR},</if>
+        <if test='showType == "[null]"'> show_type = NULL, </if>
+        <if test='showType != null and showType != "[null]"'> show_type = #{showType,jdbcType=VARCHAR},</if>
       </set>
       where id = #{id,jdbcType=INTEGER}
   </update>

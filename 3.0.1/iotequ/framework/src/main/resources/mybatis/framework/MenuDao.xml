@@ -136,20 +136,31 @@
       js_cmd = #{jsCmd,jdbcType=VARCHAR}
       where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateSelective" parameterType="top.iotequ.framework.pojo.Menu">
+  <update id="updateSelective" parameterType="java.util.Map">
     update sys_menu 
       <set>
-        <if test="sortNum != null"> sort_num = #{sortNum,jdbcType=INTEGER},</if>
-        <if test="name != null"> name = #{name,jdbcType=VARCHAR},</if>
-        <if test="parent != null"> parent = #{parent,jdbcType=INTEGER},</if>
-        <if test="isDivider != null"> is_divider = #{isDivider,jdbcType=TINYINT},</if>
-        <if test="icon != null"> icon = #{icon,jdbcType=VARCHAR},</if>
-        <if test="action != null"> action = #{action,jdbcType=VARCHAR},</if>
-        <if test="className != null"> class_name = #{className,jdbcType=VARCHAR},</if>
-        <if test="dataAction != null"> data_action = #{dataAction,jdbcType=VARCHAR},</if>
-        <if test="bigicon != null"> bigIcon = #{bigicon,jdbcType=VARCHAR},</if>
-        <if test="mobileHidden != null"> mobile_hidden = #{mobileHidden,jdbcType=TINYINT},</if>
-        <if test="jsCmd != null"> js_cmd = #{jsCmd,jdbcType=VARCHAR},</if>
+        <if test='sortNum == "[null]"'> sort_num = NULL, </if>
+        <if test='sortNum != null and sortNum != "[null]"'> sort_num = #{sortNum,jdbcType=INTEGER},</if>
+        <if test='name == "[null]"'> name = NULL, </if>
+        <if test='name != null and name != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
+        <if test='parent == "[null]"'> parent = NULL, </if>
+        <if test='parent != null and parent != "[null]"'> parent = #{parent,jdbcType=INTEGER},</if>
+        <if test='isDivider == "[null]"'> is_divider = NULL, </if>
+        <if test='isDivider != null and isDivider != "[null]"'> is_divider = #{isDivider,jdbcType=TINYINT},</if>
+        <if test='icon == "[null]"'> icon = NULL, </if>
+        <if test='icon != null and icon != "[null]"'> icon = #{icon,jdbcType=VARCHAR},</if>
+        <if test='action == "[null]"'> action = NULL, </if>
+        <if test='action != null and action != "[null]"'> action = #{action,jdbcType=VARCHAR},</if>
+        <if test='className == "[null]"'> class_name = NULL, </if>
+        <if test='className != null and className != "[null]"'> class_name = #{className,jdbcType=VARCHAR},</if>
+        <if test='dataAction == "[null]"'> data_action = NULL, </if>
+        <if test='dataAction != null and dataAction != "[null]"'> data_action = #{dataAction,jdbcType=VARCHAR},</if>
+        <if test='bigicon == "[null]"'> bigIcon = NULL, </if>
+        <if test='bigicon != null and bigicon != "[null]"'> bigIcon = #{bigicon,jdbcType=VARCHAR},</if>
+        <if test='mobileHidden == "[null]"'> mobile_hidden = NULL, </if>
+        <if test='mobileHidden != null and mobileHidden != "[null]"'> mobile_hidden = #{mobileHidden,jdbcType=TINYINT},</if>
+        <if test='jsCmd == "[null]"'> js_cmd = NULL, </if>
+        <if test='jsCmd != null and jsCmd != "[null]"'> js_cmd = #{jsCmd,jdbcType=VARCHAR},</if>
       </set>
       where id = #{id,jdbcType=INTEGER}
   </update>

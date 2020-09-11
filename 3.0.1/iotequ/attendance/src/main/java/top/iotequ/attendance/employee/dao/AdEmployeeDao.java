@@ -6,6 +6,7 @@
 package top.iotequ.attendance.employee.dao;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
+import java.util.Map;
 import top.iotequ.framework.service.IDaoService;
 import top.iotequ.attendance.employee.pojo.AdEmployee;
 import java.util.*;
@@ -23,7 +24,7 @@ public interface AdEmployeeDao  extends IDaoService<AdEmployee> {
     int deleteBatch(String ids);
     int deleteList(List<AdEmployee> list);
     int update(AdEmployee record);
-    int updateSelective(AdEmployee record);
+    int updateSelective(Map<String,Object> record);
     int updateBy(@Param("record")AdEmployee record,@Param("id")String id);
     //条件为所有非空字段 and，String采用like的查询模式，其他为=
     List<AdEmployee> list(AdEmployee record);

@@ -98,7 +98,7 @@ public class AdAdjustController  {
 		}
 	}
 	@RequestMapping(value = "/updateSelective",method = {RequestMethod.PUT,RequestMethod.POST})
-	public ResponseEntity<Map<String, Object>> updateSelective(@RequestBody List<AdAdjust> adAdjustList, HttpServletRequest request, HttpServletResponse response) {
+	public ResponseEntity<Map<String, Object>> updateSelective(@RequestBody List<Map<String,Object>> adAdjustList, HttpServletRequest request, HttpServletResponse response) {
 		try {
 			return cgService.updateSelective(adAdjustList).toResponse();
 		} catch (Exception e) {

@@ -256,7 +256,7 @@ CREATE TABLE [dbo].[cg_project] (
   [creator] varchar(36) NOT NULL,
   [group_id] varchar(45) DEFAULT ('top.iotequ') NOT NULL,
   [name] varchar(36) NOT NULL,
-  [version] varchar(36) DEFAULT ('3.0.0-SNAPSHOT') NOT NULL,
+  [version] varchar(36) DEFAULT ('3.0.1-SNAPSHOT') NOT NULL,
   [note] varchar(100) NULL,
   [modules] varchar(200) DEFAULT ('framework') NULL,
   [spring_module] bit DEFAULT ((1)) NOT NULL,

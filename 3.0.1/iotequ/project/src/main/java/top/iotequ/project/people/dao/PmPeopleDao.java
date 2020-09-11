@@ -6,6 +6,7 @@
 package top.iotequ.project.people.dao;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
+import java.util.Map;
 import top.iotequ.framework.service.IDaoService;
 import top.iotequ.project.people.pojo.PmPeople;
 import java.util.*;
@@ -22,7 +23,7 @@ public interface PmPeopleDao  extends IDaoService<PmPeople> {
     int deleteByGroupIdUserId(@Param("groupId")Integer groupId , @Param("userId")String userId);
     int deleteList(List<PmPeople> list);
     int update(PmPeople record);
-    int updateSelective(PmPeople record);
+    int updateSelective(Map<String,Object> record);
     int updateBy(@Param("record")PmPeople record,@Param("id")Integer id);
     //条件为所有非空字段 and，String采用like的查询模式，其他为=
     List<PmPeople> list(PmPeople record);

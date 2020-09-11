@@ -95,15 +95,21 @@
       description = #{description,jdbcType=VARCHAR}
       where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateSelective" parameterType="top.iotequ.attendance.shift.pojo.AdShift">
+  <update id="updateSelective" parameterType="java.util.Map">
     update ad_shift 
       <set>
-        <if test="name != null"> name = #{name,jdbcType=VARCHAR},</if>
-        <if test="adMode != null"> ad_mode = #{adMode,jdbcType=INTEGER},</if>
-        <if test="startDate != null"> start_date = #{startDate,jdbcType=DATE},</if>
-        <if test="endDate != null"> end_date = #{endDate,jdbcType=DATE},</if>
-        <if test="minutesPerDay != null"> minutes_per_day = #{minutesPerDay,jdbcType=INTEGER},</if>
-        <if test="description != null"> description = #{description,jdbcType=VARCHAR},</if>
+        <if test='name == "[null]"'> name = NULL, </if>
+        <if test='name != null and name != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
+        <if test='adMode == "[null]"'> ad_mode = NULL, </if>
+        <if test='adMode != null and adMode != "[null]"'> ad_mode = #{adMode,jdbcType=INTEGER},</if>
+        <if test='startDate == "[null]"'> start_date = NULL, </if>
+        <if test='startDate != null and startDate != "[null]"'> start_date = #{startDate,jdbcType=DATE},</if>
+        <if test='endDate == "[null]"'> end_date = NULL, </if>
+        <if test='endDate != null and endDate != "[null]"'> end_date = #{endDate,jdbcType=DATE},</if>
+        <if test='minutesPerDay == "[null]"'> minutes_per_day = NULL, </if>
+        <if test='minutesPerDay != null and minutesPerDay != "[null]"'> minutes_per_day = #{minutesPerDay,jdbcType=INTEGER},</if>
+        <if test='description == "[null]"'> description = NULL, </if>
+        <if test='description != null and description != "[null]"'> description = #{description,jdbcType=VARCHAR},</if>
       </set>
       where id = #{id,jdbcType=INTEGER}
   </update>

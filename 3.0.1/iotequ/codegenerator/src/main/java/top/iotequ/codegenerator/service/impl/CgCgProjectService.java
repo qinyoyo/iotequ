@@ -75,7 +75,7 @@ private static final Logger log = LoggerFactory.getLogger(CgCgProjectService.cla
             cgProject.setName("");
         }
         if (cgProject.getVersion()==null) {
-            cgProject.setVersion("3.0.0-SNAPSHOT");
+            cgProject.setVersion("3.0.1-SNAPSHOT");
         }
         if (cgProject.getSpringModule()==null) {
             cgProject.setSpringModule(Util.boolValue("1"));

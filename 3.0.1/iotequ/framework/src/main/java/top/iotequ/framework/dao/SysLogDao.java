@@ -6,6 +6,7 @@
 package top.iotequ.framework.dao;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
+import java.util.Map;
 import top.iotequ.framework.service.IDaoService;
 import top.iotequ.framework.pojo.SysLog;
 import java.util.*;
@@ -20,7 +21,7 @@ public interface SysLogDao  extends IDaoService<SysLog> {
     int deleteBatch(String ids);
     int deleteList(List<SysLog> list);
     int update(SysLog record);
-    int updateSelective(SysLog record);
+    int updateSelective(Map<String,Object> record);
     int updateBy(@Param("record")SysLog record,@Param("id")String id);
     //条件为所有非空字段 and，String采用like的查询模式，其他为=
     List<SysLog> list(SysLog record);

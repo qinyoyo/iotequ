@@ -24,9 +24,6 @@ export default  {
          employeeNo:[
             { required: true, message: vueObject.$t('system.message.needValue') + ':' + vueObject.$t('adEmployee.field.employeeNo'), trigger: 'blur' }
          ],
-         emLevel:[
-            { required: true, message: vueObject.$t('system.message.needValue') + ':' + vueObject.$t('adEmployee.field.emLevel'), trigger: 'blur' }
-         ],
          isAttendance:[
             { required: true, message: vueObject.$t('system.message.needValue') + ':' + vueObject.$t('adEmployee.field.isAttendance'), trigger: 'blur' }
          ],

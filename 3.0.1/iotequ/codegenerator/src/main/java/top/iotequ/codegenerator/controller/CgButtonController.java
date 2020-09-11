@@ -83,7 +83,7 @@ public class CgButtonController  {
 		}
 	}
 	@RequestMapping(value = "/updateSelective",method = {RequestMethod.PUT,RequestMethod.POST})
-	public ResponseEntity<Map<String, Object>> updateSelective(@RequestBody List<CgButton> cgButtonList, HttpServletRequest request, HttpServletResponse response) {
+	public ResponseEntity<Map<String, Object>> updateSelective(@RequestBody List<Map<String,Object>> cgButtonList, HttpServletRequest request, HttpServletResponse response) {
 		try {
 			return cgService.updateSelective(cgButtonList).toResponse();
 		} catch (Exception e) {

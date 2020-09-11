@@ -77,13 +77,12 @@ public class AdOrgController  {
 		}
 	}
 	@RequestMapping(value = "/updateSelective",method = {RequestMethod.PUT,RequestMethod.POST})
-	public ResponseEntity<Map<String, Object>> updateSelective(@RequestBody List<AdOrg> adOrgList, HttpServletRequest request, HttpServletResponse response) {
+	public ResponseEntity<Map<String, Object>> updateSelective(@RequestBody List<Map<String,Object>> adOrgList, HttpServletRequest request, HttpServletResponse response) {
 		try {
-			List<Boolean> isNewList=new ArrayList<>();
-			for (AdOrg obj : adOrgList) {
-				isNewList.add(adOrgDao.realSelect(obj.getOrgCode()) == null);
+			for (Map<String,Object> obj : adOrgList) {
+				obj.put("thisRecordIsNewRecord",adOrgDao.realSelect((Integer)(obj.get("orgCode"))) == null);
 			}
-			return cgService.updateSelective(adOrgList, isNewList).toResponse();
+			return cgService.updateSelective(adOrgList).toResponse();
 		} catch (Exception e) {
 			return new RestJson().setMessage(e).toResponse();
 		}

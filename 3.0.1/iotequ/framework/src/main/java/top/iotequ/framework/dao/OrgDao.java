@@ -6,6 +6,7 @@
 package top.iotequ.framework.dao;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
+import java.util.Map;
 import top.iotequ.framework.service.IDaoService;
 import top.iotequ.framework.pojo.Org;
 import java.util.*;
@@ -23,7 +24,7 @@ public interface OrgDao  extends IDaoService<Org> {
     int deleteList(List<Org> list);
     List<Org> selectTree(@Param("id")Integer id);  // 选全部参数为null
     int update(Org record);
-    int updateSelective(Org record);
+    int updateSelective(Map<String,Object> record);
     int updateBy(@Param("record")Org record,@Param("orgCode")Integer id);
     //条件为所有非空字段 and，String采用like的查询模式，其他为=
     List<Org> list(Org record);

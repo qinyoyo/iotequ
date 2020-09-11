@@ -45,3 +45,9 @@ update dev_event e, dev_reader r set e.dev_type = r.type where e.dev_no = r.read
 
 update ad_data set rec_source_type = 'C20';
 update ad_data e, dev_reader r set e.rec_source_type = r.type where e.rec_source = r.reader_no;
+
+-- 2020-09-11
+
+ALTER TABLE `iotequ3`.`ad_employee` 
+CHANGE COLUMN `em_level` `em_level` INT(11) NULL COMMENT '职务级别' ;
+

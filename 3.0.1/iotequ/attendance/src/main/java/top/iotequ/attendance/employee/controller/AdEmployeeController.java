@@ -75,13 +75,12 @@ public class AdEmployeeController  {
 		}
 	}
 	@RequestMapping(value = "/updateSelective",method = {RequestMethod.PUT,RequestMethod.POST})
-	public ResponseEntity<Map<String, Object>> updateSelective(@RequestBody List<AdEmployee> adEmployeeList, HttpServletRequest request, HttpServletResponse response) {
+	public ResponseEntity<Map<String, Object>> updateSelective(@RequestBody List<Map<String,Object>> adEmployeeList, HttpServletRequest request, HttpServletResponse response) {
 		try {
-			List<Boolean> isNewList=new ArrayList<>();
-			for (AdEmployee obj : adEmployeeList) {
-				isNewList.add(adEmployeeDao.realSelect(obj.getId()) == null);
+			for (Map<String,Object> obj : adEmployeeList) {
+				obj.put("thisRecordIsNewRecord",adEmployeeDao.realSelect((String)(obj.get("id"))) == null);
 			}
-			return cgService.updateSelective(adEmployeeList, isNewList).toResponse();
+			return cgService.updateSelective(adEmployeeList).toResponse();
 		} catch (Exception e) {
 			return new RestJson().setMessage(e).toResponse();
 		}

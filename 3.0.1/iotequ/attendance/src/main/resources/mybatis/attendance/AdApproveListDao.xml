@@ -96,14 +96,19 @@
       approver = #{approver,jdbcType=VARCHAR}
       where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateSelective" parameterType="top.iotequ.attendance.approvelist.pojo.AdApproveList">
+  <update id="updateSelective" parameterType="java.util.Map">
     update ad_approve_list 
       <set>
-        <if test="approveTime != null"> approve_time = #{approveTime,jdbcType=TIMESTAMP},</if>
-        <if test="state1 != null"> state1 = #{state1,jdbcType=INTEGER},</if>
-        <if test="state0 != null"> state0 = #{state0,jdbcType=INTEGER},</if>
-        <if test="approveNote != null"> approve_note = #{approveNote,jdbcType=VARCHAR},</if>
-        <if test="adjustId != null"> adjust_id = #{adjustId,jdbcType=VARCHAR},</if>
+        <if test='approveTime == "[null]"'> approve_time = NULL, </if>
+        <if test='approveTime != null and approveTime != "[null]"'> approve_time = #{approveTime,jdbcType=TIMESTAMP},</if>
+        <if test='state1 == "[null]"'> state1 = NULL, </if>
+        <if test='state1 != null and state1 != "[null]"'> state1 = #{state1,jdbcType=INTEGER},</if>
+        <if test='state0 == "[null]"'> state0 = NULL, </if>
+        <if test='state0 != null and state0 != "[null]"'> state0 = #{state0,jdbcType=INTEGER},</if>
+        <if test='approveNote == "[null]"'> approve_note = NULL, </if>
+        <if test='approveNote != null and approveNote != "[null]"'> approve_note = #{approveNote,jdbcType=VARCHAR},</if>
+        <if test='adjustId == "[null]"'> adjust_id = NULL, </if>
+        <if test='adjustId != null and adjustId != "[null]"'> adjust_id = #{adjustId,jdbcType=VARCHAR},</if>
         <if test="approver != null"> approver = #{approver,jdbcType=VARCHAR},</if>
       </set>
       where id = #{id,jdbcType=INTEGER}

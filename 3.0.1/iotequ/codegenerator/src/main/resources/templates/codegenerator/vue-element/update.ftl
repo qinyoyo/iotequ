@@ -601,7 +601,7 @@ export default {
             ${f.entityName}: ${f.defaultValue?trim?substring(3)},
             <#elseif (f.defaultValue?trim?length gt 4 && f.defaultValue?trim?substring(0,4)=="sql:") || (f.defaultValue?trim?length gt 2 && f.defaultValue?trim?substring(0,2)=="f:")  >
             <#continue>
-            <#elseif f.type=="Integer" || f.type=="Short" || f.type=="Long">
+            <#elseif f.type=="Integer" || f.type=="Short" || f.type=="Long" || f.type=="Byte" || f.type=='BigDecimal' >
             ${f.entityName}: <#if f.defaultValue=="">0<#else>${f.defaultValue}</#if>,
             <#elseif f.type=="Boolean">
             ${f.entityName}: <#if f.defaultValue?trim == '1' || f.defaultValue?trim?lower_case == 'true'>true<#else>false</#if>,
@@ -611,7 +611,7 @@ export default {
             ${f.entityName}: '${f.defaultValue}',
             </#if>
             <#elseif !f.isNull && (!pk?? || f.entityName != pk.entityName)>
-            <#if f.type=="Integer" || f.type=="Short" || f.type=="Long">
+            <#if f.type=="Integer" || f.type=="Short" || f.type=="Long" || f.type=="Byte" || f.type=='BigDecimal'>
             ${f.entityName}: 0,
             <#elseif f.type=="Boolean">
             ${f.entityName}: false,

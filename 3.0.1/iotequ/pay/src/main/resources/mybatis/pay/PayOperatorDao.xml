@@ -115,14 +115,19 @@
       user_no = #{userNo,jdbcType=VARCHAR}
       where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateSelective" parameterType="top.iotequ.pay.pojo.PayOperator">
+  <update id="updateSelective" parameterType="java.util.Map">
     update pay_operator 
       <set>
-        <if test="name != null"> name = #{name,jdbcType=VARCHAR},</if>
-        <if test="realName != null"> real_name = #{realName,jdbcType=VARCHAR},</if>
-        <if test="password != null"> password = #{password,jdbcType=VARCHAR},</if>
-        <if test="shopId != null"> shop_id = #{shopId,jdbcType=INTEGER},</if>
-        <if test="userNo != null"> user_no = #{userNo,jdbcType=VARCHAR},</if>
+        <if test='name == "[null]"'> name = NULL, </if>
+        <if test='name != null and name != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
+        <if test='realName == "[null]"'> real_name = NULL, </if>
+        <if test='realName != null and realName != "[null]"'> real_name = #{realName,jdbcType=VARCHAR},</if>
+        <if test='password == "[null]"'> password = NULL, </if>
+        <if test='password != null and password != "[null]"'> password = #{password,jdbcType=VARCHAR},</if>
+        <if test='shopId == "[null]"'> shop_id = NULL, </if>
+        <if test='shopId != null and shopId != "[null]"'> shop_id = #{shopId,jdbcType=INTEGER},</if>
+        <if test='userNo == "[null]"'> user_no = NULL, </if>
+        <if test='userNo != null and userNo != "[null]"'> user_no = #{userNo,jdbcType=VARCHAR},</if>
       </set>
       where id = #{id,jdbcType=INTEGER}
   </update>

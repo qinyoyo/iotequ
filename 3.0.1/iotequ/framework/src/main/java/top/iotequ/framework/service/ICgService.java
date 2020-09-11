@@ -227,17 +227,7 @@ public interface ICgService<T extends CgEntity> {
      * @return {savedRecordIds: 修改或插入的主键list，主键为null表示该条记录失败, parameter:{rows:成功记录数}}
      * @throws IotequException 异常
      */
-    default RestJson updateSelective(List<T> list) throws IotequException {
-        return updateSelective(list,null);
-    }
-    /**
-     * 快速修改字段,强制设置插入或更新
-     * @param list 需要修改或插入的记录列表。记录有主键为修改模式，仅修改值非空的字段。无主键在插入数据
-     * @param isNewList 定义对应记录是否新记录，必须与list匹配，或为null
-     * @return {savedRecordIds: 修改或插入的主键list，主键为null表示该条记录失败, parameter:{rows:成功记录数}}
-     * @throws IotequException 异常
-     */
-    RestJson updateSelective(List<T> list,List<Boolean> isNewList) throws IotequException ;
+    RestJson updateSelective(List<Map<String,Object>> list) throws IotequException;
 
     /**
      * 删除记录

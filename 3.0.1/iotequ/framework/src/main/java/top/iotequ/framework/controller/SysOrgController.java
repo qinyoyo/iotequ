@@ -83,7 +83,7 @@ public class SysOrgController  {
 		}
 	}
 	@RequestMapping(value = "/updateSelective",method = {RequestMethod.PUT,RequestMethod.POST})
-	public ResponseEntity<Map<String, Object>> updateSelective(@RequestBody List<Org> orgList, HttpServletRequest request, HttpServletResponse response) {
+	public ResponseEntity<Map<String, Object>> updateSelective(@RequestBody List<Map<String,Object>> orgList, HttpServletRequest request, HttpServletResponse response) {
 		try {
 			return cgService.updateSelective(orgList).toResponse();
 		} catch (Exception e) {

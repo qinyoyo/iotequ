@@ -105,20 +105,31 @@
       is_refresh_list = #{isRefreshList,jdbcType=TINYINT}
       where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateSelective" parameterType="top.iotequ.codegenerator.pojo.CgButton">
+  <update id="updateSelective" parameterType="java.util.Map">
     update cg_button 
       <set>
-        <if test="tableId != null"> table_id = #{tableId,jdbcType=VARCHAR},</if>
-        <if test="orderNum != null"> order_num = #{orderNum,jdbcType=INTEGER},</if>
-        <if test="action != null"> action = #{action,jdbcType=VARCHAR},</if>
-        <if test="title != null"> title = #{title,jdbcType=VARCHAR},</if>
-        <if test="icon != null"> icon = #{icon,jdbcType=VARCHAR},</if>
-        <if test="appendClass != null"> append_class = #{appendClass,jdbcType=VARCHAR},</if>
-        <if test="actionProperty != null"> action_property = #{actionProperty,jdbcType=VARCHAR},</if>
-        <if test="rowProperty != null"> row_property = #{rowProperty,jdbcType=VARCHAR},</if>
-        <if test="displayProperties != null"> display_properties = #{displayProperties,jdbcType=VARCHAR},</if>
-        <if test="confirmText != null"> confirm_text = #{confirmText,jdbcType=VARCHAR},</if>
-        <if test="isRefreshList != null"> is_refresh_list = #{isRefreshList,jdbcType=TINYINT},</if>
+        <if test='tableId == "[null]"'> table_id = NULL, </if>
+        <if test='tableId != null and tableId != "[null]"'> table_id = #{tableId,jdbcType=VARCHAR},</if>
+        <if test='orderNum == "[null]"'> order_num = NULL, </if>
+        <if test='orderNum != null and orderNum != "[null]"'> order_num = #{orderNum,jdbcType=INTEGER},</if>
+        <if test='action == "[null]"'> action = NULL, </if>
+        <if test='action != null and action != "[null]"'> action = #{action,jdbcType=VARCHAR},</if>
+        <if test='title == "[null]"'> title = NULL, </if>
+        <if test='title != null and title != "[null]"'> title = #{title,jdbcType=VARCHAR},</if>
+        <if test='icon == "[null]"'> icon = NULL, </if>
+        <if test='icon != null and icon != "[null]"'> icon = #{icon,jdbcType=VARCHAR},</if>
+        <if test='appendClass == "[null]"'> append_class = NULL, </if>
+        <if test='appendClass != null and appendClass != "[null]"'> append_class = #{appendClass,jdbcType=VARCHAR},</if>
+        <if test='actionProperty == "[null]"'> action_property = NULL, </if>
+        <if test='actionProperty != null and actionProperty != "[null]"'> action_property = #{actionProperty,jdbcType=VARCHAR},</if>
+        <if test='rowProperty == "[null]"'> row_property = NULL, </if>
+        <if test='rowProperty != null and rowProperty != "[null]"'> row_property = #{rowProperty,jdbcType=VARCHAR},</if>
+        <if test='displayProperties == "[null]"'> display_properties = NULL, </if>
+        <if test='displayProperties != null and displayProperties != "[null]"'> display_properties = #{displayProperties,jdbcType=VARCHAR},</if>
+        <if test='confirmText == "[null]"'> confirm_text = NULL, </if>
+        <if test='confirmText != null and confirmText != "[null]"'> confirm_text = #{confirmText,jdbcType=VARCHAR},</if>
+        <if test='isRefreshList == "[null]"'> is_refresh_list = NULL, </if>
+        <if test='isRefreshList != null and isRefreshList != "[null]"'> is_refresh_list = #{isRefreshList,jdbcType=TINYINT},</if>
       </set>
       where id = #{id,jdbcType=VARCHAR}
   </update>

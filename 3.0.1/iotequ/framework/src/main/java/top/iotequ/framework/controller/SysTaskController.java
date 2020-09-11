@@ -82,7 +82,7 @@ public class SysTaskController  {
 		}
 	}
 	@RequestMapping(value = "/updateSelective",method = {RequestMethod.PUT,RequestMethod.POST})
-	public ResponseEntity<Map<String, Object>> updateSelective(@RequestBody List<Task> taskList, HttpServletRequest request, HttpServletResponse response) {
+	public ResponseEntity<Map<String, Object>> updateSelective(@RequestBody List<Map<String,Object>> taskList, HttpServletRequest request, HttpServletResponse response) {
 		try {
 			return cgService.updateSelective(taskList).toResponse();
 		} catch (Exception e) {

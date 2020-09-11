@@ -73,15 +73,21 @@
       manager = #{manager,jdbcType=VARCHAR}
       where org_code = #{orgCode,jdbcType=INTEGER}
   </update>
-  <update id="updateSelective" parameterType="top.iotequ.attendance.org.pojo.AdOrg">
+  <update id="updateSelective" parameterType="java.util.Map">
     update ad_org 
       <set>
-        <if test="shiftId != null"> shift_id = #{shiftId,jdbcType=INTEGER},</if>
-        <if test="manageLimit != null"> manage_limit = #{manageLimit,jdbcType=INTEGER},</if>
-        <if test="deviation != null"> deviation = #{deviation,jdbcType=INTEGER},</if>
-        <if test="floatLimit != null"> float_limit = #{floatLimit,jdbcType=INTEGER},</if>
-        <if test="absentLimit != null"> absent_limit = #{absentLimit,jdbcType=INTEGER},</if>
-        <if test="freeWorkLimit != null"> free_work_limit = #{freeWorkLimit,jdbcType=INTEGER},</if>
+        <if test='shiftId == "[null]"'> shift_id = NULL, </if>
+        <if test='shiftId != null and shiftId != "[null]"'> shift_id = #{shiftId,jdbcType=INTEGER},</if>
+        <if test='manageLimit == "[null]"'> manage_limit = NULL, </if>
+        <if test='manageLimit != null and manageLimit != "[null]"'> manage_limit = #{manageLimit,jdbcType=INTEGER},</if>
+        <if test='deviation == "[null]"'> deviation = NULL, </if>
+        <if test='deviation != null and deviation != "[null]"'> deviation = #{deviation,jdbcType=INTEGER},</if>
+        <if test='floatLimit == "[null]"'> float_limit = NULL, </if>
+        <if test='floatLimit != null and floatLimit != "[null]"'> float_limit = #{floatLimit,jdbcType=INTEGER},</if>
+        <if test='absentLimit == "[null]"'> absent_limit = NULL, </if>
+        <if test='absentLimit != null and absentLimit != "[null]"'> absent_limit = #{absentLimit,jdbcType=INTEGER},</if>
+        <if test='freeWorkLimit == "[null]"'> free_work_limit = NULL, </if>
+        <if test='freeWorkLimit != null and freeWorkLimit != "[null]"'> free_work_limit = #{freeWorkLimit,jdbcType=INTEGER},</if>
         <if test="hr != null"> hr = #{hr,jdbcType=VARCHAR},</if>
         <if test="manager != null"> manager = #{manager,jdbcType=VARCHAR},</if>
       </set>

@@ -111,12 +111,15 @@
       note = #{note,jdbcType=VARCHAR}
       where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateSelective" parameterType="top.iotequ.framework.pojo.Role">
+  <update id="updateSelective" parameterType="java.util.Map">
     update sys_role 
       <set>
-        <if test="code != null"> code = #{code,jdbcType=VARCHAR},</if>
-        <if test="name != null"> name = #{name,jdbcType=VARCHAR},</if>
-        <if test="note != null"> note = #{note,jdbcType=VARCHAR},</if>
+        <if test='code == "[null]"'> code = NULL, </if>
+        <if test='code != null and code != "[null]"'> code = #{code,jdbcType=VARCHAR},</if>
+        <if test='name == "[null]"'> name = NULL, </if>
+        <if test='name != null and name != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
+        <if test='note == "[null]"'> note = NULL, </if>
+        <if test='note != null and note != "[null]"'> note = #{note,jdbcType=VARCHAR},</if>
       </set>
       where id = #{id,jdbcType=INTEGER}
   </update>

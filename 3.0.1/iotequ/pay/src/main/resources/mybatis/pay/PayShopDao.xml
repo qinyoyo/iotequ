@@ -93,14 +93,19 @@
       address = #{address,jdbcType=VARCHAR}
       where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateSelective" parameterType="top.iotequ.pay.pojo.PayShop">
+  <update id="updateSelective" parameterType="java.util.Map">
     update pay_shop 
       <set>
-        <if test="corporationId != null"> corporation_id = #{corporationId,jdbcType=INTEGER},</if>
-        <if test="name != null"> name = #{name,jdbcType=VARCHAR},</if>
-        <if test="linkman != null"> linkman = #{linkman,jdbcType=VARCHAR},</if>
-        <if test="linkPhone != null"> link_phone = #{linkPhone,jdbcType=VARCHAR},</if>
-        <if test="address != null"> address = #{address,jdbcType=VARCHAR},</if>
+        <if test='corporationId == "[null]"'> corporation_id = NULL, </if>
+        <if test='corporationId != null and corporationId != "[null]"'> corporation_id = #{corporationId,jdbcType=INTEGER},</if>
+        <if test='name == "[null]"'> name = NULL, </if>
+        <if test='name != null and name != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
+        <if test='linkman == "[null]"'> linkman = NULL, </if>
+        <if test='linkman != null and linkman != "[null]"'> linkman = #{linkman,jdbcType=VARCHAR},</if>
+        <if test='linkPhone == "[null]"'> link_phone = NULL, </if>
+        <if test='linkPhone != null and linkPhone != "[null]"'> link_phone = #{linkPhone,jdbcType=VARCHAR},</if>
+        <if test='address == "[null]"'> address = NULL, </if>
+        <if test='address != null and address != "[null]"'> address = #{address,jdbcType=VARCHAR},</if>
       </set>
       where id = #{id,jdbcType=INTEGER}
   </update>

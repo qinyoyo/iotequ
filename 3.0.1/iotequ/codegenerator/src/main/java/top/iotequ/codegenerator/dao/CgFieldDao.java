@@ -6,6 +6,7 @@
 package top.iotequ.codegenerator.dao;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
+import java.util.Map;
 import top.iotequ.framework.service.IDaoService;
 import top.iotequ.codegenerator.pojo.CgField;
 import java.util.*;
@@ -22,7 +23,7 @@ public interface CgFieldDao  extends IDaoService<CgField> {
     int deleteByTableIdEntityName(@Param("tableId")String tableId , @Param("entityName")String entityName);
     int deleteList(List<CgField> list);
     int update(CgField record);
-    int updateSelective(CgField record);
+    int updateSelective(Map<String,Object> record);
     int updateBy(@Param("record")CgField record,@Param("id")String id);
     //条件为所有非空字段 and，String采用like的查询模式，其他为=
     List<CgField> list(CgField record);

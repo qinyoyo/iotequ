@@ -307,15 +307,16 @@ public abstract class CgService<T extends CgEntity> implements ICgService<T>, Co
                 if (fields.indexOf(","+field+",")<0) fields += (field+",");
             }
             final String [] fieldList=fields.split(",");
-            final T newObj = clazz.newInstance();
+            Map<String,Object> newObj = new HashMap<>();
             EntityUtil.setPrivateField(newObj,annotation.entityPk(),obj.getPkValue());
             for (String f : fieldList) {
                 if (!Util.isEmpty(f)) {
                     String fileName = UploadDownUtil.uploadFile(clazz, f, obj.getPkValue().toString(), EntityUtil.getMultipleFrom(clazz, f), EntityUtil.getNullableFrom(clazz, f), request);
-                    EntityUtil.setPrivateField(newObj, f, fileName);
+                    newObj.put(f, fileName);
                     EntityUtil.setPrivateField(obj, f, fileName);
                 }
             }
+            newObj.put(this.getCgTableAnnotation().entityPk(),obj.getPkValue());
             daoService.updateSelective(newObj);
         }
         afterSave(obj0, obj, request, j);
@@ -331,7 +332,7 @@ public abstract class CgService<T extends CgEntity> implements ICgService<T>, Co
     }
     @Transactional(rollbackFor=Exception.class)
     @Override
-    public RestJson updateSelective(List<T> list,List<Boolean> isNewList) throws IotequException {
+    public RestJson updateSelective(List<Map<String,Object>> list) throws IotequException {
         int rows = 0;
         RestJson j = new RestJson();
         List<Exception> exceptionList=new ArrayList<>();
@@ -339,19 +340,24 @@ public abstract class CgService<T extends CgEntity> implements ICgService<T>, Co
             String [] ids = new String[list.size()];
             boolean isNew = false;
             for (int i=0;i<list.size();i++) {
-                T obj = list.get(i);
-                if (isNewList==null) isNew = Util.isEmpty(obj.getPkValue());
-                else isNew = isNewList.get(i);
+                Map<String,Object> obj = list.get(i);
+                Object newField = obj.get("thisRecordIsNewRecord");
+                if (newField!=null) isNew = (Boolean)(newField);
+                else isNew = Util.isEmpty(obj.get(this.getCgTableAnnotation().entityPk())) ;
                 ids[i]=null;
                 try {
                     if (isNew) {  // fastAdd
                         try {
-                            doSave(true, null, 0, obj, null, Util.getRequest());
-                            ids[i] = StringUtil.toString(obj.getPkValue());
+                            for (String key:obj.keySet()) {
+                                if ("[null]".equals(StringUtil.toString(obj.get(key)))) obj.put(key,null);
+                            }
+                            T entity = EntityUtil.entityFromMap(obj,this.getEntityClass());
+                            doSave(true, null, 0, entity, null, Util.getRequest());
+                            ids[i] = StringUtil.toString(entity.getPkValue());
                             rows++;
                         } catch (Exception e) {}
                     } else if (daoService.updateSelective(obj) == 1) {
-                        ids[i] = StringUtil.toString(obj.getPkValue());
+                        ids[i] = StringUtil.toString(obj.get(this.getCgTableAnnotation().entityPk()));
                         rows++;
                     }
                 } catch (Exception e) {

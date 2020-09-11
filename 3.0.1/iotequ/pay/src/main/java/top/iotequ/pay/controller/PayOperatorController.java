@@ -83,7 +83,7 @@ public class PayOperatorController  {
 		}
 	}
 	@RequestMapping(value = "/updateSelective",method = {RequestMethod.PUT,RequestMethod.POST})
-	public ResponseEntity<Map<String, Object>> updateSelective(@RequestBody List<PayOperator> payOperatorList, HttpServletRequest request, HttpServletResponse response) {
+	public ResponseEntity<Map<String, Object>> updateSelective(@RequestBody List<Map<String,Object>> payOperatorList, HttpServletRequest request, HttpServletResponse response) {
 		try {
 			return cgService.updateSelective(payOperatorList).toResponse();
 		} catch (Exception e) {

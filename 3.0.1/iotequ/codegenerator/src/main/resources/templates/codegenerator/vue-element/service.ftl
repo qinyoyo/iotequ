@@ -185,7 +185,7 @@ private static final Logger log = LoggerFactory.getLogger(Cg${generatorName?cap_
         <#if f.defaultValue?? && f.defaultValue?trim!="" && (f.defaultValue?trim?length lt 3 || f.defaultValue?trim?substring(0,3)!="js:")>
             <#if f.defaultValue?trim?length gt 2 && f.defaultValue?trim?substring(0,2)=="f:" >
             ${table.entity?uncap_first}.set${f.entityName?cap_first}(${f.defaultValue?trim?substring(2)});
-            <#elseif f.type=="Integer" || f.type=="Short" || f.type=="Long">
+            <#elseif f.type=="Integer" || f.type=="Short" || f.type=="Long" || f.type=="Byte" || f.type=='BigDecimal'>
             ${table.entity?uncap_first}.set${f.entityName?cap_first}(${f.defaultValue});
             <#elseif f.type=="Boolean">
             ${table.entity?uncap_first}.set${f.entityName?cap_first}(Util.boolValue("${f.defaultValue}"));
@@ -195,7 +195,7 @@ private static final Logger log = LoggerFactory.getLogger(Cg${generatorName?cap_
             ${table.entity?uncap_first}.set${f.entityName?cap_first}(new Date());
             </#if>
         <#else>
-            <#if f.type=="Integer" || f.type=="Short" || f.type=="Long">
+            <#if f.type=="Integer" || f.type=="Short" || f.type=="Long" || f.type=="Byte" || f.type=='BigDecimal'>
             ${table.entity?uncap_first}.set${f.entityName?cap_first}(0);
             <#elseif f.type=="Boolean">
             ${table.entity?uncap_first}.set${f.entityName?cap_first}(false);

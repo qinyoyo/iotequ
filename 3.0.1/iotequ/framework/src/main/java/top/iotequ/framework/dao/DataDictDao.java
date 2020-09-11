@@ -6,6 +6,7 @@
 package top.iotequ.framework.dao;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
+import java.util.Map;
 import top.iotequ.framework.service.IDaoService;
 import top.iotequ.framework.pojo.DataDict;
 import java.util.*;
@@ -22,7 +23,7 @@ public interface DataDictDao  extends IDaoService<DataDict> {
     int deleteByDictCode(@Param("dict")String dict , @Param("code")String code);
     int deleteList(List<DataDict> list);
     int update(DataDict record);
-    int updateSelective(DataDict record);
+    int updateSelective(Map<String,Object> record);
     int updateBy(@Param("record")DataDict record,@Param("id")Integer id);
     //条件为所有非空字段 and，String采用like的查询模式，其他为=
     List<DataDict> list(DataDict record);

@@ -6,6 +6,7 @@
 package top.iotequ.ewallet.dao;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
+import java.util.Map;
 import top.iotequ.framework.service.IDaoService;
 import top.iotequ.ewallet.pojo.EwTimeProject;
 import java.util.*;
@@ -20,7 +21,7 @@ public interface EwTimeProjectDao  extends IDaoService<EwTimeProject> {
     int deleteBatch(String ids);
     int deleteList(List<EwTimeProject> list);
     int update(EwTimeProject record);
-    int updateSelective(EwTimeProject record);
+    int updateSelective(Map<String,Object> record);
     int updateBy(@Param("record")EwTimeProject record,@Param("id")Integer id);
     //条件为所有非空字段 and，String采用like的查询模式，其他为=
     List<EwTimeProject> list(EwTimeProject record);

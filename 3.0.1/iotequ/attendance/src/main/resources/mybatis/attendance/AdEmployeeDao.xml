@@ -82,16 +82,23 @@
       shift_id = #{shiftId,jdbcType=INTEGER}
       where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateSelective" parameterType="top.iotequ.attendance.employee.pojo.AdEmployee">
+  <update id="updateSelective" parameterType="java.util.Map">
     update ad_employee 
       <set>
-        <if test="employeeNo != null"> employee_no = #{employeeNo,jdbcType=VARCHAR},</if>
-        <if test="emLevel != null"> em_level = #{emLevel,jdbcType=INTEGER},</if>
-        <if test="isAttendance != null"> is_attendance = #{isAttendance,jdbcType=TINYINT},</if>
-        <if test="enterDate != null"> enter_date = #{enterDate,jdbcType=DATE},</if>
-        <if test="leaveDate != null"> leave_date = #{leaveDate,jdbcType=DATE},</if>
-        <if test="overtimeMinutes != null"> overtime_minutes = #{overtimeMinutes,jdbcType=INTEGER},</if>
-        <if test="shiftId != null"> shift_id = #{shiftId,jdbcType=INTEGER},</if>
+        <if test='employeeNo == "[null]"'> employee_no = NULL, </if>
+        <if test='employeeNo != null and employeeNo != "[null]"'> employee_no = #{employeeNo,jdbcType=VARCHAR},</if>
+        <if test='emLevel == "[null]"'> em_level = NULL, </if>
+        <if test='emLevel != null and emLevel != "[null]"'> em_level = #{emLevel,jdbcType=INTEGER},</if>
+        <if test='isAttendance == "[null]"'> is_attendance = NULL, </if>
+        <if test='isAttendance != null and isAttendance != "[null]"'> is_attendance = #{isAttendance,jdbcType=TINYINT},</if>
+        <if test='enterDate == "[null]"'> enter_date = NULL, </if>
+        <if test='enterDate != null and enterDate != "[null]"'> enter_date = #{enterDate,jdbcType=DATE},</if>
+        <if test='leaveDate == "[null]"'> leave_date = NULL, </if>
+        <if test='leaveDate != null and leaveDate != "[null]"'> leave_date = #{leaveDate,jdbcType=DATE},</if>
+        <if test='overtimeMinutes == "[null]"'> overtime_minutes = NULL, </if>
+        <if test='overtimeMinutes != null and overtimeMinutes != "[null]"'> overtime_minutes = #{overtimeMinutes,jdbcType=INTEGER},</if>
+        <if test='shiftId == "[null]"'> shift_id = NULL, </if>
+        <if test='shiftId != null and shiftId != "[null]"'> shift_id = #{shiftId,jdbcType=INTEGER},</if>
       </set>
       where id = #{id,jdbcType=VARCHAR}
   </update>

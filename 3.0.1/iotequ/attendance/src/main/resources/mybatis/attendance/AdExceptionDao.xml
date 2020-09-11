@@ -93,14 +93,19 @@
       description = #{description,jdbcType=VARCHAR}
       where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateSelective" parameterType="top.iotequ.attendance.exception.pojo.AdException">
+  <update id="updateSelective" parameterType="java.util.Map">
     update ad_exception 
       <set>
-        <if test="shiftId != null"> shift_id = #{shiftId,jdbcType=INTEGER},</if>
-        <if test="endDate != null"> end_date = #{endDate,jdbcType=DATE},</if>
-        <if test="startDate != null"> start_date = #{startDate,jdbcType=DATE},</if>
-        <if test="weekDay != null"> week_day = #{weekDay,jdbcType=INTEGER},</if>
-        <if test="description != null"> description = #{description,jdbcType=VARCHAR},</if>
+        <if test='shiftId == "[null]"'> shift_id = NULL, </if>
+        <if test='shiftId != null and shiftId != "[null]"'> shift_id = #{shiftId,jdbcType=INTEGER},</if>
+        <if test='endDate == "[null]"'> end_date = NULL, </if>
+        <if test='endDate != null and endDate != "[null]"'> end_date = #{endDate,jdbcType=DATE},</if>
+        <if test='startDate == "[null]"'> start_date = NULL, </if>
+        <if test='startDate != null and startDate != "[null]"'> start_date = #{startDate,jdbcType=DATE},</if>
+        <if test='weekDay == "[null]"'> week_day = NULL, </if>
+        <if test='weekDay != null and weekDay != "[null]"'> week_day = #{weekDay,jdbcType=INTEGER},</if>
+        <if test='description == "[null]"'> description = NULL, </if>
+        <if test='description != null and description != "[null]"'> description = #{description,jdbcType=VARCHAR},</if>
       </set>
       where id = #{id,jdbcType=INTEGER}
   </update>

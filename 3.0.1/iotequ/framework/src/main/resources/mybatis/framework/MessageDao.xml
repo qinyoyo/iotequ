@@ -103,19 +103,29 @@
       event_id = #{eventId,jdbcType=VARCHAR}
       where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateSelective" parameterType="top.iotequ.framework.pojo.Message">
+  <update id="updateSelective" parameterType="java.util.Map">
     update sys_message 
       <set>
-        <if test="readTime != null"> read_time = #{readTime,jdbcType=TIMESTAMP},</if>
-        <if test="createTime != null"> create_time = #{createTime,jdbcType=TIMESTAMP},</if>
-        <if test="receiverName != null"> receiver_name = #{receiverName,jdbcType=VARCHAR},</if>
-        <if test="senderName != null"> sender_name = #{senderName,jdbcType=VARCHAR},</if>
-        <if test="title != null"> title = #{title,jdbcType=VARCHAR},</if>
-        <if test="content != null"> content = #{content,jdbcType=VARCHAR},</if>
-        <if test="url != null"> url = #{url,jdbcType=VARCHAR},</if>
-        <if test="receiver != null"> receiver = #{receiver,jdbcType=VARCHAR},</if>
-        <if test="sender != null"> sender = #{sender,jdbcType=VARCHAR},</if>
-        <if test="eventId != null"> event_id = #{eventId,jdbcType=VARCHAR},</if>
+        <if test='readTime == "[null]"'> read_time = NULL, </if>
+        <if test='readTime != null and readTime != "[null]"'> read_time = #{readTime,jdbcType=TIMESTAMP},</if>
+        <if test='createTime == "[null]"'> create_time = NULL, </if>
+        <if test='createTime != null and createTime != "[null]"'> create_time = #{createTime,jdbcType=TIMESTAMP},</if>
+        <if test='receiverName == "[null]"'> receiver_name = NULL, </if>
+        <if test='receiverName != null and receiverName != "[null]"'> receiver_name = #{receiverName,jdbcType=VARCHAR},</if>
+        <if test='senderName == "[null]"'> sender_name = NULL, </if>
+        <if test='senderName != null and senderName != "[null]"'> sender_name = #{senderName,jdbcType=VARCHAR},</if>
+        <if test='title == "[null]"'> title = NULL, </if>
+        <if test='title != null and title != "[null]"'> title = #{title,jdbcType=VARCHAR},</if>
+        <if test='content == "[null]"'> content = NULL, </if>
+        <if test='content != null and content != "[null]"'> content = #{content,jdbcType=VARCHAR},</if>
+        <if test='url == "[null]"'> url = NULL, </if>
+        <if test='url != null and url != "[null]"'> url = #{url,jdbcType=VARCHAR},</if>
+        <if test='receiver == "[null]"'> receiver = NULL, </if>
+        <if test='receiver != null and receiver != "[null]"'> receiver = #{receiver,jdbcType=VARCHAR},</if>
+        <if test='sender == "[null]"'> sender = NULL, </if>
+        <if test='sender != null and sender != "[null]"'> sender = #{sender,jdbcType=VARCHAR},</if>
+        <if test='eventId == "[null]"'> event_id = NULL, </if>
+        <if test='eventId != null and eventId != "[null]"'> event_id = #{eventId,jdbcType=VARCHAR},</if>
       </set>
       where id = #{id,jdbcType=INTEGER}
   </update>

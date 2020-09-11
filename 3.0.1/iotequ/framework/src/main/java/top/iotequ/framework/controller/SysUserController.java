@@ -83,7 +83,7 @@ public class SysUserController  {
 		}
 	}
 	@RequestMapping(value = "/updateSelective",method = {RequestMethod.PUT,RequestMethod.POST})
-	public ResponseEntity<Map<String, Object>> updateSelective(@RequestBody List<User> userList, HttpServletRequest request, HttpServletResponse response) {
+	public ResponseEntity<Map<String, Object>> updateSelective(@RequestBody List<Map<String,Object>> userList, HttpServletRequest request, HttpServletResponse response) {
 		try {
 			return cgService.updateSelective(userList).toResponse();
 		} catch (Exception e) {

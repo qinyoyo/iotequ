@@ -105,11 +105,13 @@
       action = #{action,jdbcType=INTEGER}
       where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateSelective" parameterType="top.iotequ.framework.pojo.Permission">
+  <update id="updateSelective" parameterType="java.util.Map">
     update sys_permission 
       <set>
-        <if test="role != null"> role = #{role,jdbcType=INTEGER},</if>
-        <if test="action != null"> action = #{action,jdbcType=INTEGER},</if>
+        <if test='role == "[null]"'> role = NULL, </if>
+        <if test='role != null and role != "[null]"'> role = #{role,jdbcType=INTEGER},</if>
+        <if test='action == "[null]"'> action = NULL, </if>
+        <if test='action != null and action != "[null]"'> action = #{action,jdbcType=INTEGER},</if>
       </set>
       where id = #{id,jdbcType=INTEGER}
   </update>

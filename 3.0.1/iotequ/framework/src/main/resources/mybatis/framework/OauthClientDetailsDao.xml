@@ -75,23 +75,37 @@
       resource_ids = #{resourceIds,jdbcType=VARCHAR}
       where client_id = #{clientId,jdbcType=VARCHAR}
   </update>
-  <update id="updateSelective" parameterType="top.iotequ.framework.pojo.OauthClientDetails">
+  <update id="updateSelective" parameterType="java.util.Map">
     update oauth_client_details 
       <set>
-        <if test="clientSecret != null"> client_secret = #{clientSecret,jdbcType=VARCHAR},</if>
-        <if test="scope != null"> scope = #{scope,jdbcType=VARCHAR},</if>
-        <if test="authorizedGrantTypes != null"> authorized_grant_types = #{authorizedGrantTypes,jdbcType=VARCHAR},</if>
-        <if test="webServerRedirectUri != null"> web_server_redirect_uri = #{webServerRedirectUri,jdbcType=VARCHAR},</if>
-        <if test="authorities != null"> authorities = #{authorities,jdbcType=VARCHAR},</if>
-        <if test="accessTokenValidity != null"> access_token_validity = #{accessTokenValidity,jdbcType=INTEGER},</if>
-        <if test="refreshTokenValidity != null"> refresh_token_validity = #{refreshTokenValidity,jdbcType=INTEGER},</if>
-        <if test="autoapprove != null"> autoapprove = #{autoapprove,jdbcType=VARCHAR},</if>
-        <if test="expiredDate != null"> expired_date = #{expiredDate,jdbcType=TIMESTAMP},</if>
-        <if test="locked != null"> locked = #{locked,jdbcType=TINYINT},</if>
-        <if test="enabled != null"> enabled = #{enabled,jdbcType=TINYINT},</if>
-        <if test="decription != null"> decription = #{decription,jdbcType=VARCHAR},</if>
-        <if test="additionalInformation != null"> additional_information = #{additionalInformation,jdbcType=VARCHAR},</if>
-        <if test="resourceIds != null"> resource_ids = #{resourceIds,jdbcType=VARCHAR},</if>
+        <if test='clientSecret == "[null]"'> client_secret = NULL, </if>
+        <if test='clientSecret != null and clientSecret != "[null]"'> client_secret = #{clientSecret,jdbcType=VARCHAR},</if>
+        <if test='scope == "[null]"'> scope = NULL, </if>
+        <if test='scope != null and scope != "[null]"'> scope = #{scope,jdbcType=VARCHAR},</if>
+        <if test='authorizedGrantTypes == "[null]"'> authorized_grant_types = NULL, </if>
+        <if test='authorizedGrantTypes != null and authorizedGrantTypes != "[null]"'> authorized_grant_types = #{authorizedGrantTypes,jdbcType=VARCHAR},</if>
+        <if test='webServerRedirectUri == "[null]"'> web_server_redirect_uri = NULL, </if>
+        <if test='webServerRedirectUri != null and webServerRedirectUri != "[null]"'> web_server_redirect_uri = #{webServerRedirectUri,jdbcType=VARCHAR},</if>
+        <if test='authorities == "[null]"'> authorities = NULL, </if>
+        <if test='authorities != null and authorities != "[null]"'> authorities = #{authorities,jdbcType=VARCHAR},</if>
+        <if test='accessTokenValidity == "[null]"'> access_token_validity = NULL, </if>
+        <if test='accessTokenValidity != null and accessTokenValidity != "[null]"'> access_token_validity = #{accessTokenValidity,jdbcType=INTEGER},</if>
+        <if test='refreshTokenValidity == "[null]"'> refresh_token_validity = NULL, </if>
+        <if test='refreshTokenValidity != null and refreshTokenValidity != "[null]"'> refresh_token_validity = #{refreshTokenValidity,jdbcType=INTEGER},</if>
+        <if test='autoapprove == "[null]"'> autoapprove = NULL, </if>
+        <if test='autoapprove != null and autoapprove != "[null]"'> autoapprove = #{autoapprove,jdbcType=VARCHAR},</if>
+        <if test='expiredDate == "[null]"'> expired_date = NULL, </if>
+        <if test='expiredDate != null and expiredDate != "[null]"'> expired_date = #{expiredDate,jdbcType=TIMESTAMP},</if>
+        <if test='locked == "[null]"'> locked = NULL, </if>
+        <if test='locked != null and locked != "[null]"'> locked = #{locked,jdbcType=TINYINT},</if>
+        <if test='enabled == "[null]"'> enabled = NULL, </if>
+        <if test='enabled != null and enabled != "[null]"'> enabled = #{enabled,jdbcType=TINYINT},</if>
+        <if test='decription == "[null]"'> decription = NULL, </if>
+        <if test='decription != null and decription != "[null]"'> decription = #{decription,jdbcType=VARCHAR},</if>
+        <if test='additionalInformation == "[null]"'> additional_information = NULL, </if>
+        <if test='additionalInformation != null and additionalInformation != "[null]"'> additional_information = #{additionalInformation,jdbcType=VARCHAR},</if>
+        <if test='resourceIds == "[null]"'> resource_ids = NULL, </if>
+        <if test='resourceIds != null and resourceIds != "[null]"'> resource_ids = #{resourceIds,jdbcType=VARCHAR},</if>
       </set>
       where client_id = #{clientId,jdbcType=VARCHAR}
   </update>

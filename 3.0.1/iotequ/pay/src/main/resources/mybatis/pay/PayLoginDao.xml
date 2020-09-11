@@ -106,19 +106,29 @@
       operator_id = #{operatorId,jdbcType=INTEGER}
       where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateSelective" parameterType="top.iotequ.pay.pojo.PayLogin">
+  <update id="updateSelective" parameterType="java.util.Map">
     update pay_login 
       <set>
-        <if test="posId != null"> pos_id = #{posId,jdbcType=INTEGER},</if>
-        <if test="shopId != null"> shop_id = #{shopId,jdbcType=INTEGER},</if>
-        <if test="batchNo != null"> batch_no = #{batchNo,jdbcType=VARCHAR},</if>
-        <if test="loginTime != null"> login_time = #{loginTime,jdbcType=TIMESTAMP},</if>
-        <if test="logoutTime != null"> logout_time = #{logoutTime,jdbcType=TIMESTAMP},</if>
-        <if test="deviceStream != null"> device_stream = #{deviceStream,jdbcType=VARCHAR},</if>
-        <if test="randomNo != null"> random_no = #{randomNo,jdbcType=VARCHAR},</if>
-        <if test="appVersion != null"> app_version = #{appVersion,jdbcType=VARCHAR},</if>
-        <if test="tradeCount != null"> trade_count = #{tradeCount,jdbcType=INTEGER},</if>
-        <if test="failureCount != null"> failure_count = #{failureCount,jdbcType=INTEGER},</if>
+        <if test='posId == "[null]"'> pos_id = NULL, </if>
+        <if test='posId != null and posId != "[null]"'> pos_id = #{posId,jdbcType=INTEGER},</if>
+        <if test='shopId == "[null]"'> shop_id = NULL, </if>
+        <if test='shopId != null and shopId != "[null]"'> shop_id = #{shopId,jdbcType=INTEGER},</if>
+        <if test='batchNo == "[null]"'> batch_no = NULL, </if>
+        <if test='batchNo != null and batchNo != "[null]"'> batch_no = #{batchNo,jdbcType=VARCHAR},</if>
+        <if test='loginTime == "[null]"'> login_time = NULL, </if>
+        <if test='loginTime != null and loginTime != "[null]"'> login_time = #{loginTime,jdbcType=TIMESTAMP},</if>
+        <if test='logoutTime == "[null]"'> logout_time = NULL, </if>
+        <if test='logoutTime != null and logoutTime != "[null]"'> logout_time = #{logoutTime,jdbcType=TIMESTAMP},</if>
+        <if test='deviceStream == "[null]"'> device_stream = NULL, </if>
+        <if test='deviceStream != null and deviceStream != "[null]"'> device_stream = #{deviceStream,jdbcType=VARCHAR},</if>
+        <if test='randomNo == "[null]"'> random_no = NULL, </if>
+        <if test='randomNo != null and randomNo != "[null]"'> random_no = #{randomNo,jdbcType=VARCHAR},</if>
+        <if test='appVersion == "[null]"'> app_version = NULL, </if>
+        <if test='appVersion != null and appVersion != "[null]"'> app_version = #{appVersion,jdbcType=VARCHAR},</if>
+        <if test='tradeCount == "[null]"'> trade_count = NULL, </if>
+        <if test='tradeCount != null and tradeCount != "[null]"'> trade_count = #{tradeCount,jdbcType=INTEGER},</if>
+        <if test='failureCount == "[null]"'> failure_count = NULL, </if>
+        <if test='failureCount != null and failureCount != "[null]"'> failure_count = #{failureCount,jdbcType=INTEGER},</if>
         <if test="operatorId != null"> operator_id = #{operatorId,jdbcType=INTEGER},</if>
       </set>
       where id = #{id,jdbcType=INTEGER}

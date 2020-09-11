@@ -123,14 +123,19 @@
       description = #{description,jdbcType=VARCHAR}
       where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateSelective" parameterType="top.iotequ.project.people.pojo.PmPeopleGroup">
+  <update id="updateSelective" parameterType="java.util.Map">
     update pm_people_group 
       <set>
-        <if test="parent != null"> parent = #{parent,jdbcType=INTEGER},</if>
-        <if test="name != null"> name = #{name,jdbcType=VARCHAR},</if>
-        <if test="groupType != null"> group_type = #{groupType,jdbcType=VARCHAR},</if>
-        <if test="enabled != null"> enabled = #{enabled,jdbcType=TINYINT},</if>
-        <if test="description != null"> description = #{description,jdbcType=VARCHAR},</if>
+        <if test='parent == "[null]"'> parent = NULL, </if>
+        <if test='parent != null and parent != "[null]"'> parent = #{parent,jdbcType=INTEGER},</if>
+        <if test='name == "[null]"'> name = NULL, </if>
+        <if test='name != null and name != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
+        <if test='groupType == "[null]"'> group_type = NULL, </if>
+        <if test='groupType != null and groupType != "[null]"'> group_type = #{groupType,jdbcType=VARCHAR},</if>
+        <if test='enabled == "[null]"'> enabled = NULL, </if>
+        <if test='enabled != null and enabled != "[null]"'> enabled = #{enabled,jdbcType=TINYINT},</if>
+        <if test='description == "[null]"'> description = NULL, </if>
+        <if test='description != null and description != "[null]"'> description = #{description,jdbcType=VARCHAR},</if>
       </set>
       where id = #{id,jdbcType=INTEGER}
   </update>

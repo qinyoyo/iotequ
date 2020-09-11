@@ -127,46 +127,83 @@
       local_export = #{localExport,jdbcType=TINYINT}
       where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateSelective" parameterType="top.iotequ.codegenerator.pojo.CgList">
+  <update id="updateSelective" parameterType="java.util.Map">
     update cg_list 
       <set>
-        <if test="name != null"> name = #{name,jdbcType=VARCHAR},</if>
-        <if test="path != null"> path = #{path,jdbcType=VARCHAR},</if>
-        <if test="tableId != null"> table_id = #{tableId,jdbcType=VARCHAR},</if>
-        <if test="icon != null"> icon = #{icon,jdbcType=VARCHAR},</if>
-        <if test="headTitle != null"> head_title = #{headTitle,jdbcType=VARCHAR},</if>
-        <if test="tagTitle != null"> tag_title = #{tagTitle,jdbcType=VARCHAR},</if>
-        <if test="editInline != null"> edit_inline = #{editInline,jdbcType=TINYINT},</if>
-        <if test="detailInline != null"> detail_inline = #{detailInline,jdbcType=TINYINT},</if>
-        <if test="sons != null"> sons = #{sons,jdbcType=VARCHAR},</if>
-        <if test="sonFields != null"> son_fields = #{sonFields,jdbcType=VARCHAR},</if>
-        <if test="sonAlign != null"> son_align = #{sonAlign,jdbcType=VARCHAR},</if>
-        <if test="generatorType != null"> generator_type = #{generatorType,jdbcType=INTEGER},</if>
-        <if test="titleField != null"> title_field = #{titleField,jdbcType=VARCHAR},</if>
-        <if test="parentEntity != null"> parent_entity = #{parentEntity,jdbcType=VARCHAR},</if>
-        <if test="treeShowEntity != null"> tree_show_entity = #{treeShowEntity,jdbcType=VARCHAR},</if>
-        <if test="showSearch != null"> show_search = #{showSearch,jdbcType=TINYINT},</if>
-        <if test="toolbarMode != null"> toolbar_mode = #{toolbarMode,jdbcType=INTEGER},</if>
-        <if test="tableHeight != null"> table_height = #{tableHeight,jdbcType=INTEGER},</if>
-        <if test="pagination != null"> pagination = #{pagination,jdbcType=TINYINT},</if>
-        <if test="orderBy != null"> order_by = #{orderBy,jdbcType=VARCHAR},</if>
-        <if test="sortField != null"> sort_field = #{sortField,jdbcType=VARCHAR},</if>
-        <if test="stripe != null"> stripe = #{stripe,jdbcType=TINYINT},</if>
-        <if test="border != null"> border = #{border,jdbcType=TINYINT},</if>
-        <if test="stateEntity != null"> state_entity = #{stateEntity,jdbcType=VARCHAR},</if>
-        <if test="maxHeight != null"> max_height = #{maxHeight,jdbcType=INTEGER},</if>
-        <if test="highlightCurrentRow != null"> highlight_current_row = #{highlightCurrentRow,jdbcType=TINYINT},</if>
-        <if test="multiple != null"> multiple = #{multiple,jdbcType=TINYINT},</if>
-        <if test="showSummary != null"> show_summary = #{showSummary,jdbcType=TINYINT},</if>
-        <if test="spanEntities != null"> span_entities = #{spanEntities,jdbcType=VARCHAR},</if>
-        <if test="showHeader != null"> show_header = #{showHeader,jdbcType=TINYINT},</if>
-        <if test="images != null"> images = #{images,jdbcType=VARCHAR},</if>
-        <if test="viewProperties != null"> view_properties = #{viewProperties,jdbcType=VARCHAR},</if>
-        <if test="tableProperties != null"> table_properties = #{tableProperties,jdbcType=VARCHAR},</if>
-        <if test="sonsProperties != null"> sons_properties = #{sonsProperties,jdbcType=VARCHAR},</if>
-        <if test="actionList != null"> action_list = #{actionList,jdbcType=VARCHAR},</if>
-        <if test="flowDataUrl != null"> flow_data_url = #{flowDataUrl,jdbcType=VARCHAR},</if>
-        <if test="localExport != null"> local_export = #{localExport,jdbcType=TINYINT},</if>
+        <if test='name == "[null]"'> name = NULL, </if>
+        <if test='name != null and name != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
+        <if test='path == "[null]"'> path = NULL, </if>
+        <if test='path != null and path != "[null]"'> path = #{path,jdbcType=VARCHAR},</if>
+        <if test='tableId == "[null]"'> table_id = NULL, </if>
+        <if test='tableId != null and tableId != "[null]"'> table_id = #{tableId,jdbcType=VARCHAR},</if>
+        <if test='icon == "[null]"'> icon = NULL, </if>
+        <if test='icon != null and icon != "[null]"'> icon = #{icon,jdbcType=VARCHAR},</if>
+        <if test='headTitle == "[null]"'> head_title = NULL, </if>
+        <if test='headTitle != null and headTitle != "[null]"'> head_title = #{headTitle,jdbcType=VARCHAR},</if>
+        <if test='tagTitle == "[null]"'> tag_title = NULL, </if>
+        <if test='tagTitle != null and tagTitle != "[null]"'> tag_title = #{tagTitle,jdbcType=VARCHAR},</if>
+        <if test='editInline == "[null]"'> edit_inline = NULL, </if>
+        <if test='editInline != null and editInline != "[null]"'> edit_inline = #{editInline,jdbcType=TINYINT},</if>
+        <if test='detailInline == "[null]"'> detail_inline = NULL, </if>
+        <if test='detailInline != null and detailInline != "[null]"'> detail_inline = #{detailInline,jdbcType=TINYINT},</if>
+        <if test='sons == "[null]"'> sons = NULL, </if>
+        <if test='sons != null and sons != "[null]"'> sons = #{sons,jdbcType=VARCHAR},</if>
+        <if test='sonFields == "[null]"'> son_fields = NULL, </if>
+        <if test='sonFields != null and sonFields != "[null]"'> son_fields = #{sonFields,jdbcType=VARCHAR},</if>
+        <if test='sonAlign == "[null]"'> son_align = NULL, </if>
+        <if test='sonAlign != null and sonAlign != "[null]"'> son_align = #{sonAlign,jdbcType=VARCHAR},</if>
+        <if test='generatorType == "[null]"'> generator_type = NULL, </if>
+        <if test='generatorType != null and generatorType != "[null]"'> generator_type = #{generatorType,jdbcType=INTEGER},</if>
+        <if test='titleField == "[null]"'> title_field = NULL, </if>
+        <if test='titleField != null and titleField != "[null]"'> title_field = #{titleField,jdbcType=VARCHAR},</if>
+        <if test='parentEntity == "[null]"'> parent_entity = NULL, </if>
+        <if test='parentEntity != null and parentEntity != "[null]"'> parent_entity = #{parentEntity,jdbcType=VARCHAR},</if>
+        <if test='treeShowEntity == "[null]"'> tree_show_entity = NULL, </if>
+        <if test='treeShowEntity != null and treeShowEntity != "[null]"'> tree_show_entity = #{treeShowEntity,jdbcType=VARCHAR},</if>
+        <if test='showSearch == "[null]"'> show_search = NULL, </if>
+        <if test='showSearch != null and showSearch != "[null]"'> show_search = #{showSearch,jdbcType=TINYINT},</if>
+        <if test='toolbarMode == "[null]"'> toolbar_mode = NULL, </if>
+        <if test='toolbarMode != null and toolbarMode != "[null]"'> toolbar_mode = #{toolbarMode,jdbcType=INTEGER},</if>
+        <if test='tableHeight == "[null]"'> table_height = NULL, </if>
+        <if test='tableHeight != null and tableHeight != "[null]"'> table_height = #{tableHeight,jdbcType=INTEGER},</if>
+        <if test='pagination == "[null]"'> pagination = NULL, </if>
+        <if test='pagination != null and pagination != "[null]"'> pagination = #{pagination,jdbcType=TINYINT},</if>
+        <if test='orderBy == "[null]"'> order_by = NULL, </if>
+        <if test='orderBy != null and orderBy != "[null]"'> order_by = #{orderBy,jdbcType=VARCHAR},</if>
+        <if test='sortField == "[null]"'> sort_field = NULL, </if>
+        <if test='sortField != null and sortField != "[null]"'> sort_field = #{sortField,jdbcType=VARCHAR},</if>
+        <if test='stripe == "[null]"'> stripe = NULL, </if>
+        <if test='stripe != null and stripe != "[null]"'> stripe = #{stripe,jdbcType=TINYINT},</if>
+        <if test='border == "[null]"'> border = NULL, </if>
+        <if test='border != null and border != "[null]"'> border = #{border,jdbcType=TINYINT},</if>
+        <if test='stateEntity == "[null]"'> state_entity = NULL, </if>
+        <if test='stateEntity != null and stateEntity != "[null]"'> state_entity = #{stateEntity,jdbcType=VARCHAR},</if>
+        <if test='maxHeight == "[null]"'> max_height = NULL, </if>
+        <if test='maxHeight != null and maxHeight != "[null]"'> max_height = #{maxHeight,jdbcType=INTEGER},</if>
+        <if test='highlightCurrentRow == "[null]"'> highlight_current_row = NULL, </if>
+        <if test='highlightCurrentRow != null and highlightCurrentRow != "[null]"'> highlight_current_row = #{highlightCurrentRow,jdbcType=TINYINT},</if>
+        <if test='multiple == "[null]"'> multiple = NULL, </if>
+        <if test='multiple != null and multiple != "[null]"'> multiple = #{multiple,jdbcType=TINYINT},</if>
+        <if test='showSummary == "[null]"'> show_summary = NULL, </if>
+        <if test='showSummary != null and showSummary != "[null]"'> show_summary = #{showSummary,jdbcType=TINYINT},</if>
+        <if test='spanEntities == "[null]"'> span_entities = NULL, </if>
+        <if test='spanEntities != null and spanEntities != "[null]"'> span_entities = #{spanEntities,jdbcType=VARCHAR},</if>
+        <if test='showHeader == "[null]"'> show_header = NULL, </if>
+        <if test='showHeader != null and showHeader != "[null]"'> show_header = #{showHeader,jdbcType=TINYINT},</if>
+        <if test='images == "[null]"'> images = NULL, </if>
+        <if test='images != null and images != "[null]"'> images = #{images,jdbcType=VARCHAR},</if>
+        <if test='viewProperties == "[null]"'> view_properties = NULL, </if>
+        <if test='viewProperties != null and viewProperties != "[null]"'> view_properties = #{viewProperties,jdbcType=VARCHAR},</if>
+        <if test='tableProperties == "[null]"'> table_properties = NULL, </if>
+        <if test='tableProperties != null and tableProperties != "[null]"'> table_properties = #{tableProperties,jdbcType=VARCHAR},</if>
+        <if test='sonsProperties == "[null]"'> sons_properties = NULL, </if>
+        <if test='sonsProperties != null and sonsProperties != "[null]"'> sons_properties = #{sonsProperties,jdbcType=VARCHAR},</if>
+        <if test='actionList == "[null]"'> action_list = NULL, </if>
+        <if test='actionList != null and actionList != "[null]"'> action_list = #{actionList,jdbcType=VARCHAR},</if>
+        <if test='flowDataUrl == "[null]"'> flow_data_url = NULL, </if>
+        <if test='flowDataUrl != null and flowDataUrl != "[null]"'> flow_data_url = #{flowDataUrl,jdbcType=VARCHAR},</if>
+        <if test='localExport == "[null]"'> local_export = NULL, </if>
+        <if test='localExport != null and localExport != "[null]"'> local_export = #{localExport,jdbcType=TINYINT},</if>
       </set>
       where id = #{id,jdbcType=VARCHAR}
   </update>

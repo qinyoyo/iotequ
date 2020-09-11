@@ -6,6 +6,7 @@
 package top.iotequ.framework.dao;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
+import java.util.Map;
 import top.iotequ.framework.service.IDaoService;
 import top.iotequ.framework.pojo.OauthClientDetails;
 import java.util.*;
@@ -19,7 +20,7 @@ public interface OauthClientDetailsDao  extends IDaoService<OauthClientDetails> 
     int deleteBatch(String clientIds);
     int deleteList(List<OauthClientDetails> list);
     int update(OauthClientDetails record);
-    int updateSelective(OauthClientDetails record);
+    int updateSelective(Map<String,Object> record);
     int updateBy(@Param("record")OauthClientDetails record,@Param("clientId")String id);
     //条件为所有非空字段 and，String采用like的查询模式，其他为=
     List<OauthClientDetails> list(OauthClientDetails record);

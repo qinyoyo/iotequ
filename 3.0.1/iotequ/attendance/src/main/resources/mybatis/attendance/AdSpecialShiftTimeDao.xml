@@ -91,13 +91,17 @@
       end_time = #{endTime,jdbcType=TIME}
       where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateSelective" parameterType="top.iotequ.attendance.specialshifttime.pojo.AdSpecialShiftTime">
+  <update id="updateSelective" parameterType="java.util.Map">
     update ad_special_shift_time 
       <set>
-        <if test="specialShiftId != null"> special_shift_id = #{specialShiftId,jdbcType=INTEGER},</if>
-        <if test="name != null"> name = #{name,jdbcType=VARCHAR},</if>
-        <if test="startTime != null"> start_time = #{startTime,jdbcType=TIME},</if>
-        <if test="endTime != null"> end_time = #{endTime,jdbcType=TIME},</if>
+        <if test='specialShiftId == "[null]"'> special_shift_id = NULL, </if>
+        <if test='specialShiftId != null and specialShiftId != "[null]"'> special_shift_id = #{specialShiftId,jdbcType=INTEGER},</if>
+        <if test='name == "[null]"'> name = NULL, </if>
+        <if test='name != null and name != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
+        <if test='startTime == "[null]"'> start_time = NULL, </if>
+        <if test='startTime != null and startTime != "[null]"'> start_time = #{startTime,jdbcType=TIME},</if>
+        <if test='endTime == "[null]"'> end_time = NULL, </if>
+        <if test='endTime != null and endTime != "[null]"'> end_time = #{endTime,jdbcType=TIME},</if>
       </set>
       where id = #{id,jdbcType=INTEGER}
   </update>

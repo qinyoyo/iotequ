@@ -825,19 +825,31 @@ export default {
     if (!listObject.editInlineFields || listObject.editInlineFields.length === 0) return
     let data = []
     const that = this
+    const equalObject = function(a,b) {
+      if (cg.hasValue(a) && !cg.hasValue(b)) return false
+      else if (!cg.hasValue(a) && cg.hasValue(b)) return false
+      else if (!cg.hasValue(a) && !cg.hasValue(b)) return true
+      else {
+        const sa = (a instanceof Date ? time.toString(a,'YYYY-MM-DD HH:mm:ss.SSS') : String(a))
+        const sb = (b instanceof Date ? time.toString(b,'YYYY-MM-DD HH:mm:ss.SSS') : String(b))
+        return sa == sb
+      }
+    }
     const getRecord = function(record) {
       if (record[listObject.idField]) {
         let r={}
         let modified = false
         if (that.list_editInlineValidate(listObject, record, listObject.editInlineFields)) {
           listObject.editInlineFields.forEach(f => {
-            if (record[f]!=null && record[f]!=undefined && String(record[f])!=String(record.inlineEditting[f])) {
-              //if (record[f] instanceof Date) r[f] = time.toString(record[f],'YYYY-MM-DD HH:mm:ss.SSS')
-              //else 
-              r[f] = record[f]
-              modified = true
-            } else {
-              // edit-inline 不允许输入空值,恢复值
+            if (!equalObject(record[f],record.inlineEditting[f])) {
+              if (cg.hasValue(record[f])) {
+                if (record[f] instanceof Date) r[f] = time.toString(record[f],'YYYY-MM-DD HH:mm:ss.SSS')
+                else r[f] = record[f]
+                modified = true
+              } else {
+                r[f] = '[null]'
+                modified = true
+              }
             }
           })
         }
@@ -855,14 +867,19 @@ export default {
         if (that.list_editInlineValidate(listObject, record, Object.keys(record))) {
           let r={}
           Object.keys(record).forEach(f => {
-            if (record[f]!=null && record[f]!=undefined && String(record[f])!=String(record.inlineEditting[f])) {
-              //if (record[f] instanceof Date) r[f] = time.toString(record[f],'YYYY-MM-DD HH:mm:ss.SSS')
-              //else 
-              r[f] = record[f]
-            } 
+            if (!equalObject(record[f],record.inlineEditting[f])) {
+              if (cg.hasValue(record[f])) {
+                if (record[f] instanceof Date) r[f] = time.toString(record[f],'YYYY-MM-DD HH:mm:ss.SSS')
+                else r[f] = record[f]
+              } else {
+                r[f] = '[null]'
+              }
+            }
           })
-          data.push(r)
-          usedRows.push(record)
+          if (cg.hasValue(r)) {
+            data.push(r)
+            usedRows.push(record)
+          }
         } else {
           // for (let i=0;i<listObject.rows.length;i++) { // 新插入的字段没有树形结构
           //   if (record==listObject.rows[i]) {

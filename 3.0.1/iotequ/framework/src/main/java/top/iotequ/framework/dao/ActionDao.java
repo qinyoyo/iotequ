@@ -6,6 +6,7 @@
 package top.iotequ.framework.dao;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
+import java.util.Map;
 import top.iotequ.framework.service.IDaoService;
 import top.iotequ.framework.pojo.Action;
 import java.util.*;
@@ -23,7 +24,7 @@ public interface ActionDao  extends IDaoService<Action> {
     int deleteBatchByValue(String values);
     int deleteList(List<Action> list);
     int update(Action record);
-    int updateSelective(Action record);
+    int updateSelective(Map<String,Object> record);
     int updateBy(@Param("record")Action record,@Param("id")Integer id);
     //条件为所有非空字段 and，String采用like的查询模式，其他为=
     List<Action> list(Action record);

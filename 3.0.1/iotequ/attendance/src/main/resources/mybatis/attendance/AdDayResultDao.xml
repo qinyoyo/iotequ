@@ -111,21 +111,33 @@
       employee_no = #{employeeNo,jdbcType=VARCHAR}
       where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateSelective" parameterType="top.iotequ.attendance.dayresult.pojo.AdDayResult">
+  <update id="updateSelective" parameterType="java.util.Map">
     update ad_day_result 
       <set>
-        <if test="orgCode != null"> org_code = #{orgCode,jdbcType=INTEGER},</if>
-        <if test="orgName != null"> org_name = #{orgName,jdbcType=VARCHAR},</if>
-        <if test="employee != null"> employee = #{employee,jdbcType=VARCHAR},</if>
-        <if test="realName != null"> real_name = #{realName,jdbcType=VARCHAR},</if>
-        <if test="adDate != null"> ad_date = #{adDate,jdbcType=DATE},</if>
-        <if test="shiftName != null"> shift_name = #{shiftName,jdbcType=VARCHAR},</if>
-        <if test="state != null"> state = #{state,jdbcType=INTEGER},</if>
-        <if test="stateName != null"> state_name = #{stateName,jdbcType=VARCHAR},</if>
-        <if test="times != null"> times = #{times,jdbcType=INTEGER},</if>
-        <if test="minutes != null"> minutes = #{minutes,jdbcType=INTEGER},</if>
-        <if test="workMinutes != null"> work_minutes = #{workMinutes,jdbcType=INTEGER},</if>
-        <if test="shiftId != null"> shift_id = #{shiftId,jdbcType=INTEGER},</if>
+        <if test='orgCode == "[null]"'> org_code = NULL, </if>
+        <if test='orgCode != null and orgCode != "[null]"'> org_code = #{orgCode,jdbcType=INTEGER},</if>
+        <if test='orgName == "[null]"'> org_name = NULL, </if>
+        <if test='orgName != null and orgName != "[null]"'> org_name = #{orgName,jdbcType=VARCHAR},</if>
+        <if test='employee == "[null]"'> employee = NULL, </if>
+        <if test='employee != null and employee != "[null]"'> employee = #{employee,jdbcType=VARCHAR},</if>
+        <if test='realName == "[null]"'> real_name = NULL, </if>
+        <if test='realName != null and realName != "[null]"'> real_name = #{realName,jdbcType=VARCHAR},</if>
+        <if test='adDate == "[null]"'> ad_date = NULL, </if>
+        <if test='adDate != null and adDate != "[null]"'> ad_date = #{adDate,jdbcType=DATE},</if>
+        <if test='shiftName == "[null]"'> shift_name = NULL, </if>
+        <if test='shiftName != null and shiftName != "[null]"'> shift_name = #{shiftName,jdbcType=VARCHAR},</if>
+        <if test='state == "[null]"'> state = NULL, </if>
+        <if test='state != null and state != "[null]"'> state = #{state,jdbcType=INTEGER},</if>
+        <if test='stateName == "[null]"'> state_name = NULL, </if>
+        <if test='stateName != null and stateName != "[null]"'> state_name = #{stateName,jdbcType=VARCHAR},</if>
+        <if test='times == "[null]"'> times = NULL, </if>
+        <if test='times != null and times != "[null]"'> times = #{times,jdbcType=INTEGER},</if>
+        <if test='minutes == "[null]"'> minutes = NULL, </if>
+        <if test='minutes != null and minutes != "[null]"'> minutes = #{minutes,jdbcType=INTEGER},</if>
+        <if test='workMinutes == "[null]"'> work_minutes = NULL, </if>
+        <if test='workMinutes != null and workMinutes != "[null]"'> work_minutes = #{workMinutes,jdbcType=INTEGER},</if>
+        <if test='shiftId == "[null]"'> shift_id = NULL, </if>
+        <if test='shiftId != null and shiftId != "[null]"'> shift_id = #{shiftId,jdbcType=INTEGER},</if>
         <if test="employeeNo != null"> employee_no = #{employeeNo,jdbcType=VARCHAR},</if>
       </set>
       where id = #{id,jdbcType=INTEGER}

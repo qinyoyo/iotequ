@@ -105,14 +105,19 @@
       employee_no = #{employeeNo,jdbcType=VARCHAR}
       where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateSelective" parameterType="top.iotequ.attendance.data.pojo.AdData">
+  <update id="updateSelective" parameterType="java.util.Map">
     update ad_data 
       <set>
-        <if test="recSourceType != null"> rec_source_type = #{recSourceType,jdbcType=VARCHAR},</if>
-        <if test="recSource != null"> rec_source = #{recSource,jdbcType=VARCHAR},</if>
-        <if test="recType != null"> rec_type = #{recType,jdbcType=INTEGER},</if>
-        <if test="recTime != null"> rec_time = #{recTime,jdbcType=TIMESTAMP},</if>
-        <if test="isUsed != null"> is_used = #{isUsed,jdbcType=VARCHAR},</if>
+        <if test='recSourceType == "[null]"'> rec_source_type = NULL, </if>
+        <if test='recSourceType != null and recSourceType != "[null]"'> rec_source_type = #{recSourceType,jdbcType=VARCHAR},</if>
+        <if test='recSource == "[null]"'> rec_source = NULL, </if>
+        <if test='recSource != null and recSource != "[null]"'> rec_source = #{recSource,jdbcType=VARCHAR},</if>
+        <if test='recType == "[null]"'> rec_type = NULL, </if>
+        <if test='recType != null and recType != "[null]"'> rec_type = #{recType,jdbcType=INTEGER},</if>
+        <if test='recTime == "[null]"'> rec_time = NULL, </if>
+        <if test='recTime != null and recTime != "[null]"'> rec_time = #{recTime,jdbcType=TIMESTAMP},</if>
+        <if test='isUsed == "[null]"'> is_used = NULL, </if>
+        <if test='isUsed != null and isUsed != "[null]"'> is_used = #{isUsed,jdbcType=VARCHAR},</if>
         <if test="employeeNo != null"> employee_no = #{employeeNo,jdbcType=VARCHAR},</if>
       </set>
       where id = #{id,jdbcType=VARCHAR}

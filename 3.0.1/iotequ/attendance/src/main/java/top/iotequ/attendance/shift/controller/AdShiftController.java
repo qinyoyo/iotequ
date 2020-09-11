@@ -84,7 +84,7 @@ public class AdShiftController  {
 		}
 	}
 	@RequestMapping(value = "/updateSelective",method = {RequestMethod.PUT,RequestMethod.POST})
-	public ResponseEntity<Map<String, Object>> updateSelective(@RequestBody List<AdShift> adShiftList, HttpServletRequest request, HttpServletResponse response) {
+	public ResponseEntity<Map<String, Object>> updateSelective(@RequestBody List<Map<String,Object>> adShiftList, HttpServletRequest request, HttpServletResponse response) {
 		try {
 			return cgService.updateSelective(adShiftList).toResponse();
 		} catch (Exception e) {

@@ -39,7 +39,7 @@ public class AdEmployee implements CgEntity {
     private String employeeNo;		//工号 db field:employee_no
 
     @SerializedName(value = "emLevel", alternate = {"em_level","EM_LEVEL"})
-    @CgFieldAnnotation(name="ad_employee.em_level",jdbcType="INTEGER",nullable=false,format="")
+    @CgFieldAnnotation(name="ad_employee.em_level",jdbcType="INTEGER",nullable=true,format="")
     private Integer emLevel;		//职务级别 db field:em_level
 
     @SerializedName(value = "isAttendance", alternate = {"is_attendance","IS_ATTENDANCE"})

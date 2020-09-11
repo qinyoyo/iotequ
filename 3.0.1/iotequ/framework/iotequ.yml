@@ -1,0 +1,89 @@
+#端口以及主目录路径   
+server:
+   port : 80
+   servlet: 
+      context-path : /
+      session:
+         timeout: PT1H
+#配置ssl请将 server.port 配置 为 443，然后配置以下参数
+#   http:
+#      port : 80       
+#   ssl:
+#      key-store: webapp/ssl_www.svein.com.cn.pfx
+#      key-store-password: xipYs081
+#      keyStoreType: PKCS12
+spring:
+#数据库连接配置
+   datasource:
+      url : jdbc:mysql://localhost:3306/iotequ3?characterEncoding=utf8&useSSL=true&allowMultiQueries=true&serverTimezone=Asia/Chongqing
+      username : root
+      password : root
+      driverClassName : com.mysql.cj.jdbc.Driver
+      
+#      url : jdbc:sqlserver://localhost:1433;databaseName=iotequ
+#      driverClassName : com.microsoft.sqlserver.jdbc.SQLServerDriver
+#      username : sa
+#      password : root
+
+#      url : jdbc:oracle:thin:@127.0.0.1:1521:iotequ
+#      driverClassName : oracle.jdbc.driver.OracleDriver
+#      username : sa
+#      password : root      
+
+#文件上传保存地址，大小限制
+   upload-path: web/uploadfiles
+   servlet:
+      multipart:
+         maxFileSize: 100MB
+         maxRequestSize: 100MB   
+
+#日志输出
+logging: 
+   file: log/iotequ.log
+   level: 
+      root: error
+      org.springframework: error
+      org.mybatis: error
+      top.iotequ: error
+#mybatis输出sql语句
+#mybatis:
+#   configuration: 
+#      log-impl: org.apache.ibatis.logging.stdout.StdOutImpl 
+     
+#授权，svas配置    
+svas:
+#微信授权登录 
+#wechat:
+#   loginUrl : http://www.svein.com.cn/login/wechat
+#   checkUrl : http://www.svein.com.cn/res/checkopenid
+#   appid : your appid
+#   appSecret : your appSecret
+
+#使用短消息的模块
+#sms:
+#   modules: login,project
+   register:
+      whilteList:
+        #允许注册的手机号码，不输入该参数表示全部允许
+        #  sql=输入sql语句，语句中包含一个?参数，表示需要查询的号码，存在结果集则允许，否则不允许。
+        #  或者输入正则表达式，匹配则允许
+      blackList:
+        #禁止注册的手机号码，不输入该参数表示全部允许
+        #  sql=输入sql语句，语句中包含一个?参数，表示需要查询的号码，存在结果集则禁止，否则允许。
+        #  或者输入正则表达式，匹配则禁止
+      defaultSql:
+        #设置缺省值参数的sql语句
+
+#短信消息配置
+#aliyunsms:
+#   accessKeyId : your access KeyId
+#   secret : your secret
+#   signName : 智脉科技
+#   templateCode : SMS_169642214
+#   msgTemplateCode : SMS_169865398
+
+
+
+
+
+

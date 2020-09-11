@@ -6,6 +6,7 @@
 package top.iotequ.framework.dao;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
+import java.util.Map;
 import top.iotequ.framework.service.IDaoService;
 import top.iotequ.framework.pojo.User;
 import java.util.*;
@@ -36,7 +37,7 @@ public interface UserDao  extends IDaoService<User> {
     int deleteByIdTypeIdNumber(@Param("idType")Integer idType , @Param("idNumber")String idNumber);
     int deleteList(List<User> list);
     int update(User record);
-    int updateSelective(User record);
+    int updateSelective(Map<String,Object> record);
     int updateBy(@Param("record")User record,@Param("id")String id);
     //条件为所有非空字段 and，String采用like的查询模式，其他为=
     List<User> list(User record);

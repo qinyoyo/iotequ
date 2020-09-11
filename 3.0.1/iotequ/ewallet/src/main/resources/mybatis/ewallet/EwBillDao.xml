@@ -185,31 +185,53 @@
       shop_id = #{shopId,jdbcType=VARCHAR}
       where no = #{no,jdbcType=VARCHAR}
   </update>
-  <update id="updateSelective" parameterType="top.iotequ.ewallet.pojo.EwBill">
+  <update id="updateSelective" parameterType="java.util.Map">
     update ew_bill 
       <set>
-        <if test="canceled != null"> canceled = #{canceled,jdbcType=TINYINT},</if>
-        <if test="isCharge != null"> is_charge = #{isCharge,jdbcType=TINYINT},</if>
-        <if test="userNo != null"> user_no = #{userNo,jdbcType=VARCHAR},</if>
-        <if test="batchNo != null"> batch_no = #{batchNo,jdbcType=VARCHAR},</if>
-        <if test="dt != null"> dt = #{dt,jdbcType=TIMESTAMP},</if>
-        <if test="operationType != null"> operation_type = #{operationType,jdbcType=INTEGER},</if>
-        <if test="costType != null"> cost_type = #{costType,jdbcType=INTEGER},</if>
-        <if test="projectId != null"> project_id = #{projectId,jdbcType=INTEGER},</if>
-        <if test="projectName != null"> project_name = #{projectName,jdbcType=VARCHAR},</if>
-        <if test="projectPrice != null"> project_price = #{projectPrice,jdbcType=INTEGER},</if>
-        <if test="amount != null"> amount = #{amount,jdbcType=INTEGER},</if>
-        <if test="amountBefore != null"> amount_before = #{amountBefore,jdbcType=INTEGER},</if>
-        <if test="bonus != null"> bonus = #{bonus,jdbcType=INTEGER},</if>
-        <if test="bonusBefore != null"> bonus_before = #{bonusBefore,jdbcType=INTEGER},</if>
-        <if test="deviceNo != null"> device_no = #{deviceNo,jdbcType=VARCHAR},</if>
-        <if test="deviceStream != null"> device_stream = #{deviceStream,jdbcType=VARCHAR},</if>
-        <if test="deviceDt != null"> device_dt = #{deviceDt,jdbcType=TIMESTAMP},</if>
-        <if test="tradeNo != null"> trade_no = #{tradeNo,jdbcType=VARCHAR},</if>
-        <if test="operatorNo != null"> operator_no = #{operatorNo,jdbcType=VARCHAR},</if>
-        <if test="checkCode != null"> check_code = #{checkCode,jdbcType=VARCHAR},</if>
-        <if test="linkNo != null"> link_no = #{linkNo,jdbcType=VARCHAR},</if>
-        <if test="loginId != null"> login_id = #{loginId,jdbcType=INTEGER},</if>
+        <if test='canceled == "[null]"'> canceled = NULL, </if>
+        <if test='canceled != null and canceled != "[null]"'> canceled = #{canceled,jdbcType=TINYINT},</if>
+        <if test='isCharge == "[null]"'> is_charge = NULL, </if>
+        <if test='isCharge != null and isCharge != "[null]"'> is_charge = #{isCharge,jdbcType=TINYINT},</if>
+        <if test='userNo == "[null]"'> user_no = NULL, </if>
+        <if test='userNo != null and userNo != "[null]"'> user_no = #{userNo,jdbcType=VARCHAR},</if>
+        <if test='batchNo == "[null]"'> batch_no = NULL, </if>
+        <if test='batchNo != null and batchNo != "[null]"'> batch_no = #{batchNo,jdbcType=VARCHAR},</if>
+        <if test='dt == "[null]"'> dt = NULL, </if>
+        <if test='dt != null and dt != "[null]"'> dt = #{dt,jdbcType=TIMESTAMP},</if>
+        <if test='operationType == "[null]"'> operation_type = NULL, </if>
+        <if test='operationType != null and operationType != "[null]"'> operation_type = #{operationType,jdbcType=INTEGER},</if>
+        <if test='costType == "[null]"'> cost_type = NULL, </if>
+        <if test='costType != null and costType != "[null]"'> cost_type = #{costType,jdbcType=INTEGER},</if>
+        <if test='projectId == "[null]"'> project_id = NULL, </if>
+        <if test='projectId != null and projectId != "[null]"'> project_id = #{projectId,jdbcType=INTEGER},</if>
+        <if test='projectName == "[null]"'> project_name = NULL, </if>
+        <if test='projectName != null and projectName != "[null]"'> project_name = #{projectName,jdbcType=VARCHAR},</if>
+        <if test='projectPrice == "[null]"'> project_price = NULL, </if>
+        <if test='projectPrice != null and projectPrice != "[null]"'> project_price = #{projectPrice,jdbcType=INTEGER},</if>
+        <if test='amount == "[null]"'> amount = NULL, </if>
+        <if test='amount != null and amount != "[null]"'> amount = #{amount,jdbcType=INTEGER},</if>
+        <if test='amountBefore == "[null]"'> amount_before = NULL, </if>
+        <if test='amountBefore != null and amountBefore != "[null]"'> amount_before = #{amountBefore,jdbcType=INTEGER},</if>
+        <if test='bonus == "[null]"'> bonus = NULL, </if>
+        <if test='bonus != null and bonus != "[null]"'> bonus = #{bonus,jdbcType=INTEGER},</if>
+        <if test='bonusBefore == "[null]"'> bonus_before = NULL, </if>
+        <if test='bonusBefore != null and bonusBefore != "[null]"'> bonus_before = #{bonusBefore,jdbcType=INTEGER},</if>
+        <if test='deviceNo == "[null]"'> device_no = NULL, </if>
+        <if test='deviceNo != null and deviceNo != "[null]"'> device_no = #{deviceNo,jdbcType=VARCHAR},</if>
+        <if test='deviceStream == "[null]"'> device_stream = NULL, </if>
+        <if test='deviceStream != null and deviceStream != "[null]"'> device_stream = #{deviceStream,jdbcType=VARCHAR},</if>
+        <if test='deviceDt == "[null]"'> device_dt = NULL, </if>
+        <if test='deviceDt != null and deviceDt != "[null]"'> device_dt = #{deviceDt,jdbcType=TIMESTAMP},</if>
+        <if test='tradeNo == "[null]"'> trade_no = NULL, </if>
+        <if test='tradeNo != null and tradeNo != "[null]"'> trade_no = #{tradeNo,jdbcType=VARCHAR},</if>
+        <if test='operatorNo == "[null]"'> operator_no = NULL, </if>
+        <if test='operatorNo != null and operatorNo != "[null]"'> operator_no = #{operatorNo,jdbcType=VARCHAR},</if>
+        <if test='checkCode == "[null]"'> check_code = NULL, </if>
+        <if test='checkCode != null and checkCode != "[null]"'> check_code = #{checkCode,jdbcType=VARCHAR},</if>
+        <if test='linkNo == "[null]"'> link_no = NULL, </if>
+        <if test='linkNo != null and linkNo != "[null]"'> link_no = #{linkNo,jdbcType=VARCHAR},</if>
+        <if test='loginId == "[null]"'> login_id = NULL, </if>
+        <if test='loginId != null and loginId != "[null]"'> login_id = #{loginId,jdbcType=INTEGER},</if>
         <if test="shopId != null"> shop_id = #{shopId,jdbcType=VARCHAR},</if>
       </set>
       where no = #{no,jdbcType=VARCHAR}

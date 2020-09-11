@@ -102,13 +102,17 @@
       method = #{method,jdbcType=VARCHAR}
       where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateSelective" parameterType="top.iotequ.framework.pojo.Action">
+  <update id="updateSelective" parameterType="java.util.Map">
     update sys_action 
       <set>
-        <if test="note != null"> note = #{note,jdbcType=VARCHAR},</if>
-        <if test="value != null"> value = #{value,jdbcType=VARCHAR},</if>
-        <if test="params != null"> params = #{params,jdbcType=VARCHAR},</if>
-        <if test="method != null"> method = #{method,jdbcType=VARCHAR},</if>
+        <if test='note == "[null]"'> note = NULL, </if>
+        <if test='note != null and note != "[null]"'> note = #{note,jdbcType=VARCHAR},</if>
+        <if test='value == "[null]"'> value = NULL, </if>
+        <if test='value != null and value != "[null]"'> value = #{value,jdbcType=VARCHAR},</if>
+        <if test='params == "[null]"'> params = NULL, </if>
+        <if test='params != null and params != "[null]"'> params = #{params,jdbcType=VARCHAR},</if>
+        <if test='method == "[null]"'> method = NULL, </if>
+        <if test='method != null and method != "[null]"'> method = #{method,jdbcType=VARCHAR},</if>
       </set>
       where id = #{id,jdbcType=INTEGER}
   </update>

@@ -98,7 +98,7 @@
       user_id = #{userId,jdbcType=VARCHAR}
       where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateSelective" parameterType="top.iotequ.project.people.pojo.PmPeople">
+  <update id="updateSelective" parameterType="java.util.Map">
     update pm_people 
       <set>
         <if test="groupId != null"> group_id = #{groupId,jdbcType=INTEGER},</if>

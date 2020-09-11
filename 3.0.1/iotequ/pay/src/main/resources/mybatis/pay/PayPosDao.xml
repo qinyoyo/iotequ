@@ -110,17 +110,25 @@
       time_project_list = #{timeProjectList,jdbcType=VARCHAR}
       where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateSelective" parameterType="top.iotequ.pay.pojo.PayPos">
+  <update id="updateSelective" parameterType="java.util.Map">
     update pay_pos 
       <set>
-        <if test="no != null"> no = #{no,jdbcType=VARCHAR},</if>
-        <if test="shopId != null"> shop_id = #{shopId,jdbcType=INTEGER},</if>
-        <if test="securityCode != null"> security_code = #{securityCode,jdbcType=VARCHAR},</if>
-        <if test="workCode != null"> work_code = #{workCode,jdbcType=VARCHAR},</if>
-        <if test="loginId != null"> login_id = #{loginId,jdbcType=INTEGER},</if>
-        <if test="ewalletActive != null"> ewallet_active = #{ewalletActive,jdbcType=TINYINT},</if>
-        <if test="countProjectList != null"> count_project_list = #{countProjectList,jdbcType=VARCHAR},</if>
-        <if test="timeProjectList != null"> time_project_list = #{timeProjectList,jdbcType=VARCHAR},</if>
+        <if test='no == "[null]"'> no = NULL, </if>
+        <if test='no != null and no != "[null]"'> no = #{no,jdbcType=VARCHAR},</if>
+        <if test='shopId == "[null]"'> shop_id = NULL, </if>
+        <if test='shopId != null and shopId != "[null]"'> shop_id = #{shopId,jdbcType=INTEGER},</if>
+        <if test='securityCode == "[null]"'> security_code = NULL, </if>
+        <if test='securityCode != null and securityCode != "[null]"'> security_code = #{securityCode,jdbcType=VARCHAR},</if>
+        <if test='workCode == "[null]"'> work_code = NULL, </if>
+        <if test='workCode != null and workCode != "[null]"'> work_code = #{workCode,jdbcType=VARCHAR},</if>
+        <if test='loginId == "[null]"'> login_id = NULL, </if>
+        <if test='loginId != null and loginId != "[null]"'> login_id = #{loginId,jdbcType=INTEGER},</if>
+        <if test='ewalletActive == "[null]"'> ewallet_active = NULL, </if>
+        <if test='ewalletActive != null and ewalletActive != "[null]"'> ewallet_active = #{ewalletActive,jdbcType=TINYINT},</if>
+        <if test='countProjectList == "[null]"'> count_project_list = NULL, </if>
+        <if test='countProjectList != null and countProjectList != "[null]"'> count_project_list = #{countProjectList,jdbcType=VARCHAR},</if>
+        <if test='timeProjectList == "[null]"'> time_project_list = NULL, </if>
+        <if test='timeProjectList != null and timeProjectList != "[null]"'> time_project_list = #{timeProjectList,jdbcType=VARCHAR},</if>
       </set>
       where id = #{id,jdbcType=INTEGER}
   </update>

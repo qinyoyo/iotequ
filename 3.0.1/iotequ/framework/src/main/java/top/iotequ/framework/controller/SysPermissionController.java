@@ -60,7 +60,7 @@ public class SysPermissionController  {
 		}
 	}
 	@RequestMapping(value = "/updateSelective",method = {RequestMethod.PUT,RequestMethod.POST})
-	public ResponseEntity<Map<String, Object>> updateSelective(@RequestBody List<Permission> permissionList, HttpServletRequest request, HttpServletResponse response) {
+	public ResponseEntity<Map<String, Object>> updateSelective(@RequestBody List<Map<String,Object>> permissionList, HttpServletRequest request, HttpServletResponse response) {
 		try {
 			return cgService.updateSelective(permissionList).toResponse();
 		} catch (Exception e) {

@@ -6,6 +6,7 @@
 package top.iotequ.codegenerator.dao;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
+import java.util.Map;
 import top.iotequ.framework.service.IDaoService;
 import top.iotequ.codegenerator.pojo.CgButton;
 import java.util.*;
@@ -22,7 +23,7 @@ public interface CgButtonDao  extends IDaoService<CgButton> {
     int deleteByTableIdAction(@Param("tableId")String tableId , @Param("action")String action);
     int deleteList(List<CgButton> list);
     int update(CgButton record);
-    int updateSelective(CgButton record);
+    int updateSelective(Map<String,Object> record);
     int updateBy(@Param("record")CgButton record,@Param("id")String id);
     //条件为所有非空字段 and，String采用like的查询模式，其他为=
     List<CgButton> list(CgButton record);

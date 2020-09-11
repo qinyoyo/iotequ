@@ -83,24 +83,39 @@
       action_list = #{actionList,jdbcType=VARCHAR}
       where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateSelective" parameterType="top.iotequ.codegenerator.pojo.CgForm">
+  <update id="updateSelective" parameterType="java.util.Map">
     update cg_form 
       <set>
-        <if test="name != null"> name = #{name,jdbcType=VARCHAR},</if>
-        <if test="path != null"> path = #{path,jdbcType=VARCHAR},</if>
-        <if test="tableId != null"> table_id = #{tableId,jdbcType=VARCHAR},</if>
-        <if test="headTitle != null"> head_title = #{headTitle,jdbcType=VARCHAR},</if>
-        <if test="isFlow != null"> is_flow = #{isFlow,jdbcType=TINYINT},</if>
-        <if test="icon != null"> icon = #{icon,jdbcType=VARCHAR},</if>
-        <if test="tagTitle != null"> tag_title = #{tagTitle,jdbcType=VARCHAR},</if>
-        <if test="labelPosition != null"> label_position = #{labelPosition,jdbcType=VARCHAR},</if>
-        <if test="isDialog != null"> is_dialog = #{isDialog,jdbcType=TINYINT},</if>
-        <if test="continueAdd != null"> continue_add = #{continueAdd,jdbcType=TINYINT},</if>
-        <if test="images != null"> images = #{images,jdbcType=VARCHAR},</if>
-        <if test="viewProperties != null"> view_properties = #{viewProperties,jdbcType=VARCHAR},</if>
-        <if test="formProperties != null"> form_properties = #{formProperties,jdbcType=VARCHAR},</if>
-        <if test="slotTemplates != null"> slot_templates = #{slotTemplates,jdbcType=VARCHAR},</if>
-        <if test="actionList != null"> action_list = #{actionList,jdbcType=VARCHAR},</if>
+        <if test='name == "[null]"'> name = NULL, </if>
+        <if test='name != null and name != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
+        <if test='path == "[null]"'> path = NULL, </if>
+        <if test='path != null and path != "[null]"'> path = #{path,jdbcType=VARCHAR},</if>
+        <if test='tableId == "[null]"'> table_id = NULL, </if>
+        <if test='tableId != null and tableId != "[null]"'> table_id = #{tableId,jdbcType=VARCHAR},</if>
+        <if test='headTitle == "[null]"'> head_title = NULL, </if>
+        <if test='headTitle != null and headTitle != "[null]"'> head_title = #{headTitle,jdbcType=VARCHAR},</if>
+        <if test='isFlow == "[null]"'> is_flow = NULL, </if>
+        <if test='isFlow != null and isFlow != "[null]"'> is_flow = #{isFlow,jdbcType=TINYINT},</if>
+        <if test='icon == "[null]"'> icon = NULL, </if>
+        <if test='icon != null and icon != "[null]"'> icon = #{icon,jdbcType=VARCHAR},</if>
+        <if test='tagTitle == "[null]"'> tag_title = NULL, </if>
+        <if test='tagTitle != null and tagTitle != "[null]"'> tag_title = #{tagTitle,jdbcType=VARCHAR},</if>
+        <if test='labelPosition == "[null]"'> label_position = NULL, </if>
+        <if test='labelPosition != null and labelPosition != "[null]"'> label_position = #{labelPosition,jdbcType=VARCHAR},</if>
+        <if test='isDialog == "[null]"'> is_dialog = NULL, </if>
+        <if test='isDialog != null and isDialog != "[null]"'> is_dialog = #{isDialog,jdbcType=TINYINT},</if>
+        <if test='continueAdd == "[null]"'> continue_add = NULL, </if>
+        <if test='continueAdd != null and continueAdd != "[null]"'> continue_add = #{continueAdd,jdbcType=TINYINT},</if>
+        <if test='images == "[null]"'> images = NULL, </if>
+        <if test='images != null and images != "[null]"'> images = #{images,jdbcType=VARCHAR},</if>
+        <if test='viewProperties == "[null]"'> view_properties = NULL, </if>
+        <if test='viewProperties != null and viewProperties != "[null]"'> view_properties = #{viewProperties,jdbcType=VARCHAR},</if>
+        <if test='formProperties == "[null]"'> form_properties = NULL, </if>
+        <if test='formProperties != null and formProperties != "[null]"'> form_properties = #{formProperties,jdbcType=VARCHAR},</if>
+        <if test='slotTemplates == "[null]"'> slot_templates = NULL, </if>
+        <if test='slotTemplates != null and slotTemplates != "[null]"'> slot_templates = #{slotTemplates,jdbcType=VARCHAR},</if>
+        <if test='actionList == "[null]"'> action_list = NULL, </if>
+        <if test='actionList != null and actionList != "[null]"'> action_list = #{actionList,jdbcType=VARCHAR},</if>
       </set>
       where id = #{id,jdbcType=VARCHAR}
   </update>

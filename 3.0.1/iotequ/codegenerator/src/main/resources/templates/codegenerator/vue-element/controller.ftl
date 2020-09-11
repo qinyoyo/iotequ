@@ -180,15 +180,14 @@ public class ${generatorName?cap_first}${CONTROLLER?cap_first} <#if table.contro
 		}
 	}
 	@RequestMapping(value = "/updateSelective",method = {RequestMethod.PUT,RequestMethod.POST})
-	public ResponseEntity<Map<String, Object>> updateSelective(@RequestBody List<${table.entity}> ${table.entity?uncap_first}List, HttpServletRequest request, HttpServletResponse response) {
+	public ResponseEntity<Map<String, Object>> updateSelective(@RequestBody List<Map<String,Object>> ${table.entity?uncap_first}List, HttpServletRequest request, HttpServletResponse response) {
 		try {
       <#if rightJoinPK>
-			List<Boolean> isNewList=new ArrayList<>();
-			for (${table.entity} obj : ${table.entity?uncap_first}List) {
-				isNewList.add(${table.entity?uncap_first}${DAO?cap_first}.realSelect(obj.get${pk.entityName?cap_first}()) == null);
+			for (Map<String,Object> obj : ${table.entity?uncap_first}List) {
+				obj.put("thisRecordIsNewRecord",${table.entity?uncap_first}${DAO?cap_first}.realSelect((${pk.type})(obj.get("${pk.entityName}"))) == null);
 			}
-			return cgService.updateSelective(${table.entity?uncap_first}List, isNewList).toResponse();
-		  <#else>
+			return cgService.updateSelective(${table.entity?uncap_first}List).toResponse();
+	  <#else>
 			return cgService.updateSelective(${table.entity?uncap_first}List).toResponse();
       </#if>
 		} catch (Exception e) {

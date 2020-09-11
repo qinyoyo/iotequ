@@ -6,6 +6,7 @@
 package top.iotequ.codegenerator.dao;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
+import java.util.Map;
 import top.iotequ.framework.service.IDaoService;
 import top.iotequ.codegenerator.pojo.CgTable;
 import java.util.*;
@@ -21,7 +22,7 @@ public interface CgTableDao  extends IDaoService<CgTable> {
     int deleteByCodeProjectId(@Param("code")String code , @Param("projectId")String projectId);
     int deleteList(List<CgTable> list);
     int update(CgTable record);
-    int updateSelective(CgTable record);
+    int updateSelective(Map<String,Object> record);
     int updateBy(@Param("record")CgTable record,@Param("id")String id);
     //条件为所有非空字段 and，String采用like的查询模式，其他为=
     List<CgTable> list(CgTable record);

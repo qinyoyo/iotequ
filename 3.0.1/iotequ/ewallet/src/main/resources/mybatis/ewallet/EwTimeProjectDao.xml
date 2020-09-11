@@ -97,16 +97,23 @@
       end_time = #{endTime,jdbcType=TIME}
       where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateSelective" parameterType="top.iotequ.ewallet.pojo.EwTimeProject">
+  <update id="updateSelective" parameterType="java.util.Map">
     update ew_time_project 
       <set>
-        <if test="icon != null"> icon = #{icon,jdbcType=VARCHAR},</if>
-        <if test="name != null"> name = #{name,jdbcType=VARCHAR},</if>
-        <if test="baseValue != null"> base_value = #{baseValue,jdbcType=INTEGER},</if>
-        <if test="basePrice != null"> base_price = #{basePrice,jdbcType=INTEGER},</if>
-        <if test="bonusPoint != null"> bonus_point = #{bonusPoint,jdbcType=DOUBLE},</if>
-        <if test="startTime != null"> start_time = #{startTime,jdbcType=TIME},</if>
-        <if test="endTime != null"> end_time = #{endTime,jdbcType=TIME},</if>
+        <if test='icon == "[null]"'> icon = NULL, </if>
+        <if test='icon != null and icon != "[null]"'> icon = #{icon,jdbcType=VARCHAR},</if>
+        <if test='name == "[null]"'> name = NULL, </if>
+        <if test='name != null and name != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
+        <if test='baseValue == "[null]"'> base_value = NULL, </if>
+        <if test='baseValue != null and baseValue != "[null]"'> base_value = #{baseValue,jdbcType=INTEGER},</if>
+        <if test='basePrice == "[null]"'> base_price = NULL, </if>
+        <if test='basePrice != null and basePrice != "[null]"'> base_price = #{basePrice,jdbcType=INTEGER},</if>
+        <if test='bonusPoint == "[null]"'> bonus_point = NULL, </if>
+        <if test='bonusPoint != null and bonusPoint != "[null]"'> bonus_point = #{bonusPoint,jdbcType=DOUBLE},</if>
+        <if test='startTime == "[null]"'> start_time = NULL, </if>
+        <if test='startTime != null and startTime != "[null]"'> start_time = #{startTime,jdbcType=TIME},</if>
+        <if test='endTime == "[null]"'> end_time = NULL, </if>
+        <if test='endTime != null and endTime != "[null]"'> end_time = #{endTime,jdbcType=TIME},</if>
       </set>
       where id = #{id,jdbcType=INTEGER}
   </update>

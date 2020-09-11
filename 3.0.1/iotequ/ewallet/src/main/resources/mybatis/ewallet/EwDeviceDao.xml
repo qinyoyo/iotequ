@@ -89,12 +89,15 @@
       privilege_list = #{privilegeList,jdbcType=VARCHAR}
       where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateSelective" parameterType="top.iotequ.ewallet.pojo.EwDevice">
+  <update id="updateSelective" parameterType="java.util.Map">
     update ew_device 
       <set>
-        <if test="deviceNo != null"> device_no = #{deviceNo,jdbcType=VARCHAR},</if>
-        <if test="shopId != null"> shop_id = #{shopId,jdbcType=VARCHAR},</if>
-        <if test="privilegeList != null"> privilege_list = #{privilegeList,jdbcType=VARCHAR},</if>
+        <if test='deviceNo == "[null]"'> device_no = NULL, </if>
+        <if test='deviceNo != null and deviceNo != "[null]"'> device_no = #{deviceNo,jdbcType=VARCHAR},</if>
+        <if test='shopId == "[null]"'> shop_id = NULL, </if>
+        <if test='shopId != null and shopId != "[null]"'> shop_id = #{shopId,jdbcType=VARCHAR},</if>
+        <if test='privilegeList == "[null]"'> privilege_list = NULL, </if>
+        <if test='privilegeList != null and privilegeList != "[null]"'> privilege_list = #{privilegeList,jdbcType=VARCHAR},</if>
       </set>
       where id = #{id,jdbcType=INTEGER}
   </update>

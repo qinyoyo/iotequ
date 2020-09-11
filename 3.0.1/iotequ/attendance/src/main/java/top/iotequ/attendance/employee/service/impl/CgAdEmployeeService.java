@@ -70,9 +70,6 @@ private static final Logger log = LoggerFactory.getLogger(CgAdEmployeeService.cl
         if (adEmployee.getEmployeeNo()==null) {
             adEmployee.setEmployeeNo("");
         }
-        if (adEmployee.getEmLevel()==null) {
-            adEmployee.setEmLevel(1);
-        }
         if (adEmployee.getIsAttendance()==null) {
             adEmployee.setIsAttendance(Util.boolValue("1"));
         }

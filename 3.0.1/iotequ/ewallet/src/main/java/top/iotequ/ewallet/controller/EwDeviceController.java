@@ -83,7 +83,7 @@ public class EwDeviceController  {
 		}
 	}
 	@RequestMapping(value = "/updateSelective",method = {RequestMethod.PUT,RequestMethod.POST})
-	public ResponseEntity<Map<String, Object>> updateSelective(@RequestBody List<EwDevice> ewDeviceList, HttpServletRequest request, HttpServletResponse response) {
+	public ResponseEntity<Map<String, Object>> updateSelective(@RequestBody List<Map<String,Object>> ewDeviceList, HttpServletRequest request, HttpServletResponse response) {
 		try {
 			return cgService.updateSelective(ewDeviceList).toResponse();
 		} catch (Exception e) {

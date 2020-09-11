@@ -6,6 +6,7 @@
 package top.iotequ.ewallet.dao;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
+import java.util.Map;
 import top.iotequ.framework.service.IDaoService;
 import top.iotequ.ewallet.pojo.EwUserCount;
 import java.util.*;
@@ -22,7 +23,7 @@ public interface EwUserCountDao  extends IDaoService<EwUserCount> {
     int deleteByUserNoCountId(@Param("userNo")String userNo , @Param("countId")Integer countId);
     int deleteList(List<EwUserCount> list);
     int update(EwUserCount record);
-    int updateSelective(EwUserCount record);
+    int updateSelective(Map<String,Object> record);
     int updateBy(@Param("record")EwUserCount record,@Param("id")Integer id);
     //条件为所有非空字段 and，String采用like的查询模式，其他为=
     List<EwUserCount> list(EwUserCount record);

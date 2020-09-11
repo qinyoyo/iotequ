@@ -6,6 +6,7 @@
 package top.iotequ.codegenerator.dao;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
+import java.util.Map;
 import top.iotequ.framework.service.IDaoService;
 import top.iotequ.codegenerator.pojo.CgForm;
 import java.util.*;
@@ -21,7 +22,7 @@ public interface CgFormDao  extends IDaoService<CgForm> {
     int deleteByPathTableId(@Param("path")String path , @Param("tableId")String tableId);
     int deleteList(List<CgForm> list);
     int update(CgForm record);
-    int updateSelective(CgForm record);
+    int updateSelective(Map<String,Object> record);
     int updateBy(@Param("record")CgForm record,@Param("id")String id);
     //条件为所有非空字段 and，String采用like的查询模式，其他为=
     List<CgForm> list(CgForm record);

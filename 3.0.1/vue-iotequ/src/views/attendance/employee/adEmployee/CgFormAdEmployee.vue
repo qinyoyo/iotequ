@@ -42,7 +42,7 @@
           <el-form-item class="cg-item-number" :label="$t('adEmployee.field.emLevel')" prop="emLevel" :size="$store.state.app.size" >
             <cg-number-input v-model="record.emLevel" name="emLevel" 
                              :readonly="isDetail" 
-                             :label="$t('adEmployee.field.emLevel')" :placeholder="$t('system.message.needValue')" :precision="0" 
+                             :label="$t('adEmployee.field.emLevel')" :placeholder="$t('system.message.unknown')" clearable :precision="0" 
                              :min="0" :step="1" :title="$t('system.message.valueRange') + ': 0 - *'" />
           </el-form-item>
         </el-col>

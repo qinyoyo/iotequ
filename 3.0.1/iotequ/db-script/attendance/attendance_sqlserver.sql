@@ -81,7 +81,7 @@ GO
 CREATE TABLE [dbo].[ad_employee] (
   [id] varchar(36) NOT NULL PRIMARY KEY,
   [employee_no] varchar(32) NOT NULL UNIQUE,
-  [em_level] int DEFAULT ((1)) NOT NULL,
+  [em_level] int NULL,
   [is_attendance] bit DEFAULT ((1)) NOT NULL,
   [enter_date] datetime NULL,
   [leave_date] datetime NULL,

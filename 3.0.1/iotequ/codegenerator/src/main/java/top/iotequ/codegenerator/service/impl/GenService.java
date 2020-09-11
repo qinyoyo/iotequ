@@ -323,6 +323,7 @@ public class GenService implements ApplicationContextAware {
         sb.append("package " + NameUtil.basePackage(table) + "." + DAO + ";\n");
         sb.append("import org.apache.ibatis.annotations.Param;\n");
         sb.append("import org.apache.ibatis.annotations.Update;\n");
+        sb.append("import java.util.Map;\n");
         sb.append("import top.iotequ.framework.service.IDaoService;\n");
         sb.append("import "
                 + NameUtil.basePackage(table) + "." + POJO + "." + entity + ";\n");
@@ -364,7 +365,7 @@ public class GenService implements ApplicationContextAware {
             if (parentEntity(table, tabFields, joinFields) != null)
                 sb.append("    List<" + entity + "> selectTree(@Param(\"id\")" + TypeUtil.javaType(pk) + " id);  // 选全部参数为null\n");
             sb.append("    int update(" + entity + " record);\n");
-            sb.append("    int updateSelective(" + entity + " record);\n");
+            sb.append("    int updateSelective(Map<String,Object> record);\n");
             sb.append("    int updateBy(@Param(\"record\")" + entity + " record,@Param(\"" + pk.getEntityName() + "\")" + TypeUtil.javaType(pk) + " id);\n");
         }
         sb.append("    //条件为所有非空字段 and，String采用like的查询模式，其他为=\n");

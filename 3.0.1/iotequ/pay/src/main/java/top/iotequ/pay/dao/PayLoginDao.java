@@ -6,6 +6,7 @@
 package top.iotequ.pay.dao;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
+import java.util.Map;
 import top.iotequ.framework.service.IDaoService;
 import top.iotequ.pay.pojo.PayLogin;
 import java.util.*;
@@ -20,7 +21,7 @@ public interface PayLoginDao  extends IDaoService<PayLogin> {
     int deleteBatch(String ids);
     int deleteList(List<PayLogin> list);
     int update(PayLogin record);
-    int updateSelective(PayLogin record);
+    int updateSelective(Map<String,Object> record);
     int updateBy(@Param("record")PayLogin record,@Param("id")Integer id);
     //条件为所有非空字段 and，String采用like的查询模式，其他为=
     List<PayLogin> list(PayLogin record);

@@ -34,37 +34,43 @@
       </cg-table-column>
       <cg-table-column prop="employeeNo" :page="1" :label="$t('adEmployee.field.employeeNo')" sortable align="left" >
         <template slot-scope="scope">
-          {{ scope.row.employeeNo }}
+          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.employeeNo" type="text" />
+          <span v-else>{{ scope.row.employeeNo }}</span>
         </template>
 
       </cg-table-column>
       <cg-table-column prop="emLevel" :page="1" :label="$t('adEmployee.field.emLevel')" align="right" >
         <template slot-scope="scope">
-          {{ scope.row.emLevel }}
+          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.emLevel" type="text" />
+          <span v-else>{{ scope.row.emLevel }}</span>
         </template>
 
       </cg-table-column>
       <cg-table-column prop="isAttendance" :page="1" :label="$t('adEmployee.field.isAttendance')" sortable align="center" >
         <template slot-scope="scope">
-          <cg-icon :color="scope.row.isAttendance?'#46a6ff':'grey'" :icon="scope.row.isAttendance?'fa fa-check-circle':'fa fa-circle-o'"/>
+          <el-switch v-if="scope.row.inlineEditting" v-model="scope.row.isAttendance" />
+          <cg-icon v-else :color="scope.row.isAttendance?'#46a6ff':'grey'" :icon="scope.row.isAttendance?'fa fa-check-circle':'fa fa-circle-o'"/>
         </template>
 
       </cg-table-column>
       <cg-table-column prop="enterDate" type="date" :page="1" :label="$t('adEmployee.field.enterDate')" align="center" >
         <template slot-scope="scope">
-          {{ time2String(scope.row.enterDate,'YYYY-MM-DD') }}
+          <cg-date-picker v-if="scope.row.inlineEditting" v-model="scope.row.enterDate" :align="mobile?'right':'center'" type="date" :title="$t('adEmployee.field.enterDate')"  clearable/>
+          <span v-else>{{ time2String(scope.row.enterDate,'YYYY-MM-DD') }}</span>
         </template>
 
       </cg-table-column>
       <cg-table-column prop="leaveDate" type="date" :page="1" :label="$t('adEmployee.field.leaveDate')" align="center" >
         <template slot-scope="scope">
-          {{ time2String(scope.row.leaveDate,'YYYY-MM-DD') }}
+          <cg-date-picker v-if="scope.row.inlineEditting" v-model="scope.row.leaveDate" :align="mobile?'right':'center'" type="date" :title="$t('adEmployee.field.leaveDate')"  clearable/>
+          <span v-else>{{ time2String(scope.row.leaveDate,'YYYY-MM-DD') }}</span>
         </template>
 
       </cg-table-column>
       <cg-table-column prop="shiftId" type="dict" :page="1" :label="$t('adEmployee.field.shiftId')" align="left" >
         <template slot-scope="scope">
-          {{ dictValue(scope.row.shiftId,dictionary.dictShiftId,false,true) }}
+          <cg-select v-if="scope.row.inlineEditting" v-model="scope.row.shiftId" automaticDropdown appendToBody :dictionary="dictionary.dictShiftId" allow-create numberic />
+          <span v-else>{{ dictValue(scope.row.shiftId,dictionary.dictShiftId,false,true) }}</span>
         </template>
 
       </cg-table-column>
@@ -206,7 +212,8 @@ export default {
       paginationPageSize: 0,
       sortableFields: [],
       sortableFieldsOrder: [],
-      editInlineFields: null,
+      totalEdittingRows: 0,
+      editInlineFields: hasAuthority('/attendance/employee/adEmployee/updateSelective')?['employeeNo', 'emLevel', 'isAttendance', 'enterDate', 'leaveDate', 'shiftId']:null,
       contextMenu: { top: 0, left: 0, visible: false, row: null, actions: [], trElement: null },
       generatorName: 'adEmployee',
       baseUrl: '/attendance/employee/adEmployee'
@@ -257,7 +264,7 @@ export default {
   },
   methods: {
     rowClassName({row, rowIndex}){
-      return ''
+      return row && row.inlineEditting ? 'edit-inline' : ''
     },
     defaultEditMode(row) {
       if (this.hasAuthorityOf(this,this.baseUrl,'edit',row)) return 'edit'

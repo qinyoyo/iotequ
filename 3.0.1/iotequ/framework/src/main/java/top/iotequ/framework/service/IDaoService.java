@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
 import top.iotequ.framework.pojo.CgEntity;
 import java.util.List;
+import java.util.Map;
 
 public interface IDaoService<T extends CgEntity> {
     int insert(T record);
@@ -16,7 +17,7 @@ public interface IDaoService<T extends CgEntity> {
     int deleteBatch(String ids);
     int deleteList(List<T> list);
     int update(T record);
-    int updateSelective(T record);
+    int updateSelective(Map<String,Object> record);
     int updateBy(@Param("record")T record, @Param("id")Integer id);
     int updateBy(@Param("record")T record, @Param("id")String id);
     List<T> list(T record);

@@ -35,7 +35,7 @@ description	详细描述	varchar	√
 
 表：ad_employee : 考勤职员表
 employee_no	工号	varchar	✘	
-em_level	职务级别	int	✘	
+em_level	职务级别	int	√	
 is_attendance	是否考勤	tinyint(1)	✘	
 enter_date	入职日期	date	√	
 leave_date	离职日期	date	√	

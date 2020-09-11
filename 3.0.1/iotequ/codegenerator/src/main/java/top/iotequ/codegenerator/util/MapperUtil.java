@@ -351,14 +351,15 @@ public class MapperUtil {
             sb.append("\n  </update>\n");
 
             // update updateSelective
-            sb.append("  <update id=\"updateSelective\" parameterType=\"" + pojoClass + "\">\n");
+            sb.append("  <update id=\"updateSelective\" parameterType=\"java.util.Map\">\n");
             sb.append("    update " + table.getName() + " \n");
             sb.append("      <set>\n");
             for (CgField f : tableAndDict) {
                 if (Util.isEmpty(f.getName()) || f.getName().indexOf(":") >= 0) continue;     //  跳过非数据库字段
                 if (f.getName().equals(pk.getName()))
                     continue;
-                sb.append("        <if test=\"" + f.getEntityName() + " != null\"> " + f.getName() + " = #{"
+                sb.append("        <if test='" + f.getEntityName() + " == \"[null]\"'> " + f.getName() + " = NULL, </if>\n");
+                sb.append("        <if test='" + f.getEntityName() + " != null and " + f.getEntityName() + " != \"[null]\"'> "+ f.getName() + " = #{"
                         + f.getEntityName() + ",jdbcType=" + TypeUtil.jdbcType(f) + "},</if>\n");
             }
             for (CgField f : joinWithoutDictList) {

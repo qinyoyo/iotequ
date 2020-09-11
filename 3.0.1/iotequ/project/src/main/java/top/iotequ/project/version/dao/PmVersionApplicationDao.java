@@ -6,6 +6,7 @@
 package top.iotequ.project.version.dao;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
+import java.util.Map;
 import top.iotequ.framework.service.IDaoService;
 import top.iotequ.project.version.pojo.PmVersionApplication;
 import java.util.*;
@@ -23,7 +24,7 @@ public interface PmVersionApplicationDao  extends IDaoService<PmVersionApplicati
     int deleteBatchByProject(String projects);
     int deleteList(List<PmVersionApplication> list);
     int update(PmVersionApplication record);
-    int updateSelective(PmVersionApplication record);
+    int updateSelective(Map<String,Object> record);
     int updateBy(@Param("record")PmVersionApplication record,@Param("id")String id);
     //条件为所有非空字段 and，String采用like的查询模式，其他为=
     List<PmVersionApplication> list(PmVersionApplication record);

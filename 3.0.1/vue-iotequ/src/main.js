@@ -148,8 +148,10 @@ Vue.prototype.$dialog = function(component, options) {
         const _this = this
         this.$on('close',function() {
           document.querySelectorAll('.'+domId).forEach(e=>e.remove())
-          _this && _this.$el && _this.$el.parentNode 
-            && _this.$el.parentNode.querySelector('#' + domId + ' + .el-dialog__wrapper').remove()
+          if (_this && _this.$el && _this.$el.parentNode) { 
+            const $d = _this.$el.parentNode.querySelector('#' + domId + ' + .el-dialog__wrapper')
+            if ($d) $d.remove()
+          }
           _this && _this.$el && _this.$el.remove()
         })
       },

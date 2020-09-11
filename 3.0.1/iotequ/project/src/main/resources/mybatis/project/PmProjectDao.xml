@@ -144,22 +144,35 @@
       flow_next_operator = #{flowNextOperator,jdbcType=VARCHAR}
       where id = #{id,jdbcType=CHAR}
   </update>
-  <update id="updateSelective" parameterType="top.iotequ.project.product.pojo.PmProject">
+  <update id="updateSelective" parameterType="java.util.Map">
     update pm_project 
       <set>
-        <if test="flowState != null"> flow_state = #{flowState,jdbcType=INTEGER},</if>
-        <if test="flowRegisterTime != null"> flow_register_time = #{flowRegisterTime,jdbcType=TIMESTAMP},</if>
-        <if test="name != null"> name = #{name,jdbcType=VARCHAR},</if>
-        <if test="type != null"> type = #{type,jdbcType=INTEGER},</if>
-        <if test="customer != null"> customer = #{customer,jdbcType=VARCHAR},</if>
-        <if test="marketSize != null"> market_size = #{marketSize,jdbcType=INTEGER},</if>
-        <if test="humanCost != null"> human_cost = #{humanCost,jdbcType=INTEGER},</if>
-        <if test="materialCost != null"> material_cost = #{materialCost,jdbcType=INTEGER},</if>
-        <if test="code != null"> code = #{code,jdbcType=VARCHAR},</if>
-        <if test="description != null"> description = #{description,jdbcType=VARCHAR},</if>
-        <if test="flowNote != null"> flow_note = #{flowNote,jdbcType=VARCHAR},</if>
-        <if test="addFile != null"> add_file = #{addFile,jdbcType=VARCHAR},</if>
-        <if test="flowCopyToList != null"> flow_copy_to_list = #{flowCopyToList,jdbcType=VARCHAR},</if>
+        <if test='flowState == "[null]"'> flow_state = NULL, </if>
+        <if test='flowState != null and flowState != "[null]"'> flow_state = #{flowState,jdbcType=INTEGER},</if>
+        <if test='flowRegisterTime == "[null]"'> flow_register_time = NULL, </if>
+        <if test='flowRegisterTime != null and flowRegisterTime != "[null]"'> flow_register_time = #{flowRegisterTime,jdbcType=TIMESTAMP},</if>
+        <if test='name == "[null]"'> name = NULL, </if>
+        <if test='name != null and name != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
+        <if test='type == "[null]"'> type = NULL, </if>
+        <if test='type != null and type != "[null]"'> type = #{type,jdbcType=INTEGER},</if>
+        <if test='customer == "[null]"'> customer = NULL, </if>
+        <if test='customer != null and customer != "[null]"'> customer = #{customer,jdbcType=VARCHAR},</if>
+        <if test='marketSize == "[null]"'> market_size = NULL, </if>
+        <if test='marketSize != null and marketSize != "[null]"'> market_size = #{marketSize,jdbcType=INTEGER},</if>
+        <if test='humanCost == "[null]"'> human_cost = NULL, </if>
+        <if test='humanCost != null and humanCost != "[null]"'> human_cost = #{humanCost,jdbcType=INTEGER},</if>
+        <if test='materialCost == "[null]"'> material_cost = NULL, </if>
+        <if test='materialCost != null and materialCost != "[null]"'> material_cost = #{materialCost,jdbcType=INTEGER},</if>
+        <if test='code == "[null]"'> code = NULL, </if>
+        <if test='code != null and code != "[null]"'> code = #{code,jdbcType=VARCHAR},</if>
+        <if test='description == "[null]"'> description = NULL, </if>
+        <if test='description != null and description != "[null]"'> description = #{description,jdbcType=VARCHAR},</if>
+        <if test='flowNote == "[null]"'> flow_note = NULL, </if>
+        <if test='flowNote != null and flowNote != "[null]"'> flow_note = #{flowNote,jdbcType=VARCHAR},</if>
+        <if test='addFile == "[null]"'> add_file = NULL, </if>
+        <if test='addFile != null and addFile != "[null]"'> add_file = #{addFile,jdbcType=VARCHAR},</if>
+        <if test='flowCopyToList == "[null]"'> flow_copy_to_list = NULL, </if>
+        <if test='flowCopyToList != null and flowCopyToList != "[null]"'> flow_copy_to_list = #{flowCopyToList,jdbcType=VARCHAR},</if>
         <if test="flowRegisterBy != null"> flow_register_by = #{flowRegisterBy,jdbcType=VARCHAR},</if>
         <if test="flowNextOperator != null"> flow_next_operator = #{flowNextOperator,jdbcType=VARCHAR},</if>
       </set>

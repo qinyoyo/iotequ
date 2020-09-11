@@ -6,6 +6,7 @@
 package top.iotequ.framework.dao;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
+import java.util.Map;
 import top.iotequ.framework.service.IDaoService;
 import top.iotequ.framework.pojo.SysRoute;
 import java.util.*;
@@ -26,7 +27,7 @@ public interface SysRouteDao  extends IDaoService<SysRoute> {
     int deleteBatchByName(String names);
     int deleteList(List<SysRoute> list);
     int update(SysRoute record);
-    int updateSelective(SysRoute record);
+    int updateSelective(Map<String,Object> record);
     int updateBy(@Param("record")SysRoute record,@Param("id")Integer id);
     //条件为所有非空字段 and，String采用like的查询模式，其他为=
     List<SysRoute> list(SysRoute record);

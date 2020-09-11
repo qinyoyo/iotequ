@@ -83,7 +83,7 @@ public class SysOauthClientDetailsController  {
 		}
 	}
 	@RequestMapping(value = "/updateSelective",method = {RequestMethod.PUT,RequestMethod.POST})
-	public ResponseEntity<Map<String, Object>> updateSelective(@RequestBody List<OauthClientDetails> oauthClientDetailsList, HttpServletRequest request, HttpServletResponse response) {
+	public ResponseEntity<Map<String, Object>> updateSelective(@RequestBody List<Map<String,Object>> oauthClientDetailsList, HttpServletRequest request, HttpServletResponse response) {
 		try {
 			return cgService.updateSelective(oauthClientDetailsList).toResponse();
 		} catch (Exception e) {

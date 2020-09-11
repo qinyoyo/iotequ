@@ -6,6 +6,7 @@
 package top.iotequ.attendance.adjust.dao;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
+import java.util.Map;
 import top.iotequ.framework.service.IDaoService;
 import top.iotequ.attendance.adjust.pojo.AdAdjust;
 import java.util.*;
@@ -20,7 +21,7 @@ public interface AdAdjustDao  extends IDaoService<AdAdjust> {
     int deleteBatch(String ids);
     int deleteList(List<AdAdjust> list);
     int update(AdAdjust record);
-    int updateSelective(AdAdjust record);
+    int updateSelective(Map<String,Object> record);
     int updateBy(@Param("record")AdAdjust record,@Param("id")String id);
     //条件为所有非空字段 and，String采用like的查询模式，其他为=
     List<AdAdjust> list(AdAdjust record);
