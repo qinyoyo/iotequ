@@ -91,7 +91,9 @@ function changeErrorMessage(error,msg) {
   }
   return msg
 }
+// 后台请求，silence = true静默请求，不显示提示，silence = 'show-error' 不显示成功提示，显示错误提示
 export function request(data, silence) {
+  const SHOWERROR = 'show-error'
   return new Promise((resolve, reject) => {
     waitingInstance = false
     if (data.hasOwnProperty('timeout') && data.timeout === 0) {
@@ -105,11 +107,11 @@ export function request(data, silence) {
         reader.onload = function () {
           const res = JSON.parse(reader.result)
           if (res && res.hasOwnProperty('success') && !res.success && res.error === 'session_timeout' ) {
-            showMessageFromServer(res)
+            if (!silence || silence==SHOWERROR) showMessageFromServer(res)
             setTimeout(_=>{
               logout()
             }, 100)            
-          } else if (!silence) {
+          } else if (!silence || (silence==SHOWERROR && res && res.hasOwnProperty('success') && !res.success)) {
             showMessageFromServer(res)
           }
           resolve(res)
@@ -117,17 +119,17 @@ export function request(data, silence) {
         reader.readAsText(res, 'utf-8')
       }
       else if (res && res.hasOwnProperty('success') && !res.success && res.error === 'session_timeout' ) {
-        showMessageFromServer(res)
+        if (!silence || silence==SHOWERROR) showMessageFromServer(res)
         setTimeout(_=>{
           logout()
         }, 100)
-      } else if (!silence) {
+      } else if (!silence || (silence==SHOWERROR && res && res.hasOwnProperty('success') && !res.success)) {
         showMessageFromServer(res)
       }
       resolve(res)
     }).catch(error => {
       closeProgress()
-      if (!silence) {
+      if (!silence || silence==SHOWERROR) {
         showMessageFromServer(error)
       }
       reject(error)

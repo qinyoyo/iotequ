@@ -1,16 +1,17 @@
 export default {
   data() {
     return {
-      tableId: ''
+      tableId: null
     }
   },
   methods: {
     useMixinMethodsFirst() {
       return true
     }, 
-    rowClick({ row, column, event }) {
+    setChildrenParams( row) {
+      this.super_setChildrenParams(row)
       if (row) this.tableId = row.tableId
-      this.super_rowClick({ row, column, event })
+      else this.tableId = null
     }
   }
 }

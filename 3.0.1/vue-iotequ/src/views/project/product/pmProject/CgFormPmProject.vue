@@ -9,7 +9,7 @@
         <el-col :span="8">
           <cg-join v-model="flowRegisterByJoinVisible" readonly >
             <CgListUserJoin slot="popover" ref="flowRegisterByJoin" openID="flowregisterby-join" :height="500" :joinShow="flowRegisterByJoinVisible" :joinMultiple="false"
-                            :originSelections="record.flowRegisterBy" selectionKey="id" joinMode @closeJoinList="(rows)=>{ getJoinFields('flowRegisterBy',rows)}"
+                            :originSelections="String(record.flowRegisterBy)" selectionKey="id" joinMode @closeJoinList="(rows)=>{ getJoinFields('flowRegisterBy',rows)}"
                             @showJoinList="flowRegisterByJoinVisible=true" />
             <el-form-item class="cg-item-text" slot="reference" :label="$t('pmProject.field.flowRegisterBy')" prop="registerByName" :size="$store.state.app.size" >
               <el-input v-model="record.registerByName" name="registerByName" 

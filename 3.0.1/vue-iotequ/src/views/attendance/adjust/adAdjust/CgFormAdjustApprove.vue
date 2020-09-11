@@ -11,7 +11,7 @@
             <el-col :span="12">
               <cg-join v-model="employeeJoinVisible" readonly >
                 <CgListUserJoin slot="popover" ref="employeeJoin" openID="employee-join" :height="500" :joinShow="employeeJoinVisible" :joinMultiple="false" :fixedQueryRecord="employeeDynaCondition"
-                                :originSelections="record.employee" selectionKey="id" joinMode @closeJoinList="(rows)=>{ getJoinFields('employee',rows)}"
+                                :originSelections="String(record.employee)" selectionKey="id" joinMode @closeJoinList="(rows)=>{ getJoinFields('employee',rows)}"
                                 @showJoinList="employeeJoinVisible=true" />
                 <el-form-item class="cg-item-text" slot="reference" :label="$t('adAdjust.field.employee')" prop="realName" :size="$store.state.app.size" >
                   <el-input v-model="record.realName" name="realName" 

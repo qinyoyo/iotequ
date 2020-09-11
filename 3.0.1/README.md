@@ -787,6 +787,15 @@ vueObject 为表单cgForm，列表cgList对象，getRecordfunc为一个函数，
 
     
 
+- 按钮的显示扩展控制
+
+  - 子表列表为空，隐藏所有下拉菜单
+- 流程控制扩展功能通过每列的 字段 flowAvailableActions 下发给前端，后端修改流程控制服务的函数 getAllOperations 实现具体的功能扩展
+  - 通过权限控制隐藏不需要的按钮
+    - 按钮与后台相关，用户必须拥有后台相关权限
+    - 组件通过mixin自定义函数 extendActionFilter(action, record)来进行按钮筛选，action为功能按钮名，record为当前行数据（没有行数据，该参数为空）。返回false将禁用该功能
+  - form表单的自定义按钮，可以通过mixin扩展定义函数 disabledAction(btn)来使其处于非激活状态,参数为完整的按钮定义object
+  
 - 对话框函数
 
   - 先定义一个组件，模板格式为：

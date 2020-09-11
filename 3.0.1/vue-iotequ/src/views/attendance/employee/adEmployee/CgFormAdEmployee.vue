@@ -9,7 +9,7 @@
         <el-col :span="12">
           <cg-join v-model="idJoinVisible" readonly >
             <CgListUserJoin slot="popover" ref="idJoin" openID="id-join" :height="500" :joinShow="idJoinVisible" :joinMultiple="false"
-                            :originSelections="record.id" selectionKey="id" joinMode @closeJoinList="(rows)=>{ getJoinFields('id',rows)}"
+                            :originSelections="String(record.id)" selectionKey="id" joinMode @closeJoinList="(rows)=>{ getJoinFields('id',rows)}"
                             @showJoinList="idJoinVisible=true" />
             <el-form-item class="cg-item-text" slot="reference" :label="$t('adEmployee.field.id')" prop="realName" :size="$store.state.app.size" >
               <el-input v-model="record.realName" name="realName" 

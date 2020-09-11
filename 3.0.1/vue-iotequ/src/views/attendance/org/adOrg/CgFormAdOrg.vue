@@ -9,7 +9,7 @@
         <el-col :span="12">
           <cg-join v-model="orgCodeJoinVisible" readonly >
             <CgListOrg slot="popover" ref="orgCodeJoin" openID="orgcode-join" :height="500" :joinShow="orgCodeJoinVisible" :joinMultiple="false"
-                       :originSelections="record.orgCode" selectionKey="orgCode" joinMode @closeJoinList="(rows)=>{ getJoinFields('orgCode',rows)}"
+                       :originSelections="String(record.orgCode)" selectionKey="orgCode" joinMode @closeJoinList="(rows)=>{ getJoinFields('orgCode',rows)}"
                        @showJoinList="orgCodeJoinVisible=true" />
             <el-form-item class="cg-item-text" slot="reference" :label="$t('sysOrg.field.name')" prop="name" :size="$store.state.app.size" >
               <el-input v-model="record.name" name="name" 
@@ -31,7 +31,7 @@
         <el-col :span="12">
           <cg-join v-model="hrJoinVisible" :readonly="isDetail" >
             <CgListUserJoin slot="popover" ref="hrJoin" openID="hr-join" :height="500" :joinShow="hrJoinVisible" :joinMultiple="false"
-                            :originSelections="record.hr" selectionKey="id" joinMode @closeJoinList="(rows)=>{ getJoinFields('hr',rows)}"
+                            :originSelections="String(record.hr)" selectionKey="id" joinMode @closeJoinList="(rows)=>{ getJoinFields('hr',rows)}"
                             @showJoinList="hrJoinVisible=true" />
             <el-form-item class="cg-item-text" slot="reference" :label="$t('adOrg.field.hr')" prop="hrName" :size="$store.state.app.size" >
               <el-input v-model="record.hrName" name="hrName" 
@@ -45,7 +45,7 @@
         <el-col :span="12">
           <cg-join v-model="managerJoinVisible" :readonly="isDetail" >
             <CgListUserJoin slot="popover" ref="managerJoin" openID="manager-join" :height="500" :joinShow="managerJoinVisible" :joinMultiple="false"
-                            :originSelections="record.manager" selectionKey="id" joinMode @closeJoinList="(rows)=>{ getJoinFields('manager',rows)}"
+                            :originSelections="String(record.manager)" selectionKey="id" joinMode @closeJoinList="(rows)=>{ getJoinFields('manager',rows)}"
                             @showJoinList="managerJoinVisible=true" />
             <el-form-item class="cg-item-text" slot="reference" :label="$t('adOrg.field.manager')" prop="managerName" :size="$store.state.app.size" >
               <el-input v-model="record.managerName" name="managerName" 

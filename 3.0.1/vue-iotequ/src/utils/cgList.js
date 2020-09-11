@@ -192,6 +192,7 @@ export default {
                 if (listObject.parentField && listObject.idField) listObject.rows = cg.rows2TreeNode(res.data.data, listObject.idField, listObject.parentField)
                 else listObject.rows = res.data.data
               }
+              listObject.$refs && listObject.$refs.cgList && listObject.$refs.cgList.clearSelection()
               listObject.$nextTick(() => {
                 this.list_initialSelections(listObject)
               })

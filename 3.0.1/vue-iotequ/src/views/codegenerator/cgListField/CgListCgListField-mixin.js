@@ -17,7 +17,7 @@ export default {
   watch: {
     tableId: {
       handler(n,o) {
-        if (n) new Promise((resolve, reject) => {
+        if (n) {
           const req = {
             url: '/codegenerator/cgTable/action/fields',
             method: 'get',
@@ -25,7 +25,7 @@ export default {
               tableId: n
             }
           }
-          request(req, true).then(res => {
+          request(req, 'show-error').then(res => {
             if (res && res.hasOwnProperty('success') && res.success) {
               this.allFieldsInTable = []
               if (res.data) {
@@ -36,11 +36,8 @@ export default {
                 })
               }
             }
-            resolve(res)
-          }).catch(error => {
-            reject(error)
           })
-        })
+        }
       },
       immediate: true
     }

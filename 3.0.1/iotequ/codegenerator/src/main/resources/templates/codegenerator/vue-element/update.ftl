@@ -249,7 +249,7 @@ ${f.slotTemplates}
       <#assign fastMultiJoinField = joinFields[1] />
       </#if>
       ${HD}<#nt>  <${f.tableId} slot="popover" ref="${joinFields[1]}Join" openID="${joinFields[1]?lower_case}-join" :height="500" :joinShow="${joinFields[1]}JoinVisible" :joinMultiple="<#if f.id?starts_with("join:") && (!f.dictMultiple?? || !f.dictMultiple)>false<#else>true</#if>"<#if f.dynaCondition?? && f.dynaCondition?trim!=''> :fixedQueryRecord="${joinFields[1]}DynaCondition"</#if>
-      ${HD}<#nt>  <@SPACE f.tableId?length />  :originSelections="record.${joinFields[1]}" selectionKey="${joinFields[2]}" joinMode @closeJoinList="(rows)=>{ getJoinFields('${joinFields[1]}',rows)}"
+      ${HD}<#nt>  <@SPACE f.tableId?length />  :originSelections="String(record.${joinFields[1]})" selectionKey="${joinFields[2]}" joinMode @closeJoinList="(rows)=>{ getJoinFields('${joinFields[1]}',rows)}"
       ${HD}<#nt>  <@SPACE f.tableId?length />  @showJoinList="${joinFields[1]}JoinVisible=true" />
       <#assign popoverinner = true, HD=HD+'  ', isJoinFieldNow = true  />
       </#if>

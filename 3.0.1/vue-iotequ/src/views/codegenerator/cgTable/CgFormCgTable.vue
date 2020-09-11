@@ -11,7 +11,7 @@
             <el-col :span="12">
               <cg-join v-model="projectIdJoinVisible" :readonly="isDetail" >
                 <CgListCgProject slot="popover" ref="projectIdJoin" openID="projectid-join" :height="500" :joinShow="projectIdJoinVisible" :joinMultiple="false"
-                                 :originSelections="record.projectId" selectionKey="id" joinMode @closeJoinList="(rows)=>{ getJoinFields('projectId',rows)}"
+                                 :originSelections="String(record.projectId)" selectionKey="id" joinMode @closeJoinList="(rows)=>{ getJoinFields('projectId',rows)}"
                                  @showJoinList="projectIdJoinVisible=true" />
                 <el-form-item class="cg-item-text cg-auto-focus" slot="reference" :label="$t('cgProject.field.name')" :title="$t('cgProject.field.nameValid')" prop="module" :size="$store.state.app.size" >
                   <el-input v-model="record.module" name="module" 
