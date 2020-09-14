@@ -316,9 +316,9 @@ export default {
   },
 
   // 打开表单编辑器 row为 null(新建) id 或记录, path: route , openMode : add/view/edit
-  list_openRecordView({listObject, row, path, openMode, flowAction}) {
+  list_openRecordView({listObject, row, path, openMode, flowAction, needRefresh}) {
     const that = this
-    const needRefresh = listObject.parentField || getParent(listObject.$el,null,'cg-child')
+    const refreshAfterSubmitted = needRefresh || listObject.parentField || getParent(listObject.$el,null,'cg-child')
     let id = row ? (typeof row === 'object' ? row[listObject.idField] : row) : null
     const fixedFields = Object.assign({},listObject.fixedQueryRecord)
     if (!row && listObject.parentField && listObject.idField && !listObject.multiple) { // 只在该条目下新建
@@ -332,7 +332,7 @@ export default {
       dictionary: listObject.dictionary, 
       fixedFields, 
       onChange: openMode == 'view' ? null : function({ record, isNew, refresh }) {
-        if (needRefresh || flowAction || refresh) that.list_doAction(listObject,'refresh') 
+        if (refreshAfterSubmitted || flowAction || refresh) that.list_doAction(listObject,'refresh') 
         else if (isNew && record) {
           if (listObject.parentField && listObject.idField) {
             if (listObject.rows.length > 0) {
@@ -483,7 +483,7 @@ export default {
     else if (action === 'query') listObject.showQuery = true
     else if (action === 'add') {
       const row = options && options.needRow ? this.list_checkSelections(listObject, false) : null
-      this.list_openRecordView({listObject, row, path: listObject.formPath, openMode: 'add'})
+      this.list_openRecordView({listObject, row, path: listObject.formPath, openMode: 'add', needRefresh: options && options.needRefresh})
     }
     else if (action === 'view' || action === 'edit' || action.indexOf('flow.') == 0) {
       const row = options && options.row ? options.row : this.list_checkSelections(listObject, false)
@@ -498,8 +498,8 @@ export default {
           })
           return
         }
-        if (action.indexOf('flow.') == 0) this.list_openRecordView({listObject, row, path: listObject.baseUrl+'/'+realAction, openMode:'flow', flowAction: realAction})
-        else this.list_openRecordView({listObject, row, path: listObject.formPath, openMode:action})
+        if (action.indexOf('flow.') == 0) this.list_openRecordView({listObject, row, path: listObject.baseUrl+'/'+realAction, openMode:'flow', flowAction: realAction, needRefresh: options && options.needRefresh})
+        else this.list_openRecordView({listObject, row, path: listObject.formPath, openMode:action, needRefresh: options && options.needRefresh})
       }
     } else if (action === 'delete' || action === 'batdel') {
       const row = options && options.row ? options.row : this.list_checkSelections(listObject, action === 'batdel')
