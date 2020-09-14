@@ -43,15 +43,16 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     // public static final String loginErrorUrl = "/login/error";
     // 默认值 public static final String logoutUrl = "/logout";
     public static final String[] whiteList = new String[]
-            {"/index.html","/static/**",  // vue 目录文件
-            "/","/m/**", "/**/*.js", "/**/*.css",
-            "/webjars/**", "/favicon.ico", "/MP_*.txt", resourcePage + "/**", commonPage + "/**",
-            errorPage + "/**", errorPage + "*"};   //  以上名单不经过security验证
-    public static final String[] loginList = new String[]{"/oauth/**", loginPage + "/**", "/log*",
-            "/"}; // 登录需要的白名单，不能放到whiteList里，由于绕过了security，认证登录等无法实现
-    //	public static final String[] whiteList = new String[] { "/**/*.js", "/**/*.css", "/**/*.png", "/**/*.gif",
-//	            "/**/*.jpg", "/**/*.ico", "/**/*.font", "/**/*.ttf", "/randCodeImage**", "/plug-in/**", "/css/**",
-//	            "/fonts/**", "/images/**", "/js/**", "/common/**","/error/**" };   //  以上名单不经过security验证
+            {
+                // "/index.html","/static/**",
+                // "/**/*.js", "/**/*.css",
+                // "/webjars/**", "/favicon.ico", "/MP_*.txt",
+                "/","/m/**",
+                // errorPage + "/**", errorPage + "*",
+                resourcePage + "/**", commonPage + "/**"
+            };   //  以上名单不经过security验证
+    public static final String[] loginList = new String[]{"/oauth/**", loginPage + "/**", "/log*", "/"}; // 登录需要的白名单，不能放到whiteList里，由于绕过了security，认证登录等无法实现
+
     private static final Logger log = LoggerFactory.getLogger(SpringSecurityConfig.class);
 
     @Autowired

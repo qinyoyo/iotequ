@@ -6,13 +6,13 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import top.iotequ.framework.util.Util;
 
-@MapperScan({"top.iotequ"})
+// @MapperScan({"top.iotequ"})
 @ServletComponentScan(basePackages = {"top.iotequ"})
 @SpringBootApplication(scanBasePackages= {"top.iotequ","com.svein.*"})
 @EnableAuthorizationServer
 @EnableResourceServer
 public class IotequStarterApplication {
-	public static void main(String[] args) {	
+	public static void main(String[] args) {
 		Util.commonApplicationRun(IotequStarterApplication.class,"application.yml",null,args);
 	}
 }

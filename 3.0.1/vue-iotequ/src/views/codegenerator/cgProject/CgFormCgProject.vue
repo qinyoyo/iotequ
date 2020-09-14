@@ -139,7 +139,7 @@ export default {
       fixedFields: typeof this.openParams().fixedFields === 'object' ? this.openParams().fixedFields : {},
       openMode: this.openParams().openMode ? this.openParams().openMode : null,
       record: this.openParams().record && typeof this.openParams().record === 'object' ? this.openParams().record : {},
-      needDefaultFromServer: false,
+      needDefaultFromServer: true,
       dictionary: {
         dictModules: []
       },
@@ -213,7 +213,6 @@ export default {
             creator: this.$store.state.user.name,
             code: '',
             name: '',
-            version: '3.0.1-SNAPSHOT',
             groupId: 'top.iotequ',
             modules: 'framework',
             springModule: true,

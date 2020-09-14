@@ -43,7 +43,7 @@ import java.util.*;
 public class SvasService implements ApplicationRunner, ApplicationContextAware, ApplicationListener<PeopleInfoChangedEvent> {
     private static final Logger log = LoggerFactory.getLogger(SvasService.class);
     @Autowired
-    private static ApplicationContext appContext = null;
+    private ApplicationContext appContext = null;
     SvasClient svasClient = null;
     @Autowired
     private Environment env;

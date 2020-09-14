@@ -13,6 +13,10 @@ server:
 #      key-store-password: xipYs081
 #      keyStoreType: PKCS12
 spring:
+# 正式环境设为false
+   devtools:
+      add-properties: true
+
 # 群集环境需要配置redis服务
 #   redis:
 #      url: redis://localhost:6379
@@ -48,22 +52,22 @@ logging:
    file: 
       name: log/iotequ.log
    level: 
-      root: error
-      org.springframework: error
-      org.mybatis: error
-      top.iotequ: error
-      top.iotequ.svas: error
+      root: info
+      org.springframework: info
+      org.mybatis: info
+      top.iotequ: info
+      top.iotequ.svas: info
 #mybatis输出sql语句
 #mybatis:
-#   configuration: 
-#      log-impl: org.apache.ibatis.logging.stdout.StdOutImpl 
-     
+#   configuration:
+#      logImpl: org.apache.ibatis.logging.stdout.StdOutImpl
+
 #代码生成配置  
 generator: 
-    path: D:/iotequ/web/generator/3.0.0
+    path: D:/iotequ/web/generator/3.0.1
     org: top.iotequ
-    project : ewallet
-    codepath : E:/J2EE/iotequ/iotequ-3.0.0/
+    project : codegenerator
+    codepath : E:/J2EE/iotequ/3.0.1/
     nosamplecode : true
     localMode : true
 

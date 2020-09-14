@@ -50,6 +50,7 @@ private static final Logger log = LoggerFactory.getLogger(CgCgProjectService.cla
         checkAvailable();
         if (cgProject==null)  cgProject=new CgProject();
         else cgProject.setId(null);
+        cgProject.setVersion(Util.getVersion("framework"));
         return cgProject;
     }
     @Override
@@ -75,10 +76,10 @@ private static final Logger log = LoggerFactory.getLogger(CgCgProjectService.cla
             cgProject.setName("");
         }
         if (cgProject.getVersion()==null) {
-            cgProject.setVersion("3.0.1-SNAPSHOT");
+            cgProject.setVersion(Util.getVersion("framework"));
         }
         if (cgProject.getSpringModule()==null) {
-            cgProject.setSpringModule(Util.boolValue("1"));
+            cgProject.setSpringModule(Util.boolValue("0"));
         }
         if (cgProject.getMavenModule()==null) {
             cgProject.setMavenModule(Util.boolValue("1"));

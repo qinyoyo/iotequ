@@ -212,7 +212,7 @@ CREATE TABLE `cg_project` (
   `creator` varchar(36) NOT NULL COMMENT '创建人',
   `group_id` varchar(45) DEFAULT 'top.iotequ' NOT NULL COMMENT '组织机构',
   `name` varchar(36) NOT NULL COMMENT '项目名称',
-  `version` varchar(36) DEFAULT '3.0.1-SNAPSHOT' NOT NULL COMMENT '版本',
+  `version` varchar(36) NOT NULL COMMENT '版本',
   `note` varchar(100) NULL COMMENT '项目描述',
   `modules` varchar(200) DEFAULT 'framework' NULL COMMENT '包含的iotequ模块',
   `spring_module` tinyint(1) DEFAULT 1 NOT NULL COMMENT 'spring模块',
