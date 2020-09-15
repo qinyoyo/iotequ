@@ -876,11 +876,18 @@ export function camelString(s) {
   })
   return r
 }
-export function equals(a, b) {
+export function equals(a, b, fields) {
   if (typeof a !== typeof b) return false
   else if (a === b) return true
   else if ((!a && b) || (a && !b)) return false
   else if (!a && !b) return true
+  if (fields) {
+    const ff = typeof fields == 'string' ? fields.split(',') : fields
+    if (ff.some(f=>{
+      if (!equals(a[f], b[f])) return true
+    })) return false
+    return true
+  }
   else if ((a instanceof Array && !(b instanceof Array)) || (b instanceof Array && !(a instanceof Array))) return false
   else if (a instanceof Array && b instanceof Array) {
     if (a.length !== b.length) return false

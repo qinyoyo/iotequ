@@ -119,10 +119,10 @@
   </div>
 </template>
 <script>
-import cg from '@/utils/cg'
 import cgForm from '@/utils/cgForm'
 import rulesObject from './rules.js'
-const mixins = []
+import ParentForm from '@/views/common-views/components/form'
+const mixins = [ParentForm]
 const mixinContext = require.context('.', false, /CgFormOauthClientDetails-mixin\.(js|vue)$/)
 mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
 export default {
@@ -132,32 +132,16 @@ export default {
     dialogParams: {
       type: Object,
       default: null
-    },
-    showInDialog: {
-      type: Boolean,
-      default: false
-    },
-    height: {
-      type: Number,
-      default: 0
-    },
-    queryById: [Number, String]
+    }
   },
   data() {
     return {
-      myself: this,
+      defaultLabelPosition: 'top',
+      rulesObject,
+      isDialogForm: true,
       path: 'record',
-      title: this.$t('sysOauthClientDetails.title.'+this.path),
-      rules: {},
       idField: 'clientId',
       clientIdSaved: this.openParams().record && typeof this.openParams().record === 'object' ? this.openParams().record.clientId : null,
-      onChange: typeof this.openParams().onChange === 'function' ? this.openParams().onChange : null,
-      recordChanged: false,
-      recordLoading: false,
-      fixedFields: typeof this.openParams().fixedFields === 'object' ? this.openParams().fixedFields : {},
-      openMode: this.openParams().openMode ? this.openParams().openMode : null,
-      record: this.openParams().record && typeof this.openParams().record === 'object' ? this.openParams().record : {},
-      needDefaultFromServer: false,
       dictionary: {
         dictAuthorizedGrantTypes: this.getDictionary('password,authorization_code,implicit,client_credentials','密码模式,授权码模式,简化模式,客户端模式'),
         dictAuthorities: [],
@@ -168,68 +152,7 @@ export default {
       baseUrl: '/framework/sysOauthClientDetails'
     }
   },
-  computed: {
-    mobile() {
-      return this.$store.state.app.device === 'mobile'
-    },
-    hasMenu() {
-      return false
-    },
-    className() {
-      return (this.mobile?'cg-form-cell ':'')+'cg-no-border cg-form-oauthclientdetails'
-    },
-    labelWidth() {
-      return this.className.indexOf('cg-form-cell')>=0? '100px' : undefined
-    },
-    labelPosition() {
-      return this.className.indexOf('cg-form-cell')>=0? 'left':'top'
-    },
-    isDetail() {
-      return this.openMode === 'view'
-    },
-    isNew() {
-      return !this.openMode || this.openMode === 'add'
-    },
-    isEdit() {
-      return this.openMode === 'edit'
-    }
-  },
-  watch: {
-    record: {
-      handler() {
-        this.recordChanged = true
-        this.just4elInputNumberNullBug()
-      },
-      deep: true
-    },
-    queryById: {
-      handler(n, o) {
-        if (n) this.doAction('refresh', {id: n})
-      },
-      immediate: true
-    }
-  },
-  created() {
-    this.rules = rulesObject.getRules(this)
-    cgForm.form_getQueryDictionary(this)
-    if (this.queryById) {
-      cgForm.form_getRecordFromServer(this,this.queryById)
-      this.queryRefreshId = this.queryById
-    } else if (this.isNew) cgForm.form_createNewRecord(this)
-    else if ((this.isEdit || this.isDetail) && this.openParams().id && typeof this.openParams().record !== 'object') {
-      cgForm.form_getRecordFromServer(this,this.openParams().id)
-      this.queryRefreshId = this.openParams().id
-    }
-    else if (this.needLoadDictionary) cgForm.form_getDictionary(this)
-    this.just4elInputNumberNullBug()
-  },
-  mounted() {
-    cgForm.form_mounted(this)
-  },
   methods: {
-    openParams: function() {
-      return this.dialogParams ? this.dialogParams : this.$route.query
-    },
     just4elInputNumberNullBug: function() {
       if (this.record.accessTokenValidity === null) this.record.accessTokenValidity = undefined
       if (this.record.refreshTokenValidity === null) this.record.refreshTokenValidity = undefined
@@ -247,13 +170,6 @@ export default {
             enabled: true,
         }
     },
-    submit: function() {
-      if (this.recordChanged) cgForm.form_submit(this, 'save',true)
-    },
-    doAction(action, options) {
-      cgForm.form_doAction(this, action, options)
-    },
-    ...cg
   }
 }
 </script>

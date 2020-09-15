@@ -40,6 +40,7 @@ export default {
           if (res.parameter && res.parameter.record) {
             formObject.record = Object.assign(formObject.record,res.parameter.record)
             if (formObject.idField) formObject[formObject.idField + 'Saved'] = formObject[formObject.idField]
+            formObject.recordChanged = false
           }        
           if (res.dictionary) {
             formObject.dictionary = Object.assign(formObject.dictionary, res.dictionary)
@@ -152,14 +153,15 @@ export default {
   },
 
   // 新建一条记录，根据表定义决定是否向后台发请求
-  form_createNewRecord(formObject) {
+  form_createNewRecord(formObject,options) {
     const newRecord = formObject.newRecord()
     const that=this
+    let   extendRecord = options && options.record ? options.record : {}
     const func=()=>{
-      formObject.record = Object.assign(formObject.record, formObject.fixedFields)
+      formObject.record = Object.assign(extendRecord, formObject.fixedFields)
       if (formObject.openMode !== 'add') formObject.$emit('openModeChanged', 'add')
       formObject.openMode = 'add'
-      formObject.recordChanged = true
+      formObject.recordChanged = false
       formObject[formObject.idField + 'Saved'] = null
       that.form_setBlobRecord(formObject)
       formObject.$refs && formObject.$refs.cgForm && formObject.$refs.cgForm.clearValidate()
@@ -171,18 +173,18 @@ export default {
         onSuccess: res => {
           if (res && res.hasOwnProperty('success') && res.success) {
             if (res.data) {
-              formObject.record = Object.assign({},formObject.record,newRecord,res.data)
-            } else formObject.record = Object.assign({},formObject.record,newRecord)
+              formObject.record = Object.assign(extendRecord,newRecord,res.data)
+            } else formObject.record = Object.assign(extendRecord,newRecord)
           }
           func()
         },
         onError: () => { 
-          formObject.record = Object.assign({},formObject.record,newRecord) 
+          formObject.record = Object.assign(extendRecord,newRecord) 
           func()
         }
       })
     } else {
-      formObject.record = Object.assign({},formObject.record,newRecord)
+      formObject.record = Object.assign(extendRecord,newRecord)
       func()
       return new Promise((resolve, reject) =>{
         resolve(null)
@@ -373,7 +375,7 @@ export default {
   // 表单action操作
   form_doAction(formObject, action, options) {
     if (action=='goHome') listObject.$router.push('/')
-    else if (action === 'add') this.form_createNewRecord(formObject)
+    else if (action === 'add') this.form_createNewRecord(formObject, options)
     else if (action === 'submit') this.form_submit(formObject, 'save')
     else if (action === 'refresh') this.form_getRecordFromServer(formObject, options.id)
     else if (options) { // 处理自定义按钮操作

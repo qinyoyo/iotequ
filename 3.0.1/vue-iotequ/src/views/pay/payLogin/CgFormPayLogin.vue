@@ -86,10 +86,10 @@
   </div>
 </template>
 <script>
-import cg from '@/utils/cg'
 import cgForm from '@/utils/cgForm'
 import rulesObject from './rules.js'
-const mixins = []
+import ParentForm from '@/views/common-views/components/form'
+const mixins = [ParentForm]
 const mixinContext = require.context('.', false, /CgFormPayLogin-mixin\.(js|vue)$/)
 mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
 export default {
@@ -99,32 +99,18 @@ export default {
     dialogParams: {
       type: Object,
       default: null
-    },
-    showInDialog: {
-      type: Boolean,
-      default: false
-    },
-    height: {
-      type: Number,
-      default: 0
-    },
-    queryById: [Number, String]
+    }
   },
   data() {
     return {
-      myself: this,
+      allowEditRecord: false,
+      allowAddRecord: false,
+      defaultLabelPosition: 'top',
+      rulesObject,
+      isDialogForm: true,
       path: 'record',
-      title: this.$t('payLogin.title.'+this.path),
-      rules: {},
       idField: 'id',
       idSaved: this.openParams().record && typeof this.openParams().record === 'object' ? this.openParams().record.id : null,
-      onChange: typeof this.openParams().onChange === 'function' ? this.openParams().onChange : null,
-      recordChanged: false,
-      recordLoading: false,
-      fixedFields: typeof this.openParams().fixedFields === 'object' ? this.openParams().fixedFields : {},
-      openMode: this.openParams().openMode ? this.openParams().openMode : null,
-      record: this.openParams().record && typeof this.openParams().record === 'object' ? this.openParams().record : {},
-      needDefaultFromServer: false,
       dictionary: {
         dictShopId: []
       },
@@ -133,73 +119,7 @@ export default {
       baseUrl: '/pay/payLogin'
     }
   },
-  computed: {
-    mobile() {
-      return this.$store.state.app.device === 'mobile'
-    },
-    hasMenu() {
-      return false
-    },
-    className() {
-      return (this.mobile?'cg-form-cell ':'')+'cg-no-border cg-form-paylogin'
-    },
-    labelWidth() {
-      return this.className.indexOf('cg-form-cell')>=0? '100px' : undefined
-    },
-    labelPosition() {
-      return this.className.indexOf('cg-form-cell')>=0? 'left':'top'
-    },
-    isDetail() {
-      return this.openMode === 'view'
-    },
-    isNew() {
-      return false
-    },
-    isEdit() {
-      return false
-    }
-  },
-  watch: {
-    record: {
-      handler() {
-        this.recordChanged = true
-      },
-      deep: true
-    },
-    queryById: {
-      handler(n, o) {
-        if (n) this.doAction('refresh', {id: n})
-      },
-      immediate: true
-    }
-  },
-  created() {
-    this.rules = rulesObject.getRules(this)
-    cgForm.form_getQueryDictionary(this)
-    if (this.queryById) {
-      cgForm.form_getRecordFromServer(this,this.queryById)
-      this.queryRefreshId = this.queryById
-    } else if (this.isNew) cgForm.form_createNewRecord(this)
-    else if ((this.isEdit || this.isDetail) && this.openParams().id && typeof this.openParams().record !== 'object') {
-      cgForm.form_getRecordFromServer(this,this.openParams().id)
-      this.queryRefreshId = this.openParams().id
-    }
-    else if (this.needLoadDictionary) cgForm.form_getDictionary(this)
-  },
-  mounted() {
-    cgForm.form_mounted(this)
-  },
   methods: {
-    openParams: function() {
-      return this.dialogParams ? this.dialogParams : this.$route.query
-    },
-    submit: function() {
-      if (this.recordChanged) cgForm.form_submit(this, 'save',true)
-    },
-    doAction(action, options) {
-      cgForm.form_doAction(this, action, options)
-    },
-    ...cg
   }
 }
 </script>

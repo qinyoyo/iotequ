@@ -155,13 +155,13 @@
 			  </#if>
               <#nt><@WT LP "style" "width: 100%"/><@WT LP ":height" "tableHeight()"/><#if LP.maxHeight?? && LP.maxHeight gt 0><@WT LP ":max-height" ""+LP.maxHeight/></#if><@WT LP ":size" "$store.state.app.size"/><#if !LP.showHeader><@WT LP ":show-header" "false"/></#if>
               <#nt><#if LP.editInline><@WT LP "v-set-input:no-tab-index" "{tabIndex: -1}"/><@WT LP "v-table-enter-tab" /></#if><#if LP.stripe><@WT LP "stripe"/></#if><#if LP.border><@WT LP ":border" "!mobile"/></#if><#if LP.highlightCurrentRow><@WT LP "highlight-current-row"/></#if><#if LP.showSummary?? && LP.showSummary><@WT LP "show-summary"/></#if><@WT LP "fit"/><#if LP.spanEntities?? && LP.spanEntities?trim!=''><@WT LP ":span-method" "groupFields"/></#if>
-              <#nt><@WT LP "@row-click" "(row, column, event)=>list_rowClick(myself,{ row, column, event })"/>
-              <#nt><@WT LP "@row-contextmenu" "(row, column, event)=>list_rowContextmenu(myself,{ row, column, event })"/>
-              <#nt><@WT LP "@header-click" "(column, event)=>list_headClick(myself,{ column, event })"/>
-              <#nt><@WT LP "@row-dblclick" "(row, column, event)=>list_rowDblclick(myself,{ row, column, event })"/>
-              <#nt><@WT LP "@cell-click" "(row, column, cell, event)=>list_cellClick(myself,{ row, column, cell, event })"/>
-              <#nt><@WT LP "@selection-change" "(selection)=>list_selectionChange(myself, selection)"/>
-              <#nt><@WT LP "@current-change" "(selection)=>list_selectionChange(myself, selection)"/>
+              <#nt><@WT LP "@row-click" "(row, column, event)=>cgList.list_rowClick(myself,{ row, column, event })"/>
+              <#nt><@WT LP "@row-contextmenu" "(row, column, event)=>cgList.list_rowContextmenu(myself,{ row, column, event })"/>
+              <#nt><@WT LP "@header-click" "(column, event)=>cgList.list_headClick(myself,{ column, event })"/>
+              <#nt><@WT LP "@row-dblclick" "(row, column, event)=>cgList.list_rowDblclick(myself,{ row, column, event })"/>
+              <#nt><@WT LP "@cell-click" "(row, column, cell, event)=>cgList.list_cellClick(myself,{ row, column, cell, event })"/>
+              <#nt><@WT LP "@selection-change" "(selection)=>cgList.list_selectionChange(myself, selection)"/>
+              <#nt><@WT LP "@current-change" "(selection)=>cgList.list_selectionChange(myself, selection)"/>
     >
       <cg-icon slot="empty" icon="el-icon-minus" color="grey" />
       <#assign hasExpandField = false />
@@ -209,7 +209,7 @@
       </<#if f.width?? && f.width gt 0>el<#else>cg</#if>-table-column>
       </#if>
       </#list>
-      <cg-action v-model="showActionView" mode="${LP.toolbarMode}" :url="baseUrl" :actions="list_allActions(myself,'main')" @actionClick="doAction" />
+      <cg-action v-model="showActionView" mode="${LP.toolbarMode}" :url="baseUrl" :actions="cgList.list_allActions(myself,'main')" @actionClick="doAction" />
     </el-table>
     <cg-card-list v-else ref="cgList" v-loading="listLoading" :render="rowRender" :data="rows" :mainClass="className" row-key="${pk.entityName}" :multiple="false" <@WT LP ":height" "tableHeight()"/>
                   :isLoading="listLoading" <#if LP.spanEntities?? && LP.spanEntities?trim!=''>:groupBy="rowRenderGroupTitle?rowRenderGroupTitle:'${LP.spanEntities?trim}'"</#if>
@@ -218,16 +218,16 @@
                   ${LP.tableProperties}
                 </#if>
                   @doAction="(a,row)=>doAction(a,{row})"
-                  @loadMore="list_loadMore(myself)"
+                  @loadMore="cgList.list_loadMore(myself)"
                   @refresh="doAction('refresh',{ isPullDownEvent : true})"
-    <#nt>              <@WT LP "@row-click" "(row, event)=>list_rowClick(myself,{ row, event })"/>
-    <#nt>              <@WT LP "@row-contextmenu" "(row, event)=>list_rowContextmenu(myself,{ row, event })"/>
-    <#nt>              <@WT LP "@row-dblclick" "(row, event)=>list_rowDblclick(myself,{ row, event })"/>
-    <#nt>              <@WT LP "@selection-change" "(selection)=>list_selectionChange(myself, selection)"/>
-    <#nt>              <@WT LP "@current-change" "(selection)=>list_selectionChange(myself, selection)"/>
+    <#nt>              <@WT LP "@row-click" "(row, event)=>cgList.list_rowClick(myself,{ row, event })"/>
+    <#nt>              <@WT LP "@row-contextmenu" "(row, event)=>cgList.list_rowContextmenu(myself,{ row, event })"/>
+    <#nt>              <@WT LP "@row-dblclick" "(row, event)=>cgList.list_rowDblclick(myself,{ row, event })"/>
+    <#nt>              <@WT LP "@selection-change" "(selection)=>cgList.list_selectionChange(myself, selection)"/>
+    <#nt>              <@WT LP "@current-change" "(selection)=>cgList.list_selectionChange(myself, selection)"/>
     >
       <template slot="append">
-	      <cg-action v-model="showActionView" mode="${LP.toolbarMode}" :url="baseUrl" :actions="list_allActions(myself,'main')" @actionClick="doAction" />
+	      <cg-action v-model="showActionView" mode="${LP.toolbarMode}" :url="baseUrl" :actions="cgList.list_allActions(myself,'main')" @actionClick="doAction" />
       </template>
     </cg-card-list>
     <#if LP.pagination>
@@ -239,7 +239,7 @@
                   :pulldownTxt="$t('system.message.pullDownRefresh')"
                   :loadMoreTxt="$t('system.message.pullUpLoad')"
                   :unloadMoreTxt="$t('system.message.noMoreData')"
-                  @loadMore="list_loadMore(myself)"
+                  @loadMore="cgList.list_loadMore(myself)"
                   @pulldown="doAction('refresh',{ isPullDownEvent : true})"
     />
     <el-pagination v-if="!mobile" @size-change="doAction('refresh')" @current-change="doAction('refresh')" :page-sizes="[10, 20, 30, 50, 100, 200]" layout="total, sizes, prev, pager, next, jumper"
@@ -334,10 +334,7 @@
 </template>
 
 <script>
-import cgList from '@/utils/cgList'
-import cg from '@/utils/cg'
 import {hasAuthority} from '@/utils/cg'
-import time from '@/utils/time'
 <#if joinOnFields?? && joinOnFields?size gt 0>
 <#list joinOnFields as c>
 <#if c.component?? && c.component?trim!=''>
@@ -348,44 +345,17 @@ import ${c.component} from '@/views${c.vue}.vue'
 <#if LP.editInline?? && LP.editInline>
 import rulesObject from './rules.js'
 </#if>
-const mixins = []
+import ParentTable from '@/views/common-views/components/table'
+const mixins = [ParentTable]
 const mixinContext = require.context('.', false, /CgList${LP.name?cap_first}-mixin\.(js|vue)$/)
 mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
 export default {
   name: 'CgList${LP.name?cap_first}',
   mixins,
   props: {
-    joinMode: {
-      type: Boolean,
-      default: false
-    },
-    joinMultiple: {
-      type: Boolean,
-      default: false
-    },
-    joinShow: {
-      type: Boolean,
-      default: true
-    },
-    openID: {
-      type: String,
-      default: ''
-    },
-    originSelections: {
-      type: String,
-      default: ''
-    },
     selectionKey: {
       type: String,
       default: '${pk.entityName}'
-    },
-    height: {
-      type: Number,
-      default: 0
-    },
-    fixedQueryRecord: {
-      type: Object,
-      default: () => { return {} }
     }
   },
   <#assign firstItem = true />
@@ -394,37 +364,32 @@ export default {
   </#if>
   data() {
     return {
-      cgList,
-      myself: this,
       <#if LP.editInline?? && LP.editInline>
       rulesObject,
       </#if>
       path: '${LP.path}',
-      title: this.$t('${generatorName}.title.${LP.path}'),
-      showQuery: false,
-      showActionView: false,
       <#assign firstField = true />
       defaultOrder: <#if LP.orderBy?? && LP.orderBy?trim !="">'${LP.orderBy?trim}'<#elseif LP.sortField?? && LP.sortField?trim!=''>'${getDbName(LP.sortField)} asc'<#elseif createTimeField=="">'${pk.name} desc'<#else>'${createTimeField} desc'</#if>,
-      queryRecord: this.initialQueryRecord(),
       queryRecordFields: [<#assign firstItemInArray=true /><#list fields as f><#if f.queryMode?? && f.queryMode gt 0><#if firstItemInArray><#assign firstItemInArray=false /><#else>,</#if>'<#if (f.id?starts_with("join:") || f.id?starts_with("list:")) && f.queryMode != 2><#assign joinFields = f.id?split(":") />${joinFields[1]}<#else>${f.entityName}</#if>'</#if></#list>],
       formPath: '/${moduleName}/<#if subModule??>${subModule}/</#if>${generatorName}/record',
-      listLoading: false,
-      rows: [],
-      selections: this.originSelections,
-      <#if LP.actionList ?? && LP.actionList?index_of(",export,") gte 0>
-      localExport: <#if LP.localExport ?? && LP.localExport>true<#else>false</#if>,
+      <#if LP.actionList ?? && LP.actionList?index_of(",export,") gte 0 && LP.localExport ?? && LP.localExport>
+      localExport: true,
       </#if>
       <#if rightJoinPK && LP.actionList ?? && LP.actionList?index_of(",delete,") gte 0>
       removeLeftRecordOnRightJoin: true,
       </#if>
-      parentField: <#if pk?? && LP.parentEntity?? && LP.parentEntity?trim!=''>'${LP.parentEntity?trim}'<#else>null</#if>,
-      idField: <#if pk??>'${pk.entityName}'<#else>null</#if>,
-			<#if DICTLIST?size gt 0>
-			dictionary: {
-			<#list DICTLIST as f>
-			  ${f}<#if f?has_next>,</#if>
-			</#list>
-		  },
+      <#if pk?? && LP.parentEntity?? && LP.parentEntity?trim!=''>
+      parentField: '${LP.parentEntity?trim}',
+      </#if>
+      <#if pk??>
+      idField: '${pk.entityName}',
+      </#if>
+      <#if DICTLIST?size gt 0>
+      dictionary: {
+      <#list DICTLIST as f>
+        ${f}<#if f?has_next>,</#if>
+      </#list>
+      },
       <#if NEEDLOADFROMSERVER>
       needLoadDictionary: true,
       </#if>
@@ -467,16 +432,10 @@ export default {
       paginationCurrentPage: 1,
       paginationPageSize: this.$store.state.app.device === 'mobile' ? 10 : 30,
       paginationTotalRecords: 0,
-      <#else>
-      paginationPageSize: 0,
       </#if>
-      sortableFields: [],
-      sortableFieldsOrder: [],
       <#if editInlineFields!=''>
       totalEdittingRows: 0,
       editInlineFields: hasAuthority('/${moduleName}/<#if subModule??>${subModule}/</#if>${generatorName}/updateSelective')?[${editInlineFields}]:null,
-      <#else>
-      editInlineFields: null,
       </#if>
       <#if sons?? || (hasSonTables?? && hasSonTables)>
       hasSonTables: true,
@@ -484,21 +443,18 @@ export default {
       <#if LP.spanEntities?? && LP.spanEntities?trim!=''>
       groupByEntityFields: '${LP.spanEntities?trim}',
       </#if>
-      contextMenu: { top: 0, left: 0, visible: false, row: null, actions: [], trElement: null },
+      listName: '${LP.name}',
+      <#if LP.multiple>
+      multipleSelection: true,
+      </#if>
+      <#if LP.tableHeight?? && LP.tableHeight gt 0>
+      defaultTableHeight: ${LP.tableHeight},
+      </#if>
       generatorName: '${generatorName}',
       baseUrl: '/${moduleName}/<#if subModule??>${subModule}/</#if>${generatorName}'
     }
   },
   computed: {
-    mobile() {
-      return this.$store.state.app.device === 'mobile'
-    },
-    multiple() {
-      return this.joinMode ? this.joinMultiple : <#if LP.multiple>this.isTableMode()<#else>false</#if>
-    },
-    className() {
-      return this.openID ? 'cg-list-${LP.name?lower_case} cg-list-${LP.name?lower_case}' + '-'+this.openID : 'cg-list-${LP.name?lower_case}'
-    },
     <#if joinOnFields?? && joinOnFields?size gt 0 >
     <#list joinOnFields as f>
     <#if f.dynaCondition?? && f.dynaCondition?trim!=''>
@@ -543,65 +499,10 @@ export default {
       else return '<#if hasQueryField>query,</#if><#if LP.actionList?? && LP.localExport?? && LP.localExport>${LP.actionList?replace("export","localExport")}<#elseif LP.actionList??>${LP.actionList}</#if>'
     }
   },
-  watch: {
-    fixedQueryRecord: {
-      handler(n, o) {
-        n && Object.keys(n).length && Object.keys(n).some(k=>{
-          if (cg.hasValue(n[k])) return true
-        }) && this.doAction('refresh')
-      },
-      deep: true,
-      immediate: true
-    },
-    joinShow(newValue, oldValue) {
-      if (oldValue && !newValue && this.joinMode) {
-        this.$emit('closeJoinList', this.multiple ? this.$refs.cgList.store.states.selection : [this.$refs.cgList.store.states.currentRow])
-      }
-    }
-  },
-  created() {
-    this.doAction('refresh')
-  },
   mounted() {
-    cgList.list_tableInit(this<#if LP.sortField?? && LP.sortField?trim!=''>,'${LP.sortField?trim}'</#if>)
-  },
-  activated() {
-    cgList.list_activedRefresh(this)
-  },
-  destroyed() {
-    cgList.list_destroyScroll(this)
+    this.cgList.list_tableInit(this<#if LP.sortField?? && LP.sortField?trim!=''>,'${LP.sortField?trim}'</#if>)
   },
   methods: {
-    rowClassName({row, rowIndex}){
-      return <#if editInlineFields!=''>row && row.inlineEditting ? 'edit-inline' : ''<#else>''</#if>
-    },
-    <#if LP.actionList?? && (LP.actionList?index_of(",edit,") gte 0 || LP.actionList?index_of(",view,") gte 0)>
-    defaultEditMode(row) {
-      if (this.hasAuthorityOf(this,this.baseUrl,'edit',row)) return 'edit'
-      else if (this.hasAuthorityOf(this,this.baseUrl,'view',row)) return 'view'
-      else return ''
-    },
-    </#if>
-    isTableMode() {
-      return this.joinMode || !this.mobile || this.isLandscape() || typeof this.rowRender !== 'function'
-    },
-    hasMenu() {
-      return this.mobile
-    },
-    isLandscape() {
-      return window.orientation == 90 || window.orientation == -90
-    },
-    showActionSheet(hidden){
-      this.showActionView = !hidden
-    },
-    tableHeight() {
-      if (this.height > 0) return this.height<#if LP.pagination> - (this.mobile ? 0 : 40)</#if>
-      <#if LP.tableHeight?? && LP.tableHeight gt 0>
-      else return ${LP.tableHeight}
-      <#else>
-      else return (this.containerHeight()<#if LP.pagination> - (this.mobile ? 0 : 40)</#if>)
-      </#if>
-    },
     initialQueryRecord() {
       return Object.assign({
         <#list fields as f>
@@ -617,7 +518,7 @@ export default {
     },
     <#if LP.spanEntities?? && LP.spanEntities?trim!=''>
     groupFields({ row, column, rowIndex, columnIndex }) {
-      return cgList.list_groupFields(this, this.groupByEntityFields.split(','), row, column, rowIndex, columnIndex)
+      return this.cgList.list_groupFields(this, this.groupByEntityFields.split(','), row, column, rowIndex, columnIndex)
     },
     </#if>
     <#if joinOnFields?? && joinOnFields?size gt 0 >
@@ -635,9 +536,6 @@ export default {
     },
     </#if>
     <#if LP.actionList ?? && LP.actionList?index_of(",editInline_add,") gte 0 && editInlineFields!=''>
-    editInlineAdd() {
-      cgList.list_doAction(this, 'editInline_add')
-    },
     newRecordForEditInline() {
       return {
         <#list fields as f>
@@ -668,15 +566,8 @@ export default {
         </#if>
         </#list>
       }
-    },
+    }
     </#if>
-    doAction(action, options) {
-      this.queryRecord = Object.assign(this.queryRecord, this.fixedQueryRecord)
-      cgList.list_doAction(this, action, <#if additinalAction>Object.assign(options ? options : {}, this.additionalActions.find(e => e.action === action))<#else>options</#if>)
-    },
-    ...cg,
-    ...cgList,
-    time2String: time.toString
   }
 }
 </script>

@@ -322,7 +322,6 @@ ${f.slotTemplates}
   </div>
 </template>
 <script>
-import cg from '@/utils/cg'
 import cgForm from '@/utils/cgForm'
 <#if joinOnFields?? && joinOnFields?size gt 0>
 <#list joinOnFields as c>
@@ -332,7 +331,8 @@ import ${c.component} from '@/views${c.vue}.vue'
 </#list>
 </#if>
 import rulesObject from './rules.js'
-const mixins = []
+import ParentForm from '@/views/common-views/components/form'
+const mixins = [ParentForm]
 const mixinContext = require.context('.', false, /CgForm${FP.name?cap_first}-mixin\.(js|vue)$/)
 mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
 <#assign needServer = false />
@@ -344,17 +344,8 @@ export default {
     dialogParams: {
       type: Object,
       default: null
-    },
+    }
     </#if>
-    showInDialog: {
-      type: Boolean,
-      default: false
-    },
-    height: {
-      type: Number,
-      default: 0
-    },
-    queryById: [Number, String]
   },
   <#assign firstItem = true />
   <#if joinOnFields?? && joinOnFields?size gt 0>
@@ -362,30 +353,44 @@ export default {
   </#if>
   data() {
     return {
-      myself: this,
+      <#if !table.actionList ?? || (table.actionList?index_of(",edit,") lt 0 && table.actionList?index_of(",view,") lt 0) >
+      allowViewRecord: false,
+      </#if>
+      <#if !table.actionList ?? || table.actionList?index_of(",edit,") lt 0  >
+      allowEditRecord: false,
+      </#if>
+      <#if !table.actionList ?? || (table.actionList?index_of(",add,") lt 0 && table.actionList?index_of(",new,") lt 0) >
+      allowAddRecord: false,
+      </#if>
+      <#if FP.isFlow>
+      isFlowRecord: true,
+      </#if>
+      defaultLabelPosition: '${FP.labelPosition}',
+      rulesObject,
+      <#if FP.isDialog>
+      isDialogForm: true,
+      </#if>
+      <#if FP.continueAdd>
+      continueAdd: true,
+      </#if>
       path: <#if FP.isFlow>this.openParams().flowAction ? this.openParams().flowAction : '${FP.path?split(",")[0]}'<#else>'${FP.path}'</#if>,
       <#if FP.isFlow>
       flowAction: this.openParams().flowAction ? this.openParams().flowAction : '${FP.path?split(",")[0]}',
       </#if>
-      title: this.$t('${generatorName}.title.'+this.path),
-      rules: {},
       idField: <#if pk??>'${pk.entityName}'<#else>null</#if>,
       <#if fastMultiJoinField??>
       fastMultiJoinField: '${fastMultiJoinField}',
       </#if>
       <#if pk??>
       ${pk.entityName}Saved: this.openParams().record && typeof this.openParams().record === 'object' ? this.openParams().record.${pk.entityName} : null,
-      onChange: typeof this.openParams().onChange === 'function' ? this.openParams().onChange : null,
       </#if>
-      recordChanged: false,
-      recordLoading: false,
-      fixedFields: typeof this.openParams().fixedFields === 'object' ? this.openParams().fixedFields : {},
-      openMode: this.openParams().openMode ? this.openParams().openMode : null,
-      record: <#if dynaList??>Object.assign({
+      <#if dynaList??>
+      record: Object.assign({
           <#list dynaList as d>
           ${d.watchField}: null<#if d?has_next>,</#if>
           </#list>
-        }, </#if>this.openParams().record && typeof this.openParams().record === 'object' ? this.openParams().record : {}<#if dynaList??>)</#if>,
+        }, this.openParams().record && typeof this.openParams().record === 'object' ? this.openParams().record : {}),
+      </#if>
       <#if USEFILE>
       blobRecord:
       {
@@ -413,7 +418,9 @@ export default {
       <#assign needServer = true />
       </#if>
       </#list>
-      needDefaultFromServer: <#if needServer || FP.isFlow || (FP.actionList?? && FP.actionList?index_of(",flow,") gte 0) >true<#else>false</#if>,
+      <#if needServer || FP.isFlow || (FP.actionList?? && FP.actionList?index_of(",flow,") gte 0) >
+      needDefaultFromServer: true,
+      </#if>
       <#if DICTLIST?size gt 0>
       dictionary: {
       <#list DICTLIST as f>
@@ -438,22 +445,8 @@ export default {
       baseUrl: '/${moduleName}/<#if subModule??>${subModule}/</#if>${generatorName}'
     }
   },
+  <#if (joinOnFields?? && joinOnFields?size gt 0) || USEBTN >
   computed: {
-    mobile() {
-      return this.$store.state.app.device === 'mobile'
-    },
-    hasMenu() {
-      return false
-    },
-    className() {
-      return (this.mobile?'cg-form-cell ':'')+'cg-no-border cg-form-${FP.name?lower_case}'
-    },
-    labelWidth() {
-      return this.className.indexOf('cg-form-cell')>=0? '100px' : undefined
-    },
-    labelPosition() {
-      return this.className.indexOf('cg-form-cell')>=0? 'left':'${FP.labelPosition}'
-    },
     <#if joinOnFields?? && joinOnFields?size gt 0 >
     <#list joinOnFields as f>
     <#if f.dynaCondition?? && f.dynaCondition?trim!=''>
@@ -492,95 +485,28 @@ export default {
       ]
     },
     </#if>
-    isDetail() {
-    <#if table.actionList ?? && (table.actionList?index_of(",edit,") gte 0 || table.actionList?index_of(",view,") gte 0) >
-      return this.openMode === 'view'
-      <#else>
-      return false
-      </#if>
-    },
-    isNew() {
-      <#if table.actionList?? && table.actionList?index_of(",add,") gte 0 >
-      return !this.openMode || this.openMode === 'add'
-      <#else>
-      return false
-      </#if>
-    },
-    isEdit() {
-      <#if table.actionList ?? && table.actionList?index_of(",edit,") gte 0>
-      return this.openMode === 'edit'
-      <#else>
-      return false
-      </#if>
-    }
   },
+  </#if>
+  <#if dynaList??>
   watch: {
-    record: {
-      handler() {
-        this.recordChanged = true
-        <#if USEINPUTNUMBER>
-        this.just4elInputNumberNullBug()
-        </#if>
-      },
-      deep: true
-    },
-    <#if dynaList??>
     <#list dynaList as d>
     'record.${d.watchField}': {
       handler(n,o)
       {
         cgForm.form_getDynaDict(this, '${d.dynaFields}')
       }
-    },
+    }<#if d?has_next>,</#if>
     </#list>
-    </#if>
-    queryById: {
-      handler(n, o) {
-        if (n) this.doAction('refresh', {id: n})
-      },
-      immediate: true
-    }
   },
   created() {
-    this.rules = rulesObject.getRules(this)
-    <#if FP.isFlow>
-    this.record.flowSelection = 'approve'
-    </#if>
-    <#if DICTLIST?size gt 0 >
-    cgForm.form_getQueryDictionary(this)
-    </#if>
-    if (this.queryById) {
-      cgForm.form_getRecordFromServer(this,this.queryById)
-      this.queryRefreshId = this.queryById
-    } else if (this.isNew) cgForm.form_createNewRecord(this)
-    else if ((this.isEdit || this.isDetail) && this.openParams().id && typeof this.openParams().record !== 'object') {
-      cgForm.form_getRecordFromServer(this,this.openParams().id)
-      this.queryRefreshId = this.openParams().id
-    }
-    <#if DICTLIST?size gt 0 >
-    else if (this.needLoadDictionary) cgForm.form_getDictionary(this)
-    </#if>
-    <#if dynaList??>
     <#if FP.isFlow><#assign dynaFields = 'flowSelection,flowNextOperator,flowCopyToList' /><#else><#assign dynaFields = '' /></#if>
     <#list dynaList as d>
     <#if dynaFields==''><#assign dynaFields = d.dynaFields /><#else><#list d.dynaFields?split(",") as df><#if dynaFields?index_of(df) lt 0><#assign dynaFields = dynaFields + ',' + df /></#if></#list></#if>
     </#list>
-    else cgForm.form_getDynaDict(this, '${dynaFields}')
-    </#if>
-    <#if USEINPUTNUMBER>
-    this.just4elInputNumberNullBug()
-    </#if>
+    cgForm.form_getDynaDict(this, '${dynaFields}')
   },
-  <#if FP.isDialog>mounted<#else>activated</#if>() {
-    <#if !FP.isDialog>
-    cgForm.form_activedRefresh(this)
-    </#if>
-    cgForm.form_mounted(this)
-  },
+  </#if>
   methods: {
-    openParams: function() {
-      return <#if FP.isDialog>this.dialogParams ? this.dialogParams : </#if>this.$route.query
-    },
     <#if USEINPUTNUMBER>
     just4elInputNumberNullBug: function() {
       <#list fields as f>
@@ -630,9 +556,6 @@ export default {
       return this.$t(defTitle)
     },
     </#if>
-    submit: function() {
-      if (this.recordChanged) cgForm.form_submit(this, <#if FP.isFlow>'f_'+this.flowAction<#else>'save'</#if><#if !FP.continueAdd && FP.isDialog>,true</#if>)
-    },
     <#if joinOnFields?? && joinOnFields?size gt 0 >
     getJoinFields(field,rows) {
       const joinDefine = {
@@ -645,12 +568,8 @@ export default {
       }
       this[field+'JoinVisible'] = false
       this.setJoinValues(this.record, field, joinDefine[field], rows)
-    },
+    }
     </#if>
-    doAction(action, options) {
-      cgForm.form_doAction(this, action, <#if USEBTN>Object.assign(options ? options : {}, this.addtionalActions.find(e => e.action === action))<#else>options</#if>)
-    },
-    ...cg
   }
 }
 </script>

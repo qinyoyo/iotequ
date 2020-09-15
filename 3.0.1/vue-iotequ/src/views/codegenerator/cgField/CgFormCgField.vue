@@ -252,44 +252,29 @@
   </div>
 </template>
 <script>
-import cg from '@/utils/cg'
 import cgForm from '@/utils/cgForm'
 import rulesObject from './rules.js'
-const mixins = []
+import ParentForm from '@/views/common-views/components/form'
+const mixins = [ParentForm]
 const mixinContext = require.context('.', false, /CgFormCgField-mixin\.(js|vue)$/)
 mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
 export default {
   name: 'CgFormCgField',
   mixins,
   props: {
-    showInDialog: {
-      type: Boolean,
-      default: false
-    },
-    height: {
-      type: Number,
-      default: 0
-    },
-    queryById: [Number, String]
   },
   data() {
     return {
-      myself: this,
+      defaultLabelPosition: 'top',
+      rulesObject,
+      continueAdd: true,
       path: 'record',
-      title: this.$t('cgField.title.'+this.path),
-      rules: {},
       idField: 'id',
       idSaved: this.openParams().record && typeof this.openParams().record === 'object' ? this.openParams().record.id : null,
-      onChange: typeof this.openParams().onChange === 'function' ? this.openParams().onChange : null,
-      recordChanged: false,
-      recordLoading: false,
-      fixedFields: typeof this.openParams().fixedFields === 'object' ? this.openParams().fixedFields : {},
-      openMode: this.openParams().openMode ? this.openParams().openMode : null,
       record: Object.assign({
           tableId: null,
           fkTable: null
         }, this.openParams().record && typeof this.openParams().record === 'object' ? this.openParams().record : {}),
-      needDefaultFromServer: false,
       dictionary: {
         dictShowType: this.getDictionary('text,textarea,boolean,false_if_null,checkbox,radio,select,inner_join,left_join,right_join,full_join,dict_list,password,date,time,datetime,number,email,search,file,image,url,tel,color,html,2dcode'),
         dictType: this.getDictionary('int,varchar,boolean,datetime,tinyint,smallint,mediumint,bigint,double,float,decimal,date,time,timestamp,char,tinytext,text,mediumtext,longtext,tinyblob,blob,mediumblob,longblob,bit,binary,varbinary'),
@@ -306,21 +291,6 @@ export default {
     }
   },
   computed: {
-    mobile() {
-      return this.$store.state.app.device === 'mobile'
-    },
-    hasMenu() {
-      return false
-    },
-    className() {
-      return (this.mobile?'cg-form-cell ':'')+'cg-no-border cg-form-cgfield'
-    },
-    labelWidth() {
-      return this.className.indexOf('cg-form-cell')>=0? '100px' : undefined
-    },
-    labelPosition() {
-      return this.className.indexOf('cg-form-cell')>=0? 'left':'top'
-    },
     addtionalActions() {
       return [
         {
@@ -337,24 +307,8 @@ export default {
         }
       ]
     },
-    isDetail() {
-      return this.openMode === 'view'
-    },
-    isNew() {
-      return !this.openMode || this.openMode === 'add'
-    },
-    isEdit() {
-      return this.openMode === 'edit'
-    }
   },
   watch: {
-    record: {
-      handler() {
-        this.recordChanged = true
-        this.just4elInputNumberNullBug()
-      },
-      deep: true
-    },
     'record.tableId': {
       handler(n,o)
       {
@@ -366,37 +320,12 @@ export default {
       {
         cgForm.form_getDynaDict(this, 'fkColumn')
       }
-    },
-    queryById: {
-      handler(n, o) {
-        if (n) this.doAction('refresh', {id: n})
-      },
-      immediate: true
     }
   },
   created() {
-    this.rules = rulesObject.getRules(this)
-    cgForm.form_getQueryDictionary(this)
-    if (this.queryById) {
-      cgForm.form_getRecordFromServer(this,this.queryById)
-      this.queryRefreshId = this.queryById
-    } else if (this.isNew) cgForm.form_createNewRecord(this)
-    else if ((this.isEdit || this.isDetail) && this.openParams().id && typeof this.openParams().record !== 'object') {
-      cgForm.form_getRecordFromServer(this,this.openParams().id)
-      this.queryRefreshId = this.openParams().id
-    }
-    else if (this.needLoadDictionary) cgForm.form_getDictionary(this)
-    else cgForm.form_getDynaDict(this, 'fkTable,fkColumn')
-    this.just4elInputNumberNullBug()
-  },
-  activated() {
-    cgForm.form_activedRefresh(this)
-    cgForm.form_mounted(this)
+    cgForm.form_getDynaDict(this, 'fkTable,fkColumn')
   },
   methods: {
-    openParams: function() {
-      return this.$route.query
-    },
     just4elInputNumberNullBug: function() {
       if (this.record.orderNum === null) this.record.orderNum = undefined
       if (this.record.length === null) this.record.length = undefined
@@ -419,13 +348,6 @@ export default {
     groupPaneTitle: function(defTitle) {
       return this.$t(defTitle)
     },
-    submit: function() {
-      if (this.recordChanged) cgForm.form_submit(this, 'save')
-    },
-    doAction(action, options) {
-      cgForm.form_doAction(this, action, Object.assign(options ? options : {}, this.addtionalActions.find(e => e.action === action)))
-    },
-    ...cg
   }
 }
 </script>
