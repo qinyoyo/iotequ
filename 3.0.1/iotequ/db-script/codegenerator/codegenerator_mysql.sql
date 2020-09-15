@@ -215,7 +215,7 @@ CREATE TABLE `cg_project` (
   `version` varchar(36) NOT NULL COMMENT '版本',
   `note` varchar(100) NULL COMMENT '项目描述',
   `modules` varchar(200) DEFAULT 'framework' NULL COMMENT '包含的iotequ模块',
-  `spring_module` tinyint(1) DEFAULT 1 NOT NULL COMMENT 'spring模块',
+  `spring_module` tinyint(1) DEFAULT 0 NOT NULL COMMENT 'spring模块',
   `maven_module` tinyint(1) DEFAULT 1 NOT NULL COMMENT 'maven模块',
   `maven_server` varchar(100) NULL COMMENT '内部maven库地址',
   `addtional_dependencies` text NULL COMMENT '附件依赖',

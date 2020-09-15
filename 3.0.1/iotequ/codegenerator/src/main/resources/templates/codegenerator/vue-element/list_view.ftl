@@ -66,43 +66,34 @@
 </template>
 
 <script>
-import cg from '@/utils/cg'
-import cgList from '@/utils/cgList'
 import CgList${LP.name?cap_first} from './CgList${LP.name?cap_first}.vue'
 <#if sons??>
+import ParentList from '@/views/common-views/components/list-sons'
 <#list sons as son>
 <#if son.componentPath??>
 import ${son.component} from '@/views${son.componentPath}.vue'
 </#if>
 </#list>
+<#else>
+import ParentList from '@/views/common-views/components/list'
 </#if>
-const mixins = []
+const mixins = [ParentList]
 const mixinContext = require.context('.', false, /${LP.path}-mixin\.(js|vue)$/)
 mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
 export default {
   name: '${LP.name?cap_first}List',
   components: { CgList${LP.name?cap_first}<#if sons??><#list sons as son><#if son.componentPath??>, ${son.component}</#if></#list></#if> },
   mixins,
-  props: {
-    fixedQueryRecord: {
-      type: Object,
-      default: () => { return {} }
-    },
-    <#if sons??>
-    height: {
-      type: Number,
-      default: 0
-    },
-    </#if>
-  },
   data() {
     return {
-      clientHeight: this.height ? this.height : cg.containerHeight(),
-      fatherHeight: (this.height ? this.height : cg.containerHeight())<#if LP.sonAlign?? && LP.sonAlign?starts_with('h')> * (this.$store.state.app.device === 'mobile' ? 1: ${LP.generatorType} / 100)</#if>,
-      childHeight: <#if LP.sonAlign?? && LP.sonAlign?starts_with('h')>(this.height?this.height:cg.containerHeight())*(this.$store.state.app.device === 'mobile' ? 1 : (100- ${LP.generatorType})/100)<#else>(this.height?this.height:cg.containerHeight())</#if>-70,
+      <#if LP.sonAlign?? && LP.sonAlign?starts_with('h')>
+      fatherHeightPercent: ${LP.generatorType},
+      </#if>
+      <#if LP.titleField?? && LP.titleField?trim!=''>
+      titleField: '${LP.titleField}',
+      </#if>
       <#if sons??>
-      showMaster: true,
-      selectedSon: 'cgList_son0',
+      sonCount: ${sons?size},
       <#list sons as son>
       <#if son.mode=='list'>
       son${son_index}Condition: {
@@ -112,142 +103,12 @@ export default {
       son${son_index}Condition: 'null',
       </#if>
       </#list>
-      </#if>
-      <#if LP.titleField?? && LP.titleField?trim!=''>
-      contentSubTitle: '',
+      sonPkFields: [<#list sons as son>'${son.pk}'<#if son?has_next>, </#if></#list>],
       </#if>
       path: '${LP.path}',
       generatorName: '${generatorName}',
       baseUrl: '/${moduleName}/<#if subModule??>${subModule}/</#if>${generatorName}'
     }
-  },
-  created() {
-    this.$route.query && this.$route.query.fixedQueryRecord && (this.fixedQueryRecord = Object.assign(this.fixedQueryRecord,this.$route.query.fixedQueryRecord))
-  },
-  <#if sons??>
-  watch: {
-    fixedQueryRecord: {
-      handler(n, o) {
-        if (n && Object.keys(n).length > 0 && this.$refs.cgList && typeof this.$refs.cgList.doAction === 'function') this.$refs.cgList.doAction('refresh')
-      },
-      deep: true,
-      immediate: true
-    }
-  },
-  </#if>
-  computed: {
-    mobile() {
-      return this.$store.state.app.device === 'mobile'
-    },
-    title() {
-      <#if sons??>
-      if (this.showMaster || !this.mobile) return this.$t('system.action.list')
-      else return this.$t('system.action.detail')
-      <#else>
-      return this.$t('system.action.list')
-      </#if>
-    },
-    content() {
-      <#if sons??>
-      if (this.showMaster || !this.mobile) return this.$t('${generatorName}.title.${LP.path}')<#if LP.titleField?? && LP.titleField?trim!=''> + (!this.mobile && this.contentSubTitle?' - '+this.contentSubTitle:'')</#if>
-      else return <#if LP.titleField?? && LP.titleField?trim!=''>this.contentSubTitle ? this.contentSubTitle : this.$t('${generatorName}.title.${LP.path}')<#else>this.$t('${generatorName}.title.${LP.path}')</#if>
-      <#else>
-      return this.$t('${generatorName}.title.${LP.path}')<#if LP.titleField?? && LP.titleField?trim!=''> + (!this.mobile && this.contentSubTitle?' - '+this.contentSubTitle:'')</#if>
-      </#if>
-    }
-  },
-  methods: {
-    goBack() {
-      <#if sons??>
-      if (this.mobile) {
-        if (this.showMaster) cg.goBack()
-        else {
-          if (this.$refs[this.selectedSon] && this.$refs[this.selectedSon].showMaster !== undefined) {
-            if (!this.$refs[this.selectedSon].showMaster) this.$refs[this.selectedSon].showMaster = true
-            else this.showMaster = true
-          } else this.showMaster = true
-        }
-      }
-      <#else>
-      if (this.mobile) cg.goBack()
-      </#if>
-    },
-    hasMenu() {
-      <#if sons??>
-      if (!this.mobile) return false
-      else if (this.showMaster) return true
-      else if (this.$refs[this.selectedSon] && typeof this.$refs[this.selectedSon].hasMenu === 'function') return this.$refs[this.selectedSon].hasMenu()
-      else return false
-      <#else>
-      return this.mobile
-      </#if>
-    },
-    showActionSheet() {
-      <#if sons??>
-      if (this.showMaster && typeof this.$refs.cgList.showActionSheet === 'function') this.$refs.cgList.showActionSheet()
-      else if (this.$refs[this.selectedSon] && typeof this.$refs[this.selectedSon].showActionSheet === 'function') this.$refs[this.selectedSon].showActionSheet()
-      <#else>
-      this.$refs.cgList.showActionSheet()
-      </#if>
-    },
-    <#if sons??>
-    <#if LP.sonAlign?? && LP.sonAlign?starts_with('h')>
-    resize(percent) {
-      this.fatherHeight = this.clientHeight * percent / 100
-      this.childHeight = this.clientHeight - this.fatherHeight - 70
-    },
-    </#if>
-    getShowMaster() {
-      if (!this.mobile) return undefined
-      else if (this.showMaster) return true
-      else if (this.$refs[this.selectedSon] && this.$refs[this.selectedSon].showMaster !== undefined) return this.$refs[this.selectedSon].showMaster
-      else return undefined
-    },
-    showDetail() {
-      if (!this.mobile) return
-      else if (this.showMaster) this.doShowDetail()
-      else if (this.$refs[this.selectedSon] && this.$refs[this.selectedSon].showMaster && typeof this.$refs[this.selectedSon].doShowDetail ==='function') this.$refs[this.selectedSon].doShowDetail()
-    },
-    setChildrenParams(row) {
-      <#list sons as son>
-      <#if son.mode=='list'>
-      if (row && row.${son.pk}) this.son${son_index}Condition.${son.entityField} = row.${son.pk}
-      else this.son${son_index}Condition.${son.entityField} = 'null'
-      <#else>
-      if (row && row.${son.pk}) this.son${son_index}Condition = row.${son.pk}
-      else this.son${son_index}Condition = 'null'
-      </#if>
-      </#list>
-    },
-    rowClick({ row, column, event }) {
-      <#if LP.titleField?? && LP.titleField?trim!=''>
-      this.contentSubTitle = row ? row.${LP.titleField} : ''
-      </#if>
-      if (!this.mobile) this.setChildrenParams(row)
-    },
-    <#elseif LP.titleField?? && LP.titleField?trim!=''>
-    rowClick({ row, column, event }) {
-      this.contentSubTitle = row && row.${LP.titleField} ? String(row.${LP.titleField}).local() : ''
-    },
-    </#if>
-    refreshed(listObject) {
-      const row = cgList.list_getCurrentRow(listObject)
-      <#if sons??>
-      <#list sons as son>
-      if (this.$refs.cgList_son${son_index} && this.$refs.cgList_son${son_index}.hasOwnProperty('needLoadDictionary')) this.$refs.cgList_son${son_index}.needLoadDictionary = true
-      </#list>
-      </#if>
-      this.setChildrenParams(row)
-    },
-    doShowDetail(row) {
-      if (!row) row = cgList.list_getCurrentRow(this.$refs.cgList)
-      <#if sons??>
-      this.showMaster = false
-      this.setChildrenParams(row)
-      <#else>
-      cgList.list_rowDblclick(this.$refs.cgList, { row })
-      </#if>
-    },
   }
 }
 </script>

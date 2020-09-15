@@ -259,7 +259,7 @@ CREATE TABLE [dbo].[cg_project] (
   [version] varchar(36) NOT NULL,
   [note] varchar(100) NULL,
   [modules] varchar(200) DEFAULT ('framework') NULL,
-  [spring_module] bit DEFAULT ((1)) NOT NULL,
+  [spring_module] bit DEFAULT ((0)) NOT NULL,
   [maven_module] bit DEFAULT ((1)) NOT NULL,
   [maven_server] varchar(100) NULL,
   [addtional_dependencies] text NULL,

@@ -215,7 +215,7 @@ export default {
             name: '',
             groupId: 'top.iotequ',
             modules: 'framework',
-            springModule: true,
+            springModule: false,
             mavenModule: true,
             test: false,
         }

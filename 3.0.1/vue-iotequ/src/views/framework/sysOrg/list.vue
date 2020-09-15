@@ -37,119 +37,28 @@
 </template>
 
 <script>
-import cg from '@/utils/cg'
-import cgList from '@/utils/cgList'
 import CgListOrg from './CgListOrg.vue'
+import ParentList from '@/views/common-views/components/list-sons'
 import CgListUser from '@/views/framework/sysUser/CgListUser.vue'
-const mixins = []
+const mixins = [ParentList]
 const mixinContext = require.context('.', false, /list-mixin\.(js|vue)$/)
 mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
 export default {
   name: 'OrgList',
   components: { CgListOrg, CgListUser },
   mixins,
-  props: {
-    fixedQueryRecord: {
-      type: Object,
-      default: () => { return {} }
-    },
-    height: {
-      type: Number,
-      default: 0
-    },
-  },
   data() {
     return {
-      clientHeight: this.height ? this.height : cg.containerHeight(),
-      fatherHeight: (this.height ? this.height : cg.containerHeight()),
-      childHeight: (this.height?this.height:cg.containerHeight())-70,
-      showMaster: true,
-      selectedSon: 'cgList_son0',
+      titleField: 'name',
+      sonCount: 1,
       son0Condition: {
         orgCode: 'null'
       },
-      contentSubTitle: '',
+      sonPkFields: ['orgCode'],
       path: 'list',
       generatorName: 'sysOrg',
       baseUrl: '/framework/sysOrg'
     }
-  },
-  created() {
-    this.$route.query && this.$route.query.fixedQueryRecord && (this.fixedQueryRecord = Object.assign(this.fixedQueryRecord,this.$route.query.fixedQueryRecord))
-  },
-  watch: {
-    fixedQueryRecord: {
-      handler(n, o) {
-        if (n && Object.keys(n).length > 0 && this.$refs.cgList && typeof this.$refs.cgList.doAction === 'function') this.$refs.cgList.doAction('refresh')
-      },
-      deep: true,
-      immediate: true
-    }
-  },
-  computed: {
-    mobile() {
-      return this.$store.state.app.device === 'mobile'
-    },
-    title() {
-      if (this.showMaster || !this.mobile) return this.$t('system.action.list')
-      else return this.$t('system.action.detail')
-    },
-    content() {
-      if (this.showMaster || !this.mobile) return this.$t('sysOrg.title.list') + (!this.mobile && this.contentSubTitle?' - '+this.contentSubTitle:'')
-      else return this.contentSubTitle ? this.contentSubTitle : this.$t('sysOrg.title.list')
-    }
-  },
-  methods: {
-    goBack() {
-      if (this.mobile) {
-        if (this.showMaster) cg.goBack()
-        else {
-          if (this.$refs[this.selectedSon] && this.$refs[this.selectedSon].showMaster !== undefined) {
-            if (!this.$refs[this.selectedSon].showMaster) this.$refs[this.selectedSon].showMaster = true
-            else this.showMaster = true
-          } else this.showMaster = true
-        }
-      }
-    },
-    hasMenu() {
-      if (!this.mobile) return false
-      else if (this.showMaster) return true
-      else if (this.$refs[this.selectedSon] && typeof this.$refs[this.selectedSon].hasMenu === 'function') return this.$refs[this.selectedSon].hasMenu()
-      else return false
-    },
-    showActionSheet() {
-      if (this.showMaster && typeof this.$refs.cgList.showActionSheet === 'function') this.$refs.cgList.showActionSheet()
-      else if (this.$refs[this.selectedSon] && typeof this.$refs[this.selectedSon].showActionSheet === 'function') this.$refs[this.selectedSon].showActionSheet()
-    },
-    getShowMaster() {
-      if (!this.mobile) return undefined
-      else if (this.showMaster) return true
-      else if (this.$refs[this.selectedSon] && this.$refs[this.selectedSon].showMaster !== undefined) return this.$refs[this.selectedSon].showMaster
-      else return undefined
-    },
-    showDetail() {
-      if (!this.mobile) return
-      else if (this.showMaster) this.doShowDetail()
-      else if (this.$refs[this.selectedSon] && this.$refs[this.selectedSon].showMaster && typeof this.$refs[this.selectedSon].doShowDetail ==='function') this.$refs[this.selectedSon].doShowDetail()
-    },
-    setChildrenParams(row) {
-      if (row && row.orgCode) this.son0Condition.orgCode = row.orgCode
-      else this.son0Condition.orgCode = 'null'
-    },
-    rowClick({ row, column, event }) {
-      this.contentSubTitle = row ? row.name : ''
-      if (!this.mobile) this.setChildrenParams(row)
-    },
-    refreshed(listObject) {
-      const row = cgList.list_getCurrentRow(listObject)
-      if (this.$refs.cgList_son0 && this.$refs.cgList_son0.hasOwnProperty('needLoadDictionary')) this.$refs.cgList_son0.needLoadDictionary = true
-      this.setChildrenParams(row)
-    },
-    doShowDetail(row) {
-      if (!row) row = cgList.list_getCurrentRow(this.$refs.cgList)
-      this.showMaster = false
-      this.setChildrenParams(row)
-    },
   }
 }
 </script>

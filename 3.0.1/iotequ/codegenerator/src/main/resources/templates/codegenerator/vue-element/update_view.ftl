@@ -12,8 +12,8 @@
 <template>
   <div class="cg-form"<#if FP.isDialog> :class="dialogClass"</#if>>
     <#if FP.isDialog>
-    <el-dialog v-el-drag-dialog :visible.sync="showDialog" top="0px" :class="dialogClass" :close-on-click-modal="false"
-               :append-to-body="true" :show-close="!mobile || isDetail" @closed="close">
+    <el-dialog ref="dialog" v-el-drag-dialog :visible.sync="showDialog" top="0px" :class="dialogClass" :close-on-click-modal="false"
+               :append-to-body="true" :show-close="!mobile || isDetail" :before-close="beforeClose" @closed="close">
     <#else>
     <el-card shadow="hover">
     </#if>
@@ -43,7 +43,7 @@
               <#nt><@SPACE FP.name?length/>:showInDialog="showDialog"
          </#if>
          <#if canUse('closeDialog',FP.viewProperties!'')>
-              <#nt><@SPACE FP.name?length/>@closeDialog="close"
+              <#nt><@SPACE FP.name?length/>@closeDialog="handleClose"
          </#if>
        </#if>
          <#if canUse('openModeChanged',FP.viewProperties!'')>
@@ -58,133 +58,48 @@
 </template>
 
 <script>
-<#if FP.isDialog>
-import elDragDialog from '@/directive/el-drag-dialog'
-<#else>
-import cg from '@/utils/cg'
-</#if>
+import ParentForm from '@/views/common-views/components/<#if FP.isDialog>dialog<#else>record</#if>'
 import CgForm${FP.name?cap_first} from './CgForm${FP.name?cap_first}'
-const mixins = []
+const mixins = [ParentForm]
 const mixinContext = require.context('.', false, /${FP.path?split(",")[0]}-mixin\.(js|vue)$/)
 mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
 export default {
   name: '${FP.name?cap_first}Form',
-  <#if FP.isDialog>
-  directives: { elDragDialog },
-  </#if>
   components: { CgForm${FP.name?cap_first} },
   mixins,
-  <#if FP.isDialog>
-  props: {
-    dialogParams: {
-      type: Object,
-      default: null
-    },
-    dialogClass: {
-      type: String,
-      default: null
-    }
-  },
-  </#if>
   data() {
     return {
-      path: <#if FP.isFlow><#if FP.isDialog>this.openParams()<#else>this.$route.query</#if>.flowAction ? <#if FP.isDialog>this.openParams()<#else>this.$route.query</#if>.flowAction : '${FP.path?split(",")[0]}'<#else>'${FP.path}'</#if>,
-      openMode: <#if FP.isDialog><#if FP.isDialog>this.openParams()<#else>this.$route.query</#if>.openMode ? <#if FP.isDialog>this.openParams()<#else>this.$route.query</#if>.openMode : </#if>null,
-      <#if FP.isDialog>
-      showDialog: true,
+      <#if !table.actionList ?? || (table.actionList?index_of(",edit,") lt 0 && table.actionList?index_of(",view,") lt 0) >
+      allowViewRecord: false,
       </#if>
-      generatorName: '${generatorName}',
-      baseUrl: '/${moduleName}/<#if subModule??>${subModule}/</#if>${generatorName}'
-    }
-  },
-  computed: {
-    mobile() {
-      return this.$store.state.app.device === 'mobile'
-    },
-    isDetail() {
-      <#if table.actionList ?? && (table.actionList?index_of(",edit,") gte 0 || table.actionList?index_of(",view,") gte 0) >
-      return this.openMode === 'detail' || this.openMode === 'view'
-      <#else>
-      return false
+      <#if !table.actionList ?? || table.actionList?index_of(",edit,") lt 0  >
+      allowEditRecord: false,
       </#if>
-    },
-    isNew() {
-      <#if table.actionList?? && table.actionList?index_of(",add,") gte 0 >
-      return !this.openMode || this.openMode === 'new' || this.openMode === 'add'
-      <#else>
-      return false
+      <#if !table.actionList ?? || (table.actionList?index_of(",add,") lt 0 && table.actionList?index_of(",new,") lt 0) >
+      allowAddRecord: false,
       </#if>
-    },
-    isEdit() {
-      <#if table.actionList ?? && table.actionList?index_of(",edit,") gte 0>
-      return this.openMode === 'edit' || this.openMode === 'modify'
-      <#else>
-      return false
+      <#if FP.isFlow>
+      isFlowRecord: true,
       </#if>
-    },
-    titleColor() {
-      if (this.isNew) return 'color-danger'
-      else if (this.isEdit) return 'color-warning'
-      else return 'color-info'
-    },
-    icon() {
-      if (<#if FP.isDialog>this.openParams()<#else>this.$route.query</#if>.icon) return <#if FP.isDialog>this.openParams()<#else>this.$route.query</#if>.icon
       <#if FP.icon?? && FP.icon?trim!=''>
       <#if FP.isFlow>
       <#assign icons = FP.icon?split(",") />
       <#if icons?size lte 1>
-      else return '${FP.icon?trim}'
+      defaultIcon: '${FP.icon?trim}',
       <#else>
-      else {
-        const icons = {
-          <#list FP.path?split(",") as path>
-          ${path}: <#if path_index lt icons?size>'${icons[path_index]}'<#else>'${icons[0]}'</#if><#if path_has_next>,</#if>
-          </#list>
-        }
-        return icons[this.path]
-      }
+      defaultIcon: {
+      <#list FP.path?split(",") as path>
+         ${path}: <#if path_index lt icons?size>'${icons[path_index]}'<#else>'${icons[0]}'</#if><#if path_has_next>,</#if>
+      </#list>
+      },
       </#if>
       <#else>
-      else return '${FP.icon?trim}'
+      defaultIcon: '${FP.icon?trim}',
       </#if>
-      <#else>
-      else return this.isNew?'el-icon-circle-plus':(this.isEdit?'el-icon-edit-outline':'el-icon-view')
       </#if>
-    },
-    content() {
-      if (<#if FP.isDialog>this.openParams()<#else>this.$route.query</#if>.content) return <#if FP.isDialog>this.openParams()<#else>this.$route.query</#if>.content
-      else return this.$t('${generatorName}.title.'+this.path)
-    },
-    title() {
-      if (<#if FP.isDialog>this.openParams()<#else>this.$route.query</#if>.title) return <#if FP.isDialog>this.openParams()<#else>this.$route.query</#if>.title
-      else return <#if !FP.isFlow && table.name?? && table.name?trim!=''>this.isNew ? this.$t('system.action.new'):(this.isDetail ? this.$t('system.action.view') : this.$t('system.action.edit'))<#else>null</#if>
-    }
-  },
-  <#if !FP.isDialog>
-  activated() {
-    this.openMode = <#if FP.isDialog>this.openParams()<#else>this.$route.query</#if>.openMode ? <#if FP.isDialog>this.openParams()<#else>this.$route.query</#if>.openMode : null
-  },
-  </#if>
-  methods: {
-    <#if FP.isDialog>
-    openParams: function() {
-      return this.dialogParams ? this.dialogParams : this.$route.query
-    },
-    close() {
-      this.showDialog = false
-      this.$emit('close')
-      if (!this.dialogParams) this.$store.dispatch('tagsView/activeLastAfterRemove', this.$route)
-    },
-    <#else>
-    goBack() {
-      cg.goBack()
-    },
-    </#if>
-    submit() {
-      this.$refs.cgForm.submit()
-    },
-    openModeChanged(v) {
-      this.openMode = v
+      path: <#if FP.isFlow><#if FP.isDialog>this.openParams()<#else>this.$route.query</#if>.flowAction ? <#if FP.isDialog>this.openParams()<#else>this.$route.query</#if>.flowAction : '${FP.path?split(",")[0]}'<#else>'${FP.path}'</#if>,
+      generatorName: '${generatorName}',
+      baseUrl: '/${moduleName}/<#if subModule??>${subModule}/</#if>${generatorName}'
     }
   }
 }
