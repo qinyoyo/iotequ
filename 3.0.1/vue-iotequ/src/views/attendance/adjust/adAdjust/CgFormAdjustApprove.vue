@@ -191,10 +191,10 @@ export default {
       }
     }
   },
-  created() {
-    cgForm.form_getDynaDict(this, 'flowSelection,flowNextOperator,flowCopyToList')
-  },
   methods: {
+	  initDynaDict: function() {
+	    cgForm.form_getDynaDict(this, 'flowSelection,flowNextOperator,flowCopyToList')
+	  },
     newRecord: function() {
         return {
             registerTime: new Date(),

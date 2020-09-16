@@ -198,15 +198,15 @@ export default {
       }
     }
   },
-  created() {
-    cgForm.form_getDynaDict(this, 'flowNextOperator,flowCopyToList')
-  },
   methods: {
     just4elInputNumberNullBug: function() {
       if (this.record.marketSize === null) this.record.marketSize = undefined
       if (this.record.humanCost === null) this.record.humanCost = undefined
       if (this.record.materialCost === null) this.record.materialCost = undefined
     },
+	  initDynaDict: function() {
+	    cgForm.form_getDynaDict(this, 'flowNextOperator,flowCopyToList')
+	  },
     newRecord: function() {
         return {
             flowState: 1,

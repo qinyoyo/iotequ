@@ -124,17 +124,6 @@ export default {
     this.cgList.list_tableInit(this)
   },
   methods: {
-    initialQueryRecord() {
-      return Object.assign({
-        operation: null,
-        selection: null,
-        stateName0: null,
-        stateName1: null,
-        operator: null,
-        time: null,
-        nextOperator: null,
-      }, this.fixedQueryRecord)
-    },
   }
 }
 </script>

@@ -51,7 +51,6 @@ export default {
       removeLeftRecordOnRightJoin: false,
       parentField: null,
       idField: null,
-	  dictionary: {},
       needLoadDictionary: false,
       paginationPageSize: 0,
       sortableFields: [],
@@ -116,8 +115,9 @@ export default {
       return this.editInlineFields && row && row.inlineEditting ? 'edit-inline' : ''
     },
     defaultEditMode(row) {
-      if (this.hasAuthorityOf(this,this.baseUrl,'edit',row)) return 'edit'
-      else if (this.hasAuthorityOf(this,this.baseUrl,'view',row)) return 'view'
+    	const actionList = this.allActions.split(',')
+      if (actionList.indexOf('edit')>=0 && this.hasAuthorityOf(this,this.baseUrl,'edit',row)) return 'edit'
+      else if (actionList.indexOf('view')>=0 && this.hasAuthorityOf(this,this.baseUrl,'view',row)) return 'view'
       else return ''
     },
     isTableMode() {

@@ -322,14 +322,14 @@ export default {
       }
     }
   },
-  created() {
-    cgForm.form_getDynaDict(this, 'fkTable,fkColumn')
-  },
   methods: {
     just4elInputNumberNullBug: function() {
       if (this.record.orderNum === null) this.record.orderNum = undefined
       if (this.record.length === null) this.record.length = undefined
     },
+	  initDynaDict: function() {
+	    cgForm.form_getDynaDict(this, 'fkTable,fkColumn')
+	  },
     newRecord: function() {
         return {
             tableId: '',

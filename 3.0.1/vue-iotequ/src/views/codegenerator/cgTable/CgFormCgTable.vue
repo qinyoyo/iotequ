@@ -216,14 +216,14 @@ export default {
       }
     }
   },
-  created() {
-    cgForm.form_getDynaDict(this, 'flowDynaFieldsOp')
-  },
   methods: {
     just4elInputNumberNullBug: function() {
       if (this.record.trialLicence === null) this.record.trialLicence = undefined
       if (this.record.trialDays === null) this.record.trialDays = undefined
     },
+	  initDynaDict: function() {
+	    cgForm.form_getDynaDict(this, 'flowDynaFieldsOp')
+	  },
     newRecord: function() {
         return {
             creator: this.$store.state.user.name,

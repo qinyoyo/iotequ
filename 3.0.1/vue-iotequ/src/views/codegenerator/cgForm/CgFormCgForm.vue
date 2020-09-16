@@ -169,10 +169,10 @@ export default {
       }
     }
   },
-  created() {
-    cgForm.form_getDynaDict(this, 'actionList')
-  },
   methods: {
+	  initDynaDict: function() {
+	    cgForm.form_getDynaDict(this, 'actionList')
+	  },
     newRecord: function() {
         return {
             tableId: '',

@@ -319,15 +319,15 @@ export default {
       }
     }
   },
-  created() {
-    cgForm.form_getDynaDict(this, 'sons,actionList,titleField')
-  },
   methods: {
     just4elInputNumberNullBug: function() {
       if (this.record.generatorType === null) this.record.generatorType = undefined
       if (this.record.tableHeight === null) this.record.tableHeight = undefined
       if (this.record.maxHeight === null) this.record.maxHeight = undefined
     },
+	  initDynaDict: function() {
+	    cgForm.form_getDynaDict(this, 'sons,actionList,titleField')
+	  },
     newRecord: function() {
         return {
             tableId: '',

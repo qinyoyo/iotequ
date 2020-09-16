@@ -161,18 +161,6 @@ export default {
     this.cgList.list_tableInit(this)
   },
   methods: {
-    initialQueryRecord() {
-      return Object.assign({
-        autoapprove: null,
-        authorizedGrantTypes: null,
-        clientId: null,
-        secret: null,
-        scope: null,
-        authorities: null,
-        webServerRedirectUri: null,
-        decription: null,
-      }, this.fixedQueryRecord)
-    },
   }
 }
 </script>

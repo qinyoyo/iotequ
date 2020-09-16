@@ -141,15 +141,6 @@ export default {
     this.cgList.list_tableInit(this)
   },
   methods: {
-    initialQueryRecord() {
-      return Object.assign({
-        corporationId: null,
-        name: null,
-        linkman: null,
-        linkPhone: null,
-        address: null,
-      }, this.fixedQueryRecord)
-    },
     groupFields({ row, column, rowIndex, columnIndex }) {
       return this.cgList.list_groupFields(this, this.groupByEntityFields.split(','), row, column, rowIndex, columnIndex)
     },

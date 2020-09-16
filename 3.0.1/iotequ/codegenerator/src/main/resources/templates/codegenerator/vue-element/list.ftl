@@ -503,6 +503,7 @@ export default {
     this.cgList.list_tableInit(this<#if LP.sortField?? && LP.sortField?trim!=''>,'${LP.sortField?trim}'</#if>)
   },
   methods: {
+    <#if hasQueryField>
     initialQueryRecord() {
       return Object.assign({
         <#list fields as f>
@@ -516,6 +517,7 @@ export default {
         </#list>
       }, this.fixedQueryRecord)
     },
+    </#if>
     <#if LP.spanEntities?? && LP.spanEntities?trim!=''>
     groupFields({ row, column, rowIndex, columnIndex }) {
       return this.cgList.list_groupFields(this, this.groupByEntityFields.split(','), row, column, rowIndex, columnIndex)

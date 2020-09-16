@@ -136,10 +136,10 @@ export default {
       }
     }
   },
-  created() {
-    cgForm.form_getDynaDict(this, 'flowNextOperator')
-  },
   methods: {
+	  initDynaDict: function() {
+	    cgForm.form_getDynaDict(this, 'flowNextOperator')
+	  },
     newRecord: function() {
         return {
             state: 0,

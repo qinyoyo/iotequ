@@ -106,13 +106,6 @@ export default {
     this.cgList.list_tableInit(this)
   },
   methods: {
-    initialQueryRecord() {
-      return Object.assign({
-        name: null,
-        startTime: null,
-        endTime: null,
-      }, this.fixedQueryRecord)
-    },
   }
 }
 </script>

@@ -498,13 +498,6 @@ export default {
     }<#if d?has_next>,</#if>
     </#list>
   },
-  created() {
-    <#if FP.isFlow><#assign dynaFields = 'flowSelection,flowNextOperator,flowCopyToList' /><#else><#assign dynaFields = '' /></#if>
-    <#list dynaList as d>
-    <#if dynaFields==''><#assign dynaFields = d.dynaFields /><#else><#list d.dynaFields?split(",") as df><#if dynaFields?index_of(df) lt 0><#assign dynaFields = dynaFields + ',' + df /></#if></#list></#if>
-    </#list>
-    cgForm.form_getDynaDict(this, '${dynaFields}')
-  },
   </#if>
   methods: {
     <#if USEINPUTNUMBER>
@@ -515,6 +508,15 @@ export default {
       </#if>
       </#list>
     },
+    </#if>
+    <#if dynaList??>
+	  initDynaDict: function() {
+	    <#if FP.isFlow><#assign dynaFields = 'flowSelection,flowNextOperator,flowCopyToList' /><#else><#assign dynaFields = '' /></#if>
+	    <#list dynaList as d>
+	    <#if dynaFields==''><#assign dynaFields = d.dynaFields /><#else><#list d.dynaFields?split(",") as df><#if dynaFields?index_of(df) lt 0><#assign dynaFields = dynaFields + ',' + df /></#if></#list></#if>
+	    </#list>
+	    cgForm.form_getDynaDict(this, '${dynaFields}')
+	  },
     </#if>
     <#if table.actionList?? && table.actionList?index_of(",add,") gte 0 >
     newRecord: function() {

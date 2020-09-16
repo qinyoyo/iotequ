@@ -156,19 +156,6 @@ export default {
     this.cgList.list_tableInit(this)
   },
   methods: {
-    initialQueryRecord() {
-      return Object.assign({
-        orgCode: null,
-        name: null,
-        parent: null,
-        shiftId: null,
-        managerName: null,
-        hrName: null,
-        hr: null,
-        manager: null,
-        managerOrgCode: null,
-      }, this.fixedQueryRecord)
-    },
   }
 }
 </script>

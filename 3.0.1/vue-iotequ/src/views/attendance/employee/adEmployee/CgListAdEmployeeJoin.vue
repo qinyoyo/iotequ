@@ -123,13 +123,6 @@ export default {
     this.cgList.list_tableInit(this)
   },
   methods: {
-    initialQueryRecord() {
-      return Object.assign({
-        realName: null,
-        orgCode: null,
-        employeeNo: null,
-      }, this.fixedQueryRecord)
-    },
   }
 }
 </script>

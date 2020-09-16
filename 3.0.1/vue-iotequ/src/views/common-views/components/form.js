@@ -24,16 +24,16 @@ export default {
       recordLoading: false,
       fixedFields: typeof this.openParams().fixedFields === 'object' ? this.openParams().fixedFields : {},
       openMode: this.openParams().openMode ? this.openParams().openMode : null,
-      record: this.openParams().record && typeof this.openParams().record === 'object' ? this.openParams().record : {},
-      blobRecord: {},
+      record: this.openParams().record && typeof this.openParams().record === 'object' ? Object.assign({},this.openParams().record) : {},
+      blobRecord: null,
       needDefaultFromServer: false,
-      dictionary: {},
       needLoadDictionary: false,
       allowViewRecord: true,
       allowEditRecord: true,
       allowAddRecord: true,
       isFlowRecord: false,
       isDialogForm: false,
+      isFirstTimeActived: true,
       continueAdd: false,
       defaultLabelPosition: 'top',
       rulesObject: null,
@@ -92,7 +92,7 @@ export default {
   created() {
     if (this.rulesObject) this.rules = this.rulesObject.getRules(this)
     if (this.isFlowRecord) this.record.flowSelection = 'approve'
-    if (cg.hasValue(this.dictionary))  cgForm.form_getQueryDictionary(this)
+    if (!cg.hasValue(this.dictionary))  cgForm.form_getQueryDictionary(this)
     if (this.queryById) {
       cgForm.form_getRecordFromServer(this,this.queryById)
       this.queryRefreshId = this.queryById
@@ -101,22 +101,30 @@ export default {
       cgForm.form_getRecordFromServer(this,this.openParams().id)
       this.queryRefreshId = this.openParams().id
     }
-    if (!cg.hasValue(this.dictionary) && this.needLoadDictionary) cgForm.form_getDictionary(this)
+    else if (!cg.hasValue(this.dictionary) && this.needLoadDictionary) cgForm.form_getDictionary(this)
+    else if (typeof this.initDynaDict == 'function') this.initDynaDict()
     this.just4elInputNumberNullBug()
   },
   mounted() {
-    const _this=this
-    if (this.isDialogForm) cgForm.form_mounted(this)
-    setTimeout(_=>{
+    if (this.isDialogForm) {
+      const _this=this
+     	cgForm.form_mounted(this)
+      setTimeout(_=>{
         _this.recordChanged = false
-    },200)
+      },200)
+    }
   },
-  activated() {
-    const _this=this      
-    if (!this.isDialogForm) cgForm.form_activedRefresh(this)
-    setTimeout(_=>{
-        _this.recordChanged = false
-    },200)
+  activated() {  
+    if (!this.isDialogForm) {
+    	cgForm.form_activedRefresh(this)
+      const _this=this  
+      if (this.isFirstTimeActived) {
+      	this.isFirstTimeActived = false
+      	setTimeout(_=>{
+           _this.recordChanged = false
+        },200)
+      } 
+    }
   },
   
   methods: {
@@ -124,6 +132,8 @@ export default {
       return this.dialogParams ? this.dialogParams : this.$route.query
     },
     just4elInputNumberNullBug: function() {
+    },
+    initDynaDict() {   	
     },
     submit: function() {
       if (this.recordChanged) cgForm.form_submit(this, this.isFlowRecord? 'f_'+this.flowAction : 'save', this.continueAdd && this.isDialogForm)

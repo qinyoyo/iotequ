@@ -141,17 +141,6 @@ export default {
     this.cgList.list_tableInit(this,'orderNum')
   },
   methods: {
-    initialQueryRecord() {
-      return Object.assign({
-        action: null,
-        title: null,
-        icon: null,
-        appendClass: null,
-        actionProperty: null,
-        rowProperty: null,
-        displayProperties: null,
-      }, this.fixedQueryRecord)
-    },
   }
 }
 </script>

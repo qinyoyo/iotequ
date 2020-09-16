@@ -110,22 +110,6 @@ export default {
     this.cgList.list_tableInit(this,'null')
   },
   methods: {
-    initialQueryRecord() {
-      return Object.assign({
-        sons: null,
-        sonAlign: null,
-        titleField: null,
-        parentEntity: null,
-        treeShowEntity: null,
-        toolbarMode: null,
-        sortField: null,
-        spanEntities: null,
-        actionList: null,
-        headTitle: null,
-        name: null,
-        tableId: null,
-      }, this.fixedQueryRecord)
-    },
   }
 }
 </script>
