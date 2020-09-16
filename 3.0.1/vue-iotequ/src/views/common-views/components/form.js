@@ -91,20 +91,44 @@ export default {
     }
   },
   created() {
+    let promise = null
     if (this.rulesObject) this.rules = this.rulesObject.getRules(this)
     if (this.isFlowRecord) this.record.flowSelection = 'approve'
     if (!cg.hasValue(this.dictionary))  cgForm.form_getQueryDictionary(this)
     if (this.queryById) {
-      cgForm.form_getRecordFromServer(this,this.queryById)
+      promise = cgForm.form_getRecordFromServer(this,this.queryById)
       this.queryRefreshId = this.queryById
-    } else if (this.isNew) cgForm.form_createNewRecord(this)
+    } 
+    else if (this.isNew) promise = cgForm.form_createNewRecord(this)
     else if ((this.isEdit || this.isDetail) && this.openParams().id && typeof this.openParams().record !== 'object') {
-      cgForm.form_getRecordFromServer(this,this.openParams().id)
+      promise = cgForm.form_getRecordFromServer(this,this.openParams().id)
       this.queryRefreshId = this.openParams().id
     }
-    else if (!cg.hasValue(this.dictionary) && this.needLoadDictionary) cgForm.form_getDictionary(this)
-    else if (typeof this.initDynaDict == 'function') this.initDynaDict()
-    this.just4elInputNumberNullBug()
+    else if (!cg.hasValue(this.dictionary) && this.needLoadDictionary) promise = cgForm.form_getDictionary(this)
+    else if (typeof this.initDynaDict == 'function') promise = this.initDynaDict()
+    if (!promise) {
+      this.just4elInputNumberNullBug()
+      this.initialized()
+    }
+    else {
+      const _this=this
+      const initFunc = function() {
+        _this.just4elInputNumberNullBug()
+        _this.initialized()
+        if (_this.isDialogForm) {
+           cgForm.form_mounted(_this)
+           _this.recordChanged = false
+        } else {
+          cgForm.form_activedRefresh(_this)
+          _this.recordChanged = false      
+        }
+      }
+      promise.then(_=>{
+        initFunc()
+      }).catch(_=>{
+        initFunc()
+      })
+    }
   },
   mounted() {
     if (this.isDialogForm) {
@@ -142,6 +166,8 @@ export default {
     just4elInputNumberNullBug: function() {
     },
     initDynaDict() {   	
+    },
+    initialized() {
     },
     submit: function() {
       if (this.recordChanged) cgForm.form_submit(this, this.isFlowRecord? 'f_'+this.flowAction : 'save', this.continueAdd && this.isDialogForm)
