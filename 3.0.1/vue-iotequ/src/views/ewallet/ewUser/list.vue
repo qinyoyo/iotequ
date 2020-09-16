@@ -47,13 +47,10 @@ import CgListEwUser from './CgListEwUser.vue'
 import ParentList from '@/views/common-views/components/list-sons'
 import CgListEwUserCount from '@/views/ewallet/ewUserCount/CgListEwUserCount.vue'
 import CgListEwUserTime from '@/views/ewallet/ewUserTime/CgListEwUserTime.vue'
-const mixins = [ParentList]
-const mixinContext = require.context('.', false, /list-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'EwUserList',
   components: { CgListEwUser, CgListEwUserCount, CgListEwUserTime },
-  mixins,
+  mixins: [ParentList],
   data() {
     return {
       fatherHeightPercent: 50,
@@ -71,5 +68,11 @@ export default {
       baseUrl: '/ewallet/ewUser'
     }
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /list-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+  mixins
 }
 </script>

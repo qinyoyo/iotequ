@@ -332,13 +332,10 @@ import ${c.component} from '@/views${c.vue}.vue'
 </#if>
 import rulesObject from './rules.js'
 import ParentForm from '@/views/common-views/components/form'
-const mixins = [ParentForm]
-const mixinContext = require.context('.', false, /CgForm${FP.name?cap_first}-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
 <#assign needServer = false />
-export default {
+const Comp = {
   name: 'CgForm${FP.name?cap_first}',
-  mixins,
+  mixins: [ParentForm],
   props: {
     <#if FP.isDialog>
     dialogParams: {
@@ -573,5 +570,11 @@ export default {
     }
     </#if>
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /CgForm${FP.name?cap_first}-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+    mixins
 }
 </script>

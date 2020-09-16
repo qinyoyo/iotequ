@@ -20,13 +20,10 @@
 <script>
 import ParentForm from '@/views/common-views/components/dialog'
 import CgFormRegister from './CgFormRegister'
-const mixins = [ParentForm]
-const mixinContext = require.context('.', false, /register-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'RegisterForm',
   components: { CgFormRegister },
-  mixins,
+  mixins: [ParentForm],
   data() {
     return {
       defaultIcon: 'fa fa-user-plus',
@@ -35,5 +32,11 @@ export default {
       baseUrl: '/framework/sysUser'
     }
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /register-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+  mixins
 }
 </script>

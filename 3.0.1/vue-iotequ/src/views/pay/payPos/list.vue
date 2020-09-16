@@ -14,13 +14,10 @@
 <script>
 import CgListPayPos from './CgListPayPos.vue'
 import ParentList from '@/views/common-views/components/list'
-const mixins = [ParentList]
-const mixinContext = require.context('.', false, /list-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'PayPosList',
   components: { CgListPayPos },
-  mixins,
+  mixins: [ParentList],
   data() {
     return {
       path: 'list',
@@ -28,5 +25,11 @@ export default {
       baseUrl: '/pay/payPos'
     }
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /list-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+  mixins
 }
 </script>

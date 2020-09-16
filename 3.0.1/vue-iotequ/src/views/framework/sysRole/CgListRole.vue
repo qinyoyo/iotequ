@@ -83,12 +83,9 @@
 import {hasAuthority} from '@/utils/cg'
 import rulesObject from './rules.js'
 import ParentTable from '@/views/common-views/components/table'
-const mixins = [ParentTable]
-const mixinContext = require.context('.', false, /CgListRole-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'CgListRole',
-  mixins,
+  mixins: [ParentTable],
   props: {
     selectionKey: {
       type: String,
@@ -135,5 +132,11 @@ export default {
       }
     }
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /CgListRole-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+  mixins
 }
 </script>

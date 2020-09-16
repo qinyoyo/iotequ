@@ -140,12 +140,9 @@ import {hasAuthority} from '@/utils/cg'
 import CgListUserJoin from '@/views/framework/sysUser/CgListUserJoin.vue'
 import rulesObject from './rules.js'
 import ParentTable from '@/views/common-views/components/table'
-const mixins = [ParentTable]
-const mixinContext = require.context('.', false, /CgListAdEmployee-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'CgListAdEmployee',
-  mixins,
+  mixins: [ParentTable],
   props: {
     selectionKey: {
       type: String,
@@ -210,5 +207,11 @@ export default {
       this.setJoinValues(this.queryRecord, field, joinDefine[field], rows)
     },
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /CgListAdEmployee-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+  mixins
 }
 </script>

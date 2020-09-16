@@ -14,13 +14,10 @@
 <script>
 import CgListDataDict from './CgListDataDict.vue'
 import ParentList from '@/views/common-views/components/list'
-const mixins = [ParentList]
-const mixinContext = require.context('.', false, /list-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'DataDictList',
   components: { CgListDataDict },
-  mixins,
+  mixins: [ParentList],
   data() {
     return {
       titleField: 'text',
@@ -29,5 +26,11 @@ export default {
       baseUrl: '/framework/sysDataDict'
     }
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /list-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+  mixins
 }
 </script>

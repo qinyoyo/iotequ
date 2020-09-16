@@ -20,13 +20,10 @@
 <script>
 import ParentForm from '@/views/common-views/components/dialog'
 import CgFormPmVersionFlow from './CgFormPmVersionFlow'
-const mixins = [ParentForm]
-const mixinContext = require.context('.', false, /assess-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'PmVersionFlowForm',
   components: { CgFormPmVersionFlow },
-  mixins,
+  mixins: [ParentForm],
   data() {
     return {
       isFlowRecord: true,
@@ -41,5 +38,11 @@ export default {
       baseUrl: '/project/version/pmVersionApplication'
     }
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /assess-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+  mixins
 }
 </script>

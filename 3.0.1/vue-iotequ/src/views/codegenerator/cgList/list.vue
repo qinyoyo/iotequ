@@ -47,13 +47,10 @@ import CgListCgList from './CgListCgList.vue'
 import ParentList from '@/views/common-views/components/list-sons'
 import CgFormCgList from '@/views/codegenerator/cgList/CgFormCgList.vue'
 import CgListCgListField from '@/views/codegenerator/cgListField/CgListCgListField.vue'
-const mixins = [ParentList]
-const mixinContext = require.context('.', false, /list-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'CgListList',
   components: { CgListCgList, CgFormCgList, CgListCgListField },
-  mixins,
+  mixins: [ParentList],
   data() {
     return {
       fatherHeightPercent: 15,
@@ -69,5 +66,11 @@ export default {
       baseUrl: '/codegenerator/cgList'
     }
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /list-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+  mixins
 }
 </script>

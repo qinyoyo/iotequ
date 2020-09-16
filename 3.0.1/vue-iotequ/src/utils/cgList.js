@@ -458,7 +458,11 @@ export default {
       }
     }   
     if (listObject.flowActionList)  additional=additional.concat(listObject.flowActionList)
-    return cg.allActionsOf(listObject, listObject.baseUrl, actionList, additional, mode=='context', row) 
+
+    const selectedCount = listObject.multiple ? (listObject.$refs && listObject.$refs.cgList ? listObject.$refs.cgList.store.states.selection.length : 0) 
+        : (listObject.$refs && listObject.$refs.cgList && listObject.$refs.cgList.store.states.currentRow ? 1: 0) 
+    return cg.allActionsOf(listObject, listObject.baseUrl, actionList, additional, mode=='context', row,
+           listObject.rows.length, selectedCount )   
   },
 
   // 系统action操作  action ：操作名  options : 用户定义按钮参数数据

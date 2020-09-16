@@ -20,13 +20,10 @@
 <script>
 import ParentForm from '@/views/common-views/components/dialog'
 import CgFormAction from './CgFormAction'
-const mixins = [ParentForm]
-const mixinContext = require.context('.', false, /record-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'ActionForm',
   components: { CgFormAction },
-  mixins,
+  mixins: [ParentForm],
   data() {
     return {
       allowAddRecord: false,
@@ -35,5 +32,11 @@ export default {
       baseUrl: '/framework/sysAction'
     }
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /record-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+  mixins
 }
 </script>

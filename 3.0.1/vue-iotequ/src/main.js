@@ -184,7 +184,3 @@ try { // cookie remember-me 不可读，自动检查一次
 } catch (error) {
     console.log('检查remember-me失败：' + error)
 }
-
-
-
-

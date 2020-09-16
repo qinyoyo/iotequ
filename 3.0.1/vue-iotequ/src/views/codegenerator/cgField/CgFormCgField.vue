@@ -255,12 +255,9 @@
 import cgForm from '@/utils/cgForm'
 import rulesObject from './rules.js'
 import ParentForm from '@/views/common-views/components/form'
-const mixins = [ParentForm]
-const mixinContext = require.context('.', false, /CgFormCgField-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'CgFormCgField',
-  mixins,
+  mixins: [ParentForm],
   props: {
   },
   data() {
@@ -349,5 +346,11 @@ export default {
       return this.$t(defTitle)
     },
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /CgFormCgField-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+    mixins
 }
 </script>

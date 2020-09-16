@@ -28,12 +28,9 @@
 import cgForm from '@/utils/cgForm'
 import rulesObject from './rules.js'
 import ParentForm from '@/views/common-views/components/form'
-const mixins = [ParentForm]
-const mixinContext = require.context('.', false, /CgFormPermission-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'CgFormPermission',
-  mixins,
+  mixins: [ParentForm],
   props: {
   },
   data() {
@@ -55,5 +52,11 @@ export default {
   },
   methods: {
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /CgFormPermission-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+    mixins
 }
 </script>

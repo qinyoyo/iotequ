@@ -346,12 +346,9 @@ import ${c.component} from '@/views${c.vue}.vue'
 import rulesObject from './rules.js'
 </#if>
 import ParentTable from '@/views/common-views/components/table'
-const mixins = [ParentTable]
-const mixinContext = require.context('.', false, /CgList${LP.name?cap_first}-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'CgList${LP.name?cap_first}',
-  mixins,
+  mixins: [ParentTable],
   props: {
     selectionKey: {
       type: String,
@@ -571,5 +568,11 @@ export default {
     }
     </#if>
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /CgList${LP.name?cap_first}-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+  mixins
 }
 </script>

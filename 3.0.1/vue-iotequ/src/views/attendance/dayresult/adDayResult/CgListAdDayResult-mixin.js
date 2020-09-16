@@ -3,7 +3,7 @@ export default {
   methods: {
     useMixinMethodsFirst() {
       return true
-    },    
+    },   
     doAction(action, options) {
       if (action!=='adjust' || (options && options.row)) this.super_doAction(action,options)
       else {

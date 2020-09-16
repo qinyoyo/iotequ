@@ -14,13 +14,10 @@
 <script>
 import CgListUserJoin from './CgListUserJoin.vue'
 import ParentList from '@/views/common-views/components/list'
-const mixins = [ParentList]
-const mixinContext = require.context('.', false, /join-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'UserJoinList',
   components: { CgListUserJoin },
-  mixins,
+  mixins: [ParentList],
   data() {
     return {
       path: 'join',
@@ -28,5 +25,11 @@ export default {
       baseUrl: '/framework/sysUser'
     }
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /join-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+  mixins
 }
 </script>

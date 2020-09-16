@@ -20,13 +20,10 @@
 <script>
 import ParentForm from '@/views/common-views/components/dialog'
 import CgFormAdjustApprove from './CgFormAdjustApprove'
-const mixins = [ParentForm]
-const mixinContext = require.context('.', false, /approve-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'AdjustApproveForm',
   components: { CgFormAdjustApprove },
-  mixins,
+  mixins: [ParentForm],
   data() {
     return {
       isFlowRecord: true,
@@ -36,5 +33,11 @@ export default {
       baseUrl: '/attendance/adjust/adAdjust'
     }
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /approve-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+  mixins
 }
 </script>

@@ -129,12 +129,9 @@
 <script>
 import {hasAuthority} from '@/utils/cg'
 import ParentTable from '@/views/common-views/components/table'
-const mixins = [ParentTable]
-const mixinContext = require.context('.', false, /CgListCgList-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'CgListCgList',
-  mixins,
+  mixins: [ParentTable],
   props: {
     selectionKey: {
       type: String,
@@ -204,5 +201,11 @@ export default {
       return this.cgList.list_groupFields(this, this.groupByEntityFields.split(','), row, column, rowIndex, columnIndex)
     },
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /CgListCgList-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+  mixins
 }
 </script>

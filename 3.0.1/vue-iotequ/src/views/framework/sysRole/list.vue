@@ -40,13 +40,10 @@
 import CgListRole from './CgListRole.vue'
 import ParentList from '@/views/common-views/components/list-sons'
 import CgFormPermissionTree from '@/views/common-views/extend-views/CgFormPermissionTree.vue'
-const mixins = [ParentList]
-const mixinContext = require.context('.', false, /list-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'RoleList',
   components: { CgListRole, CgFormPermissionTree },
-  mixins,
+  mixins: [ParentList],
   data() {
     return {
       titleField: 'name',
@@ -58,5 +55,11 @@ export default {
       baseUrl: '/framework/sysRole'
     }
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /list-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+  mixins
 }
 </script>

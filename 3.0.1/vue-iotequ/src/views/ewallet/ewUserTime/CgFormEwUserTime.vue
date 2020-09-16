@@ -67,12 +67,9 @@
 import cgForm from '@/utils/cgForm'
 import rulesObject from './rules.js'
 import ParentForm from '@/views/common-views/components/form'
-const mixins = [ParentForm]
-const mixinContext = require.context('.', false, /CgFormEwUserTime-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'CgFormEwUserTime',
-  mixins,
+  mixins: [ParentForm],
   props: {
     dialogParams: {
       type: Object,
@@ -99,5 +96,11 @@ export default {
       if (this.record.dayLimit === null) this.record.dayLimit = undefined
     },
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /CgFormEwUserTime-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+    mixins
 }
 </script>

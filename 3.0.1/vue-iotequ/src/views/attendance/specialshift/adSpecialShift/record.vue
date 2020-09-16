@@ -16,13 +16,10 @@
 <script>
 import ParentForm from '@/views/common-views/components/record'
 import CgFormAdSpecialShift from './CgFormAdSpecialShift'
-const mixins = [ParentForm]
-const mixinContext = require.context('.', false, /record-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'AdSpecialShiftForm',
   components: { CgFormAdSpecialShift },
-  mixins,
+  mixins: [ParentForm],
   data() {
     return {
       path: 'record',
@@ -30,5 +27,11 @@ export default {
       baseUrl: '/attendance/specialshift/adSpecialShift'
     }
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /record-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+  mixins
 }
 </script>

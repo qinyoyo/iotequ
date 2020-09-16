@@ -20,13 +20,10 @@
 <script>
 import ParentForm from '@/views/common-views/components/dialog'
 import CgFormEwUser from './CgFormEwUser'
-const mixins = [ParentForm]
-const mixinContext = require.context('.', false, /record-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'EwUserForm',
   components: { CgFormEwUser },
-  mixins,
+  mixins: [ParentForm],
   data() {
     return {
       path: 'record',
@@ -34,5 +31,11 @@ export default {
       baseUrl: '/ewallet/ewUser'
     }
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /record-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+  mixins
 }
 </script>

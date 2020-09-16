@@ -111,6 +111,13 @@ export default {
     cgList.list_destroyScroll(this)
   },
   methods: {
+    cgUtils() {
+      return {
+        cg,
+        time,
+        cgList
+      }
+    },
     rowClassName({row, rowIndex}){
       return this.editInlineFields && row && row.inlineEditting ? 'edit-inline' : ''
     },

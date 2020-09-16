@@ -11,9 +11,6 @@ const optionMergeStrategiesMethods = Vue.config.optionMergeStrategies.methods
 export function methodsStrategy(parentVal, childVal, vm, key) {
   if (!parentVal) return childVal
   if (!childVal) return parentVal
-  if (typeof parentVal.setChildrenParams === 'function') {
-    console.log('setChildrenParams')
-  }
   if (typeof parentVal.useMixinMethodsFirst === 'function' && parentVal.useMixinMethodsFirst()) {
     const ret = Object.create(null)
     extend(ret, childVal)

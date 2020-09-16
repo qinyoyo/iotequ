@@ -1,4 +1,5 @@
 import cg from '@/utils/cg'
+import time from '@/utils/time'
 import cgForm from '@/utils/cgForm'
 
 export default {
@@ -128,6 +129,13 @@ export default {
   },
   
   methods: {
+    cgUtils() {
+      return {
+        cg,
+        time,
+        cgForm
+      }
+    },
     openParams: function() {
       return this.dialogParams ? this.dialogParams : this.$route.query
     },

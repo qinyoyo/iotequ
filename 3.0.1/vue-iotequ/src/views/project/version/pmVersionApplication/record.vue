@@ -20,13 +20,10 @@
 <script>
 import ParentForm from '@/views/common-views/components/dialog'
 import CgFormPmVersionApplication from './CgFormPmVersionApplication'
-const mixins = [ParentForm]
-const mixinContext = require.context('.', false, /record-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'PmVersionApplicationForm',
   components: { CgFormPmVersionApplication },
-  mixins,
+  mixins: [ParentForm],
   data() {
     return {
       defaultIcon: 'el-icon-folder-add',
@@ -35,5 +32,11 @@ export default {
       baseUrl: '/project/version/pmVersionApplication'
     }
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /record-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+  mixins
 }
 </script>

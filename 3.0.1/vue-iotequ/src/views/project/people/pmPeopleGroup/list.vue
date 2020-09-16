@@ -40,13 +40,10 @@
 import CgListPmPeopleGroup from './CgListPmPeopleGroup.vue'
 import ParentList from '@/views/common-views/components/list-sons'
 import CgListPmPeople from '@/views/project/people/pmPeople/CgListPmPeople.vue'
-const mixins = [ParentList]
-const mixinContext = require.context('.', false, /list-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'PmPeopleGroupList',
   components: { CgListPmPeopleGroup, CgListPmPeople },
-  mixins,
+  mixins: [ParentList],
   data() {
     return {
       titleField: 'name',
@@ -60,5 +57,11 @@ export default {
       baseUrl: '/project/people/pmPeopleGroup'
     }
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /list-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+  mixins
 }
 </script>

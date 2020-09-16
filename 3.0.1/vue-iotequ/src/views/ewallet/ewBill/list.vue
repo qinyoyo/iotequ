@@ -14,13 +14,10 @@
 <script>
 import CgListEwBill from './CgListEwBill.vue'
 import ParentList from '@/views/common-views/components/list'
-const mixins = [ParentList]
-const mixinContext = require.context('.', false, /list-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'EwBillList',
   components: { CgListEwBill },
-  mixins,
+  mixins: [ParentList],
   data() {
     return {
       titleField: 'userNo',
@@ -29,5 +26,11 @@ export default {
       baseUrl: '/ewallet/ewBill'
     }
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /list-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+  mixins
 }
 </script>

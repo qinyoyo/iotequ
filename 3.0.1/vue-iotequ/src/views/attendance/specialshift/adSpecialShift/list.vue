@@ -47,13 +47,10 @@ import CgListAdSpecialShift from './CgListAdSpecialShift.vue'
 import ParentList from '@/views/common-views/components/list-sons'
 import CgFormAdSpecialShift from '@/views/attendance/specialshift/adSpecialShift/CgFormAdSpecialShift.vue'
 import CgListAdSpecialShiftTime from '@/views/attendance/specialshifttime/adSpecialShiftTime/CgListAdSpecialShiftTime.vue'
-const mixins = [ParentList]
-const mixinContext = require.context('.', false, /list-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'AdSpecialShiftList',
   components: { CgListAdSpecialShift, CgFormAdSpecialShift, CgListAdSpecialShiftTime },
-  mixins,
+  mixins: [ParentList],
   data() {
     return {
       titleField: 'name',
@@ -68,5 +65,11 @@ export default {
       baseUrl: '/attendance/specialshift/adSpecialShift'
     }
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /list-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+  mixins
 }
 </script>

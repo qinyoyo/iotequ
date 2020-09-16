@@ -14,13 +14,10 @@
 <script>
 import CgListAdEmployeeJoin from './CgListAdEmployeeJoin.vue'
 import ParentList from '@/views/common-views/components/list'
-const mixins = [ParentList]
-const mixinContext = require.context('.', false, /join-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'AdEmployeeJoinList',
   components: { CgListAdEmployeeJoin },
-  mixins,
+  mixins: [ParentList],
   data() {
     return {
       path: 'join',
@@ -28,5 +25,11 @@ export default {
       baseUrl: '/attendance/employee/adEmployee'
     }
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /join-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+  mixins
 }
 </script>

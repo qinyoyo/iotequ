@@ -16,13 +16,10 @@
 <script>
 import ParentForm from '@/views/common-views/components/record'
 import CgFormPermission from './CgFormPermission'
-const mixins = [ParentForm]
-const mixinContext = require.context('.', false, /record-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'PermissionForm',
   components: { CgFormPermission },
-  mixins,
+  mixins: [ParentForm],
   data() {
     return {
       allowAddRecord: false,
@@ -31,5 +28,11 @@ export default {
       baseUrl: '/framework/sysPermission'
     }
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /record-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+  mixins
 }
 </script>

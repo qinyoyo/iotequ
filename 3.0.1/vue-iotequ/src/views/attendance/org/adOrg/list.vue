@@ -40,13 +40,10 @@
 import CgListAdOrg from './CgListAdOrg.vue'
 import ParentList from '@/views/common-views/components/list-sons'
 import CgListAdEmployee from '@/views/attendance/employee/adEmployee/CgListAdEmployee.vue'
-const mixins = [ParentList]
-const mixinContext = require.context('.', false, /list-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'AdOrgList',
   components: { CgListAdOrg, CgListAdEmployee },
-  mixins,
+  mixins: [ParentList],
   data() {
     return {
       fatherHeightPercent: 50,
@@ -61,5 +58,11 @@ export default {
       baseUrl: '/attendance/org/adOrg'
     }
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /list-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+  mixins
 }
 </script>

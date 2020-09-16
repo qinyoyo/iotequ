@@ -39,13 +39,10 @@
 <script>
 import CgListPmVersionApplication from './CgListPmVersionApplication.vue'
 import ParentList from '@/views/common-views/components/list-sons'
-const mixins = [ParentList]
-const mixinContext = require.context('.', false, /list-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'PmVersionApplicationList',
   components: { CgListPmVersionApplication },
-  mixins,
+  mixins: [ParentList],
   data() {
     return {
       sonCount: 1,
@@ -56,5 +53,11 @@ export default {
       baseUrl: '/project/version/pmVersionApplication'
     }
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /list-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+  mixins
 }
 </script>

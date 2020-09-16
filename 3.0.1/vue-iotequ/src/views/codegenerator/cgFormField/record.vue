@@ -16,13 +16,10 @@
 <script>
 import ParentForm from '@/views/common-views/components/record'
 import CgFormCgFormField from './CgFormCgFormField'
-const mixins = [ParentForm]
-const mixinContext = require.context('.', false, /record-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'CgFormFieldForm',
   components: { CgFormCgFormField },
-  mixins,
+  mixins: [ParentForm],
   data() {
     return {
       path: 'record',
@@ -30,5 +27,11 @@ export default {
       baseUrl: '/codegenerator/cgFormField'
     }
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /record-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+  mixins
 }
 </script>

@@ -212,22 +212,32 @@ export function hasAuthorityOf(obj,baseUrl,action,record) {
  actionList : 功能字符列表，包括自定义action
  additional ： 自定义功能对象列表
  singleRowMode ： 单行模式
+ rowCount: 总行数
+ selectionCount： 选择的行数
  */
-export function allActionsOf(obj, baseUrl, actionList, additional, singleRowMode, record){    
+export function allActionsOf(obj, baseUrl, actionList, additional, singleRowMode, record, rowCount, selectionCount){    
   const vv = []
   if (!actionList) return vv
+  const checkAction = function(action,srmode,rows,selctions) {
+    if (!action) return false
+    if (srmode) return action.rowProperty.indexOf('sr')>=0
+    else if (action.rowProperty.indexOf('sr')>=0) return selctions == 1
+    else if (action.rowProperty.indexOf('mr')>=0) return selctions > 0
+    else if (action.action=='export' || action.action=='localExport') return rowCount > 0
+    else return true
+  }
   const ss = actionList.split(',')
   ss.forEach(s => {
     if (s && !vv.some(a=>a.action==s || (s=='list' && a.action=='refresh'))) {
       let action = systemActionParams[s==='list' ? 'refresh' : s]
-      if (action && (!singleRowMode ||(singleRowMode && action.rowProperty.indexOf('sr')>=0)) ) {
+      if (checkAction(action, singleRowMode, rowCount,selectionCount)) {
         if (hasAuthorityOf(obj,baseUrl,action,record)) vv.push({...action})
       }
     }
   })
   if (additional && additional.length > 0) {
     additional.forEach(action=>{
-      if (ss.indexOf(action.action)>=0 && (!singleRowMode ||(singleRowMode && action.rowProperty.indexOf('sr')>=0))) {
+      if (ss.indexOf(action.action)>=0 && checkAction(action, singleRowMode, rowCount,selectionCount)) {
         if (hasAuthorityOf(obj,baseUrl,action,record)) vv.push({...action})
       }
     })

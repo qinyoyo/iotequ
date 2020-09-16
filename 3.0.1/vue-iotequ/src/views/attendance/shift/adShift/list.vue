@@ -47,13 +47,10 @@ import CgListAdShift from './CgListAdShift.vue'
 import ParentList from '@/views/common-views/components/list-sons'
 import CgListAdShiftTime from '@/views/attendance/shifttime/adShiftTime/CgListAdShiftTime.vue'
 import CgListAdException from '@/views/attendance/exception/adException/CgListAdException.vue'
-const mixins = [ParentList]
-const mixinContext = require.context('.', false, /list-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'AdShiftList',
   components: { CgListAdShift, CgListAdShiftTime, CgListAdException },
-  mixins,
+  mixins: [ParentList],
   data() {
     return {
       fatherHeightPercent: 50,
@@ -71,5 +68,11 @@ export default {
       baseUrl: '/attendance/shift/adShift'
     }
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /list-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+  mixins
 }
 </script>

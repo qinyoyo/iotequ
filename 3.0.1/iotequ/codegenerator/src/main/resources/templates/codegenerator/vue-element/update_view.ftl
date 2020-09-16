@@ -60,13 +60,10 @@
 <script>
 import ParentForm from '@/views/common-views/components/<#if FP.isDialog>dialog<#else>record</#if>'
 import CgForm${FP.name?cap_first} from './CgForm${FP.name?cap_first}'
-const mixins = [ParentForm]
-const mixinContext = require.context('.', false, /${FP.path?split(",")[0]}-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: '${FP.name?cap_first}Form',
   components: { CgForm${FP.name?cap_first} },
-  mixins,
+  mixins: [ParentForm],
   data() {
     return {
       <#if !table.actionList ?? || (table.actionList?index_of(",edit,") lt 0 && table.actionList?index_of(",view,") lt 0) >
@@ -102,5 +99,11 @@ export default {
       baseUrl: '/${moduleName}/<#if subModule??>${subModule}/</#if>${generatorName}'
     }
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /${FP.path?split(",")[0]}-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+  mixins
 }
 </script>

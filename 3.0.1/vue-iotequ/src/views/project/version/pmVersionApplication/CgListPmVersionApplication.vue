@@ -127,12 +127,9 @@
 <script>
 import {hasAuthority} from '@/utils/cg'
 import ParentTable from '@/views/common-views/components/table'
-const mixins = [ParentTable]
-const mixinContext = require.context('.', false, /CgListPmVersionApplication-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'CgListPmVersionApplication',
-  mixins,
+  mixins: [ParentTable],
   props: {
     selectionKey: {
       type: String,
@@ -221,5 +218,11 @@ export default {
       }, this.fixedQueryRecord)
     },
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /CgListPmVersionApplication-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+  mixins
 }
 </script>

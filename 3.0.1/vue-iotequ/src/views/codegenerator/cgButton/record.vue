@@ -16,13 +16,10 @@
 <script>
 import ParentForm from '@/views/common-views/components/record'
 import CgFormCgButton from './CgFormCgButton'
-const mixins = [ParentForm]
-const mixinContext = require.context('.', false, /record-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'CgButtonForm',
   components: { CgFormCgButton },
-  mixins,
+  mixins: [ParentForm],
   data() {
     return {
       defaultIcon: 'el-icon-mouse',
@@ -31,5 +28,11 @@ export default {
       baseUrl: '/codegenerator/cgButton'
     }
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /record-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+  mixins
 }
 </script>

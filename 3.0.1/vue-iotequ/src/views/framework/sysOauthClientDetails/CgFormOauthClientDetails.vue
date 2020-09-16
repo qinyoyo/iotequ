@@ -122,12 +122,9 @@
 import cgForm from '@/utils/cgForm'
 import rulesObject from './rules.js'
 import ParentForm from '@/views/common-views/components/form'
-const mixins = [ParentForm]
-const mixinContext = require.context('.', false, /CgFormOauthClientDetails-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'CgFormOauthClientDetails',
-  mixins,
+  mixins: [ParentForm],
   props: {
     dialogParams: {
       type: Object,
@@ -171,5 +168,11 @@ export default {
         }
     },
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /CgFormOauthClientDetails-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+    mixins
 }
 </script>

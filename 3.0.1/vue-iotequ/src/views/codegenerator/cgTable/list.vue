@@ -68,13 +68,10 @@ import CgListCgField from '@/views/codegenerator/cgField/CgListCgField.vue'
 import CgListCgButton from '@/views/codegenerator/cgButton/CgListCgButton.vue'
 import ListViewCgList from '@/views/codegenerator/cgList/list.vue'
 import ListViewCgForm from '@/views/codegenerator/cgForm/list.vue'
-const mixins = [ParentList]
-const mixinContext = require.context('.', false, /list-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'CgTableList',
   components: { CgListCgTable, CgFormCgTable, CgListCgField, CgListCgButton, ListViewCgList, ListViewCgForm },
-  mixins,
+  mixins: [ParentList],
   data() {
     return {
       titleField: 'title',
@@ -98,5 +95,11 @@ export default {
       baseUrl: '/codegenerator/cgTable'
     }
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /list-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+  mixins
 }
 </script>

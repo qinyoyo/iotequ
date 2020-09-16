@@ -146,12 +146,9 @@
 import {hasAuthority} from '@/utils/cg'
 import CgListAdEmployee from '@/views/attendance/employee/adEmployee/CgListAdEmployee.vue'
 import ParentTable from '@/views/common-views/components/table'
-const mixins = [ParentTable]
-const mixinContext = require.context('.', false, /CgListAdDayResult-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: 'CgListAdDayResult',
-  mixins,
+  mixins: [ParentTable],
   props: {
     selectionKey: {
       type: String,
@@ -226,7 +223,7 @@ export default {
         employeeNo: null,
         employeeNoAdEmployeeRealName: null,
         realName: null,
-        adDate: [time.startOf(time.dateAdd(new Date(),-1,'day'),'day'),time.endOf(time.dateAdd(new Date(),-1,'day'))],
+        adDate: [this.cgUtils().time.startOf(this.cgUtils().time.dateAdd(new Date(),-1,'day'),'day'),this.cgUtils().time.endOf(this.cgUtils().time.dateAdd(new Date(),-1,'day'))],
         shiftName: null,
         stateName: null,
       }, this.fixedQueryRecord)
@@ -245,5 +242,11 @@ export default {
       this.setJoinValues(this.queryRecord, field, joinDefine[field], rows)
     },
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /CgListAdDayResult-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+  mixins
 }
 </script>

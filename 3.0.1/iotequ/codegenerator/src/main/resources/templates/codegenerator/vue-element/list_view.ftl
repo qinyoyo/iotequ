@@ -77,13 +77,10 @@ import ${son.component} from '@/views${son.componentPath}.vue'
 <#else>
 import ParentList from '@/views/common-views/components/list'
 </#if>
-const mixins = [ParentList]
-const mixinContext = require.context('.', false, /${LP.path}-mixin\.(js|vue)$/)
-mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
-export default {
+const Comp = {
   name: '${LP.name?cap_first}List',
   components: { CgList${LP.name?cap_first}<#if sons??><#list sons as son><#if son.componentPath??>, ${son.component}</#if></#list></#if> },
-  mixins,
+  mixins: [ParentList],
   data() {
     return {
       <#if LP.sonAlign?? && LP.sonAlign?starts_with('h')>
@@ -110,5 +107,11 @@ export default {
       baseUrl: '/${moduleName}/<#if subModule??>${subModule}/</#if>${generatorName}'
     }
   }
+}
+const mixins = [Comp]
+const mixinContext = require.context('.', false, /${LP.path}-mixin\.(js|vue)$/)
+mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
+export default mixins.length < 2 ? Comp : {
+  mixins
 }
 </script>
