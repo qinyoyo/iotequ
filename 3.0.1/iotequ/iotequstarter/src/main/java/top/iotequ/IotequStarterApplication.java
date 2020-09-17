@@ -13,6 +13,7 @@ import top.iotequ.framework.util.Util;
 @EnableResourceServer
 public class IotequStarterApplication {
 	public static void main(String[] args) {
+		//System.setProperty("spring.devtools.restart.enabled", "false"	);
 		Util.commonApplicationRun(IotequStarterApplication.class,"application.yml",null,args);
 	}
 }
