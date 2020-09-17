@@ -11,6 +11,9 @@
         <el-button class="cg-button" plain icon="el-icon-circle-close" @click.native="doAction('reset')">
           {{ $t('system.action.reset') }}
         </el-button>
+        <el-button v-for="(item,index) in addtionalActions" :key="index" class="cg-button" plain :icon="item.icon" @click.native="doAction(item.action)">
+          {{ $t(item.title) }}
+        </el-button>
       </div>
     </el-drawer>
 </template>
@@ -30,7 +33,8 @@ export default {
   },
   data() {
     return {
-      showQuery: this.value
+      showQuery: this.value,
+      addtionalActions: []
     }
   },
   watch: {
@@ -50,6 +54,9 @@ export default {
     doAction(action) {
       if (action!=='reset') this.showQuery = false
       this.$emit(action)
+    },
+    appendAction(action) {
+      this.addtionalActions.push(action)
     },
     isLandscape() {
       return window.orientation == 90 || window.orientation == -90

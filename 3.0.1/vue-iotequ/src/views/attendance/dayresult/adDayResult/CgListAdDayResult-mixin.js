@@ -1,9 +1,20 @@
 import time from '@/utils/time'
 export default {
+  mounted() {
+    this.$refs.query.appendAction({
+      action: 'adjust',
+      icon: 'fa fa-bolt fa-fw',
+      title: 'adDayResult.action.adjust'
+    })
+    this.$refs.query.$on('adjust',this.adjust)
+  },
   methods: {
     useMixinMethodsFirst() {
       return true
-    },   
+    }, 
+    adjust(e) {
+      this.doAction('adjustAll')
+    } ,
     doAction(action, options) {
       if (action=='adjustAll') {
         const listObject = this

@@ -5,7 +5,6 @@ export default {
       code: 'AdDayResult'
     },
     action: {
-      adjustAll: 'AdjustAll',
       adjust: 'Adjust',
       _exportConfirm: 'Confirm  export',
       _export: ' export'

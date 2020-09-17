@@ -69,7 +69,7 @@
                      :top="contextMenu.top" :left="contextMenu.left" 
                      @hide="contextMenu.visible = false" @select="(a)=>doAction(a, {row: contextMenu.row, trElement: contextMenu.trElement})"
     />
-    <cg-query-condition v-model="showQuery" :modal="!joinMode" :queryRecord="queryRecord"
+    <cg-query-condition v-model="showQuery" ref="query" :modal="!joinMode" :queryRecord="queryRecord"
                         @refresh="doAction('refresh')" @reset="queryRecord=initialQueryRecord()">
       <div>
         <el-form-item :label="$t('sysOrg.field.name')" prop="name" :size="$store.state.app.size">

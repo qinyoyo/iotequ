@@ -110,7 +110,7 @@
                      :top="contextMenu.top" :left="contextMenu.left" 
                      @hide="contextMenu.visible = false" @select="(a)=>doAction(a, {row: contextMenu.row, trElement: contextMenu.trElement})"
     />
-    <cg-query-condition v-model="showQuery" :modal="!joinMode" :queryRecord="queryRecord"
+    <cg-query-condition v-model="showQuery" ref="query" :modal="!joinMode" :queryRecord="queryRecord"
                         @refresh="doAction('refresh')" @reset="queryRecord=initialQueryRecord()">
       <el-form-item :label="$t('system.action.fuzzyQuery')" prop="search" :size="$store.state.app.size">
         <el-input v-model="queryRecord.search" type="text" name="search" clearable resize autofocus
@@ -194,18 +194,6 @@ const Comp = {
           needRefresh: true
         },
         {
-          action: 'adjustAll',
-          icon: 'el-icon-magic-stick',
-          title: 'adDayResult.action.adjustAll',
-          groupid: 10,
-          confirm: '',
-          rowProperty: 'nr',
-          actionProperty: 'aj',
-          displayProperties: 'tb',
-          appendClass: '',
-          needRefresh: true
-        },
-        {
           action: '_export',
           icon: 'e',
           title: 'adDayResult.action._export',
@@ -221,7 +209,7 @@ const Comp = {
     },
     allActions() {
       if (this.joinMode) return 'refresh,query'
-      else return 'query,,list,export,_export,adjust,adjustAll,'
+      else return 'query,,list,_export,adjust,export,'
     }
   },
   mounted() {

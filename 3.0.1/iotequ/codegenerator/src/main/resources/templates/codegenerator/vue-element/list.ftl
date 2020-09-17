@@ -253,7 +253,7 @@
     <#assign hasFilterQuery = false />
     <#if hasQueryField>
     <#assign INDEX = 1 />
-    <cg-query-condition v-model="showQuery" :modal="!joinMode" :queryRecord="queryRecord"
+    <cg-query-condition v-model="showQuery" ref="query" :modal="!joinMode" :queryRecord="queryRecord"
                         @refresh="doAction('refresh')" @reset="queryRecord=initialQueryRecord()">
       <#if LP.showSearch>
       <el-form-item :label="$t('system.action.fuzzyQuery')" prop="search" :size="$store.state.app.size">
