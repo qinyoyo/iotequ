@@ -14,6 +14,12 @@
   }
   .el-dialog__body {
     padding: 10px 20px 30px;
+    .cg-form {
+      .el-tab-pane {
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+    }
   }
   .el-dialog__wrapper {
     display:flex;

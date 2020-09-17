@@ -1,7 +1,7 @@
 import cg from '@/utils/cg'
 import time from '@/utils/time'
 import cgForm from '@/utils/cgForm'
-
+import {setStyle, onTransitionEnd, offTransitionEnd } from '@/utils/dom'
 export default {
   props: {
     showInDialog: {
@@ -91,10 +91,10 @@ export default {
     }
   },
   created() {
+    cgForm.form_getQueryDictionary(this)
     let promise = null
     if (this.rulesObject) this.rules = this.rulesObject.getRules(this)
     if (this.isFlowRecord) this.record.flowSelection = 'approve'
-    if (!cg.hasValue(this.dictionary))  cgForm.form_getQueryDictionary(this)
     if (this.queryById) {
       promise = cgForm.form_getRecordFromServer(this,this.queryById)
       this.queryRefreshId = this.queryById
@@ -104,39 +104,30 @@ export default {
       promise = cgForm.form_getRecordFromServer(this,this.openParams().id)
       this.queryRefreshId = this.openParams().id
     }
-    else if (!cg.hasValue(this.dictionary) && this.needLoadDictionary) promise = cgForm.form_getDictionary(this)
+    else if (this.needLoadDictionary) promise = cgForm.form_getDictionary(this)
     else if (typeof this.initDynaDict == 'function') promise = this.initDynaDict()
-    if (!promise) {
-      this.just4elInputNumberNullBug()
-      this.initialized()
-    }
-    else {
-      const _this=this
-      const initFunc = function() {
-        _this.just4elInputNumberNullBug()
-        _this.initialized()
-        if (_this.isDialogForm) {
-           cgForm.form_mounted(_this)
-           _this.recordChanged = false
-        } else {
-          cgForm.form_activedRefresh(_this)
-          _this.recordChanged = false      
-        }
-      }
-      promise.then(_=>{
-        initFunc()
-      }).catch(_=>{
-        initFunc()
-      })
-    }
-  },
-  mounted() {
-    if (this.isDialogForm) {
-      const _this=this
-     	cgForm.form_mounted(this)
+    const _this=this
+    const initFunc = function() {
+      _this.just4elInputNumberNullBug()
+      _this.initialized()
       setTimeout(_=>{
         _this.recordChanged = false
       },200)
+    }
+    if (!promise) initFunc()
+    else promise.then(_=>{
+      initFunc()
+    }).catch(_=>{
+      initFunc()
+    })
+  },
+  mounted() {
+    if (this.isDialogForm) {
+      if (!this.isDetail) cg.autoFocus(this)
+      const panes = this.$el.querySelectorAll('.el-dialog__body .el-tabs__content .el-tab-pane')
+      if (panes && panes.length>1) {
+        onTransitionEnd(this.$el,this.changeDialogTabPaneHeight)
+      } 
     }
   },
   activated() {  
@@ -158,6 +149,20 @@ export default {
         cg,
         time,
         cgForm
+      }
+    },
+    changeDialogTabPaneHeight() {
+      const panes = this.$el.querySelectorAll('.el-dialog__body .el-tabs__content .el-tab-pane')
+      if (panes && panes.length>1) {
+        offTransitionEnd(this.$el,this.beforeLeaveOnDialogTabs)
+        if (this.showInDialog) {
+          if (panes[0].clientHeight) {
+            const height = panes[0].clientHeight+'px'
+            for (let i=0;i<panes.length;i++) {
+              setStyle(panes[i], 'height', height)
+            }
+          }
+        }
       }
     },
     openParams: function() {

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: top.iotequ:reader:3.0.1-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/top/iotequ/reader/3.0.1-SNAPSHOT/reader-3.0.1-20200916.093801-9.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/top/iotequ/reader/3.0.1-SNAPSHOT/reader-3.0.1-20200916.093801-9-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/top/iotequ/reader/3.0.1-SNAPSHOT/reader-3.0.1-20200916.093801-9-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

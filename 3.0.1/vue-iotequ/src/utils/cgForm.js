@@ -37,15 +37,15 @@ export default {
       request(req, silence).then(res => {
         formObject.recordLoading = false
         if (res && res.hasOwnProperty('success') && res.success) {
+          if (res.dictionary) {
+            formObject.dictionary = Object.assign(formObject.dictionary, res.dictionary)
+            formObject.needLoadDictionary = false
+          }
           if (res.parameter && res.parameter.record) {
             formObject.record = Object.assign(formObject.record,res.parameter.record)
             if (formObject.idField) formObject[formObject.idField + 'Saved'] = formObject[formObject.idField]
             formObject.recordChanged = false
           }        
-          if (res.dictionary) {
-            formObject.dictionary = Object.assign(formObject.dictionary, res.dictionary)
-            formObject.needLoadDictionary = false
-          }
           if (onSuccess && typeof onSuccess === 'function') onSuccess(res)
         }
         resolve(res)
@@ -435,19 +435,5 @@ export default {
     formObject.$refs.cgForm.$el.querySelectorAll(".el-select .el-input__inner").forEach(e=>{
       e.readOnly=true
     }) 
-  },
-  form_mounted(formObject) {
-    if (!formObject.isDetail) cg.autoFocus(formObject)
-    if (formObject.showInDialog) {
-      const panes = formObject.$el.querySelectorAll('.el-dialog__body .el-tabs__content .el-tab-pane')
-      panes && panes.length>1 && setTimeout(_=>{
-        if (panes[0].clientHeight) {
-          const height = panes[0].clientHeight+'px'
-          for (let i=1;i<panes.length;i++) {
-            setStyle(panes[i], 'height', height)
-          }
-        }
-      },200)
-    } 
   }
 }

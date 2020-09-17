@@ -82,12 +82,12 @@
 				<groupId>top.iotequ</groupId>
 				<artifactId>svas-client</artifactId>
 				<version>3.0.1-SNAPSHOT</version>
-			</dependency>			
-<!--			<dependency>
+			</dependency>
+			<dependency>
 				<groupId>top.iotequ</groupId>
 				<artifactId>reader</artifactId>
 				<version>3.0.1-SNAPSHOT</version>
-			</dependency>-->
+			</dependency>
 	</dependencies>
 	<build>
 		<resources>
