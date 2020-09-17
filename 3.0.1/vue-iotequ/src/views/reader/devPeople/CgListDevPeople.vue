@@ -1,10 +1,10 @@
 
 <template>
   <div :class="joinMode?'cg-join-list':'cg-list'">
-    <el-backtop v-if="isTableMode()" ref="cgListBacktop" class="el-backtop" target=".cg-list-addayresult .el-table__body-wrapper" :visibility-height="200">
+    <el-backtop v-if="isTableMode()" ref="cgListBacktop" class="el-backtop" target=".cg-list-devpeople .el-table__body-wrapper" :visibility-height="200">
       <i class="el-icon-caret-top" />
     </el-backtop>
-    <el-table ref="cgList" v-if="isTableMode()" v-loading="listLoading" :data="rows" :class="className" row-key="id" :row-class-name="rowClassName" 
+    <el-table ref="cgList" v-if="isTableMode()" v-loading="listLoading" :data="rows" :class="className" row-key="userNo" :row-class-name="rowClassName" 
               style="width: 100%" :height="tableHeight()" :size="$store.state.app.size" 
               stripe :border="!mobile" highlight-current-row fit :span-method="groupFields" 
               @row-click="(row, column, event)=>cgList.list_rowClick(myself,{ row, column, event })" 
@@ -20,64 +20,58 @@
         <i slot="header" class="el-icon-menu"/>
       </el-table-column>
       <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter" width="36" />
-      <cg-table-column prop="orgName" :page="paginationCurrentPage" :label="$t('adDayResult.field.orgName')" align="left" >
+      <cg-table-column prop="orgCode" type="dict" :page="paginationCurrentPage" :label="$t('devPeople.field.orgCode')" sortable align="left" >
         <template slot-scope="scope">
-          {{ scope.row.orgName }}
+          {{ dictValue(scope.row.orgCode,dictionary.dictOrgCode,true,true) }}
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="employeeNo" :page="paginationCurrentPage" :label="$t('adDayResult.field.employeeNo')" align="left" >
-        <template slot-scope="scope">
-          {{ scope.row.employeeNo }}
-        </template>
-
-      </cg-table-column>
-      <cg-table-column prop="realName" :page="paginationCurrentPage" :label="$t('adDayResult.field.realName')" align="left" >
+      <cg-table-column prop="realName" :page="paginationCurrentPage" :label="$t('devPeople.field.realName')" sortable align="left" >
         <template slot-scope="scope">
           {{ scope.row.realName }}
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="adDate" type="date" :page="paginationCurrentPage" :label="$t('adDayResult.field.adDate')" sortable align="center" >
+      <cg-table-column prop="sex" type="dict" :page="paginationCurrentPage" :label="$t('devPeople.field.sex')" align="left" >
         <template slot-scope="scope">
-          {{ time2String(scope.row.adDate,'YYYY-MM-DD') }}
+          {{ dictValue(scope.row.sex,dictionary.dictSex,false,true) }}
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="shiftName" :page="paginationCurrentPage" :label="$t('adDayResult.field.shiftName')" align="left" >
+      <cg-table-column prop="birthDate" type="date" :page="paginationCurrentPage" :label="$t('devPeople.field.birthDate')" align="center" >
         <template slot-scope="scope">
-          {{ scope.row.shiftName }}
+          {{ time2String(scope.row.birthDate,'YYYY-MM-DD') }}
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="stateName" :page="paginationCurrentPage" :label="$t('adDayResult.field.stateName')" align="left" >
+      <cg-table-column prop="idType" type="dict" :page="paginationCurrentPage" :label="$t('devPeople.field.idType')" align="left" >
         <template slot-scope="scope">
-          {{ scope.row.stateName }}
+          {{ dictValue(scope.row.idType,dictionary.dictIdType,false,true) }}
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="times" :page="paginationCurrentPage" :label="$t('adDayResult.field.times')" align="right" >
+      <cg-table-column prop="mobilePhone" :page="paginationCurrentPage" :label="$t('devPeople.field.mobilePhone')" sortable align="left" >
         <template slot-scope="scope">
-          {{ scope.row.times }}
+          {{ scope.row.mobilePhone }}
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="minutes" :page="paginationCurrentPage" :label="$t('adDayResult.field.minutes')" align="right" >
+      <cg-table-column prop="email" :page="paginationCurrentPage" :label="$t('devPeople.field.email')" align="left" >
         <template slot-scope="scope">
-          {{ scope.row.minutes }}
+          {{ scope.row.email }}
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="workMinutes" :page="paginationCurrentPage" :label="$t('adDayResult.field.workMinutes')" align="right" >
+      <cg-table-column prop="regFingers" :page="paginationCurrentPage" :label="$t('devPeople.field.regFingers')" align="right" >
         <template slot-scope="scope">
-          {{ scope.row.workMinutes }}
+          {{ scope.row.regFingers }}
         </template>
 
       </cg-table-column>
       <cg-action v-model="showActionView" mode="2" :url="baseUrl" :actions="cgList.list_allActions(myself,'main')" @actionClick="doAction" />
     </el-table>
-    <cg-card-list v-else ref="cgList" v-loading="listLoading" :render="rowRender" :data="rows" :mainClass="className" row-key="id" :multiple="false" :height="tableHeight()" 
-                  :isLoading="listLoading" :groupBy="rowRenderGroupTitle?rowRenderGroupTitle:'orgName,employeeNo,realName'"
+    <cg-card-list v-else ref="cgList" v-loading="listLoading" :render="rowRender" :data="rows" :mainClass="className" row-key="userNo" :multiple="false" :height="tableHeight()" 
+                  :isLoading="listLoading" :groupBy="rowRenderGroupTitle?rowRenderGroupTitle:'orgCode'"
                   :isUnMore="paginationCurrentPage * paginationPageSize >= paginationTotalRecords" :cgList="myself"
                   @doAction="(a,row)=>doAction(a,{row})"
                   @loadMore="cgList.list_loadMore(myself)"
@@ -93,7 +87,7 @@
       </template>
     </cg-card-list>
     <nut-scroller v-if="mobile && isTableMode()"
-                  wrapperElement=".cg-list-addayresult .el-table__body-wrapper"
+                  wrapperElement=".cg-list-devpeople .el-table__body-wrapper"
                   :isLoading="listLoading"
                   :isUnMore="paginationCurrentPage * paginationPageSize >= paginationTotalRecords"
                   type="vertical"
@@ -117,25 +111,21 @@
                   prefix-icon="el-icon-search" :placeholder="$t('system.message.fuzzyQueryTip')" @keyup.enter.native="doAction('refresh')" />
       </el-form-item>
       <el-form-item v-show="queryRecord.search" :label="$t('system.action.field')" prop="searchFields" :size="$store.state.app.size">
-        <cg-select v-model="queryRecord.searchFields" dictionary="orgCode|adDayResult.field.orgCode,employeeNoAdEmployeeRealName|sysUser.field.realName,adDate|adDayResult.field.adDate," multiple/>
+        <cg-select v-model="queryRecord.searchFields" dictionary="orgCode|devPeople.field.orgCode,realName|devPeople.field.realName,mobilePhone|devPeople.field.mobilePhone," multiple/>
       </el-form-item>
       <el-divider />
       <div v-show="!queryRecord.search">
-        <el-form-item :label="$t('adDayResult.field.orgCode')" prop="orgCode" :size="$store.state.app.size">
+        <el-form-item :label="$t('devPeople.field.orgCode')" prop="orgCode" :size="$store.state.app.size">
           <cg-cascader v-model="queryRecord.orgCode" name="orgCode"  multiple collapse-tags clearable
-                       :disabled="fixedQueryRecord.orgCode?true:false" :dictionary="dictionary.dictOrgCode"/>
+                       :disabled="fixedQueryRecord.orgCode?true:false" :dictionary="dictionary.dictOrgCode" show-all-levels/>
         </el-form-item>
-        <cg-join v-model="employeeNoJoinVisible">
-          <CgListAdEmployee slot="popover" ref="employeeNoJoin" openID="employeeno-join" :height="joinHeight()" :joinShow="employeeNoJoinVisible" joinMultiple
-            :originSelections="queryRecord.employeeNo" selectionKey="employeeNo" joinMode @closeJoinList="(rows)=>{ getJoinFields('employeeNo',rows)}" @showJoinList="employeeNoJoinVisible=true"/>
-        <el-form-item slot="reference" :label="$t('sysUser.field.realName')" prop="employeeNoAdEmployeeRealName" :size="$store.state.app.size">
-          <el-input v-model="queryRecord.employeeNoAdEmployeeRealName" type="text" name="employeeNoAdEmployeeRealName"
-                    :readonly="fixedQueryRecord.employeeNoAdEmployeeRealName?true:false" :label="$t('sysUser.field.realName')" clearable resize autofocus @clear="clearJoinValues(myself,'employeeNoJoin')"/>
+        <el-form-item :label="$t('devPeople.field.realName')" prop="realName" :size="$store.state.app.size">
+          <el-input v-model="queryRecord.realName" type="text" name="realName"
+                    :readonly="fixedQueryRecord.realName?true:false" :label="$t('devPeople.field.realName')" clearable resize autofocus/>
         </el-form-item>
-        </cg-join>
-        <el-form-item :label="$t('adDayResult.field.adDate')" prop="adDate" :size="$store.state.app.size">
-          <cg-date-picker v-model="queryRecord.adDate" :title="$t('adDayResult.field.adDate')" name="adDate" :align="mobile?'right':'center'" type="daterange" :picker-options="datePickerOptions()"
-                          :readonly="fixedQueryRecord.adDate?true:false"  clearable />
+        <el-form-item :label="$t('devPeople.field.mobilePhone')" prop="mobilePhone" :size="$store.state.app.size">
+          <el-input v-model="queryRecord.mobilePhone" type="text" name="mobilePhone"
+                    :readonly="fixedQueryRecord.mobilePhone?true:false" :label="$t('devPeople.field.mobilePhone')" clearable resize autofocus/>
         </el-form-item>
       </div>
     </cg-query-condition>
@@ -144,37 +134,40 @@
 
 <script>
 import {hasAuthority} from '@/utils/cg'
-import CgListAdEmployee from '@/views/attendance/employee/adEmployee/CgListAdEmployee.vue'
 import ParentTable from '@/views/common-views/components/table'
 const Comp = {
-  name: 'CgListAdDayResult',
+  name: 'CgListDevPeople',
   mixins: [ParentTable],
   props: {
     selectionKey: {
       type: String,
-      default: 'id'
+      default: 'userNo'
     }
   },
-  components: { CgListAdEmployee },
   data() {
     return {
       path: 'list',
-      defaultOrder: 'org_code,employee_no,ad_date,shift_id,state',
-      queryRecordFields: ['orgCode','employeeNo','adDate'],
-      formPath: '/attendance/dayresult/adDayResult/record',
-      idField: 'id',
+      defaultOrder: 'org_code,sex,real_name',
+      queryRecordFields: ['orgCode','realName','mobilePhone'],
+      formPath: '/reader/devPeople/record',
+      idField: 'userNo',
       dictionary: {
-        dictOrgCode: []
+        dictFingerType: this.getDictionary('1,2,3,4,5,6,11,12','右食指,右中指,右无名指,左食指,左中指,左无名指,自定义1,自定义2'),
+        dictOrgCode: [],
+        dictSex: [],
+        dictIdType: [],
+        dictUserType: this.getDictionary('1,2','管理员,普通人员'),
+        dictRegisterType: []
       },
       needLoadDictionary: true,
-      employeeNoJoinVisible: false,
       paginationCurrentPage: 1,
       paginationPageSize: this.$store.state.app.device === 'mobile' ? 10 : 30,
       paginationTotalRecords: 0,
-      groupByEntityFields: 'orgName,employeeNo,realName',
-      listName: 'adDayResult',
-      generatorName: 'adDayResult',
-      baseUrl: '/attendance/dayresult/adDayResult'
+      groupByEntityFields: 'orgCode',
+      listName: 'devPeople',
+      multipleSelection: true,
+      generatorName: 'devPeople',
+      baseUrl: '/reader/devPeople'
     }
   },
   computed: {
@@ -182,46 +175,34 @@ const Comp = {
       if (this.joinMode) return []
       else return [
         {
-          action: 'adjust',
-          icon: 'fa fa-bolt fa-fw',
-          title: 'adDayResult.action.adjust',
+          action: 'syncRegFingers',
+          icon: 'fa fa-undo',
+          title: 'devPeople.action.syncRegFingers',
+          groupid: 10,
+          confirm: 'devPeople.action.syncRegFingersConfirm',
+          rowProperty: 'nr',
+          actionProperty: 'aj',
+          displayProperties: 'hm,gs,tb',
+          appendClass: '',
+          needRefresh: true
+        },
+        {
+          action: 'sample',
+          icon: 'fa fa-eyedropper',
+          title: 'devPeople.action.sample',
           groupid: 10,
           confirm: '',
           rowProperty: 'sr',
-          actionProperty: 'aj',
-          displayProperties: 'tb',
-          appendClass: '',
-          needRefresh: true
-        },
-        {
-          action: 'adjustAll',
-          icon: 'el-icon-magic-stick',
-          title: 'adDayResult.action.adjustAll',
-          groupid: 10,
-          confirm: '',
-          rowProperty: 'nr',
-          actionProperty: 'aj',
-          displayProperties: 'tb',
-          appendClass: '',
-          needRefresh: true
-        },
-        {
-          action: '_export',
-          icon: 'e',
-          title: 'adDayResult.action._export',
-          groupid: 10,
-          confirm: 'adDayResult.action._exportConfirm',
-          rowProperty: 'nr',
-          actionProperty: 'aj',
-          displayProperties: 'tb',
-          appendClass: '',
+          actionProperty: 'go',
+          displayProperties: 'tb,ed,rw',
+          appendClass: '{url:"/reader/devPeople/sample",openMode:"edit"}',
           needRefresh: false
-        }
+        },
       ]
     },
     allActions() {
       if (this.joinMode) return 'refresh,query'
-      else return 'query,,list,export,_export,adjust,adjustAll,'
+      else return 'query,,list,add,view,edit,delete,batdel,import,export,syncRegFingers,sample,'
     }
   },
   mounted() {
@@ -230,33 +211,39 @@ const Comp = {
   methods: {
     initialQueryRecord() {
       return Object.assign({
+        fingerNo1: null,
+        fingerNo2: null,
+        fingerType: null,
+        userNo: null,
         orgCode: null,
-        orgName: null,
-        employeeNo: null,
-        employeeNoAdEmployeeRealName: null,
         realName: null,
-        adDate: [this.cgUtils().time.startOf(this.cgUtils().time.dateAdd(new Date(),-1,'day'),'day'),this.cgUtils().time.endOf(this.cgUtils().time.dateAdd(new Date(),-1,'day'))],
-        shiftName: null,
-        stateName: null,
+        sex: null,
+        birthDate: null,
+        idType: null,
+        mobilePhone: null,
+        email: null,
+        dutyRank: null,
+        cardNo: null,
+        idNumber: null,
+        userType: null,
+        registerType: null,
+        validDate: null,
+        expiredDate: null,
+        regTime: null,
+        devPassword: null,
+        note: null,
+        idNation: null,
+        photo: null,
+        homeAddr: null,
       }, this.fixedQueryRecord)
     },
     groupFields({ row, column, rowIndex, columnIndex }) {
       return this.cgList.list_groupFields(this, this.groupByEntityFields.split(','), row, column, rowIndex, columnIndex)
     },
-    getJoinFields(field,rows) {
-      const joinDefine = {
-        employeeNo: {
-          valueField: 'employeeNo',
-          fields: 'isAttendance=isAttendance,employeeNoAdEmployeeRealName=realName'
-        },
-      }
-      this[field+'JoinVisible'] = false
-      this.setJoinValues(this.queryRecord, field, joinDefine[field], rows)
-    },
   }
 }
 const mixins = [Comp]
-const mixinContext = require.context('.', false, /CgListAdDayResult-mixin\.(js|vue)$/)
+const mixinContext = require.context('.', false, /CgListDevPeople-mixin\.(js|vue)$/)
 mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
 export default mixins.length < 2 ? Comp : {
   mixins

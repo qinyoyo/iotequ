@@ -1,7 +1,7 @@
 
 <template>
   <div :class="joinMode?'cg-join-list':'cg-list'">
-    <el-backtop v-if="isTableMode()" ref="cgListBacktop" class="el-backtop" target=".cg-list-addayresult .el-table__body-wrapper" :visibility-height="200">
+    <el-backtop v-if="isTableMode()" ref="cgListBacktop" class="el-backtop" target=".cg-list-devevent .el-table__body-wrapper" :visibility-height="200">
       <i class="el-icon-caret-top" />
     </el-backtop>
     <el-table ref="cgList" v-if="isTableMode()" v-loading="listLoading" :data="rows" :class="className" row-key="id" :row-class-name="rowClassName" 
@@ -20,64 +20,58 @@
         <i slot="header" class="el-icon-menu"/>
       </el-table-column>
       <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter" width="36" />
-      <cg-table-column prop="orgName" :page="paginationCurrentPage" :label="$t('adDayResult.field.orgName')" align="left" >
+      <cg-table-column prop="datDate" :page="paginationCurrentPage" :label="$t('devEvent.field.datDate')" align="left" >
         <template slot-scope="scope">
-          {{ scope.row.orgName }}
+          {{ scope.row.datDate }}
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="employeeNo" :page="paginationCurrentPage" :label="$t('adDayResult.field.employeeNo')" align="left" >
+      <cg-table-column prop="devType" :page="paginationCurrentPage" :label="$t('devEvent.field.devType')" align="left" >
         <template slot-scope="scope">
-          {{ scope.row.employeeNo }}
+          {{ scope.row.devType }}
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="realName" :page="paginationCurrentPage" :label="$t('adDayResult.field.realName')" align="left" >
+      <cg-table-column prop="devNo" :page="paginationCurrentPage" :label="$t('devEvent.field.devNo')" sortable align="left" >
+        <template slot-scope="scope">
+          {{ scope.row.devNo }}
+        </template>
+
+      </cg-table-column>
+      <cg-table-column prop="orgCode" type="dict" :page="paginationCurrentPage" :label="$t('devEvent.field.orgCode')" sortable align="left" >
+        <template slot-scope="scope">
+          {{ dictValue(scope.row.orgCode,dictionary.dictOrgCode,true,true) }}
+        </template>
+
+      </cg-table-column>
+      <cg-table-column prop="realName" :page="paginationCurrentPage" :label="$t('devEvent.field.userNo')" align="left" >
         <template slot-scope="scope">
           {{ scope.row.realName }}
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="adDate" type="date" :page="paginationCurrentPage" :label="$t('adDayResult.field.adDate')" sortable align="center" >
+      <cg-table-column prop="auditeeAuthType" type="dict" :page="paginationCurrentPage" :label="$t('devEvent.field.auditeeAuthType')" align="left" >
         <template slot-scope="scope">
-          {{ time2String(scope.row.adDate,'YYYY-MM-DD') }}
+          {{ dictValue(scope.row.auditeeAuthType,dictionary.dictAuditeeAuthType,false,true) }}
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="shiftName" :page="paginationCurrentPage" :label="$t('adDayResult.field.shiftName')" align="left" >
+      <cg-table-column prop="datTime" :page="paginationCurrentPage" :label="$t('devEvent.field.datTime')" align="left" >
         <template slot-scope="scope">
-          {{ scope.row.shiftName }}
+          {{ scope.row.datTime }}
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="stateName" :page="paginationCurrentPage" :label="$t('adDayResult.field.stateName')" align="left" >
+      <cg-table-column prop="status" type="dict" :page="paginationCurrentPage" :label="$t('devEvent.field.status')" sortable align="left" >
         <template slot-scope="scope">
-          {{ scope.row.stateName }}
-        </template>
-
-      </cg-table-column>
-      <cg-table-column prop="times" :page="paginationCurrentPage" :label="$t('adDayResult.field.times')" align="right" >
-        <template slot-scope="scope">
-          {{ scope.row.times }}
-        </template>
-
-      </cg-table-column>
-      <cg-table-column prop="minutes" :page="paginationCurrentPage" :label="$t('adDayResult.field.minutes')" align="right" >
-        <template slot-scope="scope">
-          {{ scope.row.minutes }}
-        </template>
-
-      </cg-table-column>
-      <cg-table-column prop="workMinutes" :page="paginationCurrentPage" :label="$t('adDayResult.field.workMinutes')" align="right" >
-        <template slot-scope="scope">
-          {{ scope.row.workMinutes }}
+          {{ dictValue(scope.row.status,dictionary.dictStatus,false,true) }}
         </template>
 
       </cg-table-column>
       <cg-action v-model="showActionView" mode="2" :url="baseUrl" :actions="cgList.list_allActions(myself,'main')" @actionClick="doAction" />
     </el-table>
     <cg-card-list v-else ref="cgList" v-loading="listLoading" :render="rowRender" :data="rows" :mainClass="className" row-key="id" :multiple="false" :height="tableHeight()" 
-                  :isLoading="listLoading" :groupBy="rowRenderGroupTitle?rowRenderGroupTitle:'orgName,employeeNo,realName'"
+                  :isLoading="listLoading" :groupBy="rowRenderGroupTitle?rowRenderGroupTitle:'datDate'"
                   :isUnMore="paginationCurrentPage * paginationPageSize >= paginationTotalRecords" :cgList="myself"
                   @doAction="(a,row)=>doAction(a,{row})"
                   @loadMore="cgList.list_loadMore(myself)"
@@ -93,7 +87,7 @@
       </template>
     </cg-card-list>
     <nut-scroller v-if="mobile && isTableMode()"
-                  wrapperElement=".cg-list-addayresult .el-table__body-wrapper"
+                  wrapperElement=".cg-list-devevent .el-table__body-wrapper"
                   :isLoading="listLoading"
                   :isUnMore="paginationCurrentPage * paginationPageSize >= paginationTotalRecords"
                   type="vertical"
@@ -117,25 +111,25 @@
                   prefix-icon="el-icon-search" :placeholder="$t('system.message.fuzzyQueryTip')" @keyup.enter.native="doAction('refresh')" />
       </el-form-item>
       <el-form-item v-show="queryRecord.search" :label="$t('system.action.field')" prop="searchFields" :size="$store.state.app.size">
-        <cg-select v-model="queryRecord.searchFields" dictionary="orgCode|adDayResult.field.orgCode,employeeNoAdEmployeeRealName|sysUser.field.realName,adDate|adDayResult.field.adDate," multiple/>
+        <cg-select v-model="queryRecord.searchFields" dictionary="devNo|devEvent.field.devNo,orgCode|devEvent.field.orgCode,userNo|devEvent.field.userNo,status|devEvent.field.status," multiple/>
       </el-form-item>
       <el-divider />
       <div v-show="!queryRecord.search">
-        <el-form-item :label="$t('adDayResult.field.orgCode')" prop="orgCode" :size="$store.state.app.size">
+        <el-form-item :label="$t('devEvent.field.devNo')" prop="devNo" :size="$store.state.app.size">
+          <el-input v-model="queryRecord.devNo" type="text" name="devNo"
+                    :readonly="fixedQueryRecord.devNo?true:false" :label="$t('devEvent.field.devNo')" clearable resize autofocus/>
+        </el-form-item>
+        <el-form-item :label="$t('devEvent.field.orgCode')" prop="orgCode" :size="$store.state.app.size">
           <cg-cascader v-model="queryRecord.orgCode" name="orgCode"  multiple collapse-tags clearable
-                       :disabled="fixedQueryRecord.orgCode?true:false" :dictionary="dictionary.dictOrgCode"/>
+                       :disabled="fixedQueryRecord.orgCode?true:false" :dictionary="dictionary.dictOrgCode" show-all-levels/>
         </el-form-item>
-        <cg-join v-model="employeeNoJoinVisible">
-          <CgListAdEmployee slot="popover" ref="employeeNoJoin" openID="employeeno-join" :height="joinHeight()" :joinShow="employeeNoJoinVisible" joinMultiple
-            :originSelections="queryRecord.employeeNo" selectionKey="employeeNo" joinMode @closeJoinList="(rows)=>{ getJoinFields('employeeNo',rows)}" @showJoinList="employeeNoJoinVisible=true"/>
-        <el-form-item slot="reference" :label="$t('sysUser.field.realName')" prop="employeeNoAdEmployeeRealName" :size="$store.state.app.size">
-          <el-input v-model="queryRecord.employeeNoAdEmployeeRealName" type="text" name="employeeNoAdEmployeeRealName"
-                    :readonly="fixedQueryRecord.employeeNoAdEmployeeRealName?true:false" :label="$t('sysUser.field.realName')" clearable resize autofocus @clear="clearJoinValues(myself,'employeeNoJoin')"/>
+        <el-form-item :label="$t('devEvent.field.userNo')" prop="userNo" :size="$store.state.app.size">
+          <el-input v-model="queryRecord.userNo" type="text" name="userNo"
+                    :readonly="fixedQueryRecord.userNo?true:false" :label="$t('devEvent.field.userNo')" clearable resize autofocus/>
         </el-form-item>
-        </cg-join>
-        <el-form-item :label="$t('adDayResult.field.adDate')" prop="adDate" :size="$store.state.app.size">
-          <cg-date-picker v-model="queryRecord.adDate" :title="$t('adDayResult.field.adDate')" name="adDate" :align="mobile?'right':'center'" type="daterange" :picker-options="datePickerOptions()"
-                          :readonly="fixedQueryRecord.adDate?true:false"  clearable />
+        <el-form-item :label="$t('devEvent.field.status')" prop="status" :size="$store.state.app.size">
+          <cg-select v-model="queryRecord.status" :dictionary="dictionary.dictStatus"
+                     :disabled="fixedQueryRecord.status?true:false"  :allow-create="!mobile" multiple clearable />
         </el-form-item>
       </div>
     </cg-query-condition>
@@ -144,10 +138,9 @@
 
 <script>
 import {hasAuthority} from '@/utils/cg'
-import CgListAdEmployee from '@/views/attendance/employee/adEmployee/CgListAdEmployee.vue'
 import ParentTable from '@/views/common-views/components/table'
 const Comp = {
-  name: 'CgListAdDayResult',
+  name: 'CgListDevEvent',
   mixins: [ParentTable],
   props: {
     selectionKey: {
@@ -155,73 +148,35 @@ const Comp = {
       default: 'id'
     }
   },
-  components: { CgListAdEmployee },
   data() {
     return {
       path: 'list',
-      defaultOrder: 'org_code,employee_no,ad_date,shift_id,state',
-      queryRecordFields: ['orgCode','employeeNo','adDate'],
-      formPath: '/attendance/dayresult/adDayResult/record',
+      defaultOrder: 'time desc',
+      queryRecordFields: ['devNo','orgCode','userNo','status'],
+      formPath: '/reader/devEvent/record',
       idField: 'id',
       dictionary: {
-        dictOrgCode: []
+        dictAuditorAuthType: this.getDictionary('0,1,2,3,4,5,6,7','指静脉,刷卡,密码,卡+指静脉,密码+指静脉,卡+密码,服务器认证,人脸识别'),
+        dictAuditorOrg: [],
+        dictAuthType: this.getDictionary('0,1','单人认证,双人认证'),
+        dictOrgCode: [],
+        dictAuditeeAuthType: this.getDictionary('0,1,2,3,4,5,6,7','指静脉,刷卡,密码,卡+指静脉,密码+指静脉,卡+密码,服务器认证,人脸识别'),
+        dictStatus: []
       },
       needLoadDictionary: true,
-      employeeNoJoinVisible: false,
       paginationCurrentPage: 1,
       paginationPageSize: this.$store.state.app.device === 'mobile' ? 10 : 30,
       paginationTotalRecords: 0,
-      groupByEntityFields: 'orgName,employeeNo,realName',
-      listName: 'adDayResult',
-      generatorName: 'adDayResult',
-      baseUrl: '/attendance/dayresult/adDayResult'
+      groupByEntityFields: 'datDate',
+      listName: 'devEvent',
+      generatorName: 'devEvent',
+      baseUrl: '/reader/devEvent'
     }
   },
   computed: {
-    additionalActions() {
-      if (this.joinMode) return []
-      else return [
-        {
-          action: 'adjust',
-          icon: 'fa fa-bolt fa-fw',
-          title: 'adDayResult.action.adjust',
-          groupid: 10,
-          confirm: '',
-          rowProperty: 'sr',
-          actionProperty: 'aj',
-          displayProperties: 'tb',
-          appendClass: '',
-          needRefresh: true
-        },
-        {
-          action: 'adjustAll',
-          icon: 'el-icon-magic-stick',
-          title: 'adDayResult.action.adjustAll',
-          groupid: 10,
-          confirm: '',
-          rowProperty: 'nr',
-          actionProperty: 'aj',
-          displayProperties: 'tb',
-          appendClass: '',
-          needRefresh: true
-        },
-        {
-          action: '_export',
-          icon: 'e',
-          title: 'adDayResult.action._export',
-          groupid: 10,
-          confirm: 'adDayResult.action._exportConfirm',
-          rowProperty: 'nr',
-          actionProperty: 'aj',
-          displayProperties: 'tb',
-          appendClass: '',
-          needRefresh: false
-        }
-      ]
-    },
     allActions() {
       if (this.joinMode) return 'refresh,query'
-      else return 'query,,list,export,_export,adjust,adjustAll,'
+      else return 'query,,list,view,'
     }
   },
   mounted() {
@@ -230,33 +185,27 @@ const Comp = {
   methods: {
     initialQueryRecord() {
       return Object.assign({
+        auditorAuthType: null,
+        auditorOrg: null,
+        authType: null,
+        datDate: null,
+        devType: null,
+        devNo: null,
         orgCode: null,
-        orgName: null,
-        employeeNo: null,
-        employeeNoAdEmployeeRealName: null,
         realName: null,
-        adDate: [this.cgUtils().time.startOf(this.cgUtils().time.dateAdd(new Date(),-1,'day'),'day'),this.cgUtils().time.endOf(this.cgUtils().time.dateAdd(new Date(),-1,'day'))],
-        shiftName: null,
-        stateName: null,
+        userNo: null,
+        auditeeAuthType: null,
+        datTime: null,
+        status: null,
       }, this.fixedQueryRecord)
     },
     groupFields({ row, column, rowIndex, columnIndex }) {
       return this.cgList.list_groupFields(this, this.groupByEntityFields.split(','), row, column, rowIndex, columnIndex)
     },
-    getJoinFields(field,rows) {
-      const joinDefine = {
-        employeeNo: {
-          valueField: 'employeeNo',
-          fields: 'isAttendance=isAttendance,employeeNoAdEmployeeRealName=realName'
-        },
-      }
-      this[field+'JoinVisible'] = false
-      this.setJoinValues(this.queryRecord, field, joinDefine[field], rows)
-    },
   }
 }
 const mixins = [Comp]
-const mixinContext = require.context('.', false, /CgListAdDayResult-mixin\.(js|vue)$/)
+const mixinContext = require.context('.', false, /CgListDevEvent-mixin\.(js|vue)$/)
 mixinContext.keys().forEach(key => { mixins.push(mixinContext(key).default) })
 export default mixins.length < 2 ? Comp : {
   mixins

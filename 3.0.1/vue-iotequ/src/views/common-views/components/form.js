@@ -122,13 +122,7 @@ export default {
     })
   },
   mounted() {
-    if (this.isDialogForm) {
-      if (!this.isDetail) cg.autoFocus(this)
-      const panes = this.$el.querySelectorAll('.el-dialog__body .el-tabs__content .el-tab-pane')
-      if (panes && panes.length>1) {
-        onTransitionEnd(this.$el,this.changeDialogTabPaneHeight)
-      } 
-    }
+    onTransitionEnd(this.$el,this.afterTransitionEnd)
   },
   activated() {  
     if (!this.isDialogForm) {
@@ -151,19 +145,22 @@ export default {
         cgForm
       }
     },
-    changeDialogTabPaneHeight() {
-      const panes = this.$el.querySelectorAll('.el-dialog__body .el-tabs__content .el-tab-pane')
-      if (panes && panes.length>1) {
-        offTransitionEnd(this.$el,this.beforeLeaveOnDialogTabs)
-        if (this.showInDialog) {
+    afterTransitionEnd() {
+      offTransitionEnd(this.$el,this.afterTransitionEnd)
+      this.recordChanged = false
+      if (this.isDialogForm) {
+        if (!this.isDetail) cg.autoFocus(this)
+        const panes = this.$el.querySelectorAll('.el-dialog__body .el-tabs__content .el-tab-pane')
+        if (panes && panes.length>1) {
           if (panes[0].clientHeight) {
             const height = panes[0].clientHeight+'px'
             for (let i=0;i<panes.length;i++) {
               setStyle(panes[i], 'height', height)
             }
           }
-        }
+        }        
       }
+      this.$emit('transitionEnd')
     },
     openParams: function() {
       return this.dialogParams ? this.dialogParams : this.$route.query

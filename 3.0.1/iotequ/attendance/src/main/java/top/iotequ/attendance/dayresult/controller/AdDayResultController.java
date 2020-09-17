@@ -58,6 +58,14 @@ public class AdDayResultController  {
 			return new RestJson().setMessage(e).toResponse();
 		}
 	}
+	@RequestMapping(value = "/action/adjustAll")
+	public ResponseEntity<Map<String, Object>> actionAdjustAll(String id,HttpServletRequest request, HttpServletResponse response){
+		try {
+		  return cgService.doAction("adjustAll",id,request).toResponse();
+		} catch (Exception e) {
+			return new RestJson().setMessage(e).toResponse();
+		}
+	}
 	@RequestMapping(value = "/action/adjust")
 	public ResponseEntity<Map<String, Object>> actionAdjust(String id,HttpServletRequest request, HttpServletResponse response){
 		try {

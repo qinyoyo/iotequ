@@ -5,18 +5,18 @@ export default {
       return true
     },   
     doAction(action, options) {
-      if (action!=='adjust' || (options && options.row)) this.super_doAction(action,options)
-      else {
+      if (action=='adjustAll') {
         const listObject = this
-        const params = listObject.list_getQueryParams(listObject)
-        listObject.list_request({ listObject, method: 'get', params, action: 'action/adjust',
+        const cgList = listObject.cgUtils().cgList
+        const params = cgList.list_getQueryParams(listObject)
+        cgList.list_request({ listObject, method: 'get', params, action: 'action/adjust',
         timeout: 0,
         onSuccess: (res) => { 
-          listObject.list_getDataFromServer(listObject)
+          cgList.list_getDataFromServer(listObject)
           listObject.$emit('adjust-completed', listObject)
         }
       })
-      }
+      } else this.super_doAction(action,options)
     },
     rowRenderGroupTitle(index) {
       return this.rows[index].orgName 

@@ -5,7 +5,8 @@ export default {
       code: '日考勤结果'
     },
     action: {
-      adjust: '考勤数据校正',
+      adjustAll: '批量数据校正',
+      adjust: '数据校正',
       _exportConfirm: '需选择部门和月份，继续生成报表',
       _export: 'export'
     },
