@@ -415,6 +415,9 @@
     span {
       pointer-events: none;
     }
+    button {
+      outline: none;
+    }
   }
   .btt .el-drawer__header {
     padding: 10px 10px 10px 20px;

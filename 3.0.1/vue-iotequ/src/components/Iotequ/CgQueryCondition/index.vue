@@ -1,5 +1,7 @@
 <template>
-    <el-drawer v-set-input:el-drawer__header.span.button="{tabindex: '-1'}" :title="$t('system.action.queryCondition')" :visible.sync="showQuery" :modal="modal" direction="ltr" append-to-body :size="mobile?(isLandscape()?'50%':'100%'):'500px'" >
+    <el-drawer v-set-input:el-drawer__header.span="{tabindex: '-1'}" :title="$t('system.action.queryCondition')" :visible.sync="showQuery" 
+               :modal="modal" direction="ltr" append-to-body :size="mobile?(isLandscape()?'50%':'100%'):'500px'" 
+               @opened="opened">
       <div class="query-form">
         <el-form ref="cgQuery" :model="queryRecord" :label-position="mobile?'left':'right'" label-width="120px" v-cg-form-adjust :size="$store.state.app.size" :class="(mobile?'cg-form-cell ':'')+'cg-no-border'">
           <slot/>
@@ -20,6 +22,7 @@
     </el-drawer>
 </template>
 <script>
+import { isVisible } from '@/utils/dom'
 export default {
   name: 'CgQueryCondition',
   props: {
@@ -53,6 +56,17 @@ export default {
     }
   },
   methods: {
+    opened() {
+      if (this.$refs.cgQuery && this.$refs.cgQuery.$el) {
+        const els = this.$refs.cgQuery.$el.querySelectorAll('input')
+        for (let i=0;i<els.length;i++) {
+          if (isVisible(els[i])) {
+            els[i].focus()
+            return 
+          }
+        }
+      }
+    },
     doAction(action) {
       if (action!=='reset') this.showQuery = false
       this.$emit(action)
