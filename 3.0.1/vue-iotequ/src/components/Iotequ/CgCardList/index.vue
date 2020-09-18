@@ -67,7 +67,6 @@ const CgCardListRow  = {
   }
 }
 import cg from '@/utils/cg'
-import cgList from '@/utils/'
 import { systemActionParams,randomColor } from '@/utils/cg'
 import { createStore, mapStates } from 'element-ui/packages/table/src/store/helper';
 import { template } from '@babel/core'
@@ -152,7 +151,7 @@ export default {
       let aa=[]
       let index=0
       if (this.cgList) {
-        const actions = this.cgList.list_allActions(this.cgList,'context',row)
+        const actions = this.cgList.cgList.list_allActions(this.cgList,'context',row)
         actions.forEach( a=> {
           if (a.action=='delete') aa.push({
             ...a, color: 'rgb(245, 108, 108)'})

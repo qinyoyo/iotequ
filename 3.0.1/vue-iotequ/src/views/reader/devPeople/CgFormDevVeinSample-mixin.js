@@ -42,6 +42,8 @@ export default {
       }, 
       action: 'action/getRegistered',
       silence: true
+    }).then(_=>{
+      this.recordChanged = false
     })
   },
   destroyed () {

@@ -234,7 +234,11 @@ export default {
       timeout: 15000 * data.length,
       onSuccess: res => {
         if (typeof formObject.onChange === 'function') formObject.onChange({refresh: true})
+        formObject.recordChanged = false
         that.form_close(formObject)
+      },
+      onError: res=> {
+        formObject.recordChanged = false
       }
     })
   },
