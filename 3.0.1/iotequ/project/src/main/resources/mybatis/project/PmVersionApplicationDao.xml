@@ -134,30 +134,30 @@
   <update id="updateSelective" parameterType="java.util.Map">
     update pm_version_application 
       <set>
-        <if test='flowState == "[null]"'> flow_state = NULL, </if>
-        <if test='flowState != null and flowState != "[null]"'> flow_state = #{flowState,jdbcType=INTEGER},</if>
-        <if test='flowRegisterTime == "[null]"'> flow_register_time = NULL, </if>
-        <if test='flowRegisterTime != null and flowRegisterTime != "[null]"'> flow_register_time = #{flowRegisterTime,jdbcType=TIMESTAMP},</if>
-        <if test='project == "[null]"'> project = NULL, </if>
-        <if test='project != null and project != "[null]"'> project = #{project,jdbcType=VARCHAR},</if>
-        <if test='applicationType == "[null]"'> application_type = NULL, </if>
-        <if test='applicationType != null and applicationType != "[null]"'> application_type = #{applicationType,jdbcType=INTEGER},</if>
-        <if test='customer == "[null]"'> customer = NULL, </if>
-        <if test='customer != null and customer != "[null]"'> customer = #{customer,jdbcType=VARCHAR},</if>
-        <if test='licence == "[null]"'> licence = NULL, </if>
-        <if test='licence != null and licence != "[null]"'> licence = #{licence,jdbcType=VARCHAR},</if>
-        <if test='contractNo == "[null]"'> contract_no = NULL, </if>
-        <if test='contractNo != null and contractNo != "[null]"'> contract_no = #{contractNo,jdbcType=VARCHAR},</if>
-        <if test='description == "[null]"'> description = NULL, </if>
-        <if test='description != null and description != "[null]"'> description = #{description,jdbcType=VARCHAR},</if>
-        <if test='versionInfo == "[null]"'> version_info = NULL, </if>
-        <if test='versionInfo != null and versionInfo != "[null]"'> version_info = #{versionInfo,jdbcType=VARCHAR},</if>
-        <if test='flowNote == "[null]"'> flow_note = NULL, </if>
-        <if test='flowNote != null and flowNote != "[null]"'> flow_note = #{flowNote,jdbcType=VARCHAR},</if>
-        <if test='addFile == "[null]"'> add_file = NULL, </if>
-        <if test='addFile != null and addFile != "[null]"'> add_file = #{addFile,jdbcType=VARCHAR},</if>
-        <if test='flowCopyToList == "[null]"'> flow_copy_to_list = NULL, </if>
-        <if test='flowCopyToList != null and flowCopyToList != "[null]"'> flow_copy_to_list = #{flowCopyToList,jdbcType=VARCHAR},</if>
+        <if test='flowState_string_ == "[null]"'> flow_state = NULL, </if>
+        <if test='flowState != null and flowState_string_ != "[null]"'> flow_state = #{flowState,jdbcType=INTEGER},</if>
+        <if test='flowRegisterTime_string_ == "[null]"'> flow_register_time = NULL, </if>
+        <if test='flowRegisterTime != null and flowRegisterTime_string_ != "[null]"'> flow_register_time = #{flowRegisterTime,jdbcType=TIMESTAMP},</if>
+        <if test='project_string_ == "[null]"'> project = NULL, </if>
+        <if test='project != null and project_string_ != "[null]"'> project = #{project,jdbcType=VARCHAR},</if>
+        <if test='applicationType_string_ == "[null]"'> application_type = NULL, </if>
+        <if test='applicationType != null and applicationType_string_ != "[null]"'> application_type = #{applicationType,jdbcType=INTEGER},</if>
+        <if test='customer_string_ == "[null]"'> customer = NULL, </if>
+        <if test='customer != null and customer_string_ != "[null]"'> customer = #{customer,jdbcType=VARCHAR},</if>
+        <if test='licence_string_ == "[null]"'> licence = NULL, </if>
+        <if test='licence != null and licence_string_ != "[null]"'> licence = #{licence,jdbcType=VARCHAR},</if>
+        <if test='contractNo_string_ == "[null]"'> contract_no = NULL, </if>
+        <if test='contractNo != null and contractNo_string_ != "[null]"'> contract_no = #{contractNo,jdbcType=VARCHAR},</if>
+        <if test='description_string_ == "[null]"'> description = NULL, </if>
+        <if test='description != null and description_string_ != "[null]"'> description = #{description,jdbcType=VARCHAR},</if>
+        <if test='versionInfo_string_ == "[null]"'> version_info = NULL, </if>
+        <if test='versionInfo != null and versionInfo_string_ != "[null]"'> version_info = #{versionInfo,jdbcType=VARCHAR},</if>
+        <if test='flowNote_string_ == "[null]"'> flow_note = NULL, </if>
+        <if test='flowNote != null and flowNote_string_ != "[null]"'> flow_note = #{flowNote,jdbcType=VARCHAR},</if>
+        <if test='addFile_string_ == "[null]"'> add_file = NULL, </if>
+        <if test='addFile != null and addFile_string_ != "[null]"'> add_file = #{addFile,jdbcType=VARCHAR},</if>
+        <if test='flowCopyToList_string_ == "[null]"'> flow_copy_to_list = NULL, </if>
+        <if test='flowCopyToList != null and flowCopyToList_string_ != "[null]"'> flow_copy_to_list = #{flowCopyToList,jdbcType=VARCHAR},</if>
         <if test="flowRegisterBy != null"> flow_register_by = #{flowRegisterBy,jdbcType=VARCHAR},</if>
         <if test="flowNextOperator != null"> flow_next_operator = #{flowNextOperator,jdbcType=VARCHAR},</if>
       </set>

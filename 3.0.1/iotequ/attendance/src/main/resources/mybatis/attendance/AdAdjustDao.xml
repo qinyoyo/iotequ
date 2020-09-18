@@ -107,24 +107,24 @@
   <update id="updateSelective" parameterType="java.util.Map">
     update ad_adjust 
       <set>
-        <if test='orgCode == "[null]"'> org_code = NULL, </if>
-        <if test='orgCode != null and orgCode != "[null]"'> org_code = #{orgCode,jdbcType=INTEGER},</if>
-        <if test='adjustType == "[null]"'> adjust_type = NULL, </if>
-        <if test='adjustType != null and adjustType != "[null]"'> adjust_type = #{adjustType,jdbcType=INTEGER},</if>
-        <if test='state == "[null]"'> state = NULL, </if>
-        <if test='state != null and state != "[null]"'> state = #{state,jdbcType=INTEGER},</if>
-        <if test='registerTime == "[null]"'> register_time = NULL, </if>
-        <if test='registerTime != null and registerTime != "[null]"'> register_time = #{registerTime,jdbcType=TIMESTAMP},</if>
-        <if test='startTime == "[null]"'> start_time = NULL, </if>
-        <if test='startTime != null and startTime != "[null]"'> start_time = #{startTime,jdbcType=TIMESTAMP},</if>
-        <if test='endTime == "[null]"'> end_time = NULL, </if>
-        <if test='endTime != null and endTime != "[null]"'> end_time = #{endTime,jdbcType=TIMESTAMP},</if>
-        <if test='description == "[null]"'> description = NULL, </if>
-        <if test='description != null and description != "[null]"'> description = #{description,jdbcType=VARCHAR},</if>
-        <if test='approveOrg == "[null]"'> approve_org = NULL, </if>
-        <if test='approveOrg != null and approveOrg != "[null]"'> approve_org = #{approveOrg,jdbcType=INTEGER},</if>
-        <if test='addFile == "[null]"'> add_file = NULL, </if>
-        <if test='addFile != null and addFile != "[null]"'> add_file = #{addFile,jdbcType=VARCHAR},</if>
+        <if test='orgCode_string_ == "[null]"'> org_code = NULL, </if>
+        <if test='orgCode != null and orgCode_string_ != "[null]"'> org_code = #{orgCode,jdbcType=INTEGER},</if>
+        <if test='adjustType_string_ == "[null]"'> adjust_type = NULL, </if>
+        <if test='adjustType != null and adjustType_string_ != "[null]"'> adjust_type = #{adjustType,jdbcType=INTEGER},</if>
+        <if test='state_string_ == "[null]"'> state = NULL, </if>
+        <if test='state != null and state_string_ != "[null]"'> state = #{state,jdbcType=INTEGER},</if>
+        <if test='registerTime_string_ == "[null]"'> register_time = NULL, </if>
+        <if test='registerTime != null and registerTime_string_ != "[null]"'> register_time = #{registerTime,jdbcType=TIMESTAMP},</if>
+        <if test='startTime_string_ == "[null]"'> start_time = NULL, </if>
+        <if test='startTime != null and startTime_string_ != "[null]"'> start_time = #{startTime,jdbcType=TIMESTAMP},</if>
+        <if test='endTime_string_ == "[null]"'> end_time = NULL, </if>
+        <if test='endTime != null and endTime_string_ != "[null]"'> end_time = #{endTime,jdbcType=TIMESTAMP},</if>
+        <if test='description_string_ == "[null]"'> description = NULL, </if>
+        <if test='description != null and description_string_ != "[null]"'> description = #{description,jdbcType=VARCHAR},</if>
+        <if test='approveOrg_string_ == "[null]"'> approve_org = NULL, </if>
+        <if test='approveOrg != null and approveOrg_string_ != "[null]"'> approve_org = #{approveOrg,jdbcType=INTEGER},</if>
+        <if test='addFile_string_ == "[null]"'> add_file = NULL, </if>
+        <if test='addFile != null and addFile_string_ != "[null]"'> add_file = #{addFile,jdbcType=VARCHAR},</if>
         <if test="employee != null"> employee = #{employee,jdbcType=VARCHAR},</if>
         <if test="hr != null"> hr = #{hr,jdbcType=VARCHAR},</if>
         <if test="approver != null"> approver = #{approver,jdbcType=VARCHAR},</if>

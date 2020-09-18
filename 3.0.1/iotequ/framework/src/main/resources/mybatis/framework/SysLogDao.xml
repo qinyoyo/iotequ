@@ -90,16 +90,16 @@
   <update id="updateSelective" parameterType="java.util.Map">
     update sys_log 
       <set>
-        <if test='time == "[null]"'> time = NULL, </if>
-        <if test='time != null and time != "[null]"'> time = #{time,jdbcType=TIMESTAMP},</if>
-        <if test='keyword == "[null]"'> keyword = NULL, </if>
-        <if test='keyword != null and keyword != "[null]"'> keyword = #{keyword,jdbcType=VARCHAR},</if>
-        <if test='userType == "[null]"'> user_type = NULL, </if>
-        <if test='userType != null and userType != "[null]"'> user_type = #{userType,jdbcType=VARCHAR},</if>
-        <if test='userInfo == "[null]"'> user_info = NULL, </if>
-        <if test='userInfo != null and userInfo != "[null]"'> user_info = #{userInfo,jdbcType=VARCHAR},</if>
-        <if test='note == "[null]"'> note = NULL, </if>
-        <if test='note != null and note != "[null]"'> note = #{note,jdbcType=VARCHAR},</if>
+        <if test='time_string_ == "[null]"'> time = NULL, </if>
+        <if test='time != null and time_string_ != "[null]"'> time = #{time,jdbcType=TIMESTAMP},</if>
+        <if test='keyword_string_ == "[null]"'> keyword = NULL, </if>
+        <if test='keyword != null and keyword_string_ != "[null]"'> keyword = #{keyword,jdbcType=VARCHAR},</if>
+        <if test='userType_string_ == "[null]"'> user_type = NULL, </if>
+        <if test='userType != null and userType_string_ != "[null]"'> user_type = #{userType,jdbcType=VARCHAR},</if>
+        <if test='userInfo_string_ == "[null]"'> user_info = NULL, </if>
+        <if test='userInfo != null and userInfo_string_ != "[null]"'> user_info = #{userInfo,jdbcType=VARCHAR},</if>
+        <if test='note_string_ == "[null]"'> note = NULL, </if>
+        <if test='note != null and note_string_ != "[null]"'> note = #{note,jdbcType=VARCHAR},</if>
       </set>
       where id = #{id,jdbcType=VARCHAR}
   </update>

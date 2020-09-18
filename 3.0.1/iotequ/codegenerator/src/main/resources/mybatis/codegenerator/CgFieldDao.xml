@@ -144,64 +144,64 @@
   <update id="updateSelective" parameterType="java.util.Map">
     update cg_field 
       <set>
-        <if test='tableId == "[null]"'> table_id = NULL, </if>
-        <if test='tableId != null and tableId != "[null]"'> table_id = #{tableId,jdbcType=VARCHAR},</if>
-        <if test='orderNum == "[null]"'> order_num = NULL, </if>
-        <if test='orderNum != null and orderNum != "[null]"'> order_num = #{orderNum,jdbcType=INTEGER},</if>
-        <if test='entityName == "[null]"'> entity_name = NULL, </if>
-        <if test='entityName != null and entityName != "[null]"'> entity_name = #{entityName,jdbcType=VARCHAR},</if>
-        <if test='title == "[null]"'> title = NULL, </if>
-        <if test='title != null and title != "[null]"'> title = #{title,jdbcType=VARCHAR},</if>
-        <if test='name == "[null]"'> name = NULL, </if>
-        <if test='name != null and name != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
-        <if test='keyType == "[null]"'> key_type = NULL, </if>
-        <if test='keyType != null and keyType != "[null]"'> key_type = #{keyType,jdbcType=VARCHAR},</if>
-        <if test='defaultValue == "[null]"'> default_value = NULL, </if>
-        <if test='defaultValue != null and defaultValue != "[null]"'> default_value = #{defaultValue,jdbcType=VARCHAR},</if>
-        <if test='showType == "[null]"'> show_type = NULL, </if>
-        <if test='showType != null and showType != "[null]"'> show_type = #{showType,jdbcType=VARCHAR},</if>
-        <if test='formatter == "[null]"'> formatter = NULL, </if>
-        <if test='formatter != null and formatter != "[null]"'> formatter = #{formatter,jdbcType=VARCHAR},</if>
-        <if test='isNull == "[null]"'> is_null = NULL, </if>
-        <if test='isNull != null and isNull != "[null]"'> is_null = #{isNull,jdbcType=VARCHAR},</if>
-        <if test='validExpression == "[null]"'> valid_expression = NULL, </if>
-        <if test='validExpression != null and validExpression != "[null]"'> valid_expression = #{validExpression,jdbcType=VARCHAR},</if>
-        <if test='validTitle == "[null]"'> valid_title = NULL, </if>
-        <if test='validTitle != null and validTitle != "[null]"'> valid_title = #{validTitle,jdbcType=VARCHAR},</if>
-        <if test='dictTable == "[null]"'> dict_table = NULL, </if>
-        <if test='dictTable != null and dictTable != "[null]"'> dict_table = #{dictTable,jdbcType=VARCHAR},</if>
-        <if test='dictField == "[null]"'> dict_field = NULL, </if>
-        <if test='dictField != null and dictField != "[null]"'> dict_field = #{dictField,jdbcType=VARCHAR},</if>
-        <if test='dictMultiple == "[null]"'> dict_multiple = NULL, </if>
-        <if test='dictMultiple != null and dictMultiple != "[null]"'> dict_multiple = #{dictMultiple,jdbcType=TINYINT},</if>
-        <if test='dictText == "[null]"'> dict_text = NULL, </if>
-        <if test='dictText != null and dictText != "[null]"'> dict_text = #{dictText,jdbcType=VARCHAR},</if>
-        <if test='dynaCondition == "[null]"'> dyna_condition = NULL, </if>
-        <if test='dynaCondition != null and dynaCondition != "[null]"'> dyna_condition = #{dynaCondition,jdbcType=VARCHAR},</if>
-        <if test='dictFullName == "[null]"'> dict_full_name = NULL, </if>
-        <if test='dictFullName != null and dictFullName != "[null]"'> dict_full_name = #{dictFullName,jdbcType=TINYINT},</if>
-        <if test='dictParent == "[null]"'> dict_parent = NULL, </if>
-        <if test='dictParent != null and dictParent != "[null]"'> dict_parent = #{dictParent,jdbcType=VARCHAR},</if>
-        <if test='dictParentField == "[null]"'> dict_parent_field = NULL, </if>
-        <if test='dictParentField != null and dictParentField != "[null]"'> dict_parent_field = #{dictParentField,jdbcType=VARCHAR},</if>
-        <if test='type == "[null]"'> type = NULL, </if>
-        <if test='type != null and type != "[null]"'> type = #{type,jdbcType=VARCHAR},</if>
-        <if test='length == "[null]"'> length = NULL, </if>
-        <if test='length != null and length != "[null]"'> length = #{length,jdbcType=INTEGER},</if>
-        <if test='numericPrecision == "[null]"'> numeric_precision = NULL, </if>
-        <if test='numericPrecision != null and numericPrecision != "[null]"'> numeric_precision = #{numericPrecision,jdbcType=INTEGER},</if>
-        <if test='numericScale == "[null]"'> numeric_scale = NULL, </if>
-        <if test='numericScale != null and numericScale != "[null]"'> numeric_scale = #{numericScale,jdbcType=INTEGER},</if>
-        <if test='fkTable == "[null]"'> fk_table = NULL, </if>
-        <if test='fkTable != null and fkTable != "[null]"'> fk_table = #{fkTable,jdbcType=VARCHAR},</if>
-        <if test='fkColumn == "[null]"'> fk_column = NULL, </if>
-        <if test='fkColumn != null and fkColumn != "[null]"'> fk_column = #{fkColumn,jdbcType=VARCHAR},</if>
-        <if test='fkOnDelete == "[null]"'> fk_on_delete = NULL, </if>
-        <if test='fkOnDelete != null and fkOnDelete != "[null]"'> fk_on_delete = #{fkOnDelete,jdbcType=VARCHAR},</if>
-        <if test='fkOnUpdate == "[null]"'> fk_on_update = NULL, </if>
-        <if test='fkOnUpdate != null and fkOnUpdate != "[null]"'> fk_on_update = #{fkOnUpdate,jdbcType=VARCHAR},</if>
-        <if test='defaultQueryValue == "[null]"'> default_query_value = NULL, </if>
-        <if test='defaultQueryValue != null and defaultQueryValue != "[null]"'> default_query_value = #{defaultQueryValue,jdbcType=VARCHAR},</if>
+        <if test='tableId_string_ == "[null]"'> table_id = NULL, </if>
+        <if test='tableId != null and tableId_string_ != "[null]"'> table_id = #{tableId,jdbcType=VARCHAR},</if>
+        <if test='orderNum_string_ == "[null]"'> order_num = NULL, </if>
+        <if test='orderNum != null and orderNum_string_ != "[null]"'> order_num = #{orderNum,jdbcType=INTEGER},</if>
+        <if test='entityName_string_ == "[null]"'> entity_name = NULL, </if>
+        <if test='entityName != null and entityName_string_ != "[null]"'> entity_name = #{entityName,jdbcType=VARCHAR},</if>
+        <if test='title_string_ == "[null]"'> title = NULL, </if>
+        <if test='title != null and title_string_ != "[null]"'> title = #{title,jdbcType=VARCHAR},</if>
+        <if test='name_string_ == "[null]"'> name = NULL, </if>
+        <if test='name != null and name_string_ != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
+        <if test='keyType_string_ == "[null]"'> key_type = NULL, </if>
+        <if test='keyType != null and keyType_string_ != "[null]"'> key_type = #{keyType,jdbcType=VARCHAR},</if>
+        <if test='defaultValue_string_ == "[null]"'> default_value = NULL, </if>
+        <if test='defaultValue != null and defaultValue_string_ != "[null]"'> default_value = #{defaultValue,jdbcType=VARCHAR},</if>
+        <if test='showType_string_ == "[null]"'> show_type = NULL, </if>
+        <if test='showType != null and showType_string_ != "[null]"'> show_type = #{showType,jdbcType=VARCHAR},</if>
+        <if test='formatter_string_ == "[null]"'> formatter = NULL, </if>
+        <if test='formatter != null and formatter_string_ != "[null]"'> formatter = #{formatter,jdbcType=VARCHAR},</if>
+        <if test='isNull_string_ == "[null]"'> is_null = NULL, </if>
+        <if test='isNull != null and isNull_string_ != "[null]"'> is_null = #{isNull,jdbcType=VARCHAR},</if>
+        <if test='validExpression_string_ == "[null]"'> valid_expression = NULL, </if>
+        <if test='validExpression != null and validExpression_string_ != "[null]"'> valid_expression = #{validExpression,jdbcType=VARCHAR},</if>
+        <if test='validTitle_string_ == "[null]"'> valid_title = NULL, </if>
+        <if test='validTitle != null and validTitle_string_ != "[null]"'> valid_title = #{validTitle,jdbcType=VARCHAR},</if>
+        <if test='dictTable_string_ == "[null]"'> dict_table = NULL, </if>
+        <if test='dictTable != null and dictTable_string_ != "[null]"'> dict_table = #{dictTable,jdbcType=VARCHAR},</if>
+        <if test='dictField_string_ == "[null]"'> dict_field = NULL, </if>
+        <if test='dictField != null and dictField_string_ != "[null]"'> dict_field = #{dictField,jdbcType=VARCHAR},</if>
+        <if test='dictMultiple_string_ == "[null]"'> dict_multiple = NULL, </if>
+        <if test='dictMultiple != null and dictMultiple_string_ != "[null]"'> dict_multiple = #{dictMultiple,jdbcType=TINYINT},</if>
+        <if test='dictText_string_ == "[null]"'> dict_text = NULL, </if>
+        <if test='dictText != null and dictText_string_ != "[null]"'> dict_text = #{dictText,jdbcType=VARCHAR},</if>
+        <if test='dynaCondition_string_ == "[null]"'> dyna_condition = NULL, </if>
+        <if test='dynaCondition != null and dynaCondition_string_ != "[null]"'> dyna_condition = #{dynaCondition,jdbcType=VARCHAR},</if>
+        <if test='dictFullName_string_ == "[null]"'> dict_full_name = NULL, </if>
+        <if test='dictFullName != null and dictFullName_string_ != "[null]"'> dict_full_name = #{dictFullName,jdbcType=TINYINT},</if>
+        <if test='dictParent_string_ == "[null]"'> dict_parent = NULL, </if>
+        <if test='dictParent != null and dictParent_string_ != "[null]"'> dict_parent = #{dictParent,jdbcType=VARCHAR},</if>
+        <if test='dictParentField_string_ == "[null]"'> dict_parent_field = NULL, </if>
+        <if test='dictParentField != null and dictParentField_string_ != "[null]"'> dict_parent_field = #{dictParentField,jdbcType=VARCHAR},</if>
+        <if test='type_string_ == "[null]"'> type = NULL, </if>
+        <if test='type != null and type_string_ != "[null]"'> type = #{type,jdbcType=VARCHAR},</if>
+        <if test='length_string_ == "[null]"'> length = NULL, </if>
+        <if test='length != null and length_string_ != "[null]"'> length = #{length,jdbcType=INTEGER},</if>
+        <if test='numericPrecision_string_ == "[null]"'> numeric_precision = NULL, </if>
+        <if test='numericPrecision != null and numericPrecision_string_ != "[null]"'> numeric_precision = #{numericPrecision,jdbcType=INTEGER},</if>
+        <if test='numericScale_string_ == "[null]"'> numeric_scale = NULL, </if>
+        <if test='numericScale != null and numericScale_string_ != "[null]"'> numeric_scale = #{numericScale,jdbcType=INTEGER},</if>
+        <if test='fkTable_string_ == "[null]"'> fk_table = NULL, </if>
+        <if test='fkTable != null and fkTable_string_ != "[null]"'> fk_table = #{fkTable,jdbcType=VARCHAR},</if>
+        <if test='fkColumn_string_ == "[null]"'> fk_column = NULL, </if>
+        <if test='fkColumn != null and fkColumn_string_ != "[null]"'> fk_column = #{fkColumn,jdbcType=VARCHAR},</if>
+        <if test='fkOnDelete_string_ == "[null]"'> fk_on_delete = NULL, </if>
+        <if test='fkOnDelete != null and fkOnDelete_string_ != "[null]"'> fk_on_delete = #{fkOnDelete,jdbcType=VARCHAR},</if>
+        <if test='fkOnUpdate_string_ == "[null]"'> fk_on_update = NULL, </if>
+        <if test='fkOnUpdate != null and fkOnUpdate_string_ != "[null]"'> fk_on_update = #{fkOnUpdate,jdbcType=VARCHAR},</if>
+        <if test='defaultQueryValue_string_ == "[null]"'> default_query_value = NULL, </if>
+        <if test='defaultQueryValue != null and defaultQueryValue_string_ != "[null]"'> default_query_value = #{defaultQueryValue,jdbcType=VARCHAR},</if>
       </set>
       where id = #{id,jdbcType=VARCHAR}
   </update>

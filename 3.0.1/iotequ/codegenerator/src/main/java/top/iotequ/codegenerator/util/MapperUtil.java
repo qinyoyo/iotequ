@@ -358,8 +358,8 @@ public class MapperUtil {
                 if (Util.isEmpty(f.getName()) || f.getName().indexOf(":") >= 0) continue;     //  跳过非数据库字段
                 if (f.getName().equals(pk.getName()))
                     continue;
-                sb.append("        <if test='" + f.getEntityName() + " == \"[null]\"'> " + f.getName() + " = NULL, </if>\n");
-                sb.append("        <if test='" + f.getEntityName() + " != null and " + f.getEntityName() + " != \"[null]\"'> "+ f.getName() + " = #{"
+                sb.append("        <if test='" + f.getEntityName() + "_string_ == \"[null]\"'> " + f.getName() + " = NULL, </if>\n");
+                sb.append("        <if test='" + f.getEntityName() + " != null and " + f.getEntityName() + "_string_ != \"[null]\"'> "+ f.getName() + " = #{"
                         + f.getEntityName() + ",jdbcType=" + TypeUtil.jdbcType(f) + "},</if>\n");
             }
             for (CgField f : joinWithoutDictList) {

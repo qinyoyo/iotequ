@@ -95,40 +95,40 @@
   <update id="updateSelective" parameterType="java.util.Map">
     update cg_table 
       <set>
-        <if test='code == "[null]"'> code = NULL, </if>
-        <if test='code != null and code != "[null]"'> code = #{code,jdbcType=VARCHAR},</if>
-        <if test='name == "[null]"'> name = NULL, </if>
-        <if test='name != null and name != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
-        <if test='title == "[null]"'> title = NULL, </if>
-        <if test='title != null and title != "[null]"'> title = #{title,jdbcType=VARCHAR},</if>
-        <if test='subPackage == "[null]"'> sub_package = NULL, </if>
-        <if test='subPackage != null and subPackage != "[null]"'> sub_package = #{subPackage,jdbcType=VARCHAR},</if>
-        <if test='entity == "[null]"'> entity = NULL, </if>
-        <if test='entity != null and entity != "[null]"'> entity = #{entity,jdbcType=VARCHAR},</if>
-        <if test='template == "[null]"'> template = NULL, </if>
-        <if test='template != null and template != "[null]"'> template = #{template,jdbcType=VARCHAR},</if>
-        <if test='trialLicence == "[null]"'> trial_licence = NULL, </if>
-        <if test='trialLicence != null and trialLicence != "[null]"'> trial_licence = #{trialLicence,jdbcType=INTEGER},</if>
-        <if test='trialDays == "[null]"'> trial_days = NULL, </if>
-        <if test='trialDays != null and trialDays != "[null]"'> trial_days = #{trialDays,jdbcType=INTEGER},</if>
-        <if test='actionList == "[null]"'> action_list = NULL, </if>
-        <if test='actionList != null and actionList != "[null]"'> action_list = #{actionList,jdbcType=VARCHAR},</if>
-        <if test='imports == "[null]"'> imports = NULL, </if>
-        <if test='imports != null and imports != "[null]"'> imports = #{imports,jdbcType=VARCHAR},</if>
-        <if test='controllerExtends == "[null]"'> controller_extends = NULL, </if>
-        <if test='controllerExtends != null and controllerExtends != "[null]"'> controller_extends = #{controllerExtends,jdbcType=VARCHAR},</if>
-        <if test='pojoImports == "[null]"'> pojo_imports = NULL, </if>
-        <if test='pojoImports != null and pojoImports != "[null]"'> pojo_imports = #{pojoImports,jdbcType=VARCHAR},</if>
-        <if test='pojoExtends == "[null]"'> pojo_extends = NULL, </if>
-        <if test='pojoExtends != null and pojoExtends != "[null]"'> pojo_extends = #{pojoExtends,jdbcType=VARCHAR},</if>
-        <if test='pojoJavaCode == "[null]"'> pojo_java_code = NULL, </if>
-        <if test='pojoJavaCode != null and pojoJavaCode != "[null]"'> pojo_java_code = #{pojoJavaCode,jdbcType=VARCHAR},</if>
-        <if test='creator == "[null]"'> creator = NULL, </if>
-        <if test='creator != null and creator != "[null]"'> creator = #{creator,jdbcType=VARCHAR},</if>
-        <if test='flowDynaFieldsOp == "[null]"'> flow_dyna_fields_op = NULL, </if>
-        <if test='flowDynaFieldsOp != null and flowDynaFieldsOp != "[null]"'> flow_dyna_fields_op = #{flowDynaFieldsOp,jdbcType=VARCHAR},</if>
-        <if test='flowDynaFieldsCp == "[null]"'> flow_dyna_fields_cp = NULL, </if>
-        <if test='flowDynaFieldsCp != null and flowDynaFieldsCp != "[null]"'> flow_dyna_fields_cp = #{flowDynaFieldsCp,jdbcType=VARCHAR},</if>
+        <if test='code_string_ == "[null]"'> code = NULL, </if>
+        <if test='code != null and code_string_ != "[null]"'> code = #{code,jdbcType=VARCHAR},</if>
+        <if test='name_string_ == "[null]"'> name = NULL, </if>
+        <if test='name != null and name_string_ != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
+        <if test='title_string_ == "[null]"'> title = NULL, </if>
+        <if test='title != null and title_string_ != "[null]"'> title = #{title,jdbcType=VARCHAR},</if>
+        <if test='subPackage_string_ == "[null]"'> sub_package = NULL, </if>
+        <if test='subPackage != null and subPackage_string_ != "[null]"'> sub_package = #{subPackage,jdbcType=VARCHAR},</if>
+        <if test='entity_string_ == "[null]"'> entity = NULL, </if>
+        <if test='entity != null and entity_string_ != "[null]"'> entity = #{entity,jdbcType=VARCHAR},</if>
+        <if test='template_string_ == "[null]"'> template = NULL, </if>
+        <if test='template != null and template_string_ != "[null]"'> template = #{template,jdbcType=VARCHAR},</if>
+        <if test='trialLicence_string_ == "[null]"'> trial_licence = NULL, </if>
+        <if test='trialLicence != null and trialLicence_string_ != "[null]"'> trial_licence = #{trialLicence,jdbcType=INTEGER},</if>
+        <if test='trialDays_string_ == "[null]"'> trial_days = NULL, </if>
+        <if test='trialDays != null and trialDays_string_ != "[null]"'> trial_days = #{trialDays,jdbcType=INTEGER},</if>
+        <if test='actionList_string_ == "[null]"'> action_list = NULL, </if>
+        <if test='actionList != null and actionList_string_ != "[null]"'> action_list = #{actionList,jdbcType=VARCHAR},</if>
+        <if test='imports_string_ == "[null]"'> imports = NULL, </if>
+        <if test='imports != null and imports_string_ != "[null]"'> imports = #{imports,jdbcType=VARCHAR},</if>
+        <if test='controllerExtends_string_ == "[null]"'> controller_extends = NULL, </if>
+        <if test='controllerExtends != null and controllerExtends_string_ != "[null]"'> controller_extends = #{controllerExtends,jdbcType=VARCHAR},</if>
+        <if test='pojoImports_string_ == "[null]"'> pojo_imports = NULL, </if>
+        <if test='pojoImports != null and pojoImports_string_ != "[null]"'> pojo_imports = #{pojoImports,jdbcType=VARCHAR},</if>
+        <if test='pojoExtends_string_ == "[null]"'> pojo_extends = NULL, </if>
+        <if test='pojoExtends != null and pojoExtends_string_ != "[null]"'> pojo_extends = #{pojoExtends,jdbcType=VARCHAR},</if>
+        <if test='pojoJavaCode_string_ == "[null]"'> pojo_java_code = NULL, </if>
+        <if test='pojoJavaCode != null and pojoJavaCode_string_ != "[null]"'> pojo_java_code = #{pojoJavaCode,jdbcType=VARCHAR},</if>
+        <if test='creator_string_ == "[null]"'> creator = NULL, </if>
+        <if test='creator != null and creator_string_ != "[null]"'> creator = #{creator,jdbcType=VARCHAR},</if>
+        <if test='flowDynaFieldsOp_string_ == "[null]"'> flow_dyna_fields_op = NULL, </if>
+        <if test='flowDynaFieldsOp != null and flowDynaFieldsOp_string_ != "[null]"'> flow_dyna_fields_op = #{flowDynaFieldsOp,jdbcType=VARCHAR},</if>
+        <if test='flowDynaFieldsCp_string_ == "[null]"'> flow_dyna_fields_cp = NULL, </if>
+        <if test='flowDynaFieldsCp != null and flowDynaFieldsCp_string_ != "[null]"'> flow_dyna_fields_cp = #{flowDynaFieldsCp,jdbcType=VARCHAR},</if>
         <if test="projectId != null"> project_id = #{projectId,jdbcType=VARCHAR},</if>
       </set>
       where id = #{id,jdbcType=VARCHAR}

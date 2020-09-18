@@ -126,16 +126,16 @@
   <update id="updateSelective" parameterType="java.util.Map">
     update pm_people_group 
       <set>
-        <if test='parent == "[null]"'> parent = NULL, </if>
-        <if test='parent != null and parent != "[null]"'> parent = #{parent,jdbcType=INTEGER},</if>
-        <if test='name == "[null]"'> name = NULL, </if>
-        <if test='name != null and name != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
-        <if test='groupType == "[null]"'> group_type = NULL, </if>
-        <if test='groupType != null and groupType != "[null]"'> group_type = #{groupType,jdbcType=VARCHAR},</if>
-        <if test='enabled == "[null]"'> enabled = NULL, </if>
-        <if test='enabled != null and enabled != "[null]"'> enabled = #{enabled,jdbcType=TINYINT},</if>
-        <if test='description == "[null]"'> description = NULL, </if>
-        <if test='description != null and description != "[null]"'> description = #{description,jdbcType=VARCHAR},</if>
+        <if test='parent_string_ == "[null]"'> parent = NULL, </if>
+        <if test='parent != null and parent_string_ != "[null]"'> parent = #{parent,jdbcType=INTEGER},</if>
+        <if test='name_string_ == "[null]"'> name = NULL, </if>
+        <if test='name != null and name_string_ != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
+        <if test='groupType_string_ == "[null]"'> group_type = NULL, </if>
+        <if test='groupType != null and groupType_string_ != "[null]"'> group_type = #{groupType,jdbcType=VARCHAR},</if>
+        <if test='enabled_string_ == "[null]"'> enabled = NULL, </if>
+        <if test='enabled != null and enabled_string_ != "[null]"'> enabled = #{enabled,jdbcType=TINYINT},</if>
+        <if test='description_string_ == "[null]"'> description = NULL, </if>
+        <if test='description != null and description_string_ != "[null]"'> description = #{description,jdbcType=VARCHAR},</if>
       </set>
       where id = #{id,jdbcType=INTEGER}
   </update>

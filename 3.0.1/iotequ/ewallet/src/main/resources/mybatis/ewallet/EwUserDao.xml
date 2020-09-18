@@ -117,40 +117,40 @@
   <update id="updateSelective" parameterType="java.util.Map">
     update ew_user 
       <set>
-        <if test='isActive == "[null]"'> is_active = NULL, </if>
-        <if test='isActive != null and isActive != "[null]"'> is_active = #{isActive,jdbcType=TINYINT},</if>
-        <if test='name == "[null]"'> name = NULL, </if>
-        <if test='name != null and name != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
-        <if test='gender == "[null]"'> gender = NULL, </if>
-        <if test='gender != null and gender != "[null]"'> gender = #{gender,jdbcType=INTEGER},</if>
-        <if test='idType == "[null]"'> id_type = NULL, </if>
-        <if test='idType != null and idType != "[null]"'> id_type = #{idType,jdbcType=INTEGER},</if>
-        <if test='idNo == "[null]"'> id_no = NULL, </if>
-        <if test='idNo != null and idNo != "[null]"'> id_no = #{idNo,jdbcType=VARCHAR},</if>
-        <if test='mobilePhone == "[null]"'> mobile_phone = NULL, </if>
-        <if test='mobilePhone != null and mobilePhone != "[null]"'> mobile_phone = #{mobilePhone,jdbcType=VARCHAR},</if>
-        <if test='email == "[null]"'> email = NULL, </if>
-        <if test='email != null and email != "[null]"'> email = #{email,jdbcType=VARCHAR},</if>
-        <if test='wechatOpenid == "[null]"'> wechat_openid = NULL, </if>
-        <if test='wechatOpenid != null and wechatOpenid != "[null]"'> wechat_openid = #{wechatOpenid,jdbcType=VARCHAR},</if>
-        <if test='birthDate == "[null]"'> birth_date = NULL, </if>
-        <if test='birthDate != null and birthDate != "[null]"'> birth_date = #{birthDate,jdbcType=DATE},</if>
-        <if test='memberGroup == "[null]"'> member_group = NULL, </if>
-        <if test='memberGroup != null and memberGroup != "[null]"'> member_group = #{memberGroup,jdbcType=VARCHAR},</if>
-        <if test='bonusPoint == "[null]"'> bonus_point = NULL, </if>
-        <if test='bonusPoint != null and bonusPoint != "[null]"'> bonus_point = #{bonusPoint,jdbcType=INTEGER},</if>
-        <if test='amountMoney == "[null]"'> amount_money = NULL, </if>
-        <if test='amountMoney != null and amountMoney != "[null]"'> amount_money = #{amountMoney,jdbcType=INTEGER},</if>
-        <if test='costLimit == "[null]"'> cost_limit = NULL, </if>
-        <if test='costLimit != null and costLimit != "[null]"'> cost_limit = #{costLimit,jdbcType=INTEGER},</if>
-        <if test='dayLimit == "[null]"'> day_limit = NULL, </if>
-        <if test='dayLimit != null and dayLimit != "[null]"'> day_limit = #{dayLimit,jdbcType=INTEGER},</if>
-        <if test='activeSince == "[null]"'> active_since = NULL, </if>
-        <if test='activeSince != null and activeSince != "[null]"'> active_since = #{activeSince,jdbcType=TIMESTAMP},</if>
-        <if test='expireAt == "[null]"'> expire_at = NULL, </if>
-        <if test='expireAt != null and expireAt != "[null]"'> expire_at = #{expireAt,jdbcType=TIMESTAMP},</if>
-        <if test='checkCode == "[null]"'> check_code = NULL, </if>
-        <if test='checkCode != null and checkCode != "[null]"'> check_code = #{checkCode,jdbcType=VARCHAR},</if>
+        <if test='isActive_string_ == "[null]"'> is_active = NULL, </if>
+        <if test='isActive != null and isActive_string_ != "[null]"'> is_active = #{isActive,jdbcType=TINYINT},</if>
+        <if test='name_string_ == "[null]"'> name = NULL, </if>
+        <if test='name != null and name_string_ != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
+        <if test='gender_string_ == "[null]"'> gender = NULL, </if>
+        <if test='gender != null and gender_string_ != "[null]"'> gender = #{gender,jdbcType=INTEGER},</if>
+        <if test='idType_string_ == "[null]"'> id_type = NULL, </if>
+        <if test='idType != null and idType_string_ != "[null]"'> id_type = #{idType,jdbcType=INTEGER},</if>
+        <if test='idNo_string_ == "[null]"'> id_no = NULL, </if>
+        <if test='idNo != null and idNo_string_ != "[null]"'> id_no = #{idNo,jdbcType=VARCHAR},</if>
+        <if test='mobilePhone_string_ == "[null]"'> mobile_phone = NULL, </if>
+        <if test='mobilePhone != null and mobilePhone_string_ != "[null]"'> mobile_phone = #{mobilePhone,jdbcType=VARCHAR},</if>
+        <if test='email_string_ == "[null]"'> email = NULL, </if>
+        <if test='email != null and email_string_ != "[null]"'> email = #{email,jdbcType=VARCHAR},</if>
+        <if test='wechatOpenid_string_ == "[null]"'> wechat_openid = NULL, </if>
+        <if test='wechatOpenid != null and wechatOpenid_string_ != "[null]"'> wechat_openid = #{wechatOpenid,jdbcType=VARCHAR},</if>
+        <if test='birthDate_string_ == "[null]"'> birth_date = NULL, </if>
+        <if test='birthDate != null and birthDate_string_ != "[null]"'> birth_date = #{birthDate,jdbcType=DATE},</if>
+        <if test='memberGroup_string_ == "[null]"'> member_group = NULL, </if>
+        <if test='memberGroup != null and memberGroup_string_ != "[null]"'> member_group = #{memberGroup,jdbcType=VARCHAR},</if>
+        <if test='bonusPoint_string_ == "[null]"'> bonus_point = NULL, </if>
+        <if test='bonusPoint != null and bonusPoint_string_ != "[null]"'> bonus_point = #{bonusPoint,jdbcType=INTEGER},</if>
+        <if test='amountMoney_string_ == "[null]"'> amount_money = NULL, </if>
+        <if test='amountMoney != null and amountMoney_string_ != "[null]"'> amount_money = #{amountMoney,jdbcType=INTEGER},</if>
+        <if test='costLimit_string_ == "[null]"'> cost_limit = NULL, </if>
+        <if test='costLimit != null and costLimit_string_ != "[null]"'> cost_limit = #{costLimit,jdbcType=INTEGER},</if>
+        <if test='dayLimit_string_ == "[null]"'> day_limit = NULL, </if>
+        <if test='dayLimit != null and dayLimit_string_ != "[null]"'> day_limit = #{dayLimit,jdbcType=INTEGER},</if>
+        <if test='activeSince_string_ == "[null]"'> active_since = NULL, </if>
+        <if test='activeSince != null and activeSince_string_ != "[null]"'> active_since = #{activeSince,jdbcType=TIMESTAMP},</if>
+        <if test='expireAt_string_ == "[null]"'> expire_at = NULL, </if>
+        <if test='expireAt != null and expireAt_string_ != "[null]"'> expire_at = #{expireAt,jdbcType=TIMESTAMP},</if>
+        <if test='checkCode_string_ == "[null]"'> check_code = NULL, </if>
+        <if test='checkCode != null and checkCode_string_ != "[null]"'> check_code = #{checkCode,jdbcType=VARCHAR},</if>
       </set>
       where user_no = #{userNo,jdbcType=VARCHAR}
   </update>

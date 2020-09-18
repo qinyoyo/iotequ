@@ -92,12 +92,12 @@
   <update id="updateSelective" parameterType="java.util.Map">
     update ew_device 
       <set>
-        <if test='deviceNo == "[null]"'> device_no = NULL, </if>
-        <if test='deviceNo != null and deviceNo != "[null]"'> device_no = #{deviceNo,jdbcType=VARCHAR},</if>
-        <if test='shopId == "[null]"'> shop_id = NULL, </if>
-        <if test='shopId != null and shopId != "[null]"'> shop_id = #{shopId,jdbcType=VARCHAR},</if>
-        <if test='privilegeList == "[null]"'> privilege_list = NULL, </if>
-        <if test='privilegeList != null and privilegeList != "[null]"'> privilege_list = #{privilegeList,jdbcType=VARCHAR},</if>
+        <if test='deviceNo_string_ == "[null]"'> device_no = NULL, </if>
+        <if test='deviceNo != null and deviceNo_string_ != "[null]"'> device_no = #{deviceNo,jdbcType=VARCHAR},</if>
+        <if test='shopId_string_ == "[null]"'> shop_id = NULL, </if>
+        <if test='shopId != null and shopId_string_ != "[null]"'> shop_id = #{shopId,jdbcType=VARCHAR},</if>
+        <if test='privilegeList_string_ == "[null]"'> privilege_list = NULL, </if>
+        <if test='privilegeList != null and privilegeList_string_ != "[null]"'> privilege_list = #{privilegeList,jdbcType=VARCHAR},</if>
       </set>
       where id = #{id,jdbcType=INTEGER}
   </update>

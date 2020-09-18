@@ -96,16 +96,16 @@
   <update id="updateSelective" parameterType="java.util.Map">
     update pay_shop 
       <set>
-        <if test='corporationId == "[null]"'> corporation_id = NULL, </if>
-        <if test='corporationId != null and corporationId != "[null]"'> corporation_id = #{corporationId,jdbcType=INTEGER},</if>
-        <if test='name == "[null]"'> name = NULL, </if>
-        <if test='name != null and name != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
-        <if test='linkman == "[null]"'> linkman = NULL, </if>
-        <if test='linkman != null and linkman != "[null]"'> linkman = #{linkman,jdbcType=VARCHAR},</if>
-        <if test='linkPhone == "[null]"'> link_phone = NULL, </if>
-        <if test='linkPhone != null and linkPhone != "[null]"'> link_phone = #{linkPhone,jdbcType=VARCHAR},</if>
-        <if test='address == "[null]"'> address = NULL, </if>
-        <if test='address != null and address != "[null]"'> address = #{address,jdbcType=VARCHAR},</if>
+        <if test='corporationId_string_ == "[null]"'> corporation_id = NULL, </if>
+        <if test='corporationId != null and corporationId_string_ != "[null]"'> corporation_id = #{corporationId,jdbcType=INTEGER},</if>
+        <if test='name_string_ == "[null]"'> name = NULL, </if>
+        <if test='name != null and name_string_ != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
+        <if test='linkman_string_ == "[null]"'> linkman = NULL, </if>
+        <if test='linkman != null and linkman_string_ != "[null]"'> linkman = #{linkman,jdbcType=VARCHAR},</if>
+        <if test='linkPhone_string_ == "[null]"'> link_phone = NULL, </if>
+        <if test='linkPhone != null and linkPhone_string_ != "[null]"'> link_phone = #{linkPhone,jdbcType=VARCHAR},</if>
+        <if test='address_string_ == "[null]"'> address = NULL, </if>
+        <if test='address != null and address_string_ != "[null]"'> address = #{address,jdbcType=VARCHAR},</if>
       </set>
       where id = #{id,jdbcType=INTEGER}
   </update>

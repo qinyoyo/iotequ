@@ -118,16 +118,16 @@
   <update id="updateSelective" parameterType="java.util.Map">
     update pay_operator 
       <set>
-        <if test='name == "[null]"'> name = NULL, </if>
-        <if test='name != null and name != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
-        <if test='realName == "[null]"'> real_name = NULL, </if>
-        <if test='realName != null and realName != "[null]"'> real_name = #{realName,jdbcType=VARCHAR},</if>
-        <if test='password == "[null]"'> password = NULL, </if>
-        <if test='password != null and password != "[null]"'> password = #{password,jdbcType=VARCHAR},</if>
-        <if test='shopId == "[null]"'> shop_id = NULL, </if>
-        <if test='shopId != null and shopId != "[null]"'> shop_id = #{shopId,jdbcType=INTEGER},</if>
-        <if test='userNo == "[null]"'> user_no = NULL, </if>
-        <if test='userNo != null and userNo != "[null]"'> user_no = #{userNo,jdbcType=VARCHAR},</if>
+        <if test='name_string_ == "[null]"'> name = NULL, </if>
+        <if test='name != null and name_string_ != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
+        <if test='realName_string_ == "[null]"'> real_name = NULL, </if>
+        <if test='realName != null and realName_string_ != "[null]"'> real_name = #{realName,jdbcType=VARCHAR},</if>
+        <if test='password_string_ == "[null]"'> password = NULL, </if>
+        <if test='password != null and password_string_ != "[null]"'> password = #{password,jdbcType=VARCHAR},</if>
+        <if test='shopId_string_ == "[null]"'> shop_id = NULL, </if>
+        <if test='shopId != null and shopId_string_ != "[null]"'> shop_id = #{shopId,jdbcType=INTEGER},</if>
+        <if test='userNo_string_ == "[null]"'> user_no = NULL, </if>
+        <if test='userNo != null and userNo_string_ != "[null]"'> user_no = #{userNo,jdbcType=VARCHAR},</if>
       </set>
       where id = #{id,jdbcType=INTEGER}
   </update>

@@ -124,38 +124,38 @@
   <update id="updateSelective" parameterType="java.util.Map">
     update cg_list_field 
       <set>
-        <if test='listId == "[null]"'> list_id = NULL, </if>
-        <if test='listId != null and listId != "[null]"'> list_id = #{listId,jdbcType=VARCHAR},</if>
-        <if test='orderNum == "[null]"'> order_num = NULL, </if>
-        <if test='orderNum != null and orderNum != "[null]"'> order_num = #{orderNum,jdbcType=INTEGER},</if>
-        <if test='entityField == "[null]"'> entity_field = NULL, </if>
-        <if test='entityField != null and entityField != "[null]"'> entity_field = #{entityField,jdbcType=VARCHAR},</if>
-        <if test='queryMode == "[null]"'> query_mode = NULL, </if>
-        <if test='queryMode != null and queryMode != "[null]"'> query_mode = #{queryMode,jdbcType=INTEGER},</if>
-        <if test='fix == "[null]"'> fix = NULL, </if>
-        <if test='fix != null and fix != "[null]"'> fix = #{fix,jdbcType=TINYINT},</if>
-        <if test='expand == "[null]"'> expand = NULL, </if>
-        <if test='expand != null and expand != "[null]"'> expand = #{expand,jdbcType=TINYINT},</if>
-        <if test='overflowTooltip == "[null]"'> overflow_tooltip = NULL, </if>
-        <if test='overflowTooltip != null and overflowTooltip != "[null]"'> overflow_tooltip = #{overflowTooltip,jdbcType=TINYINT},</if>
-        <if test='align == "[null]"'> align = NULL, </if>
-        <if test='align != null and align != "[null]"'> align = #{align,jdbcType=VARCHAR},</if>
-        <if test='headerAlign == "[null]"'> header_align = NULL, </if>
-        <if test='headerAlign != null and headerAlign != "[null]"'> header_align = #{headerAlign,jdbcType=VARCHAR},</if>
-        <if test='width == "[null]"'> width = NULL, </if>
-        <if test='width != null and width != "[null]"'> width = #{width,jdbcType=INTEGER},</if>
-        <if test='columnProperties == "[null]"'> column_properties = NULL, </if>
-        <if test='columnProperties != null and columnProperties != "[null]"'> column_properties = #{columnProperties,jdbcType=VARCHAR},</if>
-        <if test='hidden == "[null]"'> hidden = NULL, </if>
-        <if test='hidden != null and hidden != "[null]"'> hidden = #{hidden,jdbcType=TINYINT},</if>
-        <if test='editInline == "[null]"'> edit_inline = NULL, </if>
-        <if test='editInline != null and editInline != "[null]"'> edit_inline = #{editInline,jdbcType=TINYINT},</if>
-        <if test='defaultQueryValue == "[null]"'> default_query_value = NULL, </if>
-        <if test='defaultQueryValue != null and defaultQueryValue != "[null]"'> default_query_value = #{defaultQueryValue,jdbcType=VARCHAR},</if>
-        <if test='cellDisplaySlot == "[null]"'> cell_display_slot = NULL, </if>
-        <if test='cellDisplaySlot != null and cellDisplaySlot != "[null]"'> cell_display_slot = #{cellDisplaySlot,jdbcType=VARCHAR},</if>
-        <if test='showType == "[null]"'> show_type = NULL, </if>
-        <if test='showType != null and showType != "[null]"'> show_type = #{showType,jdbcType=VARCHAR},</if>
+        <if test='listId_string_ == "[null]"'> list_id = NULL, </if>
+        <if test='listId != null and listId_string_ != "[null]"'> list_id = #{listId,jdbcType=VARCHAR},</if>
+        <if test='orderNum_string_ == "[null]"'> order_num = NULL, </if>
+        <if test='orderNum != null and orderNum_string_ != "[null]"'> order_num = #{orderNum,jdbcType=INTEGER},</if>
+        <if test='entityField_string_ == "[null]"'> entity_field = NULL, </if>
+        <if test='entityField != null and entityField_string_ != "[null]"'> entity_field = #{entityField,jdbcType=VARCHAR},</if>
+        <if test='queryMode_string_ == "[null]"'> query_mode = NULL, </if>
+        <if test='queryMode != null and queryMode_string_ != "[null]"'> query_mode = #{queryMode,jdbcType=INTEGER},</if>
+        <if test='fix_string_ == "[null]"'> fix = NULL, </if>
+        <if test='fix != null and fix_string_ != "[null]"'> fix = #{fix,jdbcType=TINYINT},</if>
+        <if test='expand_string_ == "[null]"'> expand = NULL, </if>
+        <if test='expand != null and expand_string_ != "[null]"'> expand = #{expand,jdbcType=TINYINT},</if>
+        <if test='overflowTooltip_string_ == "[null]"'> overflow_tooltip = NULL, </if>
+        <if test='overflowTooltip != null and overflowTooltip_string_ != "[null]"'> overflow_tooltip = #{overflowTooltip,jdbcType=TINYINT},</if>
+        <if test='align_string_ == "[null]"'> align = NULL, </if>
+        <if test='align != null and align_string_ != "[null]"'> align = #{align,jdbcType=VARCHAR},</if>
+        <if test='headerAlign_string_ == "[null]"'> header_align = NULL, </if>
+        <if test='headerAlign != null and headerAlign_string_ != "[null]"'> header_align = #{headerAlign,jdbcType=VARCHAR},</if>
+        <if test='width_string_ == "[null]"'> width = NULL, </if>
+        <if test='width != null and width_string_ != "[null]"'> width = #{width,jdbcType=INTEGER},</if>
+        <if test='columnProperties_string_ == "[null]"'> column_properties = NULL, </if>
+        <if test='columnProperties != null and columnProperties_string_ != "[null]"'> column_properties = #{columnProperties,jdbcType=VARCHAR},</if>
+        <if test='hidden_string_ == "[null]"'> hidden = NULL, </if>
+        <if test='hidden != null and hidden_string_ != "[null]"'> hidden = #{hidden,jdbcType=TINYINT},</if>
+        <if test='editInline_string_ == "[null]"'> edit_inline = NULL, </if>
+        <if test='editInline != null and editInline_string_ != "[null]"'> edit_inline = #{editInline,jdbcType=TINYINT},</if>
+        <if test='defaultQueryValue_string_ == "[null]"'> default_query_value = NULL, </if>
+        <if test='defaultQueryValue != null and defaultQueryValue_string_ != "[null]"'> default_query_value = #{defaultQueryValue,jdbcType=VARCHAR},</if>
+        <if test='cellDisplaySlot_string_ == "[null]"'> cell_display_slot = NULL, </if>
+        <if test='cellDisplaySlot != null and cellDisplaySlot_string_ != "[null]"'> cell_display_slot = #{cellDisplaySlot,jdbcType=VARCHAR},</if>
+        <if test='showType_string_ == "[null]"'> show_type = NULL, </if>
+        <if test='showType != null and showType_string_ != "[null]"'> show_type = #{showType,jdbcType=VARCHAR},</if>
       </set>
       where id = #{id,jdbcType=INTEGER}
   </update>

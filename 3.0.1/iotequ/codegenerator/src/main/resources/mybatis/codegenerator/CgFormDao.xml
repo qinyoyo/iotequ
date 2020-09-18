@@ -86,36 +86,36 @@
   <update id="updateSelective" parameterType="java.util.Map">
     update cg_form 
       <set>
-        <if test='name == "[null]"'> name = NULL, </if>
-        <if test='name != null and name != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
-        <if test='path == "[null]"'> path = NULL, </if>
-        <if test='path != null and path != "[null]"'> path = #{path,jdbcType=VARCHAR},</if>
-        <if test='tableId == "[null]"'> table_id = NULL, </if>
-        <if test='tableId != null and tableId != "[null]"'> table_id = #{tableId,jdbcType=VARCHAR},</if>
-        <if test='headTitle == "[null]"'> head_title = NULL, </if>
-        <if test='headTitle != null and headTitle != "[null]"'> head_title = #{headTitle,jdbcType=VARCHAR},</if>
-        <if test='isFlow == "[null]"'> is_flow = NULL, </if>
-        <if test='isFlow != null and isFlow != "[null]"'> is_flow = #{isFlow,jdbcType=TINYINT},</if>
-        <if test='icon == "[null]"'> icon = NULL, </if>
-        <if test='icon != null and icon != "[null]"'> icon = #{icon,jdbcType=VARCHAR},</if>
-        <if test='tagTitle == "[null]"'> tag_title = NULL, </if>
-        <if test='tagTitle != null and tagTitle != "[null]"'> tag_title = #{tagTitle,jdbcType=VARCHAR},</if>
-        <if test='labelPosition == "[null]"'> label_position = NULL, </if>
-        <if test='labelPosition != null and labelPosition != "[null]"'> label_position = #{labelPosition,jdbcType=VARCHAR},</if>
-        <if test='isDialog == "[null]"'> is_dialog = NULL, </if>
-        <if test='isDialog != null and isDialog != "[null]"'> is_dialog = #{isDialog,jdbcType=TINYINT},</if>
-        <if test='continueAdd == "[null]"'> continue_add = NULL, </if>
-        <if test='continueAdd != null and continueAdd != "[null]"'> continue_add = #{continueAdd,jdbcType=TINYINT},</if>
-        <if test='images == "[null]"'> images = NULL, </if>
-        <if test='images != null and images != "[null]"'> images = #{images,jdbcType=VARCHAR},</if>
-        <if test='viewProperties == "[null]"'> view_properties = NULL, </if>
-        <if test='viewProperties != null and viewProperties != "[null]"'> view_properties = #{viewProperties,jdbcType=VARCHAR},</if>
-        <if test='formProperties == "[null]"'> form_properties = NULL, </if>
-        <if test='formProperties != null and formProperties != "[null]"'> form_properties = #{formProperties,jdbcType=VARCHAR},</if>
-        <if test='slotTemplates == "[null]"'> slot_templates = NULL, </if>
-        <if test='slotTemplates != null and slotTemplates != "[null]"'> slot_templates = #{slotTemplates,jdbcType=VARCHAR},</if>
-        <if test='actionList == "[null]"'> action_list = NULL, </if>
-        <if test='actionList != null and actionList != "[null]"'> action_list = #{actionList,jdbcType=VARCHAR},</if>
+        <if test='name_string_ == "[null]"'> name = NULL, </if>
+        <if test='name != null and name_string_ != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
+        <if test='path_string_ == "[null]"'> path = NULL, </if>
+        <if test='path != null and path_string_ != "[null]"'> path = #{path,jdbcType=VARCHAR},</if>
+        <if test='tableId_string_ == "[null]"'> table_id = NULL, </if>
+        <if test='tableId != null and tableId_string_ != "[null]"'> table_id = #{tableId,jdbcType=VARCHAR},</if>
+        <if test='headTitle_string_ == "[null]"'> head_title = NULL, </if>
+        <if test='headTitle != null and headTitle_string_ != "[null]"'> head_title = #{headTitle,jdbcType=VARCHAR},</if>
+        <if test='isFlow_string_ == "[null]"'> is_flow = NULL, </if>
+        <if test='isFlow != null and isFlow_string_ != "[null]"'> is_flow = #{isFlow,jdbcType=TINYINT},</if>
+        <if test='icon_string_ == "[null]"'> icon = NULL, </if>
+        <if test='icon != null and icon_string_ != "[null]"'> icon = #{icon,jdbcType=VARCHAR},</if>
+        <if test='tagTitle_string_ == "[null]"'> tag_title = NULL, </if>
+        <if test='tagTitle != null and tagTitle_string_ != "[null]"'> tag_title = #{tagTitle,jdbcType=VARCHAR},</if>
+        <if test='labelPosition_string_ == "[null]"'> label_position = NULL, </if>
+        <if test='labelPosition != null and labelPosition_string_ != "[null]"'> label_position = #{labelPosition,jdbcType=VARCHAR},</if>
+        <if test='isDialog_string_ == "[null]"'> is_dialog = NULL, </if>
+        <if test='isDialog != null and isDialog_string_ != "[null]"'> is_dialog = #{isDialog,jdbcType=TINYINT},</if>
+        <if test='continueAdd_string_ == "[null]"'> continue_add = NULL, </if>
+        <if test='continueAdd != null and continueAdd_string_ != "[null]"'> continue_add = #{continueAdd,jdbcType=TINYINT},</if>
+        <if test='images_string_ == "[null]"'> images = NULL, </if>
+        <if test='images != null and images_string_ != "[null]"'> images = #{images,jdbcType=VARCHAR},</if>
+        <if test='viewProperties_string_ == "[null]"'> view_properties = NULL, </if>
+        <if test='viewProperties != null and viewProperties_string_ != "[null]"'> view_properties = #{viewProperties,jdbcType=VARCHAR},</if>
+        <if test='formProperties_string_ == "[null]"'> form_properties = NULL, </if>
+        <if test='formProperties != null and formProperties_string_ != "[null]"'> form_properties = #{formProperties,jdbcType=VARCHAR},</if>
+        <if test='slotTemplates_string_ == "[null]"'> slot_templates = NULL, </if>
+        <if test='slotTemplates != null and slotTemplates_string_ != "[null]"'> slot_templates = #{slotTemplates,jdbcType=VARCHAR},</if>
+        <if test='actionList_string_ == "[null]"'> action_list = NULL, </if>
+        <if test='actionList != null and actionList_string_ != "[null]"'> action_list = #{actionList,jdbcType=VARCHAR},</if>
       </set>
       where id = #{id,jdbcType=VARCHAR}
   </update>

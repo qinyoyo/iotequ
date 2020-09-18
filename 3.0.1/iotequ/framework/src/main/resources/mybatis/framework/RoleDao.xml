@@ -114,12 +114,12 @@
   <update id="updateSelective" parameterType="java.util.Map">
     update sys_role 
       <set>
-        <if test='code == "[null]"'> code = NULL, </if>
-        <if test='code != null and code != "[null]"'> code = #{code,jdbcType=VARCHAR},</if>
-        <if test='name == "[null]"'> name = NULL, </if>
-        <if test='name != null and name != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
-        <if test='note == "[null]"'> note = NULL, </if>
-        <if test='note != null and note != "[null]"'> note = #{note,jdbcType=VARCHAR},</if>
+        <if test='code_string_ == "[null]"'> code = NULL, </if>
+        <if test='code != null and code_string_ != "[null]"'> code = #{code,jdbcType=VARCHAR},</if>
+        <if test='name_string_ == "[null]"'> name = NULL, </if>
+        <if test='name != null and name_string_ != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
+        <if test='note_string_ == "[null]"'> note = NULL, </if>
+        <if test='note != null and note_string_ != "[null]"'> note = #{note,jdbcType=VARCHAR},</if>
       </set>
       where id = #{id,jdbcType=INTEGER}
   </update>

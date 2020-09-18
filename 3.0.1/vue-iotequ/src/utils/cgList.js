@@ -855,7 +855,7 @@ export default {
                 else r[f] = record[f]
                 modified = true
               } else {
-                r[f] = '[null]'
+                r[f+'_string_'] = '[null]'
                 modified = true
               }
             }
@@ -880,7 +880,7 @@ export default {
                 if (record[f] instanceof Date) r[f] = time.toString(record[f],'YYYY-MM-DD HH:mm:ss.SSS')
                 else r[f] = record[f]
               } else {
-                r[f] = '[null]'
+                r['_string_'] = '[null]'
               }
             }
           })

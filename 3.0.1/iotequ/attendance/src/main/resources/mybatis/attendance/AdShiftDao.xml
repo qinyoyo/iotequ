@@ -98,18 +98,18 @@
   <update id="updateSelective" parameterType="java.util.Map">
     update ad_shift 
       <set>
-        <if test='name == "[null]"'> name = NULL, </if>
-        <if test='name != null and name != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
-        <if test='adMode == "[null]"'> ad_mode = NULL, </if>
-        <if test='adMode != null and adMode != "[null]"'> ad_mode = #{adMode,jdbcType=INTEGER},</if>
-        <if test='startDate == "[null]"'> start_date = NULL, </if>
-        <if test='startDate != null and startDate != "[null]"'> start_date = #{startDate,jdbcType=DATE},</if>
-        <if test='endDate == "[null]"'> end_date = NULL, </if>
-        <if test='endDate != null and endDate != "[null]"'> end_date = #{endDate,jdbcType=DATE},</if>
-        <if test='minutesPerDay == "[null]"'> minutes_per_day = NULL, </if>
-        <if test='minutesPerDay != null and minutesPerDay != "[null]"'> minutes_per_day = #{minutesPerDay,jdbcType=INTEGER},</if>
-        <if test='description == "[null]"'> description = NULL, </if>
-        <if test='description != null and description != "[null]"'> description = #{description,jdbcType=VARCHAR},</if>
+        <if test='name_string_ == "[null]"'> name = NULL, </if>
+        <if test='name != null and name_string_ != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
+        <if test='adMode_string_ == "[null]"'> ad_mode = NULL, </if>
+        <if test='adMode != null and adMode_string_ != "[null]"'> ad_mode = #{adMode,jdbcType=INTEGER},</if>
+        <if test='startDate_string_ == "[null]"'> start_date = NULL, </if>
+        <if test='startDate != null and startDate_string_ != "[null]"'> start_date = #{startDate,jdbcType=DATE},</if>
+        <if test='endDate_string_ == "[null]"'> end_date = NULL, </if>
+        <if test='endDate != null and endDate_string_ != "[null]"'> end_date = #{endDate,jdbcType=DATE},</if>
+        <if test='minutesPerDay_string_ == "[null]"'> minutes_per_day = NULL, </if>
+        <if test='minutesPerDay != null and minutesPerDay_string_ != "[null]"'> minutes_per_day = #{minutesPerDay,jdbcType=INTEGER},</if>
+        <if test='description_string_ == "[null]"'> description = NULL, </if>
+        <if test='description != null and description_string_ != "[null]"'> description = #{description,jdbcType=VARCHAR},</if>
       </set>
       where id = #{id,jdbcType=INTEGER}
   </update>

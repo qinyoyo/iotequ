@@ -96,16 +96,16 @@
   <update id="updateSelective" parameterType="java.util.Map">
     update ad_shift_time 
       <set>
-        <if test='shiftId == "[null]"'> shift_id = NULL, </if>
-        <if test='shiftId != null and shiftId != "[null]"'> shift_id = #{shiftId,jdbcType=INTEGER},</if>
-        <if test='name == "[null]"'> name = NULL, </if>
-        <if test='name != null and name != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
-        <if test='weekDays == "[null]"'> week_days = NULL, </if>
-        <if test='weekDays != null and weekDays != "[null]"'> week_days = #{weekDays,jdbcType=VARCHAR},</if>
-        <if test='startWorkTime == "[null]"'> start_work_time = NULL, </if>
-        <if test='startWorkTime != null and startWorkTime != "[null]"'> start_work_time = #{startWorkTime,jdbcType=TIME},</if>
-        <if test='endWorkTime == "[null]"'> end_work_time = NULL, </if>
-        <if test='endWorkTime != null and endWorkTime != "[null]"'> end_work_time = #{endWorkTime,jdbcType=TIME},</if>
+        <if test='shiftId_string_ == "[null]"'> shift_id = NULL, </if>
+        <if test='shiftId != null and shiftId_string_ != "[null]"'> shift_id = #{shiftId,jdbcType=INTEGER},</if>
+        <if test='name_string_ == "[null]"'> name = NULL, </if>
+        <if test='name != null and name_string_ != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
+        <if test='weekDays_string_ == "[null]"'> week_days = NULL, </if>
+        <if test='weekDays != null and weekDays_string_ != "[null]"'> week_days = #{weekDays,jdbcType=VARCHAR},</if>
+        <if test='startWorkTime_string_ == "[null]"'> start_work_time = NULL, </if>
+        <if test='startWorkTime != null and startWorkTime_string_ != "[null]"'> start_work_time = #{startWorkTime,jdbcType=TIME},</if>
+        <if test='endWorkTime_string_ == "[null]"'> end_work_time = NULL, </if>
+        <if test='endWorkTime != null and endWorkTime_string_ != "[null]"'> end_work_time = #{endWorkTime,jdbcType=TIME},</if>
       </set>
       where id = #{id,jdbcType=INTEGER}
   </update>

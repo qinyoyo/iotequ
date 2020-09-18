@@ -104,24 +104,24 @@
   <update id="updateSelective" parameterType="java.util.Map">
     update sys_flow_process 
       <set>
-        <if test='flowId == "[null]"'> flow_id = NULL, </if>
-        <if test='flowId != null and flowId != "[null]"'> flow_id = #{flowId,jdbcType=VARCHAR},</if>
-        <if test='operation == "[null]"'> operation = NULL, </if>
-        <if test='operation != null and operation != "[null]"'> operation = #{operation,jdbcType=VARCHAR},</if>
-        <if test='selection == "[null]"'> selection = NULL, </if>
-        <if test='selection != null and selection != "[null]"'> selection = #{selection,jdbcType=VARCHAR},</if>
-        <if test='stateName0 == "[null]"'> state_name0 = NULL, </if>
-        <if test='stateName0 != null and stateName0 != "[null]"'> state_name0 = #{stateName0,jdbcType=VARCHAR},</if>
-        <if test='stateName1 == "[null]"'> state_name1 = NULL, </if>
-        <if test='stateName1 != null and stateName1 != "[null]"'> state_name1 = #{stateName1,jdbcType=VARCHAR},</if>
-        <if test='time == "[null]"'> time = NULL, </if>
-        <if test='time != null and time != "[null]"'> time = #{time,jdbcType=TIMESTAMP},</if>
-        <if test='note == "[null]"'> note = NULL, </if>
-        <if test='note != null and note != "[null]"'> note = #{note,jdbcType=VARCHAR},</if>
-        <if test='state0 == "[null]"'> state0 = NULL, </if>
-        <if test='state0 != null and state0 != "[null]"'> state0 = #{state0,jdbcType=INTEGER},</if>
-        <if test='state1 == "[null]"'> state1 = NULL, </if>
-        <if test='state1 != null and state1 != "[null]"'> state1 = #{state1,jdbcType=INTEGER},</if>
+        <if test='flowId_string_ == "[null]"'> flow_id = NULL, </if>
+        <if test='flowId != null and flowId_string_ != "[null]"'> flow_id = #{flowId,jdbcType=VARCHAR},</if>
+        <if test='operation_string_ == "[null]"'> operation = NULL, </if>
+        <if test='operation != null and operation_string_ != "[null]"'> operation = #{operation,jdbcType=VARCHAR},</if>
+        <if test='selection_string_ == "[null]"'> selection = NULL, </if>
+        <if test='selection != null and selection_string_ != "[null]"'> selection = #{selection,jdbcType=VARCHAR},</if>
+        <if test='stateName0_string_ == "[null]"'> state_name0 = NULL, </if>
+        <if test='stateName0 != null and stateName0_string_ != "[null]"'> state_name0 = #{stateName0,jdbcType=VARCHAR},</if>
+        <if test='stateName1_string_ == "[null]"'> state_name1 = NULL, </if>
+        <if test='stateName1 != null and stateName1_string_ != "[null]"'> state_name1 = #{stateName1,jdbcType=VARCHAR},</if>
+        <if test='time_string_ == "[null]"'> time = NULL, </if>
+        <if test='time != null and time_string_ != "[null]"'> time = #{time,jdbcType=TIMESTAMP},</if>
+        <if test='note_string_ == "[null]"'> note = NULL, </if>
+        <if test='note != null and note_string_ != "[null]"'> note = #{note,jdbcType=VARCHAR},</if>
+        <if test='state0_string_ == "[null]"'> state0 = NULL, </if>
+        <if test='state0 != null and state0_string_ != "[null]"'> state0 = #{state0,jdbcType=INTEGER},</if>
+        <if test='state1_string_ == "[null]"'> state1 = NULL, </if>
+        <if test='state1 != null and state1_string_ != "[null]"'> state1 = #{state1,jdbcType=INTEGER},</if>
         <if test="operator != null"> operator = #{operator,jdbcType=VARCHAR},</if>
         <if test="nextOperator != null"> next_operator = #{nextOperator,jdbcType=VARCHAR},</if>
       </set>

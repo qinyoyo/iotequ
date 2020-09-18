@@ -110,30 +110,30 @@
   <update id="updateSelective" parameterType="java.util.Map">
     update ad_special_shift 
       <set>
-        <if test='shiftMode == "[null]"'> shift_mode = NULL, </if>
-        <if test='shiftMode != null and shiftMode != "[null]"'> shift_mode = #{shiftMode,jdbcType=INTEGER},</if>
-        <if test='name == "[null]"'> name = NULL, </if>
-        <if test='name != null and name != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
-        <if test='modeProperty == "[null]"'> mode_property = NULL, </if>
-        <if test='modeProperty != null and modeProperty != "[null]"'> mode_property = #{modeProperty,jdbcType=INTEGER},</if>
-        <if test='startDate == "[null]"'> start_date = NULL, </if>
-        <if test='startDate != null and startDate != "[null]"'> start_date = #{startDate,jdbcType=DATE},</if>
-        <if test='endDate == "[null]"'> end_date = NULL, </if>
-        <if test='endDate != null and endDate != "[null]"'> end_date = #{endDate,jdbcType=DATE},</if>
-        <if test='orgCodes == "[null]"'> org_codes = NULL, </if>
-        <if test='orgCodes != null and orgCodes != "[null]"'> org_codes = #{orgCodes,jdbcType=VARCHAR},</if>
-        <if test='sexProperty == "[null]"'> sex_property = NULL, </if>
-        <if test='sexProperty != null and sexProperty != "[null]"'> sex_property = #{sexProperty,jdbcType=INTEGER},</if>
-        <if test='ageProperty0 == "[null]"'> age_property0 = NULL, </if>
-        <if test='ageProperty0 != null and ageProperty0 != "[null]"'> age_property0 = #{ageProperty0,jdbcType=INTEGER},</if>
-        <if test='ageProperty1 == "[null]"'> age_property1 = NULL, </if>
-        <if test='ageProperty1 != null and ageProperty1 != "[null]"'> age_property1 = #{ageProperty1,jdbcType=INTEGER},</if>
-        <if test='levelProperty0 == "[null]"'> level_property0 = NULL, </if>
-        <if test='levelProperty0 != null and levelProperty0 != "[null]"'> level_property0 = #{levelProperty0,jdbcType=INTEGER},</if>
-        <if test='levelProperty1 == "[null]"'> level_property1 = NULL, </if>
-        <if test='levelProperty1 != null and levelProperty1 != "[null]"'> level_property1 = #{levelProperty1,jdbcType=INTEGER},</if>
-        <if test='description == "[null]"'> description = NULL, </if>
-        <if test='description != null and description != "[null]"'> description = #{description,jdbcType=VARCHAR},</if>
+        <if test='shiftMode_string_ == "[null]"'> shift_mode = NULL, </if>
+        <if test='shiftMode != null and shiftMode_string_ != "[null]"'> shift_mode = #{shiftMode,jdbcType=INTEGER},</if>
+        <if test='name_string_ == "[null]"'> name = NULL, </if>
+        <if test='name != null and name_string_ != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
+        <if test='modeProperty_string_ == "[null]"'> mode_property = NULL, </if>
+        <if test='modeProperty != null and modeProperty_string_ != "[null]"'> mode_property = #{modeProperty,jdbcType=INTEGER},</if>
+        <if test='startDate_string_ == "[null]"'> start_date = NULL, </if>
+        <if test='startDate != null and startDate_string_ != "[null]"'> start_date = #{startDate,jdbcType=DATE},</if>
+        <if test='endDate_string_ == "[null]"'> end_date = NULL, </if>
+        <if test='endDate != null and endDate_string_ != "[null]"'> end_date = #{endDate,jdbcType=DATE},</if>
+        <if test='orgCodes_string_ == "[null]"'> org_codes = NULL, </if>
+        <if test='orgCodes != null and orgCodes_string_ != "[null]"'> org_codes = #{orgCodes,jdbcType=VARCHAR},</if>
+        <if test='sexProperty_string_ == "[null]"'> sex_property = NULL, </if>
+        <if test='sexProperty != null and sexProperty_string_ != "[null]"'> sex_property = #{sexProperty,jdbcType=INTEGER},</if>
+        <if test='ageProperty0_string_ == "[null]"'> age_property0 = NULL, </if>
+        <if test='ageProperty0 != null and ageProperty0_string_ != "[null]"'> age_property0 = #{ageProperty0,jdbcType=INTEGER},</if>
+        <if test='ageProperty1_string_ == "[null]"'> age_property1 = NULL, </if>
+        <if test='ageProperty1 != null and ageProperty1_string_ != "[null]"'> age_property1 = #{ageProperty1,jdbcType=INTEGER},</if>
+        <if test='levelProperty0_string_ == "[null]"'> level_property0 = NULL, </if>
+        <if test='levelProperty0 != null and levelProperty0_string_ != "[null]"'> level_property0 = #{levelProperty0,jdbcType=INTEGER},</if>
+        <if test='levelProperty1_string_ == "[null]"'> level_property1 = NULL, </if>
+        <if test='levelProperty1 != null and levelProperty1_string_ != "[null]"'> level_property1 = #{levelProperty1,jdbcType=INTEGER},</if>
+        <if test='description_string_ == "[null]"'> description = NULL, </if>
+        <if test='description != null and description_string_ != "[null]"'> description = #{description,jdbcType=VARCHAR},</if>
       </set>
       where id = #{id,jdbcType=INTEGER}
   </update>

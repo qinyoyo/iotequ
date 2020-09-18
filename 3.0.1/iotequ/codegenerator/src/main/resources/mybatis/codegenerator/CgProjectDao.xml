@@ -80,30 +80,30 @@
   <update id="updateSelective" parameterType="java.util.Map">
     update cg_project 
       <set>
-        <if test='code == "[null]"'> code = NULL, </if>
-        <if test='code != null and code != "[null]"'> code = #{code,jdbcType=VARCHAR},</if>
-        <if test='creator == "[null]"'> creator = NULL, </if>
-        <if test='creator != null and creator != "[null]"'> creator = #{creator,jdbcType=VARCHAR},</if>
-        <if test='groupId == "[null]"'> group_id = NULL, </if>
-        <if test='groupId != null and groupId != "[null]"'> group_id = #{groupId,jdbcType=VARCHAR},</if>
-        <if test='name == "[null]"'> name = NULL, </if>
-        <if test='name != null and name != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
-        <if test='version == "[null]"'> version = NULL, </if>
-        <if test='version != null and version != "[null]"'> version = #{version,jdbcType=VARCHAR},</if>
-        <if test='note == "[null]"'> note = NULL, </if>
-        <if test='note != null and note != "[null]"'> note = #{note,jdbcType=VARCHAR},</if>
-        <if test='modules == "[null]"'> modules = NULL, </if>
-        <if test='modules != null and modules != "[null]"'> modules = #{modules,jdbcType=VARCHAR},</if>
-        <if test='springModule == "[null]"'> spring_module = NULL, </if>
-        <if test='springModule != null and springModule != "[null]"'> spring_module = #{springModule,jdbcType=TINYINT},</if>
-        <if test='mavenModule == "[null]"'> maven_module = NULL, </if>
-        <if test='mavenModule != null and mavenModule != "[null]"'> maven_module = #{mavenModule,jdbcType=TINYINT},</if>
-        <if test='mavenServer == "[null]"'> maven_server = NULL, </if>
-        <if test='mavenServer != null and mavenServer != "[null]"'> maven_server = #{mavenServer,jdbcType=VARCHAR},</if>
-        <if test='addtionalDependencies == "[null]"'> addtional_dependencies = NULL, </if>
-        <if test='addtionalDependencies != null and addtionalDependencies != "[null]"'> addtional_dependencies = #{addtionalDependencies,jdbcType=VARCHAR},</if>
-        <if test='test == "[null]"'> test = NULL, </if>
-        <if test='test != null and test != "[null]"'> test = #{test,jdbcType=TINYINT},</if>
+        <if test='code_string_ == "[null]"'> code = NULL, </if>
+        <if test='code != null and code_string_ != "[null]"'> code = #{code,jdbcType=VARCHAR},</if>
+        <if test='creator_string_ == "[null]"'> creator = NULL, </if>
+        <if test='creator != null and creator_string_ != "[null]"'> creator = #{creator,jdbcType=VARCHAR},</if>
+        <if test='groupId_string_ == "[null]"'> group_id = NULL, </if>
+        <if test='groupId != null and groupId_string_ != "[null]"'> group_id = #{groupId,jdbcType=VARCHAR},</if>
+        <if test='name_string_ == "[null]"'> name = NULL, </if>
+        <if test='name != null and name_string_ != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
+        <if test='version_string_ == "[null]"'> version = NULL, </if>
+        <if test='version != null and version_string_ != "[null]"'> version = #{version,jdbcType=VARCHAR},</if>
+        <if test='note_string_ == "[null]"'> note = NULL, </if>
+        <if test='note != null and note_string_ != "[null]"'> note = #{note,jdbcType=VARCHAR},</if>
+        <if test='modules_string_ == "[null]"'> modules = NULL, </if>
+        <if test='modules != null and modules_string_ != "[null]"'> modules = #{modules,jdbcType=VARCHAR},</if>
+        <if test='springModule_string_ == "[null]"'> spring_module = NULL, </if>
+        <if test='springModule != null and springModule_string_ != "[null]"'> spring_module = #{springModule,jdbcType=TINYINT},</if>
+        <if test='mavenModule_string_ == "[null]"'> maven_module = NULL, </if>
+        <if test='mavenModule != null and mavenModule_string_ != "[null]"'> maven_module = #{mavenModule,jdbcType=TINYINT},</if>
+        <if test='mavenServer_string_ == "[null]"'> maven_server = NULL, </if>
+        <if test='mavenServer != null and mavenServer_string_ != "[null]"'> maven_server = #{mavenServer,jdbcType=VARCHAR},</if>
+        <if test='addtionalDependencies_string_ == "[null]"'> addtional_dependencies = NULL, </if>
+        <if test='addtionalDependencies != null and addtionalDependencies_string_ != "[null]"'> addtional_dependencies = #{addtionalDependencies,jdbcType=VARCHAR},</if>
+        <if test='test_string_ == "[null]"'> test = NULL, </if>
+        <if test='test != null and test_string_ != "[null]"'> test = #{test,jdbcType=TINYINT},</if>
       </set>
       where id = #{id,jdbcType=VARCHAR}
   </update>

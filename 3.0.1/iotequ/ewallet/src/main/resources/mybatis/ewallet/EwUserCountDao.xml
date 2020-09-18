@@ -111,14 +111,14 @@
   <update id="updateSelective" parameterType="java.util.Map">
     update ew_user_count 
       <set>
-        <if test='amountCount == "[null]"'> amount_count = NULL, </if>
-        <if test='amountCount != null and amountCount != "[null]"'> amount_count = #{amountCount,jdbcType=INTEGER},</if>
-        <if test='checkCode == "[null]"'> check_code = NULL, </if>
-        <if test='checkCode != null and checkCode != "[null]"'> check_code = #{checkCode,jdbcType=VARCHAR},</if>
-        <if test='costLimit == "[null]"'> cost_limit = NULL, </if>
-        <if test='costLimit != null and costLimit != "[null]"'> cost_limit = #{costLimit,jdbcType=INTEGER},</if>
-        <if test='dayLimit == "[null]"'> day_limit = NULL, </if>
-        <if test='dayLimit != null and dayLimit != "[null]"'> day_limit = #{dayLimit,jdbcType=INTEGER},</if>
+        <if test='amountCount_string_ == "[null]"'> amount_count = NULL, </if>
+        <if test='amountCount != null and amountCount_string_ != "[null]"'> amount_count = #{amountCount,jdbcType=INTEGER},</if>
+        <if test='checkCode_string_ == "[null]"'> check_code = NULL, </if>
+        <if test='checkCode != null and checkCode_string_ != "[null]"'> check_code = #{checkCode,jdbcType=VARCHAR},</if>
+        <if test='costLimit_string_ == "[null]"'> cost_limit = NULL, </if>
+        <if test='costLimit != null and costLimit_string_ != "[null]"'> cost_limit = #{costLimit,jdbcType=INTEGER},</if>
+        <if test='dayLimit_string_ == "[null]"'> day_limit = NULL, </if>
+        <if test='dayLimit != null and dayLimit_string_ != "[null]"'> day_limit = #{dayLimit,jdbcType=INTEGER},</if>
         <if test="userNo != null"> user_no = #{userNo,jdbcType=VARCHAR},</if>
         <if test="countId != null"> count_id = #{countId,jdbcType=INTEGER},</if>
       </set>

@@ -100,14 +100,14 @@
   <update id="updateSelective" parameterType="java.util.Map">
     update sys_data_dict 
       <set>
-        <if test='dict == "[null]"'> dict = NULL, </if>
-        <if test='dict != null and dict != "[null]"'> dict = #{dict,jdbcType=VARCHAR},</if>
-        <if test='code == "[null]"'> code = NULL, </if>
-        <if test='code != null and code != "[null]"'> code = #{code,jdbcType=VARCHAR},</if>
-        <if test='text == "[null]"'> text = NULL, </if>
-        <if test='text != null and text != "[null]"'> text = #{text,jdbcType=VARCHAR},</if>
-        <if test='orderNum == "[null]"'> order_num = NULL, </if>
-        <if test='orderNum != null and orderNum != "[null]"'> order_num = #{orderNum,jdbcType=INTEGER},</if>
+        <if test='dict_string_ == "[null]"'> dict = NULL, </if>
+        <if test='dict != null and dict_string_ != "[null]"'> dict = #{dict,jdbcType=VARCHAR},</if>
+        <if test='code_string_ == "[null]"'> code = NULL, </if>
+        <if test='code != null and code_string_ != "[null]"'> code = #{code,jdbcType=VARCHAR},</if>
+        <if test='text_string_ == "[null]"'> text = NULL, </if>
+        <if test='text != null and text_string_ != "[null]"'> text = #{text,jdbcType=VARCHAR},</if>
+        <if test='orderNum_string_ == "[null]"'> order_num = NULL, </if>
+        <if test='orderNum != null and orderNum_string_ != "[null]"'> order_num = #{orderNum,jdbcType=INTEGER},</if>
       </set>
       where id = #{id,jdbcType=INTEGER}
   </update>

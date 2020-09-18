@@ -124,18 +124,18 @@
   <update id="updateSelective" parameterType="java.util.Map">
     update sys_org 
       <set>
-        <if test='name == "[null]"'> name = NULL, </if>
-        <if test='name != null and name != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
-        <if test='parent == "[null]"'> parent = NULL, </if>
-        <if test='parent != null and parent != "[null]"'> parent = #{parent,jdbcType=INTEGER},</if>
-        <if test='phone == "[null]"'> phone = NULL, </if>
-        <if test='phone != null and phone != "[null]"'> phone = #{phone,jdbcType=VARCHAR},</if>
-        <if test='fax == "[null]"'> fax = NULL, </if>
-        <if test='fax != null and fax != "[null]"'> fax = #{fax,jdbcType=VARCHAR},</if>
-        <if test='roleList == "[null]"'> role_list = NULL, </if>
-        <if test='roleList != null and roleList != "[null]"'> role_list = #{roleList,jdbcType=VARCHAR},</if>
-        <if test='address == "[null]"'> address = NULL, </if>
-        <if test='address != null and address != "[null]"'> address = #{address,jdbcType=VARCHAR},</if>
+        <if test='name_string_ == "[null]"'> name = NULL, </if>
+        <if test='name != null and name_string_ != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
+        <if test='parent_string_ == "[null]"'> parent = NULL, </if>
+        <if test='parent != null and parent_string_ != "[null]"'> parent = #{parent,jdbcType=INTEGER},</if>
+        <if test='phone_string_ == "[null]"'> phone = NULL, </if>
+        <if test='phone != null and phone_string_ != "[null]"'> phone = #{phone,jdbcType=VARCHAR},</if>
+        <if test='fax_string_ == "[null]"'> fax = NULL, </if>
+        <if test='fax != null and fax_string_ != "[null]"'> fax = #{fax,jdbcType=VARCHAR},</if>
+        <if test='roleList_string_ == "[null]"'> role_list = NULL, </if>
+        <if test='roleList != null and roleList_string_ != "[null]"'> role_list = #{roleList,jdbcType=VARCHAR},</if>
+        <if test='address_string_ == "[null]"'> address = NULL, </if>
+        <if test='address != null and address_string_ != "[null]"'> address = #{address,jdbcType=VARCHAR},</if>
       </set>
       where org_code = #{orgCode,jdbcType=INTEGER}
   </update>

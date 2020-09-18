@@ -122,20 +122,20 @@
   <update id="updateSelective" parameterType="java.util.Map">
     update sys_route 
       <set>
-        <if test='path == "[null]"'> path = NULL, </if>
-        <if test='path != null and path != "[null]"'> path = #{path,jdbcType=VARCHAR},</if>
-        <if test='name == "[null]"'> name = NULL, </if>
-        <if test='name != null and name != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
-        <if test='component == "[null]"'> component = NULL, </if>
-        <if test='component != null and component != "[null]"'> component = #{component,jdbcType=VARCHAR},</if>
-        <if test='title == "[null]"'> title = NULL, </if>
-        <if test='title != null and title != "[null]"'> title = #{title,jdbcType=VARCHAR},</if>
-        <if test='breadcrumbShow == "[null]"'> breadcrumb_show = NULL, </if>
-        <if test='breadcrumbShow != null and breadcrumbShow != "[null]"'> breadcrumb_show = #{breadcrumbShow,jdbcType=TINYINT},</if>
-        <if test='needCache == "[null]"'> need_cache = NULL, </if>
-        <if test='needCache != null and needCache != "[null]"'> need_cache = #{needCache,jdbcType=TINYINT},</if>
-        <if test='tagView == "[null]"'> tag_view = NULL, </if>
-        <if test='tagView != null and tagView != "[null]"'> tag_view = #{tagView,jdbcType=TINYINT},</if>
+        <if test='path_string_ == "[null]"'> path = NULL, </if>
+        <if test='path != null and path_string_ != "[null]"'> path = #{path,jdbcType=VARCHAR},</if>
+        <if test='name_string_ == "[null]"'> name = NULL, </if>
+        <if test='name != null and name_string_ != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
+        <if test='component_string_ == "[null]"'> component = NULL, </if>
+        <if test='component != null and component_string_ != "[null]"'> component = #{component,jdbcType=VARCHAR},</if>
+        <if test='title_string_ == "[null]"'> title = NULL, </if>
+        <if test='title != null and title_string_ != "[null]"'> title = #{title,jdbcType=VARCHAR},</if>
+        <if test='breadcrumbShow_string_ == "[null]"'> breadcrumb_show = NULL, </if>
+        <if test='breadcrumbShow != null and breadcrumbShow_string_ != "[null]"'> breadcrumb_show = #{breadcrumbShow,jdbcType=TINYINT},</if>
+        <if test='needCache_string_ == "[null]"'> need_cache = NULL, </if>
+        <if test='needCache != null and needCache_string_ != "[null]"'> need_cache = #{needCache,jdbcType=TINYINT},</if>
+        <if test='tagView_string_ == "[null]"'> tag_view = NULL, </if>
+        <if test='tagView != null and tagView_string_ != "[null]"'> tag_view = #{tagView,jdbcType=TINYINT},</if>
       </set>
       where id = #{id,jdbcType=INTEGER}
   </update>

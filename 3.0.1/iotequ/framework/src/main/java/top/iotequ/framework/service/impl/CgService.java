@@ -348,7 +348,7 @@ public abstract class CgService<T extends CgEntity> implements ICgService<T>, Co
                     if (isNew) {  // fastAdd
                         try {
                             for (String key:obj.keySet()) {
-                                if ("[null]".equals(StringUtil.toString(obj.get(key)))) obj.put(key,null);
+                                if ("[null]".equals(StringUtil.toString(obj.get(key))) && key.endsWith("_string_")) obj.put(key.substring(0,key.length()-8),null);
                             }
                             T entity = EntityUtil.entityFromMap(obj,this.getEntityClass());
                             doSave(true, null, 0, entity, null, Util.getRequest());

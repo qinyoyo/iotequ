@@ -112,32 +112,32 @@
   <update id="updateSelective" parameterType="java.util.Map">
     update sys_task 
       <set>
-        <if test='name == "[null]"'> name = NULL, </if>
-        <if test='name != null and name != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
-        <if test='description == "[null]"'> description = NULL, </if>
-        <if test='description != null and description != "[null]"'> description = #{description,jdbcType=VARCHAR},</if>
-        <if test='sceduleYears == "[null]"'> scedule_years = NULL, </if>
-        <if test='sceduleYears != null and sceduleYears != "[null]"'> scedule_years = #{sceduleYears,jdbcType=VARCHAR},</if>
-        <if test='scheduleMonths == "[null]"'> schedule_months = NULL, </if>
-        <if test='scheduleMonths != null and scheduleMonths != "[null]"'> schedule_months = #{scheduleMonths,jdbcType=VARCHAR},</if>
-        <if test='scheduleDays == "[null]"'> schedule_days = NULL, </if>
-        <if test='scheduleDays != null and scheduleDays != "[null]"'> schedule_days = #{scheduleDays,jdbcType=VARCHAR},</if>
-        <if test='scheduleWeeks == "[null]"'> schedule_weeks = NULL, </if>
-        <if test='scheduleWeeks != null and scheduleWeeks != "[null]"'> schedule_weeks = #{scheduleWeeks,jdbcType=VARCHAR},</if>
-        <if test='scheduleHours == "[null]"'> schedule_hours = NULL, </if>
-        <if test='scheduleHours != null and scheduleHours != "[null]"'> schedule_hours = #{scheduleHours,jdbcType=VARCHAR},</if>
-        <if test='scheduleMinutes == "[null]"'> schedule_minutes = NULL, </if>
-        <if test='scheduleMinutes != null and scheduleMinutes != "[null]"'> schedule_minutes = #{scheduleMinutes,jdbcType=VARCHAR},</if>
-        <if test='className == "[null]"'> class_name = NULL, </if>
-        <if test='className != null and className != "[null]"'> class_name = #{className,jdbcType=VARCHAR},</if>
-        <if test='mothodName == "[null]"'> mothod_name = NULL, </if>
-        <if test='mothodName != null and mothodName != "[null]"'> mothod_name = #{mothodName,jdbcType=VARCHAR},</if>
-        <if test='isStatic == "[null]"'> is_static = NULL, </if>
-        <if test='isStatic != null and isStatic != "[null]"'> is_static = #{isStatic,jdbcType=TINYINT},</if>
-        <if test='parames == "[null]"'> parames = NULL, </if>
-        <if test='parames != null and parames != "[null]"'> parames = #{parames,jdbcType=VARCHAR},</if>
-        <if test='isRunning == "[null]"'> is_running = NULL, </if>
-        <if test='isRunning != null and isRunning != "[null]"'> is_running = #{isRunning,jdbcType=TINYINT},</if>
+        <if test='name_string_ == "[null]"'> name = NULL, </if>
+        <if test='name != null and name_string_ != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
+        <if test='description_string_ == "[null]"'> description = NULL, </if>
+        <if test='description != null and description_string_ != "[null]"'> description = #{description,jdbcType=VARCHAR},</if>
+        <if test='sceduleYears_string_ == "[null]"'> scedule_years = NULL, </if>
+        <if test='sceduleYears != null and sceduleYears_string_ != "[null]"'> scedule_years = #{sceduleYears,jdbcType=VARCHAR},</if>
+        <if test='scheduleMonths_string_ == "[null]"'> schedule_months = NULL, </if>
+        <if test='scheduleMonths != null and scheduleMonths_string_ != "[null]"'> schedule_months = #{scheduleMonths,jdbcType=VARCHAR},</if>
+        <if test='scheduleDays_string_ == "[null]"'> schedule_days = NULL, </if>
+        <if test='scheduleDays != null and scheduleDays_string_ != "[null]"'> schedule_days = #{scheduleDays,jdbcType=VARCHAR},</if>
+        <if test='scheduleWeeks_string_ == "[null]"'> schedule_weeks = NULL, </if>
+        <if test='scheduleWeeks != null and scheduleWeeks_string_ != "[null]"'> schedule_weeks = #{scheduleWeeks,jdbcType=VARCHAR},</if>
+        <if test='scheduleHours_string_ == "[null]"'> schedule_hours = NULL, </if>
+        <if test='scheduleHours != null and scheduleHours_string_ != "[null]"'> schedule_hours = #{scheduleHours,jdbcType=VARCHAR},</if>
+        <if test='scheduleMinutes_string_ == "[null]"'> schedule_minutes = NULL, </if>
+        <if test='scheduleMinutes != null and scheduleMinutes_string_ != "[null]"'> schedule_minutes = #{scheduleMinutes,jdbcType=VARCHAR},</if>
+        <if test='className_string_ == "[null]"'> class_name = NULL, </if>
+        <if test='className != null and className_string_ != "[null]"'> class_name = #{className,jdbcType=VARCHAR},</if>
+        <if test='mothodName_string_ == "[null]"'> mothod_name = NULL, </if>
+        <if test='mothodName != null and mothodName_string_ != "[null]"'> mothod_name = #{mothodName,jdbcType=VARCHAR},</if>
+        <if test='isStatic_string_ == "[null]"'> is_static = NULL, </if>
+        <if test='isStatic != null and isStatic_string_ != "[null]"'> is_static = #{isStatic,jdbcType=TINYINT},</if>
+        <if test='parames_string_ == "[null]"'> parames = NULL, </if>
+        <if test='parames != null and parames_string_ != "[null]"'> parames = #{parames,jdbcType=VARCHAR},</if>
+        <if test='isRunning_string_ == "[null]"'> is_running = NULL, </if>
+        <if test='isRunning != null and isRunning_string_ != "[null]"'> is_running = #{isRunning,jdbcType=TINYINT},</if>
       </set>
       where id = #{id,jdbcType=INTEGER}
   </update>

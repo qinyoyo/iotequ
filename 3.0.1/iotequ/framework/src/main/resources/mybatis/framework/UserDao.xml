@@ -149,46 +149,46 @@
   <update id="updateSelective" parameterType="java.util.Map">
     update sys_user 
       <set>
-        <if test='icon == "[null]"'> icon = NULL, </if>
-        <if test='icon != null and icon != "[null]"'> icon = #{icon,jdbcType=VARCHAR},</if>
-        <if test='name == "[null]"'> name = NULL, </if>
-        <if test='name != null and name != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
-        <if test='realName == "[null]"'> real_name = NULL, </if>
-        <if test='realName != null and realName != "[null]"'> real_name = #{realName,jdbcType=VARCHAR},</if>
-        <if test='sex == "[null]"'> sex = NULL, </if>
-        <if test='sex != null and sex != "[null]"'> sex = #{sex,jdbcType=VARCHAR},</if>
-        <if test='birthDate == "[null]"'> birth_date = NULL, </if>
-        <if test='birthDate != null and birthDate != "[null]"'> birth_date = #{birthDate,jdbcType=DATE},</if>
-        <if test='regTime == "[null]"'> reg_time = NULL, </if>
-        <if test='regTime != null and regTime != "[null]"'> reg_time = #{regTime,jdbcType=TIMESTAMP},</if>
-        <if test='mobilePhone == "[null]"'> mobile_phone = NULL, </if>
-        <if test='mobilePhone != null and mobilePhone != "[null]"'> mobile_phone = #{mobilePhone,jdbcType=VARCHAR},</if>
-        <if test='email == "[null]"'> email = NULL, </if>
-        <if test='email != null and email != "[null]"'> email = #{email,jdbcType=VARCHAR},</if>
-        <if test='wechatOpenid == "[null]"'> wechat_openid = NULL, </if>
-        <if test='wechatOpenid != null and wechatOpenid != "[null]"'> wechat_openid = #{wechatOpenid,jdbcType=VARCHAR},</if>
-        <if test='orgCode == "[null]"'> org_code = NULL, </if>
-        <if test='orgCode != null and orgCode != "[null]"'> org_code = #{orgCode,jdbcType=INTEGER},</if>
-        <if test='orgPrivilege == "[null]"'> org_privilege = NULL, </if>
-        <if test='orgPrivilege != null and orgPrivilege != "[null]"'> org_privilege = #{orgPrivilege,jdbcType=INTEGER},</if>
-        <if test='roleList == "[null]"'> role_list = NULL, </if>
-        <if test='roleList != null and roleList != "[null]"'> role_list = #{roleList,jdbcType=VARCHAR},</if>
-        <if test='locked == "[null]"'> locked = NULL, </if>
-        <if test='locked != null and locked != "[null]"'> locked = #{locked,jdbcType=TINYINT},</if>
-        <if test='state == "[null]"'> state = NULL, </if>
-        <if test='state != null and state != "[null]"'> state = #{state,jdbcType=TINYINT},</if>
-        <if test='idType == "[null]"'> id_type = NULL, </if>
-        <if test='idType != null and idType != "[null]"'> id_type = #{idType,jdbcType=INTEGER},</if>
-        <if test='idNumber == "[null]"'> id_number = NULL, </if>
-        <if test='idNumber != null and idNumber != "[null]"'> id_number = #{idNumber,jdbcType=VARCHAR},</if>
-        <if test='expiredTime == "[null]"'> expired_time = NULL, </if>
-        <if test='expiredTime != null and expiredTime != "[null]"'> expired_time = #{expiredTime,jdbcType=DATE},</if>
-        <if test='passwordExpiredTime == "[null]"'> password_expired_time = NULL, </if>
-        <if test='passwordExpiredTime != null and passwordExpiredTime != "[null]"'> password_expired_time = #{passwordExpiredTime,jdbcType=DATE},</if>
-        <if test='password == "[null]"'> password = NULL, </if>
-        <if test='password != null and password != "[null]"'> password = #{password,jdbcType=VARCHAR},</if>
-        <if test='passwordErrorTimes == "[null]"'> password_error_times = NULL, </if>
-        <if test='passwordErrorTimes != null and passwordErrorTimes != "[null]"'> password_error_times = #{passwordErrorTimes,jdbcType=INTEGER},</if>
+        <if test='icon_string_ == "[null]"'> icon = NULL, </if>
+        <if test='icon != null and icon_string_ != "[null]"'> icon = #{icon,jdbcType=VARCHAR},</if>
+        <if test='name_string_ == "[null]"'> name = NULL, </if>
+        <if test='name != null and name_string_ != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
+        <if test='realName_string_ == "[null]"'> real_name = NULL, </if>
+        <if test='realName != null and realName_string_ != "[null]"'> real_name = #{realName,jdbcType=VARCHAR},</if>
+        <if test='sex_string_ == "[null]"'> sex = NULL, </if>
+        <if test='sex != null and sex_string_ != "[null]"'> sex = #{sex,jdbcType=VARCHAR},</if>
+        <if test='birthDate_string_ == "[null]"'> birth_date = NULL, </if>
+        <if test='birthDate != null and birthDate_string_ != "[null]"'> birth_date = #{birthDate,jdbcType=DATE},</if>
+        <if test='regTime_string_ == "[null]"'> reg_time = NULL, </if>
+        <if test='regTime != null and regTime_string_ != "[null]"'> reg_time = #{regTime,jdbcType=TIMESTAMP},</if>
+        <if test='mobilePhone_string_ == "[null]"'> mobile_phone = NULL, </if>
+        <if test='mobilePhone != null and mobilePhone_string_ != "[null]"'> mobile_phone = #{mobilePhone,jdbcType=VARCHAR},</if>
+        <if test='email_string_ == "[null]"'> email = NULL, </if>
+        <if test='email != null and email_string_ != "[null]"'> email = #{email,jdbcType=VARCHAR},</if>
+        <if test='wechatOpenid_string_ == "[null]"'> wechat_openid = NULL, </if>
+        <if test='wechatOpenid != null and wechatOpenid_string_ != "[null]"'> wechat_openid = #{wechatOpenid,jdbcType=VARCHAR},</if>
+        <if test='orgCode_string_ == "[null]"'> org_code = NULL, </if>
+        <if test='orgCode != null and orgCode_string_ != "[null]"'> org_code = #{orgCode,jdbcType=INTEGER},</if>
+        <if test='orgPrivilege_string_ == "[null]"'> org_privilege = NULL, </if>
+        <if test='orgPrivilege != null and orgPrivilege_string_ != "[null]"'> org_privilege = #{orgPrivilege,jdbcType=INTEGER},</if>
+        <if test='roleList_string_ == "[null]"'> role_list = NULL, </if>
+        <if test='roleList != null and roleList_string_ != "[null]"'> role_list = #{roleList,jdbcType=VARCHAR},</if>
+        <if test='locked_string_ == "[null]"'> locked = NULL, </if>
+        <if test='locked != null and locked_string_ != "[null]"'> locked = #{locked,jdbcType=TINYINT},</if>
+        <if test='state_string_ == "[null]"'> state = NULL, </if>
+        <if test='state != null and state_string_ != "[null]"'> state = #{state,jdbcType=TINYINT},</if>
+        <if test='idType_string_ == "[null]"'> id_type = NULL, </if>
+        <if test='idType != null and idType_string_ != "[null]"'> id_type = #{idType,jdbcType=INTEGER},</if>
+        <if test='idNumber_string_ == "[null]"'> id_number = NULL, </if>
+        <if test='idNumber != null and idNumber_string_ != "[null]"'> id_number = #{idNumber,jdbcType=VARCHAR},</if>
+        <if test='expiredTime_string_ == "[null]"'> expired_time = NULL, </if>
+        <if test='expiredTime != null and expiredTime_string_ != "[null]"'> expired_time = #{expiredTime,jdbcType=DATE},</if>
+        <if test='passwordExpiredTime_string_ == "[null]"'> password_expired_time = NULL, </if>
+        <if test='passwordExpiredTime != null and passwordExpiredTime_string_ != "[null]"'> password_expired_time = #{passwordExpiredTime,jdbcType=DATE},</if>
+        <if test='password_string_ == "[null]"'> password = NULL, </if>
+        <if test='password != null and password_string_ != "[null]"'> password = #{password,jdbcType=VARCHAR},</if>
+        <if test='passwordErrorTimes_string_ == "[null]"'> password_error_times = NULL, </if>
+        <if test='passwordErrorTimes != null and passwordErrorTimes_string_ != "[null]"'> password_error_times = #{passwordErrorTimes,jdbcType=INTEGER},</if>
       </set>
       where id = #{id,jdbcType=VARCHAR}
   </update>

@@ -105,14 +105,14 @@
   <update id="updateSelective" parameterType="java.util.Map">
     update sys_action 
       <set>
-        <if test='note == "[null]"'> note = NULL, </if>
-        <if test='note != null and note != "[null]"'> note = #{note,jdbcType=VARCHAR},</if>
-        <if test='value == "[null]"'> value = NULL, </if>
-        <if test='value != null and value != "[null]"'> value = #{value,jdbcType=VARCHAR},</if>
-        <if test='params == "[null]"'> params = NULL, </if>
-        <if test='params != null and params != "[null]"'> params = #{params,jdbcType=VARCHAR},</if>
-        <if test='method == "[null]"'> method = NULL, </if>
-        <if test='method != null and method != "[null]"'> method = #{method,jdbcType=VARCHAR},</if>
+        <if test='note_string_ == "[null]"'> note = NULL, </if>
+        <if test='note != null and note_string_ != "[null]"'> note = #{note,jdbcType=VARCHAR},</if>
+        <if test='value_string_ == "[null]"'> value = NULL, </if>
+        <if test='value != null and value_string_ != "[null]"'> value = #{value,jdbcType=VARCHAR},</if>
+        <if test='params_string_ == "[null]"'> params = NULL, </if>
+        <if test='params != null and params_string_ != "[null]"'> params = #{params,jdbcType=VARCHAR},</if>
+        <if test='method_string_ == "[null]"'> method = NULL, </if>
+        <if test='method != null and method_string_ != "[null]"'> method = #{method,jdbcType=VARCHAR},</if>
       </set>
       where id = #{id,jdbcType=INTEGER}
   </update>
