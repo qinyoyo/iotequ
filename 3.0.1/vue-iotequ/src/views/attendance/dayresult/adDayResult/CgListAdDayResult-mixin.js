@@ -20,13 +20,23 @@ export default {
         const listObject = this
         const cgList = listObject.cgUtils().cgList
         const params = cgList.list_getQueryParams(listObject)
-        cgList.list_request({ listObject, method: 'get', params, action: 'action/adjust',
-        timeout: 0,
-        onSuccess: (res) => { 
-          cgList.list_getDataFromServer(listObject)
-          listObject.$emit('adjust-completed', listObject)
+        const dt0=params.adDate_start , dt1=params.adDate_end
+        if (!dt0 || !dt1) {
+          this.$message({message: '请在查询条件里设置一个日期范围', type: 'error'})
+          return
         }
-      })
+        const oo = params.orgCode , ee=params.employee;
+        if (!oo && !ee) {
+          this.$message({message:'请在查询条件里选择一个部门或职员', type:'error'})
+          return
+        }
+        cgList.list_request({ listObject, method: 'get', params, action: 'action/adjust',
+          timeout: 0,
+          onSuccess: (res) => { 
+            cgList.list_getDataFromServer(listObject)
+            listObject.$emit('adjust-completed', listObject)
+          }
+        })
       } else this.super_doAction(action,options)
     },
     rowRenderGroupTitle(index) {

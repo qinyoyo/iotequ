@@ -308,7 +308,6 @@ public abstract class CgService<T extends CgEntity> implements ICgService<T>, Co
             }
             final String [] fieldList=fields.split(",");
             Map<String,Object> newObj = new HashMap<>();
-            EntityUtil.setPrivateField(newObj,annotation.entityPk(),obj.getPkValue());
             for (String f : fieldList) {
                 if (!Util.isEmpty(f)) {
                     String fileName = UploadDownUtil.uploadFile(clazz, f, obj.getPkValue().toString(), EntityUtil.getMultipleFrom(clazz, f), EntityUtil.getNullableFrom(clazz, f), request);
@@ -316,7 +315,7 @@ public abstract class CgService<T extends CgEntity> implements ICgService<T>, Co
                     EntityUtil.setPrivateField(obj, f, fileName);
                 }
             }
-            newObj.put(this.getCgTableAnnotation().entityPk(),obj.getPkValue());
+            newObj.put(annotation.entityPk(),obj.getPkValue());
             daoService.updateSelective(newObj);
         }
         afterSave(obj0, obj, request, j);

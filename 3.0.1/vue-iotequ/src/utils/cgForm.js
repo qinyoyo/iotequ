@@ -37,7 +37,7 @@ export default {
       request(req, silence).then(res => {
         formObject.recordLoading = false
         if (res && res.hasOwnProperty('success') && res.success) {
-          if (res.dictionary) {
+          if (formObject.hasOwnProperty('dictionary') && res.dictionary) {
             formObject.dictionary = Object.assign(formObject.dictionary, res.dictionary)
             formObject.needLoadDictionary = false
           }
@@ -317,10 +317,12 @@ export default {
     formObject.onChange = typeof query.onChange ==='function' ? query.onChange : null
     formObject.fixedFields = typeof query.fixedFields ==='object' ? query.fixedFields : null
     if (formObject.$refs.cgForm) formObject.$refs.cgForm.clearValidate()
-    if (query.hasOwnProperty('dictionary') && typeof query.dictionary ==='object') {
-      formObject.dictionary = Object.assign(formObject.dictionary, query.dictionary)
-      formObject.needLoadDictionary = false
-    } else formObject.needLoadDictionary = true
+    if (formObject.hasOwnProperty('dictionary')) {
+      if (query.hasOwnProperty('dictionary') && typeof query.dictionary ==='object') {
+        formObject.dictionary = Object.assign(formObject.dictionary, query.dictionary)
+        formObject.needLoadDictionary = false
+      } else formObject.needLoadDictionary = true
+    }
     if (query.hasOwnProperty('record') && typeof query.record ==='object') {
       if (refresh) this.form_doAction(formObject, 'refresh', { id: query.record[formObject.idField] })
       else {

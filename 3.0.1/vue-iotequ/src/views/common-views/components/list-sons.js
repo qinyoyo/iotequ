@@ -104,7 +104,7 @@ export default {
     refreshed(listObject) {
         const row = cgList.list_getCurrentRow(listObject)
         for (let i=0;i<this.sonCount;i++)
-            if (this.$refs['cgList_son'+i] && this.$refs['cgList_son'+i].hasOwnProperty('needLoadDictionary')) this.$refs['cgList_son'+i].needLoadDictionary = true
+            if (this.$refs['cgList_son'+i] && this.$refs['cgList_son'+i].hasOwnProperty('dictionary')) this.$refs['cgList_son'+i].needLoadDictionary = true
         this.setChildrenParams(row)
     },
     doShowDetail(row) {

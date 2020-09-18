@@ -34,10 +34,14 @@ export default {
       el.querySelectorAll(types.length==0 ? cls: types.join(',')).forEach(e=>{
         f(e)
       })      
-    } else el.querySelectorAll(cls).forEach(e=>{
-      if (types.length==0 || types.indexOf(e.tagName.toLowerCase())>=0) {
+    } else if (types.length==0) {
+      el.querySelectorAll('.'+cls+' *').forEach(e=>{
         f(e)
-      }
+      })
+    } else types.forEach(tag=>{
+      el.querySelectorAll('.'+cls+' '+tag).forEach(e=>{
+        f(e)
+      })
     })
   }
 }

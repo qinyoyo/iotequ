@@ -1,0 +1,13 @@
+reader/
+.svn/
+*.bak
+*.rar
+*.zip
+*.jar
+*.doc
+*.docx
+*.vsd
+*.xlsx
+*.xls
+*.pptx
+*.ppt

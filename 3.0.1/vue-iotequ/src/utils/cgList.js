@@ -59,8 +59,8 @@ export default {
       if ((req.timeout === undefined || req.timeout !== 0 ) ) listObject.listLoading = true
       request(req, silence).then(res => {
         if (res && res.hasOwnProperty('success') && res.success) {
-          if (listObject.needLoadDictionary && res.dictionary) {
-            listObject.dictionary = Object.assign(listObject.dictionary,res.dictionary)
+          if (listObject.hasOwnProperty('dictionary') && listObject.needLoadDictionary && res.dictionary) {
+            listObject.dictionary = Object.assign(listObject.dictionary?listObject.dictionary:{},res.dictionary)
             listObject.needLoadDictionary = false
           }
           if (onSuccess && typeof onSuccess === 'function') onSuccess(res)
@@ -299,10 +299,14 @@ export default {
     if (listObject.parentField && listObject.rows.length) rows = cg.treeNode2Rows(listObject.rows)
     let ids=String(idStringList).split(',')
     let count = rows.length
+    const currentRow = listObject.multiple ? null : listObject.$refs.cgList.store.states.currentRow
+    if (currentRow && ids.indexOf(String(currentRow[listObject.idField]))>=0) {
+      listObject.$refs.cgList.store.states.currentRow = null
+    }
     for (let i = 0; i < count ; i++) {
       let p = ids.indexOf(String(rows[i][listObject.idField]))
       if (p>=0) {
-        listObject.$refs.cgList.toggleRowSelection(rows[i], false)
+        if (listObject.multiple) listObject.$refs.cgList.toggleRowSelection(rows[i], false)
         rows.splice(i,1)
         ids.splice(p,1)
         count --
