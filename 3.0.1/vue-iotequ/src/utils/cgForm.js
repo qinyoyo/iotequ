@@ -48,7 +48,11 @@ export default {
           }        
           if (onSuccess && typeof onSuccess === 'function') onSuccess(res)
         }
-        resolve(res)
+        if (res && res.hasOwnProperty('success') && !res.success) {
+          if (onError && typeof onError === 'function') onError(res)
+          reject(res)
+        }
+        else resolve(res)
       }).catch(error => {
         formObject.recordLoading = false
         if (onError && typeof onError === 'function') onError(error)
@@ -104,7 +108,7 @@ export default {
         loadDictionaryOnly: true,
         flowAction: formObject.flowAction, 
         ...cg.record2Params(formObject.record)
-      }, action: formObject.isNew ? 'default' : 'record', silence: true })
+      }, action: formObject.isNew ? 'default' : 'record', silence: true }).then(_=>{}).catch(_=>{})
   },
 
   // 清除表单数据
@@ -232,14 +236,12 @@ export default {
       data,
       action: 'updateSelective',
       timeout: 15000 * data.length,
-      onSuccess: res => {
-        if (typeof formObject.onChange === 'function') formObject.onChange({refresh: true})
-        formObject.recordChanged = false
-        that.form_close(formObject)
-      },
-      onError: res=> {
-        formObject.recordChanged = false
-      }
+    }).then(_=>{
+      if (typeof formObject.onChange === 'function') formObject.onChange({refresh: true})
+      formObject.recordChanged = false
+      that.form_close(formObject)
+    }).catch(_=>{
+      formObject.recordChanged = false
     })
   },
   // 表单post提交，参数传保存的主键，用formData方式post提交完整记录以及附加属性
@@ -298,7 +300,7 @@ export default {
             formObject.$emit('submitted', formObject)
             if (closeAfterSuccess || formObject.flowAction) that.form_close(formObject)
           }
-        })
+        }).then(_=>{}).catch(_=>{})
       } else {
         setTimeout(()=>{
           let $el = formObject.$refs.cgForm.$el.querySelector('.el-tabs__content .el-form-item__error')
@@ -403,7 +405,7 @@ export default {
           },
           onError: options.onError,
           silence: options.silence
-        })
+        }).then(_=>{}).catch(_=>{})
       } else if (options.actionProperty === 'go') { // 页面跳转
         if (params.url) {
           const url = params.url

@@ -34,7 +34,7 @@ export default {
   // 列表向后台发起请求 method : 请求方法 silence: 静默方式 params：请求参数 data: post数据
   // action：controller的url方法  onSuccess onError : 成功和错误的回调，一个参数
   list_request({ listObject, method, silence, params, data, action, onSuccess, onError, timeout }) {
-    new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       let req = {
         url: listObject.baseUrl + '/' + action,
         method
@@ -66,7 +66,11 @@ export default {
           if (onSuccess && typeof onSuccess === 'function') onSuccess(res)
         }
         listObject.listLoading = false
-        resolve(res)
+        if (res && res.hasOwnProperty('success') && !res.success) {
+          if (onError && typeof onError === 'function') onError(res)
+          reject(res)
+        }
+        else resolve(res)
       }).catch(error => {
         if (onError && typeof onError === 'function') onError(error)
         listObject.listLoading = false
@@ -224,7 +228,7 @@ export default {
         },
         onError: err => {
         }
-      })
+      }).then(_=>{}).catch(_=>{})
     }
   },
 
@@ -563,7 +567,7 @@ export default {
               that.list_removeRecord(listObject, ids) 
               listObject.$emit('refreshed', listObject)
             }
-          })
+          }).then(_=>{}).catch(_=>{})
         }
         const confirmText = listObject.removeLeftRecordOnRightJoin ? listObject.$t('system.message.confirmRemoveLeftRecordOnRightJoin') 
            : (listObject.$t(listObject.hasSonTables ? 'system.message.confirmDeleteCascade' : 'system.message.confirmDelete'))
@@ -611,7 +615,7 @@ export default {
               duration: 5 * 1000
             })
           }
-        })
+        }).then(_=>{}).catch(_=>{})
       }
     } else if (action === 'import') {
       this.list_request({ listObject, method: 'get', params: { ...this.list_getQueryParams(listObject) }, 
@@ -619,7 +623,7 @@ export default {
         onSuccess: (res) => {
           listObject.doAction('refresh')
         } 
-      })
+      }).then(_=>{}).catch(_=>{})
     } else if (options) { // 处理自定义按钮操作
       const that = this
       const func = function(id) {
@@ -641,7 +645,7 @@ export default {
             },
             onError: options.onError,
             silence: options.silence
-          })
+          }).then(_=>{}).catch(_=>{})
         } else if (options.actionProperty === 'go') { // 页面跳转          
           if (params.url) {
             const url = params.url
@@ -753,7 +757,7 @@ export default {
             onSuccess: (res) => {
               that.list_getDataFromServer(listObject, { resortFirstField: sortField })
             }
-          })
+          }).then(_=>{}).catch(_=>{})
           const targetRow = rows.splice(evt.oldIndex, 1)[0]
           rows.splice(evt.newIndex, 0, targetRow)
           if (listObject.parentField)  listObject.rows = cg.rows2TreeNode(rows) 
@@ -933,7 +937,7 @@ export default {
           this.list_closeEditInlineAtOnce(listObject)
         }
       }
-    }) 
+    }).then(_=>{}).catch(_=>{}) 
   },
 
   list_closeEditInlineAtOnce(listObject) {

@@ -126,8 +126,7 @@ export function request(data, silence) {
       } else if (!silence || (silence==SHOWERROR && res && res.hasOwnProperty('success') && !res.success)) {
         showMessageFromServer(res)
       }
-      if (res && res.hasOwnProperty('success') && !res.success) reject(error)
-      else resolve(res)
+      resolve(res)
     }).catch(error => {
       closeProgress()
       if (!silence || silence==SHOWERROR) {
