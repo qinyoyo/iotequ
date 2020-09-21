@@ -1,7 +1,7 @@
 import Layout from '@/layout'
 export default {
   path: '/attendance/dayresult/adDayResult',
-  name: 'adDayResult',
+  name: 'adDayResultStat',
   component: Layout,
   meta: {
     authorities: ['/attendance/dayresult/adDayResult'],

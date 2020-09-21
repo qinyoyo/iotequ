@@ -1,7 +1,7 @@
 import Layout from '@/layout'
 export default {
   path: '/framework/sysLog',
-  name: 'sysLog',
+  name: 'sysLogStat',
   component: Layout,
   meta: {
     authorities: ['/framework/sysLog'],

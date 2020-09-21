@@ -1,19 +1,19 @@
 import { toThousandFilter } from "@/filters"
 
 export default {
-  created() { 
-    this.baseUrl = '/login/register' // 修改注册路径
-  },
-  mounted() {
-    const that=this
-    setTimeout(()=>{
-      that.record = that.newRecord()
-      that.$refs.cgForm.clearValidate()
-    },1000)
+  data() {
+    return {
+      baseUrl: '/login/register' // 修改注册路径
+    }
   },
   methods: {
     useMixinMethodsFirst() {
       return true
+    },
+    afterTransitionEnd() {
+      this.super_afterTransitionEnd()
+      this.record = that.newRecord()
+      this.$refs.cgForm.clearValidate()
     },
     extendActionFilter(action) {
       if (action === 'add' || action === 'changePassword') return false
