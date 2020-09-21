@@ -24,10 +24,10 @@ public class SvasUtil {
 		}
 	}
 	static public String getPath(Class<?> clazz) {
-    	ApplicationHome home = new ApplicationHome(clazz);
-        File file = home.getDir();
-        if (file!=null) return file.getPath();
-        else return null;
+		ApplicationHome home = new ApplicationHome(clazz == null ? File.class : clazz);
+		File file = home.getDir();
+		if (file != null) return file.getPath();
+		else return null;
 	}
 	public static String getHomePath() {
 		Class<?> clazz = SvasUtil.class;

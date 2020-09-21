@@ -25,12 +25,16 @@ public class SpringContext implements ApplicationContextAware {
     private static ApplicationContext applicationContext = null;
     private static DataDictDao dictDaoInstance;
     private static String projectHomeDirection = null;
+    private static String propertyFile = null;
     public  static final String nodeId = uuid();
     @Autowired
     private DataDictDao dictDao;
 
     public static void setProjectHomeDirection(String path) {
         projectHomeDirection = path;
+    }
+    public static void setPropertyFile(String path) {
+        propertyFile = path;
     }
     public static String getProjectHomeDirection() {
         return projectHomeDirection;
@@ -82,7 +86,7 @@ public class SpringContext implements ApplicationContextAware {
             if (!Util.isEmpty(versions)) {
                 log.info("-----------------------------------------Version infomation-----------------------------------");
                 for (IotequVersionInfo v : versions) {
-                    log.info(v.toString());
+                    log.info("{}",v.toString());
                 }
             }
             applicationContext = context;
@@ -90,11 +94,13 @@ public class SpringContext implements ApplicationContextAware {
             OrgUtil.getSystemOrgData();
             try {
                 String sc = MachineInfo.getSetupCode();
-                log.info("Setup code = " + sc);
+                log.info("Setup code = {}", sc);
             } catch (Exception e) {
+                log.error("getSetupCode error : {}", e.getMessage());
             }
-            log.info("Home direction = " + projectHomeDirection);
-            log.info("Node id = " + nodeId);
+            log.info("Home direction = {}", projectHomeDirection);
+            log.info("User additional properties file = {}", propertyFile==null ? "<none>" : propertyFile);
+            log.info("Node id = {}", nodeId);
             log.info("----------------------------------------------------------------------------------------------");
             if (level!=null) Util.setLevel(log,level);
         }

@@ -1018,7 +1018,7 @@ public class Util {
         SpringApplicationBuilder appBuilder = new SpringApplicationBuilder(clazz);
         appBuilder.properties("file.encoding=UTF-8");
         String myPropertyFile = additionalPropertyFile(customerProperties == null ? "iotequ" : customerProperties);
-        if (myPropertyFile != null) log.info("Use additional user property file : " + myPropertyFile);
+        if (myPropertyFile != null) SpringContext.setPropertyFile(myPropertyFile);
         if (applicationProperties != null) {
             String location = "spring.config.location=classpath:/" + applicationProperties +
                     (myPropertyFile == null ? "" : "," + myPropertyFile);
