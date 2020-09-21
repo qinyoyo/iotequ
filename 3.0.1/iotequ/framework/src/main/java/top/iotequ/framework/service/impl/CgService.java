@@ -346,15 +346,13 @@ public abstract class CgService<T extends CgEntity> implements ICgService<T>, Co
                 ids[i]=null;
                 try {
                     if (isNew) {  // fastAdd
-                        try {
-                            for (String key:obj.keySet()) {
-                                if ("[null]".equals(StringUtil.toString(obj.get(key))) && key.endsWith("_string_")) obj.put(key.substring(0,key.length()-8),null);
-                            }
-                            T entity = EntityUtil.entityFromMap(obj,this.getEntityClass());
-                            doSave(true, null, 0, entity, null, Util.getRequest());
-                            ids[i] = StringUtil.toString(entity.getPkValue());
-                            rows++;
-                        } catch (Exception e) {}
+                        for (String key:obj.keySet()) {
+                            if ("[null]".equals(StringUtil.toString(obj.get(key))) && key.endsWith("_string_")) obj.put(key.substring(0,key.length()-8),null);
+                        }
+                        T entity = EntityUtil.entityFromMap(obj,this.getEntityClass());
+                        doSave(true, null, 0, entity, null, Util.getRequest());
+                        ids[i] = StringUtil.toString(entity.getPkValue());
+                        rows++;
                     } else if (daoService.updateSelective(obj) == 1) {
                         ids[i] = StringUtil.toString(obj.get(this.getCgTableAnnotation().entityPk()));
                         rows++;
