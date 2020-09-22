@@ -26,7 +26,7 @@ export default {
       if (!this.dialogParams) this.$store.dispatch('tagsView/activeLastAfterRemove', this.$route)
     },
     beforeClose(done) {
-      if (this.$refs.cgForm && this.$refs.cgForm.recordChanged) {
+      if (this.$refs.cgForm && this.$refs.cgForm.recordChanged && !this.$refs.cgForm.ignoreRecordChanged) {
         this.$confirm(this.$t('system.message.cancelModified'), this.$t('system.action.confirm'), {
           confirmButtonText: this.$t('system.action.yes'),
           cancelButtonText: this.$t('system.action.cancel'),
