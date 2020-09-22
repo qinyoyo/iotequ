@@ -9,20 +9,20 @@
         :key="'id_'+child.id"
         :is-nest="true"
         :item="child"
-        class="nest-menu"
+        :class="item.className ? item.className+' nest-menu' : 'nest-menu'"
       />
     </el-submenu>
     <template v-else-if="item.jsCmd && (!mobile || !item.mobileHidden)">
-      <el-menu-item :index="'id_'+item.id" :class="{'submenu-title-noDropdown':!isNest}" @click.native="jsCmd(item)">
+      <el-menu-item :index="'id_'+item.id" :class="itemClass(item)" @click.native="jsCmd(item)">
         <item :icon="item.icon" :title="generateTitle(item.name)"  />
       </el-menu-item>
     </template>
     <template v-else-if="!mobile || !item.mobileHidden">
-      <el-menu-item v-if="isDialog(item.action)" :index="'id_'+item.id" :class="{'submenu-title-noDropdown':!isNest}" @click.native="openDialog(item.action)">
+      <el-menu-item v-if="isDialog(item.action)" :index="'id_'+item.id" :class="itemClass(item)" @click.native="openDialog(item.action)">
         <item :icon="item.icon" :title="generateTitle(item.name)" />
       </el-menu-item>      
       <app-link v-else-if="item.action" :to="item.action">
-        <el-menu-item :index="'id_'+item.id" :class="{'submenu-title-noDropdown':!isNest}">
+        <el-menu-item :index="'id_'+item.id" :class="itemClass(item)">
           <item :icon="item.icon" :title="generateTitle(item.name)" />
         </el-menu-item>
       </app-link>
@@ -72,6 +72,12 @@ export default {
       if (this.mobile) return false
       const route = findRouteByUrl(url,this.$router)
       return (route && route.meta && route.meta.dialog)
+    },
+    itemClass(item) {
+      const cls = []
+      if (!this.isNest) cls.push('submenu-title-noDropdown')
+      if (item.className) cls.push(item.className)
+      return cls.join(' ')
     },
     openDialog(url) {
       const route = findRouteByUrl(url,this.$router)

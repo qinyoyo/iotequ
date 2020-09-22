@@ -89,7 +89,7 @@ parent	上级菜单	int	√
 is_divider	分割线	tinyint(1)	✘	
 icon	图标	varchar	√	
 action	功能地址	varchar	√	
-class_name	附加属性	varchar	√	
+class_name	附加类名	varchar	√	
 data_action	附加参数	varchar	√	
 bigIcon	大图标	varchar	√	
 mobile_hidden	手机隐藏	tinyint(1)	✘	

@@ -43,18 +43,6 @@ export default  {
          icon:[
             { required: true, message: vueObject.$t('system.message.needValue') + ':' + vueObject.$t('cgButton.field.icon'), trigger: 'blur' }
          ],
-         appendClass:[
-            {
-                validator: (rule, value, callback) => {
-                    if (!value) callback()
-                    else {
-                       if (!/^[a-zA-Z][\.a-zA-Z0-9_]*\(.*\)|{\s*\w+\s*:\s*('.*'|\[.*\]|[^\,\'\[\]]+)\s*(,\s*\w+\s*:\s*('.*'|\[.*\]|[^\,\'\[\]]+)\s*)*}$/.test(value)) callback(new Error(vueObject.$t(vueObject.$te('cgButton.field.appendClassValid') ? 'cgButton.field.appendClassValid' : 'system.message.errorValue')))
-                       else callback()
-                    }
-                },
-                trigger: 'blur'
-            }
-         ],
          actionProperty:[
             { required: true, message: vueObject.$t('system.message.needValue') + ':' + vueObject.$t('cgButton.field.actionProperty'), trigger: 'blur' }
          ],

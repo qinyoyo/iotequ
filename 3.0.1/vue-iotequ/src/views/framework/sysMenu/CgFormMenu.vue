@@ -15,7 +15,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item class="cg-item-text" :label="$t('sysMenu.field.name')" prop="name" :size="$store.state.app.size" >
+          <el-form-item class="cg-item-text" :label="$t('sysMenu.field.name')" :title="$t('sysMenu.field.nameValid')" prop="name" :size="$store.state.app.size" >
             <el-input v-model="record.name" name="name" 
                       v-i18n-view
                       type="text" 

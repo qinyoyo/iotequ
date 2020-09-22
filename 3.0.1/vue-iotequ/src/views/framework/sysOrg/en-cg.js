@@ -11,6 +11,7 @@ export default {
     },
     field: {
       orgCode: 'OrgCode',
+      nameValid: 'Please input correct value for name',
       name: 'Name',
       parent: 'Parent',
       phone: 'Phone',

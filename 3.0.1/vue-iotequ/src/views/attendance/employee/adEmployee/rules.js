@@ -22,7 +22,17 @@ export default  {
       }
       return Object.assign({
          employeeNo:[
-            { required: true, message: vueObject.$t('system.message.needValue') + ':' + vueObject.$t('adEmployee.field.employeeNo'), trigger: 'blur' }
+            { required: true, message: vueObject.$t('system.message.needValue') + ':' + vueObject.$t('adEmployee.field.employeeNo'), trigger: 'blur' },
+            {
+                validator: (rule, value, callback) => {
+                    if (!value) callback()
+                    else {
+                       if (!/^[\da-zA-Z]+$/.test(value)) callback(new Error(vueObject.$t(vueObject.$te('adEmployee.field.employeeNoValid') ? 'adEmployee.field.employeeNoValid' : 'system.message.errorValue')))
+                       else callback()
+                    }
+                },
+                trigger: 'blur'
+            }
          ],
          isAttendance:[
             { required: true, message: vueObject.$t('system.message.needValue') + ':' + vueObject.$t('adEmployee.field.isAttendance'), trigger: 'blur' }

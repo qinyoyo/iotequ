@@ -5,7 +5,7 @@
                           :class="className" :rules="rules" 
              :label-position="labelPosition" :label-width="labelWidth" :size="$store.state.app.size" 
              hide-required-asterisk >
-      <el-form-item class="cg-item-text cg-auto-focus" :label="$t('sysRole.field.code')" prop="code" :size="$store.state.app.size" >
+      <el-form-item class="cg-item-text cg-auto-focus" :label="$t('sysRole.field.code')" :title="$t('sysRole.field.codeValid')" prop="code" :size="$store.state.app.size" >
         <el-input v-model="record.code" name="code" 
                   type="text" 
                   :label="$t('sysRole.field.code')" :placeholder="$t('system.message.needValue')" 

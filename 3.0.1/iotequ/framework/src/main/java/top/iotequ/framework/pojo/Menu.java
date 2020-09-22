@@ -56,7 +56,7 @@ public class Menu implements CgEntity {
 
     @SerializedName(value = "className", alternate = {"class_name","CLASS_NAME"})
     @CgFieldAnnotation(name="class_name",jdbcType="VARCHAR",length=45,nullable=true,format="@")
-    private String className;		//附加属性 db field:class_name
+    private String className;		//附加类名 db field:class_name
 
     @SerializedName(value = "dataAction", alternate = {"data_action","DATA_ACTION"})
     @CgFieldAnnotation(name="data_action",jdbcType="VARCHAR",length=200,nullable=true,format="@")

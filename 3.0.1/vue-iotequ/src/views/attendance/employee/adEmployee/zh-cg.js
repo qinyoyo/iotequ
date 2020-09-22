@@ -12,7 +12,9 @@ export default {
       recordTag: '职员详情'
     },
     field: {
+      employeeNoValid: '仅可使用字母和数字来定义工号',
       employeeNo: '工号',
+      emLevelValid: '职务级别，用数值表示',
       emLevel: '职务级别',
       isAttendance: '是否考勤',
       enterDate: '入职日期',

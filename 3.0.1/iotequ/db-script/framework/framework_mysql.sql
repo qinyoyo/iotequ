@@ -132,7 +132,7 @@ CREATE TABLE `sys_menu` (
   `is_divider` tinyint(1) DEFAULT 0 NOT NULL COMMENT '分割线',
   `icon` varchar(50) NULL COMMENT '图标',
   `action` varchar(100) NULL COMMENT '功能地址',
-  `class_name` varchar(45) NULL COMMENT '附加属性',
+  `class_name` varchar(45) NULL COMMENT '附加类名',
   `data_action` varchar(200) NULL COMMENT '附加参数',
   `bigIcon` varchar(50) NULL COMMENT '大图标',
   `mobile_hidden` tinyint(1) DEFAULT 0 NOT NULL COMMENT '手机隐藏',

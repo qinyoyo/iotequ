@@ -24,6 +24,7 @@ export default {
     field: {
       id: 'Id',
       icon: 'Icon',
+      nameValid: 'Please input correct value for name',
       name: 'Name',
       realName: 'RealName',
       sex: 'Sex',

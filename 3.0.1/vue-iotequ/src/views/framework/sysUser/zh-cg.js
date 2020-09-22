@@ -24,6 +24,7 @@ export default {
     field: {
       id: 'uuid主键',
       icon: '头像',
+      nameValid: '非空白字符开始和结束的字符串',
       name: '用户名',
       realName: '真实名',
       sex: '性别',

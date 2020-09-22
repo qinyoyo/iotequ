@@ -30,7 +30,7 @@
       </el-row>
       <el-row :gutter="mobile?0:20">
         <el-col :span="12">
-          <el-form-item class="cg-item-text cg-auto-focus" :label="$t('adEmployee.field.employeeNo')" prop="employeeNo" :size="$store.state.app.size" >
+          <el-form-item class="cg-item-text cg-auto-focus" :label="$t('adEmployee.field.employeeNo')" :title="$t('adEmployee.field.employeeNoValid')" prop="employeeNo" :size="$store.state.app.size" >
             <el-input v-model="record.employeeNo" name="employeeNo" 
                       type="text" 
                       :label="$t('adEmployee.field.employeeNo')" :placeholder="$t('system.message.needValue')" 
@@ -39,7 +39,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item class="cg-item-number" :label="$t('adEmployee.field.emLevel')" prop="emLevel" :size="$store.state.app.size" >
+          <el-form-item class="cg-item-number" :label="$t('adEmployee.field.emLevel')" :title="$t('adEmployee.field.emLevelValid')" prop="emLevel" :size="$store.state.app.size" >
             <cg-number-input v-model="record.emLevel" name="emLevel" 
                              :readonly="isDetail" 
                              :label="$t('adEmployee.field.emLevel')" :placeholder="$t('system.message.unknown')" clearable :precision="0" 

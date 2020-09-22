@@ -59,7 +59,7 @@
       </el-row>
       <el-row :gutter="mobile?0:20">
         <el-col :span="8">
-          <el-form-item class="cg-item-number" :label="$t('adOrg.field.manageLimit')" prop="manageLimit" :size="$store.state.app.size" >
+          <el-form-item class="cg-item-number" :label="$t('adOrg.field.manageLimit')" :title="$t('adOrg.field.manageLimitValid')" prop="manageLimit" :size="$store.state.app.size" >
             <cg-number-input v-model="record.manageLimit" name="manageLimit" 
                              :readonly="isDetail" 
                              :label="$t('adOrg.field.manageLimit')" :placeholder="$t('system.message.unknown')" clearable :precision="0" 
@@ -67,7 +67,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="8">
-          <el-form-item class="cg-item-number" :label="$t('adOrg.field.deviation')" prop="deviation" :size="$store.state.app.size" >
+          <el-form-item class="cg-item-number" :label="$t('adOrg.field.deviation')" :title="$t('adOrg.field.deviationValid')" prop="deviation" :size="$store.state.app.size" >
             <cg-number-input v-model="record.deviation" name="deviation" 
                              :readonly="isDetail" 
                              :label="$t('adOrg.field.deviation')" :placeholder="$t('system.message.unknown')" clearable :precision="0" 
@@ -75,7 +75,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="8">
-          <el-form-item class="cg-item-number" :label="$t('adOrg.field.floatLimit')" prop="floatLimit" :size="$store.state.app.size" >
+          <el-form-item class="cg-item-number" :label="$t('adOrg.field.floatLimit')" :title="$t('adOrg.field.floatLimitValid')" prop="floatLimit" :size="$store.state.app.size" >
             <cg-number-input v-model="record.floatLimit" name="floatLimit" 
                              :readonly="isDetail" 
                              :label="$t('adOrg.field.floatLimit')" :placeholder="$t('system.message.unknown')" clearable :precision="0" 
@@ -85,7 +85,7 @@
       </el-row>
       <el-row :gutter="mobile?0:20">
         <el-col :span="12">
-          <el-form-item class="cg-item-number" :label="$t('adOrg.field.absentLimit')" prop="absentLimit" :size="$store.state.app.size" >
+          <el-form-item class="cg-item-number" :label="$t('adOrg.field.absentLimit')" :title="$t('adOrg.field.absentLimitValid')" prop="absentLimit" :size="$store.state.app.size" >
             <cg-number-input v-model="record.absentLimit" name="absentLimit" 
                              :readonly="isDetail" 
                              :label="$t('adOrg.field.absentLimit')" :placeholder="$t('system.message.unknown')" clearable :precision="0" 

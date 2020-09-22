@@ -28,7 +28,7 @@
       </el-row>
       <el-row :gutter="mobile?0:20">
         <el-col :span="12">
-          <el-form-item class="cg-item-text" :label="$t('sysUser.field.name')" prop="name" :size="$store.state.app.size" >
+          <el-form-item class="cg-item-text" :label="$t('sysUser.field.name')" :title="$t('sysUser.field.nameValid')" prop="name" :size="$store.state.app.size" >
             <el-input v-model="record.name" name="name" 
                       type="text" 
                       :label="$t('sysUser.field.name')" :placeholder="$t('system.message.needValue')" 

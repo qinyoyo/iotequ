@@ -28,7 +28,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item class="cg-item-radio" :label="$t('adSpecialShift.field.sexProperty')" prop="sexProperty" :size="$store.state.app.size" >
+          <el-form-item class="cg-item-radio" :label="$t('adSpecialShift.field.sexProperty')" :title="$t('adSpecialShift.field.sexPropertyValid')" prop="sexProperty" :size="$store.state.app.size" >
             <cg-radio v-model="record.sexProperty" name="sexProperty" :dictionary="dictionary.dictSexProperty" :readonly="isDetail" numberic  />
           </el-form-item>
         </el-col>
@@ -51,14 +51,14 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-form-item class="cg-item-select" :label="$t('adSpecialShift.field.orgCodes')" prop="orgCodes" :size="$store.state.app.size" >
+      <el-form-item class="cg-item-select" :label="$t('adSpecialShift.field.orgCodes')" :title="$t('adSpecialShift.field.orgCodesValid')" prop="orgCodes" :size="$store.state.app.size" >
         <cg-cascader v-model="record.orgCodes" name="orgCodes"
                      :readonly="isDetail" :filterable="false" multiple collapse-tags 
                      :dictionary="dictionary.dictOrgCodes" :placeholder="$t('system.message.needValue')" />
       </el-form-item>
       <el-row :gutter="mobile?0:20">
         <el-col :span="12">
-          <el-form-item class="cg-item-number" :label="$t('adSpecialShift.field.ageProperty0')" prop="ageProperty0" :size="$store.state.app.size" >
+          <el-form-item class="cg-item-number" :label="$t('adSpecialShift.field.ageProperty0')" :title="$t('adSpecialShift.field.ageProperty0Valid')" prop="ageProperty0" :size="$store.state.app.size" >
             <cg-number-input v-model="record.ageProperty0" name="ageProperty0" 
                              :readonly="isDetail" 
                              :label="$t('adSpecialShift.field.ageProperty0')" :placeholder="$t('system.message.unknown')" clearable :precision="0" 
@@ -66,7 +66,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item class="cg-item-number" :label="$t('adSpecialShift.field.ageProperty1')" prop="ageProperty1" :size="$store.state.app.size" >
+          <el-form-item class="cg-item-number" :label="$t('adSpecialShift.field.ageProperty1')" :title="$t('adSpecialShift.field.ageProperty1Valid')" prop="ageProperty1" :size="$store.state.app.size" >
             <cg-number-input v-model="record.ageProperty1" name="ageProperty1" 
                              :readonly="isDetail" 
                              :label="$t('adSpecialShift.field.ageProperty1')" :placeholder="$t('system.message.unknown')" clearable :precision="0" 
@@ -76,7 +76,7 @@
       </el-row>
       <el-row :gutter="mobile?0:20">
         <el-col :span="12">
-          <el-form-item class="cg-item-number" :label="$t('adSpecialShift.field.levelProperty0')" prop="levelProperty0" :size="$store.state.app.size" >
+          <el-form-item class="cg-item-number" :label="$t('adSpecialShift.field.levelProperty0')" :title="$t('adSpecialShift.field.levelProperty0Valid')" prop="levelProperty0" :size="$store.state.app.size" >
             <cg-number-input v-model="record.levelProperty0" name="levelProperty0" 
                              :readonly="isDetail" 
                              :label="$t('adSpecialShift.field.levelProperty0')" :placeholder="$t('system.message.unknown')" clearable :precision="0" 
@@ -84,7 +84,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item class="cg-item-number" :label="$t('adSpecialShift.field.levelProperty1')" prop="levelProperty1" :size="$store.state.app.size" >
+          <el-form-item class="cg-item-number" :label="$t('adSpecialShift.field.levelProperty1')" :title="$t('adSpecialShift.field.levelProperty1Valid')" prop="levelProperty1" :size="$store.state.app.size" >
             <cg-number-input v-model="record.levelProperty1" name="levelProperty1" 
                              :readonly="isDetail" 
                              :label="$t('adSpecialShift.field.levelProperty1')" :placeholder="$t('system.message.unknown')" clearable :precision="0" 

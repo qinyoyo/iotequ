@@ -14,7 +14,7 @@
 	<version>3.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>codegenerator</name>
-	<description></description>
+	<description>代码生成模块</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -50,11 +50,6 @@
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
@@ -73,7 +68,11 @@
 			<artifactId>framework</artifactId>
 			<version>3.0.1-SNAPSHOT</version>
 		</dependency>
-
+		<dependency>
+			<groupId>top.iotequ</groupId>
+			<artifactId>reader</artifactId>
+			<version>3.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 	<profiles>
 		<profile>
@@ -110,7 +109,7 @@
 				</excludes>
 			</resource>
 		</resources>
-		<finalName>cg3.0.1</finalName>
+		<finalName>${project.artifactId}-${project.version}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>${build.groupId}</groupId>

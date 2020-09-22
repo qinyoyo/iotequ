@@ -12,6 +12,7 @@ export default {
     field: {
       id: 'Id',
       sortNum: 'SortNum',
+      nameValid: 'Please input correct value for name',
       name: 'Name',
       parent: 'Parent',
       isDivider: 'IsDivider',

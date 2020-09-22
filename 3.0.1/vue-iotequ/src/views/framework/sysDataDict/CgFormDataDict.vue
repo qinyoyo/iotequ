@@ -16,7 +16,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item class="cg-item-text" :label="$t('sysDataDict.field.code')" prop="code" :size="$store.state.app.size" >
+          <el-form-item class="cg-item-text" :label="$t('sysDataDict.field.code')" :title="$t('sysDataDict.field.codeValid')" prop="code" :size="$store.state.app.size" >
             <el-input v-model="record.code" name="code" 
                       type="text" 
                       :label="$t('sysDataDict.field.code')" :placeholder="$t('system.message.needValue')" 

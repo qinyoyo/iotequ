@@ -38,7 +38,7 @@
 	</#if>
 
 	<dependencies>
-		<#if gp.springModule>
+		<#if gp.springModule || gp.name=='framework'>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -51,12 +51,8 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
 			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
 		</dependency>
 		</#if>
 		<dependency>
@@ -79,11 +75,13 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<#if gp.name=='framework'>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		</#if>
         </#if>
 		<#if gp.modules??>
 		<#list gp.modules?split(',') as m>
