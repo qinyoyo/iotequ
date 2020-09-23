@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/attendance/dayresult/adDayResult/list'),
       name: 'AdDayResultList',
+      props: true,
       meta: {
         title: 'adDayResult.route.listTag',
         authorities: ['/attendance/dayresult/adDayResult/list'],

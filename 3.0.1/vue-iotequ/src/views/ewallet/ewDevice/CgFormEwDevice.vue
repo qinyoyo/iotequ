@@ -50,7 +50,7 @@ const Comp = {
   name: 'CgFormEwDevice',
   mixins: [ParentForm],
   props: {
-    dialogParams: {
+    routeParams: {
       type: Object,
       default: null
     }

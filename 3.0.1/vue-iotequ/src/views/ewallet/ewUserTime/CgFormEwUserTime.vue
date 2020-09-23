@@ -71,7 +71,7 @@ const Comp = {
   name: 'CgFormEwUserTime',
   mixins: [ParentForm],
   props: {
-    dialogParams: {
+    routeParams: {
       type: Object,
       default: null
     }

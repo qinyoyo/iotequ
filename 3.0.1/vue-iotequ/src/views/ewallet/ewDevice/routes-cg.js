@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/ewallet/ewDevice/list'),
       name: 'EwDeviceList',
+      props: true,
       meta: {
         title: 'ewDevice.route.listTag',
         authorities: ['/ewallet/ewDevice/list'],
@@ -26,6 +27,7 @@ export default {
       path: 'record',
       component: () => import('@/views/ewallet/ewDevice/record'),
       name: 'EwDeviceForm',
+      props: true,
       meta: {
         title: 'ewDevice.route.recordTag',
         dialog: true,

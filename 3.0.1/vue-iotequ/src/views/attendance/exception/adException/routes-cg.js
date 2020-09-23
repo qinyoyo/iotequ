@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/attendance/exception/adException/list'),
       name: 'AdExceptionList',
+      props: true,
       meta: {
         title: 'adException.route.listTag',
         authorities: ['/attendance/exception/adException/list'],
@@ -26,6 +27,7 @@ export default {
       path: 'record',
       component: () => import('@/views/attendance/exception/adException/record'),
       name: 'AdExceptionForm',
+      props: true,
       meta: {
         title: 'adException.route.recordTag',
         authorities: ['/attendance/exception/adException/record'],

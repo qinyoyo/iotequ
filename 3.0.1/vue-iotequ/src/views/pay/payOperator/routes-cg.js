@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/pay/payOperator/list'),
       name: 'PayOperatorList',
+      props: true,
       meta: {
         title: 'payOperator.route.listTag',
         authorities: ['/pay/payOperator/list'],
@@ -26,6 +27,7 @@ export default {
       path: 'record',
       component: () => import('@/views/pay/payOperator/record'),
       name: 'PayOperatorForm',
+      props: true,
       meta: {
         title: 'payOperator.route.recordTag',
         dialog: true,

@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/framework/sysLog/list'),
       name: 'SysLogList',
+      props: true,
       meta: {
         title: 'sysLog.route.listTag',
         authorities: ['/framework/sysLog/list'],

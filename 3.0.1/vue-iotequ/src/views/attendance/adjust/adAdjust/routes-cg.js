@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/attendance/adjust/adAdjust/list'),
       name: 'AdjustList',
+      props: true,
       meta: {
         title: 'adAdjust.route.listTag',
         icon: 'fa fa-handshake-o',
@@ -27,6 +28,7 @@ export default {
       path: 'approve',
       component: () => import('@/views/attendance/adjust/adAdjust/approve'),
       name: 'AdjustApproveForm',
+      props: true,
       meta: {
         title: 'adAdjust.route.approveTag',
         icon: 'fa fa-address-card-o',
@@ -41,6 +43,7 @@ export default {
       path: 'record',
       component: () => import('@/views/attendance/adjust/adAdjust/record'),
       name: 'AdjustRecordForm',
+      props: true,
       meta: {
         title: 'adAdjust.route.recordTag',
         icon: 'fa fa-plus-circle',

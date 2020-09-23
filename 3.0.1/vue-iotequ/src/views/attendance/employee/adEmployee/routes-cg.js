@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/attendance/employee/adEmployee/list'),
       name: 'AdEmployeeList',
+      props: true,
       meta: {
         title: 'adEmployee.route.listTag',
         authorities: ['/attendance/employee/adEmployee/list'],
@@ -26,6 +27,7 @@ export default {
       path: 'join',
       component: () => import('@/views/attendance/employee/adEmployee/join'),
       name: 'AdEmployeeJoinList',
+      props: true,
       meta: {
         title: 'adEmployee.route.joinTag',
         authorities: ['/attendance/employee/adEmployee/list'],
@@ -38,6 +40,7 @@ export default {
       path: 'record',
       component: () => import('@/views/attendance/employee/adEmployee/record'),
       name: 'AdEmployeeForm',
+      props: true,
       meta: {
         title: 'adEmployee.route.recordTag',
         authorities: ['/attendance/employee/adEmployee/record'],

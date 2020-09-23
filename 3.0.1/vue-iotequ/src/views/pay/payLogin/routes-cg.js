@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/pay/payLogin/list'),
       name: 'PayLoginList',
+      props: true,
       meta: {
         title: 'payLogin.route.listTag',
         authorities: ['/pay/payLogin/list'],
@@ -26,6 +27,7 @@ export default {
       path: 'record',
       component: () => import('@/views/pay/payLogin/record'),
       name: 'PayLoginForm',
+      props: true,
       meta: {
         title: 'payLogin.route.recordTag',
         dialog: true,

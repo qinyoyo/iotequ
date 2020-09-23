@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/project/people/pmPeople/list'),
       name: 'PmPeopleList',
+      props: true,
       meta: {
         title: 'pmPeople.route.listTag',
         authorities: ['/project/people/pmPeople/list'],
@@ -26,6 +27,7 @@ export default {
       path: 'record',
       component: () => import('@/views/project/people/pmPeople/record'),
       name: 'PmPeopleForm',
+      props: true,
       meta: {
         title: 'pmPeople.route.recordTag',
         dialog: true,

@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/ewallet/ewUserTime/list'),
       name: 'EwUserTimeList',
+      props: true,
       meta: {
         title: 'ewUserTime.route.listTag',
         authorities: ['/ewallet/ewUserTime/list'],
@@ -26,6 +27,7 @@ export default {
       path: 'record',
       component: () => import('@/views/ewallet/ewUserTime/record'),
       name: 'EwUserTimeForm',
+      props: true,
       meta: {
         title: 'ewUserTime.route.recordTag',
         dialog: true,

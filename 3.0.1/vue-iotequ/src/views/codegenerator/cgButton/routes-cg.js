@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/codegenerator/cgButton/list'),
       name: 'CgButtonList',
+      props: true,
       meta: {
         title: 'cgButton.route.listTag',
         authorities: ['/codegenerator/cgButton/list'],
@@ -26,6 +27,7 @@ export default {
       path: 'record',
       component: () => import('@/views/codegenerator/cgButton/record'),
       name: 'CgButtonForm',
+      props: true,
       meta: {
         title: 'cgButton.route.recordTag',
         icon: 'el-icon-mouse',

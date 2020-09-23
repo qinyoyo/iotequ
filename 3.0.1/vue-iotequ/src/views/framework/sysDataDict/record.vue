@@ -8,6 +8,7 @@
         />
       </div>
       <CgFormDataDict ref="cgForm"
+                      :routeParams="routeParams"
                       @openModeChanged="openModeChanged" />
     </el-card>
   </div>

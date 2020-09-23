@@ -130,7 +130,7 @@ const Comp = {
   name: 'CgFormAdjustApprove',
   mixins: [ParentForm],
   props: {
-    dialogParams: {
+    routeParams: {
       type: Object,
       default: null
     }

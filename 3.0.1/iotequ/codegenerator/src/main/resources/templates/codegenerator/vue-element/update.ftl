@@ -338,7 +338,7 @@ const Comp = {
   mixins: [ParentForm],
   props: {
     <#if FP.isDialog>
-    dialogParams: {
+    routeParams: {
       type: Object,
       default: null
     }

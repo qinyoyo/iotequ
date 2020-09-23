@@ -88,7 +88,7 @@ const Comp = {
   name: 'CgFormEwTimeProject',
   mixins: [ParentForm],
   props: {
-    dialogParams: {
+    routeParams: {
       type: Object,
       default: null
     }

@@ -146,7 +146,7 @@ const Comp = {
   name: 'CgFormTask',
   mixins: [ParentForm],
   props: {
-    dialogParams: {
+    routeParams: {
       type: Object,
       default: null
     }

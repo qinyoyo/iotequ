@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/attendance/data/adData/list'),
       name: 'AdDataList',
+      props: true,
       meta: {
         title: 'adData.route.listTag',
         authorities: ['/attendance/data/adData/list'],

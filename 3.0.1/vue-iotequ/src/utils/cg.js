@@ -940,12 +940,18 @@ export function jump2Url(url, params, $router) {
     })
   } else {
     const route = findRouteByUrl(url,$router)
+    const routeParams = Object.assign({},params, getQueryObject(url))
     if (route && route.meta && route.meta.dialog) {
-      const dialogParams = Object.assign({},params, getQueryObject(url))
-      window.$vue.$dialog(route.components,{dialogParams})
+      window.$vue.$dialog(route.components,{routeParams})
     } else $router.push({
-      path: url,
-      query: params
+      //path: url,
+      //query: params
+      name: route.name,
+      params : /^.*?List$/.test(route.name) ? {
+          fixedQueryRecord : routeParams
+        } : {
+          routeParams
+        }
     })
   }
 }

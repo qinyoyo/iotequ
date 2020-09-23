@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/framework/sysTask/list'),
       name: 'TaskList',
+      props: true,
       meta: {
         title: 'sysTask.route.listTag',
         authorities: ['/framework/sysTask/list'],
@@ -26,6 +27,7 @@ export default {
       path: 'record',
       component: () => import('@/views/framework/sysTask/record'),
       name: 'TaskForm',
+      props: true,
       meta: {
         title: 'sysTask.route.recordTag',
         dialog: true,

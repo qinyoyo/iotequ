@@ -24,7 +24,7 @@ export default {
   directives: { elDragDialog },
   components: { CgFormUser },
   props: {
-    dialogParams: {
+    routeParams: {
       type: Object,
       default: null
     },
@@ -57,7 +57,7 @@ export default {
     close() {
       this.showDialog = false
       this.$emit('close')
-      if (!this.dialogParams) this.$store.dispatch('tagsView/activeLastAfterRemove', this.$route)
+      if (!this.routeParams) this.$store.dispatch('tagsView/activeLastAfterRemove', this.$route)
     }
   }
 }

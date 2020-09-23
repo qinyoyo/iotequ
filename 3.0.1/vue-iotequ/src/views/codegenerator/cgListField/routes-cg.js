@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/codegenerator/cgListField/list'),
       name: 'CgListFieldList',
+      props: true,
       meta: {
         title: 'cgListField.route.listTag',
         authorities: ['/codegenerator/cgListField/list'],
@@ -26,6 +27,7 @@ export default {
       path: 'record',
       component: () => import('@/views/codegenerator/cgListField/record'),
       name: 'CgListFieldForm',
+      props: true,
       meta: {
         title: 'cgListField.route.recordTag',
         dialog: true,

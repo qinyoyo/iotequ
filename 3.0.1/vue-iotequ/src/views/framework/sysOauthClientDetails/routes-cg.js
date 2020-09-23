@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/framework/sysOauthClientDetails/list'),
       name: 'OauthClientDetailsList',
+      props: true,
       meta: {
         title: 'sysOauthClientDetails.route.listTag',
         authorities: ['/framework/sysOauthClientDetails/list'],
@@ -26,6 +27,7 @@ export default {
       path: 'record',
       component: () => import('@/views/framework/sysOauthClientDetails/record'),
       name: 'OauthClientDetailsForm',
+      props: true,
       meta: {
         title: 'sysOauthClientDetails.route.recordTag',
         dialog: true,

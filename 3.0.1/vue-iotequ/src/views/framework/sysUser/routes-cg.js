@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/framework/sysUser/list'),
       name: 'UserList',
+      props: true,
       meta: {
         title: 'sysUser.route.listTag',
         authorities: ['/framework/sysUser/list'],
@@ -26,6 +27,7 @@ export default {
       path: 'join',
       component: () => import('@/views/framework/sysUser/join'),
       name: 'UserJoinList',
+      props: true,
       meta: {
         title: 'sysUser.route.joinTag',
         authorities: ['/framework/sysUser/list'],
@@ -38,6 +40,7 @@ export default {
       path: 'record',
       component: () => import('@/views/framework/sysUser/record'),
       name: 'UserForm',
+      props: true,
       meta: {
         title: 'sysUser.route.recordTag',
         dialog: true,
@@ -51,6 +54,7 @@ export default {
       path: 'register',
       component: () => import('@/views/framework/sysUser/register'),
       name: 'RegisterForm',
+      props: true,
       meta: {
         title: 'sysUser.route.registerTag',
         icon: 'fa fa-user-plus',

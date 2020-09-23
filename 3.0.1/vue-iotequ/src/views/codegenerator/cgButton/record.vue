@@ -8,6 +8,7 @@
         />
       </div>
       <CgFormCgButton ref="cgForm"
+                      :routeParams="routeParams"
                       @openModeChanged="openModeChanged" />
     </el-card>
   </div>

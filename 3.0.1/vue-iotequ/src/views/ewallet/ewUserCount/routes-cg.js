@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/ewallet/ewUserCount/list'),
       name: 'EwUserCountList',
+      props: true,
       meta: {
         title: 'ewUserCount.route.listTag',
         authorities: ['/ewallet/ewUserCount/list'],
@@ -26,6 +27,7 @@ export default {
       path: 'record',
       component: () => import('@/views/ewallet/ewUserCount/record'),
       name: 'EwUserCountForm',
+      props: true,
       meta: {
         title: 'ewUserCount.route.recordTag',
         dialog: true,

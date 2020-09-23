@@ -145,7 +145,7 @@ const Comp = {
   name: 'CgFormCgListField',
   mixins: [ParentForm],
   props: {
-    dialogParams: {
+    routeParams: {
       type: Object,
       default: null
     }

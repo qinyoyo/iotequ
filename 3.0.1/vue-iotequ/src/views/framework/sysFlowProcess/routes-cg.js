@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/framework/sysFlowProcess/list'),
       name: 'FlowProcessList',
+      props: true,
       meta: {
         title: 'sysFlowProcess.route.listTag',
         authorities: ['/framework/sysFlowProcess/list'],
@@ -26,6 +27,7 @@ export default {
       path: 'record',
       component: () => import('@/views/framework/sysFlowProcess/record'),
       name: 'FlowProcessForm',
+      props: true,
       meta: {
         title: 'sysFlowProcess.route.recordTag',
         dialog: true,

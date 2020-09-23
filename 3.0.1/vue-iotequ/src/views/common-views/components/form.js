@@ -4,6 +4,10 @@ import cgForm from '@/utils/cgForm'
 import {setStyle, onTransitionEnd, offTransitionEnd } from '@/utils/dom'
 export default {
   props: {
+    routeParams: {
+      type: Object,
+      default: null
+    },
     showInDialog: {
        type: Boolean,
        default: false
@@ -163,7 +167,7 @@ export default {
       this.$emit('transitionEnd')
     },
     openParams: function() {
-      return this.dialogParams ? this.dialogParams : this.$route.query
+      return this.routeParams ? this.routeParams : this.$route.query
     },
     just4elInputNumberNullBug: function() {
     },

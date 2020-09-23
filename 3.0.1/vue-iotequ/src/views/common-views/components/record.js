@@ -1,5 +1,11 @@
 import cg from '@/utils/cg'
 export default {
+  props: {
+    routeParams: {
+      type: Object,
+      default: null
+    }
+  },
   data() {
     return {
       path: '',
@@ -54,7 +60,7 @@ export default {
   },
   methods: {
     openParams: function() {
-      return this.dialogParams ? this.dialogParams : this.$route.query
+      return this.routeParams ? this.routeParams : this.$route.query
     },
     goBack() {
       cg.goBack()

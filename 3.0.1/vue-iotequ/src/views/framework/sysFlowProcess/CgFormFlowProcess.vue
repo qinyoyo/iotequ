@@ -106,7 +106,7 @@ const Comp = {
   name: 'CgFormFlowProcess',
   mixins: [ParentForm],
   props: {
-    dialogParams: {
+    routeParams: {
       type: Object,
       default: null
     }

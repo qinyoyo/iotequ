@@ -82,7 +82,7 @@ const Comp = {
   name: 'CgFormOrg',
   mixins: [ParentForm],
   props: {
-    dialogParams: {
+    routeParams: {
       type: Object,
       default: null
     }

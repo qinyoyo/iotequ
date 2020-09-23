@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/framework/sysDataDict/list'),
       name: 'DataDictList',
+      props: true,
       meta: {
         title: 'sysDataDict.route.listTag',
         authorities: ['/framework/sysDataDict/list'],
@@ -26,6 +27,7 @@ export default {
       path: 'record',
       component: () => import('@/views/framework/sysDataDict/record'),
       name: 'DataDictForm',
+      props: true,
       meta: {
         title: 'sysDataDict.route.recordTag',
         authorities: ['/framework/sysDataDict/record'],

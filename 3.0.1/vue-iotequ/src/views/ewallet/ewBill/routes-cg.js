@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/ewallet/ewBill/list'),
       name: 'EwBillList',
+      props: true,
       meta: {
         title: 'ewBill.route.listTag',
         authorities: ['/ewallet/ewBill/list'],
@@ -26,6 +27,7 @@ export default {
       path: 'record',
       component: () => import('@/views/ewallet/ewBill/record'),
       name: 'EwBillForm',
+      props: true,
       meta: {
         title: 'ewBill.route.recordTag',
         dialog: true,

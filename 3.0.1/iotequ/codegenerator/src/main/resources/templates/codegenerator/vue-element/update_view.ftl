@@ -35,10 +35,10 @@
       </#if>
       </#if>
       <CgForm${FP.name?cap_first} ref="cgForm"<#if !isEmpty(FP.viewProperties!'')> ${FP.viewProperties?trim}</#if>
-       <#if FP.isDialog>
-         <#if canUse('dialogParams',FP.viewProperties!'')>
-              <#nt><@SPACE FP.name?length/>:dialogParams="dialogParams"
+         <#if canUse('routeParams',FP.viewProperties!'')>
+              <#nt><@SPACE FP.name?length/>:routeParams="routeParams"
          </#if>
+       <#if FP.isDialog>
          <#if canUse('showInDialog',FP.viewProperties!'')>
               <#nt><@SPACE FP.name?length/>:showInDialog="showDialog"
          </#if>

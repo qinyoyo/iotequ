@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/attendance/shifttime/adShiftTime/list'),
       name: 'AdShiftTimeList',
+      props: true,
       meta: {
         title: 'adShiftTime.route.listTag',
         authorities: ['/attendance/shifttime/adShiftTime/list'],
@@ -26,6 +27,7 @@ export default {
       path: 'record',
       component: () => import('@/views/attendance/shifttime/adShiftTime/record'),
       name: 'AdShiftTimeForm',
+      props: true,
       meta: {
         title: 'adShiftTime.route.recordTag',
         authorities: ['/attendance/shifttime/adShiftTime/record'],

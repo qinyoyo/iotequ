@@ -68,7 +68,7 @@ const Comp = {
   name: 'CgFormPayOperator',
   mixins: [ParentForm],
   props: {
-    dialogParams: {
+    routeParams: {
       type: Object,
       default: null
     }

@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/codegenerator/cgProject/list'),
       name: 'CgProjectList',
+      props: true,
       meta: {
         title: 'cgProject.route.listTag',
         authorities: ['/codegenerator/cgProject/list'],
@@ -26,6 +27,7 @@ export default {
       path: 'record',
       component: () => import('@/views/codegenerator/cgProject/record'),
       name: 'CgProjectForm',
+      props: true,
       meta: {
         title: 'cgProject.route.recordTag',
         dialog: true,

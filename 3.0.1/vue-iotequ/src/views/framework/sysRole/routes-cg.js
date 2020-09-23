@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/framework/sysRole/list'),
       name: 'RoleList',
+      props: true,
       meta: {
         title: 'sysRole.route.listTag',
         authorities: ['/framework/sysRole/list'],
@@ -26,6 +27,7 @@ export default {
       path: 'record',
       component: () => import('@/views/framework/sysRole/record'),
       name: 'RoleForm',
+      props: true,
       meta: {
         title: 'sysRole.route.recordTag',
         dialog: true,

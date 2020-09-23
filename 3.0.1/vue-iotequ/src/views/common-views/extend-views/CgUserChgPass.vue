@@ -49,7 +49,7 @@ export default {
   name: 'CgUserChgPass',
   directives: { elDragDialog },
   props: {
-    dialogParams: {
+    routeParams: {
       type: Object,
       default: null
     },
@@ -110,7 +110,7 @@ export default {
     close() {
       this.showDialog = false
       this.$emit('close')
-      if (!this.dialogParams) this.$store.dispatch('tagsView/activeLastAfterRemove', this.$route)
+      if (!this.routeParams) this.$store.dispatch('tagsView/activeLastAfterRemove', this.$route)
     },
     submit() {
       const _this = this

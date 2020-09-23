@@ -130,7 +130,7 @@ const Comp = {
   name: 'CgFormPmVersionApplication',
   mixins: [ParentForm],
   props: {
-    dialogParams: {
+    routeParams: {
       type: Object,
       default: null
     }

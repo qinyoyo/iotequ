@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/attendance/org/adOrg/list'),
       name: 'AdOrgList',
+      props: true,
       meta: {
         title: 'adOrg.route.listTag',
         authorities: ['/attendance/org/adOrg/list'],
@@ -26,6 +27,7 @@ export default {
       path: 'record',
       component: () => import('@/views/attendance/org/adOrg/record'),
       name: 'AdOrgForm',
+      props: true,
       meta: {
         title: 'adOrg.route.recordTag',
         dialog: true,

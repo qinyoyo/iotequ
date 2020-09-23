@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/framework/sysMenu/list'),
       name: 'MenuList',
+      props: true,
       meta: {
         title: 'sysMenu.route.listTag',
         authorities: ['/framework/sysMenu/list'],
@@ -26,6 +27,7 @@ export default {
       path: 'record',
       component: () => import('@/views/framework/sysMenu/record'),
       name: 'MenuForm',
+      props: true,
       meta: {
         title: 'sysMenu.route.recordTag',
         authorities: ['/framework/sysMenu/record'],

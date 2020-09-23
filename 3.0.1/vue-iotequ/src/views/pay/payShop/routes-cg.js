@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/pay/payShop/list'),
       name: 'PayShopList',
+      props: true,
       meta: {
         title: 'payShop.route.listTag',
         authorities: ['/pay/payShop/list'],
@@ -26,6 +27,7 @@ export default {
       path: 'record',
       component: () => import('@/views/pay/payShop/record'),
       name: 'PayShopForm',
+      props: true,
       meta: {
         title: 'payShop.route.recordTag',
         dialog: true,

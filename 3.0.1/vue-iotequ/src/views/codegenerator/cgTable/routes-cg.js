@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/codegenerator/cgTable/list'),
       name: 'CgTableList',
+      props: true,
       meta: {
         title: 'cgTable.route.listTag',
         authorities: ['/codegenerator/cgTable/list'],
@@ -26,6 +27,7 @@ export default {
       path: 'record',
       component: () => import('@/views/codegenerator/cgTable/record'),
       name: 'CgTableForm',
+      props: true,
       meta: {
         title: 'cgTable.route.recordTag',
         authorities: ['/codegenerator/cgTable/record'],

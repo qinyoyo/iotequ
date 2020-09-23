@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/attendance/shift/adShift/list'),
       name: 'AdShiftList',
+      props: true,
       meta: {
         title: 'adShift.route.listTag',
         authorities: ['/attendance/shift/adShift/list'],
@@ -26,6 +27,7 @@ export default {
       path: 'record',
       component: () => import('@/views/attendance/shift/adShift/record'),
       name: 'AdShiftForm',
+      props: true,
       meta: {
         title: 'adShift.route.recordTag',
         icon: 'fa',

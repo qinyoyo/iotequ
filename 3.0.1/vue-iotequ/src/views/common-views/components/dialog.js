@@ -5,10 +5,6 @@ export default {
   directives: { elDragDialog },
   mixins: [record],
   props: {
-    dialogParams: {
-      type: Object,
-      default: null
-    },
     dialogClass: {
       type: String,
       default: null
@@ -23,7 +19,7 @@ export default {
     close() {
       this.showDialog = false
       this.$emit('close')
-      if (!this.dialogParams) this.$store.dispatch('tagsView/activeLastAfterRemove', this.$route)
+      if (!this.routeParams) this.$store.dispatch('tagsView/activeLastAfterRemove', this.$route)
     },
     beforeClose(done) {
       if (this.$refs.cgForm && this.$refs.cgForm.recordChanged && !this.$refs.cgForm.ignoreRecordChanged) {

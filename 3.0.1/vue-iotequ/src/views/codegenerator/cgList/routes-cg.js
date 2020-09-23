@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/codegenerator/cgList/list'),
       name: 'CgListList',
+      props: true,
       meta: {
         title: 'cgList.route.listTag',
         authorities: ['/codegenerator/cgList/list'],
@@ -26,6 +27,7 @@ export default {
       path: 'join',
       component: () => import('@/views/codegenerator/cgList/join'),
       name: 'CgListJoinList',
+      props: true,
       meta: {
         title: 'cgList.route.joinTag',
         authorities: ['/codegenerator/cgList/list'],
@@ -38,6 +40,7 @@ export default {
       path: 'record',
       component: () => import('@/views/codegenerator/cgList/record'),
       name: 'CgListForm',
+      props: true,
       meta: {
         title: 'cgList.route.recordTag',
         authorities: ['/codegenerator/cgList/record'],

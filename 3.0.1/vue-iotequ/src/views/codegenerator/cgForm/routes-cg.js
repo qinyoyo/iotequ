@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/codegenerator/cgForm/list'),
       name: 'CgFormList',
+      props: true,
       meta: {
         title: 'cgForm.route.listTag',
         authorities: ['/codegenerator/cgForm/list'],
@@ -26,6 +27,7 @@ export default {
       path: 'record',
       component: () => import('@/views/codegenerator/cgForm/record'),
       name: 'CgFormForm',
+      props: true,
       meta: {
         title: 'cgForm.route.recordTag',
         authorities: ['/codegenerator/cgForm/record'],

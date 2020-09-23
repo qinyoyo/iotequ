@@ -14,6 +14,7 @@ export default {
       path: 'record',
       component: () => import('@/views/framework/sysPermission/record'),
       name: 'PermissionForm',
+      props: true,
       meta: {
         title: 'sysPermission.route.recordTag',
         authorities: ['/framework/sysPermission/record'],

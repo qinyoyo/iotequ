@@ -9,7 +9,7 @@
         />
       </div>
       <CgFormTask ref="cgForm"
-                  :dialogParams="dialogParams"
+                  :routeParams="routeParams"
                   :showInDialog="showDialog"
                   @closeDialog="handleClose"
                   @openModeChanged="openModeChanged" />

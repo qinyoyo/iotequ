@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/project/product/pmProject/list'),
       name: 'PmProjectList',
+      props: true,
       meta: {
         title: 'pmProject.route.listTag',
         authorities: ['/project/product/pmProject/list'],
@@ -26,6 +27,7 @@ export default {
       path: 'record',
       component: () => import('@/views/project/product/pmProject/record'),
       name: 'PmProjectForm',
+      props: true,
       meta: {
         title: 'pmProject.route.recordTag',
         icon: 'el-icon-folder-add',
@@ -40,6 +42,7 @@ export default {
       path: 'assess',
       component: () => import('@/views/project/product/pmProject/assess'),
       name: 'PmProjectFlowAssessForm',
+      props: true,
       meta: {
         title: 'pmProject.title.assess',
         icon: 'fa fa-binoculars',
@@ -54,6 +57,7 @@ export default {
       path: 'decision',
       component: () => import('@/views/project/product/pmProject/assess'),
       name: 'PmProjectFlowDecisionForm',
+      props: true,
       meta: {
         title: 'pmProject.title.decision',
         icon: 'fa fa-gavel',
@@ -68,6 +72,7 @@ export default {
       path: 'develop',
       component: () => import('@/views/project/product/pmProject/assess'),
       name: 'PmProjectFlowDevelopForm',
+      props: true,
       meta: {
         title: 'pmProject.title.develop',
         icon: 'fa fa-cc',
@@ -82,6 +87,7 @@ export default {
       path: 'publish',
       component: () => import('@/views/project/product/pmProject/assess'),
       name: 'PmProjectFlowPublishForm',
+      props: true,
       meta: {
         title: 'pmProject.title.publish',
         icon: 'fa fa-check',
@@ -96,6 +102,7 @@ export default {
       path: 'review',
       component: () => import('@/views/project/product/pmProject/assess'),
       name: 'PmProjectFlowReviewForm',
+      props: true,
       meta: {
         title: 'pmProject.title.review',
         icon: 'fa fa-search-plus',
@@ -110,6 +117,7 @@ export default {
       path: 'test',
       component: () => import('@/views/project/product/pmProject/assess'),
       name: 'PmProjectFlowTestForm',
+      props: true,
       meta: {
         title: 'pmProject.title.test',
         icon: 'fa fa-user-md',

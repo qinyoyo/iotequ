@@ -41,6 +41,7 @@ export default {
       path: '${l.path}',
       component: () => import('@/views/${moduleName}/<#if subModule??>${subModule}/</#if>${generatorName}/${l.path}'),
       name: '${l.name?cap_first}List',
+      props: true,
       meta: {
         <#if l.tagTitle?? && l.tagTitle?trim !=''>
         title: '${generatorName}.route.${l.path}Tag',
@@ -68,6 +69,7 @@ export default {
       path: '${path}',
       component: () => import('@/views/${moduleName}/<#if subModule??>${subModule}/</#if>${generatorName}/${l.path?split(",")[0]}'),
       name: '${l.name?cap_first}${path?cap_first}Form',
+      props: true,
       meta: {
         title: '${generatorName}.title.${path}',
       <#if icons??>
@@ -89,6 +91,7 @@ export default {
       path: '${l.path}',
       component: () => import('@/views/${moduleName}/<#if subModule??>${subModule}/</#if>${generatorName}/${l.path}'),
       name: '${l.name?cap_first}Form',
+      props: true,
       meta: {
       <#if l.tagTitle?? && l.tagTitle?trim !=''>
         title: '${generatorName}.route.${l.path}Tag',

@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/project/version/pmVersionApplication/list'),
       name: 'PmVersionApplicationList',
+      props: true,
       meta: {
         title: 'pmVersionApplication.route.listTag',
         authorities: ['/project/version/pmVersionApplication/list'],
@@ -26,6 +27,7 @@ export default {
       path: 'record',
       component: () => import('@/views/project/version/pmVersionApplication/record'),
       name: 'PmVersionApplicationForm',
+      props: true,
       meta: {
         title: 'pmVersionApplication.route.recordTag',
         icon: 'el-icon-folder-add',
@@ -40,6 +42,7 @@ export default {
       path: 'assess',
       component: () => import('@/views/project/version/pmVersionApplication/assess'),
       name: 'PmVersionFlowAssessForm',
+      props: true,
       meta: {
         title: 'pmVersionApplication.title.assess',
         icon: 'fa fa-binoculars',
@@ -54,6 +57,7 @@ export default {
       path: 'decision',
       component: () => import('@/views/project/version/pmVersionApplication/assess'),
       name: 'PmVersionFlowDecisionForm',
+      props: true,
       meta: {
         title: 'pmVersionApplication.title.decision',
         icon: 'fa fa-gavel',
@@ -68,6 +72,7 @@ export default {
       path: 'publish',
       component: () => import('@/views/project/version/pmVersionApplication/assess'),
       name: 'PmVersionFlowPublishForm',
+      props: true,
       meta: {
         title: 'pmVersionApplication.title.publish',
         icon: 'fa fa-check',
@@ -82,6 +87,7 @@ export default {
       path: 'review',
       component: () => import('@/views/project/version/pmVersionApplication/assess'),
       name: 'PmVersionFlowReviewForm',
+      props: true,
       meta: {
         title: 'pmVersionApplication.title.review',
         icon: 'fa fa-search-plus',

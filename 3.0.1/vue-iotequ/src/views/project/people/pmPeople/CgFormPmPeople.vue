@@ -40,7 +40,7 @@ const Comp = {
   name: 'CgFormPmPeople',
   mixins: [ParentForm],
   props: {
-    dialogParams: {
+    routeParams: {
       type: Object,
       default: null
     }

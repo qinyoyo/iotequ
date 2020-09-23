@@ -9,7 +9,7 @@
         />
       </div>
       <CgFormEwUserTime ref="cgForm"
-                        :dialogParams="dialogParams"
+                        :routeParams="routeParams"
                         :showInDialog="showDialog"
                         @closeDialog="handleClose"
                         @openModeChanged="openModeChanged" />

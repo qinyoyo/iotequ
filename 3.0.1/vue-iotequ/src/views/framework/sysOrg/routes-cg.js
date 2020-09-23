@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/framework/sysOrg/list'),
       name: 'OrgList',
+      props: true,
       meta: {
         title: 'sysOrg.route.listTag',
         authorities: ['/framework/sysOrg/list'],
@@ -26,6 +27,7 @@ export default {
       path: 'record',
       component: () => import('@/views/framework/sysOrg/record'),
       name: 'OrgForm',
+      props: true,
       meta: {
         title: 'sysOrg.route.recordTag',
         dialog: true,

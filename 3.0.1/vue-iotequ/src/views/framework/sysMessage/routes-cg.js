@@ -14,6 +14,7 @@ export default {
       path: 'list',
       component: () => import('@/views/framework/sysMessage/list'),
       name: 'MessageList',
+      props: true,
       meta: {
         title: 'sysMessage.route.listTag',
         icon: 'fa fa-commenting-o',
@@ -27,6 +28,7 @@ export default {
       path: 'record',
       component: () => import('@/views/framework/sysMessage/record'),
       name: 'MessageForm',
+      props: true,
       meta: {
         title: 'sysMessage.route.recordTag',
         icon: 'fa fa-commenting-o',

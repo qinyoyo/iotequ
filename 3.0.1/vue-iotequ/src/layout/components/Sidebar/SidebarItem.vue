@@ -82,7 +82,7 @@ export default {
     openDialog(url) {
       const route = findRouteByUrl(url,this.$router)
       if (route && route.meta && route.meta.dialog) {
-        window.$vue.$dialog(route.components,{dialogParams: {}})
+        window.$vue.$dialog(route.components,{routeParams: {}})
       }
     },
     jsCmd(menu) {
