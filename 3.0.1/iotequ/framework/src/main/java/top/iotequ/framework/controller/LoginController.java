@@ -302,6 +302,7 @@ public class LoginController {
                 if (smsServiceList != null) {
                     for (ISmsService sms : smsServiceList) {
                         if (sms.enabled()) {  // 打开短信登录
+                            log.debug("sms service is enabled : {}", sms.getClass().getName());
                             req.setAttribute("useMobile", true);
                             break;
                         }

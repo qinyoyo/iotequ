@@ -13,6 +13,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import lombok.NonNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 
 import org.springframework.dao.*;
@@ -25,7 +27,6 @@ import top.iotequ.framework.service.impl.SqlService;
 /***************          数据库相关操作             ************************/
 
 public class SqlUtil {
-
 	/**
 	 * sql写法
 	 * @param obj

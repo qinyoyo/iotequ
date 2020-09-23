@@ -27,6 +27,7 @@ import javax.servlet.http.Part;
 import java.util.*;
 
 public abstract class CgService<T extends CgEntity> implements ICgService<T>, CommandLineRunner {
+    private static final Logger log = LoggerFactory.getLogger(CgService.class);
     /**************************  Licence 控制管理    **********************************************/
     private Integer verLicence=null;
     private Integer verTrialDays=null;
@@ -50,7 +51,7 @@ public abstract class CgService<T extends CgEntity> implements ICgService<T>, Co
     public int getLicenceLeft() throws IotequException {
         if (verLicence==null) return Integer.MAX_VALUE;
         else {
-            int count = SqlUtil.checkTableLicenceLeft(annotation.module(), annotation.name() , verLicence);
+            int count = SqlUtil.checkTableLicenceLeft(annotation.name() , annotation.pk(), verLicence);
             if (count <= 0) throw new IotequException(IotequThrowable.NO_ENOUGH_LICENCE,null);
             else return count;
         }
@@ -68,7 +69,6 @@ public abstract class CgService<T extends CgEntity> implements ICgService<T>, Co
         flowService = getFlowService();
         if (annotation.hasLicence()) {
             String scModule = annotation.module();
-            Logger log = LoggerFactory.getLogger(this.getClass());
             Environment env = Util.getBean(Environment.class);
             String sc = null;
             try {
@@ -97,16 +97,16 @@ public abstract class CgService<T extends CgEntity> implements ICgService<T>, Co
             }
             if (verTrialDays == null) {
                 if (verLicence == null)
-                    log.info(String.format("---------- %s free version", scModule));
+                    log.info("---------- {} free version", scModule);
                 else
-                    log.info(String.format("---------- %s version,licence = %d", scModule, verLicence));
+                    log.info("---------- {}s version,licence = {}", scModule, verLicence);
             } else if (verTrialDays <= 0)
-                log.info(String.format("---------- %s trial version expired", scModule));
+                log.info("---------- {} trial version expired", scModule);
             else {
                 if (verLicence == null)
-                    log.info(String.format("---------- %s unlimitted trial version : %d days left", scModule, verTrialDays));
+                    log.info("---------- {} unlimitted trial version : {} days left", scModule, verTrialDays);
                 else
-                    log.info(String.format("---------- %s trial version : %d days left , licence = %d", scModule, verTrialDays, verLicence));
+                    log.info("---------- {} trial version : {} days left , licence = {}", scModule, verTrialDays, verLicence);
             }
             try {
                 getLicenceLeft();
@@ -114,6 +114,7 @@ public abstract class CgService<T extends CgEntity> implements ICgService<T>, Co
                 log.error(e.getMessage());
             }
         }
+        log.debug("Initialed service {} for {}",this.getClass().getName(), clazz.getName());
     }
     @Override
     public CgTableAnnotation getCgTableAnnotation() {
@@ -142,7 +143,6 @@ public abstract class CgService<T extends CgEntity> implements ICgService<T>, Co
             String table = annotation.name();
             String pk = annotation.pk();
             String f = EntityUtil.getDBFieldNameFrom(clazz, sortField);
-            String sql = "select " + pk + " from " + table + " order by " + f + " asc";
             int order = order0;
             for (Object obj : list) {
                 SqlUtil.sqlExecute("update " + table + " set " + f + " = " + order + " where " + pk + " = ?", EntityUtil.getPrivateField(obj, pkField));
@@ -182,6 +182,7 @@ public abstract class CgService<T extends CgEntity> implements ICgService<T>, Co
                 Util.isEmpty(parentEntityField)?null:EntityUtil.getDBFieldNameFrom(clazz,parentEntityField),
                 Util.isEmpty(groupByEntityFields)?null:groupByEntityFields.split(","), defaultOrder);
         String whereString=getListCondition(search,request);
+        log.debug("get data list for {} , condition: {}, order: {}, pageSize: {}, pageNumber: {}",clazz.getName(),whereString,orderString,pageSize,pageNumber);
         PageUtil.setStartPageNumber(pageSize,pageNumber);
         data=daoService.listBy(whereString,orderString);
         if (data==null) return new ArrayList<T>();

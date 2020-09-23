@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,7 @@ import top.iotequ.framework.util.*;
 
 @Service
 public class SqlService {
+	private static final Logger log = LoggerFactory.getLogger(SqlService.class);
 	@Autowired
 	private SqlDao sqlDao;
 	@Autowired
@@ -78,6 +81,7 @@ public class SqlService {
 			List<Map<String, Object>> list = sqlDao.select(s);
 			list = list.stream().filter(item -> Objects.nonNull(item)).collect(Collectors.toList()); // 删除空记录
 			if (filterOrg) filterOrgCode(list);
+			log.debug("SQL query : {} , result count{} : {}",s,filterOrg?"(filter org)":"", list==null?0:list.size());
 			if (list != null && list.size() > 0) {
 				List<T> result = new ArrayList<T>();
 				for (Map<String, Object> map : list) {
@@ -87,6 +91,7 @@ public class SqlService {
 				return result;
 			} else return null;
 		} catch (Exception e) {
+			log.debug("SQL query : {} , error: {}",s,e.getMessage());
 			throw new IotequDatabaseException(e,s);
 		}
 	}
@@ -96,8 +101,10 @@ public class SqlService {
 			List<Map<String, Object>> list=sqlDao.select(s);
 			list = list.stream().filter(item -> Objects.nonNull(item)).collect(Collectors.toList()); // 删除空记录
 			if (filterOrg) filterOrgCode(list);
+			log.debug("SQL query : {} , result count{} : {}",s,filterOrg?"(filter org)":"", list==null?0:list.size());
 			return list;
 		} catch (Exception e) {
+			log.debug("SQL query : {} , error: {}",s,e.getMessage());
 			throw new IotequDatabaseException(e,s);
 		}
 	}
@@ -111,6 +118,7 @@ public class SqlService {
 			}
 			List<Map<String, Object>> list = sqlDao.select(s);
 			if (filterOrg) filterOrgCode(list);
+			log.debug("SQL query : {} , result count{} : {}",s,filterOrg?"(filter org)":"", list==null?0:list.size());
 			if (list != null && list.size() > 0) {
 				Map<String, Object> map = list.get(0);
 				if (map == null) return null;
@@ -120,6 +128,7 @@ public class SqlService {
 			}
 			return null;
 		} catch (Exception e) {
+			log.debug("SQL query : {} , error: {}",s,e.getMessage());
 			throw new IotequDatabaseException(e, s);
 		}
 	}
@@ -133,15 +142,21 @@ public class SqlService {
 			}
 			List<Map<String, Object>> list = sqlDao.select(s);
 			if (filterOrg) filterOrgCode(list);
+			log.debug("SQL query : {} , result count{} : {}",s,filterOrg?"(filter org)":"", list==null?0:list.size());
 			return list;
 		} catch (Exception e) {
+			log.debug("SQL query : {} , error: {}",s,e.getMessage());
 			throw new IotequDatabaseException(e, s);
 		}
 	}
 	public int execute(String sql,Object ... params) throws IotequDatabaseException {
+		String s = SqlUtil.sqlString(sql, params);
 		try {
-			return sqlDao.execute(SqlUtil.sqlString(sql, params));
+			int r = sqlDao.execute(s);
+			log.debug("SQL execute : {} , result : {}",s,r);
+			return r;
 		} catch (Exception e) {
+			log.debug("SQL execute : {} , error: {}",s,e.getMessage());
 			throw new IotequDatabaseException(e, sql);
 		}
 	}
@@ -154,8 +169,10 @@ public class SqlService {
 		try { 
 			List<Map<String, Object>> list=sqlDao.select(s);
 			if (filterOrg) filterOrgCode(list);
+			log.debug("SQL exist : {} , result count{} : {}",s,filterOrg?"(filter org)":"", list==null?0:list.size());
 			return list!=null && list.size()>0;
 		} catch (Exception e) {
+			log.debug("SQL exist : {} , error: {}",s,e.getMessage());
 			return false;
 		}
 	}

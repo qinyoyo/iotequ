@@ -69,7 +69,7 @@ Author : Qinyoyo
 @ConditionalOnMissingClass({"${basePackage}.service.impl.${generatorName?cap_first}Service"})
 @Service(value="${generatorName?uncap_first}Service")
 public class Cg${generatorName?cap_first}Service extends CgService<${table.entity}>  {
-private static final Logger log = LoggerFactory.getLogger(Cg${generatorName?cap_first}Service.class);
+    private static final Logger log = LoggerFactory.getLogger(Cg${generatorName?cap_first}Service.class);
 <#if flowList ?? >
     private static final int maxNoteLength = ${maxNoteLength?c};
     @Autowired IFlowService<${table.entity}> flowService;
