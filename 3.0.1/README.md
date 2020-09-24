@@ -759,7 +759,7 @@ vueObject 为表单cgForm，列表cgList对象，getRecordfunc为一个函数，
 
 ## 常用参考
 
-- 前端功能扩展
+- **前端功能扩展**
 
   - 扩展文件在 src/extend-src下
 
@@ -777,7 +777,7 @@ vueObject 为表单cgForm，列表cgList对象，getRecordfunc为一个函数，
 
     
 
-- 定义菜单项
+- **定义菜单项**
 
   - 功能地址必填，指定路由路径。定义路由跳转地址和设定菜单执行权限，如果用户不具备该路由权限，该菜单项不会显示
 
@@ -789,20 +789,27 @@ vueObject 为表单cgForm，列表cgList对象，getRecordfunc为一个函数，
 
     
 
-- 按钮的显示扩展控制
+- **按钮的显示扩展控制**
 
   - 子表列表为空，隐藏所有下拉菜单
+  - 流程控制扩展功能通过每列的 字段 flowAvailableActions 下发给前端，后端修改流程控制服务的函数 getAllOperations 实现具体的功能扩展
   
-- 流程控制扩展功能通过每列的 字段 flowAvailableActions 下发给前端，后端修改流程控制服务的函数 getAllOperations 实现具体的功能扩展
   - 通过权限控制隐藏不需要的按钮
     - 按钮与后台相关，用户必须拥有后台相关权限
     - 组件通过mixin自定义函数 extendActionFilter(action, record)来进行按钮筛选，action为功能按钮名，record为当前行数据（没有行数据，该参数为空）。返回false将禁用该功能
+    
   - form表单的自定义按钮，可以通过mixin扩展定义函数 disabledAction(btn)来使其处于非激活状态,参数为完整的按钮定义object
   
-- 对话框函数
+    
+  
+- **对话框函数**
 
+  - 调用 window.$vue.$dialog(对话框组件类, 传递的参数map)
+
+    - 参考 views/common-views/extend-views/CgRegTest.vue
+  
   - 先定义一个组件，模板格式为：
-
+  
     <template>
       <div class="cg-form" :class="dialogClass">
         <el-dialog ref="dialog" 
@@ -847,22 +854,35 @@ vueObject 为表单cgForm，列表cgList对象，getRecordfunc为一个函数，
     }
     </script>
 
-  - 调用 window.$vue.$dialog(对话框组件类, 传递的参数map)
 
-  - 参考 views/common-views/extend-views/CgRegTest.vue
+
+  - 动态打开一个页面**
+
+      - 调用 @/utils/cg.js的函数 jump2Url，参数依次为 1）完整的路由地址（必须有路由的定义），2）附加参数，3）$router（组件 this.$router，可省略)
+      - 如果路由配置为对话框（meta.dialog=true),调用$dialog打开对话框，否则通过 push 打开路由
+      - 路由配置必须设置 props = true
+      - 如果打开一个list列表(路由名字以List结尾)，将参数传递给 List 的props定义 fixedQueryRecord，用来设置list列表打开的条件。默认列表打开将会立即执行refresh操作，进行列表的数据查询和字典设置。设置 fixedQueryRecord.ignoreRefreshImmediate=true可以禁止立即刷新数据
+      - 如果打开其他的页面，参数将会传递给组件的属性 routeParams。cg生成的form表单，routeParams有效的参数包括 
+          - onChange ：function({ record, isNew, refresh }), record为更新后的记录，新建时isNew=true,需要强制刷新（设置refresh=true，如舒心列表结构改变等)
+          - fixedFields：固定字段及其值，map object,多用于新建记录设置参数
+          - openMode：打开模式，'new'，'edit'，'view'
+          - record : 记录
+          - id: 主键值，此时不传record，通过id查询记录
+      - cg生成的表单通过函数 this.openParams()引用（由于表单也可通过 query传递参数，故用该函数来判断引用）
+      - 自定义参数引用请在mixin扩展中定义
+
+    
+
+- **全局消息传递**
+
+  - 发送消息 this.$eventBus.$emit(messageName,messageParams)
+  - 注册处理消息 this.$eventBus.$on(messageName,(messageParams)=>{ 处理函数 })
+
+  
 
 - 
 
-## 更多信息请参考 [使用文档](https://www.iotequ.top/admin/res/doc)
 
-
-## Online Demo
-
-[在线 Demo](https://www.iotequ.top/admin)
-
-## Donate
-
-如果你觉得这个项目帮助到了你，你可以帮作者买一杯果汁表示鼓励 ​[donate](https://www.iotequ.top/admin/res/donate)
 
 ## License
 
