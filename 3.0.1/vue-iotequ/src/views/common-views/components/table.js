@@ -93,7 +93,7 @@ export default {
         }) && this.doAction('refresh')
       },
       deep: true,
-      immediate: true
+      // immediate: true
     },
     joinShow(newValue, oldValue) {
       if (oldValue && !newValue && this.joinMode) {
@@ -102,7 +102,7 @@ export default {
     }
   },
   created() {
-    this.doAction('refresh')
+    if (!this.fixedQueryRecord || !this.fixedQueryRecord.ignoreRefreshImmediate) this.doAction('refresh')
   },
   activated() {
     cgList.list_activedRefresh(this)
