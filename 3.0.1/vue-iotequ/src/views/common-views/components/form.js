@@ -24,6 +24,7 @@ export default {
       cgForm,
       rules: {},
       idField: null,
+      ignoreRecordChanged: !this.showInDialog,
       onChange: typeof this.openParams().onChange === 'function' ? this.openParams().onChange : null,
       recordChanged: false,
       recordLoading: false,

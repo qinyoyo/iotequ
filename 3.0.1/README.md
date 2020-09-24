@@ -871,7 +871,7 @@ vueObject 为表单cgForm，列表cgList对象，getRecordfunc为一个函数，
       - cg生成的表单通过函数 this.openParams()引用（由于表单也可通过 query传递参数，故用该函数来判断引用）
       - 自定义参数引用请在mixin扩展中定义
 
-    
+​    
 
 - **全局消息传递**
 
@@ -880,7 +880,10 @@ vueObject 为表单cgForm，列表cgList对象，getRecordfunc为一个函数，
 
   
 
-- 
+- **关闭表单检查是否保存**
+
+  - 默认对话框表单关闭时将检查是否保存数据，提示用户选择是否放弃修改（非对话框不检查）
+  - CgFormxxx 表单设置变量 ignoreRecordChanged = true 将不检查数据是否变化
 
 
 

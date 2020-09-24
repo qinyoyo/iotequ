@@ -138,6 +138,7 @@ const Comp = {
       baseUrl: '/framework/sysMenu'
     }
   },
+
   methods: {
     just4elInputNumberNullBug: function() {
       if (this.record.sortNum === null) this.record.sortNum = undefined

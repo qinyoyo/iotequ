@@ -58,6 +58,22 @@ export default {
   activated() {
     this.openMode = this.openParams().openMode
   },
+  beforeRouteLeave(to,from,next) {
+    if (!this.hasOwnProperty('showDialog') && this.$refs.cgForm && this.$refs.cgForm.recordChanged && !this.$refs.cgForm.ignoreRecordChanged) {
+      this.$confirm(this.$t('system.message.cancelModified'), this.content, {
+        confirmButtonText: this.$t('system.action.yes'),
+        cancelButtonText: this.$t('system.action.cancel'),
+        closeOnClickModal: false,
+        type: 'warning'
+      }).then(_ => {
+        next()
+      }).catch(_ => {
+        if (from.name && from.meta.tagView) {
+          this.$store.dispatch('tagsView/addView', from)
+        }
+      })
+    } else next()
+  },
   methods: {
     openParams: function() {
       return this.routeParams ? this.routeParams : this.$route.query

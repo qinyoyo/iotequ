@@ -146,25 +146,11 @@ export default {
       })
     },
     closeSelectedTag(view) {
-      const _this=this
-      const done = function() {
-        _this.$store.dispatch('tagsView/delView', view).then(({ visitedViews }) => {
-          if (_this.isActive(view)) {
-            _this.toLastView(visitedViews, view)
-          }
-        })
-      }
-      if (false) { //(view.meta.cgForm && view.meta.cgForm.recordChanged && !view.meta.cgForm.ignoreRecordChanged) {
-        this.$confirm(this.$t('system.message.cancelModified'), this.$t('system.action.confirm'), {
-          confirmButtonText: this.$t('system.action.yes'),
-          cancelButtonText: this.$t('system.action.cancel'),
-          closeOnClickModal: false,
-          type: 'warning'
-        }).then(_ => {
-          done()
-        }).catch(_ => {
-        })
-      } else done()
+      this.$store.dispatch('tagsView/delView', view).then(({ visitedViews }) => {
+        if (this.isActive(view)) {
+          this.toLastView(visitedViews, view)
+        }
+      })
     },
     closeOthersTags() {
       this.$router.push(this.selectedTag)
