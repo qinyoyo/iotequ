@@ -49,7 +49,10 @@ public class CustomAuthenticationProvider extends DaoAuthenticationProvider {
 	}
 	@Autowired
 	SecurityService securityService;
-
+	private IotequAuthenticationException newSveinException(String msg) {
+		setExceptionMessage(IotequThrowable.USER_NOT_EXIST);
+		return new IotequAuthenticationException(IotequThrowable.USER_NOT_EXIST,msg);
+	}
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		Object object = authentication.getDetails();
@@ -77,17 +80,17 @@ public class CustomAuthenticationProvider extends DaoAuthenticationProvider {
 				loginType = CustomWebAuthenticationDetails.login_by_vein;
 				try {
 					Object matchInfo = EntityUtil.runMethod(svasService, "auth", pass, null);
-					if (matchInfo == null) 	throw new IotequAuthenticationException(IotequThrowable.FAILURE,"没有指静脉验证服务");
+					if (matchInfo == null) 	throw newSveinException("没有指静脉验证服务");
 					Object count = EntityUtil.getPrivateField(matchInfo, "count");
-					if (count == null || !count.toString().equals("1"))  throw new IotequAuthenticationException(IotequThrowable.FAILURE,"未找到注册手指，请检查参数");
+					if (count == null || !count.toString().equals("1"))  throw newSveinException("未找到注册手指，请检查参数");
 					Object matched = EntityUtil.getPrivateField(matchInfo, "list");
-					if (Util.isEmpty(matched))  throw new IotequAuthenticationException(IotequThrowable.FAILURE,"未找到注册手指，请检查参数");
+					if (Util.isEmpty(matched))  throw newSveinException("未找到注册手指，请检查参数");
 					Object info = ((List<Object>)matched).get(0);
 					idType = (int) EntityUtil.getPrivateField(info, "idType");
 					idNo = (String) EntityUtil.getPrivateField(info, "idNo");
-					if (Util.isEmpty(idNo)) throw new IotequAuthenticationException(IotequThrowable.FAILURE,"未找到注册手指，请检查参数");
-				} catch (Exception e) {
-					throw new IotequAuthenticationException(IotequThrowable.FAILURE,"未找到注册手指，请检查参数");
+					if (Util.isEmpty(idNo)) throw newSveinException("未找到注册手指，请检查参数");
+				} catch (IotequException e) {
+					throw newSveinException("未找到注册手指，请检查参数");
 				}
 			}
 			else if (loginType == CustomWebAuthenticationDetails.login_by_name) { // 手机验证码登录或用户名登录需要验证码验证

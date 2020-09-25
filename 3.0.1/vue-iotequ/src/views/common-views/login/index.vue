@@ -119,7 +119,7 @@ import { apiUrl } from '@/utils/requestService'
 import { request } from '@/utils/request'
 import Cookies from 'js-cookie'
 import { generateTitle } from '@/utils/i18n'
-import {u53Disconnect,u53Connect,u53Read} from '@/utils/u53'
+import {u53Disconnect,u53Connect,u53Read} from './u53read'
 export default {
   name: 'Login',
   components: { LangSelect, MDinput },
@@ -391,10 +391,9 @@ export default {
       if (typeof(error) === 'string') this.errorMessage = error
       else {
         let msg = ''
-        if (error.error) {
-          msg=generateTitle((error.error.indexOf('.')>0 ? '' : 'error.')+error.error)
-          if (error.message) msg = msg + '(' + error.message + ')'
-        } else msg = error.message || generateTitle('error.network_error')
+        if (typeof error.error === 'string') msg=generateTitle((error.error.indexOf('.')>0 ? '' : 'error.')+error.error)
+        else if (typeof error.message === 'string' && error.message.toLowerCase().indexOf('proxy')< 0 ) msg = error.message 
+        else msg = generateTitle('error.network_error')
         this.errorMessage = msg
       }
       this.refreshRandCode()
