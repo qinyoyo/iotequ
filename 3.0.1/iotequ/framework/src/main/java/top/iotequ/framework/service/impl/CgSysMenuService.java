@@ -24,7 +24,7 @@ Author : Qinyoyo
 @ConditionalOnMissingClass({"top.iotequ.framework.service.impl.SysMenuService"})
 @Service(value="sysMenuService")
 public class CgSysMenuService extends CgService<Menu>  {
-private static final Logger log = LoggerFactory.getLogger(CgSysMenuService.class);
+    private static final Logger log = LoggerFactory.getLogger(CgSysMenuService.class);
     @Autowired
     private MenuDao menuDao;
     @Override

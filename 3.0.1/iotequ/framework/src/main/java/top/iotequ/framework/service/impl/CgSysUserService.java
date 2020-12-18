@@ -24,7 +24,7 @@ Author : Qinyoyo
 @ConditionalOnMissingClass({"top.iotequ.framework.service.impl.SysUserService"})
 @Service(value="sysUserService")
 public class CgSysUserService extends CgService<User>  {
-private static final Logger log = LoggerFactory.getLogger(CgSysUserService.class);
+    private static final Logger log = LoggerFactory.getLogger(CgSysUserService.class);
     @Autowired
     private UserDao userDao;
     @Override

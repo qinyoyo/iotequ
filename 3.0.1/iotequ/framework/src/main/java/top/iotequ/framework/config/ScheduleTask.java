@@ -73,20 +73,19 @@ public class ScheduleTask {
 							SqlUtil.sqlExecute(task.getMothodName());
 						else
 							SqlUtil.sqlExecute(task.getMothodName(),pp);
-					} else {
-						Object obj = null;
-						if (!task.getIsStatic()) {
-							obj = Util.getBean(task.getClassName());
-							if (obj == null) {
-								log.error(DateUtil.date2String(new Date(), null)
-										+" task ["+task.getName()+"] exception : bean "+task.getClassName() + " not exist");
-								return;
-							}
+					} else if (!task.getIsStatic()) {
+						Object obj = Util.getBean(task.getClassName());
+						if (obj == null) {
+							log.error(DateUtil.date2String(new Date(), null)
+									+" task ["+task.getName()+"] exception : bean "+task.getClassName() + " not exist");
+							return;
 						}
-						if (pp==null)
-								EntityUtil.runMethod(obj, task.getMothodName());
-							else
-								EntityUtil.runMethod(obj, task.getMothodName(),pp);
+					} else {
+						Class<?> clazz = Class.forName(task.getClassName());
+						if (clazz!=null) {
+							if (pp == null) EntityUtil.runMethod(clazz, task.getMothodName());
+							else EntityUtil.runMethod(clazz, task.getMothodName(), pp);
+						}
 					}
 				}
 			} catch (Exception e) {

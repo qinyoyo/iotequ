@@ -24,7 +24,7 @@ Author : Qinyoyo
 @ConditionalOnMissingClass({"top.iotequ.framework.service.impl.SysTaskService"})
 @Service(value="sysTaskService")
 public class CgSysTaskService extends CgService<Task>  {
-private static final Logger log = LoggerFactory.getLogger(CgSysTaskService.class);
+    private static final Logger log = LoggerFactory.getLogger(CgSysTaskService.class);
     @Autowired
     private TaskDao taskDao;
     @Override

@@ -1,4 +1,13 @@
 export default {
+  created() {
+    this.ignoreRecordChanged = true
+    const that=this
+    this.$on('transitionEnd',_=>{
+      setTimeout(()=>{
+        that.recordChanged = true
+      },500)
+    })
+  },
   methods: {
     timeLabel(when) {
       if (this.record.adjustType=='10') {

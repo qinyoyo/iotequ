@@ -24,7 +24,7 @@ Author : Qinyoyo
 @ConditionalOnMissingClass({"top.iotequ.framework.service.impl.SysRouteService"})
 @Service(value="sysRouteService")
 public class CgSysRouteService extends CgService<SysRoute>  {
-private static final Logger log = LoggerFactory.getLogger(CgSysRouteService.class);
+    private static final Logger log = LoggerFactory.getLogger(CgSysRouteService.class);
     @Autowired
     private SysRouteDao sysRouteDao;
     @Override

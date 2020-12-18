@@ -279,6 +279,7 @@ public class Util {
      * @return 获取当前对话
      */
     public static HttpSession getSession() {
+        if (getRequest()==null) return null;
         HttpSession session = getRequest().getSession();
         return session;
     }

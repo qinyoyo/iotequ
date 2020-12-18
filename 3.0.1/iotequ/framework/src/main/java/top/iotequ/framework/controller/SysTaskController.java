@@ -98,4 +98,12 @@ public class SysTaskController  {
 			return new RestJson().setMessage(e).toResponse();
 		}
 	}
+	@RequestMapping(value = "/action/run")
+	public ResponseEntity<Map<String, Object>> actionRun(String id,HttpServletRequest request, HttpServletResponse response){
+		try {
+		  return cgService.doAction("run",id,request).toResponse();
+		} catch (Exception e) {
+			return new RestJson().setMessage(e).toResponse();
+		}
+	}
 }

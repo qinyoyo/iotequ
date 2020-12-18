@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.iotequ.reader.dao.DevReaderPeopleDao">
+  <resultMap id="BaseResultMap" type="top.iotequ.reader.pojo.DevReaderPeople">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="order_num" jdbcType="INTEGER" property="orderNum" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="reader_no" jdbcType="VARCHAR" property="readerNo" />
+    <result column="user_no" jdbcType="VARCHAR" property="userNo" />
+    <result column="birth_date" jdbcType="DATE" property="birthDate" />
+    <result column="card_no" jdbcType="VARCHAR" property="cardNo" />
+    <result column="dev_password" jdbcType="VARCHAR" property="devPassword" />
+    <result column="duty_rank" jdbcType="VARCHAR" property="dutyRank" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="expired_date" jdbcType="DATE" property="expiredDate" />
+    <result column="home_addr" jdbcType="VARCHAR" property="homeAddr" />
+    <result column="id_nation" jdbcType="VARCHAR" property="idNation" />
+    <result column="id_number" jdbcType="VARCHAR" property="idNumber" />
+    <result column="id_type" jdbcType="INTEGER" property="idType" />
+    <result column="mobile_phone" jdbcType="VARCHAR" property="mobilePhone" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="org_code" jdbcType="INTEGER" property="orgCode" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="reg_fingers" jdbcType="INTEGER" property="regFingers" />
+    <result column="register_type" jdbcType="INTEGER" property="registerType" />
+    <result column="reg_time" jdbcType="TIMESTAMP" property="regTime" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="user_no_dev_people_user_no" jdbcType="VARCHAR" property="userNoDevPeopleUserNo" />
+    <result column="user_type" jdbcType="INTEGER" property="userType" />
+    <result column="valid_date" jdbcType="DATE" property="validDate" />
+  </resultMap>
+  <sql id = "selectSql">
+     SELECT dev_reader_people.id,dev_reader_people.type,dev_reader_people.order_num,dev_reader_people.status,dev_reader_people.reader_no,dev_reader_people.user_no,dev_people.birth_date AS birth_date,dev_people.card_no AS card_no,dev_people.dev_password AS dev_password,dev_people.duty_rank AS duty_rank,dev_people.email AS email,dev_people.expired_date AS expired_date,dev_people.home_addr AS home_addr,dev_people.id_nation AS id_nation,dev_people.id_number AS id_number,dev_people.id_type AS id_type,dev_people.mobile_phone AS mobile_phone,dev_people.note AS note,dev_people.org_code AS org_code,dev_people.photo AS photo,dev_people.real_name AS real_name,dev_people.reg_fingers AS reg_fingers,dev_people.register_type AS register_type,dev_people.reg_time AS reg_time,dev_people.sex AS sex,dev_people.user_no AS user_no_dev_people_user_no,dev_people.user_type AS user_type,dev_people.valid_date AS valid_date FROM dev_reader_people LEFT JOIN dev_people ON dev_reader_people.user_no = dev_people.user_no
+  </sql>
+  <insert id="insert" parameterType="top.iotequ.reader.pojo.DevReaderPeople">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer" databaseId="SQLServer">
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into dev_reader_people (type,order_num,status,reader_no,user_no)
+      values 
+      (#{type,jdbcType=INTEGER},#{orderNum,jdbcType=INTEGER},#{status,jdbcType=INTEGER},#{readerNo,jdbcType=VARCHAR},#{userNo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insert" parameterType="top.iotequ.reader.pojo.DevReaderPeople" databaseId="Oracle">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer" >
+      SELECT SEQUENCE_DEV_READER_PEOPLE.nextval from DUAL
+    </selectKey>
+    insert into dev_reader_people (id,type,order_num,status,reader_no,user_no)
+      values 
+      (#{id,jdbcType=INTEGER},#{type,jdbcType=INTEGER},#{orderNum,jdbcType=INTEGER},#{status,jdbcType=INTEGER},#{readerNo,jdbcType=VARCHAR},#{userNo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.reader.pojo.DevReaderPeople">
+    insert into dev_reader_people (type,order_num,status,reader_no,user_no)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.type,jdbcType=INTEGER},#{item.orderNum,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.readerNo,jdbcType=VARCHAR},#{item.userNo,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.reader.pojo.DevReaderPeople" databaseId="Oracle">
+     insert into dev_reader_people (id,type,order_num,status,reader_no,user_no)
+       select SEQUENCE_DEV_READER_PEOPLE.nextval,cd.* from(
+          <foreach collection="list" item="item" index="index" separator="union all">
+             select #{item.type,jdbcType=INTEGER},#{item.orderNum,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.readerNo,jdbcType=VARCHAR},#{item.userNo,jdbcType=VARCHAR} from dual
+          </foreach>
+       ) cd
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.reader.pojo.DevReaderPeople">
+    insert into dev_reader_people (id,type,order_num,status,reader_no,user_no)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=INTEGER},#{item.type,jdbcType=INTEGER},#{item.orderNum,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.readerNo,jdbcType=VARCHAR},#{item.userNo,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.reader.pojo.DevReaderPeople" databaseId="SQLServer">
+    set IDENTITY_INSERT dev_reader_people ON 
+    insert into dev_reader_people (id,type,order_num,status,reader_no,user_no)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=INTEGER},#{item.type,jdbcType=INTEGER},#{item.orderNum,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.readerNo,jdbcType=VARCHAR},#{item.userNo,jdbcType=VARCHAR})
+    </foreach>
+    set IDENTITY_INSERT dev_reader_people OFF 
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.reader.pojo.DevReaderPeople" databaseId="Oracle">
+    insert all 
+    <foreach collection="list" item="item" index="index">
+      into dev_reader_people (id,type,order_num,status,reader_no,user_no) values(#{item.id,jdbcType=INTEGER},#{item.type,jdbcType=INTEGER},#{item.orderNum,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.readerNo,jdbcType=VARCHAR},#{item.userNo,jdbcType=VARCHAR})
+    </foreach>
+    select 1 from dual
+  </insert>
+  <select id="select" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where dev_reader_people.id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from dev_reader_people where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteBatch" parameterType="java.lang.String">
+    delete from dev_reader_people where id in (${_parameter})
+  </delete>
+  <delete id="deleteList" parameterType="java.util.List">
+    delete from dev_reader_people where id in
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")"> 
+       #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </delete>
+  <update id="update" parameterType="top.iotequ.reader.pojo.DevReaderPeople">
+    update dev_reader_people set 
+      type = #{type,jdbcType=INTEGER},
+      order_num = #{orderNum,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      reader_no = #{readerNo,jdbcType=VARCHAR},
+      user_no = #{userNo,jdbcType=VARCHAR}
+      where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateSelective" parameterType="java.util.Map">
+    update dev_reader_people 
+      <set>
+        <if test='type_string_ == "[null]"'> type = NULL, </if>
+        <if test='type != null and type_string_ != "[null]"'> type = #{type,jdbcType=INTEGER},</if>
+        <if test='orderNum_string_ == "[null]"'> order_num = NULL, </if>
+        <if test='orderNum != null and orderNum_string_ != "[null]"'> order_num = #{orderNum,jdbcType=INTEGER},</if>
+        <if test='status_string_ == "[null]"'> status = NULL, </if>
+        <if test='status != null and status_string_ != "[null]"'> status = #{status,jdbcType=INTEGER},</if>
+        <if test='readerNo_string_ == "[null]"'> reader_no = NULL, </if>
+        <if test='readerNo != null and readerNo_string_ != "[null]"'> reader_no = #{readerNo,jdbcType=VARCHAR},</if>
+        <if test="userNo != null"> user_no = #{userNo,jdbcType=VARCHAR},</if>
+      </set>
+      where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateBy" parameterType="top.iotequ.reader.pojo.DevReaderPeople">
+    update dev_reader_people set 
+      type = #{record.type,jdbcType=INTEGER},
+      order_num = #{record.orderNum,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      reader_no = #{record.readerNo,jdbcType=VARCHAR},
+      id = #{record.id,jdbcType=INTEGER},
+      user_no = #{record.userNo,jdbcType=VARCHAR}
+      where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="list" parameterType="top.iotequ.reader.pojo.DevReaderPeople" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+     where 1=1 
+        <if test="type != null"> and dev_reader_people.type = #{type,jdbcType=INTEGER} </if>
+        <if test="orderNum != null"> and dev_reader_people.order_num = #{orderNum,jdbcType=INTEGER} </if>
+        <if test="status != null"> and dev_reader_people.status = #{status,jdbcType=INTEGER} </if>
+        <if test="readerNo != null"> and dev_reader_people.reader_no like #{readerNo,jdbcType=VARCHAR} </if>
+        <if test="id != null"> and dev_reader_people.id = #{id,jdbcType=INTEGER} </if>
+        <if test="userNo != null"> and dev_reader_people.user_no like #{userNo,jdbcType=VARCHAR} </if>
+        <if test="birthDate != null"> and dev_people.birth_date = #{birthDate,jdbcType=DATE} </if>
+        <if test="cardNo != null"> and dev_people.card_no like #{cardNo,jdbcType=VARCHAR} </if>
+        <if test="devPassword != null"> and dev_people.dev_password like #{devPassword,jdbcType=VARCHAR} </if>
+        <if test="dutyRank != null"> and dev_people.duty_rank like #{dutyRank,jdbcType=VARCHAR} </if>
+        <if test="email != null"> and dev_people.email like #{email,jdbcType=VARCHAR} </if>
+        <if test="expiredDate != null"> and dev_people.expired_date = #{expiredDate,jdbcType=DATE} </if>
+        <if test="homeAddr != null"> and dev_people.home_addr like #{homeAddr,jdbcType=VARCHAR} </if>
+        <if test="idNation != null"> and dev_people.id_nation like #{idNation,jdbcType=VARCHAR} </if>
+        <if test="idNumber != null"> and dev_people.id_number like #{idNumber,jdbcType=VARCHAR} </if>
+        <if test="idType != null"> and dev_people.id_type = #{idType,jdbcType=INTEGER} </if>
+        <if test="mobilePhone != null"> and dev_people.mobile_phone like #{mobilePhone,jdbcType=VARCHAR} </if>
+        <if test="note != null"> and dev_people.note like #{note,jdbcType=VARCHAR} </if>
+        <if test="orgCode != null"> and dev_people.org_code = #{orgCode,jdbcType=INTEGER} </if>
+        <if test="photo != null"> and dev_people.photo like #{photo,jdbcType=VARCHAR} </if>
+        <if test="realName != null"> and dev_people.real_name like #{realName,jdbcType=VARCHAR} </if>
+        <if test="regFingers != null"> and dev_people.reg_fingers = #{regFingers,jdbcType=INTEGER} </if>
+        <if test="registerType != null"> and dev_people.register_type = #{registerType,jdbcType=INTEGER} </if>
+        <if test="regTime != null"> and dev_people.reg_time = #{regTime,jdbcType=TIMESTAMP} </if>
+        <if test="sex != null"> and dev_people.sex like #{sex,jdbcType=VARCHAR} </if>
+        <if test="userNoDevPeopleUserNo != null"> and dev_people.user_no like #{userNoDevPeopleUserNo,jdbcType=VARCHAR} </if>
+        <if test="userType != null"> and dev_people.user_type = #{userType,jdbcType=INTEGER} </if>
+        <if test="validDate != null"> and dev_people.valid_date = #{validDate,jdbcType=DATE} </if>
+  </select>
+  <select id="listBy" parameterType="map" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+        <if test="whereString != null and whereString !=''"> where ${whereString} </if>
+        <if test="orderString != null and orderString!=''"> order by ${orderString} </if>
+  </select>
+  <select id="query" parameterType="map" resultMap="BaseResultMap">
+        ${sqlString}
+  </select>
+</mapper>

@@ -24,7 +24,7 @@ Author : Qinyoyo
 @ConditionalOnMissingClass({"top.iotequ.framework.service.impl.SysLogService"})
 @Service(value="sysLogService")
 public class CgSysLogService extends CgService<SysLog>  {
-private static final Logger log = LoggerFactory.getLogger(CgSysLogService.class);
+    private static final Logger log = LoggerFactory.getLogger(CgSysLogService.class);
     @Autowired
     private SysLogDao sysLogDao;
     @Override

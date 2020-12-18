@@ -24,7 +24,7 @@ Author : Qinyoyo
 @ConditionalOnMissingClass({"top.iotequ.framework.service.impl.SysDataDictService"})
 @Service(value="sysDataDictService")
 public class CgSysDataDictService extends CgService<DataDict>  {
-private static final Logger log = LoggerFactory.getLogger(CgSysDataDictService.class);
+    private static final Logger log = LoggerFactory.getLogger(CgSysDataDictService.class);
     @Autowired
     private DataDictDao dataDictDao;
     @Override

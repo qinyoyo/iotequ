@@ -106,9 +106,26 @@ const Comp = {
     }
   },
   computed: {
+    additionalActions() {
+      if (this.joinMode) return []
+      else return [
+        {
+          action: 'run',
+          icon: 'el-icon-caret-right',
+          title: 'sysTask.action.run',
+          groupid: 10,
+          confirm: 'sysTask.action.runConfirm',
+          rowProperty: 'sr',
+          actionProperty: 'aj',
+          displayProperties: 'hm,tb,rw,ed',
+          appendClass: '',
+          needRefresh: false
+        }
+      ]
+    },
     allActions() {
       if (this.joinMode) return 'refresh'
-      else return ',list,add,view,edit,delete,'
+      else return ',list,add,view,edit,delete,run,'
     }
   },
   mounted() {

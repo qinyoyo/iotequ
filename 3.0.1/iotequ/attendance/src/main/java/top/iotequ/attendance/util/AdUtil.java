@@ -225,7 +225,8 @@ public class AdUtil {
 	}
 
 	// 根据id获得格式化的部门
-	public static AdOrg findOrg(int id) {
+	public static AdOrg findOrg(Integer id) {
+		if (id==null) return null;
 		if (orgList==null) orgList=getAdOrgList();
 		if (orgList==null) return null;
 		for (AdOrg  p : orgList) {
@@ -736,8 +737,20 @@ public class AdUtil {
 	//获得员工的管理员。本部门未定义，则查询上级部门的
 	public static String getManager(String id) {
 		Object o = getManageInfo(id,"manager",false);
-		if (o!=null) return (String)o;
-		else return null;
+		if (o!=null) {
+			String m = (String)o;
+			if (!m.equals(id)) 	return m;
+			// 本人为 管理员，查询其上级管理员 2020-12-16
+			o = getManageInfo(id,"manager",true);
+			if (o!=null) {
+				AdOrg org = findOrg((Integer) o);
+				if (org!=null && org.getParent()!=null) {
+					org =  findOrg(org.getParent());
+					if (org!=null) return org.getManager();
+				}
+			}
+		}
+		return null;
 	}
 	//获得员工的审批部门。本部门未定义，则查询上级部门
 	public static Integer getManageOrg(String id) {

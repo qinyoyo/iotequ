@@ -24,7 +24,7 @@ Author : Qinyoyo
 @ConditionalOnMissingClass({"top.iotequ.framework.service.impl.SysActionService"})
 @Service(value="sysActionService")
 public class CgSysActionService extends CgService<Action>  {
-private static final Logger log = LoggerFactory.getLogger(CgSysActionService.class);
+    private static final Logger log = LoggerFactory.getLogger(CgSysActionService.class);
     @Autowired
     private ActionDao actionDao;
     @Override

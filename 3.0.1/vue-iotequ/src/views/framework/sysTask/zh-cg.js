@@ -5,6 +5,10 @@ export default {
       record: '调度任务',
       code: '调度任务'
     },
+    action: {
+      runConfirm: '是否手动执行该任务一次？',
+      run: '手动运行'
+    },
     route: {
       listTag: '调度任务表',
       recordTag: '调度任务'

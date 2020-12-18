@@ -161,9 +161,15 @@ public class AdAdjustFlowService extends SysFlowProcessService<AdAdjust> {
                                     adAdjust.setApproveOrg(null);
                                     adAdjust.setApprover(null);
                                 } else {
-                                    state = AdUtil.st_doing;
-                                    adAdjust.setApproveOrg(AdUtil.getManageOrg(adAdjust.getApprover()));
-                                    adAdjust.setApprover(AdUtil.getManager(adAdjust.getApprover()));
+                                    String approver = AdUtil.getManager(adAdjust.getApprover());
+                                    adAdjust.setApprover(approver);
+                                    if (approver!=null) {
+                                        state = AdUtil.st_doing;
+                                        adAdjust.setApproveOrg(AdUtil.getManageOrg(adAdjust.getApprover()));
+                                    } else {
+                                        state = AdUtil.st_passed;
+                                        adAdjust.setApproveOrg(null);
+                                    }
                                 }
                             }
                         } else if (DENY.equals(selection)) {

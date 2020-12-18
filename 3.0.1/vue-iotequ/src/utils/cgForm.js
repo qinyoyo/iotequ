@@ -44,7 +44,7 @@ export default {
           if (res.parameter && res.parameter.record) {
             formObject.record = Object.assign(formObject.record,res.parameter.record)
             if (formObject.idField) formObject[formObject.idField + 'Saved'] = formObject[formObject.idField]
-            formObject.recordChanged = false
+            //formObject.recordChanged = false
           }        
           if (onSuccess && typeof onSuccess === 'function') onSuccess(res)
         }
@@ -294,11 +294,13 @@ export default {
               formObject.$emit('change', pam)
               if (typeof formObject.onChange === 'function') formObject.onChange(pam)
             }
-            formObject.recordChanged = false
             formObject.openMode = 'edit'
             formObject.$emit('openModeChanged', 'edit')
             formObject.$emit('submitted', formObject)
             if (closeAfterSuccess || formObject.flowAction) that.form_close(formObject)
+            else setTimeout(()=>{
+              formObject.recordChanged = false
+            },200)
           }
         }).then(_=>{}).catch(_=>{})
       } else {

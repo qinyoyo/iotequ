@@ -5,6 +5,10 @@ export default {
       record: 'task',
       code: 'SysTask'
     },
+    action: {
+      runConfirm: 'Confirm Run',
+      run: 'Run'
+    },
     route: {
       listTag: 'task',
       recordTag: 'task'

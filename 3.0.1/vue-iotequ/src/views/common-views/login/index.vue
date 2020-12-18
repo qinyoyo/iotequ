@@ -21,7 +21,7 @@
           :clearable = "true"
           :readonly = "false"
           :disabled = "false"
-          :maxlength = "16"
+          :maxlength = "50"
           :label = "$t(isSmsRandCode?(isRegister?'login.phone':'login.mobile'):'login.userName')"
           :placeholder="$t(isSmsRandCode?(isRegister?'login.phone':'login.mobile'):'login.userName')"
         >

@@ -24,7 +24,7 @@ Author : Qinyoyo
 @ConditionalOnMissingClass({"top.iotequ.framework.service.impl.SysFlowProcessService"})
 @Service(value="sysFlowProcessService")
 public class CgSysFlowProcessService extends CgService<FlowProcess>  {
-private static final Logger log = LoggerFactory.getLogger(CgSysFlowProcessService.class);
+    private static final Logger log = LoggerFactory.getLogger(CgSysFlowProcessService.class);
     @Autowired
     private FlowProcessDao flowProcessDao;
     @Override

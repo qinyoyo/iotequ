@@ -24,7 +24,7 @@ Author : Qinyoyo
 @ConditionalOnMissingClass({"top.iotequ.framework.service.impl.SysRoleService"})
 @Service(value="sysRoleService")
 public class CgSysRoleService extends CgService<Role>  {
-private static final Logger log = LoggerFactory.getLogger(CgSysRoleService.class);
+    private static final Logger log = LoggerFactory.getLogger(CgSysRoleService.class);
     @Autowired
     private RoleDao roleDao;
     @Override

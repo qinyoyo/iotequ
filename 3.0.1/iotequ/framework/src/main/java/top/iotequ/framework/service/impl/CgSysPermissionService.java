@@ -24,7 +24,7 @@ Author : Qinyoyo
 @ConditionalOnMissingClass({"top.iotequ.framework.service.impl.SysPermissionService"})
 @Service(value="sysPermissionService")
 public class CgSysPermissionService extends CgService<Permission>  {
-private static final Logger log = LoggerFactory.getLogger(CgSysPermissionService.class);
+    private static final Logger log = LoggerFactory.getLogger(CgSysPermissionService.class);
     @Autowired
     private PermissionDao permissionDao;
     @Override

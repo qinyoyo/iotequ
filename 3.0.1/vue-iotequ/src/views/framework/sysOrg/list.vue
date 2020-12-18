@@ -49,8 +49,7 @@ const Comp = {
       titleField: 'name',
       sonCount: 1,
       son0Condition: {
-        orgCode: 'null',
-        ignoreRefreshImmediate: true
+        orgCode: 'null'
       },
       sonPkFields: ['orgCode'],
       path: 'list',

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.iotequ.reader.dao.DevEventDao">
+  <resultMap id="BaseResultMap" type="top.iotequ.reader.pojo.DevEvent">
+    <id column="id" jdbcType="CHAR" property="id" />
+    <result column="dev_type" jdbcType="VARCHAR" property="devType" />
+    <result column="dev_no" jdbcType="VARCHAR" property="devNo" />
+    <result column="org_code" jdbcType="INTEGER" property="orgCode" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="auditee_auth_type" jdbcType="TINYINT" property="auditeeAuthType" />
+    <result column="auditor_auth_type" jdbcType="TINYINT" property="auditorAuthType" />
+    <result column="auditor_org" jdbcType="INTEGER" property="auditorOrg" />
+    <result column="auth_type" jdbcType="TINYINT" property="authType" />
+    <result column="user_no" jdbcType="VARCHAR" property="userNo" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="auditor_user_num" jdbcType="VARCHAR" property="auditorUserNum" />
+    <result column="auditor_name" jdbcType="VARCHAR" property="auditorName" />
+  </resultMap>
+  <sql id = "selectSql">
+     SELECT dev_event.id,dev_event.dev_type,dev_event.dev_no,dev_event.org_code,dev_event.status,dev_event.time,dev_event.auditee_auth_type,dev_event.auditor_auth_type,dev_event.auditor_org,dev_event.auth_type,dev_event.user_no,dev_people.real_name AS real_name,dev_event.auditor_user_num,dev_people1.real_name AS auditor_name FROM dev_event LEFT JOIN dev_people ON dev_event.user_no = dev_people.user_no LEFT JOIN dev_people dev_people1 ON dev_event.auditor_user_num = dev_people1.user_no
+  </sql>
+  <insert id="insert" parameterType="top.iotequ.reader.pojo.DevEvent">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String" >
+      SELECT replace(uuid(), '-', '')
+    </selectKey>
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String" databaseId="SQLServer">
+      SELECT replace(lower(newid()), '-', '')
+    </selectKey>
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String" databaseId="Oracle">
+      SELECT replace(lower(sys_guid()), '-', '') from dual
+    </selectKey>
+    insert into dev_event (id,dev_type,dev_no,org_code,status,time,auditee_auth_type,auditor_auth_type,auditor_org,auth_type,user_no,auditor_user_num)
+      values 
+      (#{id,jdbcType=CHAR},#{devType,jdbcType=VARCHAR},#{devNo,jdbcType=VARCHAR},#{orgCode,jdbcType=INTEGER},#{status,jdbcType=INTEGER},#{time,jdbcType=TIMESTAMP},#{auditeeAuthType,jdbcType=TINYINT},#{auditorAuthType,jdbcType=TINYINT},#{auditorOrg,jdbcType=INTEGER},#{authType,jdbcType=TINYINT},#{userNo,jdbcType=VARCHAR},#{auditorUserNum,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.reader.pojo.DevEvent">
+    insert into dev_event (id,dev_type,dev_no,org_code,status,time,auditee_auth_type,auditor_auth_type,auditor_org,auth_type,user_no,auditor_user_num)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (replace(uuid(), '-', ''),#{item.devType,jdbcType=VARCHAR},#{item.devNo,jdbcType=VARCHAR},#{item.orgCode,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.time,jdbcType=TIMESTAMP},#{item.auditeeAuthType,jdbcType=TINYINT},#{item.auditorAuthType,jdbcType=TINYINT},#{item.auditorOrg,jdbcType=INTEGER},#{item.authType,jdbcType=TINYINT},#{item.userNo,jdbcType=VARCHAR},#{item.auditorUserNum,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.reader.pojo.DevEvent" databaseId="SQLServer">
+    insert into dev_event (id,dev_type,dev_no,org_code,status,time,auditee_auth_type,auditor_auth_type,auditor_org,auth_type,user_no,auditor_user_num)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (replace(lower(newid()), '-', ''),#{item.devType,jdbcType=VARCHAR},#{item.devNo,jdbcType=VARCHAR},#{item.orgCode,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.time,jdbcType=TIMESTAMP},#{item.auditeeAuthType,jdbcType=TINYINT},#{item.auditorAuthType,jdbcType=TINYINT},#{item.auditorOrg,jdbcType=INTEGER},#{item.authType,jdbcType=TINYINT},#{item.userNo,jdbcType=VARCHAR},#{item.auditorUserNum,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.reader.pojo.DevEvent" databaseId="Oracle">
+    insert all 
+    <foreach collection="list" item="item" index="index">
+      into dev_event (id,dev_type,dev_no,org_code,status,time,auditee_auth_type,auditor_auth_type,auditor_org,auth_type,user_no,auditor_user_num) values(replace(lower(sys_guid()), '-', ''),#{item.devType,jdbcType=VARCHAR},#{item.devNo,jdbcType=VARCHAR},#{item.orgCode,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.time,jdbcType=TIMESTAMP},#{item.auditeeAuthType,jdbcType=TINYINT},#{item.auditorAuthType,jdbcType=TINYINT},#{item.auditorOrg,jdbcType=INTEGER},#{item.authType,jdbcType=TINYINT},#{item.userNo,jdbcType=VARCHAR},#{item.auditorUserNum,jdbcType=VARCHAR})
+    </foreach>
+    select 1 from dual
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.reader.pojo.DevEvent">
+    insert into dev_event (id,dev_type,dev_no,org_code,status,time,auditee_auth_type,auditor_auth_type,auditor_org,auth_type,user_no,auditor_user_num)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=CHAR},#{item.devType,jdbcType=VARCHAR},#{item.devNo,jdbcType=VARCHAR},#{item.orgCode,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.time,jdbcType=TIMESTAMP},#{item.auditeeAuthType,jdbcType=TINYINT},#{item.auditorAuthType,jdbcType=TINYINT},#{item.auditorOrg,jdbcType=INTEGER},#{item.authType,jdbcType=TINYINT},#{item.userNo,jdbcType=VARCHAR},#{item.auditorUserNum,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.reader.pojo.DevEvent" databaseId="Oracle">
+    insert all 
+    <foreach collection="list" item="item" index="index">
+      into dev_event (id,dev_type,dev_no,org_code,status,time,auditee_auth_type,auditor_auth_type,auditor_org,auth_type,user_no,auditor_user_num) values(#{item.id,jdbcType=CHAR},#{item.devType,jdbcType=VARCHAR},#{item.devNo,jdbcType=VARCHAR},#{item.orgCode,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.time,jdbcType=TIMESTAMP},#{item.auditeeAuthType,jdbcType=TINYINT},#{item.auditorAuthType,jdbcType=TINYINT},#{item.auditorOrg,jdbcType=INTEGER},#{item.authType,jdbcType=TINYINT},#{item.userNo,jdbcType=VARCHAR},#{item.auditorUserNum,jdbcType=VARCHAR})
+    </foreach>
+    select 1 from dual
+  </insert>
+  <select id="select" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where dev_event.id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="delete" parameterType="java.lang.String">
+    delete from dev_event where id = #{id,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteBatch" parameterType="java.lang.String">
+    delete from dev_event where id in     <foreach item="item" index="index" collection="_parameter.split(',')" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+  <delete id="deleteList" parameterType="java.util.List">
+    delete from dev_event where id in
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")"> 
+       #{item.id,jdbcType=CHAR}
+    </foreach>
+  </delete>
+  <update id="update" parameterType="top.iotequ.reader.pojo.DevEvent">
+    update dev_event set 
+      dev_type = #{devType,jdbcType=VARCHAR},
+      dev_no = #{devNo,jdbcType=VARCHAR},
+      org_code = #{orgCode,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      time = #{time,jdbcType=TIMESTAMP},
+      auditee_auth_type = #{auditeeAuthType,jdbcType=TINYINT},
+      auditor_auth_type = #{auditorAuthType,jdbcType=TINYINT},
+      auditor_org = #{auditorOrg,jdbcType=INTEGER},
+      auth_type = #{authType,jdbcType=TINYINT},
+      user_no = #{userNo,jdbcType=VARCHAR},
+      auditor_user_num = #{auditorUserNum,jdbcType=VARCHAR}
+      where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateSelective" parameterType="java.util.Map">
+    update dev_event 
+      <set>
+        <if test='devType_string_ == "[null]"'> dev_type = NULL, </if>
+        <if test='devType != null and devType_string_ != "[null]"'> dev_type = #{devType,jdbcType=VARCHAR},</if>
+        <if test='devNo_string_ == "[null]"'> dev_no = NULL, </if>
+        <if test='devNo != null and devNo_string_ != "[null]"'> dev_no = #{devNo,jdbcType=VARCHAR},</if>
+        <if test='orgCode_string_ == "[null]"'> org_code = NULL, </if>
+        <if test='orgCode != null and orgCode_string_ != "[null]"'> org_code = #{orgCode,jdbcType=INTEGER},</if>
+        <if test='status_string_ == "[null]"'> status = NULL, </if>
+        <if test='status != null and status_string_ != "[null]"'> status = #{status,jdbcType=INTEGER},</if>
+        <if test='time_string_ == "[null]"'> time = NULL, </if>
+        <if test='time != null and time_string_ != "[null]"'> time = #{time,jdbcType=TIMESTAMP},</if>
+        <if test='auditeeAuthType_string_ == "[null]"'> auditee_auth_type = NULL, </if>
+        <if test='auditeeAuthType != null and auditeeAuthType_string_ != "[null]"'> auditee_auth_type = #{auditeeAuthType,jdbcType=TINYINT},</if>
+        <if test='auditorAuthType_string_ == "[null]"'> auditor_auth_type = NULL, </if>
+        <if test='auditorAuthType != null and auditorAuthType_string_ != "[null]"'> auditor_auth_type = #{auditorAuthType,jdbcType=TINYINT},</if>
+        <if test='auditorOrg_string_ == "[null]"'> auditor_org = NULL, </if>
+        <if test='auditorOrg != null and auditorOrg_string_ != "[null]"'> auditor_org = #{auditorOrg,jdbcType=INTEGER},</if>
+        <if test='authType_string_ == "[null]"'> auth_type = NULL, </if>
+        <if test='authType != null and authType_string_ != "[null]"'> auth_type = #{authType,jdbcType=TINYINT},</if>
+        <if test="userNo != null"> user_no = #{userNo,jdbcType=VARCHAR},</if>
+        <if test="auditorUserNum != null"> auditor_user_num = #{auditorUserNum,jdbcType=VARCHAR},</if>
+      </set>
+      where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateBy" parameterType="top.iotequ.reader.pojo.DevEvent">
+    update dev_event set 
+      id = #{record.id,jdbcType=CHAR},
+      dev_type = #{record.devType,jdbcType=VARCHAR},
+      dev_no = #{record.devNo,jdbcType=VARCHAR},
+      org_code = #{record.orgCode,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      time = #{record.time,jdbcType=TIMESTAMP},
+      auditee_auth_type = #{record.auditeeAuthType,jdbcType=TINYINT},
+      auditor_auth_type = #{record.auditorAuthType,jdbcType=TINYINT},
+      auditor_org = #{record.auditorOrg,jdbcType=INTEGER},
+      auth_type = #{record.authType,jdbcType=TINYINT},
+      user_no = #{record.userNo,jdbcType=VARCHAR},
+      auditor_user_num = #{record.auditorUserNum,jdbcType=VARCHAR}
+      where id = #{id,jdbcType=CHAR}
+  </update>
+  <select id="list" parameterType="top.iotequ.reader.pojo.DevEvent" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+     where 1=1 
+        <if test="id != null"> and dev_event.id like #{id,jdbcType=CHAR} </if>
+        <if test="devType != null"> and dev_event.dev_type like #{devType,jdbcType=VARCHAR} </if>
+        <if test="devNo != null"> and dev_event.dev_no like #{devNo,jdbcType=VARCHAR} </if>
+        <if test="orgCode != null"> and dev_event.org_code = #{orgCode,jdbcType=INTEGER} </if>
+        <if test="status != null"> and dev_event.status = #{status,jdbcType=INTEGER} </if>
+        <if test="time != null"> and dev_event.time like #{time,jdbcType=TIMESTAMP} </if>
+        <if test="auditeeAuthType != null"> and dev_event.auditee_auth_type = #{auditeeAuthType,jdbcType=TINYINT} </if>
+        <if test="auditorAuthType != null"> and dev_event.auditor_auth_type = #{auditorAuthType,jdbcType=TINYINT} </if>
+        <if test="auditorOrg != null"> and dev_event.auditor_org = #{auditorOrg,jdbcType=INTEGER} </if>
+        <if test="authType != null"> and dev_event.auth_type = #{authType,jdbcType=TINYINT} </if>
+        <if test="userNo != null"> and dev_event.user_no like #{userNo,jdbcType=VARCHAR} </if>
+        <if test="realName != null"> and dev_people.real_name like #{realName,jdbcType=VARCHAR} </if>
+        <if test="auditorUserNum != null"> and dev_event.auditor_user_num like #{auditorUserNum,jdbcType=VARCHAR} </if>
+        <if test="auditorName != null"> and dev_people1.real_name like #{auditorName,jdbcType=VARCHAR} </if>
+  </select>
+  <select id="listBy" parameterType="map" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+        <if test="whereString != null and whereString !=''"> where ${whereString} </if>
+        <if test="orderString != null and orderString!=''"> order by ${orderString} </if>
+  </select>
+  <select id="query" parameterType="map" resultMap="BaseResultMap">
+        ${sqlString}
+  </select>
+</mapper>

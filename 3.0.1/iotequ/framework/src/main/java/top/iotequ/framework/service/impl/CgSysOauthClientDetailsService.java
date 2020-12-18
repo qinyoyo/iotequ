@@ -24,7 +24,7 @@ Author : Qinyoyo
 @ConditionalOnMissingClass({"top.iotequ.framework.service.impl.SysOauthClientDetailsService"})
 @Service(value="sysOauthClientDetailsService")
 public class CgSysOauthClientDetailsService extends CgService<OauthClientDetails>  {
-private static final Logger log = LoggerFactory.getLogger(CgSysOauthClientDetailsService.class);
+    private static final Logger log = LoggerFactory.getLogger(CgSysOauthClientDetailsService.class);
     @Autowired
     private OauthClientDetailsDao oauthClientDetailsDao;
     @Override

@@ -213,10 +213,15 @@ public class SecurityService implements UserDetailsService,ApplicationListener<C
 		allAction = actionDao.list(null);
 		allPermission = getPermissionList();
 	}
-	
+	private User guestUser() {
+		User user=userDao.selectByName("guest");
+		user.setPassword("!@#$%^&*(829374523");  // 使得未输入密码的登录失效
+		user.setAuthorities(getRoles(user));
+		return user;
+	}
 	@Override
 	public UserDetails loadUserByUsername(String userName) { // 重写loadUserByUsername 方法获得 userdetails 类型用户
-//		if (Util.isEmpty(userName)) return null;
+		if (Util.isEmpty(userName)) return guestUser();
 		String whereString=null;
 		int loginType=CustomWebAuthenticationDetails.login_by_name;
 		String [] uu=userName.split(":");
@@ -224,6 +229,7 @@ public class SecurityService implements UserDetailsService,ApplicationListener<C
 			userName=uu[1];
 			loginType=Integer.parseInt(uu[0]);
 		}
+		if (Util.isEmpty(userName)) return guestUser();
 		if (loginType==CustomWebAuthenticationDetails.login_by_vein && uu.length>2) whereString="id_type="+uu[1]+ " and id_number='"+uu[2]+"'";
 		else if (loginType==CustomWebAuthenticationDetails.login_by_mobile) whereString="mobile_phone='"+userName + "'";
 		else if (loginType==CustomWebAuthenticationDetails.login_by_wechat ) whereString="wechat_openid='"+userName + "'";
@@ -234,12 +240,7 @@ public class SecurityService implements UserDetailsService,ApplicationListener<C
 			user.setAuthorities(getRoles(user));
 			return user;
 		} 
-		else {    //  remember me 返回 null 会导致空指针错，譬如remember的用户被删除
-			User user=userDao.selectByName("guest");
-			user.setPassword("!@#$%^&*(829374523");  // 使得未输入密码的登录失效
-			user.setAuthorities(getRoles(user));
-			return user;
-		}
+		else return guestUser();   //  remember me 返回 null 会导致空指针错，譬如remember的用户被删除
 	}
 	
 	public List<Role> getRoles(String roleList) {
