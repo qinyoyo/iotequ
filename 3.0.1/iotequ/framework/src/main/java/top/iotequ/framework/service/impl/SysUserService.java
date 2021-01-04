@@ -43,6 +43,9 @@ public class SysUserService extends CgSysUserService implements ApplicationListe
 	@Override
 	public  void beforeSave(User user0, User user, boolean updateSelective, HttpServletRequest request) throws IotequException {
 		super.beforeSave(user0, user, updateSelective, request);
+		if (user0==null && user!=null) {
+			user.setRegTime(new Date());
+		}
 		if (!Util.hasRoleAdmin()) {
 			String nm=user.getName();
 			if (EntityUtil.entityEquals(nm,"admin")  || EntityUtil.entityEquals(nm,"guest"))
