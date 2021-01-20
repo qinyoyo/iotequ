@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import top.iotequ.framework.dao.MenuDao;
 import top.iotequ.framework.dao.MessageDao;
@@ -22,12 +23,13 @@ import top.iotequ.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
-@RestController
+@Controller
 public class HomeController implements CommandLineRunner {
     private static final Logger log = LoggerFactory.getLogger(HomeController.class);
     @Autowired
@@ -44,6 +46,7 @@ public class HomeController implements CommandLineRunner {
     @Autowired
     private Environment env;
 
+    @ResponseBody
     @RequestMapping(value = "/m/{id}")
     public ResponseEntity<Map<String, Object>> m(@PathVariable String id, HttpServletRequest request, HttpServletResponse response) {
         RestJson j = new RestJson();
@@ -60,29 +63,33 @@ public class HomeController implements CommandLineRunner {
 
     @RequestMapping(value = "/")
     public String testRunning(HttpServletRequest request, HttpServletResponse response) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("<h1>I am running...</h1>");
-        sb.append("<div>" + "Home direction = " + SpringContext.getProjectHomeDirection() + "</div>");
-        try {
-            String sc = MachineInfo.getSetupCode();
-            sb.append("<div>" + "Setup code = " + sc + "</div>");
-        } catch (Exception e) {
-        }
-        List<IotequVersionInfo> versions = IotequVersionInfo.getAllVersions();
-        if (!Util.isEmpty(versions)) {
-            sb.append("<div>Modules：</div>");
-            for (IotequVersionInfo v : versions) {
-                sb.append("<div>&nbsp;&nbsp;&nbsp;&nbsp;" + v.toString() + "</div>");
+        if (new File(SpringContext.getProjectHomeDirection(),"webapp/index.html").exists())
+            return "forward:/index.html";
+        else {
+            StringBuilder sb = new StringBuilder();
+            sb.append("<h1>I am running...</h1>");
+            sb.append("<div>" + "Home direction = " + SpringContext.getProjectHomeDirection() + "</div>");
+            try {
+                String sc = MachineInfo.getSetupCode();
+                sb.append("<div>" + "Setup code = " + sc + "</div>");
+            } catch (Exception e) {
             }
-        }
-        List<Action> actions = SecurityService.getActiveAction();
-        if (!Util.isEmpty(actions)) {
-            sb.append("<div>Actions：</div>");
-            for (Action a : actions) {
-                sb.append("<div>&nbsp;&nbsp;&nbsp;&nbsp;" + a.getValue() + (Util.isEmpty(a.getMethod()) ? "" : "&nbsp;&nbsp;("+a.getMethod()+")") + "</div>");
+            List<IotequVersionInfo> versions = IotequVersionInfo.getAllVersions();
+            if (!Util.isEmpty(versions)) {
+                sb.append("<div>Modules：</div>");
+                for (IotequVersionInfo v : versions) {
+                    sb.append("<div>&nbsp;&nbsp;&nbsp;&nbsp;" + v.toString() + "</div>");
+                }
             }
+            List<Action> actions = SecurityService.getActiveAction();
+            if (!Util.isEmpty(actions)) {
+                sb.append("<div>Actions：</div>");
+                for (Action a : actions) {
+                    sb.append("<div>&nbsp;&nbsp;&nbsp;&nbsp;" + a.getValue() + (Util.isEmpty(a.getMethod()) ? "" : "&nbsp;&nbsp;(" + a.getMethod() + ")") + "</div>");
+                }
+            }
+            return sb.toString();
         }
-        return sb.toString();
     }
 
     private void changeMenuParams(List<Menu> menus) {

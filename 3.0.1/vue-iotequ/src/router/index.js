@@ -142,12 +142,12 @@ const usedRoutes = constantRoutes.concat(accessRoutes)
 usedRoutes.push(route404)
 
 const router = new Router({
-  mode: 'history', // require service support
+  mode: window.userSettings && window.userSettings.insideSpring ? 'hash' : 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
   routes: usedRoutes
 })
 const createRouter = () => new Router({
-  mode: 'history', // require service support
+  mode: window.userSettings && window.userSettings.insideSpring ? 'hash' : 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })

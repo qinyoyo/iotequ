@@ -20,7 +20,7 @@ function gotoShortUrl(url,next) {
   })
 }
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
-const whiteList = ['/', '/register','/profile','/dashboard', '/error/*', '/login/*', '/redirect/*'] // route whitelist
+const whiteList = ['/', '/index.html','/register','/profile','/dashboard', '/error/*', '/login/*', '/redirect/*'] // route whitelist
 router.beforeEach(async(to, from, next) => {
   NProgress.start()
   document.title = getPageTitle(to.meta.title)

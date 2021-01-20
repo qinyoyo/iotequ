@@ -44,11 +44,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     // 默认值 public static final String logoutUrl = "/logout";
     public static final String[] whiteList = new String[]
             {
-                // "/index.html","/static/**",
-                // "/**/*.js", "/**/*.css",
-                // "/webjars/**", "/favicon.ico", "/MP_*.txt",
+                "/index.html", "/favicon.ico", "/dashboard", "/static/**",   // allow vue inside
                 "/","/m/**",
-                // errorPage + "/**", errorPage + "*",
+                errorPage + "/**",
                 resourcePage + "/**", commonPage + "/**"
             };   //  以上名单不经过security验证
     public static final String[] loginList = new String[]{"/oauth/**", loginPage + "/**", "/log*", "/"}; // 登录需要的白名单，不能放到whiteList里，由于绕过了security，认证登录等无法实现

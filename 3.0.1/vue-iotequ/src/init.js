@@ -10,6 +10,7 @@ if(xhr.status===200) {
         showSettings: true,
         tagsView: true,
         fixedHeader: false,
+        insideSpring: true,
         sidebarLogo: true       
     },JSON.parse(xhr.responseText))
     console.log(window.userSettings)

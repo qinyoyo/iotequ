@@ -1,0 +1,5 @@
+在 spring 运行目录下 建立 webapp 目录
+将 vue 编译好的文件 （dist目录下的所有文件及子目录）拷贝到 webapp下
+修改 webapp/static/settings.json :
+ "server" : "/"  ，修改为 spring boot的 contextPath
+ "insideSpring": true
