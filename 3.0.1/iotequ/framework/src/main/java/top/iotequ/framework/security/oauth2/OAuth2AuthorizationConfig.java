@@ -21,7 +21,9 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import top.iotequ.framework.security.service.SecurityService;
-import top.iotequ.framework.util.*;
+import top.iotequ.util.*;
+import top.iotequ.util.StringUtil;
+import top.iotequ.util.Util;
 
 @Order(6)
 @Configuration

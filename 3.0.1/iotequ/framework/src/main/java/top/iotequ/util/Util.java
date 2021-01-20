@@ -1,4 +1,4 @@
-package top.iotequ.framework.util;
+package top.iotequ.util;
 
 import ch.qos.logback.classic.Level;
 import com.google.gson.*;
@@ -31,6 +31,7 @@ import top.iotequ.framework.bean.SpringContext;
 import top.iotequ.framework.serializer.gson.*;
 import org.apache.commons.codec.binary.Base64;
 import javax.servlet.http.*;
+
 import lombok.NonNull;
 import java.io.*;
 import java.lang.management.ManagementFactory;
@@ -44,91 +45,14 @@ import java.util.regex.Pattern;
  * 通用工具类，提供一些常用的静态函数方法
  */
 
-public class Util {
+public class Util extends CommonUtil {
     private static final Logger logger = LoggerFactory.getLogger(Util.class);
     public  static final String ADDITIONAL_CONDITION = "ADDITIONAL_CONDITION";
     public  static final String ORG_FILTER_CONDITION = "ORG_FILTER_CONDITION";
     private static final String SEND_VERIFY_CODE_TIME = "SVCT_";
     private static final String SENT_VERIFY_CODE = "VC_";
     public static boolean runInIdeMode = false;
-    static public Long toLong(Object o) {
-        if (o == null)
-            return null;
-        else {
-            try {
-                Double d = Double.parseDouble(o.toString());
-                return d.longValue();
-            } catch (Exception e) {
-                return null;
-            }
-        }
-    }
 
-    static public Integer toInt(Object o) {
-        if (o == null)
-            return null;
-        else {
-            try {
-                Double d = Double.parseDouble(o.toString());
-                return (int) d.longValue();
-            } catch (Exception e) {
-                return null;
-            }
-        }
-    }
-
-    static public <T> T null2Default(T obj, T def) {
-        if (obj == null) return def;
-        else return obj;
-    }
-
-    static public String getTextFromDict(List<Map<String, Object>> dict, Object value) {
-        if (dict == null || dict.isEmpty() || value == null) return null;
-        for (Map<String, Object> map : dict) {
-            if (EntityUtil.entityEquals(value, map.get("value"))) return StringUtil.toString(map.get("text"));
-        }
-        return null;
-    }
-    static public String getTextFromDict(Object value,Object [] valueList,String [] textList) {
-        if (value == null || isEmpty(valueList) || isEmpty(textList)) return null;
-        for (int i=0;i<valueList.length;i++) {
-            if (EntityUtil.entityEquals(value, valueList[i])) return i<textList.length ? textList[i] : StringUtil.toString(value);
-        }
-        return null;
-    }
-    static public Object getValueFromDict(List<Map<String, Object>> dict, String text) {
-        if (dict == null || dict.isEmpty() || text == null) return null;
-        for (Map<String, Object> map : dict) {
-            if (EntityUtil.entityEquals(text, map.get("text"))) return map.get("value");
-        }
-        return null;
-    }
-
-    /**
-     * @param o : 对象
-     * @return ：判断对象是否为null或空串，包括全部为空白字符的串
-     */
-    static public boolean isEmpty(Object o) {
-        if (o == null) return true;
-        else if (o.getClass().isArray()) {
-           return ((Object[])o).length <= 0;
-        } else if (o instanceof Collection) {
-            return ((Collection)o).size() <= 0;
-        } else return StringUtil.toString(o).trim().isEmpty();
-    }
-
-    static public boolean isMobile(HttpServletRequest request) {
-        String userAgent = request.getHeader( "USER-AGENT" );
-        if(isEmpty(userAgent)) return false;
-        final String phoneReg = "\\b(ip(hone|od)|android|opera m(ob|in)i"
-                +"|windows (phone|ce)|blackberry"
-                +"|s(ymbian|eries60|amsung)|p(laybook|alm|rofile/midp"
-                +"|laystation portable)|nokia|fennec|htc[-_]"
-                +"|mobile|up.browser|[1-4][0-9]{2}x[1-4][0-9]{2})\\b";
-        Pattern phonePat = Pattern.compile(phoneReg, Pattern.CASE_INSENSITIVE);
-        Matcher matcherPhone = phonePat.matcher(userAgent);
-        return matcherPhone.find();
-    }
     static public String getPath(Class<?> clazz) {
         ApplicationHome home = new ApplicationHome(clazz == null ? File.class : clazz);
         File file = home.getDir();
@@ -144,23 +68,6 @@ public class Util {
     }
 
     /**
-     * 判断串是否相等
-     *
-     * @param s1 第一个串
-     * @param s2 第二个串
-     * @return 两个串相等或均为空时返回真，大小写敏感
-     */
-    static public boolean equals(Object s1, Object s2) {
-        if (s1==null && s2==null) return true;
-        else if (s1 != null && s2 != null)
-            return s1.toString().trim().equals(s2.toString().trim());
-        else if (s1 == null)
-            return isEmpty(s2);
-        else
-            return isEmpty(s1);
-    }
-
-    /**
      * 检验会话的验证码是否正确
      * @param randCode 验证码
      * @return 正确返回true
@@ -172,48 +79,12 @@ public class Util {
         return randCode.toLowerCase().equals(rc.toLowerCase());
     }
     /**
-     * 为空时返回缺省值，否则返回对象的toString
-     *
-     * @param o   对象
-     * @param def 缺省值
-     * @return o为空时返回缺省值，否则返回对象的toString
-     */
-    static public String isEmpty(Object o, String def) {
-        if (o == null)
-            return def;
-        else
-            return (o.toString().isEmpty() ? def : o.toString());
-    }
-
-    /**
-     * 根据字符串解析一个boolean值
-     *
-     * @param obj 对象
-     * @return 解析一个boolean值
-     */
-    static public boolean boolValue(Object obj) {
-        if (obj == null) return false;
-        else if (obj instanceof Boolean) return (Boolean) obj;
-        else if (obj instanceof Integer) return (Integer) obj != 0;
-        else if (obj instanceof Short) return (Short) obj != 0;
-        else if (obj instanceof Byte) return (Byte) obj != 0;
-        else if (obj instanceof Long) return (Long) obj != 0;
-        else {
-            String s = obj.toString().trim().toLowerCase();
-            if (s.equals("1") || s.equals("true") || s.equals("yes") || s.equals("t") || s.equals("y") || s.equals(".t."))
-                return true;
-            else
-                return false;
-        }
-    }
-
-    /**
      * 获得contextPath
      *
      * @return contextPath
      */
     static public String getContextPath() {
-        HttpServletRequest request = Util.getRequest();
+        HttpServletRequest request = getRequest();
         return request.getContextPath();
     }
 
@@ -422,68 +293,6 @@ public class Util {
         return ip;
     }
 
-    public static Object valueOf(Object obj, Class<?> clazz) {
-        if (obj == null || clazz == null) return null;
-        String type = clazz.getName();
-        String s = obj.toString();
-        try {
-            if (obj.getClass().equals(clazz)) return obj;
-            if (type.endsWith("Boolean")) return Util.boolValue(s);
-            else if (type.endsWith("String")) return s;
-            else if (type.endsWith("Integer")) return Integer.valueOf(s);
-            else if (type.endsWith("Long")) return Long.valueOf(s);
-            else if (type.endsWith("Short")) return Short.valueOf(s);
-            else if (type.endsWith("Byte")) return Byte.valueOf(s);
-            else if (type.endsWith("Double")) return Double.valueOf(s);
-            else if (type.endsWith("Float")) return Float.valueOf(s);
-            else if (type.endsWith("Date")) return DateUtil.string2Date(s);
-            else if (type.endsWith("byte[]")) return s.getBytes();
-        } catch (Exception e) {
-        }
-        if (type.equals("boolean")) return Util.boolValue(s);
-        else if (type.equals("char")) {
-            if (s.isEmpty() || s == null) return (char) 0;
-            else return s.charAt(0);
-        } else if (type.equals("int")) {
-            try {
-                return Integer.parseInt(s);
-            } catch (Exception e) {
-                return (int) 0;
-            }
-        } else if (type.equals("long")) {
-            try {
-                return Long.parseLong(s);
-            } catch (Exception e) {
-                return (long) 0;
-            }
-        } else if (type.equals("short")) {
-            try {
-                return Short.parseShort(s);
-            } catch (Exception e) {
-                return (short) 0;
-            }
-        } else if (type.equals("byte")) {
-            try {
-                return Byte.parseByte(s);
-            } catch (Exception e) {
-                return (byte) 0;
-            }
-        } else if (type.equals("double")) {
-            try {
-                return Double.parseDouble(s);
-            } catch (Exception e) {
-                return (double) 0;
-            }
-        } else if (type.equals("float")) {
-            try {
-                return Float.parseFloat(s);
-            } catch (Exception e) {
-                return (float) 0;
-            }
-        }
-        return null;
-    }
-
     public static Gson getGson() {
         Gson gson = new GsonBuilder()
                 .setLenient()
@@ -553,7 +362,7 @@ public class Util {
 
     public static <T> List<T> getImplementedBean(Class<T> clazz) {
         List<T> list = new ArrayList<T>();
-        ApplicationContext context = Util.getApplicationContext();
+        ApplicationContext context = getApplicationContext();
         Map<String, T> result = context.getBeansOfType(clazz);
         int p = clazz.getName().lastIndexOf(".");
         String myName = StringUtil.firstLetterLower(p >= 0 ? clazz.getName().substring(p + 1) : clazz.getName());
@@ -779,7 +588,7 @@ public class Util {
      * @return 剩余天数
      */
     static public int getTrialDaysLeft(@NonNull String module, int trialDays) {
-        Date dt = Util.getVersionBuildTime(module);
+        Date dt = getVersionBuildTime(module);
         int ds = (int) ((new Date().getTime() - dt.getTime()) / 1000 / 3600 / 24);
         if (ds >= trialDays) return 0;
         else return trialDays - ds;
@@ -881,7 +690,7 @@ public class Util {
 
     public static void sendVerifyCodeToMobile(@NonNull String mobilePhone) throws IotequException {
         // 调用验证码发送外部接口
-        Object o = Util.getSessionAttribute(SEND_VERIFY_CODE_TIME + mobilePhone);
+        Object o = getSessionAttribute(SEND_VERIFY_CODE_TIME + mobilePhone);
         if (o != null) {
             Long dt = (Long) o;
             long now = new Date().getTime() / 1000;
@@ -898,7 +707,7 @@ public class Util {
         }
         String vc = sb.toString();
         //调用短信发送接口发送短信
-        List<ISmsService> smsServiceList = Util.getImplementedBean(ISmsService.class);
+        List<ISmsService> smsServiceList = getImplementedBean(ISmsService.class);
         if (smsServiceList != null) {
             for (ISmsService sms : smsServiceList) {
                 if (sms.enabled()) {  // 打开短信登录
@@ -910,9 +719,9 @@ public class Util {
             throw new IotequException(IotequThrowable.SMS_SERVICE_MISS, "没有短信服务");
         }
         //记录验证码和发送时间，手机号码
-        Util.setSessionAttribute(SENT_VERIFY_CODE + mobilePhone, vc);
+        setSessionAttribute(SENT_VERIFY_CODE + mobilePhone, vc);
         Long now = new Date().getTime() / 1000;
-        Util.setSessionAttribute(SEND_VERIFY_CODE_TIME + mobilePhone, now);
+        setSessionAttribute(SEND_VERIFY_CODE_TIME + mobilePhone, now);
     }
 
     public static String getSmsRandCode(String mobilePhone) {
@@ -920,12 +729,12 @@ public class Util {
     }
     public static void sendTemplateSmsToMobile(String mobilePhone, String templateName, Map<String, Object> map) throws IotequException {
         //调用短信发送接口发送短信
-        List<ISmsService> smsServiceList = Util.getImplementedBean(ISmsService.class);
+        List<ISmsService> smsServiceList = getImplementedBean(ISmsService.class);
         if (smsServiceList != null) {
             String pattern = "^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$";
             if (mobilePhone == null || !Pattern.matches(pattern, mobilePhone))
                 throw new IotequException(IotequThrowable.IO_FORMATTER_ERROR, "错误的手机号码");
-            Object prevSendTime = Util.getSessionAttribute(isEmpty(templateName, "DEFAULT_SMS_TEMPLATE") + "_" + mobilePhone);
+            Object prevSendTime = getSessionAttribute(isEmpty(templateName, "DEFAULT_SMS_TEMPLATE") + "_" + mobilePhone);
             if (prevSendTime != null) {
                 long timepassed = new Date().getTime() - (Long) prevSendTime;
                 if (timepassed < 60000) throw new IotequException(IotequThrowable.SMS_TOO_FREQUENTLY, "1分钟内禁止频繁发送");
@@ -933,7 +742,7 @@ public class Util {
             for (ISmsService sms : smsServiceList) {
                 if (sms.enabled()) {  // 打开短信登录
                     sms.sendTemplateSms(mobilePhone, templateName, map);
-                    Util.setSessionAttribute(isEmpty(templateName, "DEFAULT_SMS_TEMPLATE") + "_" + mobilePhone, new Date().getTime());
+                    setSessionAttribute(isEmpty(templateName, "DEFAULT_SMS_TEMPLATE") + "_" + mobilePhone, new Date().getTime());
                     break;
                 }
             }
@@ -943,9 +752,9 @@ public class Util {
     }
 
     public static void mobileVerifyCodeCheck(@NonNull String mobilePhone, @NonNull String vc) throws IotequException {
-        Object o = Util.getSessionAttribute(SEND_VERIFY_CODE_TIME + mobilePhone);
+        Object o = getSessionAttribute(SEND_VERIFY_CODE_TIME + mobilePhone);
         if (o != null) {
-            Object v = Util.getSessionAttribute(SENT_VERIFY_CODE + mobilePhone);
+            Object v = getSessionAttribute(SENT_VERIFY_CODE + mobilePhone);
             if (v == null) throw new IotequException(IotequException.INVALID_VERIFICATION_CODE,"null");
             Long dt = (Long) o;
             long now = new Date().getTime() / 1000;
@@ -1106,5 +915,26 @@ public class Util {
             out.close();
         } catch (Exception e) { return null; }
         return name;
+    }
+    static public String getParameter(String key, HttpServletRequest request) throws Exception{
+        if (request == null || key==null)	return null;
+        String contentType = request.getHeader("content-type");
+        String method = request.getMethod();
+        if (!Util.isEmpty(contentType) && !Util.isEmpty(method)
+                && method.toLowerCase().equals("post") 	&& contentType.toLowerCase().contains("json")) {  // json post 模式
+            return HttpUtils.getRequestBodyParameter(key,request);
+        } else return request.getParameter(key);
+    }
+    static public boolean isMobile(HttpServletRequest request) {
+        String userAgent = request.getHeader( "USER-AGENT" );
+        if(isEmpty(userAgent)) return false;
+        final String phoneReg = "\\b(ip(hone|od)|android|opera m(ob|in)i"
+                +"|windows (phone|ce)|blackberry"
+                +"|s(ymbian|eries60|amsung)|p(laybook|alm|rofile/midp"
+                +"|laystation portable)|nokia|fennec|htc[-_]"
+                +"|mobile|up.browser|[1-4][0-9]{2}x[1-4][0-9]{2})\\b";
+        Pattern phonePat = Pattern.compile(phoneReg, Pattern.CASE_INSENSITIVE);
+        Matcher matcherPhone = phonePat.matcher(userAgent);
+        return matcherPhone.find();
     }
 }

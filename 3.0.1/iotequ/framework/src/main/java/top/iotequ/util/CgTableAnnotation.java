@@ -1,4 +1,4 @@
-package top.iotequ.framework.util;
+package top.iotequ.util;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

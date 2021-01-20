@@ -1,9 +1,9 @@
 package top.iotequ.framework.service.utils;
 
-import top.iotequ.framework.util.EntityUtil;
-import top.iotequ.framework.util.SqlUtil;
-import top.iotequ.framework.util.StringUtil;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.EntityUtil;
+import top.iotequ.util.SqlUtil;
+import top.iotequ.util.StringUtil;
+import top.iotequ.util.Util;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -97,7 +97,7 @@ public class DictionaryUtil {
                 list=SqlUtil.sqlQuery(false,sql);
             } catch (Exception e) {}
         } else if (Util.isEmpty(value)) { // 从sys_data_dict中读取，tab为分类代码
-            list=Util.getDataDict(tab);
+            list= Util.getDataDict(tab);
             if (list != null && list.size()>0) {
                 for (Map<String, Object> map : list) {
                     map.put("text", map.get("text").toString());

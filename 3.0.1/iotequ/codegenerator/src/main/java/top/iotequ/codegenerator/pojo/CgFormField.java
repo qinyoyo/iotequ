@@ -4,14 +4,13 @@
 **************************************************/
 
 package top.iotequ.codegenerator.pojo;
-import top.iotequ.framework.util.StringUtil;
+import top.iotequ.util.StringUtil;
 import top.iotequ.framework.pojo.CgEntity;
 import lombok.Getter;
 import lombok.Setter;
 import com.google.gson.annotations.SerializedName;
-import top.iotequ.framework.util.CgFieldAnnotation;
-import top.iotequ.framework.util.CgTableAnnotation;
-import java.util.*;
+import top.iotequ.util.CgFieldAnnotation;
+import top.iotequ.util.CgTableAnnotation;
 
 //  Pojo entity : CgFormField (表单字段定义)
 @CgTableAnnotation(name="cg_form_field",

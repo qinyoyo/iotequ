@@ -2,8 +2,8 @@ package top.iotequ.reader.service.impl;
 
 import org.springframework.stereotype.Service;
 import top.iotequ.framework.exception.IotequThrowable;
-import top.iotequ.framework.util.RestJson;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.RestJson;
+import top.iotequ.util.Util;
 import top.iotequ.reader.pojo.DevData;
 import top.iotequ.reader.util.DevUtil;
 

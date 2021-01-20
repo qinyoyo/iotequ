@@ -1,8 +1,8 @@
 package top.iotequ.project;
 
 import top.iotequ.framework.bean.SpringContext;
-import top.iotequ.framework.util.SqlUtil;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.SqlUtil;
+import top.iotequ.util.Util;
 
 public class ConstData {
 	public static final int                    st_start = 1;
@@ -40,7 +40,7 @@ public class ConstData {
 		SpringContext.getDictData();
 	}
 	public static boolean isUserInGroup(String userId,String group) {
-		if (userId==null) userId=Util.getUser().getId();
+		if (userId==null) userId= Util.getUser().getId();
 		return SqlUtil.sqlExist(false, "select * from pm_people,pm_people_group where pm_people.group_id=pm_people_group.id and pm_people.user_id=? and pm_people_group.group_type = ?", userId,group);
 	}
 }

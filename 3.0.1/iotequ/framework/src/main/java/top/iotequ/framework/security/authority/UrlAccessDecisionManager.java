@@ -13,9 +13,8 @@ import org.springframework.stereotype.Service;
 import top.iotequ.framework.exception.IotequAccessDeniedException;
 import top.iotequ.framework.exception.IotequThrowable;
 import top.iotequ.framework.security.SpringSecurityConfig;
-import top.iotequ.framework.security.oauth2.Oauth2Filter;
 import top.iotequ.framework.security.service.SecurityService;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.Util;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;

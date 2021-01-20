@@ -24,7 +24,11 @@ import top.iotequ.framework.service.ISmsService;
 import top.iotequ.framework.service.impl.SysUserService;
 import top.iotequ.framework.service.ICgService;
 import top.iotequ.framework.service.utils.UploadDownUtil;
-import top.iotequ.framework.util.*;
+import top.iotequ.util.*;
+import top.iotequ.util.RestJson;
+import top.iotequ.util.SqlUtil;
+import top.iotequ.util.StringUtil;
+import top.iotequ.util.Util;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -116,7 +120,7 @@ public class LoginController {
     }
 
     private User checkAuth() throws IotequException {
-        User user=Util.getUser();
+        User user= Util.getUser();
         if (user == null || "guest".equals(user.getName())) {
             throw new IotequException(IotequThrowable.NOT_LOGIN,null);
         }

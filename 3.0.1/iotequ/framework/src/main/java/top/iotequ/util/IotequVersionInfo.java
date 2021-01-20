@@ -1,4 +1,4 @@
-package top.iotequ.framework.util;
+package top.iotequ.util;
 
 import lombok.NonNull;
 import lombok.Getter;

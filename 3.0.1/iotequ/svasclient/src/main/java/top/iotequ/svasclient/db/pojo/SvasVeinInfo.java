@@ -4,13 +4,13 @@
 **************************************************/
 
 package top.iotequ.svasclient.db.pojo;
-import top.iotequ.framework.util.StringUtil;
+import top.iotequ.util.StringUtil;
 import top.iotequ.framework.pojo.CgEntity;
 import lombok.Getter;
 import lombok.Setter;
 import com.google.gson.annotations.SerializedName;
-import top.iotequ.framework.util.CgFieldAnnotation;
-import top.iotequ.framework.util.CgTableAnnotation;
+import top.iotequ.util.CgFieldAnnotation;
+import top.iotequ.util.CgTableAnnotation;
 
 //  Pojo entity : SvasVeinInfo (指静脉信息)
 @CgTableAnnotation(name="dev_vein_info",

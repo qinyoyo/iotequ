@@ -9,14 +9,15 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 import top.iotequ.framework.dao.DataDictDao;
 import top.iotequ.framework.pojo.DataDict;
-import top.iotequ.framework.util.IotequVersionInfo;
-import top.iotequ.framework.util.MachineInfo;
-import top.iotequ.framework.util.OrgUtil;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.*;
+import top.iotequ.util.IotequVersionInfo;
+import top.iotequ.util.MachineInfo;
+import top.iotequ.util.OrgUtil;
+import top.iotequ.util.Util;
 
 import java.util.*;
 
-import static top.iotequ.framework.util.StringUtil.uuid;
+import static top.iotequ.util.StringUtil.uuid;
 
 @Component
 public class SpringContext implements ApplicationContextAware {

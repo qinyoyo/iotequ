@@ -1,16 +1,14 @@
 package top.iotequ.project.version.service.impl;
 
 import java.util.*;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
 import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.exception.IotequThrowable;
 import top.iotequ.framework.flow.impl.SysFlowProcessService;
 import top.iotequ.framework.flow.IFlowService;
-import top.iotequ.framework.util.EntityUtil;
-import top.iotequ.framework.util.Util;
-import top.iotequ.framework.util.SqlUtil;
+import top.iotequ.util.Util;
+import top.iotequ.util.SqlUtil;
 import top.iotequ.project.ConstData;
 import top.iotequ.project.version.pojo.PmVersionApplication;
 // 所有函数均需要根据自己需求重写
@@ -119,7 +117,7 @@ public class PmVersionApplicationFlowService extends SysFlowProcessService<PmVer
 	 */
 	@Override
 	public void checkPrivilege(PmVersionApplication pmVersionApplication,String operation,String userId) throws IotequException {
-		if (userId==null) userId=Util.getUser().getId();
+		if (userId==null) userId= Util.getUser().getId();
 		if ("add".equals(operation))  { // 新建参数判断
 		}
 		else if ("update".equals(operation)) {  // 修改权限判断
@@ -166,7 +164,7 @@ public class PmVersionApplicationFlowService extends SysFlowProcessService<PmVer
 	@Override
 	public void checkDeletePrivilege(String ids,String userId) throws IotequException {
 		if (Util.isEmpty(ids)) return;
-		if (userId==null) userId=Util.getUser().getId();
+		if (userId==null) userId= Util.getUser().getId();
 		if (ids.split(",").length!=SqlUtil.sqlQueryInteger(false, "SELECT count(*) FROM pm_version_application where id=? and flow_note is null and flow_register_by=?", ids,userId)) 
 			throw new IotequException(IotequThrowable.NO_AUTHORITY,"");
 	}

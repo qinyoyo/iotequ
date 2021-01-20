@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.Util;
 import top.iotequ.framework.controller.WeChat;
 
 
@@ -66,7 +66,7 @@ public class CustomWebAuthenticationDetails extends WebAuthenticationDetails {
             String code=request.getParameter("code");
             if (!Util.isEmpty(code)) {
 	        	loginType=login_by_wechat;
-		        userName=Util.getBean(WeChat.class).getOpenId(code);
+		        userName= Util.getBean(WeChat.class).getOpenId(code);
 		        password = "";
 		        randCode = null;
 		        rememberme = null;

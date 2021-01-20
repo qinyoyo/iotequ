@@ -5,7 +5,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import top.iotequ.framework.util.SqlUtil;
+import top.iotequ.util.SqlUtil;
 
 public class AdTime {
 	public static final int workOn = AdUtil.workOn;      // 时间点状态 上班

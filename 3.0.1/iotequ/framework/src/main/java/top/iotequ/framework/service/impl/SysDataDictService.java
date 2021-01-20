@@ -5,8 +5,8 @@ import top.iotequ.framework.event.SystemParameterChangedEvent;
 import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.pojo.DataDict;
 import top.iotequ.framework.bean.SpringContext;
-import top.iotequ.framework.util.RestJson;
-import top.iotequ.framework.util.SqlUtil;
+import top.iotequ.util.RestJson;
+import top.iotequ.util.SqlUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -36,7 +36,7 @@ public class SysDataDictService extends CgSysDataDictService {
 	public  void afterSave(DataDict obj0, DataDict obj, HttpServletRequest request, RestJson j)  throws IotequException{
 		loadDict();
 	}
-	public  void afterDelete(Object id,HttpServletRequest request,RestJson j)  throws IotequException{
+	public  void afterDelete(Object id, HttpServletRequest request, RestJson j)  throws IotequException{
 		loadDict();
 	}
 	@Override

@@ -9,7 +9,7 @@ import com.google.gson.stream.JsonWriter;
 
 import top.iotequ.framework.exception.IotequIOException;
 import top.iotequ.framework.exception.IotequThrowable;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.Util;
 
 public class GsonBooleanTypeAdapter extends TypeAdapter<Boolean> {
 	@Override

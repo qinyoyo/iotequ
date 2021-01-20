@@ -11,7 +11,11 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import top.iotequ.framework.pojo.Task;
-import top.iotequ.framework.util.*;
+import top.iotequ.util.*;
+import top.iotequ.util.DateUtil;
+import top.iotequ.util.EntityUtil;
+import top.iotequ.util.SqlUtil;
+import top.iotequ.util.Util;
 
 @Configuration
 @EnableScheduling

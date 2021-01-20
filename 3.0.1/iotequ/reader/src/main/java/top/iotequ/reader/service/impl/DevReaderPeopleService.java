@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import com.dyna.bean.D10ServerBean.UploadUserNoAck;
 
 import top.iotequ.framework.exception.IotequException;
-import top.iotequ.framework.util.*;
+import top.iotequ.util.*;
 import top.iotequ.reader.dao.DevPeopleDao;
 import top.iotequ.reader.dao.DevReaderPeopleDao;
 import top.iotequ.reader.pojo.DevPeople;
@@ -15,6 +15,10 @@ import top.iotequ.reader.pojo.DevReaderPeople;
 import top.iotequ.reader.util.DevUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import top.iotequ.util.RestJson;
+import top.iotequ.util.SqlUtil;
+import top.iotequ.util.Util;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +34,7 @@ public class DevReaderPeopleService extends CgDevReaderPeopleService {
 			HttpServletRequest request) throws IotequException {
 		// TODO Auto-generated method stub
 		if(SqlUtil.sqlExist("select * from dev_reader_people where user_no=? and reader_no=?", obj.getUserNo(),obj.getReaderNo()))throw new IotequException("add_reader_people_error","该用户在此设备中已存在");
-		if(obj!=null&&Util.isEmpty(obj.getId())) {
+		if(obj!=null&& Util.isEmpty(obj.getId())) {
 			obj.setType(0);
 			obj.setStatus(1);
 		}
@@ -85,7 +89,7 @@ public class DevReaderPeopleService extends CgDevReaderPeopleService {
 								dr.setStatus(0);
 								dr.setOrderNum(col);
 								dr.setReaderNo(reader.getReaderNo());
-								DevReaderPeopleDao drd=Util.getBean(DevReaderPeopleDao.class);
+								DevReaderPeopleDao drd= Util.getBean(DevReaderPeopleDao.class);
 								if(!SqlUtil.sqlExist("select * from dev_reader_people where user_no=? and reader_no=?", dr.getUserNo(),dr.getReaderNo())) {
 									drd.insert(dr);
 								}

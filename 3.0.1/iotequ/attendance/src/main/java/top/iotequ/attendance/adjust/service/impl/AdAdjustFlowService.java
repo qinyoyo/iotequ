@@ -14,9 +14,9 @@ import top.iotequ.framework.flow.impl.SysFlowProcessService;
 import top.iotequ.framework.flow.FlowRecord;
 import top.iotequ.framework.flow.IFlowService;
 import top.iotequ.framework.security.service.SecurityService;
-import top.iotequ.framework.util.EntityUtil;
-import top.iotequ.framework.util.SqlUtil;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.EntityUtil;
+import top.iotequ.util.SqlUtil;
+import top.iotequ.util.Util;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
@@ -209,7 +209,7 @@ public class AdAdjustFlowService extends SysFlowProcessService<AdAdjust> {
     private List<Map<String,Object>> getAllCopyToListOf(String id) {
         List<String> ids=new ArrayList<>();
         Integer orgCode=null;
-        if (Util.isEmpty(id)) orgCode=Util.getUser().getOrgCode();
+        if (Util.isEmpty(id)) orgCode= Util.getUser().getOrgCode();
         else try{ orgCode = SqlUtil.sqlQueryInteger(false,"select org_code as org from sys_user where id=?",id);
         } catch (Exception e) {	}
         while (orgCode!=null && orgCode!=0) {
@@ -306,9 +306,9 @@ public class AdAdjustFlowService extends SysFlowProcessService<AdAdjust> {
                 f.setNextOperator(null);
                 f.setNote(fp.getApproveNote());
                 if (fp.getState0()==null)
-                    f.setOperation("system.action.new "+Util.getTextFromDict(adAdjust.getAdjustType(),CgAdAdjustService.dictAdjustTypeValue,CgAdAdjustService.dictAdjustTypeText));
+                    f.setOperation("system.action.new "+ Util.getTextFromDict(adAdjust.getAdjustType(),CgAdAdjustService.dictAdjustTypeValue,CgAdAdjustService.dictAdjustTypeText));
                 else if (fp.getApprover().equals(adAdjust.getEmployee()))
-                    f.setOperation("system.action.edit "+Util.getTextFromDict(adAdjust.getAdjustType(),CgAdAdjustService.dictAdjustTypeValue,CgAdAdjustService.dictAdjustTypeText));
+                    f.setOperation("system.action.edit "+ Util.getTextFromDict(adAdjust.getAdjustType(),CgAdAdjustService.dictAdjustTypeValue,CgAdAdjustService.dictAdjustTypeText));
                 else  f.setOperation("adAdjust.title.approve");
                 f.setOperator(fp.getState0()==null ? adAdjust.getRealName() : fp.getRealName());
                 f.setSelection(fp.getState0()==null || fp.getApprover().equals(adAdjust.getEmployee()) ? null : fp.getState1() == AdUtil.st_refused ? "system.action.flowDeny" : "system.action.flowApprove");

@@ -5,10 +5,10 @@ import top.iotequ.codegenerator.pojo.CgField;
 import top.iotequ.codegenerator.pojo.CgListField;
 import top.iotequ.codegenerator.pojo.CgTable;
 import top.iotequ.codegenerator.service.impl.DtoService;
-import top.iotequ.framework.util.EntityUtil;
-import top.iotequ.framework.util.SqlUtil;
-import top.iotequ.framework.util.StringUtil;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.EntityUtil;
+import top.iotequ.util.SqlUtil;
+import top.iotequ.util.StringUtil;
+import top.iotequ.util.Util;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -27,7 +27,7 @@ public class JoinUtil {
     // join关联字段必须在join表中定义
     public static String joinOnFullColumnName(CgTable table, CgField f) throws CgException {
         if (f==null|| Util.isEmpty(f.getDictTable())) throw new CgException(String.format("code：%s join 表定义的表单不能为空", table.getCode()));
-        DtoService dtoService=Util.getBean(DtoService.class);
+        DtoService dtoService= Util.getBean(DtoService.class);
         CgTable jf = joinTable(f);
         if (jf==null) throw new CgException(String.format("code：%s join 表定义的表单 %s 不存在", table.getCode(),f.getDictTable().split(":")[0].trim()));
         CgField ref=dtoService.getFieldBy(jf.getId(),f.getDictField().trim());

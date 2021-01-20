@@ -6,7 +6,10 @@ import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.exception.IotequThrowable;
 import top.iotequ.framework.flow.IFlowService;
 import top.iotequ.framework.pojo.CgEntity;
-import top.iotequ.framework.util.*;
+import top.iotequ.util.*;
+import top.iotequ.util.CgFieldAnnotation;
+import top.iotequ.util.CgTableAnnotation;
+import top.iotequ.util.RestJson;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -150,7 +153,7 @@ public interface ICgService<T extends CgEntity> {
      * @return { data：{ data: 记录list,total：记录总数,page:当前页,pages:总页数} , dictionary: 字典map，success: true } list的flowAvailableActions字段记录可执行的流程操作
      * @throws IotequException 异常
      */
-    RestJson getListPageData(Boolean needLoadDictionary,String resortFirstField, Integer pageSize,Integer pageNumber,String sort,String order, String search,HttpServletRequest request) throws IotequException;
+    RestJson getListPageData(Boolean needLoadDictionary, String resortFirstField, Integer pageSize, Integer pageNumber, String sort, String order, String search, HttpServletRequest request) throws IotequException;
 
     /**
      * 获得流程处理列表数据
@@ -219,7 +222,7 @@ public interface ICgService<T extends CgEntity> {
      * @return 保存结果
      * @throws Exception 异常
      */
-    RestJson doSave(boolean isNew, String flowCode,Integer totalFilePart, T obj, String idSaved, HttpServletRequest request) throws Exception;
+    RestJson doSave(boolean isNew, String flowCode, Integer totalFilePart, T obj, String idSaved, HttpServletRequest request) throws Exception;
 
     /**
      * 快速修改字段
@@ -237,7 +240,7 @@ public interface ICgService<T extends CgEntity> {
      * @return 操作结果
      * @throws IotequException 异常
      */
-    RestJson doDelete(String id,List<Map<String,String>> sons, HttpServletRequest request) throws IotequException;
+    RestJson doDelete(String id, List<Map<String,String>> sons, HttpServletRequest request) throws IotequException;
 
     /**
      * 批量删除记录
@@ -247,7 +250,7 @@ public interface ICgService<T extends CgEntity> {
      * @return 操作结果
      * @throws IotequException 异常
      */
-    RestJson doBatchDelete(String ids,List<Map<String,String>> sons,HttpServletRequest request) throws IotequException ;
+    RestJson doBatchDelete(String ids, List<Map<String,String>> sons, HttpServletRequest request) throws IotequException ;
 
     /**
      * 导出到excel表
@@ -274,7 +277,7 @@ public interface ICgService<T extends CgEntity> {
      * @return 操作结果
      * @throws Exception 异常
      */
-    RestJson doImport(MultipartFile file,HttpServletRequest request) throws Exception;
+    RestJson doImport(MultipartFile file, HttpServletRequest request) throws Exception;
 
     /**
      * 执行一个数据查询，为图表等提供数据,需要根据自己的需求重写

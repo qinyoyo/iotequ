@@ -3,7 +3,7 @@ package top.iotequ.reader.event;
 import org.springframework.context.ApplicationListener;
 
 import top.iotequ.svasclient.TemplatesChangedEvent;
-import top.iotequ.framework.util.SqlUtil;
+import top.iotequ.util.SqlUtil;
 
 public class TemplatesChangedEventHandler implements ApplicationListener <TemplatesChangedEvent> {
 	@Override

@@ -5,8 +5,8 @@ import top.iotequ.codegenerator.pojo.CgTable;
 import top.iotequ.codegenerator.service.impl.DtoService;
 import top.iotequ.codegenerator.service.impl.GenService;
 import top.iotequ.framework.exception.IotequThrowable;
-import top.iotequ.framework.util.StringUtil;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.StringUtil;
+import top.iotequ.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;

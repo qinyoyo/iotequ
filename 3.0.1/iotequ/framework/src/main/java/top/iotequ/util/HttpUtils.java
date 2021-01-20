@@ -1,4 +1,4 @@
-package top.iotequ.framework.util;
+package top.iotequ.util;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -19,7 +19,6 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -45,7 +44,6 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
-import top.iotequ.framework.exception.IotequDatabaseException;
 import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.exception.IotequThrowable;
 

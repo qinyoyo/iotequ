@@ -10,7 +10,9 @@ import top.iotequ.framework.event.PeopleInfoChangedEvent;
 import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.exception.IotequThrowable;
 import top.iotequ.framework.pojo.User;
-import top.iotequ.framework.util.*;
+import top.iotequ.util.*;
+import top.iotequ.util.*;
+
 import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -88,21 +90,29 @@ public class SysUserService extends CgSysUserService implements ApplicationListe
 			if (t==null || t==0 || Util.isEmpty(no)) throw new IotequException(IotequThrowable.PARAMETER_ERROR,"证件信息不全");
 			Object svasBean = Util.getBean("svasService");
 			String id=null;
-			if (svasBean!=null) {
-				id = StringUtil.toString(EntityUtil.runMethod(svasBean,"getUserNo",user.getIdType(),user.getIdNumber(),user.getRealName(),null,null));
-				if (!Util.isEmpty(id)) {
-					Boolean includePhoto = false;
-					Object o = EntityUtil.runMethod(svasBean,"getUserAllInfo",id,includePhoto);
-					if (o!=null && o instanceof PeopleInfoChangedEvent.People) {
-						PeopleInfoChangedEvent.People p = (PeopleInfoChangedEvent.People)o;
-						if (p.getRealName()!=null && Util.isEmpty(user.getRealName())) user.setRealName(p.getRealName());
-						if (p.getWechatOpenid()!=null && Util.isEmpty(user.getWechatOpenid())) user.setWechatOpenid(p.getWechatOpenid());
-						if (p.getEmail()!=null && Util.isEmpty(user.getEmail())) user.setEmail(p.getEmail());
-						if (p.getMobilePhone()!=null && Util.isEmpty(user.getMobilePhone())) user.setMobilePhone(p.getMobilePhone());
-						if (p.getSex()!=null && Util.isEmpty(user.getSex())) user.setSex(p.getSex());
-						if (p.getBirthDate()!=null && Util.isEmpty(user.getBirthDate())) user.setBirthDate(p.getBirthDate());
+			try {
+				if (svasBean != null) {
+					id = StringUtil.toString(EntityUtil.runMethod(svasBean, "getUserNo", user.getIdType(), user.getIdNumber(), user.getRealName(), null, null));
+					if (!Util.isEmpty(id)) {
+						Boolean includePhoto = false;
+						Object o = EntityUtil.runMethod(svasBean, "getUserAllInfo", id, includePhoto);
+						if (o != null && o instanceof PeopleInfoChangedEvent.People) {
+							PeopleInfoChangedEvent.People p = (PeopleInfoChangedEvent.People) o;
+							if (p.getRealName() != null && Util.isEmpty(user.getRealName()))
+								user.setRealName(p.getRealName());
+							if (p.getWechatOpenid() != null && Util.isEmpty(user.getWechatOpenid()))
+								user.setWechatOpenid(p.getWechatOpenid());
+							if (p.getEmail() != null && Util.isEmpty(user.getEmail())) user.setEmail(p.getEmail());
+							if (p.getMobilePhone() != null && Util.isEmpty(user.getMobilePhone()))
+								user.setMobilePhone(p.getMobilePhone());
+							if (p.getSex() != null && Util.isEmpty(user.getSex())) user.setSex(p.getSex());
+							if (p.getBirthDate() != null && Util.isEmpty(user.getBirthDate()))
+								user.setBirthDate(p.getBirthDate());
+						}
 					}
 				}
+			} catch (Exception e) {
+				throw IotequException.newInstance(e);
 			}
 			if (id==null) id=user.getIdType() + "-" + user.getIdNumber();
 			user.setId(id);

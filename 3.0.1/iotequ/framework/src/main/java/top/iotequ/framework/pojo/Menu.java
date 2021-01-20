@@ -4,13 +4,12 @@
 **************************************************/
 
 package top.iotequ.framework.pojo;
-import top.iotequ.framework.util.StringUtil;
-import top.iotequ.framework.pojo.CgEntity;
+import top.iotequ.util.StringUtil;
 import lombok.Getter;
 import lombok.Setter;
 import com.google.gson.annotations.SerializedName;
-import top.iotequ.framework.util.CgFieldAnnotation;
-import top.iotequ.framework.util.CgTableAnnotation;
+import top.iotequ.util.CgFieldAnnotation;
+import top.iotequ.util.CgTableAnnotation;
 import java.util.*;
 
 //  Pojo entity : Menu (系统菜单)

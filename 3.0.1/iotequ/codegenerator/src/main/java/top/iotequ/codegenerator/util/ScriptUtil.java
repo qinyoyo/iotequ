@@ -4,7 +4,7 @@ import top.iotequ.codegenerator.pojo.CgField;
 import top.iotequ.codegenerator.pojo.CgTable;
 import top.iotequ.codegenerator.service.impl.DtoService;
 import top.iotequ.codegenerator.service.impl.GenService;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;

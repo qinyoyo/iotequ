@@ -46,7 +46,7 @@ import org.springframework.stereotype.Service;
 import top.iotequ.framework.service.utils.DictionaryUtil;
 import top.iotequ.framework.service.utils.UploadDownUtil;
 import top.iotequ.framework.service.utils.QueryUtil;
-import top.iotequ.framework.util.*;
+import top.iotequ.util.*;
 <#if table.imports?? && table.imports?trim !="">
 <#assign imports = table.imports?trim?split(",") >
 <#list imports as i>

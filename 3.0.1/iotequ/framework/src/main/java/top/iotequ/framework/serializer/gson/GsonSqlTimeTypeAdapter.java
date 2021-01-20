@@ -6,7 +6,7 @@ import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import top.iotequ.framework.exception.IotequIOException;
 import top.iotequ.framework.exception.IotequThrowable;
-import top.iotequ.framework.util.DateUtil;
+import top.iotequ.util.DateUtil;
 
 import java.io.IOException;
 import java.sql.Time;

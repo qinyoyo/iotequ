@@ -1,8 +1,6 @@
 package top.iotequ.attendance.adjust.service.impl;
 import top.iotequ.attendance.adjust.pojo.AdAdjust;
 import top.iotequ.attendance.adjust.dao.AdAdjustDao;
-import top.iotequ.framework.flow.*;
-import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +13,11 @@ import org.springframework.stereotype.Service;
 import top.iotequ.framework.service.utils.DictionaryUtil;
 import top.iotequ.framework.service.utils.UploadDownUtil;
 import top.iotequ.framework.service.utils.QueryUtil;
-import top.iotequ.framework.util.*;
+import top.iotequ.util.*;
 import top.iotequ.attendance.util.AdUtil;
+import top.iotequ.util.StringUtil;
+import top.iotequ.util.Util;
+
 import java.util.*;
 
 /**************************************************
@@ -57,8 +58,8 @@ private static final Logger log = LoggerFactory.getLogger(CgAdAdjustService.clas
         if (Objects.isNull(dynaFields) || StringUtil.containsItem(dynaFields,"adjustType")) map.put("dictAdjustType", DictionaryUtil.getDictList(dictAdjustTypeValue,dictAdjustTypeText));
         if (Objects.isNull(dynaFields) || StringUtil.containsItem(dynaFields,"state")) map.put("dictState", DictionaryUtil.getDictList(dictStateValue,dictStateText));
         if (Objects.isNull(dynaFields) || StringUtil.containsItem(dynaFields,"flowSelection")) map.put("dictFlowSelection",getFlowService()==null ? null: getFlowService().getSelections(Util.getRequest().getParameter(IFlowService.flowAction)));
-        if (Objects.isNull(dynaFields) || StringUtil.containsItem(dynaFields,"flowNextOperator")) map.put("dictFlowNextOperator",getFlowService()==null ? null: getFlowService().getDictionaryOfNextOperator(obj,Util.getRequest().getParameter(IFlowService.flowAction),Util.getRequest().getParameter(IFlowService.flowSelection)));
-        if (Objects.isNull(dynaFields) || StringUtil.containsItem(dynaFields,"flowCopyToList")) map.put("dictFlowCopyToList",getFlowService()==null ? null: getFlowService().getDictionaryOfCopyToList(obj,Util.getRequest().getParameter(IFlowService.flowAction),Util.getRequest().getParameter(IFlowService.flowSelection)));
+        if (Objects.isNull(dynaFields) || StringUtil.containsItem(dynaFields,"flowNextOperator")) map.put("dictFlowNextOperator",getFlowService()==null ? null: getFlowService().getDictionaryOfNextOperator(obj, Util.getRequest().getParameter(IFlowService.flowAction), Util.getRequest().getParameter(IFlowService.flowSelection)));
+        if (Objects.isNull(dynaFields) || StringUtil.containsItem(dynaFields,"flowCopyToList")) map.put("dictFlowCopyToList",getFlowService()==null ? null: getFlowService().getDictionaryOfCopyToList(obj, Util.getRequest().getParameter(IFlowService.flowAction), Util.getRequest().getParameter(IFlowService.flowSelection)));
         return map;
     }
     @Override

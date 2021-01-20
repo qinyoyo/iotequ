@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import top.iotequ.framework.bean.SpringContext;
 import top.iotequ.framework.event.SystemParameterChangedEvent;
 import top.iotequ.framework.security.service.SecurityService;
-import top.iotequ.framework.util.OrgUtil;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.OrgUtil;
+import top.iotequ.util.Util;
 
 @Service
 @ConditionalOnProperty(value="spring.redis.url")
@@ -22,7 +22,7 @@ public class RedisMessageReceiver {
                 if (!SpringContext.nodeId.equals(event.getSender())) {
                     switch (channel) {
                         case SystemParameterChangedEvent.SP_PERMISSION_INITIAL:
-                            SecurityService securityService=Util.getBean(SecurityService.class);
+                            SecurityService securityService= Util.getBean(SecurityService.class);
                             if (securityService!=null)  securityService.refreshPermission();
                             break;
                         case SystemParameterChangedEvent.SP_DATA_DICT:

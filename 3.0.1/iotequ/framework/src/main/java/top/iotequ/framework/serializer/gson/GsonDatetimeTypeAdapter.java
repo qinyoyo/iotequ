@@ -10,7 +10,7 @@ import com.google.gson.stream.JsonWriter;
 
 import top.iotequ.framework.exception.IotequIOException;
 import top.iotequ.framework.exception.IotequThrowable;
-import top.iotequ.framework.util.DateUtil;
+import top.iotequ.util.DateUtil;
 
 public class GsonDatetimeTypeAdapter extends TypeAdapter<Date> {
 	@Override

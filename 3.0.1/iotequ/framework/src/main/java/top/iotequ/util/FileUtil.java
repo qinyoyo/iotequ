@@ -1,5 +1,6 @@
-package top.iotequ.framework.util;
+package top.iotequ.util;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.tomcat.util.http.fileupload.ParameterParser;
 import org.springframework.boot.web.server.MimeMappings;
 import org.springframework.core.env.Environment;
@@ -18,49 +19,59 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class FileUtil {
-    /************************
-     * 将字符串写入文件
-     * @param s : 字符串
-     * @param file : 文件
-     * @throws IotequException 出错抛出异常
-     */
-    static public void writeToFile(String s, File file) throws IotequException {
+public class FileUtil extends FileIOUtil {
+    public static String getImageBase64String(File file) throws IotequException {
+        if (file==null) throw new IotequException(IotequThrowable.NULL_OBJECT,"file is null");
+        String fileContentBase64 = null;
+        String fileType = "image/";
+        if (file.getName().lastIndexOf('.')>=0)  fileType+=file.getName().substring(file.getName().lastIndexOf('.')+1).toLowerCase();
+        else throw new IotequException(IotequThrowable.FAILURE,"file type unknown");
+        String base64Str = "data:" + fileType + ";base64,";
+        String content = null;
+        InputStream in = null;
         try {
-            if (file.exists()) {
-                file.delete();
-            } else {
-                File dir = file.getParentFile();
-                if (!dir.exists()) dir.mkdirs();
+            in = new FileInputStream(file);
+            byte [] data = new byte[in.available()];
+            in.read(data);
+            in.close();
+            if (data == null || data.length == 0) {
+                return null;
             }
-            PrintWriter fw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "utf-8")));
-            fw.write(s);
-            fw.close();
+            content = Base64.encodeBase64String(data);
+            if (content == null || "".equals(content)) {
+                return null;
+            }
+            fileContentBase64 = base64Str + content;
         } catch (Exception e) {
             throw IotequException.newInstance(e);
-        }
-    }
-
-    /************************
-     * 将字符串添加到文件
-     * @param s ： 字符
-     * @param file : 文件
-     * @throws IotequException 出错抛出异常
-     */
-    static public void appendToFile(String s, File file) throws IotequException {
-        try {
-            if (!file.exists()) {
-                File dir = file.getParentFile();
-                if (!dir.exists()) dir.mkdirs();
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {}
             }
-            PrintWriter fw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file, true), "utf-8")));
-            fw.write(s);
-            fw.close();
-        } catch (Exception e) {
-            throw IotequException.newInstance(e);
         }
+        return fileContentBase64;
     }
 
+    public static String saveBase64Image(String nameWhithoutExt, String imgBase64) {
+        if (Util.isEmpty(nameWhithoutExt) || Util.isEmpty(imgBase64)) return null;
+        String ext = StringUtil.regGroup("image\\/([a-z]+);",imgBase64,1);
+        String data = StringUtil.regGroup(";base64,(.*)$",imgBase64,1);
+        if (Util.isEmpty(ext) || Util.isEmpty(data)) return null;
+        String name = nameWhithoutExt + "." + ext;
+        File outf = new File(name);
+        if (!outf.getParentFile().exists()) outf.getParentFile().mkdirs();
+        else if (outf.exists()) outf.delete();
+        byte bin[] = Base64.decodeBase64(data);
+        try {
+            OutputStream out = new FileOutputStream(outf);
+            out.write(bin);
+            out.flush();
+            out.close();
+        } catch (Exception e) { return null; }
+        return name;
+    }
     /**
      * 获得上传文件保存目录
      * @param generatorName cg代码名

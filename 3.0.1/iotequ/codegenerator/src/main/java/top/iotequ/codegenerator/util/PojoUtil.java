@@ -4,8 +4,8 @@ import top.iotequ.codegenerator.pojo.CgField;
 import top.iotequ.codegenerator.pojo.CgTable;
 import top.iotequ.codegenerator.service.impl.DtoService;
 import top.iotequ.codegenerator.service.impl.GenService;
-import top.iotequ.framework.util.StringUtil;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.StringUtil;
+import top.iotequ.util.Util;
 
 import java.util.List;
 
@@ -20,9 +20,9 @@ public class PojoUtil {
         boolean imdtdeser = false,imdtser=false, imdser=false, imtser=false, imgson=false;
         boolean imbd = false;
         if (table.getTrialLicence() != null || table.getTrialDays() != null)
-            sb.append("import top.iotequ.framework.util.*;\n");
+            sb.append("import top.iotequ.util.*;\n");
         List<CgField> allFields = DtoService.getAllFieldsNotSplitedJoin(tabFields,joinFields,calFields);
-        sb.append("import top.iotequ.framework.util.StringUtil;\n")
+        sb.append("import top.iotequ.util.StringUtil;\n")
                 .append("import top.iotequ.framework.pojo.CgEntity;\n")
                 .append("import lombok.Getter;\n")
                 .append("import lombok.Setter;\n");
@@ -110,9 +110,9 @@ public class PojoUtil {
         }
         if (!Util.isEmpty(table.getName())) {
             sb.append("import com.google.gson.annotations.SerializedName;\n");
-            sb.append("import top.iotequ.framework.util.CgFieldAnnotation;\n");
+            sb.append("import top.iotequ.util.CgFieldAnnotation;\n");
         }
-        sb.append("import top.iotequ.framework.util.CgTableAnnotation;\n");
+        sb.append("import top.iotequ.util.CgTableAnnotation;\n");
         String imp = table.getPojoExtends();
         if (imp == null) imp = "";
         imp = addImplementsItem(imp, "CgEntity", "implements");
@@ -148,7 +148,7 @@ public class PojoUtil {
                 + "                   hasLicence=" + ((table.getTrialLicence()!=null || table.getTrialDays()!=null) && pk!=null ? "true" : "false") + ",\n"
                 + (table.getTrialLicence()==null ? "" : "                   trialLicence="+table.getTrialLicence()+",\n")
                 + (table.getTrialDays()==null ? "" : "                   trialDays="+table.getTrialDays()+",\n")
-                + (Util.getBean(GenService.class).parentEntity(table,tabFields,joinFields) == null ? "" : "                   parentEntityField=\""+Util.getBean(GenService.class).parentEntity(table,tabFields,joinFields).getEntityName()+"\",\n")
+                + (Util.getBean(GenService.class).parentEntity(table,tabFields,joinFields) == null ? "" : "                   parentEntityField=\""+ Util.getBean(GenService.class).parentEntity(table,tabFields,joinFields).getEntityName()+"\",\n")
                 + (pk==null ? "" : "                   pkType=\""+TypeUtil.javaType(pk)+"\",\n")
                 + (pk==null ? "" : "                   pkKeyType=\""+pk.getKeyType()+"\",\n")
                 + "                   generatorName=\"" + NameUtil.generatorName(table) + "\",\n"

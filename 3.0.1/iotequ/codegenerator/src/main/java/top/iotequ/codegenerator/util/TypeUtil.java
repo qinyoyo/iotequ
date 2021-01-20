@@ -2,7 +2,7 @@ package top.iotequ.codegenerator.util;
 
 import top.iotequ.codegenerator.pojo.CgField;
 import top.iotequ.framework.exception.IotequThrowable;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.Util;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

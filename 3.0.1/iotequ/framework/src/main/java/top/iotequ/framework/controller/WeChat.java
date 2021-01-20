@@ -27,7 +27,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.exception.IotequThrowable;
 import top.iotequ.framework.security.SpringSecurityConfig;
-import top.iotequ.framework.util.*;
+import top.iotequ.util.*;
+import top.iotequ.util.HttpUtils;
+import top.iotequ.util.RestJson;
+import top.iotequ.util.StringUtil;
+import top.iotequ.util.Util;
 
 @Controller
 @ConditionalOnProperty(value = "wechat.appid", matchIfMissing = false)
@@ -116,7 +120,7 @@ public class WeChat implements ApplicationContextAware {
 	@ResponseBody
 	@RequestMapping(value = SpringSecurityConfig.resourcePage+"/checkopenid" ) 
 	public String checkOpenid(HttpServletRequest request,String key) {   
-		final String fkey=Util.isEmpty(key)?Util.getSession().getId() : key; 
+		final String fkey= Util.isEmpty(key)? Util.getSession().getId() : key;
 		RestJson j = new RestJson();
 		try {
 			if (Util.isEmpty(checkUrl)) {
@@ -126,7 +130,7 @@ public class WeChat implements ApplicationContextAware {
 					j.put("openid", openid);
 				} else j.setSuccess(false);
 			} else {
-				JSONObject result=HttpUtils.doJsonGet(checkUrl, new HashMap<String,Object>(){{put("key",fkey);}});   // 远程调用
+				JSONObject result= HttpUtils.doJsonGet(checkUrl, new HashMap<String,Object>(){{put("key",fkey);}});   // 远程调用
 				j.setSuccess(result.getBoolean("success"));
 				if (j.isSuccess()) j.put("openid", result.getString("openid"));
 			}
@@ -191,7 +195,7 @@ public class WeChat implements ApplicationContextAware {
 				log.debug(e.getMessage());
 				return null;
 			}
-		} else if (Util.isEmpty(openAppid)) 
+		} else if (Util.isEmpty(openAppid))
 			return null;
 		else {
 			String temp = "%s/connect/qrconnect?appid=%s&redirect_uri=%s&response_type=code&scope=snsapi_login&state=%s#wechat_redirect";
@@ -270,8 +274,8 @@ public class WeChat implements ApplicationContextAware {
 			JSONObject result =HttpUtils.doJsonGet(url, null);
 			if (result != null && result.has("access_token")) {
 				accessToken = result.getString("access_token");
-				if (Util.isEmpty(accessToken)) 
-					throw new IotequException(IotequThrowable.WX_API_ERROR,StringUtil.toString(result.get("errmsg")));
+				if (Util.isEmpty(accessToken))
+					throw new IotequException(IotequThrowable.WX_API_ERROR, StringUtil.toString(result.get("errmsg")));
 				if (result.has("expires_in")) {
 					tokenExpireTime = result.getLong("expires_in");
 					getTokenTime = System.currentTimeMillis();

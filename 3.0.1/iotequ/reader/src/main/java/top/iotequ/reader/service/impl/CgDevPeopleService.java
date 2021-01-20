@@ -1,7 +1,6 @@
 package top.iotequ.reader.service.impl;
 import top.iotequ.reader.pojo.DevPeople;
 import top.iotequ.reader.dao.DevPeopleDao;
-import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +12,9 @@ import top.iotequ.framework.service.IDaoService;
 import org.springframework.stereotype.Service;
 import top.iotequ.framework.service.utils.DictionaryUtil;
 import top.iotequ.framework.service.utils.UploadDownUtil;
-import top.iotequ.framework.service.utils.QueryUtil;
-import top.iotequ.framework.util.*;
+import top.iotequ.util.*;
+import top.iotequ.util.StringUtil;
+
 import java.util.*;
 
 /**************************************************

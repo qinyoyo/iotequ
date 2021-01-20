@@ -5,9 +5,9 @@ import lombok.NonNull;
 import lombok.Setter;
 import org.springframework.context.ApplicationEvent;
 
-import top.iotequ.framework.util.EntityUtil;
-import top.iotequ.framework.util.StringUtil;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.EntityUtil;
+import top.iotequ.util.StringUtil;
+import top.iotequ.util.Util;
 
 import java.util.Date;
 import java.util.Map;

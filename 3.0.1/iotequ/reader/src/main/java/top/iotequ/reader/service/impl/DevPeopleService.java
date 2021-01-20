@@ -7,15 +7,15 @@ import org.springframework.stereotype.Service;
 import top.iotequ.framework.event.PeopleInfoChangedEvent;
 import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.exception.IotequThrowable;
-import top.iotequ.framework.util.*;
+import top.iotequ.util.*;
 import top.iotequ.reader.dao.DevPeopleDao;
 import top.iotequ.reader.pojo.DevPeople;
 import top.iotequ.svasclient.SvasTypes.*;
 import top.iotequ.svasclient.SvasService;
+import top.iotequ.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +34,7 @@ public class DevPeopleService extends CgDevPeopleService implements ApplicationL
 			String userNo = people.getUserNo();
 			if (Util.isEmpty(userNo)) return;
 			if (!Util.isEmpty(people.getPhoto()) && people.getPhoto().indexOf("data:")==0) {
-				people.setPhoto(Util.saveBase64Image(new File(FileUtil.uploadFileDir(getGeneratorName()),FileUtil.uploadFilename("photo",userNo,"p")).getAbsolutePath(), people.getPhoto()));
+				people.setPhoto(Util.saveBase64Image(new File(FileUtil.uploadFileDir(getGeneratorName()), FileUtil.uploadFilename("photo",userNo,"p")).getAbsolutePath(), people.getPhoto()));
 			}
 		}
 	}
@@ -103,7 +103,7 @@ public class DevPeopleService extends CgDevPeopleService implements ApplicationL
 		j.put("userNo", p.getUserNo());
 	}
 
-	private void sendFingerRegisteredInfo(String userNo,RestJson j) {
+	private void sendFingerRegisteredInfo(String userNo, RestJson j) {
 		try {
 			List<SvasTemplates> list = svasService.getFingerInfo(userNo);
 			Integer type1=null,type2=null,count=0;
@@ -150,8 +150,8 @@ public class DevPeopleService extends CgDevPeopleService implements ApplicationL
 			int fingerIndex=Integer.parseInt(request.getParameter("fingerIndex"));
 			int fingerType=Integer.parseInt(request.getParameter("fingerType"));
 			String template=request.getParameter("template");
-			boolean warning=Util.boolValue(request.getParameter("isWarning"));
-			boolean update=Util.boolValue(request.getParameter("update"));
+			boolean warning= Util.boolValue(request.getParameter("isWarning"));
+			boolean update= Util.boolValue(request.getParameter("update"));
 			if (update) {
 				if (!svasService.updateTemplate(userNo, fingerIndex, fingerType,template))
 					throw new IotequException(IotequThrowable.FAILURE,"未能修改成功");

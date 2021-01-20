@@ -2,10 +2,10 @@ package top.iotequ.framework.service.utils;
 
 import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.exception.IotequThrowable;
-import top.iotequ.framework.util.CgFieldAnnotation;
-import top.iotequ.framework.util.EntityUtil;
-import top.iotequ.framework.util.FileUtil;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.CgFieldAnnotation;
+import top.iotequ.util.EntityUtil;
+import top.iotequ.util.FileUtil;
+import top.iotequ.util.Util;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

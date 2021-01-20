@@ -9,7 +9,11 @@ import top.iotequ.attendance.org.pojo.AdOrg;
 import top.iotequ.attendance.util.AdUtil;
 import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.exception.IotequThrowable;
-import top.iotequ.framework.util.*;
+import top.iotequ.util.*;
+import top.iotequ.util.EntityUtil;
+import top.iotequ.util.OrgUtil;
+import top.iotequ.util.SqlUtil;
+import top.iotequ.util.Util;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -55,7 +59,7 @@ public class AdAdjustService extends CgAdAdjustService {
 	}
 	@Override
 	public  void beforeUpdate(AdAdjust obj, HttpServletRequest request) throws IotequException {
-		if ((obj.getState()!= AdUtil.st_waiting && obj.getState()!=AdUtil.st_doing) || (!EntityUtil.entityEquals(obj.getApprover(),Util.getUser().getId()))) {
+		if ((obj.getState()!= AdUtil.st_waiting && obj.getState()!=AdUtil.st_doing) || (!EntityUtil.entityEquals(obj.getApprover(), Util.getUser().getId()))) {
 			request.setAttribute("_load","detail");
 		}
 	}

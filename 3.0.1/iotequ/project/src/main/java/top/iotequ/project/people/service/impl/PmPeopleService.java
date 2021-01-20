@@ -4,13 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.exception.IotequThrowable;
-import top.iotequ.framework.util.RestJson;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.RestJson;
+import top.iotequ.util.Util;
 import top.iotequ.project.people.dao.PmPeopleDao;
 import top.iotequ.project.people.pojo.PmPeople;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 @Service
 public class PmPeopleService extends CgPmPeopleService {

@@ -16,7 +16,7 @@ import com.google.gson.Gson;
 import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.exception.IotequThrowable;
 import top.iotequ.framework.security.oauth2.OAuth2Util;
-import top.iotequ.framework.util.*;
+import top.iotequ.util.*;
 import top.iotequ.svasclient.SvasTypes.*;
 import top.iotequ.svasclient.db.dao.SvasUserNoDao;
 import top.iotequ.svasclient.db.pojo.SvasUserNo;
@@ -206,7 +206,7 @@ class SvasClient  {
 			String s = HttpUtils.getHttpString(HttpUtils.doPost(url, headers, req, parameters));
 			if (clazz.equals(String.class)) return (T)s;
 			if (Util.isEmpty(s)) throw new IotequException(IotequThrowable.NO_ANSWER,"没有获得结果");
-			Gson gson = Util.getGson(); 
+			Gson gson = Util.getGson();
 			SvasErrorInfo e=gson.fromJson(s, SvasErrorInfo.class);
 			if (e!=null) {
 				if (e.success) {
@@ -254,13 +254,17 @@ class SvasClient  {
 		 */
 		public String getVersion() throws IotequException {
 			if (svasServer!=null) {
-				Object o=EntityUtil.runMethod(svasServer, "svein_getVersion");
-				if (o!=null) {		
-					Map<String, Object> map=(Map<String, Object>)o;
-					Object v=map.get("version");
-					if(v!=null) return v.toString();
-				} 
-				return "3.0.0";
+				try {
+					Object o = EntityUtil.runMethod(svasServer, "svein_getVersion");
+					if (o != null) {
+						Map<String, Object> map = (Map<String, Object>) o;
+						Object v = map.get("version");
+						if (v != null) return v.toString();
+					}
+					return "3.0.0";
+				} catch (Exception e) {
+					throw IotequException.newInstance(e);
+				}
 			}
 			else if (svasUrl==null ) {
 				return "3.0.0";
@@ -269,7 +273,7 @@ class SvasClient  {
 				Map<String, Object> req= new HashMap<String, Object>();
 				String s = getFromHttp(url,req,String.class);	
 				if (Util.isEmpty(s)) throw new IotequException(IotequThrowable.NO_ANSWER,"没有获得结果");
-				Gson gson =Util.getGson(); 
+				Gson gson = Util.getGson();
 				Map<String,Object> r=gson.fromJson(s.trim(), Map.class);
 				if (r!=null) {
 					Object v=r.get("version");
@@ -285,16 +289,20 @@ class SvasClient  {
 		 */
 		public int getLicence() throws IotequException {
 			if (svasServer!=null) {
-				Object o=EntityUtil.runMethod(svasServer, "svein_getLicence");
-				if (o!=null) {		
-					Map<String, Object> map=(Map<String, Object>)o;
-					Object v=map.get("licence");
-					if(v!=null) return Integer.parseInt(v.toString());
-				} 
-				return 0;
+				try {
+					Object o=EntityUtil.runMethod(svasServer, "svein_getLicence");
+					if (o!=null) {
+						Map<String, Object> map=(Map<String, Object>)o;
+						Object v=map.get("licence");
+						if(v!=null) return Integer.parseInt(v.toString());
+					}
+					return 0;
+				} catch (Exception e) {
+					throw IotequException.newInstance(e);
+				}
 			}
 			else if (svasUrl==null ) {
-				Environment env=Util.getBean(Environment.class);
+				Environment env= Util.getBean(Environment.class);
 				String sn=env.getProperty("svas.sn");
 				if (sn!=null && !sn.isEmpty()) {
 					int licence = Util.getLicence(sn);
@@ -306,7 +314,7 @@ class SvasClient  {
 				Map<String, Object> req= new HashMap<String, Object>();
 				String s = getFromHttp(url,req,String.class);	
 				if (Util.isEmpty(s)) throw new IotequException(IotequThrowable.NO_ANSWER,"没有获得结果");
-				Gson gson = Util.getGson(); 
+				Gson gson = Util.getGson();
 				Map<String,Object> r=gson.fromJson(s, Map.class);
 				if (r!=null) {
 					Object v=r.get("licence");
@@ -323,13 +331,17 @@ class SvasClient  {
 	 */
 	public int getLicenceAvailable() throws IotequException {
 		if (svasServer!=null) {
-			Object o=EntityUtil.runMethod(svasServer, "svein_getLicenceAvailable");
-			if (o!=null) {
-				Map<String, Object> map=(Map<String, Object>)o;
-				Object v=map.get("licence");
-				if(v!=null) return Integer.parseInt(v.toString());
+			try {
+				Object o=EntityUtil.runMethod(svasServer, "svein_getLicenceAvailable");
+				if (o!=null) {
+					Map<String, Object> map=(Map<String, Object>)o;
+					Object v=map.get("licence");
+					if(v!=null) return Integer.parseInt(v.toString());
+				}
+				return 0;
+			} catch (Exception e) {
+				throw IotequException.newInstance(e);
 			}
-			return 0;
 		}
 		else if (svasUrl==null ) {
 			return getLicenceLeft();
@@ -354,22 +366,26 @@ class SvasClient  {
 		 */
 		public int getTrialDays() throws IotequException {
 			if (svasServer!=null) {
-				Object o=EntityUtil.runMethod(svasServer, "svein_getTrialDays");
-				if (o!=null) {		
-					Map<String, Object> map=(Map<String, Object>)o;
-					Object v=map.get("trialDays");
-					if(v!=null) return Integer.parseInt(v.toString());
-				} 
-				return 0;
+				try {
+					Object o=EntityUtil.runMethod(svasServer, "svein_getTrialDays");
+					if (o!=null) {
+						Map<String, Object> map=(Map<String, Object>)o;
+						Object v=map.get("trialDays");
+						if(v!=null) return Integer.parseInt(v.toString());
+					}
+					return 0;
+				} catch (Exception e) {
+					throw IotequException.newInstance(e);
+				}
 			}
 			else if (svasUrl==null ) {
-				Environment env=Util.getBean(Environment.class);
+				Environment env= Util.getBean(Environment.class);
 				String sn=env.getProperty("svas.sn");
 				if (sn!=null && !sn.isEmpty()) {
 					int licence = Util.getLicence(sn);
 					if (licence>0) return 36500;
 				}
-				Date dt=Util.getVersionBuildTime("svas-client");
+				Date dt= Util.getVersionBuildTime("svas-client");
 				int ds=(int) ((new Date().getTime() - dt.getTime())/1000/3600/24);
 				if (ds>=90) return 0;
 				else return 90-ds; 
@@ -378,7 +394,7 @@ class SvasClient  {
 				Map<String, Object> req= new HashMap<String, Object>();
 				String s = getFromHttp(url,req,String.class);	
 				if (Util.isEmpty(s)) throw new IotequException(IotequThrowable.NO_ANSWER,"没有获得结果");
-				Gson gson = Util.getGson(); 
+				Gson gson = Util.getGson();
 				Map<String,Object> r=gson.fromJson(s, Map.class);
 				if (r!=null) {
 					Object v=r.get("trialDays");
@@ -401,14 +417,18 @@ class SvasClient  {
 	public String getUserNo(Integer idType,String idNo,String name,String def, String prefix) throws IotequException {
 		if (Util.isEmpty(idNo) || idType==null || idType<=0) return null;
 		if (svasServer!=null) {
-			// svein_getUserNo(Integer idType, String idNo ,String name,String def,String prefix)
-			Object o=EntityUtil.runMethod(svasServer, "svein_getUserNo",idType,idNo,name,def,prefix);
-			if (o!=null) {
-				Map<String,Object> map=(Map<String,Object>)o;
-				SvasUserInfo user=getFromMap(map, SvasUserInfo.class);
-				if (user!=null) return user.userNo;
-				else return null;
-			} else return null;
+			try {
+				// svein_getUserNo(Integer idType, String idNo ,String name,String def,String prefix)
+				Object o=EntityUtil.runMethod(svasServer, "svein_getUserNo",idType,idNo,name,def,prefix);
+				if (o!=null) {
+					Map<String,Object> map=(Map<String,Object>)o;
+					SvasUserInfo user=getFromMap(map, SvasUserInfo.class);
+					if (user!=null) return user.userNo;
+					else return null;
+				} else return null;
+			} catch (Exception e) {
+				throw IotequException.newInstance(e);
+			}
 		}
 		else if (svasUrl==null ) {
 			if (fill_digit==null) {
@@ -480,14 +500,18 @@ class SvasClient  {
 	public String[] getUserNoFromDict(String templates) throws IotequException {
 		if (Util.isEmpty(templates)) return null;
 		if (svasServer!=null) {
-			// svein_getUserNo(Integer idType, String idNo ,String name,String def,String prefix)
-			Object o=EntityUtil.runMethod(svasServer, "svein_getUserNoFromDict",templates);
-			if (o!=null) {
-				Map<String,Object> map=(Map<String,Object>)o;
-				Boolean b = getFromMap(map,Boolean.class);
-				if (b)  return StringUtil.toString(map.get("templates")).split(",");
-				else	return null;
-			} else return null;
+			try {
+				// svein_getUserNo(Integer idType, String idNo ,String name,String def,String prefix)
+				Object o=EntityUtil.runMethod(svasServer, "svein_getUserNoFromDict",templates);
+				if (o!=null) {
+					Map<String,Object> map=(Map<String,Object>)o;
+					Boolean b = getFromMap(map,Boolean.class);
+					if (b)  return StringUtil.toString(map.get("templates")).split(",");
+					else	return null;
+				} else return null;
+			} catch (Exception e) {
+				throw IotequException.newInstance(e);
+			}
 		}
 		else if (svasUrl==null ) {
 			throw new IotequException(IotequThrowable.NOT_FOUND,"Svas server not exists");
@@ -510,13 +534,17 @@ class SvasClient  {
 	public String setUserNoForDict(String templates,String userNo) throws IotequException {
 		if (Util.isEmpty(templates) || Util.isEmpty(userNo)) return null;
 		if (svasServer!=null) {
-			Object o=EntityUtil.runMethod(svasServer, "svein_setUserNoForDict",templates, userNo);
-			if (o!=null) {
-				Map<String,Object> map=(Map<String,Object>)o;
-				Boolean b = getFromMap(map,Boolean.class);
-				if (b)  return StringUtil.toString(map.get("templates"));
-				else	return null;
-			} else return null;
+			try {
+				Object o = EntityUtil.runMethod(svasServer, "svein_setUserNoForDict", templates, userNo);
+				if (o != null) {
+					Map<String, Object> map = (Map<String, Object>) o;
+					Boolean b = getFromMap(map, Boolean.class);
+					if (b) return StringUtil.toString(map.get("templates"));
+					else return null;
+				} else return null;
+			} catch (Exception e) {
+				throw IotequException.newInstance(e);
+			}
 		}
 		else if (svasUrl==null ) {
 			throw new IotequException(IotequThrowable.NOT_FOUND,"Svas server not exists");
@@ -538,12 +566,16 @@ class SvasClient  {
 		public SvasUserInfo getUserInfo(String userNo) throws IotequException {
 			if (Util.isEmpty(userNo)) return null;
 			else if (svasServer!=null) {
-				// svein_getUserInfo(String userNo)
-				Object o=EntityUtil.runMethod(svasServer, "svein_getUserInfo",userNo);
-				if (o!=null) {
-					Map<String,Object> map=(Map<String,Object>)o;
-					return getFromMap(map, SvasUserInfo.class);
-				} else return null;
+				try {
+					// svein_getUserInfo(String userNo)
+					Object o=EntityUtil.runMethod(svasServer, "svein_getUserInfo",userNo);
+					if (o!=null) {
+						Map<String,Object> map=(Map<String,Object>)o;
+						return getFromMap(map, SvasUserInfo.class);
+					} else return null;
+				} catch (Exception e) {
+					throw IotequException.newInstance(e);
+				}
 			}
 			else if (svasUrl==null ) {
 				checkUserLicence(userNo);
@@ -574,14 +606,18 @@ class SvasClient  {
 		public String changeUserInfo(String userNo, Integer idType, String idNo, String name) throws IotequException {
 			if (Util.isEmpty(userNo) || ( (idType==null || idType<=0) && Util.isEmpty(idNo) && Util.isEmpty(name))) return userNo;
 			else if (svasServer!=null) {
-				// svein_changeUserInfo(String userNo, Integer idType, String idNo, String name)
-				Object o=EntityUtil.runMethod(svasServer, "svein_changeUserInfo",userNo,idType,idNo,name);
-				if (o!=null) {
-					Map<String,Object> map=(Map<String,Object>)o;
-					Boolean b = getFromMap(map,Boolean.class);
-					if (b)  return userNo;
-					else return null;
-				} else return null;
+				try {
+					// svein_changeUserInfo(String userNo, Integer idType, String idNo, String name)
+					Object o=EntityUtil.runMethod(svasServer, "svein_changeUserInfo",userNo,idType,idNo,name);
+					if (o!=null) {
+						Map<String,Object> map=(Map<String,Object>)o;
+						Boolean b = getFromMap(map,Boolean.class);
+						if (b)  return userNo;
+						else return null;
+					} else return null;
+				} catch (Exception e) {
+					throw IotequException.newInstance(e);
+				}
 			} else if (svasUrl==null) {
 				checkUserLicence(userNo);
 				String set="";
@@ -626,12 +662,16 @@ class SvasClient  {
 	public SvasUserNo getUserAllInfo(String userNo,Boolean includePhoto) throws IotequException {
 		if (Util.isEmpty(userNo)) return null;
 		else if (svasServer!=null) {
-			// svein_getUserInfo(String userNo)
-			Object o=EntityUtil.runMethod(svasServer, "svein_getUserAllInfo",userNo,includePhoto);
-			if (o!=null) {
-				Map<String,Object> map=(Map<String,Object>)o;
-				return getFromMap(map, SvasUserNo.class);
-			} else return null;
+			try {
+				// svein_getUserInfo(String userNo)
+				Object o=EntityUtil.runMethod(svasServer, "svein_getUserAllInfo",userNo,includePhoto);
+				if (o!=null) {
+					Map<String,Object> map=(Map<String,Object>)o;
+					return getFromMap(map, SvasUserNo.class);
+				} else return null;
+			} catch (Exception e) {
+				throw IotequException.newInstance(e);
+			}
 		}
 		else if (svasUrl==null ) {
 			checkUserLicence(userNo);
@@ -661,7 +701,7 @@ class SvasClient  {
 				if (people.getUserNo()!=null) mapPeople.put("userNo",people.getUserNo());
 				else return null;
 
-				if (people.getBirthDate()!=null) mapPeople.put("birthDate",DateUtil.date2String(people.getBirthDate(),"yyyy-MM-dd"));
+				if (people.getBirthDate()!=null) mapPeople.put("birthDate", DateUtil.date2String(people.getBirthDate(),"yyyy-MM-dd"));
 				if (people.getValidDate()!=null) mapPeople.put("validDate",DateUtil.date2String(people.getValidDate(),"yyyy-MM-dd"));
 				if (people.getExpiredDate()!=null) mapPeople.put("expiredDate",DateUtil.date2String(people.getExpiredDate(),"yyyy-MM-dd"));
 
@@ -676,13 +716,17 @@ class SvasClient  {
 				if (people.getIdNation()!=null) mapPeople.put("idNation",people.getIdNation());
 				if (people.getPhoto()!=null) mapPeople.put("photo",people.getPhoto());
 
-				Object o=EntityUtil.runMethod(svasServer, "svein_changeUserInfoByMap",mapPeople);
-				if (o!=null) {
-					Map<String,Object> map=(Map<String,Object>)o;
-					Boolean b = getFromMap(map,Boolean.class);
-					if (b)  return userNo;
-					else return null;
-				} else return null;
+				try {
+					Object o=EntityUtil.runMethod(svasServer, "svein_changeUserInfoByMap",mapPeople);
+					if (o!=null) {
+						Map<String,Object> map=(Map<String,Object>)o;
+						Boolean b = getFromMap(map,Boolean.class);
+						if (b)  return userNo;
+						else return null;
+					} else return null;
+				} catch (Exception e) {
+					throw IotequException.newInstance(e);
+				}
 			} else if (svasUrl==null) {
 				checkUserLicence(userNo);
 				svasUserNoDao.updateSelective(people);
@@ -704,14 +748,18 @@ class SvasClient  {
 		public String removeUserNo(String userNo) throws IotequException {
 			if (Util.isEmpty(userNo)) return null;
 			else if (svasServer!=null) {
-				//svein_removeUserNo(String userNo)
-				Object o=EntityUtil.runMethod(svasServer, "svein_removeUserNo",userNo);
-				if (o!=null) {
-					Map<String,Object> map=(Map<String,Object>)o;
-					Boolean b = getFromMap(map,Boolean.class);
-					if (b)  return userNo;
-					else return null;
-				} else return null;
+				try {
+					//svein_removeUserNo(String userNo)
+					Object o=EntityUtil.runMethod(svasServer, "svein_removeUserNo",userNo);
+					if (o!=null) {
+						Map<String,Object> map=(Map<String,Object>)o;
+						Boolean b = getFromMap(map,Boolean.class);
+						if (b)  return userNo;
+						else return null;
+					} else return null;
+				} catch (Exception e) {
+					throw IotequException.newInstance(e);
+				}
 			}
 			else if (svasUrl==null ) {
 				SqlUtil.sqlExecute("delete from dev_vein_info where user_no=?",userNo);
@@ -736,13 +784,17 @@ class SvasClient  {
 	public boolean removeTemplate(String userNo, Integer fingerNo) throws IotequException {
 		if (Util.isEmpty(userNo) || fingerNo==null) throw new IotequException(IotequThrowable.PARAMETER_ERROR,"参数不正确");
 		else if (svasServer!=null) {
-			// svein_removeFinger(String userNo, Integer fingerNo)
-			Object o=EntityUtil.runMethod(svasServer, "svein_removeFinger",userNo,fingerNo);
-			if (o!=null) {
-				Map<String,Object> map=(Map<String,Object>)o;
-				Boolean b = getFromMap(map,Boolean.class);
-				return b;
-			} else return false;
+			try {
+				// svein_removeFinger(String userNo, Integer fingerNo)
+				Object o=EntityUtil.runMethod(svasServer, "svein_removeFinger",userNo,fingerNo);
+				if (o!=null) {
+					Map<String,Object> map=(Map<String,Object>)o;
+					Boolean b = getFromMap(map,Boolean.class);
+					return b;
+				} else return false;
+			} catch (Exception e) {
+				throw IotequException.newInstance(e);
+			}
 		} else if (svasUrl==null) {
 			int i;
 			checkUserLicence(userNo);
@@ -775,13 +827,17 @@ class SvasClient  {
 	public boolean updateTemplate(String userNo, Integer fingerNo, Integer fingerType, String templates) throws IotequException {
 		if (Util.isEmpty(userNo) || fingerNo==null || Util.isEmpty(templates)) throw new IotequException(IotequThrowable.PARAMETER_ERROR,"参数不正确");
 		else if (svasServer!=null) {
-			// svein_updateFinger(String userNo, Integer fingerNo, Integer fingerType, String templates)
-			Object o=EntityUtil.runMethod(svasServer, "svein_updateFinger",userNo,fingerNo,fingerType,templates);
-			if (o!=null) {
-				Map<String,Object> map=(Map<String,Object>)o;
-				Boolean b = getFromMap(map,Boolean.class);
-				return b;
-			} else return false;
+			try {
+				// svein_updateFinger(String userNo, Integer fingerNo, Integer fingerType, String templates)
+				Object o=EntityUtil.runMethod(svasServer, "svein_updateFinger",userNo,fingerNo,fingerType,templates);
+				if (o!=null) {
+					Map<String,Object> map=(Map<String,Object>)o;
+					Boolean b = getFromMap(map,Boolean.class);
+					return b;
+				} else return false;
+			} catch (Exception e) {
+				throw IotequException.newInstance(e);
+			}
 		} else if (svasUrl==null) {
 			checkUserLicence(userNo);
 			int licenceUsed = SqlUtil.sqlQueryInteger("select count(*) from dev_vein_info");
@@ -822,14 +878,18 @@ class SvasClient  {
 		public boolean addTemplate(String userNo, Integer fingerNo, Integer fingerType,String templates, Boolean warning) throws IotequException {
 			if (Util.isEmpty(userNo) || fingerNo==null || Util.isEmpty(templates)) throw new IotequException(IotequThrowable.PARAMETER_ERROR,"参数不正确");
 			else if (svasServer!=null) {
-				// svein_addFinger(String userNo, Integer fingerNo, Integer fingerType, String templates, Boolean warning)
-				Object o=EntityUtil.runMethod(svasServer, "svein_addFinger",userNo,fingerNo,fingerType,templates,warning);
-				if (o!=null) {
-					Map<String,Object> map=(Map<String,Object>)o;
-					Boolean b = getFromMap(map,Boolean.class);
-					if (b)  return true;
-					return false;
-				} else return false;
+				try {
+					// svein_addFinger(String userNo, Integer fingerNo, Integer fingerType, String templates, Boolean warning)
+					Object o=EntityUtil.runMethod(svasServer, "svein_addFinger",userNo,fingerNo,fingerType,templates,warning);
+					if (o!=null) {
+						Map<String,Object> map=(Map<String,Object>)o;
+						Boolean b = getFromMap(map,Boolean.class);
+						if (b)  return true;
+						return false;
+					} else return false;
+				} catch (Exception e) {
+					throw IotequException.newInstance(e);
+				}
 			} else if (svasUrl==null) {
 				checkUserLicence(userNo);
 				if (SqlUtil.sqlExist("select * from dev_vein_info where user_no=? and finger_no=?", userNo,fingerNo)) {
@@ -880,13 +940,17 @@ class SvasClient  {
 	public boolean setTemplates(String userNo, Integer fingerType1, Boolean warning1,String templates1,Integer fingerType2, Boolean warning2,String templates2) throws IotequException {
 		if (Util.isEmpty(userNo) || (Util.isEmpty(templates1) && Util.isEmpty(templates2))) throw new IotequException(IotequThrowable.PARAMETER_ERROR,"参数不正确");
 		else if (svasServer!=null) {
-			// svein_setFingers(String userNo, Integer type1, Boolean warning1, String templates1, Integer type2, Boolean warning2, String templates2)
-			Object o=EntityUtil.runMethod(svasServer, "svein_setFingers",userNo,fingerType1,warning1,templates1,fingerType2,warning2,templates2);
-			if (o!=null) {
-				Map<String,Object> map=(Map<String,Object>)o;
-				Boolean b = getFromMap(map,Boolean.class);
-				return b;
-			} else return false;
+			try {
+				// svein_setFingers(String userNo, Integer type1, Boolean warning1, String templates1, Integer type2, Boolean warning2, String templates2)
+				Object o=EntityUtil.runMethod(svasServer, "svein_setFingers",userNo,fingerType1,warning1,templates1,fingerType2,warning2,templates2);
+				if (o!=null) {
+					Map<String,Object> map=(Map<String,Object>)o;
+					Boolean b = getFromMap(map,Boolean.class);
+					return b;
+				} else return false;
+			} catch (Exception e) {
+				throw IotequException.newInstance(e);
+			}
 		} else if (svasUrl==null) {
 			checkUserLicence(userNo);
 			int licenceUsed = SqlUtil.sqlQueryInteger("select count(*) from dev_vein_info");
@@ -933,13 +997,17 @@ class SvasClient  {
 	public boolean  setPhoto(String userNo,String photo) throws IotequException {
 		if (Util.isEmpty(userNo)) throw new SvasException(SvasException.ERR_PARAMETER);
 		else if (svasServer!=null) {
-			Object o=EntityUtil.runMethod(svasServer, "svein_setPhoto",userNo,photo);
-			if (o!=null) {
-				Map<String,Object> map=(Map<String,Object>)o;
-				Boolean b = getFromMap(map,Boolean.class);
-				if (b)  return true;
-				return false;
-			} else return false;
+			try {
+				Object o=EntityUtil.runMethod(svasServer, "svein_setPhoto",userNo,photo);
+				if (o!=null) {
+					Map<String,Object> map=(Map<String,Object>)o;
+					Boolean b = getFromMap(map,Boolean.class);
+					if (b)  return true;
+					return false;
+				} else return false;
+			} catch (Exception e) {
+				throw IotequException.newInstance(e);
+			}
 		} else if (svasUrl==null) {
 			checkUserLicence(userNo);
 			if (Util.isEmpty(photo)) SqlUtil.sqlExecute("update dev_user_no set photo=? where user_no=?", photo,userNo);
@@ -965,14 +1033,18 @@ class SvasClient  {
 		public String getTemplate(String userNo, Integer fingerNo) throws IotequException {
 			if (Util.isEmpty(userNo) || fingerNo==null) throw new SvasException(SvasException.ERR_PARAMETER);
 			else if (svasServer!=null) {
-				// svein_getTemplates(String userNo,Integer fingerNo)
-				Object o=EntityUtil.runMethod(svasServer, "svein_getTemplates",userNo,fingerNo);
-				if (o!=null) {
-					Map<String,Object> map=(Map<String,Object>)o;
-					Boolean b = getFromMap(map,Boolean.class);
-					if (b)  return map.get("templates").toString();
-					else	return null;
-				} else return null;
+				try {
+					// svein_getTemplates(String userNo,Integer fingerNo)
+					Object o=EntityUtil.runMethod(svasServer, "svein_getTemplates",userNo,fingerNo);
+					if (o!=null) {
+						Map<String,Object> map=(Map<String,Object>)o;
+						Boolean b = getFromMap(map,Boolean.class);
+						if (b)  return map.get("templates").toString();
+						else	return null;
+					} else return null;
+				} catch (Exception e) {
+					throw IotequException.newInstance(e);
+				}
 			} else if (svasUrl==null) {
 				checkUserLicence(userNo);
 				String template=SqlUtil.sqlQueryString("select templates from dev_vein_info where user_no=? and finger_no=?", userNo,fingerNo);
@@ -999,14 +1071,18 @@ class SvasClient  {
 		public int getFingerCount(String userNo) throws IotequException {
 			if (Util.isEmpty(userNo)) throw new SvasException(SvasException.ERR_PARAMETER);
 			else if (svasServer!=null) {
-				// svein_getFingerCount(String userNo)
-				Object o=EntityUtil.runMethod(svasServer, "svein_getFingerCount",userNo);
-				if (o!=null) {
-					Map<String,Object> map=(Map<String,Object>)o;
-					Boolean b = getFromMap(map,Boolean.class);
-					if (b)  return (Integer)map.get("count");
-					else	return 0;
-				} else return 0;
+				try {
+					// svein_getFingerCount(String userNo)
+					Object o=EntityUtil.runMethod(svasServer, "svein_getFingerCount",userNo);
+					if (o!=null) {
+						Map<String,Object> map=(Map<String,Object>)o;
+						Boolean b = getFromMap(map,Boolean.class);
+						if (b)  return (Integer)map.get("count");
+						else	return 0;
+					} else return 0;
+				} catch (Exception e) {
+					throw IotequException.newInstance(e);
+				}
 			} else if (svasUrl==null) {
 				checkUserLicence(userNo);
 				int rs=SqlUtil.sqlQueryInteger("select count(*) from dev_vein_info where user_no=?", userNo);
@@ -1029,12 +1105,16 @@ class SvasClient  {
 		public List<SvasTemplates>  getFingerInfo(String userNo) throws IotequException  {
 			if (Util.isEmpty(userNo)) throw new SvasException(SvasException.ERR_PARAMETER);
 			else if (svasServer!=null) {
-				// svein_getFingerInfo(String userNo)
-				Object o=EntityUtil.runMethod(svasServer, "svein_getFingerInfo",userNo);
-				if (o!=null) {
-					SvasFingerInfo map=getFromMap((Map<String, Object>)o, SvasFingerInfo.class);
-					return map.list;
-				} else return null;
+				try {
+					// svein_getFingerInfo(String userNo)
+					Object o=EntityUtil.runMethod(svasServer, "svein_getFingerInfo",userNo);
+					if (o!=null) {
+						SvasFingerInfo map=getFromMap((Map<String, Object>)o, SvasFingerInfo.class);
+						return map.list;
+					} else return null;
+				} catch (Exception e) {
+					throw IotequException.newInstance(e);
+				}
 			} else if (svasUrl==null) {	
 				checkUserLicence(userNo);
 				String sql="select finger_no,finger_type,templates,warning from dev_vein_info where user_no=?";
@@ -1058,12 +1138,16 @@ class SvasClient  {
 		public SvasMatched auth(String template, Integer thresh) throws IotequException {
 			if (Util.isEmpty(template)) throw new SvasException(SvasException.ERR_PARAMETER);
 			else if (svasServer!=null) {
-				// svein_matchFinger(String template,Integer thresh);
-				Object o=EntityUtil.runMethod(svasServer, "svein_matchFinger",template, thresh);
-				if (o!=null) {
-					Map<String,Object> map=(Map<String, Object>)o;
-					return 	getFromMap(map, SvasMatched.class);
-				} else return null;
+				try {
+					// svein_matchFinger(String template,Integer thresh);
+					Object o=EntityUtil.runMethod(svasServer, "svein_matchFinger",template, thresh);
+					if (o!=null) {
+						Map<String,Object> map=(Map<String, Object>)o;
+						return 	getFromMap(map, SvasMatched.class);
+					} else return null;
+				} catch (Exception e) {
+					throw IotequException.newInstance(e);
+				}
 			} else if (svasUrl==null) {
 				throw new IotequException(IotequThrowable.NOT_FOUND,"Svas server not exists");
 			} else {
@@ -1078,11 +1162,15 @@ class SvasClient  {
 
 	public Map<String,Object>  getEnvProperties() throws IotequException {
 		if (svasServer!=null) {
-			// svein_getEnvProperties()
-			Object o=EntityUtil.runMethod(svasServer, "svein_getEnvProperties");
-			if (o!=null) {
-				return (Map<String,Object>)o;
-			} else return null;
+			try {
+				// svein_getEnvProperties()
+				Object o=EntityUtil.runMethod(svasServer, "svein_getEnvProperties");
+				if (o!=null) {
+					return (Map<String,Object>)o;
+				} else return null;
+			} catch (Exception e) {
+				throw IotequException.newInstance(e);
+			}
 		} else if (svasUrl==null) {
 			return null;
 		} else {

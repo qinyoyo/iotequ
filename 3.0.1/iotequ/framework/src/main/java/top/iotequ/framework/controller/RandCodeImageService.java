@@ -16,8 +16,8 @@ import com.jhlabs.image.TransformFilter;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import top.iotequ.framework.util.StringUtil;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.StringUtil;
+import top.iotequ.util.Util;
 
 
 @RestController

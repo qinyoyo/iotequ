@@ -1,4 +1,4 @@
-package top.iotequ.framework.util;
+package top.iotequ.util;
 
 import java.awt.Color;
 import java.awt.Font;

@@ -1,6 +1,6 @@
 package top.iotequ.framework.security.restlogin;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.SneakyThrows;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -9,8 +9,8 @@ import top.iotequ.framework.exception.IotequThrowable;
 import top.iotequ.framework.pojo.User;
 import top.iotequ.framework.security.authentication.CustomAuthenticationProvider;
 import top.iotequ.framework.security.authentication.CustomWebAuthenticationDetails;
-import top.iotequ.framework.util.RestJson;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.RestJson;
+import top.iotequ.util.Util;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +20,7 @@ import java.util.Objects;
 
 @Component
 public class RestAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
+    @SneakyThrows
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         RestJson j = new RestJson();
@@ -27,7 +28,9 @@ public class RestAuthenticationSuccessHandler extends SavedRequestAwareAuthentic
             User user = (User) authentication.getPrincipal();
             if (Util.isEmpty(user.getName())) {
                 IotequException e = CustomAuthenticationProvider.getLoginException();
-                if (Objects.nonNull(e)) throw e;
+                if (Objects.nonNull(e)) {
+                    throw new ServletException(e.getMessage());
+                }
                 else throw new IotequException(IotequThrowable.ACCESS_DENIED, "name is empty");
             }
             if ("guest".equals(user.getName())) {

@@ -6,9 +6,9 @@ import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.iotequ.framework.exception.IotequException;
-import top.iotequ.framework.util.DateUtil;
-import top.iotequ.framework.util.EntityUtil;
-import top.iotequ.framework.util.SqlUtil;
+import top.iotequ.util.DateUtil;
+import top.iotequ.util.EntityUtil;
+import top.iotequ.util.SqlUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

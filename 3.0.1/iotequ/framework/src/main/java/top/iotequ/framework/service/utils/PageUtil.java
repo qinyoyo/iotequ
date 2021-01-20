@@ -3,7 +3,7 @@ package top.iotequ.framework.service.utils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.http.ResponseEntity;
-import top.iotequ.framework.util.RestJson;
+import top.iotequ.util.RestJson;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -6,15 +6,13 @@ import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.exception.IotequThrowable;
 import top.iotequ.framework.flow.impl.SysFlowProcessService;
 import top.iotequ.framework.service.utils.DictionaryUtil;
-import top.iotequ.framework.util.EntityUtil;
-import top.iotequ.framework.util.SqlUtil;
-import top.iotequ.framework.util.StringUtil;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.EntityUtil;
+import top.iotequ.util.SqlUtil;
+import top.iotequ.util.Util;
 import top.iotequ.project.ConstData;
 import top.iotequ.project.product.dao.PmProjectDao;
 import top.iotequ.project.product.pojo.PmProject;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

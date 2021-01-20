@@ -9,15 +9,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import top.iotequ.framework.util.FileUtil;
-import top.iotequ.framework.util.RestJson;
-import top.iotequ.framework.util.SqlUtil;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.FileUtil;
+import top.iotequ.util.RestJson;
+import top.iotequ.util.SqlUtil;
+import top.iotequ.util.Util;
 @Controller
 public class UploadController {
 	private static final Logger log = LoggerFactory.getLogger(UploadController.class);
@@ -73,7 +72,7 @@ public class UploadController {
 	private InputStream getUploadImagesByName(String path, String id, String field, String name) {
 		InputStream image=null;
 		if (!Util.isEmpty(name)) {
-			File imgFile=FileUtil.uploadFile(path,field,id,name);
+			File imgFile= FileUtil.uploadFile(path,field,id,name);
 			try {
 				image=new FileInputStream(imgFile);
 			} catch (FileNotFoundException e) {

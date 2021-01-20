@@ -1,7 +1,7 @@
 package top.iotequ.framework.serializer.gson;
 
 import com.google.gson.stream.JsonWriter;
-import top.iotequ.framework.util.DateUtil;
+import top.iotequ.util.DateUtil;
 
 import java.io.IOException;
 import java.util.Date;

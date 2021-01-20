@@ -26,8 +26,8 @@ import top.iotequ.framework.security.authority.CustomFilterInvocationSecurityMet
 import top.iotequ.framework.security.authority.UrlAccessDecisionManager;
 import top.iotequ.framework.security.restlogin.*;
 import top.iotequ.framework.security.service.SecurityService;
-import top.iotequ.framework.util.StringUtil;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.StringUtil;
+import top.iotequ.util.Util;
 
 @Order(2)
 @Configuration

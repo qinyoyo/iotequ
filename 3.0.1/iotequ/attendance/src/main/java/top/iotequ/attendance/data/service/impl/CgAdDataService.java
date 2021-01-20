@@ -1,7 +1,6 @@
 package top.iotequ.attendance.data.service.impl;
 import top.iotequ.attendance.data.pojo.AdData;
 import top.iotequ.attendance.data.dao.AdDataDao;
-import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +11,11 @@ import top.iotequ.framework.service.impl.CgService;
 import top.iotequ.framework.service.IDaoService;
 import org.springframework.stereotype.Service;
 import top.iotequ.framework.service.utils.DictionaryUtil;
-import top.iotequ.framework.service.utils.UploadDownUtil;
-import top.iotequ.framework.service.utils.QueryUtil;
-import top.iotequ.framework.util.*;
+import top.iotequ.util.*;
 import top.iotequ.attendance.util.AdUtil;
+import top.iotequ.util.StringUtil;
+import top.iotequ.util.Util;
+
 import java.util.*;
 
 /**************************************************

@@ -4,10 +4,9 @@
 **************************************************/
 
 package top.iotequ.codegenerator.pojo;
-import top.iotequ.framework.util.StringUtil;
+import top.iotequ.util.StringUtil;
 import lombok.Getter;
 import lombok.Setter;
-import java.util.*;
 
 //  Pojo entity : GenProject (新建项目)
 @Getter

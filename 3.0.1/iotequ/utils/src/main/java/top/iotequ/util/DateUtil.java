@@ -1,4 +1,4 @@
-package top.iotequ.framework.util;
+package top.iotequ.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -33,7 +33,7 @@ public class DateUtil {
 				} catch (Exception e) {
 				}
 				int len = dt.length();
-	            if( Pattern.matches("[0-9]+",dt)){  // 全部是数字
+				if( Pattern.matches("[0-9]+",dt)){  // 全部是数字
 					if (len==14) return new SimpleDateFormat("yyyyMMddHHmmss").parse(dt);
 					else if (len==12) return new SimpleDateFormat("yyyyMMddHHmm").parse(dt);
 					else if (len==10) return new SimpleDateFormat("yyyyMMddHH").parse(dt);
@@ -41,7 +41,7 @@ public class DateUtil {
 					else if (len==6) return new SimpleDateFormat("HHmmss").parse(dt);
 					else if (len==4) return new SimpleDateFormat("HHmm").parse(dt);
 					else return null;
-	            }
+				}
 				String ndt=dt.toLowerCase().replace("/","-").replace("am","").replace(amString.toLowerCase(),"").trim();
 				String sdt=null,sfmt=null;
 				boolean pm=false;
@@ -51,7 +51,7 @@ public class DateUtil {
 				} else if (ndt.indexOf("pm")>=0) {
 					pm=true;
 					ndt=ndt.replace("pm","").trim();
-				} 
+				}
 				if (Pattern.matches("\\d\\d\\d\\d-\\d\\d-\\d\\d.\\d\\d:\\d\\d:\\d\\d.*",ndt)) {
 					sfmt="yyyy-MM-dd "+(pm?"hh":"HH")+":mm:ss"+(pm?"a":"");
 					sdt=ndt.substring(0, 10)+" "+ndt.substring(11, 19)+(pm?pmString:"");
@@ -123,23 +123,23 @@ public class DateUtil {
 		if (dt != null)
 			ca.setTime(dt);
 		switch (mode) {
-		case WEEK:
-			ca.setFirstDayOfWeek(Calendar.MONDAY);
-			ca.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-			break;
-		case MONTH:
-			ca.set(Calendar.DAY_OF_MONTH, 1);
-			break;
-		case QUARTER:
-			ca.set(Calendar.DAY_OF_MONTH, 1);
-			int i = ca.get(Calendar.MONTH) / 3;
-			ca.set(Calendar.MONTH, 3 * i);
-			break;
-		case YEAR:
-			ca.set(Calendar.DAY_OF_MONTH, 1);
-			ca.set(Calendar.MONTH, Calendar.JANUARY);
-			break;
-		default:
+			case WEEK:
+				ca.setFirstDayOfWeek(Calendar.MONDAY);
+				ca.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+				break;
+			case MONTH:
+				ca.set(Calendar.DAY_OF_MONTH, 1);
+				break;
+			case QUARTER:
+				ca.set(Calendar.DAY_OF_MONTH, 1);
+				int i = ca.get(Calendar.MONTH) / 3;
+				ca.set(Calendar.MONTH, 3 * i);
+				break;
+			case YEAR:
+				ca.set(Calendar.DAY_OF_MONTH, 1);
+				ca.set(Calendar.MONTH, Calendar.JANUARY);
+				break;
+			default:
 		}
 		ca.set(Calendar.HOUR_OF_DAY, 0);
 		ca.set(Calendar.MINUTE, 0);
@@ -159,23 +159,23 @@ public class DateUtil {
 		if (dt != null)
 			ca.setTime(dt);
 		switch (mode) {
-		case WEEK:
-			ca.setFirstDayOfWeek(Calendar.MONDAY);
-			ca.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-			break;
-		case MONTH:
-			ca.set(Calendar.DAY_OF_MONTH, ca.getActualMaximum(Calendar.DAY_OF_MONTH));
-			break;
-		case QUARTER:
-			int i = ca.get(Calendar.MONTH) / 3;
-			ca.set(Calendar.MONTH, i * 3 + 2);
-			ca.set(Calendar.DAY_OF_MONTH, ca.getActualMaximum(Calendar.DAY_OF_MONTH));
-			break;
-		case YEAR:
-			ca.set(Calendar.DAY_OF_MONTH, 31);
-			ca.set(Calendar.MONTH, Calendar.DECEMBER);
-			break;
-		default:
+			case WEEK:
+				ca.setFirstDayOfWeek(Calendar.MONDAY);
+				ca.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+				break;
+			case MONTH:
+				ca.set(Calendar.DAY_OF_MONTH, ca.getActualMaximum(Calendar.DAY_OF_MONTH));
+				break;
+			case QUARTER:
+				int i = ca.get(Calendar.MONTH) / 3;
+				ca.set(Calendar.MONTH, i * 3 + 2);
+				ca.set(Calendar.DAY_OF_MONTH, ca.getActualMaximum(Calendar.DAY_OF_MONTH));
+				break;
+			case YEAR:
+				ca.set(Calendar.DAY_OF_MONTH, 31);
+				ca.set(Calendar.MONTH, Calendar.DECEMBER);
+				break;
+			default:
 		}
 		ca.set(Calendar.HOUR_OF_DAY, 23);
 		ca.set(Calendar.MINUTE, 59);
@@ -196,20 +196,20 @@ public class DateUtil {
 		if (dt != null)
 			ca.setTime(dt);
 		switch (mode) {
-		case WEEK:
-			ca.add(Calendar.DATE, amount * 7);
-			break;
-		case MONTH:
-			ca.add(Calendar.MONTH, amount);
-			break;
-		case QUARTER:
-			ca.add(Calendar.MONTH, amount * 3);
-			break;
-		case YEAR:
-			ca.add(Calendar.YEAR, amount);
-			break;
-		default:
-			ca.add(Calendar.DATE, amount);
+			case WEEK:
+				ca.add(Calendar.DATE, amount * 7);
+				break;
+			case MONTH:
+				ca.add(Calendar.MONTH, amount);
+				break;
+			case QUARTER:
+				ca.add(Calendar.MONTH, amount * 3);
+				break;
+			case YEAR:
+				ca.add(Calendar.YEAR, amount);
+				break;
+			default:
+				ca.add(Calendar.DATE, amount);
 		}
 		return ca.getTime();
 	}

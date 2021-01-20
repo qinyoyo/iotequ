@@ -11,14 +11,13 @@ import org.springframework.web.bind.annotation.RestController;
 import top.iotequ.framework.dao.ActionDao;
 import top.iotequ.framework.dao.PermissionDao;
 import top.iotequ.framework.event.SystemParameterChangedEvent;
-import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.exception.IotequThrowable;
 import top.iotequ.framework.pojo.Action;
 import top.iotequ.framework.pojo.Permission;
 import top.iotequ.framework.security.service.SecurityService;
-import top.iotequ.framework.util.EntityUtil;
-import top.iotequ.framework.util.RestJson;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.EntityUtil;
+import top.iotequ.util.RestJson;
+import top.iotequ.util.Util;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

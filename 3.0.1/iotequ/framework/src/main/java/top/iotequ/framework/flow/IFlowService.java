@@ -2,9 +2,8 @@ package top.iotequ.framework.flow;
 
 import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.pojo.CgEntity;
-import top.iotequ.framework.util.EntityUtil;
-import top.iotequ.framework.util.StringUtil;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.EntityUtil;
+import top.iotequ.util.Util;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;

@@ -1,8 +1,7 @@
 package top.iotequ.reader.controller;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import net.sf.json.JSONObject;
 import top.iotequ.framework.event.DeviceEvent;
-import top.iotequ.framework.util.DateUtil;
-import top.iotequ.framework.util.SqlUtil;
-import top.iotequ.framework.util.StringUtil;
-import top.iotequ.reader.dao.DevEventDao;
+import top.iotequ.util.DateUtil;
+import top.iotequ.util.SqlUtil;
+import top.iotequ.util.StringUtil;
 import top.iotequ.reader.dao.DevPeopleDao;
 import top.iotequ.reader.dao.DevReaderDao;
-import top.iotequ.reader.pojo.DevEvent;
 import top.iotequ.reader.pojo.DevPeople;
 import top.iotequ.reader.pojo.DevReader;
 import top.iotequ.reader.service.impl.D10ClientService;

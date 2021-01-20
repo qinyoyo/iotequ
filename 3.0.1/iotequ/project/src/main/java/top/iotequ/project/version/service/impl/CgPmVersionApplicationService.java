@@ -1,8 +1,6 @@
 package top.iotequ.project.version.service.impl;
 import top.iotequ.project.version.pojo.PmVersionApplication;
 import top.iotequ.project.version.dao.PmVersionApplicationDao;
-import top.iotequ.framework.flow.*;
-import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +13,10 @@ import org.springframework.stereotype.Service;
 import top.iotequ.framework.service.utils.DictionaryUtil;
 import top.iotequ.framework.service.utils.UploadDownUtil;
 import top.iotequ.framework.service.utils.QueryUtil;
-import top.iotequ.framework.util.*;
+import top.iotequ.util.*;
+import top.iotequ.util.StringUtil;
+import top.iotequ.util.Util;
+
 import java.util.*;
 
 /**************************************************
@@ -48,8 +49,8 @@ private static final Logger log = LoggerFactory.getLogger(CgPmVersionApplication
         if (Objects.isNull(dynaFields) || StringUtil.containsItem(dynaFields,"flowState")) map.put("dictFlowState",flowService.getStates());
         if (Objects.isNull(dynaFields) || StringUtil.containsItem(dynaFields,"project")) map.put("dictProject", DictionaryUtil.getDictListFromDatabase(obj,"SELECT * FROM pm_project where flow_state=8","id","name",null,false,null));
         if (Objects.isNull(dynaFields) || StringUtil.containsItem(dynaFields,"applicationType")) map.put("dictApplicationType", DictionaryUtil.getDictListFromDatabase(obj,"pm_va_type",null,null,null,false,null));
-        if (Objects.isNull(dynaFields) || StringUtil.containsItem(dynaFields,"flowNextOperator")) map.put("dictFlowNextOperator",getFlowService()==null ? null: getFlowService().getDictionaryOfNextOperator(obj,Util.getRequest().getParameter(IFlowService.flowAction),Util.getRequest().getParameter(IFlowService.flowSelection)));
-        if (Objects.isNull(dynaFields) || StringUtil.containsItem(dynaFields,"flowCopyToList")) map.put("dictFlowCopyToList",getFlowService()==null ? null: getFlowService().getDictionaryOfCopyToList(obj,Util.getRequest().getParameter(IFlowService.flowAction),Util.getRequest().getParameter(IFlowService.flowSelection)));
+        if (Objects.isNull(dynaFields) || StringUtil.containsItem(dynaFields,"flowNextOperator")) map.put("dictFlowNextOperator",getFlowService()==null ? null: getFlowService().getDictionaryOfNextOperator(obj, Util.getRequest().getParameter(IFlowService.flowAction), Util.getRequest().getParameter(IFlowService.flowSelection)));
+        if (Objects.isNull(dynaFields) || StringUtil.containsItem(dynaFields,"flowCopyToList")) map.put("dictFlowCopyToList",getFlowService()==null ? null: getFlowService().getDictionaryOfCopyToList(obj, Util.getRequest().getParameter(IFlowService.flowAction), Util.getRequest().getParameter(IFlowService.flowSelection)));
         if (Objects.isNull(dynaFields) || StringUtil.containsItem(dynaFields,"flowSelection")) map.put("dictFlowSelection",getFlowService()==null ? null: getFlowService().getSelections(Util.getRequest().getParameter(IFlowService.flowAction)));
         return map;
     }

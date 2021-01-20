@@ -1,7 +1,6 @@
 package top.iotequ.framework.exception;
 
-import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.CommonUtil;
 
 public interface IotequThrowable {
 	public static final String VERSION_EXPIRED = "version_expired";
@@ -53,28 +52,28 @@ public interface IotequThrowable {
 
 	public static final String ERROR_404 = "resource_not_found";
 	public static final String EXCEPTION = "Internal Server Error";
-	public static final String ERROR = OAuth2Exception.ERROR; // "error";
-	public static final String DESCRIPTION = OAuth2Exception.DESCRIPTION; //"error_description";
-	public static final String URI = OAuth2Exception.URI; //"error_uri";
-	public static final String INVALID_REQUEST = OAuth2Exception.INVALID_REQUEST;//"invalid_request";
-	public static final String INVALID_CLIENT = OAuth2Exception.INVALID_CLIENT; // "invalid_client";
-	public static final String INVALID_GRANT = OAuth2Exception.INVALID_GRANT; // "invalid_grant";
-	public static final String UNAUTHORIZED_CLIENT = OAuth2Exception.UNAUTHORIZED_CLIENT; // "unauthorized_client";
-	public static final String UNSUPPORTED_GRANT_TYPE = OAuth2Exception.UNSUPPORTED_GRANT_TYPE; //"unsupported_grant_type";
-	public static final String INVALID_SCOPE = OAuth2Exception.INVALID_SCOPE; // "invalid_scope";
-	public static final String INSUFFICIENT_SCOPE = OAuth2Exception.INSUFFICIENT_SCOPE; // "insufficient_scope";
-	public static final String INVALID_TOKEN = OAuth2Exception.INVALID_TOKEN; // "invalid_token";
-	public static final String REDIRECT_URI_MISMATCH = OAuth2Exception.REDIRECT_URI_MISMATCH; //"redirect_uri_mismatch";
-	public static final String UNSUPPORTED_RESPONSE_TYPE = OAuth2Exception.UNSUPPORTED_RESPONSE_TYPE; // "unsupported_response_type";
-	public static final String ACCESS_DENIED= OAuth2Exception.ACCESS_DENIED; //"access_denied"
+	public static final String ERROR = "error"; //OAuth2Exception.ERROR;
+	public static final String DESCRIPTION = "error_description"; //OAuth2Exception.DESCRIPTION;
+	public static final String URI = "error_uri"; //OAuth2Exception.URI;
+	public static final String INVALID_REQUEST = "invalid_request"; //OAuth2Exception.INVALID_REQUEST;
+	public static final String INVALID_CLIENT = "invalid_client"; //OAuth2Exception.INVALID_CLIENT;
+	public static final String INVALID_GRANT = "invalid_grant"; // OAuth2Exception.INVALID_GRANT;
+	public static final String UNAUTHORIZED_CLIENT = "unauthorized_client"; // OAuth2Exception.UNAUTHORIZED_CLIENT;
+	public static final String UNSUPPORTED_GRANT_TYPE = "unsupported_grant_type"; // OAuth2Exception.UNSUPPORTED_GRANT_TYPE;
+	public static final String INVALID_SCOPE = "invalid_scope"; // OAuth2Exception.INVALID_SCOPE;
+	public static final String INSUFFICIENT_SCOPE = "insufficient_scope"; // OAuth2Exception.INSUFFICIENT_SCOPE;
+	public static final String INVALID_TOKEN = "invalid_token"; // OAuth2Exception.INVALID_TOKEN;
+	public static final String REDIRECT_URI_MISMATCH = "redirect_uri_mismatch"; // OAuth2Exception.REDIRECT_URI_MISMATCH;
+	public static final String UNSUPPORTED_RESPONSE_TYPE =  "unsupported_response_type"; // OAuth2Exception.UNSUPPORTED_RESPONSE_TYPE;
+	public static final String ACCESS_DENIED= "access_denied"; // OAuth2Exception.ACCESS_DENIED;
 	public static final String NO_AUTHORITY= "no_authority";
 	public static final String TOKEN_EXPIRED="token_expired";
 
 	public static final String FLOW_ERROR_STATE="flow_error_state";
 	public static final String FLOW_ERROR_OPRATION="flow_error_operation";
 
-	static String mergeMessage(String code,String addtional) {
-		return code + (Util.isEmpty(addtional)?"":"("+addtional+")");
+	static String mergeMessage(String code, String addtional) {
+		return code + (CommonUtil.isEmpty(addtional)?"":"("+addtional+")");
 	}
 	String getError();
 	String getAddtionalMessage();

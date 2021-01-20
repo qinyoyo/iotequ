@@ -19,7 +19,8 @@ import top.iotequ.framework.service.IDaoService;
 import top.iotequ.framework.service.IGetPagedData;
 import top.iotequ.framework.service.IImportPagedData;
 import top.iotequ.framework.service.utils.*;
-import top.iotequ.framework.util.*;
+import top.iotequ.util.*;
+import top.iotequ.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -189,16 +190,20 @@ public abstract class CgService<T extends CgEntity> implements ICgService<T>, Co
         return data;
     }
 
-    public RestJson getListPageData(Boolean needLoadDictionary,String resortFirstField, Integer pageSize,Integer pageNumber,String sort,String order, String search,HttpServletRequest request) throws IotequException {
+    public RestJson getListPageData(Boolean needLoadDictionary, String resortFirstField, Integer pageSize, Integer pageNumber, String sort, String order, String search, HttpServletRequest request) throws IotequException {
         checkAvailable();
         if (!Util.isEmpty(resortFirstField)) dragSort(resortFirstField, getDataList(null, null, resortFirstField, "asc", null, request), request);
         List<T> data=getDataList(pageSize, pageNumber, sort, order, search, request);
         RestJson j = new RestJson();
         beforeList(data,request);
 	    if (Objects.nonNull(flowService) && !Util.isEmpty(data)) {
-            String userId=Util.getUser().getId();
+            String userId= Util.getUser().getId();
             for (T d:data) {
-                EntityUtil.setPrivateField(d,"flowAvailableActions",IFlowService.getAllOperations(request,flowService, d, userId));
+                try {
+                    EntityUtil.setPrivateField(d, "flowAvailableActions", IFlowService.getAllOperations(request, flowService, d, userId));
+                } catch (Exception e) {
+                    throw IotequException.newInstance(e);
+                }
             }
         }
         PageInfo<T> pageInfo = new PageInfo<>(data);
@@ -239,7 +244,7 @@ public abstract class CgService<T extends CgEntity> implements ICgService<T>, Co
 
     @Transactional(rollbackFor=Exception.class)
     @Override
-    public RestJson doSave(boolean isNew, String flowCode,Integer totalFilePart, T obj, String idSaved, HttpServletRequest request) throws Exception {
+    public RestJson doSave(boolean isNew, String flowCode, Integer totalFilePart, T obj, String idSaved, HttpServletRequest request) throws Exception {
         if (obj==null) throw new IotequException(IotequThrowable.NULL_OBJECT,"obj");
         T objFromClient = EntityUtil.entityCopyFrom(getEntityClass(),obj);
         if (!Util.isEmpty(annotation.parentEntityField()) && !Util.isEmpty(annotation.entityPk())) {
@@ -374,7 +379,7 @@ public abstract class CgService<T extends CgEntity> implements ICgService<T>, Co
     }
 
     @Transactional(rollbackFor=Exception.class)
-    @Override public  RestJson doDelete(String id,List<Map<String,String>> sons, HttpServletRequest request) throws IotequException {
+    @Override public RestJson doDelete(String id, List<Map<String,String>> sons, HttpServletRequest request) throws IotequException {
         RestJson j=new RestJson();
         checkAvailable();
         if (Util.isEmpty(id)) throw new IotequException(IotequThrowable.NULL_OBJECT,"id");
@@ -401,7 +406,7 @@ public abstract class CgService<T extends CgEntity> implements ICgService<T>, Co
         return j;
     }
     @Transactional(rollbackFor=Exception.class)
-    @Override public   RestJson doBatchDelete(String ids,List<Map<String,String>> sons,HttpServletRequest request) throws IotequException {
+    @Override public RestJson doBatchDelete(String ids, List<Map<String,String>> sons, HttpServletRequest request) throws IotequException {
         checkAvailable();
         if (Util.isEmpty(ids)) throw new IotequException(IotequThrowable.NULL_OBJECT,"ids");
         RestJson j=new RestJson();
@@ -467,7 +472,7 @@ public abstract class CgService<T extends CgEntity> implements ICgService<T>, Co
 
     @Transactional(rollbackFor=Exception.class)
     @Override
-    public RestJson doImport(MultipartFile file,HttpServletRequest request) throws Exception {
+    public RestJson doImport(MultipartFile file, HttpServletRequest request) throws Exception {
         checkAvailable();
         RestJson j=new RestJson();
         j.parameter(Util.ORG_FILTER_CONDITION,false);

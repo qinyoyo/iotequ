@@ -4,12 +4,11 @@
 **************************************************/
 
 package top.iotequ.reader.pojo;
-import top.iotequ.framework.util.StringUtil;
+import top.iotequ.util.StringUtil;
 import top.iotequ.framework.pojo.CgEntity;
 import lombok.Getter;
 import lombok.Setter;
-import top.iotequ.framework.util.CgTableAnnotation;
-import java.util.*;
+import top.iotequ.util.CgTableAnnotation;
 
 //  Pojo entity : DevData (设备数据)
 @CgTableAnnotation(name="null",

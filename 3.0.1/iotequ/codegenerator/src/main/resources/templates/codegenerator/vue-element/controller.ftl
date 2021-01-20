@@ -60,7 +60,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 </#if>
 import top.iotequ.framework.service.ICgService;
-import top.iotequ.framework.util.*;
+import top.iotequ.util.*;
 <#if table.imports?? && table.imports?trim !="">
 <#assign imports = table.imports?trim?split(",") >
 <#list imports as i>

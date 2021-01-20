@@ -4,14 +4,13 @@
 **************************************************/
 
 package top.iotequ.reader.pojo;
-import top.iotequ.framework.util.StringUtil;
+import top.iotequ.util.StringUtil;
 import top.iotequ.framework.pojo.CgEntity;
 import lombok.Getter;
 import lombok.Setter;
 import com.google.gson.annotations.SerializedName;
-import top.iotequ.framework.util.CgFieldAnnotation;
-import top.iotequ.framework.util.CgTableAnnotation;
-import java.util.*;
+import top.iotequ.util.CgFieldAnnotation;
+import top.iotequ.util.CgTableAnnotation;
 
 //  Pojo entity : DevPeopleGroup (分组人员)
 @CgTableAnnotation(name="dev_people_group",

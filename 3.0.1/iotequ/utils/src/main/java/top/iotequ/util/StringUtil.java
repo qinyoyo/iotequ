@@ -1,4 +1,4 @@
-package top.iotequ.framework.util;
+package top.iotequ.util;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -9,12 +9,19 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.google.gson.Gson;
-import org.springframework.lang.NonNull;
-
-import javax.servlet.http.HttpServletRequest;
-
 public class StringUtil {
+	public interface IRegAction {
+		void found(int index, Matcher m);
+	}
+	static public void doRegAction(String s, boolean caseInsensitive, String regExpress, IRegAction action) {
+		Pattern p = Pattern.compile(regExpress, (caseInsensitive ? Pattern.CASE_INSENSITIVE : 0) | Pattern.MULTILINE | Pattern.DOTALL);
+		Matcher m = p.matcher(s);
+		int index=0;
+		while (m.find()) {
+			action.found(index,m);
+			index++;
+		}
+	}
 	/**
 	 * 对象转换为string，避免为null是的错误
 	 * @param o	 对象
@@ -28,22 +35,10 @@ public class StringUtil {
 		} else
 			return o.toString();
 	}
-	/**
-	 * @param o  对象
-	 * @return ：对象转换为json string
-	 */
-	static public String toJsonString(Object o) {
-		if (o == null)
-			return null;
-		else {
-			Gson gson = Util.getGson();  
-			String s=gson.toJson(o);
-			return s;
-		}		
-	}
 
-	static public boolean containsItem(String list,@NonNull String item){
-		if (Util.isEmpty(list)) return false;
+
+	static public boolean containsItem(String list,String item){
+		if (CommonUtil.isEmpty(list) || item==null) return false;
 		String [] ll = list.split(",");
 		return Arrays.stream(ll).anyMatch(x->item.trim().equals(x.trim()));
 	}
@@ -77,7 +72,7 @@ public class StringUtil {
 	 * @return 驼峰字符串
 	 */
 	public static String camelString(String s) {
-		if (Util.isEmpty(s))
+		if (CommonUtil.isEmpty(s))
 			return s;
 		s = s.trim();
 		String[] ss = s.toLowerCase().replace(" ", "_").replaceAll("[-/\\\\\\.]", "_").split("_");
@@ -92,7 +87,7 @@ public class StringUtil {
 	 * @return pascal字符串
 	 */
 	public static String pascalString(String s) {
-		if (Util.isEmpty(s))
+		if (CommonUtil.isEmpty(s))
 			return s;
 		s = s.trim();
 		String[] ss = s.toLowerCase().replace(" ", "_").replaceAll("-", "_").split("_");
@@ -107,7 +102,7 @@ public class StringUtil {
 	 * @return kebab字符串
 	 */
 	public static String kebabString(String s) {
-		if (Util.isEmpty(s))
+		if (CommonUtil.isEmpty(s))
 			return s;
 		s = s.trim();
 		String[] ss = s.toLowerCase().replace(" ", "_").replaceAll("-", "_").split("_");
@@ -150,7 +145,7 @@ public class StringUtil {
 	 * @return 字符串的加密值
 	 */
 	public static String encodePassword(String password) {
-		if (Util.isEmpty(password))
+		if (CommonUtil.isEmpty(password))
 			return password;
 		MessageDigest md5 = null;
 		try {
@@ -184,17 +179,9 @@ public class StringUtil {
 		e.printStackTrace(pw);  
 		return sw.toString();
 	}
-	static public String getParameter(String key, HttpServletRequest request) throws Exception{
-		if (request == null || key==null)	return null;
-		String contentType = request.getHeader("content-type");
-		String method = request.getMethod();
-		if (!Util.isEmpty(contentType) && !Util.isEmpty(method)
-				&& method.toLowerCase().equals("post") 	&& contentType.toLowerCase().contains("json")) {  // json post 模式
-			return HttpUtils.getRequestBodyParameter(key,request);
-		} else return request.getParameter(key);
-	}
+
 	static public String regGroup(String reg,String s,int group) {
-		if (Util.isEmpty(reg) || Util.isEmpty(s) || group<0) return null;
+		if (CommonUtil.isEmpty(reg) || CommonUtil.isEmpty(s) || group<0) return null;
 		Pattern p = Pattern.compile(reg);
 		Matcher m = p.matcher(s);
 		if (m.find() && group<=m.groupCount()) return m.group(group);

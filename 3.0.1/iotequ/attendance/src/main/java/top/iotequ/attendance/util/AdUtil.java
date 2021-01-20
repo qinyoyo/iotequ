@@ -33,7 +33,8 @@ import top.iotequ.attendance.specialshifttime.pojo.AdSpecialShiftTime;
 import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.exception.IotequThrowable;
 import top.iotequ.framework.service.ICgService;
-import top.iotequ.framework.util.*;
+import top.iotequ.util.*;
+import top.iotequ.util.*;
 
 
 public class AdUtil {
@@ -134,7 +135,7 @@ public class AdUtil {
 			levelProperty0=ss.getLevelProperty0();
 			levelProperty1=ss.getLevelProperty1();
 			adMode=ss.getModeProperty();
-			List<AdSpecialShiftTime> sstl=Util.getBean(AdSpecialShiftTimeDao.class).listBy("special_shift_id="+ss.getId(), "start_time");
+			List<AdSpecialShiftTime> sstl= Util.getBean(AdSpecialShiftTimeDao.class).listBy("special_shift_id="+ss.getId(), "start_time");
 			if (sstl!=null && sstl.size()>0) {
 				range=new ArrayList<AdTimeRange>();
 				for (AdSpecialShiftTime st:sstl) {
@@ -170,7 +171,7 @@ public class AdUtil {
 			if (date==null) return null;
 			String dt=DateUtil.date2String(date,"yyyy-MM-dd");
 			String whe = String.format("start_date<='%s' and end_date>='%s'",dt,dt);
-			List<AdSpecialShift> ssl=Util.getBean(AdSpecialShiftDao.class).listBy(whe,null);
+			List<AdSpecialShift> ssl= Util.getBean(AdSpecialShiftDao.class).listBy(whe,null);
 			if (ssl!=null && ssl.size()>0) {
 				ArrayList<SpecialShift> r=new ArrayList<SpecialShift>();
 				for (AdSpecialShift ss:ssl) r.add(new SpecialShift(ss));
@@ -185,12 +186,12 @@ public class AdUtil {
 			String dt=DateUtil.date2String(date,"yyyy-MM-dd");
 			String whe = String.format("shift_id=%d and start_date<='%s' and end_date>='%s'",shift,dt,dt);
 			//是否存在节假日以及调班安排
-			List<AdException> el=Util.getBean(AdExceptionDao.class).listBy(whe,null);
+			List<AdException> el= Util.getBean(AdExceptionDao.class).listBy(whe,null);
 			if (el!=null && el.size()>0) weekDay=el.get(0).getWeekDay();
 			else 	weekDay=DateUtil.weekOf(date);
-			String fis=SqlUtil.findInSet(String.valueOf(weekDay),true,false,"week_days",false);
+			String fis= SqlUtil.findInSet(String.valueOf(weekDay),true,false,"week_days",false);
 			whe=String.format("shift_id=%d and %s", shift,fis);
-			List<AdShiftTime> stList=Util.getBean(AdShiftTimeDao.class).listBy(whe, "start_work_time");
+			List<AdShiftTime> stList= Util.getBean(AdShiftTimeDao.class).listBy(whe, "start_work_time");
 			if (stList!=null && stList.size()>0) {
 				ArrayList<AdTimeRange> wr=new ArrayList<AdTimeRange>();
 				for (AdShiftTime st:stList) {
@@ -304,9 +305,9 @@ public class AdUtil {
 		}
 		for (AdOrg o : orgList) {
 			if (code==o.getOrgCode() || (calcChildrenOrg && OrgUtil.isOrgChildren(o.getOrgCode(),code))) {
-				ICgService adEmployeeService=(ICgService)Util.getBean("adEmployeeService");
+				ICgService adEmployeeService=(ICgService) Util.getBean("adEmployeeService");
 				String filter=SqlUtil.licenceCondition("ad_employee", "id", adEmployeeService.getLicence());
-				List<AdEmployee> users=Util.getBean(AdEmployeeDao.class).listBy(
+				List<AdEmployee> users= Util.getBean(AdEmployeeDao.class).listBy(
 						"sys_user.org_code="+o.getOrgCode()+" and ad_employee.is_attendance=1"+(filter==null?"":" and "+filter),
 						"ad_employee.employee_no");
 				for (AdEmployee e:users) {
@@ -319,7 +320,7 @@ public class AdUtil {
 	
 	// 获得所有部门的考勤配置参数
 	 private static List<AdOrg> getAdOrgList() {
-		List<AdOrg> list=Util.getBean(AdOrgDao.class).listBy(null,"org_code"); 
+		List<AdOrg> list= Util.getBean(AdOrgDao.class).listBy(null,"org_code");
 		for (AdOrg me:list) {
 			Integer pid=me.getParent(), shift=me.getShiftId(), deviation=me.getDeviation(), managerOrgCode = me.getManagerOrgCode(),
 					floatLimit=me.getFloatLimit(),absentLimit=me.getAbsentLimit(),freeWorkLimit=me.getFreeWorkLimit();
@@ -831,9 +832,9 @@ public class AdUtil {
 		if (Util.isEmpty(content)) content=o.getDescription();
 		String sendTo=o.getApprover();
 		if (!Util.isEmpty(sendTo))  {
-			Integer msgid=Util.sendMessage(sendTo,title , content, url,o.getId());
+			Integer msgid= Util.sendMessage(sendTo,title , content, url,o.getId());
 			if (useSms) {
-				String smsModules=Util.getBean(Environment.class).getProperty("sms.modules");
+				String smsModules= Util.getBean(Environment.class).getProperty("sms.modules");
 				if (smsModules!=null && smsModules.toLowerCase().contains("attendance")) {
 					try {
 							String mobile=SqlUtil.sqlQueryString(false, "select mobile_phone from sys_user where id=?",sendTo);
@@ -870,9 +871,9 @@ public class AdUtil {
 		String smsTitle=title;
 		title=String.format("%s : %s[%s]", em.getRealName(),title,(shiftName==null ? "" : shiftName));
 		String content=DateUtil.date2String(dt,"yyyy-MM-dd : " ) + o.toString();
-		Integer msgid=Util.sendMessage(em.getId(),null,title , content, null,eid);
+		Integer msgid= Util.sendMessage(em.getId(),null,title , content, null,eid);
 		if (useSms) {
-			String smsModules=Util.getBean(Environment.class).getProperty("sms.modules");
+			String smsModules= Util.getBean(Environment.class).getProperty("sms.modules");
 			if (smsModules!=null && smsModules.toLowerCase().contains("attendance")) {
 				try {
 						String mobile=SqlUtil.sqlQueryString(false, "select mobile_phone from sys_user where id=?",em.getId());
@@ -907,7 +908,7 @@ public class AdUtil {
 			}
 		}
 		if (shiftId==null) shiftId=10000;
-		AdDayResultDao dao=Util.getBean(AdDayResultDao.class);
+		AdDayResultDao dao= Util.getBean(AdDayResultDao.class);
 		AdDayResult r=new AdDayResult();
 		r.setAdDate(date);
 		r.setEmployee(em.getId());
@@ -927,7 +928,7 @@ public class AdUtil {
 	}
 
 	public static String dataFilter(boolean useNo,Class<?> clazz) {
-		String id=Util.getUser().getId();
+		String id= Util.getUser().getId();
 		if (Util.isEmpty(id)) return "1=2";
 		String employeeNo= null;
 		try {
@@ -952,7 +953,7 @@ public class AdUtil {
 		int week=1;
 		while (week<6 && rgWork.size()==0) {
 			String whe=String.format("shift_id=%d and week_days=%d", shift,week);
-			List<AdShiftTime> stList=Util.getBean(AdShiftTimeDao.class).listBy(whe, "start_work_time");
+			List<AdShiftTime> stList= Util.getBean(AdShiftTimeDao.class).listBy(whe, "start_work_time");
 			if (stList!=null && stList.size()>0) {
 				for (AdShiftTime st:stList) {
 					rgWork.add(new AdTimeRange(st));

@@ -15,12 +15,14 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 import top.iotequ.framework.dao.SqlDao;
 import top.iotequ.framework.exception.IotequDatabaseException;
-import top.iotequ.framework.exception.IotequException;
-import top.iotequ.framework.util.*;
+import top.iotequ.util.*;
+import top.iotequ.util.EntityUtil;
+import top.iotequ.util.OrgUtil;
+import top.iotequ.util.SqlUtil;
+import top.iotequ.util.Util;
 
 @Service
 public class SqlService {
@@ -68,7 +70,7 @@ public class SqlService {
 	}
 
 	public <T> List<T> query(Class<T> clazz, boolean filterOrg,String sql,Object ... params) throws IotequDatabaseException {
-		String s=SqlUtil.sqlString(sql, params);
+		String s= SqlUtil.sqlString(sql, params);
 		try {
 			if (filterOrg) {
 				String tableName = EntityUtil.getDBTableNameFrom(clazz);

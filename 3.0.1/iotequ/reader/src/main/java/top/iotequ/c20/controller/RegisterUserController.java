@@ -16,7 +16,7 @@ import top.iotequ.c20.controller.C20HttpServer.*;
 import top.iotequ.c20.controller.C20HttpServer.UserBaseInfoRsp.C20Finger;
 import top.iotequ.framework.event.DeviceEvent;
 import top.iotequ.framework.event.PeopleInfoChangedEvent;
-import top.iotequ.framework.util.*;
+import top.iotequ.util.*;
 import top.iotequ.reader.dao.DevPeopleDao;
 import top.iotequ.reader.pojo.DevPeople;
 import top.iotequ.svasclient.SvasService;
@@ -25,6 +25,7 @@ import top.iotequ.svasclient.SvasTypes.SvasMatched;
 import top.iotequ.svasclient.SvasTypes.SvasTemplates;
 import top.iotequ.svasclient.TemplatesChangedEvent;
 import top.iotequ.reader.service.impl.DevPeopleService;
+import top.iotequ.util.*;
 
 import javax.xml.bind.DatatypeConverter;
 import java.io.*;

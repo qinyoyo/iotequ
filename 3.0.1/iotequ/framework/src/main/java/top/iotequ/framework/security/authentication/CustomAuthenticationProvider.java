@@ -19,7 +19,8 @@ import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.exception.IotequThrowable;
 import top.iotequ.framework.pojo.User;
 import top.iotequ.framework.security.service.SecurityService;
-import top.iotequ.framework.util.*;
+import top.iotequ.util.*;
+import top.iotequ.util.*;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -89,7 +90,7 @@ public class CustomAuthenticationProvider extends DaoAuthenticationProvider {
 					idType = (int) EntityUtil.getPrivateField(info, "idType");
 					idNo = (String) EntityUtil.getPrivateField(info, "idNo");
 					if (Util.isEmpty(idNo)) throw newSveinException("未找到注册手指，请检查参数");
-				} catch (IotequException e) {
+				} catch (Exception e) {
 					throw newSveinException("未找到注册手指，请检查参数");
 				}
 			}

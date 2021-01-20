@@ -7,9 +7,9 @@ import top.iotequ.codegenerator.pojo.*;
 import top.iotequ.codegenerator.service.impl.DtoService;
 import top.iotequ.codegenerator.service.impl.GenService;
 import top.iotequ.framework.exception.IotequException;
-import top.iotequ.framework.util.SqlUtil;
-import top.iotequ.framework.util.StringUtil;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.SqlUtil;
+import top.iotequ.util.StringUtil;
+import top.iotequ.util.Util;
 
 import java.util.List;
 import java.util.Objects;

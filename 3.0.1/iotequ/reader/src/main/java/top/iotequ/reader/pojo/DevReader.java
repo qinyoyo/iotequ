@@ -4,15 +4,14 @@
 **************************************************/
 
 package top.iotequ.reader.pojo;
-import top.iotequ.framework.util.*;
-import top.iotequ.framework.util.StringUtil;
+import top.iotequ.util.*;
+import top.iotequ.util.StringUtil;
 import top.iotequ.framework.pojo.CgEntity;
 import lombok.Getter;
 import lombok.Setter;
 import com.google.gson.annotations.SerializedName;
-import top.iotequ.framework.util.CgFieldAnnotation;
-import top.iotequ.framework.util.CgTableAnnotation;
-import java.util.*;
+import top.iotequ.util.CgFieldAnnotation;
+import top.iotequ.util.CgTableAnnotation;
 
 //  Pojo entity : DevReader (终端设备表)
 @CgTableAnnotation(name="dev_reader",

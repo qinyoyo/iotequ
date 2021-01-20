@@ -3,15 +3,13 @@ package top.iotequ.framework.service.utils;
 import lombok.NonNull;
 import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.exception.IotequThrowable;
-import top.iotequ.framework.util.EntityUtil;
-import top.iotequ.framework.util.OrgUtil;
-import top.iotequ.framework.util.SqlUtil;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.EntityUtil;
+import top.iotequ.util.OrgUtil;
+import top.iotequ.util.SqlUtil;
+import top.iotequ.util.Util;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class QueryUtil {
     private static boolean charsIn(String s,String matches) {
@@ -156,7 +154,7 @@ public class QueryUtil {
                 Class<?> fieldClazz = null;
                 try {
                     fieldClazz = EntityUtil.getFieldTypeName(clazz,f);
-                } catch (IotequException e) {
+                } catch (Exception e) {
                     continue;
                 }
                 String expression = EntityUtil.getDBFieldExpressionFrom(clazz,f);
@@ -189,9 +187,9 @@ public class QueryUtil {
                                 }
                             }
                         } 	else if (showType.equals("date") || showType.equals("time") || showType.equals("datetime")) {
-                            String dt0=Util.isEmpty(o0)?null:o0.substring(showType.equals("time") ? 11 : 0 ,showType.equals("time") ? 16 : (showType.equals("date") ?10 :16)) + (showType.equals("date")? "" : ":00"),
-                                    dt1=Util.isEmpty(o1)?null:o1.substring(showType.equals("time") ? 11 : 0 ,showType.equals("time") ? 16 : (showType.equals("date") ?10 :16)) + (showType.equals("date")? "" : ":59"),
-                                    dt2=Util.isEmpty(o2)?null:o2.substring(showType.equals("time") ? 11 : 0 ,showType.equals("time") ? 16 : (showType.equals("date") ?10 :16)) + (showType.equals("date")? "" : ":00");
+                            String dt0= Util.isEmpty(o0)?null:o0.substring(showType.equals("time") ? 11 : 0 ,showType.equals("time") ? 16 : (showType.equals("date") ?10 :16)) + (showType.equals("date")? "" : ":00"),
+                                    dt1= Util.isEmpty(o1)?null:o1.substring(showType.equals("time") ? 11 : 0 ,showType.equals("time") ? 16 : (showType.equals("date") ?10 :16)) + (showType.equals("date")? "" : ":59"),
+                                    dt2= Util.isEmpty(o2)?null:o2.substring(showType.equals("time") ? 11 : 0 ,showType.equals("time") ? 16 : (showType.equals("date") ?10 :16)) + (showType.equals("date")? "" : ":00");
                             String yh="'";
                             if (!Util.isEmpty(dt0) && !Util.isEmpty(dt1) ) {
                                 whereList.add( fieldAlias +" between "+yh+dt0+yh+" and "+yh+dt1+yh);

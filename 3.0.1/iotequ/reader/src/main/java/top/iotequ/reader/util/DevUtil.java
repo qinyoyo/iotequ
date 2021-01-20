@@ -21,7 +21,7 @@ import com.dyna.codec.ResponseCode;
 import top.iotequ.framework.event.PeopleInfoChangedEvent;
 import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.exception.IotequThrowable;
-import top.iotequ.framework.util.*;
+import top.iotequ.util.*;
 import top.iotequ.reader.pojo.DevAuthConfig;
 import top.iotequ.reader.service.impl.DevPeopleService;
 import top.iotequ.svasclient.SvasTypes.*;
@@ -31,6 +31,7 @@ import top.iotequ.reader.pojo.DevPeople;
 import top.iotequ.reader.pojo.DevReader;
 import top.iotequ.reader.pojo.DevReaderGroup;
 import top.iotequ.reader.service.impl.D10ClientService;
+import top.iotequ.util.*;
 
 public class DevUtil {
 	static final boolean DEBUG=false;
@@ -145,7 +146,7 @@ public class DevUtil {
 			}
 		}
 		else  {
-			Util.setProgress(pro1);		
+			Util.setProgress(pro1);
 		}		
 		return sb.toString();
 	}
@@ -504,7 +505,7 @@ public class DevUtil {
 					}
 					p.setIdType(userInfo.idType);
 					p.setIdNumber(userInfo.idNo);
-					DevPeopleDao dao=Util.getBean(DevPeopleDao.class);
+					DevPeopleDao dao= Util.getBean(DevPeopleDao.class);
 					p.setUserNo(usernum);
 					if (!Util.isEmpty(u.getUsername()))  p.setRealName(u.getUsername());
 					else if (newUser) p.setRealName(userInfo.name);
@@ -534,7 +535,7 @@ public class DevUtil {
 					if (ff!=null && ff.length>0) {
 						for (FingerInfo f:ff) {
 							if (f!=null) {
-								Object bean=Util.getBean(SvasService.class);
+								Object bean= Util.getBean(SvasService.class);
 								try {
 //									EntityUtil.runMethod(bean,"removeTemplate", usernum,Integer.valueOf(f.getFignerIndex()));
 									EntityUtil.runMethod(bean,"addTemplate", usernum,Integer.valueOf(f.getFignerIndex()),10+Integer.valueOf(f.getFignerIndex()),f.getTemplates(),f.getWarningfinger()==1);

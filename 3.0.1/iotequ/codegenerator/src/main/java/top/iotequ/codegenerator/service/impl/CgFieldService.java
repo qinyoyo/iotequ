@@ -1,7 +1,6 @@
 package top.iotequ.codegenerator.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import top.iotequ.codegenerator.pojo.CgField;
 import top.iotequ.codegenerator.pojo.CgForm;
@@ -9,10 +8,10 @@ import top.iotequ.codegenerator.pojo.CgList;
 import top.iotequ.framework.exception.IotequException;
 
 import top.iotequ.framework.service.utils.DictionaryUtil;
-import top.iotequ.framework.util.*;
+import top.iotequ.util.*;
+import top.iotequ.util.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 @Service

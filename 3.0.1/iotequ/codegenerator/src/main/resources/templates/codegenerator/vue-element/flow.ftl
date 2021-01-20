@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import top.iotequ.framework.flow.*;
 import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.${table.entity?uncap_first}.FlowProcess;
-import top.iotequ.framework.util.*;
-import top.iotequ.framework.util.SqlUtil;
+import top.iotequ.util.*;
+import SqlUtil;
 import ${basePackage}.${POJO}.${table.entity};
 
 @Service

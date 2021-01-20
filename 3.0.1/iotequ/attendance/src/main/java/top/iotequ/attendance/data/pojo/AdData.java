@@ -4,7 +4,7 @@
 **************************************************/
 
 package top.iotequ.attendance.data.pojo;
-import top.iotequ.framework.util.StringUtil;
+import top.iotequ.util.StringUtil;
 import top.iotequ.framework.pojo.CgEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,8 +18,8 @@ import com.google.gson.annotations.JsonAdapter;
 import top.iotequ.framework.serializer.jackson.TimeSerializer;
 import top.iotequ.framework.serializer.gson.GsonTimeTypeAdapter;
 import com.google.gson.annotations.SerializedName;
-import top.iotequ.framework.util.CgFieldAnnotation;
-import top.iotequ.framework.util.CgTableAnnotation;
+import top.iotequ.util.CgFieldAnnotation;
+import top.iotequ.util.CgTableAnnotation;
 import java.util.*;
 
 //  Pojo entity : AdData (考勤数据)

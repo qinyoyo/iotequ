@@ -5,9 +5,9 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.pojo.OauthClientDetails;
-import top.iotequ.framework.util.RestJson;
-import top.iotequ.framework.util.StringUtil;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.RestJson;
+import top.iotequ.util.StringUtil;
+import top.iotequ.util.Util;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.URLEncoder;

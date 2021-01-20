@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.context.ApplicationEvent;
 import top.iotequ.framework.bean.SpringContext;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.Util;
 
 @Setter
 @Getter

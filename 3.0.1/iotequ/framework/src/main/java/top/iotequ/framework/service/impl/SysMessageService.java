@@ -6,12 +6,11 @@ import top.iotequ.framework.dao.MessageDao;
 import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.pojo.Message;
 import top.iotequ.framework.pojo.User;
-import top.iotequ.framework.util.RestJson;
-import top.iotequ.framework.util.SqlUtil;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.RestJson;
+import top.iotequ.util.SqlUtil;
+import top.iotequ.util.Util;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 @Service
@@ -41,7 +40,7 @@ public class SysMessageService extends CgSysMessageService {
 			throws IotequException {
 		RestJson j=new RestJson();
 		if ("readAll".equals(action)) {
-			User user=Util.getUser();
+			User user= Util.getUser();
 			if (user!=null && !user.getName().equals("guest")) {
 				String sql="update sys_message set read_time=? where receiver=? and read_time is null";
 				SqlUtil.sqlExecute(sql, new Date(),user.getId());

@@ -3,20 +3,16 @@ package top.iotequ.framework.security.oauth2;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.env.Environment;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import top.iotequ.framework.controller.HomeController;
-import top.iotequ.framework.util.HttpUtils;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.HttpUtils;
+import top.iotequ.util.Util;
 
 @RestController
 public class Oauth2CodeTestController implements ApplicationRunner {

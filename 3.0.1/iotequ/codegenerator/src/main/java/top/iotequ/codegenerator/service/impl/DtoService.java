@@ -13,8 +13,8 @@ import top.iotequ.codegenerator.util.NameUtil;
 import top.iotequ.framework.dao.DataDictDao;
 import top.iotequ.framework.exception.IotequThrowable;
 import top.iotequ.framework.service.impl.SqlService;
-import top.iotequ.framework.util.SqlUtil;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.SqlUtil;
+import top.iotequ.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;

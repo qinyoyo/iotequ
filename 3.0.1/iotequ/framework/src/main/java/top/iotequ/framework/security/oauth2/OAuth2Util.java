@@ -2,7 +2,6 @@ package top.iotequ.framework.security.oauth2;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +15,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.exception.TokenException;
 import top.iotequ.framework.pojo.Role;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.Util;
 
 public class OAuth2Util {
 	public static final String HTTP_HEADER_KEY = "Authorization";

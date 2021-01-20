@@ -5,7 +5,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.iotequ.codegenerator.dao.CgFieldDao;
@@ -17,10 +16,9 @@ import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.exception.IotequThrowable;
 import top.iotequ.framework.flow.IFlowService;
 import top.iotequ.framework.service.impl.SqlService;
-import top.iotequ.framework.util.*;
+import top.iotequ.util.*;
+import top.iotequ.util.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -104,7 +102,7 @@ public class AutoGenService {
                     tableList.forEach(t->{
                         list.add(new HashMap<String,Object>(){{
                             put("value",t.getTableName());
-                            put("text",Util.isEmpty(t.getTableComment(),""));
+                            put("text", Util.isEmpty(t.getTableComment(),""));
                         }});
                     });
                     map.put("dictNotUsedTables",list);
@@ -189,7 +187,7 @@ public class AutoGenService {
     private Map<String, Object> generateFromDb(@NonNull String tableName) throws IotequException {
         String [] tt=tableName.split("_");
         if (tt.length<2) return null;
-        String projectId = SqlUtil.sqlQueryString(false,"select id from cg_project where code=? and creator=?",tt[0],Util.getUser().getName());
+        String projectId = SqlUtil.sqlQueryString(false,"select id from cg_project where code=? and creator=?",tt[0], Util.getUser().getName());
         if (Util.isEmpty(projectId)) return null;
         Map<String, String> setting = SqlUtil.getDatabaseSetting(env);
         String databaseName = setting.get("database");
@@ -491,7 +489,7 @@ public class AutoGenService {
     }
 
     private void deleteFieldNotInForm(String tab, List<CgField> ff, List<CgField> dbFF) {
-        List<CgField> needRemove = dbFF.stream().filter(f->!ff.stream().anyMatch(d->Util.equals(f.getName(),d.getName()))).collect(Collectors.toList());
+        List<CgField> needRemove = dbFF.stream().filter(f->!ff.stream().anyMatch(d-> Util.equals(f.getName(),d.getName()))).collect(Collectors.toList());
         for (CgField dbf : needRemove) {
             dbFF.remove(dbf);
             try {

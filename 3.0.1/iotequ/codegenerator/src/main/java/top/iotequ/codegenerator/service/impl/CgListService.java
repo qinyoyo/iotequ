@@ -3,7 +3,7 @@ package top.iotequ.codegenerator.service.impl;
 import org.springframework.stereotype.Service;
 import top.iotequ.codegenerator.pojo.CgList;
 import top.iotequ.framework.exception.IotequException;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.Util;
 
 
 import javax.servlet.http.HttpServletRequest;

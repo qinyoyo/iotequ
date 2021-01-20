@@ -4,7 +4,7 @@ import lombok.NonNull;
 import top.iotequ.codegenerator.pojo.CgField;
 import top.iotequ.codegenerator.pojo.CgFormField;
 import top.iotequ.framework.flow.IFlowService;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.Util;
 
 import java.util.List;
 import java.util.Optional;

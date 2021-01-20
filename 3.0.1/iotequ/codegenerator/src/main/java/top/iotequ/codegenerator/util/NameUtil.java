@@ -7,8 +7,8 @@ import top.iotequ.codegenerator.pojo.CgField;
 import top.iotequ.codegenerator.pojo.CgTable;
 import top.iotequ.codegenerator.service.impl.GenService;
 import top.iotequ.framework.exception.IotequThrowable;
-import top.iotequ.framework.util.StringUtil;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.StringUtil;
+import top.iotequ.util.Util;
 
 public class NameUtil {
     public static String pureCode(String code) {
@@ -44,7 +44,7 @@ public class NameUtil {
     }
 
     public static String userPath(String basePath, boolean scanSource) {
-        return basePath + (scanSource?"/":"/"+Util.getUser().getName());
+        return basePath + (scanSource?"/":"/"+ Util.getUser().getName());
     }
 
     public static String serverPath(String basePath, boolean scanSource) {

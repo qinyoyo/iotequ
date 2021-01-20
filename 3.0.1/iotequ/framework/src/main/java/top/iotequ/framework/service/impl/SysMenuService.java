@@ -3,11 +3,8 @@ package top.iotequ.framework.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.iotequ.framework.dao.MenuDao;
-import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.pojo.Menu;
-import top.iotequ.framework.util.SqlUtil;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Service

@@ -1,13 +1,9 @@
-package top.iotequ.framework.util;
+package top.iotequ.util;
 
-import top.iotequ.framework.exception.IotequException;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -44,28 +40,23 @@ public class MachineInfo {
         input.close();
         return result;
     }
-    private static String getMainBordId_linux() throws IotequException {
-	    try {
-            String result = "";
-            String maniBord_cmd = "cat /sys/class/dmi/id/product_uuid 2>&1"; // ""echo 67378826|sudo -S dmidecode system | grep -i uuid | sed 's/^\\s*uuid\\s*:*\\s*//i' 2>&1";
-            Process p;
-            p = Runtime.getRuntime().exec(
-                    new String[]{"sh", "-c", maniBord_cmd});// 管道
-            BufferedReader br = new BufferedReader(new InputStreamReader(
-                    p.getInputStream()));
-            String line;
-            while ((line = br.readLine()) != null) {
-                result += line;
-                break;
-            }
-            br.close();
-            return result;
-        }catch (Exception e) {
-            throw IotequException.newInstance(e);
+    private static String getMainBordId_linux() throws IOException {
+        String result = "";
+        String maniBord_cmd = "cat /sys/class/dmi/id/product_uuid 2>&1"; // ""echo 67378826|sudo -S dmidecode system | grep -i uuid | sed 's/^\\s*uuid\\s*:*\\s*//i' 2>&1";
+        Process p;
+        p = Runtime.getRuntime().exec(
+                new String[]{"sh", "-c", maniBord_cmd});// 管道
+        BufferedReader br = new BufferedReader(new InputStreamReader(
+                p.getInputStream()));
+        String line;
+        while ((line = br.readLine()) != null) {
+            result += line;
+            break;
         }
+        br.close();
+        return result;
     }
-    private static String getMAC_linux() throws IotequException {
-	    try {
+    private static String getMAC_linux() throws IOException {
             String mac = null;
             BufferedReader bufferedReader = null;
             Process process = null;
@@ -83,35 +74,28 @@ public class MachineInfo {
             }
             bufferedReader.close();
             return mac;
-        }catch (Exception e) {
-            throw IotequException.newInstance(e);
-        }
     }
-    private static String getMAC_windows() throws IotequException {
-	    try {
-            InetAddress ip = null;
-            NetworkInterface ni = null;
-            List<String> macList = new ArrayList<String>();
-            Enumeration<NetworkInterface> netInterfaces = (Enumeration<NetworkInterface>) NetworkInterface
-                    .getNetworkInterfaces();
-            while (netInterfaces.hasMoreElements()) {
-                ni = (NetworkInterface) netInterfaces.nextElement();
-                Enumeration<InetAddress> ips = ni.getInetAddresses();
-                while (ips.hasMoreElements()) {
-                    ip = (InetAddress) ips.nextElement();
-                    if (!ip.isLoopbackAddress() // 非127.0.0.1
-                            && ip.getHostAddress().matches("(\\d{1,3}\\.){3}\\d{1,3}")) {
-                        macList.add(getMacFromBytes(ni.getHardwareAddress()));
-                    }
+    private static String getMAC_windows() throws SocketException {
+        InetAddress ip = null;
+        NetworkInterface ni = null;
+        List<String> macList = new ArrayList<String>();
+        Enumeration<NetworkInterface> netInterfaces = (Enumeration<NetworkInterface>) NetworkInterface
+                .getNetworkInterfaces();
+        while (netInterfaces.hasMoreElements()) {
+            ni = (NetworkInterface) netInterfaces.nextElement();
+            Enumeration<InetAddress> ips = ni.getInetAddresses();
+            while (ips.hasMoreElements()) {
+                ip = (InetAddress) ips.nextElement();
+                if (!ip.isLoopbackAddress() // 非127.0.0.1
+                        && ip.getHostAddress().matches("(\\d{1,3}\\.){3}\\d{1,3}")) {
+                    macList.add(getMacFromBytes(ni.getHardwareAddress()));
                 }
             }
-            if (macList.size() > 0) {
-                return macList.get(0);
-            } else {
-                return "";
-            }
-        } catch (Exception e) {
-            throw IotequException.newInstance(e);
+        }
+        if (macList.size() > 0) {
+            return macList.get(0);
+        } else {
+            return "";
         }
     }
 
@@ -132,33 +116,25 @@ public class MachineInfo {
         return mac.toString().toUpperCase();
     }
     
-    public static String getMainBordId() throws IotequException {
-	    try {
-            String os = getOSName();
-            String mainBordId = "";
-            if (os.startsWith("windows")) {
-                mainBordId = getMainBordId_windows();
-            } else if (os.startsWith("linux")) {
-                mainBordId = getMainBordId_linux();
-            }
-            return mainBordId;
-        }catch (Exception e) {
-            throw IotequException.newInstance(e);
+    public static String getMainBordId() throws Exception {
+        String os = getOSName();
+        String mainBordId = "";
+        if (os.startsWith("windows")) {
+            mainBordId = getMainBordId_windows();
+        } else if (os.startsWith("linux")) {
+            mainBordId = getMainBordId_linux();
         }
+        return mainBordId;
     }
-    public static String getMAC() throws IotequException {
-	    try {
-            String os = getOSName();
-            String mac = "";
-            if (os.startsWith("windows")) {
-                mac = getMAC_windows();
-            } else if (os.startsWith("linux")) {
-                mac = getMAC_linux();
-            }
-            return mac;
-        }catch (Exception e) {
-            throw IotequException.newInstance(e);
+    public static String getMAC() throws IOException {
+        String os = getOSName();
+        String mac = "";
+        if (os.startsWith("windows")) {
+            mac = getMAC_windows();
+        } else if (os.startsWith("linux")) {
+            mac = getMAC_linux();
         }
+        return mac;
     }
     private static byte[] hexToByte(String hex,int maxlen){
     	hex=hex.replace("-", "").replaceAll(" ", "");
@@ -198,19 +174,14 @@ public class MachineInfo {
     	}
     	for (int i = 0; i < 15; i++)  vv[i] = tt[i];
     }
-    static void AES_Decrypt(byte[] sn,byte[] sc) throws IotequException {
-    	try {
+    static void AES_Decrypt(byte[] sn,byte[] sc) throws Exception {
             SecretKeySpec skeySpec = new SecretKeySpec(sc, "AES");
             Cipher cipher = Cipher.getInstance("AES/ECB/NoPadding");
             cipher.init(Cipher.DECRYPT_MODE, skeySpec);
             byte[] result = cipher.doFinal(sn);
             for (int i = 0; i < 16; i++) sn[i] = result[i];
-        }catch (Exception e) {
-            throw IotequException.newInstance(e);
-        }
     }
-    public static int getLicence(String serialNumber) throws IotequException {
-	    try {
+    public static int getLicence(String serialNumber) throws Exception {
             String setupCode = getSetupCode();
             byte[] sn = hexToByte(serialNumber, 16),
                     sc = hexToByte(setupCode, 16),
@@ -229,34 +200,23 @@ public class MachineInfo {
             for (int i = 0; i < 4; i++) cp[3 - i] = unsigned(vv[12 + i]);
             int licence = (cp[3] << 24) + (cp[2] << 16) + (cp[1] << 8) + cp[0];
             return licence;
-        }catch (Exception e) {
-            throw IotequException.newInstance(e);
-        }
     }
-    public static int getLicence(String serialNumber,String module) throws IotequException {
-	    try {
+    public static int getLicence(String serialNumber,String module) throws Exception {
             if (module == null || module.trim().isEmpty()) return getLicence(serialNumber);
             byte[] bb = module.getBytes();
             byte[] sn = hexToByte(serialNumber, 16);
             for (int i = 0; i < 16; i++) sn[i] = (byte) (sn[i] ^ bb[i % bb.length]);
             serialNumber = byte2hex(sn, 16, 2);
             return getLicence(serialNumber);
-        }catch (Exception e) {
-            throw IotequException.newInstance(e);
-        }
     }
-    public static String getSetupCode() throws IotequException {
-	    try {
-            String sn = getMainBordId();
-            byte[] uuid = hexToByte(sn, 16);
-            byte[] key = {65,111,84,97,110,103,49,57,57,54,45,48,56,45,48,50};
-            int xk = 0;
-            for (int i = 0; i < 16; i++) xk = xk + unsigned(uuid[i]);
-            for (int i = 0; i < 16; i++) uuid[i] = (byte) (uuid[i] ^ key[(xk + i) % 16]);
-            sn = byte2hex(uuid, 16, 2);
-            return sn;
-        }catch (Exception e) {
-            throw IotequException.newInstance(e);
-        }
+    public static String getSetupCode() throws Exception {
+        String sn = getMainBordId();
+        byte[] uuid = hexToByte(sn, 16);
+        byte[] key = {65,111,84,97,110,103,49,57,57,54,45,48,56,45,48,50};
+        int xk = 0;
+        for (int i = 0; i < 16; i++) xk = xk + unsigned(uuid[i]);
+        for (int i = 0; i < 16; i++) uuid[i] = (byte) (uuid[i] ^ key[(xk + i) % 16]);
+        sn = byte2hex(uuid, 16, 2);
+        return sn;
     }
 }

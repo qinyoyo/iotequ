@@ -8,7 +8,11 @@ import top.iotequ.framework.flow.FlowRecord;
 import top.iotequ.framework.flow.IFlowService;
 import top.iotequ.framework.pojo.CgEntity;
 import top.iotequ.framework.pojo.FlowProcess;
-import top.iotequ.framework.util.*;
+import top.iotequ.util.*;
+import top.iotequ.util.EntityUtil;
+import top.iotequ.util.SqlUtil;
+import top.iotequ.util.StringUtil;
+import top.iotequ.util.Util;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;

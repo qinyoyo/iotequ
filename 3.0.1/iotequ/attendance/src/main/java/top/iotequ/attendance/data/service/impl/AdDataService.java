@@ -10,8 +10,8 @@ import top.iotequ.attendance.data.pojo.AdData;
 import top.iotequ.attendance.util.AdUtil;
 
 import top.iotequ.framework.event.DeviceEvent;
-import top.iotequ.framework.util.SqlUtil;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.SqlUtil;
+import top.iotequ.util.Util;
 
 import java.util.Date;
 

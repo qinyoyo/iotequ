@@ -30,7 +30,11 @@ import top.iotequ.framework.pojo.Role;
 import top.iotequ.framework.pojo.User;
 import top.iotequ.framework.security.SpringSecurityConfig;
 import top.iotequ.framework.security.authentication.CustomWebAuthenticationDetails;
-import top.iotequ.framework.util.*;
+import top.iotequ.util.*;
+import top.iotequ.util.EntityUtil;
+import top.iotequ.util.SqlUtil;
+import top.iotequ.util.StringUtil;
+import top.iotequ.util.Util;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -84,7 +88,7 @@ public class SecurityService implements UserDetailsService,ApplicationListener<C
 	}
 	public void initialPermission() throws IotequException {    // 初始化
 		resetAllActions(); // 扫描获得所有的action
-		Integer defOrg=SqlUtil.sqlQueryInteger("select min(org_code) from sys_org");
+		Integer defOrg= SqlUtil.sqlQueryInteger("select min(org_code) from sys_org");
 		if (defOrg==null) {
 			Org org=new Org();
 			org.setName("Svein");
@@ -165,7 +169,7 @@ public class SecurityService implements UserDetailsService,ApplicationListener<C
 		refreshPermission();		
 	}
 	public static boolean hasGrantedAttribute(HttpServletRequest req,Collection<? extends ConfigAttribute>attributes) {
-		User user=Util.getUser();
+		User user= Util.getUser();
 		if (user!=null && "admin".equals(Util.getUser().getName())) return true;   //  不限制admin任何权限
 		if (user!=null && "qinyoyo".equals(Util.getUser().getName())) return true;   //  不限制qinyoyo任何权限
 		if (allPermission == null || attributes==null || attributes.isEmpty()) return false;
@@ -180,7 +184,7 @@ public class SecurityService implements UserDetailsService,ApplicationListener<C
 		return false;
 	}
 	public  static boolean hasGrantedAttribute(HttpServletRequest req,User user) {
-		if (user==null) user=Util.getUser();
+		if (user==null) user= Util.getUser();
 		if (user == null || Util.isEmpty(user) ||  req==null ) return false;
 		if ("admin".equals(Util.getUser().getName())) return true;   //  不限制admin任何权限
 		return hasGrantedAttribute(req,user.getConfigAttribute());
@@ -199,14 +203,14 @@ public class SecurityService implements UserDetailsService,ApplicationListener<C
 		return false;
 	}
 	public static boolean hasGrantedAttribute(String url,String method,User user) {
-		if (user==null) user=Util.getUser();
+		if (user==null) user= Util.getUser();
 		if (user == null || Util.isEmpty(user) ||  Util.isEmpty(url)) return false;
 		if ("admin".equals(Util.getUser().getName())) return true;   //  不限制admin任何权限
 		return hasGrantedAttribute(url,method,user.getConfigAttribute());
 	}
 
 	public static boolean hasGrantedAttribute(String url,String method) {
-		return hasGrantedAttribute(url,method,Util.getUser());
+		return hasGrantedAttribute(url,method, Util.getUser());
 	}
 	
 	public void refreshPermission() {
@@ -430,7 +434,7 @@ public class SecurityService implements UserDetailsService,ApplicationListener<C
 	private static boolean matchers(Action act, String url, String method) {
 		if (act==null) 
 			return false;
-		if ( (!Util.isEmpty(act.getParams()) && url.startsWith(act.getValue()+"?"+act.getParams())) || 
+		if ( (!Util.isEmpty(act.getParams()) && url.startsWith(act.getValue()+"?"+act.getParams())) ||
 			(Util.isEmpty(act.getParams()) && url.equals(act.getValue()))  ) {
 			String methods = act.getMethod();
 			return  (Util.isEmpty(method) || Util.isEmpty(methods) || methods.toUpperCase().contains("ALL") || methods.toUpperCase().contains(method.toUpperCase())) ;

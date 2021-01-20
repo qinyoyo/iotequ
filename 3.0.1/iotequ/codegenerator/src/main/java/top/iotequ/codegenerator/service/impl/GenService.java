@@ -18,10 +18,10 @@ import top.iotequ.codegenerator.dao.CgProjectDao;
 import top.iotequ.codegenerator.pojo.*;
 import top.iotequ.codegenerator.util.*;
 import top.iotequ.framework.flow.IFlowService;
-import top.iotequ.framework.util.EntityUtil;
-import top.iotequ.framework.util.SqlUtil;
-import top.iotequ.framework.util.StringUtil;
-import top.iotequ.framework.util.Util;
+import top.iotequ.util.EntityUtil;
+import top.iotequ.util.SqlUtil;
+import top.iotequ.util.StringUtil;
+import top.iotequ.util.Util;
 
 import java.io.*;
 import java.util.*;

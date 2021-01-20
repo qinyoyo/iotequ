@@ -1,4 +1,4 @@
-package top.iotequ.framework.util;
+package top.iotequ.util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -139,7 +139,7 @@ public class OrgUtil {
     }
 
 	static public Integer getOrgPrivilegeCode() {
-		User u=Util.getUser();
+		User u= Util.getUser();
 		if (u!=null) {
 			if (EntityUtil.entityEquals(u.getName(),"admin")) return null;
 			Integer orgCode = u.getOrgPrivilege();
