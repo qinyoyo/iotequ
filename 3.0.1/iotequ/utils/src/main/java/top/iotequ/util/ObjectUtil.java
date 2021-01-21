@@ -48,7 +48,7 @@ public class ObjectUtil {
 		Class<?> clazz = field.getType();
 		if (clazz.equals(String.class)) field.set(obj, value);
 		else if (clazz.equals(Integer.class)) field.set(obj, Integer.valueOf(value));
-		else if (clazz.equals(Boolean.class)) field.set(obj, CommonUtil.boolValue(value));
+		else if (clazz.equals(Boolean.class)) field.set(obj, Utils.boolValue(value));
 		else if (clazz.equals(Short.class)) field.set(obj, Short.valueOf(value));
 		else if (clazz.equals(Long.class)) field.set(obj, Long.valueOf(value));
 		else if (clazz.equals(Date.class)) field.set(obj, DateUtil.string2Date(value));
@@ -287,9 +287,9 @@ public class ObjectUtil {
 	 * @return 是否相等
 	 */
 	static public boolean entityEquals(Object o1, Object o2) {
-		if (CommonUtil.isEmpty(o1) && CommonUtil.isEmpty(o2))
+		if (Utils.isEmpty(o1) && Utils.isEmpty(o2))
 			return true;
-		else if (CommonUtil.isEmpty(o1) || CommonUtil.isEmpty(o2))
+		else if (Utils.isEmpty(o1) || Utils.isEmpty(o2))
 			return false;
 		return o1.toString().equals(o2.toString());
 	}
@@ -304,10 +304,10 @@ public class ObjectUtil {
 					Method rM = pd.getReadMethod();
 					rM.setAccessible(true);
 					Object v = rM.invoke(o);
-					if (!CommonUtil.isEmpty(v)) return false;
+					if (!Utils.isEmpty(v)) return false;
 				}
 			} catch (Exception e) {
-				return CommonUtil.isEmpty(o);
+				return Utils.isEmpty(o);
 			}
 		}
 		return true;

@@ -7,14 +7,16 @@ import java.util.TimeZone;
 import java.util.regex.Pattern;
 
 public class DateUtil {
+
+	static private final String amString=new SimpleDateFormat("a").format(string2Date("19701116060606"));
+	static private final String pmString=new SimpleDateFormat("a").format(string2Date("19701116161616"));
+
 	/**
-	 * 字符串转换为日期 
+	 * 字符串转换为日期
 	 * @param dt    日期字符串
 	 * @param fmt   格式，null时为标准格式 yyyy-MM-dd "+(pm?"hh":"HH")+":mm:ss
 	 * @return 日期对象
 	 */
-	static private final String amString=new SimpleDateFormat("a").format(string2Date("19701116060606"));
-	static private final String pmString=new SimpleDateFormat("a").format(string2Date("19701116161616"));
 	static public Date string2Date(String dt, String fmt) {
 		if (dt == null)	return null;
 		if ("{}".equals(dt)) {
@@ -90,27 +92,33 @@ public class DateUtil {
 		}
 		return null;
 	}
+	/**
+	 * 字符串转换为日期
+	 * @param dt    日期字符串,自动匹配格式
+	 * @return 日期对象
+	 */
 	static public Date string2Date(String dt) {
 		return string2Date(dt,null);
 	}
-	/**
-	 * 得到时间的礼拜数 
-	 * @param dt    日期
-	 * @return 礼拜数，0,1，..6对应礼拜日，一，...六
-	 */
-	static public int weekOf(Date dt) {
-		Calendar ca = Calendar.getInstance();
-		ca.setFirstDayOfWeek(Calendar.MONDAY);
-		if (dt != null)
-			ca.setTime(dt);
-		return ca.get(Calendar.DAY_OF_WEEK) - 1; // 0:星期日，1::星期一...
-	}
 
-	public static final int DAY = 1;
-	public static final int WEEK = 2;
-	public static final int MONTH = 3;
-	public static final int QUARTER = 4;
-	public static final int YEAR = 5;
+	private enum DateMode {
+		hour,
+		minute,
+		second,
+		day,
+		week,
+		month,
+		quarter,
+		year
+	}
+	public static final DateMode HOUR = DateMode.hour;
+	public static final DateMode MINUTE = DateMode.minute;
+	public static final DateMode SECOND = DateMode.second;
+	public static final DateMode DAY = DateMode.day;
+	public static final DateMode WEEK = DateMode.week;
+	public static final DateMode MONTH = DateMode.month;
+	public static final DateMode QUARTER = DateMode.quarter;
+	public static final DateMode YEAR = DateMode.year;
 
 	/**
 	 * 根据日期求与其相关的阶段开始时间 
@@ -118,24 +126,36 @@ public class DateUtil {
 	 * @param mode     阶段类型 ,DAY，WEEK，MONTH，QUARTER，YEAR
 	 * @return 该阶段开始时间，一周以礼拜一开始
 	 */
-	static public Date startOf(Date dt, int mode) {
+	static public Date startOf(Date dt, DateMode mode) {
 		Calendar ca = Calendar.getInstance();
 		if (dt != null)
 			ca.setTime(dt);
 		switch (mode) {
-			case WEEK:
+			case hour:
+				ca.set(Calendar.MINUTE, 0);
+				ca.set(Calendar.SECOND, 0);
+				ca.set(Calendar.MILLISECOND,0);
+				return ca.getTime();
+			case minute:
+				ca.set(Calendar.SECOND, 0);
+				ca.set(Calendar.MILLISECOND,0);
+				return ca.getTime();
+			case second:
+				ca.set(Calendar.MILLISECOND,0);
+				return ca.getTime();
+			case week:
 				ca.setFirstDayOfWeek(Calendar.MONDAY);
 				ca.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
 				break;
-			case MONTH:
+			case month:
 				ca.set(Calendar.DAY_OF_MONTH, 1);
 				break;
-			case QUARTER:
+			case quarter:
 				ca.set(Calendar.DAY_OF_MONTH, 1);
 				int i = ca.get(Calendar.MONTH) / 3;
 				ca.set(Calendar.MONTH, 3 * i);
 				break;
-			case YEAR:
+			case year:
 				ca.set(Calendar.DAY_OF_MONTH, 1);
 				ca.set(Calendar.MONTH, Calendar.JANUARY);
 				break;
@@ -154,24 +174,36 @@ public class DateUtil {
 	 * @param mode   阶段类型 ,DAY，WEEK，MONTH，QUARTER，YEAR
 	 * @return 该阶段结束时间，一周以礼拜一开始
 	 */
-	static public Date endOf(Date dt, int mode) {
+	static public Date endOf(Date dt, DateMode mode) {
 		Calendar ca = Calendar.getInstance();
 		if (dt != null)
 			ca.setTime(dt);
 		switch (mode) {
-			case WEEK:
+			case hour:
+				ca.set(Calendar.MINUTE, 59);
+				ca.set(Calendar.SECOND, 59);
+				ca.set(Calendar.MILLISECOND,999);
+				return ca.getTime();
+			case minute:
+				ca.set(Calendar.SECOND, 59);
+				ca.set(Calendar.MILLISECOND,999);
+				return ca.getTime();
+			case second:
+				ca.set(Calendar.MILLISECOND,999);
+				return ca.getTime();
+			case week:
 				ca.setFirstDayOfWeek(Calendar.MONDAY);
 				ca.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
 				break;
-			case MONTH:
+			case month:
 				ca.set(Calendar.DAY_OF_MONTH, ca.getActualMaximum(Calendar.DAY_OF_MONTH));
 				break;
-			case QUARTER:
+			case quarter:
 				int i = ca.get(Calendar.MONTH) / 3;
 				ca.set(Calendar.MONTH, i * 3 + 2);
 				ca.set(Calendar.DAY_OF_MONTH, ca.getActualMaximum(Calendar.DAY_OF_MONTH));
 				break;
-			case YEAR:
+			case year:
 				ca.set(Calendar.DAY_OF_MONTH, 31);
 				ca.set(Calendar.MONTH, Calendar.DECEMBER);
 				break;
@@ -191,27 +223,75 @@ public class DateUtil {
 	 * @param mode    阶段类型 ,DAY，WEEK，MONTH，QUARTER，YEAR
 	 * @return 位移后的时间
 	 */
-	static public Date dateAdd(Date dt, int amount, int mode) {
+	static public Date dateAdd(Date dt, int amount, DateMode mode) {
 		Calendar ca = Calendar.getInstance();
 		if (dt != null)
 			ca.setTime(dt);
 		switch (mode) {
-			case WEEK:
+			case hour:
+				ca.add(Calendar.HOUR_OF_DAY, amount);
+				break;
+			case minute:
+				ca.add(Calendar.MINUTE, amount);
+				break;
+			case second:
+				ca.add(Calendar.SECOND, amount);
+				break;
+			case week:
 				ca.add(Calendar.DATE, amount * 7);
 				break;
-			case MONTH:
+			case month:
 				ca.add(Calendar.MONTH, amount);
 				break;
-			case QUARTER:
+			case quarter:
 				ca.add(Calendar.MONTH, amount * 3);
 				break;
-			case YEAR:
+			case year:
 				ca.add(Calendar.YEAR, amount);
 				break;
 			default:
 				ca.add(Calendar.DATE, amount);
 		}
 		return ca.getTime();
+	}
+
+	/**
+	 * 根据日期指定值
+	 * @param dt   日期，null表示当前
+	 * @param mode    阶段类型 ,DAY，WEEK，MONTH，QUARTER，YEAR
+	 * @return 位移后的时间
+	 */
+	static public int get(Date dt, DateMode mode) {
+		Calendar ca = Calendar.getInstance();
+		if (dt != null)
+			ca.setTime(dt);
+		switch (mode) {
+			case hour:
+				return ca.get(Calendar.HOUR_OF_DAY);
+			case minute:
+				return ca.get(Calendar.MINUTE);
+			case second:
+				return ca.get(Calendar.SECOND);
+			case week:
+				ca.setFirstDayOfWeek(Calendar.MONDAY);
+				return ca.get(Calendar.DAY_OF_WEEK) - 1;
+			case month:
+				return ca.get(Calendar.MONTH);
+			case quarter:
+				return ca.get(Calendar.MONTH)/3 + 1;
+			case year:
+				return ca.get(Calendar.YEAR);
+			default:
+				return ca.get(Calendar.DAY_OF_MONTH);
+		}
+	}
+	/**
+	 * 得到时间的礼拜数
+	 * @param dt    日期
+	 * @return 礼拜数，0,1，..6对应礼拜日，一，...六
+	 */
+	static public int weekOf(Date dt) {
+		return get(dt,WEEK);
 	}
 
 	/**

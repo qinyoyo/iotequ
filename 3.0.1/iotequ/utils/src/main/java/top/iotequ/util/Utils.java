@@ -6,7 +6,7 @@ import java.util.*;
  * 通用工具类，提供一些常用的静态函数方法
  */
 
-public class CommonUtil {
+public class Utils {
     static public Long toLong(Object o) {
         if (o == null)
             return null;
@@ -132,7 +132,7 @@ public class CommonUtil {
         String s = obj.toString();
         try {
             if (obj.getClass().equals(clazz)) return obj;
-            if (type.endsWith("Boolean")) return CommonUtil.boolValue(s);
+            if (type.endsWith("Boolean")) return Utils.boolValue(s);
             else if (type.endsWith("String")) return s;
             else if (type.endsWith("Integer")) return Integer.valueOf(s);
             else if (type.endsWith("Long")) return Long.valueOf(s);
@@ -144,7 +144,7 @@ public class CommonUtil {
             else if (type.endsWith("byte[]")) return s.getBytes();
         } catch (Exception e) {
         }
-        if (type.equals("boolean")) return CommonUtil.boolValue(s);
+        if (type.equals("boolean")) return Utils.boolValue(s);
         else if (type.equals("char")) {
             if (s.isEmpty() || s == null) return (char) 0;
             else return s.charAt(0);

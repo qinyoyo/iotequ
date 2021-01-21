@@ -38,7 +38,7 @@ public class StringUtil {
 
 
 	static public boolean containsItem(String list,String item){
-		if (CommonUtil.isEmpty(list) || item==null) return false;
+		if (Utils.isEmpty(list) || item==null) return false;
 		String [] ll = list.split(",");
 		return Arrays.stream(ll).anyMatch(x->item.trim().equals(x.trim()));
 	}
@@ -72,7 +72,7 @@ public class StringUtil {
 	 * @return 驼峰字符串
 	 */
 	public static String camelString(String s) {
-		if (CommonUtil.isEmpty(s))
+		if (Utils.isEmpty(s))
 			return s;
 		s = s.trim();
 		String[] ss = s.toLowerCase().replace(" ", "_").replaceAll("[-/\\\\\\.]", "_").split("_");
@@ -87,7 +87,7 @@ public class StringUtil {
 	 * @return pascal字符串
 	 */
 	public static String pascalString(String s) {
-		if (CommonUtil.isEmpty(s))
+		if (Utils.isEmpty(s))
 			return s;
 		s = s.trim();
 		String[] ss = s.toLowerCase().replace(" ", "_").replaceAll("-", "_").split("_");
@@ -102,7 +102,7 @@ public class StringUtil {
 	 * @return kebab字符串
 	 */
 	public static String kebabString(String s) {
-		if (CommonUtil.isEmpty(s))
+		if (Utils.isEmpty(s))
 			return s;
 		s = s.trim();
 		String[] ss = s.toLowerCase().replace(" ", "_").replaceAll("-", "_").split("_");
@@ -145,7 +145,7 @@ public class StringUtil {
 	 * @return 字符串的加密值
 	 */
 	public static String encodePassword(String password) {
-		if (CommonUtil.isEmpty(password))
+		if (Utils.isEmpty(password))
 			return password;
 		MessageDigest md5 = null;
 		try {
@@ -181,7 +181,7 @@ public class StringUtil {
 	}
 
 	static public String regGroup(String reg,String s,int group) {
-		if (CommonUtil.isEmpty(reg) || CommonUtil.isEmpty(s) || group<0) return null;
+		if (Utils.isEmpty(reg) || Utils.isEmpty(s) || group<0) return null;
 		Pattern p = Pattern.compile(reg);
 		Matcher m = p.matcher(s);
 		if (m.find() && group<=m.groupCount()) return m.group(group);

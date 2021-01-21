@@ -1,6 +1,6 @@
 package top.iotequ.framework.exception;
 
-import top.iotequ.util.CommonUtil;
+import top.iotequ.util.Utils;
 
 public interface IotequThrowable {
 	public static final String VERSION_EXPIRED = "version_expired";
@@ -73,7 +73,7 @@ public interface IotequThrowable {
 	public static final String FLOW_ERROR_OPRATION="flow_error_operation";
 
 	static String mergeMessage(String code, String addtional) {
-		return code + (CommonUtil.isEmpty(addtional)?"":"("+addtional+")");
+		return code + (Utils.isEmpty(addtional)?"":"("+addtional+")");
 	}
 	String getError();
 	String getAddtionalMessage();

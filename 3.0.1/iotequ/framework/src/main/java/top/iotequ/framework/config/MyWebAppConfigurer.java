@@ -13,7 +13,7 @@ public class MyWebAppConfigurer implements WebMvcConfigurer  {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**").addResourceLocations("classpath:/webapp/");
-        String webapp=new File(SpringContext.getProjectHomeDirection(),"webapp").getAbsolutePath();
+        String webapp=new File(SpringContext.getProjectHomePath(),"webapp").getAbsolutePath();
         if (webapp.indexOf("\\")>=0) webapp+="\\";
         else webapp+="/";
         registry.addResourceHandler("/**").addResourceLocations("file:"+webapp);

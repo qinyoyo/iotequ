@@ -4,6 +4,9 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.tomcat.util.http.fileupload.ParameterParser;
 import org.springframework.boot.web.server.MimeMappings;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import top.iotequ.framework.bean.SpringContext;
 import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.exception.IotequIOException;
@@ -269,12 +272,21 @@ public class FileUtil extends FileIOUtil {
         }
     }
     public static File getWebappFile(String path) throws IotequException {
-        File webapp = new File(SpringContext.getProjectHomeDirection(),"/webapp");
+        File webapp = new File(SpringContext.getProjectHomePath(),"/webapp");
         if (Util.isEmpty(path)) return webapp;
         else {
             File file=new File(webapp, path);
             if (file.exists()) return file;
             else throw new IotequException(IotequThrowable.IO_OBJECT_NOT_EXIST, file.getAbsolutePath());
+        }
+    }
+    public static File getResourceFile(String path) throws IotequException {
+        ResourceLoader loader = new DefaultResourceLoader();
+        Resource resource = loader.getResource(path);
+        try {
+            return resource.getFile();
+        } catch (IOException e) {
+            throw IotequException.newInstance(e);
         }
     }
 }

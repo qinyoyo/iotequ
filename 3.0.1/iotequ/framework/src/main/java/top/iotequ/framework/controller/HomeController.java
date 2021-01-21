@@ -63,33 +63,34 @@ public class HomeController implements CommandLineRunner {
 
     @RequestMapping(value = "/")
     public String testRunning(HttpServletRequest request, HttpServletResponse response) {
-        if (new File(SpringContext.getProjectHomeDirection(),"webapp/index.html").exists())
-            return "forward:/index.html";
-        else {
-            StringBuilder sb = new StringBuilder();
-            sb.append("<h1>I am running...</h1>");
-            sb.append("<div>" + "Home direction = " + SpringContext.getProjectHomeDirection() + "</div>");
-            try {
-                String sc = MachineInfo.getSetupCode();
-                sb.append("<div>" + "Setup code = " + sc + "</div>");
-            } catch (Exception e) {
-            }
-            List<IotequVersionInfo> versions = IotequVersionInfo.getAllVersions();
-            if (!Util.isEmpty(versions)) {
-                sb.append("<div>Modules：</div>");
-                for (IotequVersionInfo v : versions) {
-                    sb.append("<div>&nbsp;&nbsp;&nbsp;&nbsp;" + v.toString() + "</div>");
-                }
-            }
-            List<Action> actions = SecurityService.getActiveAction();
-            if (!Util.isEmpty(actions)) {
-                sb.append("<div>Actions：</div>");
-                for (Action a : actions) {
-                    sb.append("<div>&nbsp;&nbsp;&nbsp;&nbsp;" + a.getValue() + (Util.isEmpty(a.getMethod()) ? "" : "&nbsp;&nbsp;(" + a.getMethod() + ")") + "</div>");
-                }
-            }
-            return sb.toString();
+        try {
+            if (FileUtil.getWebappFile("index.html").exists()) return "forward:/index.html";
+            else if (FileUtil.getResourceFile("index.html").exists()) return "forward:/index.html";
+        } catch (Exception e) {}
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("<h1>I am running...</h1>");
+        sb.append("<div>" + "Home direction = " + SpringContext.getProjectHomePath() + "</div>");
+        try {
+            String sc = MachineInfo.getSetupCode();
+            sb.append("<div>" + "Setup code = " + sc + "</div>");
+        } catch (Exception e) {
         }
+        List<IotequVersionInfo> versions = IotequVersionInfo.getAllVersions();
+        if (!Util.isEmpty(versions)) {
+            sb.append("<div>Modules：</div>");
+            for (IotequVersionInfo v : versions) {
+                sb.append("<div>&nbsp;&nbsp;&nbsp;&nbsp;" + v.toString() + "</div>");
+            }
+        }
+        List<Action> actions = SecurityService.getActiveAction();
+        if (!Util.isEmpty(actions)) {
+            sb.append("<div>Actions：</div>");
+            for (Action a : actions) {
+                sb.append("<div>&nbsp;&nbsp;&nbsp;&nbsp;" + a.getValue() + (Util.isEmpty(a.getMethod()) ? "" : "&nbsp;&nbsp;(" + a.getMethod() + ")") + "</div>");
+            }
+        }
+        return sb.toString();
     }
 
     private void changeMenuParams(List<Menu> menus) {

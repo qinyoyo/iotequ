@@ -45,7 +45,7 @@ import java.util.regex.Pattern;
  * 通用工具类，提供一些常用的静态函数方法
  */
 
-public class Util extends CommonUtil {
+public class Util extends Utils {
     private static final Logger logger = LoggerFactory.getLogger(Util.class);
     public  static final String ADDITIONAL_CONDITION = "ADDITIONAL_CONDITION";
     public  static final String ORG_FILTER_CONDITION = "ORG_FILTER_CONDITION";
@@ -682,7 +682,7 @@ public class Util extends CommonUtil {
     }
 
     private static String additionalPropertyFile(@NonNull String fileName) {
-        String path = SpringContext.getProjectHomeDirection();
+        String path = SpringContext.getProjectHomePath();
         if (isEmpty(path)) return null;
         String fullName = additionalPropertyFile(path, fileName);
         return fullName;
@@ -768,20 +768,6 @@ public class Util extends CommonUtil {
         }
     }
 
-    private static void getProjectHomeDiretion(@NonNull Class<?> clazz) {
-        if ("file".equals(clazz.getResource("").getProtocol())) {  // ide模式，使用上級目錄
-            runInIdeMode = true;
-            String path = getPath(clazz);
-            if (path.endsWith("\\target\\classes") || path.endsWith("/target/classes")) {
-                File hd = new File(path).getParentFile().getParentFile().getParentFile();
-                SpringContext.setProjectHomeDirection(hd.getAbsolutePath());
-            } else {
-                SpringContext.setProjectHomeDirection(getPath(null));
-            }
-        } else {
-            SpringContext.setProjectHomeDirection(getPath(null));
-        }
-    }
     /**
      * 获得版本信息
      *
@@ -819,10 +805,11 @@ public class Util extends CommonUtil {
     public static void commonApplicationRun(@NonNull Class<?> clazz, String applicationProperties, String customerProperties, String[] args) {
         Logger log = LoggerFactory.getLogger(Util.class);
         setLevel(log,"all");
-        getProjectHomeDiretion(clazz);
+        runInIdeMode = ("file".equals(clazz.getResource("").getProtocol()));
+        SpringContext.setProjectHomePath(FileIOUtil.getCurrentPath());
         int pid = getProcessID(log);
         try {
-            FileUtil.writeToFile(String.valueOf(pid), new File(SpringContext.getProjectHomeDirection(),"pid.log"));
+            FileUtil.writeToFile(String.valueOf(pid), new File(SpringContext.getProjectHomePath(),"pid.log"));
         } catch (Exception e) {}
         IotequVersionInfo.readVersionInfo(clazz);
         SpringApplicationBuilder appBuilder = new SpringApplicationBuilder(clazz);

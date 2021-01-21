@@ -20,7 +20,7 @@ import top.iotequ.framework.service.impl.SqlService;
 
 /***************          数据库相关操作             ************************/
 
-public class SqlUtil extends SqlDbUtil {
+public class SqlUtil extends SqlStringUtil {
 	/**
 	 * 转换数据库异常报错信息,不再使用，有前端转换
 	 * @param e  异常

@@ -8,9 +8,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.List;
 
-/***************          数据库相关操作             ************************/
+/***************          Sql语句相关操作             ************************/
 
-public class SqlDbUtil {
+public class SqlStringUtil {
 	/**
 	 * sql写法
 	 * @param obj
@@ -83,7 +83,7 @@ public class SqlDbUtil {
 	 * @return	  转换后的()集合字符串
 	 */
 	public static String sqlSet(Object set,boolean isStringSet) {
-		if (CommonUtil.isEmpty(set)) return "()";
+		if (Utils.isEmpty(set)) return "()";
 		StringBuilder sb=new StringBuilder();
 		sb.append("(");
 		String YH=(isStringSet?"'":"");
@@ -105,25 +105,7 @@ public class SqlDbUtil {
 		sb.append(")");
 		return sb.toString();
 	}
-	static void replaceOneParameter(StringBuffer result,Object obj) {
-		int pos = result.indexOf("?");
-		if (pos >= 0) {
-			if (obj == null) {
-				result.replace(pos, pos + 1, "null");
-			} else if (obj.getClass().isArray() || obj instanceof Collection || (obj instanceof String && ((String)obj).split(",").length>1) ) { // 序列将=或 != 换成 in 或 not in
-				String s = sqlValue(obj);
-				result.replace(pos, pos + 1, s);
-				String left = result.substring(0, pos);
-				String newLeft=replaceEndEqualWith(left,"IN");
-				if (!left.equals(newLeft)) {
-					result.replace(0, pos, newLeft);
-				}
-			} else {
-				String s = sqlValue(obj);
-				result.replace(pos, pos + 1, s);
-			}
-		}
-	}
+
 	/**
 	 * 将sql语句中的?用参数替换 。
 	 * @param sql  sql语句
@@ -152,6 +134,12 @@ public class SqlDbUtil {
 			return null;
 	}
 
+	/**
+	 * 修改 sql语句的 字段列表，不支持嵌套的sql语句
+	 * @param sql 原sql语句
+	 * @param newFields 替换的型字段列表
+	 * @return 修改后的sql语句
+	 */
 	static public String sqlReplaceSelectFields(String sql,String newFields ) {
 		int pSelect=wordIndexOf(sql,"select",true,true),
 		    pFrom=wordIndexOf(sql,"from",true,true);
@@ -160,26 +148,7 @@ public class SqlDbUtil {
 		} else return sql;
 	}
 
-	static private int sqlConditionStart(String sql,String word,boolean findFirstMatched,boolean ignoreCase) {
-		int p=0,len=sql.length();
-		while (p<len) {
-			String sub = sql.substring(p);
-			int pos = wordIndexOf(sub,word,findFirstMatched,ignoreCase);
-			if (pos<0) return pos;
-			pos += p;
-			int kh=0;
-			int i=0;
-			while (i<pos) {
-				char ch = sql.charAt(i);
-				if (ch == '(') kh++;
-				else if (ch == ')') kh--;
-				i++;
-			}
-			if (kh==0) return pos;
-			p=pos + word.length();
-		}
-		return -1;
-	}
+
 	/**
 	 * 给sql语句添加一个条件
 	 * @param sql  sql语句(不支持where条件含有order having group子句的子查询)
@@ -187,7 +156,7 @@ public class SqlDbUtil {
 	 * @return 新的sql语句
 	 */
 	static public String sqlAddCondition(String sql,String condition) {
-		if (CommonUtil.isEmpty(condition) || CommonUtil.isEmpty(sql)) return sql;
+		if (Utils.isEmpty(condition) || Utils.isEmpty(sql)) return sql;
 		int pWhere=sqlConditionStart(sql,"where",true,true),
 			 pGroup=sqlConditionStart(sql,"group",false,true),
 			 pHaving=sqlConditionStart(sql,"having",false,true),
@@ -203,13 +172,13 @@ public class SqlDbUtil {
 		}
 	}
 	/**
-	 * 给sql语句添加一个条件
+	 * 给sql语句添加一个排序条件
 	 * @param sql  sql语句(不支持where条件含有order子句的子查询)
 	 * @param order 需要添加的条件
 	 * @return 新的sql语句
 	 */
 	static public String sqlAddOrderCondition(String sql,String order) {
-		if (CommonUtil.isEmpty(order) || CommonUtil.isEmpty(sql)) return sql;
+		if (Utils.isEmpty(order) || Utils.isEmpty(sql)) return sql;
 		int pOrder=wordIndexOf(sql,"order",false,true);
 		if (pOrder==-1) {
 			return sql + " ORDER BY " + order;
@@ -224,64 +193,15 @@ public class SqlDbUtil {
 			return sql + " ORDER BY " + order + ","+right;
 		}
 	}
-
-	static private List<Integer> getMatched(String reg,String s) {
-	     List<Integer> inStr=new ArrayList<Integer>();
-	     Pattern p = Pattern.compile(reg);
-	     Matcher m = p.matcher(s); // 获取 matcher 对象
-	     while(m.find()) {
-	    	 inStr.add(m.start());
-	    	 inStr.add(m.end());
-	      }
-	     return inStr;
-	}
-	private static String replaceEndEqualWith(String exp,String inOrLike) {
-		if (inOrLike==null) inOrLike="IN";
-		exp=exp.replaceFirst("\\s*(\\<\\>|\\!=)\\s*$", " NOT "+inOrLike+" ");
-		exp=exp.replaceFirst("\\s*=\\s*$", " "+inOrLike+" ");
-		return exp;
-	}
-	/**
-	 * 查找第一个匹配的单词，不包括引号内的。用于sql语法分析
-	 * @param str   字符串
-	 * @param word 需要查找的单词
-	 * @param findFirstMatched 返回第一个匹配的，否则返回最后一个匹配的
-	 * @param ignoreCase 忽略大小写
-	 * @return 找到的位置，未找到返回-1
-	 */
-	protected static int wordIndexOf(String str, String word, boolean findFirstMatched, boolean ignoreCase) {
-		 final String regSY = "\\\"(\\\\.|[^\\\\\"])*\\\"";  // 匹配双引号内容
-		 final String regDY = "\\\'(\\\\.|[^\\\\\"])*\\\'";  //  匹配单引号内容
-		 final String reg="\\b"+(ignoreCase?"(?i)":"")+word+"\\b";
-	     List<Integer> inStr=getMatched(regSY,str);
-	     inStr.addAll(getMatched(regDY,str));
-	     List<Integer> matched=getMatched(reg,str);
-	     if (matched.size()>=2) {
-	    	 int total = matched.size()/2;
-	    	 for (int i=(findFirstMatched?0 : total-1) ; (findFirstMatched && i<total) || (!findFirstMatched && i>=0); i += (findFirstMatched?1:-1)) {
-	    		 int s=matched.get(2*i),e=matched.get(2*i+1);
-	    		 boolean inYH=false;
-	    		 for (int j=0;j<inStr.size()/2;j+=2) {
-	    			 if ((s>=inStr.get(j) && s<inStr.get(j+1)) || (e>=inStr.get(j) && e<inStr.get(j+1))) {
-	    				 inYH=true;
-	    				 break;
-	    			 }
-	    		 }
-	    		 if (!inYH) return s;
-	    	 }
-	     } 
-		return-1;
-	}
-
 	/**
 	 * 指定位置替换
 	 * @param sql SQL语句
 	 * @param s 开始位置
 	 * @param e 结束为止
 	 * @param v 值,=null时判断 v0,v1,v2
-	 * @param v0 start值
-	 * @param v1 end 值
-	 * @param v2 excluse end 值
+	 * @param v0 取值区间start值
+	 * @param v1 取值区间end 值（包含）
+	 * @param v2 取值区间不包含的 end 值
 	 * @param quotation 引号字符，=0时不需要引号
 	 * @return 替换后的sql字符串
 	 */
@@ -336,4 +256,91 @@ public class SqlDbUtil {
 		}
 		return sql;
 	}
+	/**
+	 * 查找第一个匹配的单词，不包括引号内的。用于sql语法分析
+	 * @param str   字符串
+	 * @param word 需要查找的单词
+	 * @param findFirstMatched 返回第一个匹配的，否则返回最后一个匹配的
+	 * @param ignoreCase 忽略大小写
+	 * @return 找到的位置，未找到返回-1
+	 */
+	protected static int wordIndexOf(String str, String word, boolean findFirstMatched, boolean ignoreCase) {
+		final String regSY = "\\\"(\\\\.|[^\\\\\"])*\\\"";  // 匹配双引号内容
+		final String regDY = "\\\'(\\\\.|[^\\\\\"])*\\\'";  //  匹配单引号内容
+		final String reg="\\b"+(ignoreCase?"(?i)":"")+word+"\\b";
+		List<Integer> inStr=getMatched(regSY,str);
+		inStr.addAll(getMatched(regDY,str));
+		List<Integer> matched=getMatched(reg,str);
+		if (matched.size()>=2) {
+			int total = matched.size()/2;
+			for (int i=(findFirstMatched?0 : total-1) ; (findFirstMatched && i<total) || (!findFirstMatched && i>=0); i += (findFirstMatched?1:-1)) {
+				int s=matched.get(2*i),e=matched.get(2*i+1);
+				boolean inYH=false;
+				for (int j=0;j<inStr.size()/2;j+=2) {
+					if ((s>=inStr.get(j) && s<inStr.get(j+1)) || (e>=inStr.get(j) && e<inStr.get(j+1))) {
+						inYH=true;
+						break;
+					}
+				}
+				if (!inYH) return s;
+			}
+		}
+		return-1;
+	}
+	private static void replaceOneParameter(StringBuffer result,Object obj) {
+		int pos = result.indexOf("?");
+		if (pos >= 0) {
+			if (obj == null) {
+				result.replace(pos, pos + 1, "null");
+			} else if (obj.getClass().isArray() || obj instanceof Collection || (obj instanceof String && ((String)obj).split(",").length>1) ) { // 序列将=或 != 换成 in 或 not in
+				String s = sqlValue(obj);
+				result.replace(pos, pos + 1, s);
+				String left = result.substring(0, pos);
+				String newLeft=replaceEndEqualWith(left,"IN");
+				if (!left.equals(newLeft)) {
+					result.replace(0, pos, newLeft);
+				}
+			} else {
+				String s = sqlValue(obj);
+				result.replace(pos, pos + 1, s);
+			}
+		}
+	}
+	static private int sqlConditionStart(String sql,String word,boolean findFirstMatched,boolean ignoreCase) {
+		int p=0,len=sql.length();
+		while (p<len) {
+			String sub = sql.substring(p);
+			int pos = wordIndexOf(sub,word,findFirstMatched,ignoreCase);
+			if (pos<0) return pos;
+			pos += p;
+			int kh=0;
+			int i=0;
+			while (i<pos) {
+				char ch = sql.charAt(i);
+				if (ch == '(') kh++;
+				else if (ch == ')') kh--;
+				i++;
+			}
+			if (kh==0) return pos;
+			p=pos + word.length();
+		}
+		return -1;
+	}
+	static private List<Integer> getMatched(String reg,String s) {
+		List<Integer> inStr=new ArrayList<Integer>();
+		Pattern p = Pattern.compile(reg);
+		Matcher m = p.matcher(s); // 获取 matcher 对象
+		while(m.find()) {
+			inStr.add(m.start());
+			inStr.add(m.end());
+		}
+		return inStr;
+	}
+	private static String replaceEndEqualWith(String exp,String inOrLike) {
+		if (inOrLike==null) inOrLike="IN";
+		exp=exp.replaceFirst("\\s*(\\<\\>|\\!=)\\s*$", " NOT "+inOrLike+" ");
+		exp=exp.replaceFirst("\\s*=\\s*$", " "+inOrLike+" ");
+		return exp;
+	}
+
 }

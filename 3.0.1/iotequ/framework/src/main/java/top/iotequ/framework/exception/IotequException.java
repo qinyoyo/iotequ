@@ -1,7 +1,7 @@
 package top.iotequ.framework.exception;
 
 import org.springframework.dao.DataAccessException;
-import top.iotequ.util.CommonUtil;
+import top.iotequ.util.Utils;
 import top.iotequ.util.SqlUtil;
 
 public class IotequException extends Exception implements IotequThrowable {
@@ -27,7 +27,7 @@ public class IotequException extends Exception implements IotequThrowable {
 			String msg=null;
 			String clazz=e.getClass().getSimpleName();
 			if (e.getCause()!=null ) msg=e.getCause().getMessage();
-			if (CommonUtil.isEmpty(msg)) msg=e.getLocalizedMessage();
+			if (Utils.isEmpty(msg)) msg=e.getLocalizedMessage();
 			return new IotequException("exception."+clazz,msg);
 		}
 	}

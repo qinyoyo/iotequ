@@ -25,20 +25,20 @@ public class SpringContext implements ApplicationContextAware {
     public static Map<String, List<Map<String, Object>>> systemDataDict = null;
     private static ApplicationContext applicationContext = null;
     private static DataDictDao dictDaoInstance;
-    private static String projectHomeDirection = null;
+    private static String projectHomePath = null;
     private static String propertyFile = null;
     public  static final String nodeId = uuid();
     @Autowired
     private DataDictDao dictDao;
 
-    public static void setProjectHomeDirection(String path) {
-        projectHomeDirection = path;
+    public static void setProjectHomePath(String path) {
+        projectHomePath = path;
     }
     public static void setPropertyFile(String path) {
         propertyFile = path;
     }
-    public static String getProjectHomeDirection() {
-        return projectHomeDirection;
+    public static String getProjectHomePath() {
+        return projectHomePath;
     }
     public static void getDictData() {
         systemDataDict = new HashMap<String, List<Map<String, Object>>>();
@@ -99,7 +99,7 @@ public class SpringContext implements ApplicationContextAware {
             } catch (Exception e) {
                 log.error("getSetupCode error : {}", e.getMessage());
             }
-            log.info("Home direction = {}", projectHomeDirection);
+            log.info("Home path = {}", projectHomePath);
             log.info("User additional properties file = {}", propertyFile==null ? "<none>" : propertyFile);
             log.info("Node id = {}", nodeId);
             log.info("----------------------------------------------------------------------------------------------");

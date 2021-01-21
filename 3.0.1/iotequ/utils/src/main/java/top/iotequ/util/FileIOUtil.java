@@ -6,6 +6,13 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 public class FileIOUtil {
+    public static String getCurrentPath() {
+        try {
+            return new File(".").getCanonicalPath();
+        } catch (Exception e) {
+            return ".";
+        }
+    }
     /************************
      * 将字符串写入文件,utf-8 编码
      * @param s : 字符串

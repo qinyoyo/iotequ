@@ -55,7 +55,7 @@ logging:
       root: info
       org.springframework: info
       org.mybatis: info
-      top.iotequ: debug
+      top.iotequ: info
 
 #mybatis输出sql语句
 #mybatis:
