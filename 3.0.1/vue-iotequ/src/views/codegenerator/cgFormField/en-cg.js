@@ -1,36 +1,32 @@
 export default {
   cgFormField: {
     title: {
-      list: 'cgFormField',
-      record: 'cgFormField',
-      groupCgFormFieldEntityField: 'groupCgFormFieldEntityField',
-      groupCgFormFieldFormItemProperties: 'groupCgFormFieldFormItemProperties',
-      code: 'CgFormField'
+      list: 'Fields of form',
+      record: 'Fields of form',
+      groupCgFormFieldEntityField: 'Group entity field',
+      groupCgFormFieldFormItemProperties: 'Group form item properties',
+      code: 'Fields of form'
     },
     action: {
       select: 'Select'
     },
-    route: {
-      listTag: 'cgFormField',
-      recordTag: 'cgFormField'
-    },
     field: {
       id: 'Id',
-      formId: 'FormId',
-      orderNum: 'OrderNum',
-      entityField: 'EntityField',
+      formId: 'Form id',
+      orderNum: 'Order num',
+      entityField: 'Entity field',
       width: 'Width',
-      groupTitle: 'GroupTitle',
-      itemProperties: 'ItemProperties',
-      formItemProperties: 'FormItemProperties',
+      groupTitle: 'Group title',
+      itemProperties: 'Item properties',
+      formItemProperties: 'Form item properties',
       readonly: 'Readonly',
-      mustInput: 'MustInput',
+      mustInput: 'Must input',
       icon: 'Icon',
       href: 'Href',
       hidden: 'Hidden',
-      validateAsTitle: 'ValidateAsTitle',
-      slotTemplates: 'SlotTemplates',
-      showType: 'ShowType'
+      validateAsTitle: 'Validate as title',
+      slotTemplates: 'Slot templates',
+      showType: 'Show type'
     }
   }
 }

@@ -1,20 +1,16 @@
 export default {
   adSpecialShiftTime: {
     title: {
-      list: 'adSpecialShiftTime',
-      record: 'adSpecialShiftTime',
-      code: 'AdSpecialShiftTime'
-    },
-    route: {
-      listTag: 'adSpecialShiftTime',
-      recordTag: 'adSpecialShiftTime'
+      list: 'Ad special shift time',
+      record: 'Ad special shift time',
+      code: 'Ad special shift time'
     },
     field: {
       id: 'Id',
-      specialShiftId: 'SpecialShiftId',
+      specialShiftId: 'Special shift id',
       name: 'Name',
-      startTime: 'StartTime',
-      endTime: 'EndTime'
+      startTime: 'Start time',
+      endTime: 'End time'
     }
   }
 }

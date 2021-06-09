@@ -5,10 +5,6 @@ export default {
       record: '操作员',
       code: '操作员'
     },
-    route: {
-      listTag: '操作员表',
-      recordTag: '操作员'
-    },
     field: {
       id: '',
       name: '登录名',

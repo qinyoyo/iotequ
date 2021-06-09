@@ -4,6 +4,7 @@ import time from '@/utils/time'
 import { uppercaseFirst } from '@/filters'
 import { findRouteByUrl } from '@/utils/filterRoutes'
 import { getQueryObject } from '@/utils'
+import {localeText,setLocaleText} from '@/lang'
 export const systemActionParams ={
   query: {
     isSystemAction: true,
@@ -632,7 +633,7 @@ export function setJoinValues(record, field, join, rows) {
     join.fields.split(',').forEach(f => {
       const exps = f.split('=')
       vv = []
-      rows.forEach(r => { if (r) vv.push(r[exps[1]]) })
+      rows.forEach(r => { if (r) vv.push(localeText(r[exps[1]])) })
       record[exps[0]] = vv.join(',')
     })
   } else {
@@ -651,16 +652,24 @@ export function clearJoinValues(obj,ref) {
 }
 // 从字典检索值，支持属性字典(兼容2.2.2，子序列字段名为nodes) value值(单个值或逗号序列) dict字典
 // fullname是否显示全名 stringOutput是否已逗号序列方式输出
+
 export function dictValue(value, dict, fullname, stringOutput) {
   const vue = window.$vue
   if ((!value && value!==0)) return stringOutput ? '' : []
   const vv = (typeof value === 'string' ? value.split(',') : [value + ''])
   if (!dict) return stringOutput ? vv.join(',') : vv
   var tt = []
+  const fullNameLocale = function(f) {
+    let ff = f.split('-')
+    for (let i=0;i<ff.length;i++) {
+      ff[i] = localeText(ff[i]).local()
+    }
+    return ff.join('-')
+  }
   dict.forEach(d => {
     if (vv.indexOf(d.value + '') >= 0) {
-      const txt = fullname && d.fullname ? d.fullname : d.text
-      tt.push(txt?txt.local():'')
+      const txt = fullname && d.fullname ? fullNameLocale(d.fullname) : localeText(d.text).local()
+      tt.push(txt?txt:'')
     }
     if (d.nodes && d.nodes.length > 0) {
       const cc = dictValue(value, d.nodes, fullname, false)
@@ -1011,5 +1020,7 @@ export default {
   focusField,
   autoFocus,
   jump2Url,
-  displayTabPane
+  displayTabPane,
+  localeText,
+  setLocaleText
 }

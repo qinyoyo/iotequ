@@ -8,6 +8,7 @@
 	"server1":"http://49.4.123.61:8188",
 	"baseUrl":"",
 	"showSettings":true,
+	"disableMLText":false,
 	"tagsView":true,
 	"fixedHeader":false,
 	"sidebarLogo":true,

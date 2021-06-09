@@ -1,20 +1,16 @@
 export default {
   payShop: {
     title: {
-      list: 'payShop',
-      record: 'payShop',
-      code: 'PayShop'
-    },
-    route: {
-      listTag: 'payShop',
-      recordTag: 'payShop'
+      list: 'Pay shop',
+      record: 'Pay shop',
+      code: 'Pay shop'
     },
     field: {
       id: 'Id',
-      corporationId: 'CorporationId',
+      corporationId: 'Corporation id',
       name: 'Name',
       linkman: 'Linkman',
-      linkPhone: 'LinkPhone',
+      linkPhone: 'Link phone',
       address: 'Address'
     }
   }

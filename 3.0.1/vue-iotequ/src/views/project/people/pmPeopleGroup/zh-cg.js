@@ -5,10 +5,6 @@ export default {
       record: '职能人员分组',
       code: '职能人员分组'
     },
-    route: {
-      listTag: '职能人员分组表',
-      recordTag: '职能人员分组'
-    },
     field: {
       id: '编号',
       parent: '上级',

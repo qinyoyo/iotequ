@@ -9,6 +9,7 @@
 </template>
 <script>
 import {validDictValue} from '@/utils/cg'
+import {localeText} from '@/lang'
 export default {
   name: 'CgCascader',
   props: {
@@ -75,7 +76,7 @@ export default {
     localDictionary(dict) {
       const that=this
       dict.forEach(d=>{
-        if (d.text) d.text=d.text.local()
+        if (d.text) d.text=localeText(d.text).local()
         if (d.nodes) that.localDictionary(d.nodes)
       })
       return dict

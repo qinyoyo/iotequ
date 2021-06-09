@@ -5,10 +5,6 @@ export default {
       record: '计时消费项目',
       code: '计时消费项目'
     },
-    route: {
-      listTag: '计时消费项目表',
-      recordTag: '计时消费项目'
-    },
     field: {
       id: '编号',
       icon: '图标',

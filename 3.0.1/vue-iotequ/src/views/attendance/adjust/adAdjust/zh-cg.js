@@ -6,11 +6,6 @@ export default {
       record: '申请单',
       code: '考勤调整'
     },
-    route: {
-      listTag: '人事清单',
-      approveTag: '审批',
-      recordTag: '申请单'
-    },
     field: {
       id: 'id',
       orgCode: '部门',

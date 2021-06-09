@@ -12,6 +12,7 @@ import lombok.Setter;
 import com.google.gson.annotations.SerializedName;
 import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
+import java.util.*;
 
 //  Pojo entity : DevReader (终端设备表)
 @CgTableAnnotation(name="dev_reader",
@@ -26,12 +27,16 @@ import top.iotequ.util.CgTableAnnotation;
 @Getter
 @Setter
 public class DevReader implements CgEntity {
+    @SerializedName(value = "capacity", alternate = {"CAPACITY"})
+    @CgFieldAnnotation(name="capacity",jdbcType="INTEGER",length=10,nullable=true,format="")
+    private Integer capacity;		//容量 db field:capacity
+
     @SerializedName(value = "id", alternate = {"ID"})
     @CgFieldAnnotation(name="id",jdbcType="CHAR",length=36,nullable=false,format="@")
     private String id;		//主键 db field:id
 
     @SerializedName(value = "readerNo", alternate = {"reader_no","READER_NO"})
-    @CgFieldAnnotation(name="reader_no",jdbcType="VARCHAR",length=10,nullable=false,format="@")
+    @CgFieldAnnotation(name="reader_no",jdbcType="VARCHAR",length=20,nullable=false,format="@")
     private String readerNo;		//设备编号 db field:reader_no
 
     @SerializedName(value = "name", alternate = {"NAME"})

@@ -36,8 +36,8 @@
       </cg-table-column>
       <cg-table-column prop="title" :page="1" :label="$t('cgTable.field.title')" align="left" >
         <template slot-scope="scope">
-          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.title" type="text" />
-          <span v-else>{{ scope.row.title }}</span>
+          <cg-input v-if="scope.row.inlineEditting" v-model="scope.row.title" type="text" />
+          <span v-else>{{ localeText(scope.row.title) }}</span>
         </template>
 
       </cg-table-column>
@@ -99,6 +99,7 @@
 </template>
 
 <script>
+import {localeText} from '@/lang'
 import {hasAuthority} from '@/utils/cg'
 import rulesObject from './rules.js'
 import ParentTable from '@/views/common-views/components/table'

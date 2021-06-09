@@ -5,6 +5,7 @@
 
 package top.iotequ.framework.pojo;
 import top.iotequ.util.StringUtil;
+import top.iotequ.framework.pojo.CgEntity;
 import lombok.Getter;
 import lombok.Setter;
 import com.google.gson.annotations.SerializedName;

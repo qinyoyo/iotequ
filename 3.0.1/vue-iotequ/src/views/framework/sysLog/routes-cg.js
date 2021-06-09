@@ -16,9 +16,9 @@ export default {
       name: 'SysLogList',
       props: true,
       meta: {
-        title: 'sysLog.route.listTag',
+        title: 'sysLog.title.list',
         authorities: ['/framework/sysLog/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }

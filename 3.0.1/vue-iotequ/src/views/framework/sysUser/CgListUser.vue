@@ -42,8 +42,8 @@
       </cg-table-column>
       <cg-table-column prop="realName" :page="paginationCurrentPage" :label="$t('sysUser.field.realName')" sortable align="left" >
         <template slot-scope="scope">
-          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.realName" type="text" />
-          <span v-else>{{ scope.row.realName }}</span>
+          <cg-input v-if="scope.row.inlineEditting" v-model="scope.row.realName" type="text" />
+          <span v-else>{{ localeText(scope.row.realName) }}</span>
         </template>
 
       </cg-table-column>
@@ -155,7 +155,7 @@
                     :readonly="fixedQueryRecord.name?true:false" :label="$t('sysUser.field.name')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('sysUser.field.realName')" prop="realName" :size="$store.state.app.size">
-          <el-input v-model="queryRecord.realName" type="text" name="realName"
+          <cg-input v-model="queryRecord.realName" type="text" name="realName"
                     :readonly="fixedQueryRecord.realName?true:false" :label="$t('sysUser.field.realName')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('sysUser.field.sex')" prop="sex" :size="$store.state.app.size">
@@ -184,6 +184,7 @@
 </template>
 
 <script>
+import {localeText} from '@/lang'
 import {hasAuthority} from '@/utils/cg'
 import ParentTable from '@/views/common-views/components/table'
 const Comp = {

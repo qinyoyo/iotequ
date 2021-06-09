@@ -1,43 +1,39 @@
 export default {
   ewBill: {
     title: {
-      list: 'ewBill',
-      record: 'ewBill',
-      code: 'EwBill'
-    },
-    route: {
-      listTag: 'ewBill',
-      recordTag: 'ewBill'
+      list: 'Ew bill',
+      record: 'Ew bill',
+      code: 'Ew bill'
     },
     field: {
       no: 'No',
       canceled: 'Canceled',
-      isCharge: 'IsCharge',
-      userNo: 'UserNo',
-      batchNo: 'BatchNo',
+      isCharge: 'Is charge',
+      userNo: 'User no',
+      batchNo: 'Batch no',
       dt: 'Dt',
-      operationType: 'OperationType',
+      operationType: 'Operation type',
       costType_0: '钱包',
       costType_1: '计次',
       costType_2: '计时',
-      costType: 'CostType',
-      projectId: 'ProjectId',
-      projectName: 'ProjectName',
-      projectPrice: 'ProjectPrice',
+      costType: 'Cost type',
+      projectId: 'Project id',
+      projectName: 'Project name',
+      projectPrice: 'Project price',
       amount: 'Amount',
-      amountBefore: 'AmountBefore',
+      amountBefore: 'Amount before',
       bonus: 'Bonus',
-      bonusBefore: 'BonusBefore',
-      deviceNo: 'DeviceNo',
-      deviceStream: 'DeviceStream',
-      deviceDt: 'DeviceDt',
-      tradeNo: 'TradeNo',
-      operatorNo: 'OperatorNo',
-      checkCode: 'CheckCode',
-      linkNo: 'LinkNo',
-      loginId: 'LoginId',
-      shopId: 'ShopId',
-      isValid: 'IsValid'
+      bonusBefore: 'Bonus before',
+      deviceNo: 'Device no',
+      deviceStream: 'Device stream',
+      deviceDt: 'Device dt',
+      tradeNo: 'Trade no',
+      operatorNo: 'Operator no',
+      checkCode: 'Check code',
+      linkNo: 'Link no',
+      loginId: 'Login id',
+      shopId: 'Shop id',
+      isValid: 'Is valid'
     }
   }
 }

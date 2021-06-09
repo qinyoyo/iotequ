@@ -18,6 +18,7 @@
 </template>
 <script>
 import {validDictValue} from '@/utils/cg'
+import {localeText} from '@/lang'
 function getValueList(value, multiple, clearable) {
   if (value || value==0) return multiple ? String(value).split(',') : String(value)
   else return (multiple ? [] : null)
@@ -106,8 +107,8 @@ export default {
           }
         })
         else this.dictionary.forEach(r=>{
-          if (typeof r === 'object') newDict.push({ text: r.text, value: String(r.value)})
-          else newDict.push({ text: String(r).local(), value: String(r)})
+          if (typeof r === 'object') newDict.push({ text: localeText(r.text), value: String(r.value)})
+          else newDict.push({ text: localeText(String(r)).local(), value: String(r)})
         })
       return newDict
     }

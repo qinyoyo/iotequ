@@ -16,9 +16,9 @@ export default {
       name: 'ActionList',
       props: true,
       meta: {
-        title: 'sysAction.route.listTag',
+        title: 'sysAction.title.list',
         authorities: ['/framework/sysAction/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -29,7 +29,7 @@ export default {
       name: 'ActionForm',
       props: true,
       meta: {
-        title: 'sysAction.route.recordTag',
+        title: 'sysAction.title.record',
         dialog: true,
         authorities: ['/framework/sysAction/record'],
         breadcrumb: false,

@@ -1,6 +1,7 @@
 package top.iotequ.attendance.specialshift.service.impl;
 import top.iotequ.attendance.specialshift.pojo.AdSpecialShift;
 import top.iotequ.attendance.specialshift.dao.AdSpecialShiftDao;
+import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,10 @@ import top.iotequ.framework.service.impl.CgService;
 import top.iotequ.framework.service.IDaoService;
 import org.springframework.stereotype.Service;
 import top.iotequ.framework.service.utils.DictionaryUtil;
+import top.iotequ.framework.service.utils.UploadDownUtil;
+import top.iotequ.framework.service.utils.QueryUtil;
 import top.iotequ.util.*;
 import top.iotequ.attendance.util.AdUtil;
-import top.iotequ.util.StringUtil;
-
 import java.util.*;
 
 /**************************************************
@@ -24,7 +25,7 @@ Author : Qinyoyo
 @ConditionalOnMissingClass({"top.iotequ.attendance.specialshift.service.impl.AdSpecialShiftService"})
 @Service(value="adSpecialShiftService")
 public class CgAdSpecialShiftService extends CgService<AdSpecialShift>  {
-private static final Logger log = LoggerFactory.getLogger(CgAdSpecialShiftService.class);
+    private static final Logger log = LoggerFactory.getLogger(CgAdSpecialShiftService.class);
     @Autowired
     private AdSpecialShiftDao adSpecialShiftDao;
     public static String [] dictShiftModeValue= {String.valueOf(AdUtil.ss_free),String.valueOf(AdUtil.ss_adjust_shift),String.valueOf(AdUtil.ss_overwork)};

@@ -1,26 +1,23 @@
 export default {
   adData: {
     title: {
-      list: 'adData',
-      code: 'AdData'
-    },
-    route: {
-      listTag: 'adData'
+      list: 'Attendance data',
+      code: 'Attendance data'
     },
     field: {
       id: 'Id',
-      recSourceType: 'RecSourceType',
-      recSource: 'RecSource',
+      recSourceType: 'Rec source type',
+      recSource: 'Rec source',
       recType_0: '上班',
       recType_1: '下班',
       recType_2: '未知',
-      recType: 'RecType',
-      recTime: 'RecTime',
-      isUsed: 'IsUsed',
-      realName: 'real name',
-      employeeNo: 'EmployeeNo',
-      dateDate: 'DateDate',
-      dateTime: 'DateTime'
+      recType: 'Rec type',
+      recTime: 'Rec time',
+      isUsed: 'Is used',
+      realName: 'Real name',
+      employeeNo: 'Employee no',
+      dateDate: 'Date date',
+      dateTime: 'Date time'
     }
   }
 }

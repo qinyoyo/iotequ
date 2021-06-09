@@ -58,13 +58,13 @@
           <el-form-item class="cg-item-text" :label="$t('cgForm.field.headTitle')" :title="$t('cgForm.field.headTitleValid')" prop="headTitle" :size="$store.state.app.size" >
             <el-input v-model="record.headTitle" name="headTitle" 
                       type="text" 
-                      :label="$t('cgForm.field.headTitle')" :placeholder="$t('system.message.needValue')" 
+                      :label="$t('cgForm.field.headTitle')" :placeholder="$t('system.message.unknown')" 
                       resize autofocus validate-event 
-                      :readonly="isDetail" :maxlength="400" show-word-limit />
+                      :readonly="isDetail" :maxlength="400" show-word-limit clearable />
           </el-form-item>
           <el-row :gutter="mobile?0:20">
             <el-col :span="12">
-              <el-form-item class="cg-item-text" :label="$t('cgForm.field.tagTitle')" prop="tagTitle" :size="$store.state.app.size" >
+              <el-form-item class="cg-item-text" :label="$t('cgForm.field.tagTitle')" :title="$t('cgForm.field.tagTitleValid')" prop="tagTitle" :size="$store.state.app.size" >
                 <el-input v-model="record.tagTitle" name="tagTitle" 
                           type="text" 
                           :label="$t('cgForm.field.tagTitle')" :placeholder="$t('system.message.needValue')" 
@@ -178,7 +178,6 @@ const Comp = {
             isDialog: false,
             continueAdd: true,
             path: 'record',
-            headTitle: '',
             tagTitle: '',
             labelPosition: 'top',
         }

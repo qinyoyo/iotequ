@@ -5,10 +5,6 @@ export default {
       record: '运营公司',
       code: '运营公司'
     },
-    route: {
-      listTag: '运营公司表',
-      recordTag: '运营公司'
-    },
     field: {
       id: '',
       parentId: '上级公司',

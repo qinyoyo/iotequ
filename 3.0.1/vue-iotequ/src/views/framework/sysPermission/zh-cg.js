@@ -1,11 +1,8 @@
 export default {
   sysPermission: {
     title: {
-      record: '功能分配',
+      record: '功能分配表',
       code: '功能分配表'
-    },
-    route: {
-      recordTag: '功能分配'
     },
     field: {
       id: '',

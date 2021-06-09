@@ -22,13 +22,13 @@ function u53request(data,action,onSuccess,onError) {
         if (typeof onSuccess === 'function') onSuccess(res)
       } else {
         if (!res.Msg) {
-            if (res.status) res.Msg = res.status+":请检查U53服务"
-            else res.Msg = 'U53请求失败'
+            if (res.status) res.Msg = res.status + ':U53 error.failure'.local()
+            else res.Msg = 'U53 error.failure'.local()
         } 
         if (typeof onError === 'function') onError(res)
       } 
     } else {
-        if (typeof onError === 'function') onError({isSucc: false, Msg: 'U53请求失败'})
+        if (typeof onError === 'function') onError({isSucc: false, Msg: 'U53 error.failure'.local()})
     }
     headEle.removeChild(JSONP)
     delete window[callback]

@@ -1,27 +1,23 @@
 export default {
   cgTable: {
     title: {
-      list: 'cgTable',
-      record: 'cgTable',
-      groupCgTableModule: 'groupCgTableModule',
-      groupCgTableImports: 'groupCgTableImports',
-      code: 'CgTable'
+      list: 'Code design',
+      record: 'Code design',
+      groupCgTableModule: 'Group module',
+      groupCgTableImports: 'Group imports',
+      code: 'Cg table'
     },
     action: {
       create: 'Create',
-      syncConfirm: 'Confirm Sync',
+      syncConfirm: 'Confirm sync',
       sync: 'Sync',
-      generatorConfirm: 'Confirm Generator',
+      generatorConfirm: 'Confirm generator',
       generator: 'Generator',
-      scanCodeConfirm: 'Confirm ScanCode',
-      scanCode: 'ScanCode',
-      flowSyncConfirm: 'Confirm FlowSync',
-      flowSync: 'FlowSync',
+      scanCodeConfirm: 'Confirm scan code',
+      scanCode: 'Scan code',
+      flowSyncConfirm: 'Confirm flow sync',
+      flowSync: 'Flow sync',
       fields: 'Fields'
-    },
-    route: {
-      listTag: 'cgTable',
-      recordTag: 'cgTable'
     },
     field: {
       id: 'Id',
@@ -31,16 +27,16 @@ export default {
       name: 'Name',
       titleValid: 'Please input correct value for title',
       title: 'Title',
-      subPackageValid: 'Please input correct value for subPackage',
-      subPackage: 'SubPackage',
+      subPackageValid: 'Please input correct value for sub package',
+      subPackage: 'Sub package',
       entityValid: 'Please input correct value for entity',
       entity: 'Entity',
       templateValid: 'Please input correct value for template',
       template_0: '',
       template: 'Template',
-      trialLicence: 'TrialLicence',
-      trialDays: 'TrialDays',
-      actionListValid: 'Please input correct value for actionList',
+      trialLicence: 'Trial licence',
+      trialDays: 'Trial days',
+      actionListValid: 'Please input correct value for action list',
       actionList_0: '',
       actionList_1: '',
       actionList_2: '',
@@ -52,16 +48,16 @@ export default {
       actionList_8: '',
       actionList_9: '',
       actionList_10: '',
-      actionList: 'ActionList',
+      actionList: 'Action list',
       imports: 'Imports',
-      controllerExtends: 'ControllerExtends',
-      pojoImports: 'PojoImports',
-      pojoExtends: 'PojoExtends',
-      pojoJavaCode: 'PojoJavaCode',
+      controllerExtends: 'Controller extends',
+      pojoImports: 'Pojo imports',
+      pojoExtends: 'Pojo extends',
+      pojoJavaCode: 'Pojo java code',
       creator: 'Creator',
-      flowDynaFieldsOp: 'FlowDynaFieldsOp',
-      flowDynaFieldsCp: 'FlowDynaFieldsCp',
-      projectId: 'ProjectId'
+      flowDynaFieldsOp: 'Flow dyna fields op',
+      flowDynaFieldsCp: 'Flow dyna fields cp',
+      projectId: 'Project id'
     }
   }
 }

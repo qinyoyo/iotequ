@@ -1,6 +1,7 @@
 package top.iotequ.attendance.org.service.impl;
 import top.iotequ.attendance.org.pojo.AdOrg;
 import top.iotequ.attendance.org.dao.AdOrgDao;
+import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,10 @@ import top.iotequ.framework.service.impl.CgService;
 import top.iotequ.framework.service.IDaoService;
 import org.springframework.stereotype.Service;
 import top.iotequ.framework.service.utils.DictionaryUtil;
+import top.iotequ.framework.service.utils.UploadDownUtil;
+import top.iotequ.framework.service.utils.QueryUtil;
 import top.iotequ.util.*;
-import top.iotequ.util.StringUtil;
-
+import top.iotequ.attendance.util.AdUtil;
 import java.util.*;
 
 /**************************************************
@@ -23,7 +25,7 @@ Author : Qinyoyo
 @ConditionalOnMissingClass({"top.iotequ.attendance.org.service.impl.AdOrgService"})
 @Service(value="adOrgService")
 public class CgAdOrgService extends CgService<AdOrg>  {
-private static final Logger log = LoggerFactory.getLogger(CgAdOrgService.class);
+    private static final Logger log = LoggerFactory.getLogger(CgAdOrgService.class);
     @Autowired
     private AdOrgDao adOrgDao;
     @Override

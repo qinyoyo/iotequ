@@ -28,7 +28,7 @@
       </cg-table-column>
       <cg-table-column prop="realName" :page="paginationCurrentPage" :label="$t('adAdjust.field.employee')" align="left" >
         <template slot-scope="scope">
-          {{ scope.row.realName }}
+          {{ localeText(scope.row.realName) }}
         </template>
 
       </cg-table-column>
@@ -46,13 +46,13 @@
       </cg-table-column>
       <cg-table-column prop="hrRealName" :page="paginationCurrentPage" :label="$t('adAdjust.field.hr')" align="left" >
         <template slot-scope="scope">
-          {{ scope.row.hrRealName }}
+          {{ localeText(scope.row.hrRealName) }}
         </template>
 
       </cg-table-column>
       <cg-table-column prop="approverName" :page="paginationCurrentPage" :label="$t('adAdjust.field.approver')" align="left" >
         <template slot-scope="scope">
-          {{ scope.row.approverName }}
+          {{ localeText(scope.row.approverName) }}
         </template>
 
       </cg-table-column>
@@ -137,6 +137,7 @@
 </template>
 
 <script>
+import {localeText} from '@/lang'
 import {hasAuthority} from '@/utils/cg'
 import ParentTable from '@/views/common-views/components/table'
 const Comp = {

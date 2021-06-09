@@ -1,22 +1,18 @@
 export default {
   adShiftTime: {
     title: {
-      list: 'adShiftTime',
-      record: 'adShiftTime',
-      code: 'AdShiftTime'
-    },
-    route: {
-      listTag: 'adShiftTime',
-      recordTag: 'adShiftTime'
+      list: 'Ad shift time',
+      record: 'Ad shift time',
+      code: 'Ad shift time'
     },
     field: {
       id: 'Id',
-      shiftId: 'ShiftId',
+      shiftId: 'Shift id',
       name: 'Name',
-      weekDaysValid: 'Please input correct value for weekDays',
-      weekDays: 'WeekDays',
-      startWorkTime: 'StartWorkTime',
-      endWorkTime: 'EndWorkTime'
+      weekDaysValid: 'Please input correct value for week days',
+      weekDays: 'Week days',
+      startWorkTime: 'Start work time',
+      endWorkTime: 'End work time'
     }
   }
 }

@@ -121,7 +121,7 @@ public class SecurityService implements UserDetailsService,ApplicationListener<C
 			user.setName("admin");
 			user.setOrgCode(0);
 			user.setPassword(StringUtil.encodePassword("123456"));
-			user.setRealName("超级用户");
+			user.setRealName("超级用户|Super administrator");
 			user.setState(true);
 			user.setLocked(false);
 			user.setRegTime(new Date());
@@ -135,8 +135,8 @@ public class SecurityService implements UserDetailsService,ApplicationListener<C
 		if (role == null) {
 			role = new Role();
 			role.setCode("guest");
-			role.setName("访客权限");
-			role.setNote("访客权限");
+			role.setName("访客权限|Visitor");
+			role.setNote("访客权限|Visitor");
 			roleDao.insert(role);
 			roleid = role.getId();
 		}else
@@ -148,7 +148,7 @@ public class SecurityService implements UserDetailsService,ApplicationListener<C
 			user.setName("guest");
 			user.setOrgCode(0);
 			user.setPassword("null");   // oracle 下空串与null相同，所以必须输入一个值
-			user.setRealName("访客");
+			user.setRealName("访客|guest");
 			user.setRegTime(new Date());
 			user.setState(true);
 			user.setLocked(false);
@@ -162,8 +162,8 @@ public class SecurityService implements UserDetailsService,ApplicationListener<C
 		if (role == null) {
 			role = new Role();
 			role.setCode("register");
-			role.setName("网络注册权限");
-			role.setNote("网络注册权限");
+			role.setName("网络注册权限|Net register");
+			role.setNote("网络注册权限|Net register");
 			roleDao.insert(role);
 		}
 		refreshPermission();		

@@ -29,15 +29,15 @@
       </el-table-column>
       <el-table-column prop="name" width="120" :label="$t('sysRole.field.name')" sortable align="left" >
         <template slot-scope="scope">
-          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.name" type="text" />
-          <span v-else>{{ scope.row.name }}</span>
+          <cg-input v-if="scope.row.inlineEditting" v-model="scope.row.name" type="text" />
+          <span v-else>{{ localeText(scope.row.name) }}</span>
         </template>
 
       </el-table-column>
       <el-table-column prop="note" width="200" :label="$t('sysRole.field.note')" align="left" >
         <template slot-scope="scope">
-          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.note" type="text" />
-          <span v-else>{{ scope.row.note }}</span>
+          <cg-input v-if="scope.row.inlineEditting" v-model="scope.row.note" type="text" />
+          <span v-else>{{ localeText(scope.row.note) }}</span>
         </template>
 
       </el-table-column>
@@ -71,7 +71,7 @@
                     :readonly="fixedQueryRecord.code?true:false" :label="$t('sysRole.field.code')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('sysRole.field.name')" prop="name" :size="$store.state.app.size">
-          <el-input v-model="queryRecord.name" type="text" name="name"
+          <cg-input v-model="queryRecord.name" type="text" name="name"
                     :readonly="fixedQueryRecord.name?true:false" :label="$t('sysRole.field.name')" clearable resize autofocus/>
         </el-form-item>
       </div>
@@ -80,6 +80,7 @@
 </template>
 
 <script>
+import {localeText} from '@/lang'
 import {hasAuthority} from '@/utils/cg'
 import rulesObject from './rules.js'
 import ParentTable from '@/views/common-views/components/table'

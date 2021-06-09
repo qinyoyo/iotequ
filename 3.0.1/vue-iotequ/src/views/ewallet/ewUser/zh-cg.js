@@ -5,10 +5,6 @@ export default {
       record: '电子钱包',
       code: '电子钱包'
     },
-    route: {
-      listTag: '电子钱包表',
-      recordTag: '电子钱包'
-    },
     field: {
       userNo: '账户号',
       isActive: '激活',

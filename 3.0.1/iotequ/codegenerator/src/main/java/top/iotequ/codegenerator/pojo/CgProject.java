@@ -11,8 +11,9 @@ import lombok.Setter;
 import com.google.gson.annotations.SerializedName;
 import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
+import java.util.*;
 
-//  Pojo entity : CgProject (项目)
+//  Pojo entity : CgProject (项目|Cg project)
 @CgTableAnnotation(name="cg_project",
                    title="cgProject",
                    baseUrl="/codegenerator/cgProject",

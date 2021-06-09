@@ -11,10 +11,6 @@ export default {
       readAllConfirm: '将本人所有未读消息全部标记为已读，确定吗',
       readAll: '全部标记已读'
     },
-    route: {
-      listTag: '消息表',
-      recordTag: '消息'
-    },
     field: {
       id: '主键',
       readTime: '已阅',

@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Service;
 import top.iotequ.framework.event.DeviceEvent;
 import top.iotequ.util.DateUtil;
+import top.iotequ.util.SqlUtil;
 import top.iotequ.reader.dao.DevEventDao;
 import top.iotequ.reader.pojo.DevEvent;
 

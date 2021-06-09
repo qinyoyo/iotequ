@@ -84,9 +84,9 @@ const Comp = {
       idField: 'id',
       dictionary: {
         dictSons: [],
-        dictSonAlign: this.getDictionary('v,h','左右排列,上下排列'),
+        dictSonAlign: this.getDictionary('v,h','cgList.field.sonAlign_0,cgList.field.sonAlign_1'),
         dictTitleField: [],
-        dictToolbarMode: this.getDictionary('1,2','工具条,菜单'),
+        dictToolbarMode: this.getDictionary('1,2','cgList.field.toolbarMode_0,cgList.field.toolbarMode_1'),
         dictActionList: [],
         dictTableId: []
       },

@@ -22,7 +22,7 @@
       <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter no-tab-index" width="36" />
       <el-table-column prop="name" width="200" :label="$t('sysOrg.field.name')" align="left" >
         <template slot-scope="scope">
-          {{ scope.row.name }}
+          {{ localeText(scope.row.name) }}
         </template>
 
       </el-table-column>
@@ -70,13 +70,13 @@
       </cg-table-column>
       <cg-table-column prop="managerName" :page="1" :label="$t('adOrg.field.manager')" align="left" >
         <template slot-scope="scope">
-          {{ scope.row.managerName }}
+          {{ localeText(scope.row.managerName) }}
         </template>
 
       </cg-table-column>
       <cg-table-column prop="hrName" :page="1" :label="$t('adOrg.field.hr')" align="left" >
         <template slot-scope="scope">
-          {{ scope.row.hrName }}
+          {{ localeText(scope.row.hrName) }}
         </template>
 
       </cg-table-column>
@@ -106,6 +106,7 @@
 </template>
 
 <script>
+import {localeText} from '@/lang'
 import {hasAuthority} from '@/utils/cg'
 import rulesObject from './rules.js'
 import ParentTable from '@/views/common-views/components/table'

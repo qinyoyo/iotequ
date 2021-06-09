@@ -297,7 +297,10 @@ export default {
             formObject.openMode = 'edit'
             formObject.$emit('openModeChanged', 'edit')
             formObject.$emit('submitted', formObject)
-            if (closeAfterSuccess || formObject.flowAction) that.form_close(formObject)
+            if (closeAfterSuccess || formObject.flowAction) {
+              formObject.recordChanged = false
+              that.form_close(formObject)
+            }
             else setTimeout(()=>{
               formObject.recordChanged = false
             },200)

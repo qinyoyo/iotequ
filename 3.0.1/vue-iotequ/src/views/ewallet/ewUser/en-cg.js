@@ -1,36 +1,32 @@
 export default {
   ewUser: {
     title: {
-      list: 'ewUser',
-      record: 'ewUser',
-      code: 'EwUser'
-    },
-    route: {
-      listTag: 'ewUser',
-      recordTag: 'ewUser'
+      list: 'Ew user',
+      record: 'Ew user',
+      code: 'Ew user'
     },
     field: {
-      userNo: 'UserNo',
-      isActive: 'IsActive',
+      userNo: 'User no',
+      isActive: 'Is active',
       name: 'Name',
       gender: 'Gender',
-      idType: 'IdType',
-      idNo: 'IdNo',
-      mobilePhone: 'MobilePhone',
+      idType: 'Id type',
+      idNo: 'Id no',
+      mobilePhone: 'Mobile phone',
       email: 'Email',
-      wechatOpenid: 'WechatOpenid',
-      birthDate: 'BirthDate',
-      memberGroup: 'MemberGroup',
-      bonusPoint: 'BonusPoint',
-      amountMoney: 'AmountMoney',
-      costLimitValid: 'Please input correct value for costLimit',
-      costLimit: 'CostLimit',
-      dayLimitValid: 'Please input correct value for dayLimit',
-      dayLimit: 'DayLimit',
-      activeSince: 'ActiveSince',
-      expireAt: 'ExpireAt',
-      checkCode: 'CheckCode',
-      isValid: 'IsValid'
+      wechatOpenid: 'Wechat openid',
+      birthDate: 'Birth date',
+      memberGroup: 'Member group',
+      bonusPoint: 'Bonus point',
+      amountMoney: 'Amount money',
+      costLimitValid: 'Please input correct value for cost limit',
+      costLimit: 'Cost limit',
+      dayLimitValid: 'Please input correct value for day limit',
+      dayLimit: 'Day limit',
+      activeSince: 'Active since',
+      expireAt: 'Expire at',
+      checkCode: 'Check code',
+      isValid: 'Is valid'
     }
   }
 }

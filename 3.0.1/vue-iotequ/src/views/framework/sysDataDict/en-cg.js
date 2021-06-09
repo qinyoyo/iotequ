@@ -1,22 +1,18 @@
 export default {
   sysDataDict: {
     title: {
-      list: 'dataDict',
-      record: 'dataDict',
-      code: 'SysDataDict'
-    },
-    route: {
-      listTag: 'dataDict',
-      recordTag: 'dataDict'
+      list: 'Data dict',
+      record: 'Data dictionary',
+      code: 'Data dictionary'
     },
     field: {
       id: 'Id',
-      dictValid: 'Please input correct value for dict',
+      dictValid: 'Starts with lower letter',
       dict: 'Dict',
-      codeValid: 'Please input correct value for code',
+      codeValid: 'Starts and ends with non-space letter',
       code: 'Code',
       text: 'Text',
-      orderNum: 'OrderNum'
+      orderNum: 'Order num'
     }
   }
 }

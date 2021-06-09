@@ -5,10 +5,6 @@ export default {
       record: '流程处理',
       code: '流程处理'
     },
-    route: {
-      listTag: '流程处理表',
-      recordTag: '流程处理'
-    },
     field: {
       id: '',
       flowId: '流程单',

@@ -12,8 +12,8 @@
       :on-change="handleChange"
       :multiple="value.multiple"
       :file-list="fileList">
-      <el-button v-if="!readonly" size="small" type="primary">选择文件</el-button>
-      <div v-if="!readonly" slot="tip" class="el-upload__tip">只能上传{{accept}}文件</div>
+      <el-button v-if="!readonly" size="small" type="primary">{{'system.action.selectFile'.local()}}</el-button>
+      <div v-if="!readonly" slot="tip" class="el-upload__tip">{{'system.message.fileType'.local()}}:{{accept}}</div>
     </el-upload>
   </div>
 </template>

@@ -5,10 +5,6 @@ export default {
       record: '调休安排',
       code: '节假日调休安排'
     },
-    route: {
-      listTag: '节假日调休安排列表',
-      recordTag: '调休安排'
-    },
     field: {
       id: '',
       shiftId: '排班编号',

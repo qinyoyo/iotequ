@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.iotequ.reader.dao.DevDownloadPlanDao">
+  <resultMap id="BaseResultMap" type="top.iotequ.reader.pojo.DevDownloadPlan">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_no" jdbcType="VARCHAR" property="userNo" />
+    <result column="reader_no" jdbcType="VARCHAR" property="readerNo" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="download_num" jdbcType="INTEGER" property="downloadNum" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+  </resultMap>
+  <sql id = "selectSql">
+     SELECT id,user_no,reader_no,type,download_num,time FROM dev_download_plan
+  </sql>
+  <insert id="insert" parameterType="top.iotequ.reader.pojo.DevDownloadPlan">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer" databaseId="SQLServer">
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into dev_download_plan (user_no,reader_no,type,download_num,time)
+      values 
+      (#{userNo,jdbcType=VARCHAR},#{readerNo,jdbcType=VARCHAR},#{type,jdbcType=INTEGER},#{downloadNum,jdbcType=INTEGER},#{time,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insert" parameterType="top.iotequ.reader.pojo.DevDownloadPlan" databaseId="Oracle">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer" >
+      SELECT SEQUENCE_DEV_DOWNLOAD_PLAN.nextval from DUAL
+    </selectKey>
+    insert into dev_download_plan (id,user_no,reader_no,type,download_num,time)
+      values 
+      (#{id,jdbcType=INTEGER},#{userNo,jdbcType=VARCHAR},#{readerNo,jdbcType=VARCHAR},#{type,jdbcType=INTEGER},#{downloadNum,jdbcType=INTEGER},#{time,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.reader.pojo.DevDownloadPlan">
+    insert into dev_download_plan (user_no,reader_no,type,download_num,time)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.userNo,jdbcType=VARCHAR},#{item.readerNo,jdbcType=VARCHAR},#{item.type,jdbcType=INTEGER},#{item.downloadNum,jdbcType=INTEGER},#{item.time,jdbcType=TIMESTAMP})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.reader.pojo.DevDownloadPlan" databaseId="Oracle">
+     insert into dev_download_plan (id,user_no,reader_no,type,download_num,time)
+       select SEQUENCE_DEV_DOWNLOAD_PLAN.nextval,cd.* from(
+          <foreach collection="list" item="item" index="index" separator="union all">
+             select #{item.userNo,jdbcType=VARCHAR},#{item.readerNo,jdbcType=VARCHAR},#{item.type,jdbcType=INTEGER},#{item.downloadNum,jdbcType=INTEGER},#{item.time,jdbcType=TIMESTAMP} from dual
+          </foreach>
+       ) cd
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.reader.pojo.DevDownloadPlan">
+    insert into dev_download_plan (id,user_no,reader_no,type,download_num,time)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=INTEGER},#{item.userNo,jdbcType=VARCHAR},#{item.readerNo,jdbcType=VARCHAR},#{item.type,jdbcType=INTEGER},#{item.downloadNum,jdbcType=INTEGER},#{item.time,jdbcType=TIMESTAMP})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.reader.pojo.DevDownloadPlan" databaseId="SQLServer">
+    set IDENTITY_INSERT dev_download_plan ON 
+    insert into dev_download_plan (id,user_no,reader_no,type,download_num,time)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=INTEGER},#{item.userNo,jdbcType=VARCHAR},#{item.readerNo,jdbcType=VARCHAR},#{item.type,jdbcType=INTEGER},#{item.downloadNum,jdbcType=INTEGER},#{item.time,jdbcType=TIMESTAMP})
+    </foreach>
+    set IDENTITY_INSERT dev_download_plan OFF 
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.reader.pojo.DevDownloadPlan" databaseId="Oracle">
+    insert all 
+    <foreach collection="list" item="item" index="index">
+      into dev_download_plan (id,user_no,reader_no,type,download_num,time) values(#{item.id,jdbcType=INTEGER},#{item.userNo,jdbcType=VARCHAR},#{item.readerNo,jdbcType=VARCHAR},#{item.type,jdbcType=INTEGER},#{item.downloadNum,jdbcType=INTEGER},#{item.time,jdbcType=TIMESTAMP})
+    </foreach>
+    select 1 from dual
+  </insert>
+  <select id="select" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from dev_download_plan where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteBatch" parameterType="java.lang.String">
+    delete from dev_download_plan where id in (${_parameter})
+  </delete>
+  <delete id="deleteList" parameterType="java.util.List">
+    delete from dev_download_plan where id in
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")"> 
+       #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </delete>
+  <update id="update" parameterType="top.iotequ.reader.pojo.DevDownloadPlan">
+    update dev_download_plan set 
+      user_no = #{userNo,jdbcType=VARCHAR},
+      reader_no = #{readerNo,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      download_num = #{downloadNum,jdbcType=INTEGER},
+      time = #{time,jdbcType=TIMESTAMP}
+      where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateSelective" parameterType="java.util.Map">
+    update dev_download_plan 
+      <set>
+        <if test='userNo_string_ == "[null]"'> user_no = NULL, </if>
+        <if test='userNo != null and userNo_string_ != "[null]"'> user_no = #{userNo,jdbcType=VARCHAR},</if>
+        <if test='readerNo_string_ == "[null]"'> reader_no = NULL, </if>
+        <if test='readerNo != null and readerNo_string_ != "[null]"'> reader_no = #{readerNo,jdbcType=VARCHAR},</if>
+        <if test='type_string_ == "[null]"'> type = NULL, </if>
+        <if test='type != null and type_string_ != "[null]"'> type = #{type,jdbcType=INTEGER},</if>
+        <if test='downloadNum_string_ == "[null]"'> download_num = NULL, </if>
+        <if test='downloadNum != null and downloadNum_string_ != "[null]"'> download_num = #{downloadNum,jdbcType=INTEGER},</if>
+        <if test='time_string_ == "[null]"'> time = NULL, </if>
+        <if test='time != null and time_string_ != "[null]"'> time = #{time,jdbcType=TIMESTAMP},</if>
+      </set>
+      where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateBy" parameterType="top.iotequ.reader.pojo.DevDownloadPlan">
+    update dev_download_plan set 
+      id = #{record.id,jdbcType=INTEGER},
+      user_no = #{record.userNo,jdbcType=VARCHAR},
+      reader_no = #{record.readerNo,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      download_num = #{record.downloadNum,jdbcType=INTEGER},
+      time = #{record.time,jdbcType=TIMESTAMP}
+      where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="list" parameterType="top.iotequ.reader.pojo.DevDownloadPlan" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+     where 1=1 
+        <if test="id != null"> and id = #{id,jdbcType=INTEGER} </if>
+        <if test="userNo != null"> and user_no like #{userNo,jdbcType=VARCHAR} </if>
+        <if test="readerNo != null"> and reader_no like #{readerNo,jdbcType=VARCHAR} </if>
+        <if test="type != null"> and type = #{type,jdbcType=INTEGER} </if>
+        <if test="downloadNum != null"> and download_num = #{downloadNum,jdbcType=INTEGER} </if>
+        <if test="time != null"> and time like #{time,jdbcType=TIMESTAMP} </if>
+  </select>
+  <select id="listBy" parameterType="map" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+        <if test="whereString != null and whereString !=''"> where ${whereString} </if>
+        <if test="orderString != null and orderString!=''"> order by ${orderString} </if>
+  </select>
+  <select id="query" parameterType="map" resultMap="BaseResultMap">
+        ${sqlString}
+  </select>
+</mapper>

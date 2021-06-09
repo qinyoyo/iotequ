@@ -242,7 +242,7 @@ const Comp = {
       idField: 'no',
       noSaved: this.openParams().record && typeof this.openParams().record === 'object' ? this.openParams().record.no : null,
       dictionary: {
-        dictCostType: this.getDictionary('1,2,3','钱包,计次,计时')
+        dictCostType: this.getDictionary('1,2,3','ewBill.field.costType_0,ewBill.field.costType_1,ewBill.field.costType_2')
       },
       generatorName: 'ewBill',
       baseUrl: '/ewallet/ewBill'

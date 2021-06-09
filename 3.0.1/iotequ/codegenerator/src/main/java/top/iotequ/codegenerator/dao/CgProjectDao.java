@@ -11,7 +11,7 @@ import top.iotequ.framework.service.IDaoService;
 import top.iotequ.codegenerator.pojo.CgProject;
 import java.util.*;
 
-//  Mapper dao : CgProjectDao (项目数据访问接口)
+//  Mapper dao : CgProjectDao (项目|Cg project数据访问接口)
 public interface CgProjectDao  extends IDaoService<CgProject> {
     int insert(CgProject record);
     int insertBatchWithId(List<CgProject> list);

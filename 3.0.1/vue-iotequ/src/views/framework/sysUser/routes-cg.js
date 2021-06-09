@@ -16,9 +16,9 @@ export default {
       name: 'UserList',
       props: true,
       meta: {
-        title: 'sysUser.route.listTag',
+        title: 'sysUser.title.list',
         authorities: ['/framework/sysUser/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -29,9 +29,9 @@ export default {
       name: 'UserJoinList',
       props: true,
       meta: {
-        title: 'sysUser.route.joinTag',
+        title: 'sysUser.title.join',
         authorities: ['/framework/sysUser/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -42,7 +42,7 @@ export default {
       name: 'UserForm',
       props: true,
       meta: {
-        title: 'sysUser.route.recordTag',
+        title: 'sysUser.title.record',
         dialog: true,
         authorities: ['/framework/sysUser/record'],
         breadcrumb: false,
@@ -56,7 +56,7 @@ export default {
       name: 'RegisterForm',
       props: true,
       meta: {
-        title: 'sysUser.route.registerTag',
+        title: 'sysUser.title.register',
         icon: 'fa fa-user-plus',
         dialog: true,
         authorities: ['/framework/sysUser/record'],

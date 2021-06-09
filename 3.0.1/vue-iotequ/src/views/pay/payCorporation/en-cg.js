@@ -1,17 +1,13 @@
 export default {
   payCorporation: {
     title: {
-      list: 'payCorporation',
-      record: 'payCorporation',
-      code: 'PayCorporation'
-    },
-    route: {
-      listTag: 'payCorporation',
-      recordTag: 'payCorporation'
+      list: 'Pay corporation',
+      record: 'Pay corporation',
+      code: 'Pay corporation'
     },
     field: {
       id: 'Id',
-      parentId: 'ParentId',
+      parentId: 'Parent id',
       name: 'Name',
       address: 'Address',
       linkman: 'Linkman',

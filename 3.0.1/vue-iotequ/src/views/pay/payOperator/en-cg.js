@@ -1,21 +1,17 @@
 export default {
   payOperator: {
     title: {
-      list: 'payOperator',
-      record: 'payOperator',
-      code: 'PayOperator'
-    },
-    route: {
-      listTag: 'payOperator',
-      recordTag: 'payOperator'
+      list: 'Pay operator',
+      record: 'Pay operator',
+      code: 'Pay operator'
     },
     field: {
       id: 'Id',
       name: 'Name',
-      realName: 'RealName',
+      realName: 'Real name',
       password: 'Password',
-      shopId: 'ShopId',
-      userNo: 'UserNo'
+      shopId: 'Shop id',
+      userNo: 'User no'
     }
   }
 }

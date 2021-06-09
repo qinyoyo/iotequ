@@ -132,7 +132,7 @@ const Comp = {
       idField: 'id',
       dictionary: {
         dictShowType: this.getDictionary('text,textarea,boolean,false_if_null,password,date,time,datetime,number,email,search,file,image,url,tel,color,html,2dcode'),
-        dictQueryMode: this.getDictionary('0,1,2,3','无,自动,筛选,范围')
+        dictQueryMode: this.getDictionary('0,1,2,3','cgListField.field.queryMode_0,cgListField.field.queryMode_1,cgListField.field.queryMode_2,cgListField.field.queryMode_3')
       },
       totalEdittingRows: 0,
       editInlineFields: hasAuthority('/codegenerator/cgListField/updateSelective')?['entityField', 'orderNum', 'width', 'queryMode', 'align', 'hidden', 'editInline']:null,

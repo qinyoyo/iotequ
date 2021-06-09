@@ -16,9 +16,9 @@ export default {
       name: 'OrgList',
       props: true,
       meta: {
-        title: 'sysOrg.route.listTag',
+        title: 'sysOrg.title.list',
         authorities: ['/framework/sysOrg/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -29,7 +29,7 @@ export default {
       name: 'OrgForm',
       props: true,
       meta: {
-        title: 'sysOrg.route.recordTag',
+        title: 'sysOrg.title.record',
         dialog: true,
         authorities: ['/framework/sysOrg/record'],
         breadcrumb: false,

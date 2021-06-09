@@ -156,11 +156,11 @@ const Comp = {
       dictionary: {
         dictFkTable: [],
         dictFkColumn: [],
-        dictFkOnDelete: this.getDictionary('CASCADE,SET NULL,NO ACTION,RESTRICT','同步删除子表,设置为空,不允许删除,高权限不允许删除'),
-        dictFkOnUpdate: this.getDictionary('CASCADE,SET NULL,NO ACTION,RESTRICT','同步更新子表,设置为空,不允许更新,高权限不允许更新'),
-        dictShowType: this.getDictionary('text,textarea,boolean,false_if_null,checkbox,radio,select,inner_join,left_join,right_join,full_join,dict_list,password,date,time,datetime,number,email,search,file,image,url,tel,color,html,2dcode'),
+        dictFkOnDelete: this.getDictionary('CASCADE,SET NULL,NO ACTION,RESTRICT','cgField.field.fkOnDelete_0,cgField.field.fkOnDelete_1,cgField.field.fkOnDelete_2,cgField.field.fkOnDelete_3'),
+        dictFkOnUpdate: this.getDictionary('CASCADE,SET NULL,NO ACTION,RESTRICT','cgField.field.fkOnUpdate_0,cgField.field.fkOnUpdate_1,cgField.field.fkOnUpdate_2,cgField.field.fkOnUpdate_3'),
+        dictShowType: this.getDictionary('text,mltext,textarea,boolean,false_if_null,checkbox,radio,select,inner_join,left_join,right_join,full_join,dict_list,password,date,time,datetime,number,email,search,file,image,url,tel,color,html,2dcode'),
         dictType: this.getDictionary('int,varchar,boolean,datetime,tinyint,smallint,mediumint,bigint,double,float,decimal,date,time,timestamp,char,tinytext,text,mediumtext,longtext,tinyblob,blob,mediumblob,longblob,bit,binary,varbinary'),
-        dictKeyType: this.getDictionary('0,1,2,3,4,5,11,12,13','无,自增长主键,uuid主键,普通主键,唯一索引,非唯一索引,联合唯一索引1,联合唯一索引2,联合唯一索引3')
+        dictKeyType: this.getDictionary('0,1,2,3,4,5,11,12,13','cgField.field.keyType_0,cgField.field.keyType_1,cgField.field.keyType_2,cgField.field.keyType_3,cgField.field.keyType_4,cgField.field.keyType_5,cgField.field.keyType_6,cgField.field.keyType_7,cgField.field.keyType_8')
       },
       needLoadDictionary: true,
       totalEdittingRows: 0,

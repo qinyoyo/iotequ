@@ -5,10 +5,6 @@ export default {
       record: '计次钱包',
       code: '计次钱包'
     },
-    route: {
-      listTag: '计次钱包表',
-      recordTag: '计次钱包'
-    },
     field: {
       id: '',
       amountCount: '计次总数',

@@ -1,6 +1,7 @@
 package top.iotequ.attendance.approvelist.service.impl;
 import top.iotequ.attendance.approvelist.pojo.AdApproveList;
 import top.iotequ.attendance.approvelist.dao.AdApproveListDao;
+import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,10 @@ import top.iotequ.framework.service.impl.CgService;
 import top.iotequ.framework.service.IDaoService;
 import org.springframework.stereotype.Service;
 import top.iotequ.framework.service.utils.DictionaryUtil;
+import top.iotequ.framework.service.utils.UploadDownUtil;
+import top.iotequ.framework.service.utils.QueryUtil;
 import top.iotequ.util.*;
 import top.iotequ.attendance.util.AdUtil;
-import top.iotequ.util.StringUtil;
-
 import java.util.*;
 
 /**************************************************
@@ -24,7 +25,7 @@ Author : Qinyoyo
 @ConditionalOnMissingClass({"top.iotequ.attendance.approvelist.service.impl.AdApproveListService"})
 @Service(value="adApproveListService")
 public class CgAdApproveListService extends CgService<AdApproveList>  {
-private static final Logger log = LoggerFactory.getLogger(CgAdApproveListService.class);
+    private static final Logger log = LoggerFactory.getLogger(CgAdApproveListService.class);
     @Autowired
     private AdApproveListDao adApproveListDao;
     public static String [] dictState1Value= {String.valueOf(AdUtil.st_waiting),String.valueOf(AdUtil.st_doing),String.valueOf(AdUtil.st_passed),String.valueOf(AdUtil.st_refused)};

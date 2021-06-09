@@ -1,5 +1,6 @@
 package top.iotequ.framework.controller;
 import top.iotequ.framework.pojo.Permission;
+import top.iotequ.framework.dao.PermissionDao;
 import org.springframework.web.bind.annotation.RequestBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,9 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import top.iotequ.framework.service.ICgService;
 import top.iotequ.util.*;
-import top.iotequ.util.RestJson;
-import top.iotequ.util.Util;
-
 import java.util.*;
 
 /**************************************************

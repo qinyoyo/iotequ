@@ -16,9 +16,9 @@ export default {
       name: 'CgFormFieldList',
       props: true,
       meta: {
-        title: 'cgFormField.route.listTag',
+        title: 'cgFormField.title.list',
         authorities: ['/codegenerator/cgFormField/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -29,9 +29,9 @@ export default {
       name: 'CgFormFieldForm',
       props: true,
       meta: {
-        title: 'cgFormField.route.recordTag',
+        title: 'cgFormField.title.record',
         authorities: ['/codegenerator/cgFormField/record'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }

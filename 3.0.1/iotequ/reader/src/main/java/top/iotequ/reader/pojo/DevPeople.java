@@ -93,14 +93,14 @@ public class DevPeople implements CgEntity {
     @JsonSerialize(using = DateSerializer.class)
     @JsonAdapter(value= GsonDateTypeAdapter.class)
     @SerializedName(value = "validDate", alternate = {"valid_date","VALID_DATE"})
-    @CgFieldAnnotation(name="valid_date",jdbcType="DATE",nullable=true,format="yyyy-mm-dd")
+    @CgFieldAnnotation(name="valid_date",jdbcType="DATE",nullable=false,format="yyyy-mm-dd")
     private Date validDate;		//生效日期 db field:valid_date
 
     @JsonDeserialize(using = DateDeserializer.class)
     @JsonSerialize(using = DateSerializer.class)
     @JsonAdapter(value= GsonDateTypeAdapter.class)
     @SerializedName(value = "expiredDate", alternate = {"expired_date","EXPIRED_DATE"})
-    @CgFieldAnnotation(name="expired_date",jdbcType="DATE",nullable=true,format="yyyy-mm-dd")
+    @CgFieldAnnotation(name="expired_date",jdbcType="DATE",nullable=false,format="yyyy-mm-dd")
     private Date expiredDate;		//过期日期 db field:expired_date
 
     @JsonDeserialize(using = DateDeserializer.class)

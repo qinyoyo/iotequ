@@ -16,9 +16,9 @@ export default {
       name: 'CgTableList',
       props: true,
       meta: {
-        title: 'cgTable.route.listTag',
+        title: 'cgTable.title.list',
         authorities: ['/codegenerator/cgTable/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -29,9 +29,9 @@ export default {
       name: 'CgTableForm',
       props: true,
       meta: {
-        title: 'cgTable.route.recordTag',
+        title: 'cgTable.title.record',
         authorities: ['/codegenerator/cgTable/record'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }

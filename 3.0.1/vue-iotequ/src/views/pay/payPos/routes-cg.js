@@ -16,9 +16,9 @@ export default {
       name: 'PayPosList',
       props: true,
       meta: {
-        title: 'payPos.route.listTag',
+        title: 'payPos.title.list',
         authorities: ['/pay/payPos/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -29,7 +29,7 @@ export default {
       name: 'PayPosForm',
       props: true,
       meta: {
-        title: 'payPos.route.recordTag',
+        title: 'payPos.title.record',
         dialog: true,
         authorities: ['/pay/payPos/record'],
         breadcrumb: false,

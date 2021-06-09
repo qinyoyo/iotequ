@@ -13,7 +13,12 @@
     <#elseif (!f.dictTable?? || f.dictTable?trim=="") && f.dictField?? && f.dictField?trim!="" && (f.dictField?trim?starts_with("f:") || (f.dictText?? && f.dictText?trim?starts_with("f:"))) >
       <#assign DICTLIST = DICTLIST + ["dict"+f.entityName?cap_first+": []"], NEEDLOADFROMSERVER = true />
     <#elseif (!f.dictTable?? || f.dictTable?trim=="") && f.dictField?? && f.dictField?trim!="" && f.dictText?? && f.dictText?trim!=''>
-      <#assign DICTLIST = DICTLIST + ["dict"+f.entityName?cap_first+": this.getDictionary('"+f.dictField?trim+"','"+f.dictText?trim+"')"] />
+        <#assign dict_text_list = ''/>
+        <#list f.dictField?split(',') as df>
+            <#assign dict_text_list = dict_text_list + generatorName?uncap_first + '.field.' + f.entityName + '_' + df_index />
+            <#if df_has_next><#assign dict_text_list = dict_text_list + ','/></#if>
+        </#list>
+      <#assign DICTLIST = DICTLIST + ["dict"+f.entityName?cap_first+": this.getDictionary('"+f.dictField?trim+"','"+dict_text_list+"')"] />
     <#elseif (!f.dictTable?? || f.dictTable?trim=="") && f.dictField?? && f.dictField?trim!="">
       <#assign DICTLIST = DICTLIST + ["dict"+f.entityName?cap_first+": this.getDictionary('"+f.dictField?trim+"')"] />
     </#if>
@@ -135,7 +140,7 @@
       <#elseif f.showType == 'radio'>
       ${HD}<#nt><cg-radio v-model="record.${f.entityName}" name="${f.entityName}"<#if !isEmpty(f.itemProperties!'')> ${f.itemProperties?trim}</#if> <@WF f ":dictionary" dictionary(f)/><@READONLY f /><#if f.type!='String'><@WF f "numberic"/></#if> />
       <#else>
-      ${HD}<#nt><el-input v-model="record.${f.entityName}" name="${f.entityName}" <#if joinClickField!=''>@click.native = "${joinClickField}JoinVisible=true"</#if>
+      ${HD}<#nt><#if f.showType == 'mltext'><cg-input<#else><el-input</#if> v-model="record.${f.entityName}" name="${f.entityName}" <#if joinClickField!=''>@click.native = "${joinClickField}JoinVisible=true"</#if>
       <#if !isEmpty(f.itemProperties!'')>
       ${HD}<#nt>          ${f.itemProperties?trim}
       </#if>
@@ -145,7 +150,7 @@
       ${HD}<#nt>          <#if fastMultiJoinField?? && fastMultiJoinField!=''> clearable @clear="clearJoinValues(myself,'${fastMultiJoinField}Join')"<#else><@READONLY f /><#if f.length?? && f.length gt 0><@WF f ":maxlength" f.length?c+""/><@WF f "show-word-limit"/></#if><#if f.isNull && !f.mustInput><@WF f "clearable"/></#if></#if><#if !f.slotTemplates?? || f.slotTemplates?trim==''>/</#if>>
 <#if f.slotTemplates?? && f.slotTemplates?trim!=''>
 ${f.slotTemplates}
-      ${HD}<#nt></el-input>
+      ${HD}<#nt><#if f.showType == 'mltext'></cg-input><#else></el-input></#if>
 </#if>
       </#if>
       <#assign HD=HD?substring(2) />${HD}<#nt></el-form-item>

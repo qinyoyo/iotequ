@@ -64,7 +64,7 @@ const Comp = {
       idField: 'id',
       idSaved: this.openParams().record && typeof this.openParams().record === 'object' ? this.openParams().record.id : null,
       dictionary: {
-        dictPrivilegeList: this.getDictionary('1,2,3','金额消费,计次消费,计时消费')
+        dictPrivilegeList: this.getDictionary('1,2,3','ewDevice.field.privilegeList_0,ewDevice.field.privilegeList_1,ewDevice.field.privilegeList_2')
       },
       generatorName: 'ewDevice',
       baseUrl: '/ewallet/ewDevice'

@@ -159,7 +159,7 @@ const Comp = {
       idField: 'id',
       idSaved: this.openParams().record && typeof this.openParams().record === 'object' ? this.openParams().record.id : null,
       dictionary: {
-        dictQueryMode: this.getDictionary('0,1,2,3','无,自动,筛选,范围'),
+        dictQueryMode: this.getDictionary('0,1,2,3','cgListField.field.queryMode_0,cgListField.field.queryMode_1,cgListField.field.queryMode_2,cgListField.field.queryMode_3'),
         dictShowType: this.getDictionary('text,textarea,boolean,false_if_null,password,date,time,datetime,number,email,search,file,image,url,tel,color,html,2dcode')
       },
       tabSelected: '0',

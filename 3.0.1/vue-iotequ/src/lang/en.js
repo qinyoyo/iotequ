@@ -40,6 +40,11 @@ export default {
   },
   system: {
     layout: {
+      welcome:'Welcome',
+      version:'Versions',
+      role:'Roles',
+      environment: 'Environment',
+      administrator:'Super administrator',
       dashboard: 'Home',
       logOut: 'Log Out',
       login: 'Login',
@@ -102,6 +107,7 @@ export default {
       collapse: 'collapse',
       expand: 'expand',
       upload: 'upload',
+      selectFile: 'Select file',
       save: 'save',
       saveAll: 'save all',
       editInlineAdd: 'append record',
@@ -119,6 +125,8 @@ export default {
       no: 'no',
       select: 'select',
       pleaseSelect: 'please select',
+      crop:'Crop',
+      my: 'My',
       flow: 'process flow',
       flowApprove: 'approve',
       flowDeny: 'deny',
@@ -177,7 +185,9 @@ export default {
       err404: 'The webmaster said that you can not enter this page ',
       pullDownRefresh: 'pull down refresh',
       pullUpLoad: 'load more',
-      noMoreData: 'no more data'
+      noMoreData: 'no more data',
+      cancelModified: 'Whether to abandon all modified data',
+      fileType: 'Support file type'
     },
     time: {
       from: 'from',

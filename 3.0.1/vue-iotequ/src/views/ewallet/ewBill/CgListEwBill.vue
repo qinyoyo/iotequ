@@ -212,7 +212,7 @@ const Comp = {
       formPath: '/ewallet/ewBill/record',
       idField: 'no',
       dictionary: {
-        dictCostType: this.getDictionary('1,2,3','钱包,计次,计时')
+        dictCostType: this.getDictionary('1,2,3','ewBill.field.costType_0,ewBill.field.costType_1,ewBill.field.costType_2')
       },
       paginationCurrentPage: 1,
       paginationPageSize: this.$store.state.app.device === 'mobile' ? 10 : 30,

@@ -16,9 +16,9 @@ export default {
       name: 'FlowProcessList',
       props: true,
       meta: {
-        title: 'sysFlowProcess.route.listTag',
+        title: 'sysFlowProcess.title.list',
         authorities: ['/framework/sysFlowProcess/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -29,7 +29,7 @@ export default {
       name: 'FlowProcessForm',
       props: true,
       meta: {
-        title: 'sysFlowProcess.route.recordTag',
+        title: 'sysFlowProcess.title.record',
         dialog: true,
         authorities: ['/framework/sysFlowProcess/record'],
         breadcrumb: false,

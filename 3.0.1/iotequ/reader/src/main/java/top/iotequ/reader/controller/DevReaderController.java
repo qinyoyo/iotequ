@@ -1,5 +1,6 @@
 package top.iotequ.reader.controller;
 import top.iotequ.reader.pojo.DevReader;
+import top.iotequ.reader.dao.DevReaderDao;
 import org.springframework.web.bind.annotation.RequestBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,9 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import top.iotequ.framework.service.ICgService;
 import top.iotequ.util.*;
-import top.iotequ.util.RestJson;
-import top.iotequ.util.Util;
-
 import java.util.*;
 
 /**************************************************
@@ -100,6 +98,14 @@ public class DevReaderController  {
 			return new RestJson().setMessage(e).toResponse();
 		}
 	}
+	@RequestMapping(value = "/action/readerOnline")
+	public ResponseEntity<Map<String, Object>> actionReaderOnline(String id,HttpServletRequest request, HttpServletResponse response){
+		try {
+		  return cgService.doAction("readerOnline",id,request).toResponse();
+		} catch (Exception e) {
+			return new RestJson().setMessage(e).toResponse();
+		}
+	}
 	@RequestMapping(value = "/action/selectParam")
 	public ResponseEntity<Map<String, Object>> actionSelectParam(String id,HttpServletRequest request, HttpServletResponse response){
 		try {
@@ -144,6 +150,14 @@ public class DevReaderController  {
 	public ResponseEntity<Map<String, Object>> actionReportPeople(String id,HttpServletRequest request, HttpServletResponse response){
 		try {
 		  return cgService.doAction("reportPeople",id,request).toResponse();
+		} catch (Exception e) {
+			return new RestJson().setMessage(e).toResponse();
+		}
+	}
+	@RequestMapping(value = "/action/againDownload")
+	public ResponseEntity<Map<String, Object>> actionAgainDownload(String id,HttpServletRequest request, HttpServletResponse response){
+		try {
+		  return cgService.doAction("againDownload",id,request).toResponse();
 		} catch (Exception e) {
 			return new RestJson().setMessage(e).toResponse();
 		}

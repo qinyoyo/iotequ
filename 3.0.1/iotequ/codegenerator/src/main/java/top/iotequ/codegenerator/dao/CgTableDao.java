@@ -11,7 +11,7 @@ import top.iotequ.framework.service.IDaoService;
 import top.iotequ.codegenerator.pojo.CgTable;
 import java.util.*;
 
-//  Mapper dao : CgTableDao (表单定义数据访问接口)
+//  Mapper dao : CgTableDao (表单定义|Cg table数据访问接口)
 public interface CgTableDao  extends IDaoService<CgTable> {
     int insert(CgTable record);
     int insertBatchWithId(List<CgTable> list);

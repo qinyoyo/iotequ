@@ -1,25 +1,21 @@
 export default {
   ewUserCount: {
     title: {
-      list: 'ewUserCount',
-      record: 'ewUserCount',
-      code: 'EwUserCount'
-    },
-    route: {
-      listTag: 'ewUserCount',
-      recordTag: 'ewUserCount'
+      list: 'Ew user count',
+      record: 'Ew user count',
+      code: 'Ew user count'
     },
     field: {
       id: 'Id',
-      amountCount: 'AmountCount',
-      checkCode: 'CheckCode',
-      costLimitValid: 'Please input correct value for costLimit',
-      costLimit: 'CostLimit',
-      dayLimitValid: 'Please input correct value for dayLimit',
-      dayLimit: 'DayLimit',
-      userNo: 'UserNo',
-      countId: 'CountId',
-      isValid: 'IsValid'
+      amountCount: 'Amount count',
+      checkCode: 'Check code',
+      costLimitValid: 'Please input correct value for cost limit',
+      costLimit: 'Cost limit',
+      dayLimitValid: 'Please input correct value for day limit',
+      dayLimit: 'Day limit',
+      userNo: 'User no',
+      countId: 'Count id',
+      isValid: 'Is valid'
     }
   }
 }

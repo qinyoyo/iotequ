@@ -28,7 +28,7 @@
       </el-table-column>
       <el-table-column prop="realName" width="128" :label="$t('sysUser.field.realName')" sortable align="left" >
         <template slot-scope="scope">
-          {{ scope.row.realName }}
+          {{ localeText(scope.row.realName) }}
         </template>
 
       </el-table-column>
@@ -96,7 +96,7 @@
                        :disabled="fixedQueryRecord.orgCode?true:false" :dictionary="dictionary.dictOrgCode" show-all-levels/>
         </el-form-item>
         <el-form-item :label="$t('sysUser.field.realName')" prop="realName" :size="$store.state.app.size">
-          <el-input v-model="queryRecord.realName" type="text" name="realName"
+          <cg-input v-model="queryRecord.realName" type="text" name="realName"
                     :readonly="fixedQueryRecord.realName?true:false" :label="$t('sysUser.field.realName')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('sysUser.field.sex')" prop="sex" :size="$store.state.app.size">
@@ -113,6 +113,7 @@
 </template>
 
 <script>
+import {localeText} from '@/lang'
 import {hasAuthority} from '@/utils/cg'
 import ParentTable from '@/views/common-views/components/table'
 const Comp = {

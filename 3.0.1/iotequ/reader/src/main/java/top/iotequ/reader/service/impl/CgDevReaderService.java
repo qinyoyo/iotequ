@@ -1,6 +1,7 @@
 package top.iotequ.reader.service.impl;
 import top.iotequ.reader.pojo.DevReader;
 import top.iotequ.reader.dao.DevReaderDao;
+import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,9 @@ import top.iotequ.framework.service.impl.CgService;
 import top.iotequ.framework.service.IDaoService;
 import org.springframework.stereotype.Service;
 import top.iotequ.framework.service.utils.DictionaryUtil;
+import top.iotequ.framework.service.utils.UploadDownUtil;
+import top.iotequ.framework.service.utils.QueryUtil;
 import top.iotequ.util.*;
-import top.iotequ.util.StringUtil;
-import top.iotequ.util.Util;
-
 import java.util.*;
 
 /**************************************************
@@ -24,7 +24,7 @@ Author : Qinyoyo
 @ConditionalOnMissingClass({"top.iotequ.reader.service.impl.DevReaderService"})
 @Service(value="devReaderService")
 public class CgDevReaderService extends CgService<DevReader>  {
-private static final Logger log = LoggerFactory.getLogger(CgDevReaderService.class);
+    private static final Logger log = LoggerFactory.getLogger(CgDevReaderService.class);
     @Autowired
     private DevReaderDao devReaderDao;
     @Override
@@ -99,31 +99,31 @@ private static final Logger log = LoggerFactory.getLogger(CgDevReaderService.cla
             devReader.setIsTimeSync(Util.boolValue("0"));
         }
         if (devReader.getAlignMethod()==null) {
-            devReader.setAlignMethod((byte) 4);
+            devReader.setAlignMethod((byte)4);
         }
         if (devReader.getBlacklightTime()==null) {
-            devReader.setBlacklightTime((byte) 0);
+            devReader.setBlacklightTime((byte)0);
         }
         if (devReader.getVoiceprompt()==null) {
             devReader.setVoiceprompt(Util.boolValue("1"));
         }
         if (devReader.getMenuTime()==null) {
-            devReader.setMenuTime((byte) 0);
+            devReader.setMenuTime((byte)0);
         }
         if (devReader.getWengenform()==null) {
-            devReader.setWengenform((byte) 2);
+            devReader.setWengenform((byte)2);
         }
         if (devReader.getWengenOutput()==null) {
-            devReader.setWengenOutput((byte) 1);
+            devReader.setWengenOutput((byte)1);
         }
         if (devReader.getWengenOutArea()==null) {
-            devReader.setWengenOutArea((byte) 26);
+            devReader.setWengenOutArea((byte)26);
         }
         if (devReader.getRegfingerOutTime()==null) {
-            devReader.setRegfingerOutTime((byte) 49);
+            devReader.setRegfingerOutTime((byte)49);
         }
         if (devReader.getAuthfingerOutTime()==null) {
-            devReader.setAuthfingerOutTime((byte) 49);
+            devReader.setAuthfingerOutTime((byte)49);
         }
     }
 }

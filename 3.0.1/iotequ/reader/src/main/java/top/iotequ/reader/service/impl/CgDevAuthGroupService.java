@@ -1,6 +1,7 @@
 package top.iotequ.reader.service.impl;
 import top.iotequ.reader.pojo.DevAuthGroup;
 import top.iotequ.reader.dao.DevAuthGroupDao;
+import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,9 @@ import top.iotequ.framework.service.impl.CgService;
 import top.iotequ.framework.service.IDaoService;
 import org.springframework.stereotype.Service;
 import top.iotequ.framework.service.utils.DictionaryUtil;
+import top.iotequ.framework.service.utils.UploadDownUtil;
+import top.iotequ.framework.service.utils.QueryUtil;
 import top.iotequ.util.*;
-import top.iotequ.util.StringUtil;
-
 import java.util.*;
 
 /**************************************************
@@ -23,7 +24,7 @@ Author : Qinyoyo
 @ConditionalOnMissingClass({"top.iotequ.reader.service.impl.DevAuthGroupService"})
 @Service(value="devAuthGroupService")
 public class CgDevAuthGroupService extends CgService<DevAuthGroup>  {
-private static final Logger log = LoggerFactory.getLogger(CgDevAuthGroupService.class);
+    private static final Logger log = LoggerFactory.getLogger(CgDevAuthGroupService.class);
     @Autowired
     private DevAuthGroupDao devAuthGroupDao;
     @Override

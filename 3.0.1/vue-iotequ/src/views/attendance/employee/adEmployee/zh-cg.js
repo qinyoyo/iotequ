@@ -6,11 +6,6 @@ export default {
       record: '职员详情',
       code: '考勤职员表'
     },
-    route: {
-      listTag: '考勤职员表',
-      joinTag: '职员选择',
-      recordTag: '职员详情'
-    },
     field: {
       employeeNoValid: '仅可使用字母和数字来定义工号',
       employeeNo: '工号',

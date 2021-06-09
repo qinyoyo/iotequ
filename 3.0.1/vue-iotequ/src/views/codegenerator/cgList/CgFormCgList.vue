@@ -44,7 +44,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item class="cg-item-text" :label="$t('cgList.field.headTitle')" prop="headTitle" :size="$store.state.app.size" >
+              <el-form-item class="cg-item-text" :label="$t('cgList.field.headTitle')" :title="$t('cgList.field.headTitleValid')" prop="headTitle" :size="$store.state.app.size" >
                 <el-input v-model="record.headTitle" name="headTitle" 
                           type="text" 
                           :label="$t('cgList.field.headTitle')" :placeholder="$t('system.message.needValue')" 
@@ -53,7 +53,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item class="cg-item-text" :label="$t('cgList.field.tagTitle')" prop="tagTitle" :size="$store.state.app.size" >
+              <el-form-item class="cg-item-text" :label="$t('cgList.field.tagTitle')" :title="$t('cgList.field.tagTitleValid')" prop="tagTitle" :size="$store.state.app.size" >
                 <el-input v-model="record.tagTitle" name="tagTitle" 
                           type="text" 
                           :label="$t('cgList.field.tagTitle')" :placeholder="$t('system.message.needValue')" 
@@ -291,9 +291,9 @@ const Comp = {
       dictionary: {
         dictTableId: [],
         dictSons: [],
-        dictSonAlign: this.getDictionary('v,h','左右排列,上下排列'),
+        dictSonAlign: this.getDictionary('v,h','cgList.field.sonAlign_0,cgList.field.sonAlign_1'),
         dictTitleField: [],
-        dictToolbarMode: this.getDictionary('1,2','工具条,菜单'),
+        dictToolbarMode: this.getDictionary('1,2','cgList.field.toolbarMode_0,cgList.field.toolbarMode_1'),
         dictActionList: []
       },
       needLoadDictionary: true,
@@ -330,7 +330,6 @@ const Comp = {
             tableId: '',
             name: '',
             path: 'list',
-            headTitle: '',
             editInline: false,
             detailInline: false,
             sonAlign: 'v',

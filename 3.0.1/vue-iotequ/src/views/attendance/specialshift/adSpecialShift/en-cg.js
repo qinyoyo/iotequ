@@ -1,38 +1,34 @@
 export default {
   adSpecialShift: {
     title: {
-      list: 'adSpecialShift',
-      record: 'adSpecialShift',
-      code: 'AdSpecialShift'
-    },
-    route: {
-      listTag: 'adSpecialShift',
-      recordTag: 'adSpecialShift'
+      list: 'Ad special shift',
+      record: 'Ad special shift',
+      code: 'Ad special shift'
     },
     field: {
       id: 'Id',
       shiftMode_0: '休假',
       shiftMode_1: '调整排班',
       shiftMode_2: '安排加班',
-      shiftMode: 'ShiftMode',
+      shiftMode: 'Shift mode',
       name: 'Name',
       modeProperty_0: '完整考勤',
       modeProperty_1: '签到模式',
-      modeProperty: 'ModeProperty',
-      startDate: 'StartDate',
-      endDate: 'EndDate',
-      orgCodesValid: 'Please input correct value for orgCodes',
-      orgCodes: 'OrgCodes',
-      sexPropertyValid: 'Please input correct value for sexProperty',
-      sexProperty: 'SexProperty',
-      ageProperty0Valid: 'Please input correct value for ageProperty0',
-      ageProperty0: 'AgeProperty0',
-      ageProperty1Valid: 'Please input correct value for ageProperty1',
-      ageProperty1: 'AgeProperty1',
-      levelProperty0Valid: 'Please input correct value for levelProperty0',
-      levelProperty0: 'LevelProperty0',
-      levelProperty1Valid: 'Please input correct value for levelProperty1',
-      levelProperty1: 'LevelProperty1',
+      modeProperty: 'Mode property',
+      startDate: 'Start date',
+      endDate: 'End date',
+      orgCodesValid: 'Please input correct value for org codes',
+      orgCodes: 'Org codes',
+      sexPropertyValid: 'Please input correct value for sex property',
+      sexProperty: 'Sex property',
+      ageProperty0Valid: 'Please input correct value for age property0',
+      ageProperty0: 'Age property0',
+      ageProperty1Valid: 'Please input correct value for age property1',
+      ageProperty1: 'Age property1',
+      levelProperty0Valid: 'Please input correct value for level property0',
+      levelProperty0: 'Level property0',
+      levelProperty1Valid: 'Please input correct value for level property1',
+      levelProperty1: 'Level property1',
       description: 'Description'
     }
   }

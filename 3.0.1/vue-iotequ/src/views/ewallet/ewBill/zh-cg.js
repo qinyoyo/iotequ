@@ -5,10 +5,6 @@ export default {
       record: '消费明细',
       code: '消费明细'
     },
-    route: {
-      listTag: '消费明细表',
-      recordTag: '消费明细'
-    },
     field: {
       no: '流水号',
       canceled: '已取消',

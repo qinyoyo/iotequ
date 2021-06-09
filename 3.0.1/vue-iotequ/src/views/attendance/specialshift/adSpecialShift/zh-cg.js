@@ -2,12 +2,8 @@ export default {
   adSpecialShift: {
     title: {
       list: '特殊排班表',
-      record: '特殊排班',
+      record: '特殊排班表',
       code: '特殊排班表'
-    },
-    route: {
-      listTag: '特殊排班表',
-      recordTag: '特殊排班'
     },
     field: {
       id: '',

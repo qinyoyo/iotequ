@@ -11,11 +11,6 @@ export default {
       test: '提交测试',
       code: '项目及产品列表'
     },
-    route: {
-      listTag: '项目及产品列表',
-      recordTag: '立项',
-      assessTag: '项目流程'
-    },
     field: {
       id: 'id',
       flowState: '状态',

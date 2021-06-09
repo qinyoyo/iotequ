@@ -16,9 +16,9 @@ export default {
       name: 'MenuList',
       props: true,
       meta: {
-        title: 'sysMenu.route.listTag',
+        title: 'sysMenu.title.list',
         authorities: ['/framework/sysMenu/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -29,9 +29,9 @@ export default {
       name: 'MenuForm',
       props: true,
       meta: {
-        title: 'sysMenu.route.recordTag',
+        title: 'sysMenu.title.record',
         authorities: ['/framework/sysMenu/record'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }

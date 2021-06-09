@@ -5,10 +5,6 @@ export default {
       record: 'OAuth2配置',
       code: 'OAuth2客户端配置'
     },
-    route: {
-      listTag: 'OAuth2配置表',
-      recordTag: 'OAuth2配置'
-    },
     field: {
       clientId: 'client_id',
       clientSecret: 'client_secret',

@@ -1,7 +1,7 @@
 export default {
   cgAutoTable: {
     title: {
-      code: 'CgAutoTable'
+      code: 'Auto geneate code'
     },
     field: {
       name: 'Name',

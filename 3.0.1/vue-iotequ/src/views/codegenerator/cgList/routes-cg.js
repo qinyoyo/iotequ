@@ -16,9 +16,9 @@ export default {
       name: 'CgListList',
       props: true,
       meta: {
-        title: 'cgList.route.listTag',
+        title: 'cgList.title.list',
         authorities: ['/codegenerator/cgList/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -29,9 +29,9 @@ export default {
       name: 'CgListJoinList',
       props: true,
       meta: {
-        title: 'cgList.route.joinTag',
+        title: 'cgList.title.join',
         authorities: ['/codegenerator/cgList/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -42,9 +42,9 @@ export default {
       name: 'CgListForm',
       props: true,
       meta: {
-        title: 'cgList.route.recordTag',
+        title: 'cgList.title.record',
         authorities: ['/codegenerator/cgList/record'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }

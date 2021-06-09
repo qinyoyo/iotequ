@@ -2,12 +2,8 @@ export default {
   adSpecialShiftTime: {
     title: {
       list: '特殊排班时间表',
-      record: '特殊排班时间',
+      record: '特殊排班时间表',
       code: '特殊排班时间表'
-    },
-    route: {
-      listTag: '特殊排班时间表',
-      recordTag: '特殊排班时间'
     },
     field: {
       id: '',

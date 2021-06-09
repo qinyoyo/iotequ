@@ -2,12 +2,8 @@ export default {
   cgButton: {
     title: {
       list: '按钮列表',
-      record: '按钮',
+      record: '按钮定义',
       code: '按钮定义'
-    },
-    route: {
-      listTag: '按钮列表',
-      recordTag: '按钮'
     },
     field: {
       id: 'id',

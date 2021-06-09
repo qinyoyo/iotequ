@@ -16,9 +16,9 @@ export default {
       name: 'EwDeviceList',
       props: true,
       meta: {
-        title: 'ewDevice.route.listTag',
+        title: 'ewDevice.title.list',
         authorities: ['/ewallet/ewDevice/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -29,7 +29,7 @@ export default {
       name: 'EwDeviceForm',
       props: true,
       meta: {
-        title: 'ewDevice.route.recordTag',
+        title: 'ewDevice.title.record',
         dialog: true,
         authorities: ['/ewallet/ewDevice/record'],
         breadcrumb: false,

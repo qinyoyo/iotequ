@@ -16,9 +16,9 @@ export default {
       name: 'DataDictList',
       props: true,
       meta: {
-        title: 'sysDataDict.route.listTag',
+        title: 'sysDataDict.title.list',
         authorities: ['/framework/sysDataDict/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -29,9 +29,9 @@ export default {
       name: 'DataDictForm',
       props: true,
       meta: {
-        title: 'sysDataDict.route.recordTag',
+        title: 'sysDataDict.title.record',
         authorities: ['/framework/sysDataDict/record'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }

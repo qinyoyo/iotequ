@@ -16,9 +16,9 @@ export default {
       name: 'EwUserTimeList',
       props: true,
       meta: {
-        title: 'ewUserTime.route.listTag',
+        title: 'ewUserTime.title.list',
         authorities: ['/ewallet/ewUserTime/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -29,7 +29,7 @@ export default {
       name: 'EwUserTimeForm',
       props: true,
       meta: {
-        title: 'ewUserTime.route.recordTag',
+        title: 'ewUserTime.title.record',
         dialog: true,
         authorities: ['/ewallet/ewUserTime/record'],
         breadcrumb: false,

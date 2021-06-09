@@ -10,12 +10,13 @@ import top.iotequ.framework.exception.IotequThrowable;
 import top.iotequ.util.*;
 import top.iotequ.reader.dao.DevPeopleDao;
 import top.iotequ.reader.pojo.DevPeople;
+import top.iotequ.reader.util.DownloadPlan;
 import top.iotequ.svasclient.SvasTypes.*;
 import top.iotequ.svasclient.SvasService;
-import top.iotequ.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,7 @@ public class DevPeopleService extends CgDevPeopleService implements ApplicationL
 			String userNo = people.getUserNo();
 			if (Util.isEmpty(userNo)) return;
 			if (!Util.isEmpty(people.getPhoto()) && people.getPhoto().indexOf("data:")==0) {
-				people.setPhoto(Util.saveBase64Image(new File(FileUtil.uploadFileDir(getGeneratorName()), FileUtil.uploadFilename("photo",userNo,"p")).getAbsolutePath(), people.getPhoto()));
+				people.setPhoto(Util.saveBase64Image(new File(FileUtil.uploadFileDir(getGeneratorName()),FileUtil.uploadFilename("photo",userNo,"p")).getAbsolutePath(), people.getPhoto()));
 			}
 		}
 	}
@@ -94,6 +95,8 @@ public class DevPeopleService extends CgDevPeopleService implements ApplicationL
 				}
 			} catch (Exception e) {
 			}
+		}else{//修改设备中用户状态
+			SqlUtil.sqlExecute("update dev_people_mapping set status=? where user_no=?","1",p.getUserNo());
 		}
 		saveImage2File(p);
 	}
@@ -101,9 +104,12 @@ public class DevPeopleService extends CgDevPeopleService implements ApplicationL
 	public void afterSave(DevPeople p0, DevPeople p, HttpServletRequest request, RestJson j) {
 		Util.publishEvent(PeopleInfoChangedEvent.createPeopleInfoChangedEvent(this,p0,p,"userNo"));
 		j.put("userNo", p.getUserNo());
+		if(p0!=null&&p0.getUserNo()!=null) {
+			DownloadPlan.download(p.getUserNo(), 1,true);
+		}
 	}
 
-	private void sendFingerRegisteredInfo(String userNo, RestJson j) {
+	private void sendFingerRegisteredInfo(String userNo,RestJson j) {
 		try {
 			List<SvasTemplates> list = svasService.getFingerInfo(userNo);
 			Integer type1=null,type2=null,count=0;
@@ -143,20 +149,24 @@ public class DevPeopleService extends CgDevPeopleService implements ApplicationL
 		}
 		else if ("removeFinger".equals(action)) {
 			int fingerIndex=Integer.parseInt(request.getParameter("fingerIndex"));
-			if (!svasService.removeTemplate(userNo, fingerIndex))
+			if (!svasService.removeTemplate(userNo, fingerIndex)) 
 				throw new IotequException(IotequThrowable.FAILURE,"未能删除指定手指或没有注册该手指信息");
+				SqlUtil.sqlExecute("update dev_people_mapping set status=? where user_no=?", "1",userNo);
+				DownloadPlan.download(userNo, 1,true);
 		}
 		else if ("registerFinger".equals(action)) {
 			int fingerIndex=Integer.parseInt(request.getParameter("fingerIndex"));
 			int fingerType=Integer.parseInt(request.getParameter("fingerType"));
 			String template=request.getParameter("template");
-			boolean warning= Util.boolValue(request.getParameter("isWarning"));
-			boolean update= Util.boolValue(request.getParameter("update"));
+			boolean warning=Util.boolValue(request.getParameter("isWarning"));
+			boolean update=Util.boolValue(request.getParameter("update"));
 			if (update) {
 				if (!svasService.updateTemplate(userNo, fingerIndex, fingerType,template))
 					throw new IotequException(IotequThrowable.FAILURE,"未能修改成功");
 			} else	if (!svasService.addTemplate(userNo, fingerIndex, fingerType,template, warning))
 				throw new IotequException(IotequThrowable.FAILURE,"未能注册成功");
+			SqlUtil.sqlExecute("update dev_people_mapping set status=? where user_no=?", "1",userNo);
+			DownloadPlan.download(userNo, 1,true);
 		}
 		else if ("verifyFinger".equals(action)) {
 			int fingerIndex=Integer.parseInt(request.getParameter("fingerIndex"));
@@ -243,5 +253,16 @@ public class DevPeopleService extends CgDevPeopleService implements ApplicationL
 		request.setAttribute("warningInfos", warningInfos);
 		String u53=env.getProperty("U53.connectUrl");
 		request.setAttribute("U53Url", u53==null?"localhost:9000":u53);
+	}
+	
+	@Override
+	public void afterDelete(String ids, HttpServletRequest request, RestJson j) throws IotequException {
+		// TODO Auto-generated method stub
+		String[] users=ids.split(",");
+		for(String u:users) {
+			DownloadPlan.download(u, 2,true);
+		}
+		super.afterDelete(ids, request, j);
+		
 	}
 }

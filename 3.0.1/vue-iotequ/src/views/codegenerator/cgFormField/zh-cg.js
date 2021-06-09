@@ -2,17 +2,13 @@ export default {
   cgFormField: {
     title: {
       list: '表单字段列表',
-      record: '表单字段',
+      record: '表单字段定义',
       groupCgFormFieldEntityField: '基本定义',
       groupCgFormFieldFormItemProperties: '标签属性',
       code: '表单字段定义'
     },
     action: {
       select: '选择'
-    },
-    route: {
-      listTag: '表单字段列表',
-      recordTag: '表单字段'
     },
     field: {
       id: 'id',

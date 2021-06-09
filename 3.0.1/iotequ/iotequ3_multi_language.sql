@@ -1,0 +1,82 @@
+set sql_safe_updates=0;
+
+update sys_menu set name='menu.attendanceManage' where name='考勤管理';
+update sys_menu set name='menu.codeGenerator' where name='代码生成';
+update sys_menu set name='menu.deviceUser' where name='设备与用户';
+update sys_menu set name='menu.pay' where name='电子支付';
+update sys_menu set name='menu.projectManage' where name='项目管理';
+update sys_menu set name='menu.systemManage' where name='系统管理';
+
+
+update sys_menu set name='adAdjust.title.code' where action='/attendance/adjust/adAdjust/list';
+update sys_menu set name='menu.personnelBill' where action='/attendance/adjust/adAdjust/record';
+update sys_menu set name='adData.title.code' where action='/attendance/data/adData/list';
+update sys_menu set name='adDayResult.title.code' where action='/attendance/dayresult/adDayResult/list';
+update sys_menu set name='adStat.title.statByOrg' where action='/attendance/dayresult/adDayResult/statByOrg';
+update sys_menu set name='adStat.title.statRecTime' where action='/attendance/dayresult/adDayResult/statRecTime';
+update sys_menu set name='adOrg.title.code' where action='/attendance/org/adOrg/list';
+update sys_menu set name='adShift.title.code' where action='/attendance/shift/adShift/list';
+update sys_menu set name='adSpecialShift.title.code' where action='/attendance/specialshift/adSpecialShift/list';
+update sys_menu set name='menu.cg.download' where action='/codegenerator/cgProject/action/down';
+update sys_menu set name='menu.cg.project' where action='/codegenerator/cgProject/list';
+update sys_menu set name='menu.cg.design' where action='/codegenerator/cgTable/list';
+update sys_menu set name='sysAction.title.code' where action='/framework/sysAction/list';
+update sys_menu set name='sysDataDict.title.code' where action='/framework/sysDataDict/list';
+update sys_menu set name='sysLog.title.code' where action='/framework/sysLog/list';
+update sys_menu set name='sysMenu.title.code' where action='/framework/sysMenu/list';
+update sys_menu set name='sysOauthClientDetails.title.code' where action='/framework/sysOauthClientDetails/list';
+update sys_menu set name='sysOrg.title.code' where action='/framework/sysOrg/list';
+update sys_menu set name='sysRole.title.code' where action='/framework/sysRole/list';
+update sys_menu set name='sysTask.title.code' where action='/framework/sysTask/list';
+update sys_menu set name='sysUser.title.code' where action='/framework/sysUser/list';
+update sys_menu set name='menu.cg.reg' where action='/icon';
+update sys_menu set name='Icons' where action='/icon/index';
+update sys_menu set name='pmPeopleGroup.title.code' where action='/project/people/pmPeopleGroup/list';
+update sys_menu set name='pmProject.title.code' where action='/project/product/pmProject/list';
+update sys_menu set name='pmVersionApplication.title.code' where action='/project/version/pmVersionApplication/list';
+update sys_menu set name='menu.dev.group' where action='/reader/devAuthGroup/list';
+update sys_menu set name='menu.dev.permission' where action='/reader/devAuthRole/list';
+update sys_menu set name='menu.dev.data' where action='/reader/devData/record';
+update sys_menu set name='menu.dev.event' where action='/reader/devEvent/list';
+update sys_menu set name='menu.dev.user' where action='/reader/devPeople/list';
+update sys_menu set name='menu.dev.device' where action='/reader/devReaderGroup/list';
+
+
+update sys_data_dict set text='reader.dataDict.dev_access_state_0' where text='通过';
+update sys_data_dict set text='reader.dataDict.dev_access_state_1' where text='拒绝';
+update sys_data_dict set text='reader.dataDict.dev_access_state_2' where text='胁迫';
+update sys_data_dict set text='reader.dataDict.dev_auth_type_1' where text='指静脉';
+update sys_data_dict set text='reader.dataDict.dev_auth_type_2' where text='卡+指静脉';
+update sys_data_dict set text='reader.dataDict.dev_auth_type_3' where text='卡 或 指静脉';
+update sys_data_dict set text='reader.dataDict.dev_auth_type_4' where text='服务器验证';
+update sys_data_dict set text='reader.dataDict.dev_auth_type_5' where text='密码+指静脉';
+update sys_data_dict set text='reader.dataDict.dev_auth_type_6' where text='密码或指静脉';
+update sys_data_dict set text='reader.dataDict.dev_auth_type_7' where text='密码或指静脉或卡';
+update sys_data_dict set text='reader.dataDict.dev_auth_type_8' where text='指静脉或(卡+密码)';
+update sys_data_dict set text='reader.dataDict.dev_mode_MJ' where text='门禁';
+update sys_data_dict set text='reader.dataDict.dev_mode_XG' where text='巡更';
+update sys_data_dict set text='reader.dataDict.dev_mode_AD' where text='签到';
+update sys_data_dict set text='reader.dataDict.dev_mode_ON' where text='上班';
+update sys_data_dict set text='reader.dataDict.dev_mode_OFF' where text='下班';
+update sys_data_dict set text='reader.dataDict.dev_permit_mode_0' where text='未授权';
+update sys_data_dict set text='reader.dataDict.dev_permit_mode_1' where text='需要审核';
+update sys_data_dict set text='reader.dataDict.dev_permit_mode_2' where text='审核权限';
+update sys_data_dict set text='reader.dataDict.dev_permit_mode_4' where text='授权';
+update sys_data_dict set text='reader.dataDict.dev_permit_mode_14' where text='工作日授权';
+update sys_data_dict set text='reader.dataDict.dev_wg_form_3' where text='自定义';
+update sys_data_dict set text='reader.dataDict.dev_wg_out_1' where text='固定';
+update sys_data_dict set text='reader.dataDict.dev_wg_out_2' where text='编号';
+update sys_data_dict set text='reader.dataDict.dev_wg_out_3' where text='卡号';
+update sys_data_dict set text='reader.dataDict.dev_wg_out_4' where text='区+编号';
+update sys_data_dict set text='reader.dataDict.ad_shift_name_早' where text='早班';
+update sys_data_dict set text='reader.dataDict.ad_shift_name_中' where text='中班';
+update sys_data_dict set text='reader.dataDict.ad_shift_name_白' where text='白班';
+update sys_data_dict set text='reader.dataDict.ad_shift_name_夜' where text='夜班';
+update sys_data_dict set text='reader.dataDict.cg_modules_framework' where text='基本框架';
+update sys_data_dict set text='reader.dataDict.cg_modules_codegenerator' where text='代码生成';
+update sys_data_dict set text='reader.dataDict.cg_modules_attendance' where text='考勤';
+update sys_data_dict set text='reader.dataDict.cg_modules_reader' where text='设备管理';
+update sys_data_dict set text='reader.dataDict.cg_modules_svas' where text='集成服务器验证';
+update sys_data_dict set text='reader.dataDict.cg_modules_SvasClient' where text='验证服务客户端';
+
+

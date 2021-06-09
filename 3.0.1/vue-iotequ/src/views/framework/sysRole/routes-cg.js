@@ -16,9 +16,9 @@ export default {
       name: 'RoleList',
       props: true,
       meta: {
-        title: 'sysRole.route.listTag',
+        title: 'sysRole.title.list',
         authorities: ['/framework/sysRole/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -29,7 +29,7 @@ export default {
       name: 'RoleForm',
       props: true,
       meta: {
-        title: 'sysRole.route.recordTag',
+        title: 'sysRole.title.record',
         dialog: true,
         authorities: ['/framework/sysRole/record'],
         breadcrumb: false,

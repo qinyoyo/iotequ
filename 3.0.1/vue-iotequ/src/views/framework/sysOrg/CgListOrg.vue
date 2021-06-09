@@ -22,8 +22,8 @@
       <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter" width="36" />
       <el-table-column prop="name" width="200" :label="$t('sysOrg.field.name')" sortable align="left" >
         <template slot-scope="scope">
-          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.name" type="text" />
-          <span v-else>{{ scope.row.name }}</span>
+          <cg-input v-if="scope.row.inlineEditting" v-model="scope.row.name" type="text" />
+          <span v-else>{{ localeText(scope.row.name) }}</span>
         </template>
 
       </el-table-column>
@@ -73,7 +73,7 @@
                         @refresh="doAction('refresh')" @reset="queryRecord=initialQueryRecord()">
       <div>
         <el-form-item :label="$t('sysOrg.field.name')" prop="name" :size="$store.state.app.size">
-          <el-input v-model="queryRecord.name" type="text" name="name"
+          <cg-input v-model="queryRecord.name" type="text" name="name"
                     :readonly="fixedQueryRecord.name?true:false" :label="$t('sysOrg.field.name')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('sysOrg.field.phone')" prop="phone" :size="$store.state.app.size">
@@ -86,6 +86,7 @@
 </template>
 
 <script>
+import {localeText} from '@/lang'
 import {hasAuthority} from '@/utils/cg'
 import ParentTable from '@/views/common-views/components/table'
 const Comp = {

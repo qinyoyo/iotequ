@@ -16,9 +16,9 @@ export default {
       name: 'AdSpecialShiftTimeList',
       props: true,
       meta: {
-        title: 'adSpecialShiftTime.route.listTag',
+        title: 'adSpecialShiftTime.title.list',
         authorities: ['/attendance/specialshifttime/adSpecialShiftTime/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -29,9 +29,9 @@ export default {
       name: 'AdSpecialShiftTimeForm',
       props: true,
       meta: {
-        title: 'adSpecialShiftTime.route.recordTag',
+        title: 'adSpecialShiftTime.title.record',
         authorities: ['/attendance/specialshifttime/adSpecialShiftTime/record'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }

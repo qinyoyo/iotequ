@@ -5,10 +5,6 @@ export default {
       record: '计时钱包',
       code: '计时钱包'
     },
-    route: {
-      listTag: '计时钱包表',
-      recordTag: '计时钱包'
-    },
     field: {
       id: 'id',
       amountTime: '计时时长',

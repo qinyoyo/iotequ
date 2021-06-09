@@ -16,9 +16,9 @@ export default {
       name: 'CgButtonList',
       props: true,
       meta: {
-        title: 'cgButton.route.listTag',
+        title: 'cgButton.title.list',
         authorities: ['/codegenerator/cgButton/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -29,10 +29,10 @@ export default {
       name: 'CgButtonForm',
       props: true,
       meta: {
-        title: 'cgButton.route.recordTag',
+        title: 'cgButton.title.record',
         icon: 'el-icon-mouse',
         authorities: ['/codegenerator/cgButton/record'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }

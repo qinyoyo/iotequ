@@ -13,9 +13,9 @@
                 <CgListUserJoin slot="popover" ref="employeeJoin" openID="employee-join" :height="500" :joinShow="employeeJoinVisible" :joinMultiple="false" :fixedQueryRecord="employeeDynaCondition"
                                 :originSelections="String(record.employee)" selectionKey="id" joinMode @closeJoinList="(rows)=>{ getJoinFields('employee',rows)}"
                                 @showJoinList="employeeJoinVisible=true" />
-                <el-form-item class="cg-item-text" slot="reference" :label="$t('adAdjust.field.employee')" prop="realName" :size="$store.state.app.size" >
-                  <el-input v-model="record.realName" name="realName" 
-                            type="text" 
+                <el-form-item class="cg-item-mltext" slot="reference" :label="$t('adAdjust.field.employee')" prop="realName" :size="$store.state.app.size" >
+                  <cg-input v-model="record.realName" name="realName" 
+                            type="mltext" 
                             :label="$t('adAdjust.field.employee')" :placeholder="$t('system.message.needValue')" 
                             resize autofocus validate-event 
                             readonly :maxlength="32" show-word-limit />

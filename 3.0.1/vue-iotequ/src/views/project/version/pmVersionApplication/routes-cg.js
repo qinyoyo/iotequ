@@ -16,9 +16,9 @@ export default {
       name: 'PmVersionApplicationList',
       props: true,
       meta: {
-        title: 'pmVersionApplication.route.listTag',
+        title: 'pmVersionApplication.title.list',
         authorities: ['/project/version/pmVersionApplication/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -29,7 +29,7 @@ export default {
       name: 'PmVersionApplicationForm',
       props: true,
       meta: {
-        title: 'pmVersionApplication.route.recordTag',
+        title: 'pmVersionApplication.title.record',
         icon: 'el-icon-folder-add',
         dialog: true,
         authorities: ['/project/version/pmVersionApplication/record'],

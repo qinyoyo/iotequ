@@ -5,10 +5,6 @@ export default {
       record: '商店',
       code: '商店'
     },
-    route: {
-      listTag: '商店表',
-      recordTag: '商店'
-    },
     field: {
       id: 'ID',
       corporationId: '归属公司',

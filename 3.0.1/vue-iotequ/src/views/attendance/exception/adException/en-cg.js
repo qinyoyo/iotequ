@@ -1,21 +1,17 @@
 export default {
   adException: {
     title: {
-      list: 'adException',
-      record: 'adException',
-      code: 'AdException'
-    },
-    route: {
-      listTag: 'adException',
-      recordTag: 'adException'
+      list: 'Ad exception',
+      record: 'Ad exception',
+      code: 'Ad exception'
     },
     field: {
       id: 'Id',
-      shiftId: 'ShiftId',
-      endDate: 'EndDate',
-      startDate: 'StartDate',
-      weekDayValid: 'Please input correct value for weekDay',
-      weekDay: 'WeekDay',
+      shiftId: 'Shift id',
+      endDate: 'End date',
+      startDate: 'Start date',
+      weekDayValid: 'Please input correct value for week day',
+      weekDay: 'Week day',
       description: 'Description'
     }
   }

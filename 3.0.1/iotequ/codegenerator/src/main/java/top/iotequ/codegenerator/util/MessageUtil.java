@@ -23,6 +23,25 @@ public class MessageUtil {
         else sb.append(",\n");
         return sb;
     }
+    private static String indexText(String s,int index) {
+        if (s!=null && index>=0) {
+            String [] ss = s.split("\\|");
+            if (ss.length>index) return ss[index];
+        }
+        return null;
+    }
+    public static String enMsg(String define, String s, boolean firstUpper) {
+        String def = indexText(define,1);
+        if (def!=null) return firstUpper ? StringUtil.firstLetterUpper(def) : def;
+        StringBuilder sb=new StringBuilder();
+        for (int i=0;i<s.length();i++) {
+            char ch = s.charAt(i);
+            if (firstUpper && i==0 && ch>='a' && ch<='z') sb.append((char)(ch-32));
+            else if (i>0 && ch>='A' && ch<='Z') sb.append(" ").append((char)(ch+32));
+            else sb.append(ch);
+        }
+        return sb.toString();
+    }
     public static void message(String generatorPath, CgTable table, List<CgField> tabFields, List<CgField> joinFields, List<CgField> calFields) throws CgException {
         assert (table != null);
         StringBuilder en = new StringBuilder(), zh = new StringBuilder();
@@ -39,8 +58,10 @@ public class MessageUtil {
 
         if (lists!=null && !lists.isEmpty()) {
             for (CgList item : lists) {
-                writeKey(en, 3, item.getPath() , item.getName(), false);
-                writeKey(zh, 3, item.getPath(), item.getHeadTitle(), false);
+                String txt = item.getHeadTitle();
+                if (Util.isEmpty(txt)) txt = table.getTitle();
+                writeKey(en, 3, item.getPath() , enMsg(txt,item.getName(),true), false);
+                writeKey(zh, 3, item.getPath(), indexText(txt,0), false);
             }
         }
         if (forms!=null && !forms.isEmpty()) {
@@ -49,24 +70,26 @@ public class MessageUtil {
                     String [] pp = item.getPath().split(",");
                     String [] tt = item.getHeadTitle().split(",");
                     for (int i=0;i<pp.length;i++) {
-                        writeKey(en, 3, pp[i], pp[i], false);
-                        writeKey(zh, 3, pp[i], i<tt.length ? tt[i] : tt[0], false);
+                        writeKey(en, 3, pp[i], enMsg(i<tt.length ? tt[i] : tt[0],pp[i],true), false);
+                        writeKey(zh, 3, pp[i], indexText(i<tt.length ? tt[i] : tt[0],0), false);
                     }
                 } else {
-                    writeKey(en, 3, item.getPath(), item.getName(), false);
-                    writeKey(zh, 3, item.getPath(), item.getHeadTitle(), false);
+                    String txt = item.getHeadTitle();
+                    if (Util.isEmpty(txt)) txt = table.getTitle();
+                    writeKey(en, 3, item.getPath(), enMsg(txt,item.getName(),true), false);
+                    writeKey(zh, 3, item.getPath(), indexText(txt,0), false);
                 }
                 List<CgFormField> formFields = Util.getBean(CgFormFieldDao.class).listBy("form_id='"+item.getId()+"'","order_num");
                 for (CgFormField f : formFields) {
                     if (!Util.isEmpty(f.getGroupTitle())) {
-                        writeKey(en, 3, "group"+StringUtil.firstLetterUpper(item.getName())+StringUtil.firstLetterUpper(f.getEntityField()) , "group"+StringUtil.firstLetterUpper(item.getName())+StringUtil.firstLetterUpper(f.getEntityField()), false);
-                        writeKey(zh, 3, "group"+StringUtil.firstLetterUpper(item.getName())+StringUtil.firstLetterUpper(f.getEntityField()) , f.getGroupTitle(), false);
+                        writeKey(en, 3, "group"+StringUtil.firstLetterUpper(item.getName())+StringUtil.firstLetterUpper(f.getEntityField()) , enMsg(f.getGroupTitle(),"Group "+ f.getEntityField(),false), false);
+                        writeKey(zh, 3, "group"+StringUtil.firstLetterUpper(item.getName())+StringUtil.firstLetterUpper(f.getEntityField()) , indexText(f.getGroupTitle(),0), false);
                     }
                 }
             }
         }
-        writeKey(en,3,"code",StringUtil.firstLetterUpper(NameUtil.generatorName(table)).replaceAll("_", " "),true);
-        writeKey(zh,3,"code",table.getTitle(),true);
+        writeKey(en,3,"code", enMsg(table.getTitle(),NameUtil.generatorName(table).replaceAll("_", " "),true),true);
+        writeKey(zh,3,"code",indexText(table.getTitle(),0),true);
         en.append(tab).append(tab).append("},\n");
         zh.append(tab).append(tab).append("},\n");
 
@@ -83,11 +106,11 @@ public class MessageUtil {
             for (int i=0;i<buttons.size();i++) {
                 CgButton btn=buttons.get(i);
                 if (!Util.isEmpty(btn.getConfirmText())) {
-                    writeKey(en,3,btn.getAction()+"Confirm","Confirm " + StringUtil.firstLetterUpper(btn.getAction()).replaceAll("_", " "),false);
-                    writeKey(zh,3,btn.getAction()+"Confirm",btn.getConfirmText(),false);
+                    writeKey(en,3,btn.getAction()+"Confirm",enMsg(btn.getConfirmText(),"Confirm "+btn.getAction().replaceAll("_", " "),true),false);
+                    writeKey(zh,3,btn.getAction()+"Confirm",indexText(btn.getConfirmText(),0),false);
                 }
-                writeKey(en,3,btn.getAction(),StringUtil.firstLetterUpper(btn.getAction()).replaceAll("_", " "),i==(buttons.size()-1));
-                writeKey(zh,3,btn.getAction(),btn.getTitle(),i==(buttons.size()-1));
+                writeKey(en,3,btn.getAction(), enMsg(btn.getTitle(),btn.getAction().replaceAll("_", " "),true),i==(buttons.size()-1));
+                writeKey(zh,3,btn.getAction(),indexText(btn.getTitle(),0),i==(buttons.size()-1));
             }
             en.append(tab).append(tab).append("},\n");
             zh.append(tab).append(tab).append("},\n");
@@ -108,8 +131,8 @@ public class MessageUtil {
             if (lists!=null && !lists.isEmpty()) {
                 for (CgList item : lists) {
                     if (Objects.nonNull(item.getTagTitle()) && !item.getTagTitle().trim().isEmpty()) {
-                        writeKey(en, 3, item.getPath() + "Tag", item.getName(), index == routes - 1);
-                        writeKey(zh, 3, item.getPath() + "Tag", item.getTagTitle(), index == routes - 1);
+                        writeKey(en, 3, item.getPath() + "Tag", enMsg(item.getTagTitle(),item.getName(),true), index == routes - 1);
+                        writeKey(zh, 3, item.getPath() + "Tag", indexText(item.getTagTitle(),0), index == routes - 1);
                         index++;
                     }
                 }
@@ -117,8 +140,8 @@ public class MessageUtil {
             if (forms!=null && !forms.isEmpty()) {
                 for (CgForm item : forms) {
                     if (Objects.nonNull(item.getTagTitle()) && !item.getTagTitle().trim().isEmpty()) {
-                        writeKey(en, 3, item.getPath().split(",")[0] + "Tag", item.getName(), index == routes - 1);
-                        writeKey(zh, 3, item.getPath().split(",")[0] + "Tag", item.getTagTitle(), index == routes - 1);
+                        writeKey(en, 3, item.getPath().split(",")[0] + "Tag", enMsg(item.getTagTitle(),item.getName(),true), index == routes - 1);
+                        writeKey(zh, 3, item.getPath().split(",")[0] + "Tag", indexText(item.getTagTitle(),0), index == routes - 1);
                         index++;
                     }
                 }
@@ -134,8 +157,8 @@ public class MessageUtil {
         for (int i=0;i<allFields.size();i++) {
             CgField f = allFields.get(i);
             if (!Util.isEmpty(f.getValidTitle())) {
-                writeKey(en,3,f.getEntityName() + "Valid","Please input correct value for " + f.getEntityName(),false);
-                writeKey(zh,3,f.getEntityName() + "Valid",f.getValidTitle(),false);
+                writeKey(en,3,f.getEntityName() + "Valid",enMsg(f.getValidTitle(),"Please input correct value for "+f.getEntityName(),true),false);
+                writeKey(zh,3,f.getEntityName() + "Valid",indexText(f.getValidTitle(),0),false);
             }
 
             String list = f.getDictText();
@@ -145,8 +168,8 @@ public class MessageUtil {
                 for (int c = 0; c < cc.length; c++) {
                     String ls="";
                     if (c<ll.length) ls = ll[c].trim();
-                    writeKey(en,3,f.getEntityName() + "_" + c,ls,false);
-                    writeKey(zh,3,f.getEntityName() + "_" + c,ls,false);
+                    writeKey(en,3,f.getEntityName() + "_" + c, enMsg(ls, ls,true),false);
+                    writeKey(zh,3,f.getEntityName() + "_" + c, indexText(ls,0),false);
                 }
             }
             if (f.getShowType().indexOf("join")>=0 || f.getShowType().equals("dict_list")) {
@@ -155,13 +178,13 @@ public class MessageUtil {
                     String[] jfArr = JoinUtil.splitedJoinFieldDef(jf);
                     if (!Util.isEmpty(jfArr[0]) && !Util.isEmpty(jfArr[1])) {
                         String entity = StringUtil.camelString(jfArr[1]);
-                        writeKey(en,3,entity,jfArr[1].replaceAll("[_-]", " "),false);
-                        writeKey(zh,3,entity,jfArr[0],false);
+                        writeKey(en,3,entity, enMsg(jfArr[0],jfArr[1].replaceAll("[_-]", " "),true),false);
+                        writeKey(zh,3,entity, indexText(jfArr[0],0),false);
                     }
                 }
             }
-            writeKey(en,3,f.getEntityName(),StringUtil.firstLetterUpper(f.getEntityName()).replaceAll("_", " "),i==(allFields.size()-1));
-            writeKey(zh,3,f.getEntityName(),f.getTitle(),i==(allFields.size()-1));
+            writeKey(en,3,f.getEntityName(), enMsg(f.getTitle(),f.getEntityName().replaceAll("_", " "),true),i==(allFields.size()-1));
+            writeKey(zh,3,f.getEntityName(), indexText(f.getTitle(),0),i==(allFields.size()-1));
         }
 
         en.append(tab).append(tab).append("}\n");

@@ -1,27 +1,23 @@
 export default {
   payLogin: {
     title: {
-      list: 'payLogin',
-      record: 'payLogin',
-      code: 'PayLogin'
-    },
-    route: {
-      listTag: 'payLogin',
-      recordTag: 'payLogin'
+      list: 'Pay login',
+      record: 'Pay login',
+      code: 'Pay login'
     },
     field: {
       id: 'Id',
-      posId: 'PosId',
-      shopId: 'ShopId',
-      batchNo: 'BatchNo',
-      loginTime: 'LoginTime',
-      logoutTime: 'LogoutTime',
-      deviceStream: 'DeviceStream',
-      randomNo: 'RandomNo',
-      appVersion: 'AppVersion',
-      tradeCount: 'TradeCount',
-      failureCount: 'FailureCount',
-      operatorId: 'OperatorId'
+      posId: 'Pos id',
+      shopId: 'Shop id',
+      batchNo: 'Batch no',
+      loginTime: 'Login time',
+      logoutTime: 'Logout time',
+      deviceStream: 'Device stream',
+      randomNo: 'Random no',
+      appVersion: 'App version',
+      tradeCount: 'Trade count',
+      failureCount: 'Failure count',
+      operatorId: 'Operator id'
     }
   }
 }

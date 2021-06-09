@@ -1,32 +1,28 @@
 export default {
   sysMessage: {
     title: {
-      list: 'message',
-      record: 'message',
-      code: 'SysMessage'
+      list: 'Message',
+      record: 'Read message',
+      code: 'Message'
     },
     action: {
       process: 'Process',
       read: 'Read',
-      readAllConfirm: 'Confirm ReadAll',
-      readAll: 'ReadAll'
-    },
-    route: {
-      listTag: 'message',
-      recordTag: 'message'
+      readAllConfirm: 'Confirm read all',
+      readAll: 'Read all'
     },
     field: {
       id: 'Id',
-      readTime: 'ReadTime',
-      createTime: 'CreateTime',
-      receiverName: 'ReceiverName',
-      senderName: 'SenderName',
+      readTime: 'Read time',
+      createTime: 'Create time',
+      receiverName: 'Receiver name',
+      senderName: 'Sender name',
       title: 'Title',
       content: 'Content',
       url: 'Url',
       receiver: 'Receiver',
       sender: 'Sender',
-      eventId: 'EventId'
+      eventId: 'Event id'
     }
   }
 }

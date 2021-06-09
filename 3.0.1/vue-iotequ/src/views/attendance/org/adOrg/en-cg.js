@@ -1,27 +1,23 @@
 export default {
   adOrg: {
     title: {
-      list: 'adOrg',
-      record: 'adOrg',
-      code: 'AdOrg'
-    },
-    route: {
-      listTag: 'adOrg',
-      recordTag: 'adOrg'
+      list: 'Ad org',
+      record: 'Ad org',
+      code: 'Ad org'
     },
     field: {
-      shiftId: 'ShiftId',
-      manageLimitValid: 'Please input correct value for manageLimit',
-      manageLimit: 'ManageLimit',
+      shiftId: 'Shift id',
+      manageLimitValid: 'Please input correct value for manage limit',
+      manageLimit: 'Manage limit',
       deviationValid: 'Please input correct value for deviation',
       deviation: 'Deviation',
-      floatLimitValid: 'Please input correct value for floatLimit',
-      floatLimit: 'FloatLimit',
-      absentLimitValid: 'Please input correct value for absentLimit',
-      absentLimit: 'AbsentLimit',
-      freeWorkLimitValid: 'Please input correct value for freeWorkLimit',
-      freeWorkLimit: 'FreeWorkLimit',
-      orgCode: 'OrgCode',
+      floatLimitValid: 'Please input correct value for float limit',
+      floatLimit: 'Float limit',
+      absentLimitValid: 'Please input correct value for absent limit',
+      absentLimit: 'Absent limit',
+      freeWorkLimitValid: 'Please input correct value for free work limit',
+      freeWorkLimit: 'Free work limit',
+      orgCode: 'Org code',
       hrValid: 'Please input correct value for hr',
       hr: 'Hr',
       managerValid: 'Please input correct value for manager',

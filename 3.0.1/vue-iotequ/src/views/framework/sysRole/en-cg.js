@@ -1,13 +1,9 @@
 export default {
   sysRole: {
     title: {
-      list: 'role',
-      record: 'role',
-      code: 'SysRole'
-    },
-    route: {
-      listTag: 'role',
-      recordTag: 'role'
+      list: 'Role',
+      record: 'Role',
+      code: 'Role'
     },
     field: {
       id: 'Id',

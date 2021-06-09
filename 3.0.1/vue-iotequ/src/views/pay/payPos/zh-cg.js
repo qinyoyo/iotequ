@@ -5,10 +5,6 @@ export default {
       record: '交易终端',
       code: '交易终端'
     },
-    route: {
-      listTag: '交易终端表',
-      recordTag: '交易终端'
-    },
     field: {
       id: '',
       no: '终端编号',

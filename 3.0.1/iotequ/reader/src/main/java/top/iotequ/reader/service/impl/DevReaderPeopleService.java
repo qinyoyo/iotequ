@@ -13,15 +13,15 @@ import top.iotequ.reader.pojo.DevPeople;
 import top.iotequ.reader.pojo.DevReader;
 import top.iotequ.reader.pojo.DevReaderPeople;
 import top.iotequ.reader.util.DevUtil;
+import top.iotequ.reader.util.DownloadPlan;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import top.iotequ.util.RestJson;
-import top.iotequ.util.SqlUtil;
-import top.iotequ.util.Util;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class DevReaderPeopleService extends CgDevReaderPeopleService {
@@ -33,8 +33,11 @@ public class DevReaderPeopleService extends CgDevReaderPeopleService {
 	public void beforeSave(DevReaderPeople obj0, DevReaderPeople obj, boolean updateSelective,
 			HttpServletRequest request) throws IotequException {
 		// TODO Auto-generated method stub
+		Map<String,String> params = new HashMap<>();
+		DevPeople d=SqlUtil.sqlQueryFirst(DevPeople.class, "select * from dev_people where user_no=?", obj.getUserNo());
+		if(DevUtil.getPermission(d, obj.getReaderNo(), params)<=0)throw new IotequException("add_reader_people_error_permission","该用户与此设备权限不符合，添加失败");
 		if(SqlUtil.sqlExist("select * from dev_reader_people where user_no=? and reader_no=?", obj.getUserNo(),obj.getReaderNo()))throw new IotequException("add_reader_people_error","该用户在此设备中已存在");
-		if(obj!=null&& Util.isEmpty(obj.getId())) {
+		if(obj!=null&&Util.isEmpty(obj.getId())) {
 			obj.setType(0);
 			obj.setStatus(1);
 		}
@@ -56,6 +59,7 @@ public class DevReaderPeopleService extends CgDevReaderPeopleService {
 					SqlUtil.sqlExecute("delete from dev_reader_people where reader_no=? and status=0", reader.getReaderNo());
 				}
 				try {
+					List<String> listS=new ArrayList<>();
 					int all=0;
 					Boolean isRturn=true;
 					while(isRturn) {
@@ -84,18 +88,28 @@ public class DevReaderPeopleService extends CgDevReaderPeopleService {
 							if(!Util.isEmpty(orderNum))col=orderNum;
 							for(int i=0;i<user.length;i++) {
 								DevReaderPeople dr=new DevReaderPeople();
+								if(!SqlUtil.sqlExist("select * from dev_people where user_no=?", user[i])) {
+									listS.add(user[i]);
+									continue;
+								}
 								dr.setUserNo(user[i]);
 								col++;
 								dr.setStatus(0);
 								dr.setOrderNum(col);
 								dr.setReaderNo(reader.getReaderNo());
-								DevReaderPeopleDao drd= Util.getBean(DevReaderPeopleDao.class);
+								DevReaderPeopleDao drd=Util.getBean(DevReaderPeopleDao.class);
 								if(!SqlUtil.sqlExist("select * from dev_reader_people where user_no=? and reader_no=?", dr.getUserNo(),dr.getReaderNo())) {
 									drd.insert(dr);
 								}
 							}
 						}
 						pageId++;
+						System.out.println(pageId);
+					}
+					if(listS!=null&&listS.size()>0) {
+						for(String s:listS) {
+							DownloadPlan.download(s, 2,false);
+						}
 					}
 				} catch (IotequException e) {
 					// TODO: handle exception
@@ -110,6 +124,7 @@ public class DevReaderPeopleService extends CgDevReaderPeopleService {
 		}else if(action.equals("download")) {
 			String readerNo=request.getParameter("readerNo");
 			if(readerNo!=null) {
+				String msg=null;
 				DevReader reader=SqlUtil.sqlQueryFirst(DevReader.class, "select * from dev_reader where reader_no=?", readerNo);
 				if(reader!=null) {
 					List<DevReaderPeople> listAdd=SqlUtil.sqlQuery(DevReaderPeople.class, false, "select * from dev_reader_people where reader_no=? and status=1 and type=0", readerNo);
@@ -120,9 +135,16 @@ public class DevReaderPeopleService extends CgDevReaderPeopleService {
 							list.add(dp);
 						}
 						DevUtil.downloadUsers(reader, list);
-						for(DevReaderPeople p:listAdd) {
-							SqlUtil.sqlExecute("delete from dev_reader_people where id=?", p.getId());
+						if(list.size()>0) {
+							for(DevReaderPeople p:listAdd) {
+								SqlUtil.sqlExecute("update dev_reader_people set status=0,type=null where  id=?", p.getId());
+								if(!SqlUtil.sqlExist("select * from dev_people_mapping where user_no=? and reader_no=?", p.getUserNo(),p.getReaderNo())) {
+									SqlUtil.sqlExecute("insert into dev_people_mapping(reader_no,user_no,status) values(?,?,?)", p.getReaderNo(),p.getUserNo(),"0");
+								}
+							}
+							msg=String.format("下发 %d 人;",list.size());
 						}
+						
 					}
 					
 					List<DevReaderPeople> listDelete=SqlUtil.sqlQuery(DevReaderPeople.class,false, "select * from dev_reader_people where reader_no=? and status=1 and type=2", readerNo);
@@ -132,11 +154,16 @@ public class DevReaderPeopleService extends CgDevReaderPeopleService {
 							DevPeople dp=SqlUtil.sqlQueryFirst(DevPeople.class, "select * from dev_people where user_no=?", p.getUserNo());
 							list.add(dp);
 						}
-						DevUtil.deleteSpecifyUser(reader, list);
-						for(DevReaderPeople p:listDelete) {
-							SqlUtil.sqlExecute("delete from dev_reader_people where id=?", p.getId());
+						boolean b=DownloadPlan.deleteSpecifyUser(reader, list);
+						if(b) {
+							msg=msg==null?String.format("删除 %d 人;",list.size()):msg+String.format("删除 %d 人;",list.size());
+							for(DevReaderPeople p:listDelete) {
+								SqlUtil.sqlExecute("delete from dev_reader_people where id=?", p.getId());
+								SqlUtil.sqlExecute("delete from dev_people_mapping where user_no=? and reader_no=?", p.getUserNo(),p.getReaderNo());
+							}
 						}
 					}
+					j.setMessage(msg);
 				}
 			}
 		}else if(action.equals("copyDelete")) {

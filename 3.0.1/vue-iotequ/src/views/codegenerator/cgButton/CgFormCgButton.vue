@@ -113,9 +113,9 @@ const Comp = {
       idField: 'id',
       idSaved: this.openParams().record && typeof this.openParams().record === 'object' ? this.openParams().record.id : null,
       dictionary: {
-        dictActionProperty: this.getDictionary('js,go,pg,aj','仅前端函数,页面跳转,自定义函数调用后端,仅后端操作'),
-        dictRowProperty: this.getDictionary('sr,mr,nr','单行,多行,行无关'),
-        dictDisplayProperties: this.getDictionary('hm,hp,tb,rw,ed,gs','手机隐藏,PC隐藏,工具条显示,行显示,编辑显示,分组开始')
+        dictActionProperty: this.getDictionary('js,go,pg,aj','cgButton.field.actionProperty_0,cgButton.field.actionProperty_1,cgButton.field.actionProperty_2,cgButton.field.actionProperty_3'),
+        dictRowProperty: this.getDictionary('sr,mr,nr','cgButton.field.rowProperty_0,cgButton.field.rowProperty_1,cgButton.field.rowProperty_2'),
+        dictDisplayProperties: this.getDictionary('hm,hp,tb,rw,ed,gs','cgButton.field.displayProperties_0,cgButton.field.displayProperties_1,cgButton.field.displayProperties_2,cgButton.field.displayProperties_3,cgButton.field.displayProperties_4,cgButton.field.displayProperties_5')
       },
       generatorName: 'cgButton',
       baseUrl: '/codegenerator/cgButton'

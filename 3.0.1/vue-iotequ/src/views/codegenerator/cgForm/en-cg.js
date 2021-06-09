@@ -1,37 +1,34 @@
 export default {
   cgForm: {
     title: {
-      list: 'cgForm',
-      record: 'cgForm',
-      groupCgFormTableId: 'groupCgFormTableId',
-      groupCgFormImages: 'groupCgFormImages',
-      code: 'CgForm'
-    },
-    route: {
-      listTag: 'cgForm',
-      recordTag: 'cgForm'
+      list: 'From list',
+      record: 'Form design',
+      groupCgFormTableId: 'Group table id',
+      groupCgFormImages: 'Group images',
+      code: 'Form design'
     },
     field: {
       id: 'Id',
       name: 'Name',
       pathValid: 'Please input correct value for path',
       path: 'Path',
-      tableId: 'TableId',
-      headTitleValid: 'Please input correct value for headTitle',
-      headTitle: 'HeadTitle',
-      isFlow: 'IsFlow',
+      tableId: 'Table id',
+      headTitleValid: '分隔，如 名称',
+      headTitle: 'Head title',
+      isFlow: 'Is flow',
       iconValid: 'Please input correct value for icon',
       icon: 'Icon',
-      tagTitle: 'TagTitle',
-      labelPosition: 'LabelPosition',
-      isDialog: 'IsDialog',
-      continueAdd: 'ContinueAdd',
+      tagTitleValid: '分隔，如 名称',
+      tagTitle: 'Tag title',
+      labelPosition: 'Label position',
+      isDialog: 'Is dialog',
+      continueAdd: 'Continue add',
       images: 'Images',
-      viewProperties: 'ViewProperties',
-      formProperties: 'FormProperties',
-      slotTemplates: 'SlotTemplates',
-      actionListValid: 'Please input correct value for actionList',
-      actionList: 'ActionList'
+      viewProperties: 'View properties',
+      formProperties: 'Form properties',
+      slotTemplates: 'Slot templates',
+      actionListValid: 'Please input correct value for action list',
+      actionList: 'Action list'
     }
   }
 }

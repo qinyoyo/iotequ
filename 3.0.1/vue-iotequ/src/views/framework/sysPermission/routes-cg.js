@@ -16,9 +16,9 @@ export default {
       name: 'PermissionForm',
       props: true,
       meta: {
-        title: 'sysPermission.route.recordTag',
+        title: 'sysPermission.title.record',
         authorities: ['/framework/sysPermission/record'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }

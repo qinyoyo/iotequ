@@ -11,8 +11,9 @@ import lombok.Setter;
 import com.google.gson.annotations.SerializedName;
 import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
+import java.util.*;
 
-//  Pojo entity : CgFormField (表单字段定义)
+//  Pojo entity : CgFormField (表单字段定义|Fields of form)
 @CgTableAnnotation(name="cg_form_field",
                    title="cgFormField",
                    baseUrl="/codegenerator/cgFormField",

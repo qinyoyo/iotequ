@@ -16,9 +16,9 @@ export default {
       name: 'PayLoginList',
       props: true,
       meta: {
-        title: 'payLogin.route.listTag',
+        title: 'payLogin.title.list',
         authorities: ['/pay/payLogin/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -29,7 +29,7 @@ export default {
       name: 'PayLoginForm',
       props: true,
       meta: {
-        title: 'payLogin.route.recordTag',
+        title: 'payLogin.title.record',
         dialog: true,
         authorities: ['/pay/payLogin/record'],
         breadcrumb: false,

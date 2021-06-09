@@ -22,7 +22,7 @@
       <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter no-tab-index" width="36" />
       <cg-table-column prop="realName" :page="1" :label="$t('adEmployee.field.id')" sortable align="left" >
         <template slot-scope="scope">
-          {{ scope.row.realName }}
+          {{ localeText(scope.row.realName) }}
         </template>
 
       </cg-table-column>
@@ -111,7 +111,7 @@
           <CgListUserJoin slot="popover" ref="idJoin" openID="id-join" :height="joinHeight()" :joinShow="idJoinVisible" joinMultiple
             :originSelections="queryRecord.id" selectionKey="id" joinMode @closeJoinList="(rows)=>{ getJoinFields('id',rows)}" @showJoinList="idJoinVisible=true"/>
         <el-form-item slot="reference" :label="$t('adEmployee.field.id')" prop="realName" :size="$store.state.app.size">
-          <el-input v-model="queryRecord.realName" type="text" name="realName"
+          <cg-input v-model="queryRecord.realName" type="text" name="realName"
                     :readonly="fixedQueryRecord.realName?true:false" :label="$t('adEmployee.field.id')" clearable resize autofocus @clear="clearJoinValues(myself,'idJoin')"/>
         </el-form-item>
         </cg-join>
@@ -136,6 +136,7 @@
 </template>
 
 <script>
+import {localeText} from '@/lang'
 import {hasAuthority} from '@/utils/cg'
 import CgListUserJoin from '@/views/framework/sysUser/CgListUserJoin.vue'
 import rulesObject from './rules.js'

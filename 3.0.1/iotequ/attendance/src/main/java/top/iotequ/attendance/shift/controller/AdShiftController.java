@@ -1,5 +1,6 @@
 package top.iotequ.attendance.shift.controller;
 import top.iotequ.attendance.shift.pojo.AdShift;
+import top.iotequ.attendance.shift.dao.AdShiftDao;
 import org.springframework.web.bind.annotation.RequestBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import top.iotequ.framework.service.ICgService;
 import top.iotequ.util.*;
-import top.iotequ.util.RestJson;
-import top.iotequ.util.Util;
-
+import top.iotequ.attendance.util.AdUtil;
 import java.util.*;
 
 /**************************************************

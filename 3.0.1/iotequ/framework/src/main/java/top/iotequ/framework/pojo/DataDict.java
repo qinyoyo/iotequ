@@ -5,11 +5,13 @@
 
 package top.iotequ.framework.pojo;
 import top.iotequ.util.StringUtil;
+import top.iotequ.framework.pojo.CgEntity;
 import lombok.Getter;
 import lombok.Setter;
 import com.google.gson.annotations.SerializedName;
 import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
+import java.util.*;
 
 //  Pojo entity : DataDict (数据字典)
 @CgTableAnnotation(name="sys_data_dict",

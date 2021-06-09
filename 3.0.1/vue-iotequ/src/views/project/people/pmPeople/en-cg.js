@@ -1,18 +1,14 @@
 export default {
   pmPeople: {
     title: {
-      list: 'pmPeople',
-      record: 'pmPeople',
-      code: 'PmPeople'
-    },
-    route: {
-      listTag: 'pmPeople',
-      recordTag: 'pmPeople'
+      list: 'Pm people',
+      record: 'Pm people',
+      code: 'Pm people'
     },
     field: {
       id: 'Id',
-      groupId: 'GroupId',
-      userId: 'UserId'
+      groupId: 'Group id',
+      userId: 'User id'
     }
   }
 }

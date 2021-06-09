@@ -11,8 +11,9 @@ import lombok.Setter;
 import com.google.gson.annotations.SerializedName;
 import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
+import java.util.*;
 
-//  Pojo entity : CgTable (表单定义)
+//  Pojo entity : CgTable (表单定义|Cg table)
 @CgTableAnnotation(name="cg_table",
                    title="cgTable",
                    join="JOIN cg_project ON cg_table.project_id = cg_project.id",

@@ -9,6 +9,7 @@ import top.iotequ.framework.pojo.CgEntity;
 import lombok.Getter;
 import lombok.Setter;
 import top.iotequ.util.CgTableAnnotation;
+import java.util.*;
 
 //  Pojo entity : DevData (设备数据)
 @CgTableAnnotation(name="null",
@@ -29,6 +30,10 @@ public class DevData implements CgEntity {
 
     private String userSelection;		//选择人员 db field:user_selection
     private String userName;
+
+    private String noteHtml;		//提示 非数据库字段
+
+    private Boolean covered;		//是否覆盖设备中的用户 非数据库字段
 
     private String operation;		//操作 非数据库字段
 

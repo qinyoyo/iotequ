@@ -1,6 +1,7 @@
 package top.iotequ.reader.service.impl;
 import top.iotequ.reader.pojo.DevReaderPeople;
 import top.iotequ.reader.dao.DevReaderPeopleDao;
+import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,8 @@ import top.iotequ.framework.service.IDaoService;
 import org.springframework.stereotype.Service;
 import top.iotequ.framework.service.utils.DictionaryUtil;
 import top.iotequ.framework.service.utils.UploadDownUtil;
+import top.iotequ.framework.service.utils.QueryUtil;
 import top.iotequ.util.*;
-import top.iotequ.util.StringUtil;
-
 import java.util.*;
 
 /**************************************************
@@ -24,7 +24,7 @@ Author : Qinyoyo
 @ConditionalOnMissingClass({"top.iotequ.reader.service.impl.DevReaderPeopleService"})
 @Service(value="devReaderPeopleService")
 public class CgDevReaderPeopleService extends CgService<DevReaderPeople>  {
-private static final Logger log = LoggerFactory.getLogger(CgDevReaderPeopleService.class);
+    private static final Logger log = LoggerFactory.getLogger(CgDevReaderPeopleService.class);
     @Autowired
     private DevReaderPeopleDao devReaderPeopleDao;
     @Override

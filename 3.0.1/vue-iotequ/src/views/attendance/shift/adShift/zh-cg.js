@@ -5,10 +5,6 @@ export default {
       record: '排班',
       code: '考勤排班表'
     },
-    route: {
-      listTag: '考勤排班表',
-      recordTag: '排班'
-    },
     field: {
       id: '',
       name: '排班名称',

@@ -16,9 +16,9 @@ export default {
       name: 'TaskList',
       props: true,
       meta: {
-        title: 'sysTask.route.listTag',
+        title: 'sysTask.title.list',
         authorities: ['/framework/sysTask/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -29,7 +29,7 @@ export default {
       name: 'TaskForm',
       props: true,
       meta: {
-        title: 'sysTask.route.recordTag',
+        title: 'sysTask.title.record',
         dialog: true,
         authorities: ['/framework/sysTask/record'],
         breadcrumb: false,

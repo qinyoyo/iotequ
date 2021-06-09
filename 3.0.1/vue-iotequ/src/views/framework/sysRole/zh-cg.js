@@ -2,12 +2,8 @@ export default {
   sysRole: {
     title: {
       list: '角色表',
-      record: '角色',
+      record: '角色表',
       code: '角色表'
-    },
-    route: {
-      listTag: '角色表',
-      recordTag: '角色'
     },
     field: {
       id: '',

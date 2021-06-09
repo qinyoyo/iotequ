@@ -1,15 +1,15 @@
 <template>
   <div class="icons-container">
     <div>      
-      <a href="https://www.iconfont.cn/" class="link-item" target="_blank">前往Iconfont</a>
+      <a href="https://www.iconfont.cn/" class="link-item" target="_blank">Iconfont</a>
     </div>
     <div>
-      <a href="http://www.fontawesome.com.cn/faicons/" class="link-item" target="_blank">前往Font Awesome</a>
+      <a href="http://www.fontawesome.com.cn/faicons/" class="link-item" target="_blank">Font Awesome</a>
     </div>
     <el-tabs>
       <el-tab-pane label="Svg">
         <el-collapse accordion>
-          <el-collapse-item title="内置(打包进发布文件)">
+          <el-collapse-item title="Internal">
             <div v-for="item of svgIcons" :key="item" @click="handleClipboard(generateIconCode(item),$event)">
               <el-tooltip placement="top">
                 <div slot="content">

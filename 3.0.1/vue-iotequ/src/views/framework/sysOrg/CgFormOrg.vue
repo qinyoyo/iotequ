@@ -7,9 +7,9 @@
              hide-required-asterisk >
       <el-row :gutter="mobile?0:20">
         <el-col :span="12">
-          <el-form-item class="cg-item-text cg-auto-focus" :label="$t('sysOrg.field.name')" :title="$t('sysOrg.field.nameValid')" prop="name" :size="$store.state.app.size" >
-            <el-input v-model="record.name" name="name" 
-                      type="text" 
+          <el-form-item class="cg-item-mltext cg-auto-focus" :label="$t('sysOrg.field.name')" :title="$t('sysOrg.field.nameValid')" prop="name" :size="$store.state.app.size" >
+            <cg-input v-model="record.name" name="name" 
+                      type="mltext" 
                       :label="$t('sysOrg.field.name')" :placeholder="$t('system.message.needValue')" 
                       resize autofocus validate-event 
                       :readonly="isDetail" :maxlength="32" show-word-limit />
@@ -51,9 +51,9 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item class="cg-item-text" :label="$t('sysOrg.field.address')" prop="address" :size="$store.state.app.size" >
-            <el-input v-model="record.address" name="address" 
-                      type="text" 
+          <el-form-item class="cg-item-mltext" :label="$t('sysOrg.field.address')" prop="address" :size="$store.state.app.size" >
+            <cg-input v-model="record.address" name="address" 
+                      type="mltext" 
                       :label="$t('sysOrg.field.address')" :placeholder="$t('system.message.unknown')" 
                       resize autofocus validate-event 
                       :readonly="isDetail" :maxlength="100" show-word-limit clearable />

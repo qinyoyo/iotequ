@@ -12,16 +12,16 @@
                   resize autofocus validate-event 
                   :readonly="isDetail" :maxlength="8" show-word-limit />
       </el-form-item>
-      <el-form-item class="cg-item-text" :label="$t('sysRole.field.name')" prop="name" :size="$store.state.app.size" >
-        <el-input v-model="record.name" name="name" 
-                  type="text" 
+      <el-form-item class="cg-item-mltext" :label="$t('sysRole.field.name')" prop="name" :size="$store.state.app.size" >
+        <cg-input v-model="record.name" name="name" 
+                  type="mltext" 
                   :label="$t('sysRole.field.name')" :placeholder="$t('system.message.needValue')" 
                   resize autofocus validate-event 
                   :readonly="isDetail" :maxlength="45" show-word-limit />
       </el-form-item>
-      <el-form-item class="cg-item-text" :label="$t('sysRole.field.note')" prop="note" :size="$store.state.app.size" >
-        <el-input v-model="record.note" name="note" 
-                  type="text" 
+      <el-form-item class="cg-item-mltext" :label="$t('sysRole.field.note')" prop="note" :size="$store.state.app.size" >
+        <cg-input v-model="record.note" name="note" 
+                  type="mltext" 
                   :label="$t('sysRole.field.note')" :placeholder="$t('system.message.unknown')" 
                   resize autofocus validate-event 
                   :readonly="isDetail" :maxlength="64" show-word-limit clearable />

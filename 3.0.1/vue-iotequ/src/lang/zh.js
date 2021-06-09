@@ -42,6 +42,11 @@ export default {
   },
   system: {
     layout: {
+      welcome:'欢迎',
+      version:'版本',
+      role:'权限',
+      environment: '环境参数',
+      administrator:'超级用户',
       dashboard: '首页',
       logOut: '退出登录',
       login: '登录',
@@ -105,6 +110,7 @@ export default {
       collapse: '折叠',
       expand: '展开',
       upload: '上传',
+      selectFile: '选择文件',
       save: '保存',
       saveAll: '全部保存',
       editInlineAdd: '添加一条记录',
@@ -188,7 +194,8 @@ export default {
       pullDownRefresh: '下拉刷新',
       pullUpLoad: '加载更多',
       noMoreData: '没有更多数据了',
-      cancelModified: '数据已经变化，是否放弃所有数据'
+      cancelModified: '数据已经变化，是否放弃所有数据',
+      fileType: '支持的文件类型'
     },
     time: {
       from: '从',

@@ -5,10 +5,6 @@ export default {
       record: '部门考勤配置信息',
       code: '考勤部门信息表'
     },
-    route: {
-      listTag: '考勤部门信息表',
-      recordTag: '考勤部门信息'
-    },
     field: {
       shiftId: '部门排班',
       manageLimitValid: '分钟,人事审批单涉及的时长超过权限值将提交上级部门',

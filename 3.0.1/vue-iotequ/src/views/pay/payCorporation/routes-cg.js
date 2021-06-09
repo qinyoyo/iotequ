@@ -16,9 +16,9 @@ export default {
       name: 'PayCorporationList',
       props: true,
       meta: {
-        title: 'payCorporation.route.listTag',
+        title: 'payCorporation.title.list',
         authorities: ['/pay/payCorporation/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -29,7 +29,7 @@ export default {
       name: 'PayCorporationForm',
       props: true,
       meta: {
-        title: 'payCorporation.route.recordTag',
+        title: 'payCorporation.title.record',
         dialog: true,
         authorities: ['/pay/payCorporation/record'],
         breadcrumb: false,

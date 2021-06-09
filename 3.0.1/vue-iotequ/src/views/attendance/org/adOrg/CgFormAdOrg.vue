@@ -11,9 +11,9 @@
             <CgListOrg slot="popover" ref="orgCodeJoin" openID="orgcode-join" :height="500" :joinShow="orgCodeJoinVisible" :joinMultiple="false"
                        :originSelections="String(record.orgCode)" selectionKey="orgCode" joinMode @closeJoinList="(rows)=>{ getJoinFields('orgCode',rows)}"
                        @showJoinList="orgCodeJoinVisible=true" />
-            <el-form-item class="cg-item-text" slot="reference" :label="$t('sysOrg.field.name')" prop="name" :size="$store.state.app.size" >
-              <el-input v-model="record.name" name="name" 
-                        type="text" 
+            <el-form-item class="cg-item-mltext" slot="reference" :label="$t('sysOrg.field.name')" prop="name" :size="$store.state.app.size" >
+              <cg-input v-model="record.name" name="name" 
+                        type="mltext" 
                         :label="$t('sysOrg.field.name')" :placeholder="$t('system.message.unknown')" 
                         resize autofocus validate-event 
                         readonly :maxlength="32" show-word-limit clearable />
@@ -33,9 +33,9 @@
             <CgListUserJoin slot="popover" ref="hrJoin" openID="hr-join" :height="500" :joinShow="hrJoinVisible" :joinMultiple="false"
                             :originSelections="String(record.hr)" selectionKey="id" joinMode @closeJoinList="(rows)=>{ getJoinFields('hr',rows)}"
                             @showJoinList="hrJoinVisible=true" />
-            <el-form-item class="cg-item-text" slot="reference" :label="$t('adOrg.field.hr')" prop="hrName" :size="$store.state.app.size" >
-              <el-input v-model="record.hrName" name="hrName" 
-                        type="text" 
+            <el-form-item class="cg-item-mltext" slot="reference" :label="$t('adOrg.field.hr')" prop="hrName" :size="$store.state.app.size" >
+              <cg-input v-model="record.hrName" name="hrName" 
+                        type="mltext" 
                         :label="$t('adOrg.field.hr')" :placeholder="$t('system.message.unknown')" 
                         resize autofocus validate-event 
                         readonly :maxlength="32" show-word-limit clearable />
@@ -47,9 +47,9 @@
             <CgListUserJoin slot="popover" ref="managerJoin" openID="manager-join" :height="500" :joinShow="managerJoinVisible" :joinMultiple="false"
                             :originSelections="String(record.manager)" selectionKey="id" joinMode @closeJoinList="(rows)=>{ getJoinFields('manager',rows)}"
                             @showJoinList="managerJoinVisible=true" />
-            <el-form-item class="cg-item-text" slot="reference" :label="$t('adOrg.field.manager')" prop="managerName" :size="$store.state.app.size" >
-              <el-input v-model="record.managerName" name="managerName" 
-                        type="text" 
+            <el-form-item class="cg-item-mltext" slot="reference" :label="$t('adOrg.field.manager')" prop="managerName" :size="$store.state.app.size" >
+              <cg-input v-model="record.managerName" name="managerName" 
+                        type="mltext" 
                         :label="$t('adOrg.field.manager')" :placeholder="$t('system.message.unknown')" 
                         resize autofocus validate-event 
                         readonly :maxlength="32" show-word-limit clearable />

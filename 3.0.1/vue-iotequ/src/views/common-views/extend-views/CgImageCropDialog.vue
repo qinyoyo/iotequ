@@ -41,15 +41,13 @@
         <el-button type="info" icon="fa fa-repeat" circle @click="rotate(false)"></el-button>
         <el-button type="warning" :icon="option.fixed?'fa fa-chain-broken':'fa fa-chain'" circle @click="fixedCrop()"></el-button>
 
-        <el-button class="cg-button" type="primary" plain :disabled.sync="imageNotLoaded" icon="el-icon-check"
+        <el-button class="cg-button" type="primary" plain :disabled.sync="imageNotLoaded" icon="el-icon-check" circle
                    @click.native="closeDialog(true)"
         >
-          确定
         </el-button>
-        <el-button v-if="!mobile" class="cg-button" plain icon="el-icon-close"
+        <el-button v-if="!mobile" class="cg-button" plain icon="el-icon-close" circle
                    @click.native="closeDialog(false)"
         >
-          取消
         </el-button>
       </div>
     </el-dialog>
@@ -149,7 +147,7 @@ const CgImageCropDialog = {
         // reader.readAsDataURL(file)
         // 转化为blob
         reader.readAsArrayBuffer(file)
-      } else this.$message.warning('仅支持图片类型.gif,jpeg,jpg,png,bmp中的一种')
+      } else this.$message.warning('commonView.imageTypes'.local())
     },
     uploadImg($e){
       const file = $e.target.files[0]

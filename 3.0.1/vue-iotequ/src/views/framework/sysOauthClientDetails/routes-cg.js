@@ -16,9 +16,9 @@ export default {
       name: 'OauthClientDetailsList',
       props: true,
       meta: {
-        title: 'sysOauthClientDetails.route.listTag',
+        title: 'sysOauthClientDetails.title.list',
         authorities: ['/framework/sysOauthClientDetails/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -29,7 +29,7 @@ export default {
       name: 'OauthClientDetailsForm',
       props: true,
       meta: {
-        title: 'sysOauthClientDetails.route.recordTag',
+        title: 'sysOauthClientDetails.title.record',
         dialog: true,
         authorities: ['/framework/sysOauthClientDetails/record'],
         breadcrumb: false,

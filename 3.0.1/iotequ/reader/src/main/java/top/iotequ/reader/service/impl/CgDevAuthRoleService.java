@@ -24,7 +24,7 @@ Author : Qinyoyo
 @ConditionalOnMissingClass({"top.iotequ.reader.service.impl.DevAuthRoleService"})
 @Service(value="devAuthRoleService")
 public class CgDevAuthRoleService extends CgService<DevAuthRole>  {
-private static final Logger log = LoggerFactory.getLogger(CgDevAuthRoleService.class);
+    private static final Logger log = LoggerFactory.getLogger(CgDevAuthRoleService.class);
     @Autowired
     private DevAuthRoleDao devAuthRoleDao;
     @Override

@@ -1,7 +1,8 @@
 package top.iotequ.reader.controller;
 
 import java.util.Date;
-
+import java.util.HashMap;
+import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +15,16 @@ import top.iotequ.framework.event.DeviceEvent;
 import top.iotequ.util.DateUtil;
 import top.iotequ.util.SqlUtil;
 import top.iotequ.util.StringUtil;
+import top.iotequ.reader.dao.DevEventDao;
 import top.iotequ.reader.dao.DevPeopleDao;
 import top.iotequ.reader.dao.DevReaderDao;
+import top.iotequ.reader.pojo.DevEvent;
 import top.iotequ.reader.pojo.DevPeople;
 import top.iotequ.reader.pojo.DevReader;
 import top.iotequ.reader.service.impl.D10ClientService;
 import top.iotequ.reader.service.impl.DevReaderService;
 import top.iotequ.reader.util.DevUtil;
+import top.iotequ.reader.util.UtilThread;
 
 import com.dyna.bean.D10ClientBean.ServerAuthentication;
 import com.dyna.bean.D10ServerBean.D10Record;
@@ -63,6 +67,8 @@ public class CallbackController {
 		} else
 			try {
 				SqlUtil.sqlExecute("update dev_reader set is_online=1 where reader_no=?", body.getString("devnum"));
+				Thread thread=new UtilThread(reader);
+				thread.start();
 				return "true";
 			} catch (Exception e) {}
 		

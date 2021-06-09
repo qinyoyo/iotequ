@@ -1,53 +1,47 @@
 export default {
   sysUser: {
     title: {
-      list: 'user',
-      join: 'userJoin',
-      record: 'user',
-      groupUserIcon: 'groupUserIcon',
-      groupUserMobilePhone: 'groupUserMobilePhone',
-      groupUserRoleList: 'groupUserRoleList',
-      register: 'register',
-      code: 'SysUser'
+      list: 'User',
+      join: 'User join',
+      record: 'Login user',
+      groupUserIcon: 'Group icon',
+      groupUserMobilePhone: 'Group mobile phone',
+      groupUserRoleList: 'Group role list',
+      register: 'User register',
+      code: 'Login user'
     },
     action: {
-      changePassword: 'ChangePassword',
-      resetPasswordConfirm: 'Confirm ResetPassword',
-      resetPassword: 'ResetPassword'
-    },
-    route: {
-      listTag: 'user',
-      joinTag: 'userJoin',
-      recordTag: 'user',
-      registerTag: 'register'
+      changePassword: 'Change password',
+      resetPasswordConfirm: 'Confirm reset password',
+      resetPassword: 'Reset password'
     },
     field: {
       id: 'Id',
       icon: 'Icon',
       nameValid: 'Please input correct value for name',
       name: 'Name',
-      realName: 'RealName',
+      realName: 'Real name',
       sex: 'Sex',
-      birthDate: 'BirthDate',
-      regTime: 'RegTime',
-      mobilePhone: 'MobilePhone',
+      birthDate: 'Birth date',
+      regTime: 'Reg time',
+      mobilePhone: 'Mobile phone',
       email: 'Email',
-      wechatOpenid: 'WechatOpenid',
-      orgCode: 'OrgCode',
-      orgPrivilegeValid: 'Please input correct value for orgPrivilege',
-      orgPrivilege: 'OrgPrivilege',
-      roleListValid: 'Please input correct value for roleList',
-      roleList: 'RoleList',
+      wechatOpenid: 'Wechat openid',
+      orgCode: 'Org code',
+      orgPrivilegeValid: 'Please input correct value for org privilege',
+      orgPrivilege: 'Org privilege',
+      roleListValid: 'Please input correct value for role list',
+      roleList: 'Role list',
       locked: 'Locked',
       state: 'State',
-      idType: 'IdType',
-      idNumber: 'IdNumber',
-      expiredTime: 'ExpiredTime',
-      passwordExpiredTime: 'PasswordExpiredTime',
+      idType: 'Id type',
+      idNumber: 'Id number',
+      expiredTime: 'Expired time',
+      passwordExpiredTime: 'Password expired time',
       password: 'Password',
-      passwordErrorTimes: 'PasswordErrorTimes',
-      htmlNoteValid: 'Please input correct value for htmlNote',
-      htmlNote: 'HtmlNote'
+      passwordErrorTimes: 'Password error times',
+      htmlNoteValid: 'Please input correct value for html note',
+      htmlNote: 'Html note'
     }
   }
 }

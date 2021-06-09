@@ -1,6 +1,7 @@
 package top.iotequ.attendance.shift.service.impl;
 import top.iotequ.attendance.shift.pojo.AdShift;
 import top.iotequ.attendance.shift.dao.AdShiftDao;
+import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,10 @@ import top.iotequ.framework.service.impl.CgService;
 import top.iotequ.framework.service.IDaoService;
 import org.springframework.stereotype.Service;
 import top.iotequ.framework.service.utils.DictionaryUtil;
+import top.iotequ.framework.service.utils.UploadDownUtil;
+import top.iotequ.framework.service.utils.QueryUtil;
 import top.iotequ.util.*;
 import top.iotequ.attendance.util.AdUtil;
-import top.iotequ.util.StringUtil;
-
 import java.util.*;
 
 /**************************************************
@@ -24,7 +25,7 @@ Author : Qinyoyo
 @ConditionalOnMissingClass({"top.iotequ.attendance.shift.service.impl.AdShiftService"})
 @Service(value="adShiftService")
 public class CgAdShiftService extends CgService<AdShift>  {
-private static final Logger log = LoggerFactory.getLogger(CgAdShiftService.class);
+    private static final Logger log = LoggerFactory.getLogger(CgAdShiftService.class);
     @Autowired
     private AdShiftDao adShiftDao;
     public static String [] dictAdModeValue= {String.valueOf(AdUtil.md_attendance),String.valueOf(AdUtil.md_sign_in)};

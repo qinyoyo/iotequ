@@ -16,9 +16,9 @@ export default {
       name: 'PayShopList',
       props: true,
       meta: {
-        title: 'payShop.route.listTag',
+        title: 'payShop.title.list',
         authorities: ['/pay/payShop/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -29,7 +29,7 @@ export default {
       name: 'PayShopForm',
       props: true,
       meta: {
-        title: 'payShop.route.recordTag',
+        title: 'payShop.title.record',
         dialog: true,
         authorities: ['/pay/payShop/record'],
         breadcrumb: false,

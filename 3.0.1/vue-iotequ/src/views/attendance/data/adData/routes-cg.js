@@ -16,9 +16,9 @@ export default {
       name: 'AdDataList',
       props: true,
       meta: {
-        title: 'adData.route.listTag',
+        title: 'adData.title.list',
         authorities: ['/attendance/data/adData/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }

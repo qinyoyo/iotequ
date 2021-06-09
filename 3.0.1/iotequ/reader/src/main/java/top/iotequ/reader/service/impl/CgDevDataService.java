@@ -1,7 +1,9 @@
 package top.iotequ.reader.service.impl;
 import top.iotequ.reader.pojo.DevData;
+import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.flow.IFlowService;
@@ -9,9 +11,9 @@ import top.iotequ.framework.service.impl.CgService;
 import top.iotequ.framework.service.IDaoService;
 import org.springframework.stereotype.Service;
 import top.iotequ.framework.service.utils.DictionaryUtil;
+import top.iotequ.framework.service.utils.UploadDownUtil;
+import top.iotequ.framework.service.utils.QueryUtil;
 import top.iotequ.util.*;
-import top.iotequ.util.StringUtil;
-
 import java.util.*;
 
 /**************************************************
@@ -21,7 +23,7 @@ Author : Qinyoyo
 @ConditionalOnMissingClass({"top.iotequ.reader.service.impl.DevDataService"})
 @Service(value="devDataService")
 public class CgDevDataService extends CgService<DevData>  {
-private static final Logger log = LoggerFactory.getLogger(CgDevDataService.class);
+    private static final Logger log = LoggerFactory.getLogger(CgDevDataService.class);
     @Override
     public Class<DevData> getEntityClass() {
         return DevData.class;

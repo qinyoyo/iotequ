@@ -16,10 +16,10 @@ export default {
       name: 'AdjustList',
       props: true,
       meta: {
-        title: 'adAdjust.route.listTag',
+        title: 'adAdjust.title.list',
         icon: 'fa fa-handshake-o',
         authorities: ['/attendance/adjust/adAdjust/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -30,7 +30,7 @@ export default {
       name: 'AdjustApproveForm',
       props: true,
       meta: {
-        title: 'adAdjust.route.approveTag',
+        title: 'adAdjust.title.approve',
         icon: 'fa fa-address-card-o',
         dialog: true,
         authorities: ['/attendance/adjust/adAdjust/f_approve'],
@@ -45,7 +45,7 @@ export default {
       name: 'AdjustRecordForm',
       props: true,
       meta: {
-        title: 'adAdjust.route.recordTag',
+        title: 'adAdjust.title.record',
         icon: 'fa fa-plus-circle',
         dialog: true,
         authorities: ['/attendance/adjust/adAdjust/record'],

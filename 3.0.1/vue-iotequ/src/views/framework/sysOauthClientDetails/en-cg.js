@@ -1,41 +1,37 @@
 export default {
   sysOauthClientDetails: {
     title: {
-      list: 'oauthClientDetails',
-      record: 'oauthClientDetails',
-      code: 'SysOauthClientDetails'
-    },
-    route: {
-      listTag: 'oauthClientDetails',
-      recordTag: 'oauthClientDetails'
+      list: 'Oauth client details',
+      record: 'Oauth2 setting',
+      code: 'OAuth2 setting'
     },
     field: {
-      clientId: 'ClientId',
-      clientSecret: 'ClientSecret',
+      clientId: 'Client id',
+      clientSecret: 'Client secret',
       scopeValid: 'Please input correct value for scope',
       scope: 'Scope',
-      authorizedGrantTypes_0: '密码模式',
-      authorizedGrantTypes_1: '授权码模式',
-      authorizedGrantTypes_2: '简化模式',
-      authorizedGrantTypes_3: '客户端模式',
-      authorizedGrantTypes: 'AuthorizedGrantTypes',
-      webServerRedirectUriValid: 'Please input correct value for webServerRedirectUri',
-      webServerRedirectUri: 'WebServerRedirectUri',
+      authorizedGrantTypes_0: 'Password',
+      authorizedGrantTypes_1: 'Authorization_code',
+      authorizedGrantTypes_2: 'Implicit',
+      authorizedGrantTypes_3: 'Client_credentials',
+      authorizedGrantTypes: 'Authorized grant types',
+      webServerRedirectUriValid: 'Please input correct value for web server redirect uri',
+      webServerRedirectUri: 'Web server redirect uri',
       authorities: 'Authorities',
-      accessTokenValidity: 'AccessTokenValidity',
-      refreshTokenValidity: 'RefreshTokenValidity',
+      accessTokenValidity: 'Access token validity',
+      refreshTokenValidity: 'Refresh token validity',
       autoapprove_0: '',
       autoapprove_1: '',
       autoapprove: 'Autoapprove',
-      expiredDate: 'ExpiredDate',
+      expiredDate: 'Expired date',
       locked: 'Locked',
       enabled: 'Enabled',
       decription: 'Decription',
-      additionalInformationValid: 'Please input correct value for additionalInformation',
-      additionalInformation: 'AdditionalInformation',
-      resourceIds: 'ResourceIds',
+      additionalInformationValid: 'Please input correct value for additional information',
+      additionalInformation: 'Additional information',
+      resourceIds: 'Resource ids',
       secret: 'Secret',
-      authUrl: 'AuthUrl'
+      authUrl: 'Auth url'
     }
   }
 }

@@ -16,9 +16,9 @@ export default {
       name: 'EwUserCountList',
       props: true,
       meta: {
-        title: 'ewUserCount.route.listTag',
+        title: 'ewUserCount.title.list',
         authorities: ['/ewallet/ewUserCount/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -29,7 +29,7 @@ export default {
       name: 'EwUserCountForm',
       props: true,
       meta: {
-        title: 'ewUserCount.route.recordTag',
+        title: 'ewUserCount.title.record',
         dialog: true,
         authorities: ['/ewallet/ewUserCount/record'],
         breadcrumb: false,

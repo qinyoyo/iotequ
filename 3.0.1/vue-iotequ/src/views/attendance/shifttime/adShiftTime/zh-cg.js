@@ -2,12 +2,8 @@ export default {
   adShiftTime: {
     title: {
       list: '排班时间表',
-      record: '排班时间',
+      record: '排班时间表',
       code: '排班时间表'
-    },
-    route: {
-      listTag: '排班时间表',
-      recordTag: '排班时间'
     },
     field: {
       id: '',

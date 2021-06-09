@@ -16,9 +16,9 @@ export default {
       name: 'AdDayResultList',
       props: true,
       meta: {
-        title: 'adDayResult.route.listTag',
+        title: 'adDayResult.title.list',
         authorities: ['/attendance/dayresult/adDayResult/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }

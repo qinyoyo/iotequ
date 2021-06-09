@@ -2,22 +2,22 @@
   <div class="home-editor-container">
     <div v-if="authentication"><el-avatar :size="100" :src="avatar+'&tick='+new Date().getTime()"></el-avatar><span class="user-name">{{ name }}</span></div>
     <div class="info-container">
-        <span>Welcome! {{ introduction }}</span>
+        <span>{{'system.layout.welcome'.local()}}! {{ authentication ? localeText(introduction) : '' }}</span>
     </div>
     <el-collapse accordion>
-      <el-collapse-item title="版本信息" name="2">
+      <el-collapse-item :title="'system.layout.version'.local()" name="2">
         <div v-for = "item in versions"><span>{{item}}</span></div>
       </el-collapse-item>
-      <el-collapse-item title="权限集" name="3">
+      <el-collapse-item :title="'system.layout.role'.local()" name="3">
         <div v-for = "item in roles"><span>{{item}}</span></div>
       </el-collapse-item>  
-      <el-collapse-item title="环境配置" name="3">        
+      <el-collapse-item :title="'system.layout.environment'.local()" name="3">        
         <div v-if="navigator"><span>userAgent：{{navigator.userAgent}}</span></div>
-        <div><span>运行模式：{{device}}</span></div>
-        <div><span>后台服务器：{{server}}</span></div>
-        <div><span>后台地址：{{baseUrl}}</span></div>
+        <div><span>Mode：{{device}}</span></div>
+        <div><span>Server：{{server}}</span></div>
+        <div><span>Server addr：{{baseUrl}}</span></div>
       </el-collapse-item>            
-      <el-collapse-item title="API权限" name="1">
+      <el-collapse-item title="API" name="1">
         <div v-for = "item in permission_apis"><span>{{item}}</span></div>
       </el-collapse-item>
     </el-collapse>    
@@ -26,6 +26,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import {localeText} from '@/lang'
 export default {
   name: 'Home',
   data() {
@@ -48,6 +49,9 @@ export default {
       'server',
       'baseUrl'
     ])
+  },
+  methods: {
+    localeText
   }
 }
 </script>

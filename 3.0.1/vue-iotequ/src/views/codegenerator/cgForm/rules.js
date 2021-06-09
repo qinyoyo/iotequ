@@ -42,7 +42,6 @@ export default  {
             { required: true, message: vueObject.$t('system.message.needValue') + ':' + vueObject.$t('cgForm.field.tableId'), trigger: 'blur' }
          ],
          headTitle:[
-            { required: true, message: vueObject.$t('system.message.needValue') + ':' + vueObject.$t('cgForm.field.headTitle'), trigger: 'blur' },
             {
                 validator: (rule, value, callback) => {
                     const checked = ((getRecord().isFlow && /^[^,]+(,[^,]+)*$/.test(value)) || (!getRecord().isFlow && /^[^,]+$/.test(value)))

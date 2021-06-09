@@ -9,9 +9,6 @@ export default {
       clear: '清空',
       loginTop10: '登录Top 10'
     },
-    route: {
-      listTag: '系统日志表'
-    },
     field: {
       id: 'uuid主键',
       time: '时间',

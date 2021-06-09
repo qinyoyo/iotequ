@@ -11,7 +11,7 @@ import top.iotequ.framework.service.IDaoService;
 import top.iotequ.codegenerator.pojo.CgList;
 import java.util.*;
 
-//  Mapper dao : CgListDao (列表视图定义数据访问接口)
+//  Mapper dao : CgListDao (列表视图定义|List design数据访问接口)
 public interface CgListDao  extends IDaoService<CgList> {
     int insert(CgList record);
     int insertBatchWithId(List<CgList> list);

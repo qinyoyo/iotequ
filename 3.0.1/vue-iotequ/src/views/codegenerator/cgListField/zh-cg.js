@@ -2,17 +2,13 @@ export default {
   cgListField: {
     title: {
       list: '列表视图字段表',
-      record: '列表视图字段',
+      record: '列表视图字段定义',
       groupCgListFieldEntityField: '基本定义',
       groupCgListFieldFix: '扩展定义',
       code: '列表视图字段定义'
     },
     action: {
       select: '选择'
-    },
-    route: {
-      listTag: '列表视图字段表',
-      recordTag: '列表视图字段'
     },
     field: {
       id: 'ID',

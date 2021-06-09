@@ -133,7 +133,7 @@ const Comp = {
       idField: 'clientId',
       dictionary: {
         dictAutoapprove: this.getDictionary('true,false'),
-        dictAuthorizedGrantTypes: this.getDictionary('password,authorization_code,implicit,client_credentials','密码模式,授权码模式,简化模式,客户端模式'),
+        dictAuthorizedGrantTypes: this.getDictionary('password,authorization_code,implicit,client_credentials','sysOauthClientDetails.field.authorizedGrantTypes_0,sysOauthClientDetails.field.authorizedGrantTypes_1,sysOauthClientDetails.field.authorizedGrantTypes_2,sysOauthClientDetails.field.authorizedGrantTypes_3'),
         dictAuthorities: []
       },
       needLoadDictionary: true,

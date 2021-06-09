@@ -52,13 +52,13 @@
       </cg-table-column>
       <cg-table-column prop="registerByName" :page="paginationCurrentPage" :label="$t('pmProject.field.flowRegisterBy')" align="left" >
         <template slot-scope="scope">
-          {{ scope.row.registerByName }}
+          {{ localeText(scope.row.registerByName) }}
         </template>
 
       </cg-table-column>
       <cg-table-column prop="nextOperatorName" :page="paginationCurrentPage" :label="$t('pmProject.field.flowNextOperator')" align="left" >
         <template slot-scope="scope">
-          {{ scope.row.nextOperatorName }}
+          {{ localeText(scope.row.nextOperatorName) }}
         </template>
 
       </cg-table-column>
@@ -132,6 +132,7 @@
 </template>
 
 <script>
+import {localeText} from '@/lang'
 import {hasAuthority} from '@/utils/cg'
 import ParentTable from '@/views/common-views/components/table'
 const Comp = {

@@ -118,7 +118,7 @@ const Comp = {
       formPath: '/ewallet/ewDevice/record',
       idField: 'id',
       dictionary: {
-        dictPrivilegeList: this.getDictionary('1,2,3','金额消费,计次消费,计时消费')
+        dictPrivilegeList: this.getDictionary('1,2,3','ewDevice.field.privilegeList_0,ewDevice.field.privilegeList_1,ewDevice.field.privilegeList_2')
       },
       paginationCurrentPage: 1,
       paginationPageSize: this.$store.state.app.device === 'mobile' ? 10 : 30,

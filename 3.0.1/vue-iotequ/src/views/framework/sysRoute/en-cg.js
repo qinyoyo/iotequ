@@ -1,7 +1,7 @@
 export default {
   sysRoute: {
     title: {
-      code: 'SysRoute'
+      code: 'Route'
     },
     field: {
       id: 'Id',
@@ -9,9 +9,9 @@ export default {
       name: 'Name',
       component: 'Component',
       title: 'Title',
-      breadcrumbShow: 'BreadcrumbShow',
-      needCache: 'NeedCache',
-      tagView: 'TagView'
+      breadcrumbShow: 'Breadcrumb show',
+      needCache: 'Need cache',
+      tagView: 'Tag view'
     }
   }
 }

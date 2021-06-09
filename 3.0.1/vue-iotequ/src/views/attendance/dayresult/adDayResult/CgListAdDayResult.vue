@@ -22,7 +22,7 @@
       <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter" width="36" />
       <cg-table-column prop="orgName" :page="paginationCurrentPage" :label="$t('adDayResult.field.orgName')" align="left" >
         <template slot-scope="scope">
-          {{ scope.row.orgName }}
+          {{ localeText(scope.row.orgName) }}
         </template>
 
       </cg-table-column>
@@ -34,7 +34,7 @@
       </cg-table-column>
       <cg-table-column prop="realName" :page="paginationCurrentPage" :label="$t('adDayResult.field.realName')" align="left" >
         <template slot-scope="scope">
-          {{ scope.row.realName }}
+          {{ localeText(scope.row.realName) }}
         </template>
 
       </cg-table-column>
@@ -129,7 +129,7 @@
           <CgListAdEmployee slot="popover" ref="employeeNoJoin" openID="employeeno-join" :height="joinHeight()" :joinShow="employeeNoJoinVisible" joinMultiple
             :originSelections="queryRecord.employeeNo" selectionKey="employeeNo" joinMode @closeJoinList="(rows)=>{ getJoinFields('employeeNo',rows)}" @showJoinList="employeeNoJoinVisible=true"/>
         <el-form-item slot="reference" :label="$t('sysUser.field.realName')" prop="employeeNoAdEmployeeRealName" :size="$store.state.app.size">
-          <el-input v-model="queryRecord.employeeNoAdEmployeeRealName" type="text" name="employeeNoAdEmployeeRealName"
+          <cg-input v-model="queryRecord.employeeNoAdEmployeeRealName" type="text" name="employeeNoAdEmployeeRealName"
                     :readonly="fixedQueryRecord.employeeNoAdEmployeeRealName?true:false" :label="$t('sysUser.field.realName')" clearable resize autofocus @clear="clearJoinValues(myself,'employeeNoJoin')"/>
         </el-form-item>
         </cg-join>
@@ -143,6 +143,7 @@
 </template>
 
 <script>
+import {localeText} from '@/lang'
 import {hasAuthority} from '@/utils/cg'
 import CgListAdEmployee from '@/views/attendance/employee/adEmployee/CgListAdEmployee.vue'
 import ParentTable from '@/views/common-views/components/table'

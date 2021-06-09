@@ -1,25 +1,21 @@
 export default {
   ewUserTime: {
     title: {
-      list: 'ewUserTime',
-      record: 'ewUserTime',
-      code: 'EwUserTime'
-    },
-    route: {
-      listTag: 'ewUserTime',
-      recordTag: 'ewUserTime'
+      list: 'Ew user time',
+      record: 'Ew user time',
+      code: 'Ew user time'
     },
     field: {
       id: 'Id',
-      amountTime: 'AmountTime',
-      checkCode: 'CheckCode',
-      costLimitValid: 'Please input correct value for costLimit',
-      costLimit: 'CostLimit',
-      dayLimitValid: 'Please input correct value for dayLimit',
-      dayLimit: 'DayLimit',
-      userNo: 'UserNo',
-      timeId: 'TimeId',
-      isValid: 'IsValid'
+      amountTime: 'Amount time',
+      checkCode: 'Check code',
+      costLimitValid: 'Please input correct value for cost limit',
+      costLimit: 'Cost limit',
+      dayLimitValid: 'Please input correct value for day limit',
+      dayLimit: 'Day limit',
+      userNo: 'User no',
+      timeId: 'Time id',
+      isValid: 'Is valid'
     }
   }
 }

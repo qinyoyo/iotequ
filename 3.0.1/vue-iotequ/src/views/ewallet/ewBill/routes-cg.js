@@ -16,9 +16,9 @@ export default {
       name: 'EwBillList',
       props: true,
       meta: {
-        title: 'ewBill.route.listTag',
+        title: 'ewBill.title.list',
         authorities: ['/ewallet/ewBill/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -29,7 +29,7 @@ export default {
       name: 'EwBillForm',
       props: true,
       meta: {
-        title: 'ewBill.route.recordTag',
+        title: 'ewBill.title.record',
         dialog: true,
         authorities: ['/ewallet/ewBill/record'],
         breadcrumb: false,

@@ -16,9 +16,9 @@ export default {
       name: 'AdEmployeeList',
       props: true,
       meta: {
-        title: 'adEmployee.route.listTag',
+        title: 'adEmployee.title.list',
         authorities: ['/attendance/employee/adEmployee/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -29,9 +29,9 @@ export default {
       name: 'AdEmployeeJoinList',
       props: true,
       meta: {
-        title: 'adEmployee.route.joinTag',
+        title: 'adEmployee.title.join',
         authorities: ['/attendance/employee/adEmployee/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -42,9 +42,9 @@ export default {
       name: 'AdEmployeeForm',
       props: true,
       meta: {
-        title: 'adEmployee.route.recordTag',
+        title: 'adEmployee.title.record',
         authorities: ['/attendance/employee/adEmployee/record'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }

@@ -5,10 +5,6 @@ export default {
       record: '授信设备',
       code: '授信设备'
     },
-    route: {
-      listTag: '授信设备表',
-      recordTag: '授信设备'
-    },
     field: {
       id: '',
       deviceNo: '设备号',

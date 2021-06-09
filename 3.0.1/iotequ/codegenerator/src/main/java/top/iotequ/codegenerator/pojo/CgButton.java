@@ -11,8 +11,9 @@ import lombok.Setter;
 import com.google.gson.annotations.SerializedName;
 import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
+import java.util.*;
 
-//  Pojo entity : CgButton (按钮定义)
+//  Pojo entity : CgButton (按钮定义|Define of button)
 @CgTableAnnotation(name="cg_button",
                    title="cgButton",
                    baseUrl="/codegenerator/cgButton",

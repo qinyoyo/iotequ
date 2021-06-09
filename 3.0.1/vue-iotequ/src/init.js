@@ -8,6 +8,7 @@ if(xhr.status===200) {
         server: '/api',
         baseUrl: '',
         showSettings: true,
+        disableMLText: false,
         tagsView: true,
         fixedHeader: false,
         insideSpring: true,

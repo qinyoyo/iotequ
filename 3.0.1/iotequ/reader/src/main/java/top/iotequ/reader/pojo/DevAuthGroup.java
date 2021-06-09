@@ -11,6 +11,7 @@ import lombok.Setter;
 import com.google.gson.annotations.SerializedName;
 import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
+import java.util.*;
 
 //  Pojo entity : DevAuthGroup (人员授权分组)
 @CgTableAnnotation(name="dev_auth_group",

@@ -40,7 +40,7 @@
       </cg-table-column>
       <cg-table-column prop="userInfo" :page="paginationCurrentPage" :label="$t('sysLog.field.userInfo')" align="left" >
         <template slot-scope="scope">
-          {{ scope.row.userInfo }}
+          {{ localeText(scope.row.userInfo) }}
         </template>
 
       </cg-table-column>
@@ -115,6 +115,7 @@
 </template>
 
 <script>
+import {localeText} from '@/lang'
 import {hasAuthority} from '@/utils/cg'
 import ParentTable from '@/views/common-views/components/table'
 const Comp = {

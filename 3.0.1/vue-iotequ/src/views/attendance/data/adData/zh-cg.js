@@ -4,9 +4,6 @@ export default {
       list: '考勤数据',
       code: '考勤数据'
     },
-    route: {
-      listTag: '考勤数据'
-    },
     field: {
       id: '',
       recSourceType: '来源类别',

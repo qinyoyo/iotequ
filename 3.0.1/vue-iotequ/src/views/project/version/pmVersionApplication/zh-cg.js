@@ -9,11 +9,6 @@ export default {
       review: '技术评审',
       code: '版本申请'
     },
-    route: {
-      listTag: '版本申请表',
-      recordTag: '版本申请',
-      assessTag: '版本申请'
-    },
     field: {
       id: 'id',
       flowState: '状态',

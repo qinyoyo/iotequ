@@ -1,17 +1,13 @@
 export default {
   sysAction: {
     title: {
-      list: 'action',
-      record: 'action',
-      code: 'SysAction'
+      list: 'Action',
+      record: 'System action',
+      code: 'System action'
     },
     action: {
-      initialConfirm: 'Confirm Initial',
+      initialConfirm: 'Reset all permission settings, sure',
       initial: 'Initial'
-    },
-    route: {
-      listTag: 'action',
-      recordTag: 'action'
     },
     field: {
       note: 'Note',
@@ -19,8 +15,8 @@ export default {
       value: 'Value',
       params: 'Params',
       method: 'Method',
-      htmlNoteValid: 'Please input correct value for htmlNote',
-      htmlNote: 'HtmlNote'
+      htmlNoteValid: '<p class="text-warning">Value created by system. Only note can be modified</p>',
+      htmlNote: 'Html note'
     }
   }
 }

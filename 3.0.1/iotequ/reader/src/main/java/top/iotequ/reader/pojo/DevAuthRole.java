@@ -11,6 +11,7 @@ import lombok.Setter;
 import com.google.gson.annotations.SerializedName;
 import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
+import java.util.*;
 
 //  Pojo entity : DevAuthRole (权限定义)
 @CgTableAnnotation(name="dev_auth_role",

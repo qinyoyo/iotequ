@@ -1,5 +1,6 @@
 <#assign D = "$" />
 <#assign J = "#" />
+<#assign USE_CG_INPUT = false />
 <#function canUse p pp>
   <#if pp?? && pp?trim!='' && (pp?trim?contains(p) || (p?starts_with(':') && pp?contains(p?substring(1))))>
     <#return false />
@@ -37,7 +38,12 @@
     <#elseif (!f.dictTable?? || f.dictTable?trim=="") && f.dictField?? && f.dictField?trim!="" && (f.dictField?trim?starts_with("f:") || (f.dictText?? && f.dictText?trim?starts_with("f:"))) >
       <#assign DICTLIST = DICTLIST + ["dict"+f.entityName?cap_first+": []"], NEEDLOADFROMSERVER = true />
     <#elseif (!f.dictTable?? || f.dictTable?trim=="") && f.dictField?? && f.dictField?trim!="" && f.dictText?? && f.dictText?trim!=''>
-      <#assign DICTLIST = DICTLIST + ["dict"+f.entityName?cap_first+": this.getDictionary('"+f.dictField?trim+"','"+f.dictText?trim+"')"] />
+      <#assign dict_text_list = ''/>
+      <#list f.dictField?split(',') as df>
+        <#assign dict_text_list = dict_text_list + generatorName?uncap_first + '.field.' + f.entityName + '_' + df_index />
+        <#if df_has_next><#assign dict_text_list = dict_text_list + ','/></#if>
+      </#list>
+      <#assign DICTLIST = DICTLIST + ["dict"+f.entityName?cap_first+": this.getDictionary('"+f.dictField?trim+"','"+dict_text_list+"')"] />
     <#elseif (!f.dictTable?? || f.dictTable?trim=="") && f.dictField?? && f.dictField?trim!="">
       <#assign DICTLIST = DICTLIST + ["dict"+f.entityName?cap_first+": this.getDictionary('"+f.dictField?trim+"')"] />
     </#if>
@@ -136,10 +142,10 @@
 <#else>
 <template slot-scope="scope">
 <#if editinline>
-<#list 1..n as i> </#list>  <el-input v-if="scope.row.inlineEditting" v-model="scope.row.${f.entityName}" type="text"<#if f.showType == 'password'> show-password</#if> />
+<#list 1..n as i> </#list>  <#if f.showType == 'mltext'><cg-input<#else><el-input</#if> v-if="scope.row.inlineEditting" v-model="scope.row.${f.entityName}" type="text"<#if f.showType == 'password'> show-password</#if> />
 <#assign editInlineFields = editInlineFields+((editInlineFields=='')?string('',', '))+"\'${f.entityName}\'" />
 </#if>
-<#list 1..n as i> </#list>  <#if editinline><span v-else></#if>{{ <#if f.formatter?? && f.formatter?trim?starts_with('js:')>${f.formatter?trim?substring(3)?replace('{field}', 'scope.row.'+f.entityName)?replace('{row}','scope.row')}<#else>scope.row.${f.entityName}</#if> }}<#if editinline></span></#if>
+<#list 1..n as i> </#list>  <#if editinline><span v-else></#if>{{ <#if f.showType == 'mltext'><#assign USE_CG_INPUT = true />localeText(</#if><#if f.formatter?? && f.formatter?trim?starts_with('js:')>${f.formatter?trim?substring(3)?replace('{field}', 'scope.row.'+f.entityName)?replace('{row}','scope.row')}<#else>scope.row.${f.entityName}</#if><#if f.showType == 'mltext'>)</#if> }}<#if editinline></span></#if>
 <#list 1..n as i> </#list></template>
 </#if>
 </#macro>
@@ -318,7 +324,7 @@
               <el-checkbox name="${f.entityName}" label="is null" :disabled="fixedQueryRecord.${f.entityName}?true:false">{{ $t('system.action.no') }}</el-checkbox>
             </el-checkbox-group>
           <#else>
-          <el-input v-model="queryRecord.${f.entityName}" type="text" name="${f.entityName}"<#if f.faIcon?? && f.faIcon?trim!=''> prefix-icon="${f.faIcon}"</#if>
+          <#if f.showType == 'mltext'><cg-input<#else><el-input</#if> v-model="queryRecord.${f.entityName}" type="text" name="${f.entityName}"<#if f.faIcon?? && f.faIcon?trim!=''> prefix-icon="${f.faIcon}"</#if>
                     :readonly="fixedQueryRecord.${f.entityName}?true:false" :label="$t('${f.title}')" clearable resize autofocus<#if popoverinner> @clear="clearJoinValues(myself,'${joinFields[1]}Join')"</#if>/>
           </#if>
         </el-form-item>
@@ -334,6 +340,9 @@
 </template>
 
 <script>
+<#if USE_CG_INPUT>
+import {localeText} from '@/lang'
+</#if>
 import {hasAuthority} from '@/utils/cg'
 <#if joinOnFields?? && joinOnFields?size gt 0>
 <#list joinOnFields as c>

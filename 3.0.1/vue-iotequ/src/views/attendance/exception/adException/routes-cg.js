@@ -16,9 +16,9 @@ export default {
       name: 'AdExceptionList',
       props: true,
       meta: {
-        title: 'adException.route.listTag',
+        title: 'adException.title.list',
         authorities: ['/attendance/exception/adException/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -29,9 +29,9 @@ export default {
       name: 'AdExceptionForm',
       props: true,
       meta: {
-        title: 'adException.route.recordTag',
+        title: 'adException.title.record',
         authorities: ['/attendance/exception/adException/record'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }

@@ -5,10 +5,6 @@ export default {
       record: '数据字典',
       code: '数据字典'
     },
-    route: {
-      listTag: '数据字典表',
-      recordTag: '数据字典'
-    },
     field: {
       id: '',
       dictValid: '小写开头的合法表达式字符串[a-z]',

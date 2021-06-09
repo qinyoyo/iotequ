@@ -45,14 +45,16 @@ export default {
       meta: {
         <#if l.tagTitle?? && l.tagTitle?trim !=''>
         title: '${generatorName}.route.${l.path}Tag',
+        <#else>
+        title: '${generatorName}.title.${l.path}',
         </#if>
         <#if l.icon?? && l.icon?trim !=''>
         icon: '${l.icon}',
         </#if>
         authorities: ['/${moduleName}/<#if subModule??>${subModule}/</#if>${generatorName}/list'],
         breadcrumb: <#if l.tagTitle?? && l.tagTitle?trim !=''>true<#else>false</#if>,
-        tagView: <#if l.tagTitle?? && l.tagTitle?trim !=''>true<#else>false</#if>,
-        noCache: <#if l.tagTitle?? && l.tagTitle?trim !=''>false<#else>true</#if>
+        tagView: true,
+        noCache: false
       }
     }<#if index lt count>,</#if>
    </#list>
@@ -80,8 +82,8 @@ export default {
       </#if>
         authorities: ['/${moduleName}/<#if subModule??>${subModule}/</#if>${generatorName}/f_${path}'],
         breadcrumb: <#if !l.isDialog && l.tagTitle?? && l.tagTitle?trim !=''>true<#else>false</#if>,
-        tagView: <#if !l.isDialog && l.tagTitle?? && l.tagTitle?trim !=''>true<#else>false</#if>,
-        noCache: <#if !l.isDialog && l.tagTitle?? && l.tagTitle?trim !=''>false<#else>true</#if>
+        tagView: <#if l.isDialog>false<#else>true</#if>,
+        noCache: <#if l.isDialog>true<#else>false</#if>
       }
     }<#if index lt count>,</#if>
     </#list>
@@ -95,6 +97,8 @@ export default {
       meta: {
       <#if l.tagTitle?? && l.tagTitle?trim !=''>
         title: '${generatorName}.route.${l.path}Tag',
+      <#else>
+        title: '${generatorName}.title.${l.path}',
       </#if>
       <#if l.icon?? && l.icon?trim !=''>
         icon: '${l.icon}',
@@ -104,8 +108,8 @@ export default {
       </#if>
         authorities: ['/${moduleName}/<#if subModule??>${subModule}/</#if>${generatorName}/<#if l.isFlow>f_${l.path}<#else>record</#if>'],
         breadcrumb: <#if !l.isDialog && l.tagTitle?? && l.tagTitle?trim !=''>true<#else>false</#if>,
-        tagView: <#if !l.isDialog && l.tagTitle?? && l.tagTitle?trim !=''>true<#else>false</#if>,
-        noCache: <#if !l.isDialog && l.tagTitle?? && l.tagTitle?trim !=''>false<#else>true</#if>
+        tagView: <#if l.isDialog>false<#else>true</#if>,
+        noCache: <#if l.isDialog>true<#else>false</#if>
       }
     }<#if index lt count>,</#if>
     </#if>

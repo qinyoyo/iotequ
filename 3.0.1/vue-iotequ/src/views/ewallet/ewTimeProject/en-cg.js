@@ -1,23 +1,19 @@
 export default {
   ewTimeProject: {
     title: {
-      list: 'ewTimeProject',
-      record: 'ewTimeProject',
-      code: 'EwTimeProject'
-    },
-    route: {
-      listTag: 'ewTimeProject',
-      recordTag: 'ewTimeProject'
+      list: 'Ew time project',
+      record: 'Ew time project',
+      code: 'Ew time project'
     },
     field: {
       id: 'Id',
       icon: 'Icon',
       name: 'Name',
-      baseValue: 'BaseValue',
-      basePrice: 'BasePrice',
-      bonusPoint: 'BonusPoint',
-      startTime: 'StartTime',
-      endTime: 'EndTime'
+      baseValue: 'Base value',
+      basePrice: 'Base price',
+      bonusPoint: 'Bonus point',
+      startTime: 'Start time',
+      endTime: 'End time'
     }
   }
 }

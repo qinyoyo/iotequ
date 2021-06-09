@@ -1,42 +1,38 @@
 export default {
   cgListField: {
     title: {
-      list: 'cgListField',
-      record: 'cgListField',
-      groupCgListFieldEntityField: 'groupCgListFieldEntityField',
-      groupCgListFieldFix: 'groupCgListFieldFix',
-      code: 'CgListField'
+      list: 'Field of list',
+      record: 'Fields of list',
+      groupCgListFieldEntityField: 'Group entity field',
+      groupCgListFieldFix: 'Group fix',
+      code: 'Fields of list'
     },
     action: {
       select: 'Select'
     },
-    route: {
-      listTag: 'cgListField',
-      recordTag: 'cgListField'
-    },
     field: {
       id: 'Id',
-      listId: 'ListId',
-      orderNum: 'OrderNum',
-      entityField: 'EntityField',
+      listId: 'List id',
+      orderNum: 'Order num',
+      entityField: 'Entity field',
       queryMode_0: '无',
       queryMode_1: '自动',
       queryMode_2: '筛选',
       queryMode_3: '范围',
-      queryMode: 'QueryMode',
+      queryMode: 'Query mode',
       fix: 'Fix',
       expand: 'Expand',
-      overflowTooltip: 'OverflowTooltip',
+      overflowTooltip: 'Overflow tooltip',
       align: 'Align',
-      headerAlign: 'HeaderAlign',
+      headerAlign: 'Header align',
       width: 'Width',
-      columnProperties: 'ColumnProperties',
+      columnProperties: 'Column properties',
       hidden: 'Hidden',
-      editInline: 'EditInline',
-      defaultQueryValueValid: 'Please input correct value for defaultQueryValue',
-      defaultQueryValue: 'DefaultQueryValue',
-      cellDisplaySlot: 'CellDisplaySlot',
-      showType: 'ShowType'
+      editInline: 'Edit inline',
+      defaultQueryValueValid: 'Please input correct value for default query value',
+      defaultQueryValue: 'Default query value',
+      cellDisplaySlot: 'Cell display slot',
+      showType: 'Show type'
     }
   }
 }

@@ -16,10 +16,10 @@ export default {
       name: 'MessageList',
       props: true,
       meta: {
-        title: 'sysMessage.route.listTag',
+        title: 'sysMessage.title.list',
         icon: 'fa fa-commenting-o',
         authorities: ['/framework/sysMessage/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -30,7 +30,7 @@ export default {
       name: 'MessageForm',
       props: true,
       meta: {
-        title: 'sysMessage.route.recordTag',
+        title: 'sysMessage.title.record',
         icon: 'fa fa-commenting-o',
         dialog: true,
         authorities: ['/framework/sysMessage/record'],

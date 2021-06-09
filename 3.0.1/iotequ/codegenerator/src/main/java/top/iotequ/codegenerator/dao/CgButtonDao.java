@@ -11,7 +11,7 @@ import top.iotequ.framework.service.IDaoService;
 import top.iotequ.codegenerator.pojo.CgButton;
 import java.util.*;
 
-//  Mapper dao : CgButtonDao (按钮定义数据访问接口)
+//  Mapper dao : CgButtonDao (按钮定义|Define of button数据访问接口)
 public interface CgButtonDao  extends IDaoService<CgButton> {
     int insert(CgButton record);
     int insertBatchWithoutId(List<CgButton> list);

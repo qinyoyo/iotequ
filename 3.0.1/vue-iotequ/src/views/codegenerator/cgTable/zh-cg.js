@@ -19,10 +19,6 @@ export default {
       flowSync: '流程控制同步',
       fields: '字段获取'
     },
-    route: {
-      listTag: '代码定义列表',
-      recordTag: '代码定义'
-    },
     field: {
       id: '主键ID',
       codeValid: '小写字母开头的小写字符数字串,可使用下划线_为连字符',

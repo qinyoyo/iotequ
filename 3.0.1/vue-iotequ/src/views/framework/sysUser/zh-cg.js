@@ -15,12 +15,6 @@ export default {
       resetPasswordConfirm: '确实需要将用户密码复位吗',
       resetPassword: '复位密码'
     },
-    route: {
-      listTag: '用户表',
-      joinTag: '用户表',
-      recordTag: '用户',
-      registerTag: '注册'
-    },
     field: {
       id: 'uuid主键',
       icon: '头像',

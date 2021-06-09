@@ -9,10 +9,6 @@ export default {
       build: '项目配置代码',
       down: '下载代码'
     },
-    route: {
-      listTag: '项目表',
-      recordTag: '新建项目'
-    },
     field: {
       id: 'id',
       codeValid: '项目简写,只允许2-3个小写字母',

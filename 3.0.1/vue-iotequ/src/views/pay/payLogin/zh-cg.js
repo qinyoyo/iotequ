@@ -5,10 +5,6 @@ export default {
       record: '签到日志',
       code: '签到日志'
     },
-    route: {
-      listTag: '签到日志表',
-      recordTag: '签到日志'
-    },
     field: {
       id: 'ID',
       posId: 'pos终端',

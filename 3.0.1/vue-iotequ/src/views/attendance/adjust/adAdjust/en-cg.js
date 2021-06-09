@@ -1,19 +1,14 @@
 export default {
   adAdjust: {
     title: {
-      list: 'adjust',
-      approve: 'adjustApprove',
-      record: 'adjustRecord',
-      code: 'AdAdjust'
-    },
-    route: {
-      listTag: 'adjust',
-      approveTag: 'adjustApprove',
-      recordTag: 'adjustRecord'
+      list: 'Adjust',
+      approve: 'Adjust approve',
+      record: 'Adjust record',
+      code: 'Action of attendance'
     },
     field: {
       id: 'Id',
-      orgCode: 'OrgCode',
+      orgCode: 'Org code',
       adjustType_0: '数据补登',
       adjustType_1: '市内出差',
       adjustType_2: '外地出差',
@@ -23,18 +18,18 @@ export default {
       adjustType_6: '年假',
       adjustType_7: '调休',
       adjustType_8: '加班',
-      adjustType: 'AdjustType',
+      adjustType: 'Adjust type',
       state_0: '等待审批',
       state_1: '审批中',
       state_2: '批准',
       state_3: '未批准',
       state: 'State',
-      registerTime: 'RegisterTime',
-      startTime: 'StartTime',
-      endTime: 'EndTime',
+      registerTime: 'Register time',
+      startTime: 'Start time',
+      endTime: 'End time',
       description: 'Description',
-      approveOrg: 'ApproveOrg',
-      addFile: 'AddFile',
+      approveOrg: 'Approve org',
+      addFile: 'Add file',
       employee: 'Employee',
       hr: 'Hr',
       approver: 'Approver'

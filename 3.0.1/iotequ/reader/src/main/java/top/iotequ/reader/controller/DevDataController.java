@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import top.iotequ.framework.service.ICgService;
 import top.iotequ.util.*;
-import top.iotequ.util.RestJson;
-import top.iotequ.util.Util;
-
 import java.util.*;
 
 /**************************************************
@@ -83,4 +80,28 @@ public class DevDataController  {
 		}
 	}
 
+	@RequestMapping(value = "/action/download")
+	public ResponseEntity<Map<String, Object>> actionDownload(String id,HttpServletRequest request, HttpServletResponse response){
+		try {
+		  return cgService.doAction("download",id,request).toResponse();
+		} catch (Exception e) {
+			return new RestJson().setMessage(e).toResponse();
+		}
+	}
+	@RequestMapping(value = "/action/queryReader")
+	public ResponseEntity<Map<String, Object>> actionQueryReader(String id,HttpServletRequest request, HttpServletResponse response){
+		try {
+		  return cgService.doAction("queryReader",id,request).toResponse();
+		} catch (Exception e) {
+			return new RestJson().setMessage(e).toResponse();
+		}
+	}
+	@RequestMapping(value = "/action/queryDownloadPeople")
+	public ResponseEntity<Map<String, Object>> actionQueryDownloadPeople(String id,HttpServletRequest request, HttpServletResponse response){
+		try {
+		  return cgService.doAction("queryDownloadPeople",id,request).toResponse();
+		} catch (Exception e) {
+			return new RestJson().setMessage(e).toResponse();
+		}
+	}
 }

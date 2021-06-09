@@ -16,9 +16,9 @@ export default {
       name: 'CgProjectList',
       props: true,
       meta: {
-        title: 'cgProject.route.listTag',
+        title: 'cgProject.title.list',
         authorities: ['/codegenerator/cgProject/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -29,7 +29,7 @@ export default {
       name: 'CgProjectForm',
       props: true,
       meta: {
-        title: 'cgProject.route.recordTag',
+        title: 'cgProject.title.record',
         dialog: true,
         authorities: ['/codegenerator/cgProject/record'],
         breadcrumb: false,

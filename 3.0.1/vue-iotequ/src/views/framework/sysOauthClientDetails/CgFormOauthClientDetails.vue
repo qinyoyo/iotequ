@@ -140,7 +140,7 @@ const Comp = {
       idField: 'clientId',
       clientIdSaved: this.openParams().record && typeof this.openParams().record === 'object' ? this.openParams().record.clientId : null,
       dictionary: {
-        dictAuthorizedGrantTypes: this.getDictionary('password,authorization_code,implicit,client_credentials','密码模式,授权码模式,简化模式,客户端模式'),
+        dictAuthorizedGrantTypes: this.getDictionary('password,authorization_code,implicit,client_credentials','sysOauthClientDetails.field.authorizedGrantTypes_0,sysOauthClientDetails.field.authorizedGrantTypes_1,sysOauthClientDetails.field.authorizedGrantTypes_2,sysOauthClientDetails.field.authorizedGrantTypes_3'),
         dictAuthorities: [],
         dictAutoapprove: this.getDictionary('true,false')
       },

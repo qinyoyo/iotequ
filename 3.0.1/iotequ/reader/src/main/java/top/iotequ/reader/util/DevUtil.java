@@ -31,7 +31,6 @@ import top.iotequ.reader.pojo.DevPeople;
 import top.iotequ.reader.pojo.DevReader;
 import top.iotequ.reader.pojo.DevReaderGroup;
 import top.iotequ.reader.service.impl.D10ClientService;
-import top.iotequ.util.*;
 
 public class DevUtil {
 	static final boolean DEBUG=false;
@@ -48,43 +47,48 @@ public class DevUtil {
 			return reader.getIsOnline();
 		} else return false;
 	}
-// 上传D10用户到系统
- 
-	static public String getData(String readerGroupId,boolean includeSubGroup,String readerIds,boolean uploadAllUser,boolean includeNewUser,Integer orgCode,String emList,boolean includeSubOrg) {
-		int total=0;
-		String [] rr=null;
-		if (!Util.isEmpty(readerGroupId)) {
-			List<String> rl=getReaderIdList(readerGroupId,includeSubGroup);
-			if (rl!=null && rl.size()>0) {
-				rr = new String[rl.size()];
-				rl.toArray(rr);
-			}
-		} else if (!Util.isEmpty(readerIds)) {
-			rr=readerIds.split(",");
-		}
-		if (rr==null || rr.length==0) return "没有数据上传";
-		StringBuilder sb=new StringBuilder();
-		for (int i=0;i<rr.length;i++) {
-			DevReader reader=null;
-			try {
-				reader = SqlUtil.sqlQueryFirst(DevReader.class, "select * from dev_reader where id=?", rr[i]);
-			} catch (Exception e1) {	}
-			int pro0=i*100/rr.length ,pro1=(i+1)*100/rr.length;
-			if (reader!=null)  {
-				sb.append(reader.getName()).append(":\n");
-				Util.setProgress(pro0);
-				try {
-					List<UserInfo>  userInfo=uploadUsers(reader);
-					Util.setProgress((pro1+pro0)/2);
-					total+= setUserInfos(userInfo,(pro1+pro0)/2,pro1,uploadAllUser, includeNewUser, orgCode, emList, includeSubOrg,sb);
-				} catch (Exception e) {
-					sb.append(e.getMessage()).append("\n");
+	// 上传D10用户到系统
+	 
+		static public String getData(String readerGroupId,boolean includeSubGroup,String readerIds,boolean uploadAllUser,boolean includeNewUser,Integer orgCode,String emList,boolean includeSubOrg) {
+			int total=0;
+			String [] rr=null;
+			if (!Util.isEmpty(readerGroupId)) {
+				List<String> rl=getReaderIdList(readerGroupId,includeSubGroup);
+				if (rl!=null && rl.size()>0) {
+					rr = new String[rl.size()];
+					rl.toArray(rr);
 				}
+			} else if (!Util.isEmpty(readerIds)) {
+				rr=readerIds.split(",");
 			}
-		}	
-		sb.insert(0,String.format("合计扫描人数:%d\n",total));
-		return sb.toString();
-	}
+			if (rr==null || rr.length==0) return "没有数据上传";
+			StringBuilder sb=new StringBuilder();
+			for (int i=0;i<rr.length;i++) {
+				DevReader reader=null;
+				try {
+					reader = SqlUtil.sqlQueryFirst(DevReader.class, "select * from dev_reader where id=?", rr[i]);
+				} catch (Exception e1) {	}
+				int pro0=i*100/rr.length ,pro1=(i+1)*100/rr.length;
+				if (reader!=null)  {
+					sb.append(reader.getName()).append(":\n");
+					Util.setProgress(pro0);
+					try {
+						if(reader.getType().indexOf("D10")!=-1) {
+							List<UserInfo>  userInfo=uploadUsers(reader);
+							Util.setProgress((pro1+pro0)/2);
+							total+= setUserInfos(userInfo,(pro1+pro0)/2,pro1,uploadAllUser, includeNewUser, orgCode, emList, includeSubOrg,sb);
+						}else {
+							sb.append(reader.getName()+"(不支持上传用户)").append("\n");
+						}
+						
+					} catch (Exception e) {
+						sb.append(e.getMessage()).append("\n");
+					}
+				}
+			}	
+			sb.insert(0,String.format("合计扫描人数:%d\n",total));
+			return sb.toString();
+		}
 	
 	static List<String> getReaderIdList(String groupId,boolean includeSubGroup) {
 		List<String> list=new ArrayList<String>();
@@ -146,7 +150,7 @@ public class DevUtil {
 			}
 		}
 		else  {
-			Util.setProgress(pro1);
+			Util.setProgress(pro1);		
 		}		
 		return sb.toString();
 	}
@@ -405,6 +409,11 @@ public class DevUtil {
 			log.debug("DeleteSpecifyUser({})={}",deviceId,isSucc?"true":"false");
 			if (!isSucc) {
 				throw new IotequException("d10client_error_"+D10ClientService.getD10client().getLastErrCode(),D10ClientService.getD10client().getLastMessage());
+			}else {
+				for(DevPeople p:list) {
+					SqlUtil.sqlExecute("delete from dev_reader_people where user_no=? and reader_no=?", p.getUserNo(),deviceId);
+					SqlUtil.sqlExecute("delete from dev_people_mapping where user_no=? and reader_no=?", p.getUserNo(),deviceId);
+				}
 			} 
 		}
 	}
@@ -505,7 +514,7 @@ public class DevUtil {
 					}
 					p.setIdType(userInfo.idType);
 					p.setIdNumber(userInfo.idNo);
-					DevPeopleDao dao= Util.getBean(DevPeopleDao.class);
+					DevPeopleDao dao=Util.getBean(DevPeopleDao.class);
 					p.setUserNo(usernum);
 					if (!Util.isEmpty(u.getUsername()))  p.setRealName(u.getUsername());
 					else if (newUser) p.setRealName(userInfo.name);
@@ -535,7 +544,7 @@ public class DevUtil {
 					if (ff!=null && ff.length>0) {
 						for (FingerInfo f:ff) {
 							if (f!=null) {
-								Object bean= Util.getBean(SvasService.class);
+								Object bean=Util.getBean(SvasService.class);
 								try {
 //									EntityUtil.runMethod(bean,"removeTemplate", usernum,Integer.valueOf(f.getFignerIndex()));
 									EntityUtil.runMethod(bean,"addTemplate", usernum,Integer.valueOf(f.getFignerIndex()),10+Integer.valueOf(f.getFignerIndex()),f.getTemplates(),f.getWarningfinger()==1);
@@ -710,7 +719,7 @@ public class DevUtil {
 		Date vd=DateUtil.startOf(p.getValidDate(),DateUtil.DAY);
 		if (vd != null && vd.getTime()>date.getTime()) return expired;
 		vd=DateUtil.startOf(p.getExpiredDate(),DateUtil.DAY);
-		if (vd != null && vd.getTime()<date.getTime()) return expired;
+		if (vd != null && vd.getTime()<=date.getTime()) return expired;
 		
 		DevReaderGroup devGroup=null;
 		try {
@@ -847,6 +856,7 @@ public class DevUtil {
 			reader.setDoorbellEnable(da.getDoorbellEnable());
 			reader.setWifiSsid(da.getWifi_ssid());
 			reader.setWifiPsw(da.getWifi_psw());
+			reader.setCapacity(da.getCapacity());
 		}else {
 			
 			throw new IotequException("get_D30_Paramet",D10ClientService.getD10client().getLastMessage());

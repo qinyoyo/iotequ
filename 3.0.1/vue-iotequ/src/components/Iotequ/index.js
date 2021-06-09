@@ -19,6 +19,7 @@ import CgNumberInput from './CgNumberInput'
 import CgFlow from './CgFlow'
 import CgChart from './CgChart'
 import CgQueryCondition from './CgQueryCondition'
+import CgInput from './CgInput'
 const components = {
   CgCascader,
   CgSelect,
@@ -40,7 +41,8 @@ const components = {
   CgNumberInput,
   CgFlow,
   CgChart,
-  CgQueryCondition
+  CgQueryCondition,
+  CgInput
 }
 const iotequ = function(Vue, opts = {}) {
   Object.keys(components).forEach((key) => { Vue.component(key, components[key]) })

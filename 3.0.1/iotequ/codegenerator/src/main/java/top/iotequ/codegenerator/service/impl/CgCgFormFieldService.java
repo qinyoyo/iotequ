@@ -1,6 +1,7 @@
 package top.iotequ.codegenerator.service.impl;
 import top.iotequ.codegenerator.pojo.CgFormField;
 import top.iotequ.codegenerator.dao.CgFormFieldDao;
+import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +11,10 @@ import top.iotequ.framework.flow.IFlowService;
 import top.iotequ.framework.service.impl.CgService;
 import top.iotequ.framework.service.IDaoService;
 import org.springframework.stereotype.Service;
+import top.iotequ.framework.service.utils.DictionaryUtil;
+import top.iotequ.framework.service.utils.UploadDownUtil;
+import top.iotequ.framework.service.utils.QueryUtil;
 import top.iotequ.util.*;
-import top.iotequ.util.Util;
-
 import java.util.*;
 
 /**************************************************
@@ -22,7 +24,7 @@ Author : Qinyoyo
 @ConditionalOnMissingClass({"top.iotequ.codegenerator.service.impl.CgFormFieldService"})
 @Service(value="cgFormFieldService")
 public class CgCgFormFieldService extends CgService<CgFormField>  {
-private static final Logger log = LoggerFactory.getLogger(CgCgFormFieldService.class);
+    private static final Logger log = LoggerFactory.getLogger(CgCgFormFieldService.class);
     @Autowired
     private CgFormFieldDao cgFormFieldDao;
     @Override

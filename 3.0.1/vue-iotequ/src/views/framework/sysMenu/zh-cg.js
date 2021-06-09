@@ -5,10 +5,6 @@ export default {
       record: '系统菜单',
       code: '系统菜单'
     },
-    route: {
-      listTag: '系统菜单表',
-      recordTag: '系统菜单'
-    },
     field: {
       id: '',
       sortNum: '排列顺序',

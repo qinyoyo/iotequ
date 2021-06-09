@@ -9,9 +9,6 @@ export default {
       _exportConfirm: '需选择部门和月份，继续生成报表',
       _export: 'export'
     },
-    route: {
-      listTag: '日考勤汇总'
-    },
     field: {
       id: '',
       orgCode: '部门',

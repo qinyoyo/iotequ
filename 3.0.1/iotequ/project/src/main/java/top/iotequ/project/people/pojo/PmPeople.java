@@ -12,6 +12,7 @@ import lombok.Setter;
 import com.google.gson.annotations.SerializedName;
 import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
+import java.util.*;
 
 //  Pojo entity : PmPeople (项目人员)
 @CgTableAnnotation(name="pm_people",

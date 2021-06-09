@@ -16,6 +16,12 @@ public class Links {
 
 	//验证手指信息
 	public static final String AUTH_USER_FINGER="/common/c20/AuthUserFinger";
+	
+	//同步用户
+	public static final String GET_PEOPLE="/common/c20/getPeople";
+	
+	//获取考勤数据
+	public static final String GET_AD_DATA="/common/c20/getAdData";
 
 	public static final String C20_Log="/common/c20/c20Log";
 

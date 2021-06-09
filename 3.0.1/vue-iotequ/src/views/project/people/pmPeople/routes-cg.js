@@ -16,9 +16,9 @@ export default {
       name: 'PmPeopleList',
       props: true,
       meta: {
-        title: 'pmPeople.route.listTag',
+        title: 'pmPeople.title.list',
         authorities: ['/project/people/pmPeople/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -29,7 +29,7 @@ export default {
       name: 'PmPeopleForm',
       props: true,
       meta: {
-        title: 'pmPeople.route.recordTag',
+        title: 'pmPeople.title.record',
         dialog: true,
         authorities: ['/project/people/pmPeople/record'],
         breadcrumb: false,

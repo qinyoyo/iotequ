@@ -16,9 +16,9 @@ export default {
       name: 'PmProjectList',
       props: true,
       meta: {
-        title: 'pmProject.route.listTag',
+        title: 'pmProject.title.list',
         authorities: ['/project/product/pmProject/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -29,7 +29,7 @@ export default {
       name: 'PmProjectForm',
       props: true,
       meta: {
-        title: 'pmProject.route.recordTag',
+        title: 'pmProject.title.record',
         icon: 'el-icon-folder-add',
         dialog: true,
         authorities: ['/project/product/pmProject/record'],

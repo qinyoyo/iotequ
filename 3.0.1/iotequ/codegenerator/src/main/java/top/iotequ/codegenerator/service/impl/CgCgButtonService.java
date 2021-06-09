@@ -24,7 +24,7 @@ Author : Qinyoyo
 @ConditionalOnMissingClass({"top.iotequ.codegenerator.service.impl.CgButtonService"})
 @Service(value="cgButtonService")
 public class CgCgButtonService extends CgService<CgButton>  {
-private static final Logger log = LoggerFactory.getLogger(CgCgButtonService.class);
+    private static final Logger log = LoggerFactory.getLogger(CgCgButtonService.class);
     @Autowired
     private CgButtonDao cgButtonDao;
     @Override

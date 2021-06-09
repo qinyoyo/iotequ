@@ -1,6 +1,7 @@
 package top.iotequ.codegenerator.service.impl;
 import top.iotequ.codegenerator.pojo.CgList;
 import top.iotequ.codegenerator.dao.CgListDao;
+import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,9 @@ import top.iotequ.framework.service.impl.CgService;
 import top.iotequ.framework.service.IDaoService;
 import org.springframework.stereotype.Service;
 import top.iotequ.framework.service.utils.DictionaryUtil;
+import top.iotequ.framework.service.utils.UploadDownUtil;
+import top.iotequ.framework.service.utils.QueryUtil;
 import top.iotequ.util.*;
-import top.iotequ.util.StringUtil;
-import top.iotequ.util.Util;
-
 import java.util.*;
 
 /**************************************************
@@ -24,7 +24,7 @@ Author : Qinyoyo
 @ConditionalOnMissingClass({"top.iotequ.codegenerator.service.impl.CgListService"})
 @Service(value="cgListService")
 public class CgCgListService extends CgService<CgList>  {
-private static final Logger log = LoggerFactory.getLogger(CgCgListService.class);
+    private static final Logger log = LoggerFactory.getLogger(CgCgListService.class);
     @Autowired
     private CgListDao cgListDao;
     @Override

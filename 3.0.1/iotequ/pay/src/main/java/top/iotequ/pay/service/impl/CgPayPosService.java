@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import top.iotequ.framework.service.utils.DictionaryUtil;
 import top.iotequ.framework.service.utils.UploadDownUtil;
 import top.iotequ.framework.service.utils.QueryUtil;
-import top.iotequ.framework.util.*;
+import top.iotequ.util.*;
 import java.util.*;
 
 /**************************************************
@@ -24,7 +24,7 @@ Author : Qinyoyo
 @ConditionalOnMissingClass({"top.iotequ.pay.service.impl.PayPosService"})
 @Service(value="payPosService")
 public class CgPayPosService extends CgService<PayPos>  {
-private static final Logger log = LoggerFactory.getLogger(CgPayPosService.class);
+    private static final Logger log = LoggerFactory.getLogger(CgPayPosService.class);
     @Autowired
     private PayPosDao payPosDao;
     @Override

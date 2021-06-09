@@ -1,40 +1,35 @@
 export default {
   pmProject: {
     title: {
-      list: 'pmProject',
-      record: 'pmProject',
-      assess: 'assess',
-      decision: 'decision',
-      develop: 'develop',
-      publish: 'publish',
-      review: 'review',
-      test: 'test',
-      code: 'PmProject'
-    },
-    route: {
-      listTag: 'pmProject',
-      recordTag: 'pmProject',
-      assessTag: 'pmProjectFlow'
+      list: 'Pm project',
+      record: 'Pm project',
+      assess: 'Assess',
+      decision: 'Decision',
+      develop: 'Develop',
+      publish: 'Publish',
+      review: 'Review',
+      test: 'Test',
+      code: 'Pm project'
     },
     field: {
       id: 'Id',
-      flowState: 'FlowState',
-      flowRegisterTime: 'FlowRegisterTime',
+      flowState: 'Flow state',
+      flowRegisterTime: 'Flow register time',
       name: 'Name',
       type: 'Type',
       customer: 'Customer',
-      marketSize: 'MarketSize',
-      humanCost: 'HumanCost',
-      materialCost: 'MaterialCost',
+      marketSize: 'Market size',
+      humanCost: 'Human cost',
+      materialCost: 'Material cost',
       codeValid: 'Please input correct value for code',
       code: 'Code',
       description: 'Description',
-      flowNote: 'FlowNote',
-      addFile: 'AddFile',
-      flowRegisterBy: 'FlowRegisterBy',
-      flowNextOperator: 'FlowNextOperator',
-      flowCopyToList: 'FlowCopyToList',
-      flowOperations: 'FlowOperations'
+      flowNote: 'Flow note',
+      addFile: 'Add file',
+      flowRegisterBy: 'Flow register by',
+      flowNextOperator: 'Flow next operator',
+      flowCopyToList: 'Flow copy to list',
+      flowOperations: 'Flow operations'
     }
   }
 }

@@ -3,17 +3,12 @@ export default {
     title: {
       list: '列表视图表',
       join: '列表视图选择',
-      record: '列表视图',
+      record: '列表视图定义',
       groupCgListTableId: '基本定义',
       groupCgListSons: '主从/树/分组',
       groupCgListTableHeight: '表格属性',
       groupCgListImages: '页面定义',
       code: '列表视图定义'
-    },
-    route: {
-      listTag: '列表视图表',
-      joinTag: '列表视图',
-      recordTag: '列表视图'
     },
     field: {
       id: 'ID',
@@ -22,13 +17,15 @@ export default {
       path: '路径最后一级',
       tableId: '对应表单',
       icon: '图标',
+      headTitleValid: '输入一个标题(可以同时输入中文和英文，以',
       headTitle: '列表标题',
+      tagTitleValid: '页面标签标题。可以同时输入中文和英文，以',
       tagTitle: 'tag标题',
       editInline: '行内编辑',
       detailInline: '行内详情',
-      sonsValid: '子表为cg_list或cg_form表的名称列表,cg_form表以后缀|u区分.组件需要手动输入c|组件名称|组件路径|主见标题',
+      sonsValid: '子表为cg_list或cg_form表的名称列表,cg_form表以后缀',
       sons: '子表',
-      sonFieldsValid: '与sons对应,一个子表输入一项 : 子表关联字段Entity名|主表关联字段Entity名,引用主表主键',
+      sonFieldsValid: '与sons对应,一个子表输入一项 : 子表关联字段Entity名',
       sonFields: '子表外键字段列表',
       sonAlign_0: '左右排列',
       sonAlign_1: '上下排列',

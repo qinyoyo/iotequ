@@ -16,9 +16,9 @@ export default {
       name: 'AdOrgList',
       props: true,
       meta: {
-        title: 'adOrg.route.listTag',
+        title: 'adOrg.title.list',
         authorities: ['/attendance/org/adOrg/list'],
-        breadcrumb: true,
+        breadcrumb: false,
         tagView: true,
         noCache: false
       }
@@ -29,7 +29,7 @@ export default {
       name: 'AdOrgForm',
       props: true,
       meta: {
-        title: 'adOrg.route.recordTag',
+        title: 'adOrg.title.record',
         dialog: true,
         authorities: ['/attendance/org/adOrg/record'],
         breadcrumb: false,

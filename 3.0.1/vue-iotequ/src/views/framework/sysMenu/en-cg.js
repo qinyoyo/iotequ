@@ -1,30 +1,26 @@
 export default {
   sysMenu: {
     title: {
-      list: 'menu',
-      record: 'menu',
-      code: 'SysMenu'
-    },
-    route: {
-      listTag: 'menu',
-      recordTag: 'menu'
+      list: 'Menu',
+      record: 'Menu',
+      code: 'Menu'
     },
     field: {
       id: 'Id',
-      sortNum: 'SortNum',
+      sortNum: 'Sort num',
       nameValid: 'Please input correct value for name',
       name: 'Name',
       parent: 'Parent',
-      isDivider: 'IsDivider',
+      isDivider: 'Is divider',
       icon: 'Icon',
       action: 'Action',
-      className: 'ClassName',
-      dataActionValid: 'Please input correct value for dataAction',
-      dataAction: 'DataAction',
+      className: 'Class name',
+      dataActionValid: 'Please input correct value for data action',
+      dataAction: 'Data action',
       bigicon: 'Bigicon',
-      mobileHidden: 'MobileHidden',
-      jsCmdValid: 'Please input correct value for jsCmd',
-      jsCmd: 'JsCmd'
+      mobileHidden: 'Mobile hidden',
+      jsCmdValid: 'Please input correct value for js cmd',
+      jsCmd: 'Js cmd'
     }
   }
 }

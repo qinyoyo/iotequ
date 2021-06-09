@@ -1,5 +1,6 @@
 package top.iotequ.attendance.adjust.controller;
 import top.iotequ.attendance.adjust.pojo.AdAdjust;
+import top.iotequ.attendance.adjust.dao.AdAdjustDao;
 import top.iotequ.framework.flow.*;
 import org.springframework.web.bind.annotation.RequestBody;
 import javax.servlet.http.HttpServletRequest;
@@ -13,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import top.iotequ.framework.service.ICgService;
 import top.iotequ.util.*;
-import top.iotequ.util.RestJson;
-import top.iotequ.util.Util;
-
+import top.iotequ.attendance.util.AdUtil;
 import java.util.*;
 
 /**************************************************

@@ -1,6 +1,5 @@
 import cg from '@/utils/cg'
 import cgList from '@/utils/cgList'
-
 export default {
   props: {
     fixedQueryRecord: {
@@ -45,7 +44,7 @@ export default {
       this.$refs.cgList.showActionSheet()
     },
     setContentSubTitle(row) {
-      if (this.titleField) this.contentSubTitle = row && row[this.titleField] ? String(row[this.titleField]).local() : ''  
+      if (this.titleField) this.contentSubTitle = row && row[this.titleField] ? cg.localeText(String(row[this.titleField])).local() : ''  
     },
     rowClick({ row, column, event }) {
       this.setContentSubTitle(row)

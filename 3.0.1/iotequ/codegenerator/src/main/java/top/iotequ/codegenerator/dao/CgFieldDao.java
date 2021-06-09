@@ -11,7 +11,7 @@ import top.iotequ.framework.service.IDaoService;
 import top.iotequ.codegenerator.pojo.CgField;
 import java.util.*;
 
-//  Mapper dao : CgFieldDao (字段定义表数据访问接口)
+//  Mapper dao : CgFieldDao (字段定义表|Field design数据访问接口)
 public interface CgFieldDao  extends IDaoService<CgField> {
     int insert(CgField record);
     int insertBatchWithoutId(List<CgField> list);

@@ -1,11 +1,11 @@
 export default {
   adApproveList: {
     title: {
-      code: 'AdApproveList'
+      code: 'Audit infomation'
     },
     field: {
       id: 'Id',
-      approveTime: 'ApproveTime',
+      approveTime: 'Approve time',
       state1_0: '等待审批',
       state1_1: '审批中',
       state1_2: '批准',
@@ -16,8 +16,8 @@ export default {
       state0_2: '批准',
       state0_3: '未批准',
       state0: 'State0',
-      approveNote: 'ApproveNote',
-      adjustId: 'AdjustId',
+      approveNote: 'Approve note',
+      adjustId: 'Adjust id',
       approver: 'Approver'
     }
   }

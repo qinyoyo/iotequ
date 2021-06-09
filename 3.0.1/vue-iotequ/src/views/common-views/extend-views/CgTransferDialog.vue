@@ -3,22 +3,22 @@
     <el-dialog ref="dialog" v-el-drag-dialog top="0px" :class="dialogClass" :width="mobile?'100%':'666px'" :visible.sync="visible" append-to-body
                :close-on-click-modal="false" @closed="closeDialog(false)">
       <div slot="title" class="color-info">
-        <cg-header icon="el-icon-circle-plus" title="请选择" :content="content" />
+        <cg-header icon="el-icon-circle-plus" :title="'system.action.select'.local()" :content="content" />
       </div>
       <div style="text-align: center">
-      <el-transfer ref="transfer" v-model="selected" :titles="['备选项', '已选项']" :data="data" @change="selectedChanged" />
+      <el-transfer ref="transfer" v-model="selected" :titles="['commonView.selections'.local(), 'commonView.selected'.local()]" :data="data" @change="selectedChanged" />
       </div>
       <el-divider />
       <div class="el-message-box__btns">
         <el-button class="cg-button" type="primary" plain :disabled="!selectionChanged" icon="el-icon-check"
                    @click.native="closeDialog(true)"
         >
-          确定
+          {{'system.action.ok'.local()}}
         </el-button>
         <el-button class="cg-button" plain icon="el-icon-close"
                    @click.native="closeDialog(false)"
         >
-          取消
+          {{'system.action.cancel'.local()}}
         </el-button>
       </div>
     </el-dialog>

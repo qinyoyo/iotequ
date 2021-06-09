@@ -1,5 +1,6 @@
 package top.iotequ.reader.controller;
 import top.iotequ.reader.pojo.DevReaderPeople;
+import top.iotequ.reader.dao.DevReaderPeopleDao;
 import org.springframework.web.bind.annotation.RequestBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,9 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import top.iotequ.framework.service.ICgService;
 import top.iotequ.util.*;
-import top.iotequ.util.RestJson;
-import top.iotequ.util.Util;
-
 import java.util.*;
 
 /**************************************************
@@ -96,6 +94,14 @@ public class DevReaderPeopleController  {
 	public ResponseEntity<Map<String, Object>> actionReportPeople(String id,HttpServletRequest request, HttpServletResponse response){
 		try {
 		  return cgService.doAction("reportPeople",id,request).toResponse();
+		} catch (Exception e) {
+			return new RestJson().setMessage(e).toResponse();
+		}
+	}
+	@RequestMapping(value = "/action/cancelOperation")
+	public ResponseEntity<Map<String, Object>> actionCancelOperation(String id,HttpServletRequest request, HttpServletResponse response){
+		try {
+		  return cgService.doAction("cancelOperation",id,request).toResponse();
 		} catch (Exception e) {
 			return new RestJson().setMessage(e).toResponse();
 		}
