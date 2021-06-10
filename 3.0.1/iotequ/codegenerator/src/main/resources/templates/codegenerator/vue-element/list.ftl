@@ -184,7 +184,7 @@
             <#list fields as f>
             <#if !f.hidden && f.expand?? && f.expand>
             <el-form-item :label="$t('${f.title}')">
-              <#nt><@fieldShow f, LP.editInline?? && f.editInline, 14/>
+              <#nt><@fieldShow f, LP.editInline?? && LP.editInline && f.editInline, 14/>
             </el-form-item>
             </#if>
             </#list>
@@ -195,13 +195,13 @@
       <el-table-column v-if="!mobile" type="index" width="50" align="center" class-name="drag-filter" label-class-name="pointer-cursor" header-align="center">
         <i slot="header" class="el-icon-menu"/>
       </el-table-column>
-      <el-table-column v-if="multiple" type="selection" align="center"<#if pk??> reserve-selection</#if> class-name="drag-filter<#if LP.editInline> no-tab-index</#if>" width="36" />
+      <el-table-column v-if="multiple" type="selection" align="center"<#if pk??> reserve-selection</#if> class-name="drag-filter<#if LP.editInline?? && LP.editInline > no-tab-index</#if>" width="36" />
       <#assign TREESHOWENTITY = '~0~' />
       <#if LP.parentEntity?? && LP.parentEntity?trim!='' && LP.treeShowEntity?? && LP.treeShowEntity?trim!=''>
       <#list fields as f>
       <#if f.entityName == LP.treeShowEntity?trim >
       <#nt><<#if f.width?? && f.width gt 0>el<#else>cg</#if>-table-column prop="${f.entityName}"<#if f.showType=='date' || f.showType=='datetime'|| f.showType=='time'> type="${f.showType}"<#elseif f.showType=='select' || f.showType=="checkbox" || f.showType=="radio"> type="dict"</#if> <#if !f.width?? || f.width == 0 >:page="<#if LP.pagination>paginationCurrentPage<#else>1</#if>" </#if><#if !isEmpty(f.columnProperties!'')>${f.columnProperties} </#if><#if f.width?? && f.width gt 0><@WL f "width" ""+f.width?c/></#if><@WL f ":label" "$t('"+f.title+"')"/><#if f.fix?? && f.fix><@WL f "fixed"/></#if><#if (f.queryMode?? && f.queryMode gt 0) || (LP.sortField?? && f.entityName == LP.sortField)><@WL f "sortable"/></#if><@WL f "align" "left"/><#if f.headerAlign?? && f.headerAlign?trim!=''><@WL f "header-align" f.headerAlign/></#if><#if f.overflowTooltip></#if>>
-        <#nt><@fieldShow f,LP.editInline?? && f.editInline,8/>
+        <#nt><@fieldShow f,LP.editInline?? && LP.editInline && f.editInline,8/>
       </<#if f.width?? && f.width gt 0>el<#else>cg</#if>-table-column>
       <#assign TREESHOWENTITY = f.entityName />
       <#break>
@@ -211,7 +211,7 @@
       <#list fields as f>
       <#if !f.hidden && f.entityName !=TREESHOWENTITY>
       <#nt><<#if f.width?? && f.width gt 0>el<#else>cg</#if>-table-column prop="${f.entityName}"<#if f.showType=='date' || f.showType=='datetime'|| f.showType=='time'> type="${f.showType}"<#elseif f.showType=='select' || f.showType=="checkbox" || f.showType=="radio"> type="dict"</#if> <#if !f.width?? || f.width == 0>:page="<#if LP.pagination>paginationCurrentPage<#else>1</#if>" </#if><#if !isEmpty(f.columnProperties!'')>${f.columnProperties} </#if><#if f.width?? && f.width gt 0><@WL f "width" f.width?c+""/></#if><@WL f ":label" "$t('"+f.title+"')"/><#if f.fix?? && f.fix><@WL f "fixed"/></#if><#if (f.queryMode?? && f.queryMode gt 0) || (LP.sortField?? && f.entityName == LP.sortField)><@WL f "sortable"/></#if><@WL f "align" f.align/><#if f.headerAlign?? && f.headerAlign?trim!=''><@WL f "header-align" f.headerAlign/></#if><#if f.overflowTooltip></#if>>
-        <#nt><@fieldShow f,LP.editInline?? && f.editInline,8/>
+        <#nt><@fieldShow f,LP.editInline?? && LP.editInline && f.editInline,8/>
       </<#if f.width?? && f.width gt 0>el<#else>cg</#if>-table-column>
       </#if>
       </#list>

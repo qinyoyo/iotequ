@@ -6,7 +6,7 @@
     </el-backtop>
     <el-table ref="cgList" v-if="isTableMode()" v-loading="listLoading" :data="rows" :class="className" row-key="id" :row-class-name="rowClassName" 
               style="width: 100%" :height="tableHeight()" :size="$store.state.app.size" 
-              stripe :border="!mobile" highlight-current-row fit 
+              v-set-input:no-tab-index="{tabIndex: -1}" v-table-enter-tab stripe :border="!mobile" highlight-current-row fit 
               @row-click="(row, column, event)=>cgList.list_rowClick(myself,{ row, column, event })" 
               @row-contextmenu="(row, column, event)=>cgList.list_rowContextmenu(myself,{ row, column, event })" 
               @header-click="(column, event)=>cgList.list_headClick(myself,{ column, event })" 
@@ -19,7 +19,7 @@
       <el-table-column v-if="!mobile" type="index" width="50" align="center" class-name="drag-filter" label-class-name="pointer-cursor" header-align="center">
         <i slot="header" class="el-icon-menu"/>
       </el-table-column>
-      <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter" width="36" />
+      <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter no-tab-index" width="36" />
       <cg-table-column prop="entityField" :page="1" :label="$t('cgListField.field.entityField')" sortable align="left" >
         <template slot-scope="scope">
           <el-input v-if="scope.row.inlineEditting" v-model="scope.row.entityField" type="text" />
@@ -27,7 +27,7 @@
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="orderNum" :page="1" :label="$t('cgListField.field.orderNum')" sortable align="right" >
+      <cg-table-column prop="orderNum" :page="1" :label="$t('cgListField.field.orderNum')" align="right" >
         <template slot-scope="scope">
           <el-input v-if="scope.row.inlineEditting" v-model="scope.row.orderNum" type="text" />
           <span v-else>{{ scope.row.orderNum }}</span>
@@ -113,6 +113,7 @@
 
 <script>
 import {hasAuthority} from '@/utils/cg'
+import rulesObject from './rules.js'
 import ParentTable from '@/views/common-views/components/table'
 const Comp = {
   name: 'CgListCgListField',
@@ -125,8 +126,9 @@ const Comp = {
   },
   data() {
     return {
+      rulesObject,
       path: 'list',
-      defaultOrder: 'order_num asc',
+      defaultOrder: 'id desc',
       queryRecordFields: ['entityField'],
       formPath: '/codegenerator/cgListField/record',
       idField: 'id',
@@ -166,7 +168,7 @@ const Comp = {
     }
   },
   mounted() {
-    this.cgList.list_tableInit(this,'orderNum')
+    this.cgList.list_tableInit(this)
   },
   methods: {
     initialQueryRecord() {

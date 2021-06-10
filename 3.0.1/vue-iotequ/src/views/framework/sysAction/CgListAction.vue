@@ -22,8 +22,7 @@
       <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter" width="36" />
       <cg-table-column prop="note" :page="paginationCurrentPage" :label="$t('sysAction.field.note')" sortable align="left" >
         <template slot-scope="scope">
-          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.note" type="text" />
-          <span v-else>{{ scope.row.note }}</span>
+          {{ scope.row.note }}
         </template>
 
       </cg-table-column>
@@ -130,8 +129,6 @@ const Comp = {
       paginationCurrentPage: 1,
       paginationPageSize: this.$store.state.app.device === 'mobile' ? 10 : 30,
       paginationTotalRecords: 0,
-      totalEdittingRows: 0,
-      editInlineFields: hasAuthority('/framework/sysAction/updateSelective')?['note']:null,
       listName: 'action',
       generatorName: 'sysAction',
       baseUrl: '/framework/sysAction'

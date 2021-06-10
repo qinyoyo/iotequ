@@ -3,7 +3,7 @@ export default {
     title: {
       list: 'From list',
       record: 'Form design',
-      groupCgFormTableId: 'Base properties',
+      groupCgFormTableId: 'Base defination',
       groupCgFormImages: 'Page design',
       code: 'Form design'
     },

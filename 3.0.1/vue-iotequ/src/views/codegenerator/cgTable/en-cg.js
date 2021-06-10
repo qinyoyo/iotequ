@@ -3,7 +3,7 @@ export default {
     title: {
       list: 'Code design',
       record: 'Code design',
-      groupCgTableModule: 'Table define',
+      groupCgTableModule: 'Table defination',
       groupCgTableImports: 'Code design',
       code: 'Cg table'
     },

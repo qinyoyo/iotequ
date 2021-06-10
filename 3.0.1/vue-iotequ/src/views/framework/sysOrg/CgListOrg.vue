@@ -22,22 +22,19 @@
       <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter" width="36" />
       <el-table-column prop="name" width="200" :label="$t('sysOrg.field.name')" sortable align="left" >
         <template slot-scope="scope">
-          <cg-input v-if="scope.row.inlineEditting" v-model="scope.row.name" type="text" />
-          <span v-else>{{ localeText(scope.row.name) }}</span>
+          {{ localeText(scope.row.name) }}
         </template>
 
       </el-table-column>
       <cg-table-column prop="phone" :page="1" :label="$t('sysOrg.field.phone')" sortable align="left" >
         <template slot-scope="scope">
-          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.phone" type="text" />
-          <span v-else>{{ scope.row.phone }}</span>
+          {{ scope.row.phone }}
         </template>
 
       </cg-table-column>
       <cg-table-column prop="fax" :page="1" :label="$t('sysOrg.field.fax')" align="left" >
         <template slot-scope="scope">
-          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.fax" type="text" />
-          <span v-else>{{ scope.row.fax }}</span>
+          {{ scope.row.fax }}
         </template>
 
       </cg-table-column>
@@ -111,8 +108,6 @@ const Comp = {
         dictRoleList: []
       },
       needLoadDictionary: true,
-      totalEdittingRows: 0,
-      editInlineFields: hasAuthority('/framework/sysOrg/updateSelective')?['name', 'phone', 'fax']:null,
       hasSonTables: true,
       listName: 'org',
       generatorName: 'sysOrg',

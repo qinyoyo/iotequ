@@ -56,9 +56,9 @@
               <el-form-item class="cg-item-text" :label="$t('cgList.field.tagTitle')" :title="$t('cgList.field.tagTitleValid')" prop="tagTitle" :size="$store.state.app.size" >
                 <el-input v-model="record.tagTitle" name="tagTitle" 
                           type="text" 
-                          :label="$t('cgList.field.tagTitle')" :placeholder="$t('system.message.needValue')" 
+                          :label="$t('cgList.field.tagTitle')" :placeholder="$t('system.message.unknown')" 
                           resize autofocus validate-event 
-                          :readonly="isDetail" :maxlength="45" show-word-limit />
+                          :readonly="isDetail" :maxlength="45" show-word-limit clearable />
               </el-form-item>
             </el-col>
           </el-row>

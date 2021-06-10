@@ -4,8 +4,8 @@ export default {
       list: 'User',
       join: 'User join',
       record: 'Login user',
-      groupUserIcon: 'Base infomations',
-      groupUserMobilePhone: 'Contract information',
+      groupUserIcon: 'Base informations',
+      groupUserMobilePhone: 'Contacs',
       groupUserRoleList: 'Status',
       register: 'User register',
       code: 'Login user'

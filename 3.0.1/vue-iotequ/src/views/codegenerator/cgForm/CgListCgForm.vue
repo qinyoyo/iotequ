@@ -28,50 +28,43 @@
       </cg-table-column>
       <cg-table-column prop="icon" :page="1" :label="$t('cgForm.field.icon')" align="left" >
         <template slot-scope="scope">
-          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.icon" type="text" />
-          <span v-else>{{ scope.row.icon }}</span>
+          {{ scope.row.icon }}
         </template>
 
       </cg-table-column>
       <cg-table-column prop="headTitle" :page="1" :label="$t('cgForm.field.headTitle')" align="left" >
         <template slot-scope="scope">
-          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.headTitle" type="text" />
-          <span v-else>{{ scope.row.headTitle }}</span>
+          {{ localeText(scope.row.headTitle) }}
         </template>
 
       </cg-table-column>
       <cg-table-column prop="tagTitle" :page="1" :label="$t('cgForm.field.tagTitle')" align="left" >
         <template slot-scope="scope">
-          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.tagTitle" type="text" />
-          <span v-else>{{ scope.row.tagTitle }}</span>
+          {{ localeText(scope.row.tagTitle) }}
         </template>
 
       </cg-table-column>
       <cg-table-column prop="isFlow" :page="1" :label="$t('cgForm.field.isFlow')" align="center" >
         <template slot-scope="scope">
-          <el-switch v-if="scope.row.inlineEditting" v-model="scope.row.isFlow" />
-          <cg-icon v-else :color="scope.row.isFlow?'#46a6ff':'grey'" :icon="scope.row.isFlow?'fa fa-check-circle':'fa fa-circle-o'"/>
+          <cg-icon :color="scope.row.isFlow?'#46a6ff':'grey'" :icon="scope.row.isFlow?'fa fa-check-circle':'fa fa-circle-o'"/>
         </template>
 
       </cg-table-column>
       <cg-table-column prop="isDialog" :page="1" :label="$t('cgForm.field.isDialog')" align="center" >
         <template slot-scope="scope">
-          <el-switch v-if="scope.row.inlineEditting" v-model="scope.row.isDialog" />
-          <cg-icon v-else :color="scope.row.isDialog?'#46a6ff':'grey'" :icon="scope.row.isDialog?'fa fa-check-circle':'fa fa-circle-o'"/>
+          <cg-icon :color="scope.row.isDialog?'#46a6ff':'grey'" :icon="scope.row.isDialog?'fa fa-check-circle':'fa fa-circle-o'"/>
         </template>
 
       </cg-table-column>
       <cg-table-column prop="continueAdd" :page="1" :label="$t('cgForm.field.continueAdd')" align="center" >
         <template slot-scope="scope">
-          <el-switch v-if="scope.row.inlineEditting" v-model="scope.row.continueAdd" />
-          <cg-icon v-else :color="scope.row.continueAdd?'#46a6ff':'grey'" :icon="scope.row.continueAdd?'fa fa-check-circle':'fa fa-circle-o'"/>
+          <cg-icon :color="scope.row.continueAdd?'#46a6ff':'grey'" :icon="scope.row.continueAdd?'fa fa-check-circle':'fa fa-circle-o'"/>
         </template>
 
       </cg-table-column>
       <cg-table-column prop="labelPosition" :page="1" :label="$t('cgForm.field.labelPosition')" align="left" >
         <template slot-scope="scope">
-          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.labelPosition" type="text" />
-          <span v-else>{{ scope.row.labelPosition }}</span>
+          {{ scope.row.labelPosition }}
         </template>
 
       </cg-table-column>
@@ -122,6 +115,7 @@
 </template>
 
 <script>
+import {localeText} from '@/lang'
 import {hasAuthority} from '@/utils/cg'
 import ParentTable from '@/views/common-views/components/table'
 const Comp = {
@@ -145,8 +139,6 @@ const Comp = {
         dictActionList: []
       },
       needLoadDictionary: true,
-      totalEdittingRows: 0,
-      editInlineFields: hasAuthority('/codegenerator/cgForm/updateSelective')?['icon', 'headTitle', 'tagTitle', 'isFlow', 'isDialog', 'continueAdd', 'labelPosition']:null,
       hasSonTables: true,
       groupByEntityFields: 'tableId',
       listName: 'cgForm',

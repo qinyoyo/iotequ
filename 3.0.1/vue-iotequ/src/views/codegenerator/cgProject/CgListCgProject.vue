@@ -6,7 +6,7 @@
     </el-backtop>
     <el-table ref="cgList" v-if="isTableMode()" v-loading="listLoading" :data="rows" :class="className" row-key="id" :row-class-name="rowClassName" 
               style="width: 100%" :height="tableHeight()" :size="$store.state.app.size" 
-              stripe :border="!mobile" highlight-current-row fit 
+              v-set-input:no-tab-index="{tabIndex: -1}" v-table-enter-tab stripe :border="!mobile" highlight-current-row fit 
               @row-click="(row, column, event)=>cgList.list_rowClick(myself,{ row, column, event })" 
               @row-contextmenu="(row, column, event)=>cgList.list_rowContextmenu(myself,{ row, column, event })" 
               @header-click="(column, event)=>cgList.list_headClick(myself,{ column, event })" 
@@ -19,7 +19,7 @@
       <el-table-column v-if="!mobile" type="index" width="50" align="center" class-name="drag-filter" label-class-name="pointer-cursor" header-align="center">
         <i slot="header" class="el-icon-menu"/>
       </el-table-column>
-      <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter" width="36" />
+      <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter no-tab-index" width="36" />
       <el-table-column prop="name" width="120" :label="$t('cgProject.field.name')" align="left" >
         <template slot-scope="scope">
           {{ scope.row.name }}
@@ -65,6 +65,7 @@
 
 <script>
 import {hasAuthority} from '@/utils/cg'
+import rulesObject from './rules.js'
 import ParentTable from '@/views/common-views/components/table'
 const Comp = {
   name: 'CgListCgProject',
@@ -77,6 +78,7 @@ const Comp = {
   },
   data() {
     return {
+      rulesObject,
       path: 'list',
       defaultOrder: 'id desc',
       queryRecordFields: [],

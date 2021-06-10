@@ -74,28 +74,28 @@
 				<artifactId>codegenerator</artifactId>
 				<version>3.0.1-SNAPSHOT</version>
 			</dependency>
-			<dependency>
-				<groupId>top.iotequ</groupId>
-				<artifactId>svas</artifactId>
-				<version>3.0.1-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-			<groupId>top.iotequ</groupId>
-				<artifactId>svas-client</artifactId>
-				<version>3.0.1-SNAPSHOT</version>
-			</dependency>
+		<!--			<dependency>
+                        <groupId>top.iotequ</groupId>
+                        <artifactId>svas</artifactId>
+                        <version>3.0.1-SNAPSHOT</version>
+                    </dependency>
+                    <dependency>
+                    <groupId>top.iotequ</groupId>
+                        <artifactId>svas-client</artifactId>
+                        <version>3.0.1-SNAPSHOT</version>
+                    </dependency>
 
-		  <dependency>
-				<groupId>top.iotequ</groupId>
-				<artifactId>reader</artifactId>
-				<version>3.0.1-SNAPSHOT</version>
-				<exclusions>  
-			 	<exclusion>  
-                   <groupId>top.iotequ</groupId>
-			       <artifactId>framework</artifactId>
-                 </exclusion>
-                </exclusions>  
-			</dependency>
+                  <dependency>
+                        <groupId>top.iotequ</groupId>
+                        <artifactId>reader</artifactId>
+                        <version>3.0.1-SNAPSHOT</version>
+                        <exclusions>
+                         <exclusion>
+                           <groupId>top.iotequ</groupId>
+                           <artifactId>framework</artifactId>
+                         </exclusion>
+                        </exclusions>
+                    </dependency>-->
 
 	</dependencies>
 	<build>

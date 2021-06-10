@@ -4,7 +4,7 @@ export default {
       list: 'Field list',
       record: 'Field design',
       groupCgFieldTitle: 'Field properties',
-      groupCgFieldDictTable: 'Dictionary',
+      groupCgFieldDictTable: 'Dictionary properties',
       groupCgFieldType: 'DB properties',
       code: 'Field design'
     },
