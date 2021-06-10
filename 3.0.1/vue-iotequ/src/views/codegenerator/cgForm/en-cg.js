@@ -3,8 +3,8 @@ export default {
     title: {
       list: 'From list',
       record: 'Form design',
-      groupCgFormTableId: 'Group table id',
-      groupCgFormImages: 'Group images',
+      groupCgFormTableId: 'Base properties',
+      groupCgFormImages: 'Page design',
       code: 'Form design'
     },
     field: {

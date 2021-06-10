@@ -3,8 +3,8 @@ export default {
     title: {
       list: 'Field of list',
       record: 'Fields of list',
-      groupCgListFieldEntityField: 'Group entity field',
-      groupCgListFieldFix: 'Group fix',
+      groupCgListFieldEntityField: 'Base properties',
+      groupCgListFieldFix: 'Extended',
       code: 'Fields of list'
     },
     action: {

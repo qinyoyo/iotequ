@@ -3,9 +3,9 @@ export default {
     title: {
       list: 'Field list',
       record: 'Field design',
-      groupCgFieldTitle: 'Group title',
-      groupCgFieldDictTable: 'Group dict table',
-      groupCgFieldType: 'Group type',
+      groupCgFieldTitle: 'Field properties',
+      groupCgFieldDictTable: 'Dictionary',
+      groupCgFieldType: 'DB properties',
       code: 'Field design'
     },
     action: {

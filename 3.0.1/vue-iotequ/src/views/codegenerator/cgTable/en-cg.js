@@ -3,8 +3,8 @@ export default {
     title: {
       list: 'Code design',
       record: 'Code design',
-      groupCgTableModule: 'Group module',
-      groupCgTableImports: 'Group imports',
+      groupCgTableModule: 'Table define',
+      groupCgTableImports: 'Code design',
       code: 'Cg table'
     },
     action: {
@@ -25,7 +25,7 @@ export default {
       code: 'Code',
       nameValid: 'Please input correct value for name',
       name: 'Name',
-      titleValid: 'Please input correct value for title',
+      titleValid: '分隔中文和英文',
       title: 'Title',
       subPackageValid: 'Please input correct value for sub package',
       subPackage: 'Sub package',

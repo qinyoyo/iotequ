@@ -3,8 +3,8 @@ export default {
     title: {
       list: 'Fields of form',
       record: 'Fields of form',
-      groupCgFormFieldEntityField: 'Group entity field',
-      groupCgFormFieldFormItemProperties: 'Group form item properties',
+      groupCgFormFieldEntityField: 'Base properties',
+      groupCgFormFieldFormItemProperties: 'Label attributes',
       code: 'Fields of form'
     },
     action: {

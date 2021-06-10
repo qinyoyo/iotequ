@@ -25,7 +25,7 @@ export default {
       code: 'cg代码',
       nameValid: '项目简写_代码定义code',
       name: '数据库表',
-      titleValid: '表格大标题',
+      titleValid: '表格大标题,',
       title: '标题',
       subPackageValid: '子包，一般为大项目的某一个模块名称，单个词，不允许包含.号',
       subPackage: '子包',

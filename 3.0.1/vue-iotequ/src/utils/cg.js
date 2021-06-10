@@ -610,7 +610,7 @@ export function rows2Dictionary(rows,textField,valueField,idField,parentField,pa
   const dict=[]
   rows.forEach(r=>{
     let d = {
-      text: r[textField]+'',
+      text: localeText(r[textField]+''),
       value: r[valueField]+''
     }
     if (idField && parentField) {

@@ -4,10 +4,10 @@ export default {
       list: 'List',
       join: 'Select list',
       record: 'List design',
-      groupCgListTableId: 'Group table id',
-      groupCgListSons: 'Group sons',
-      groupCgListTableHeight: 'Group table height',
-      groupCgListImages: 'Group images',
+      groupCgListTableId: 'Base properties',
+      groupCgListSons: 'M-S/Tree/Group',
+      groupCgListTableHeight: 'Table attributes',
+      groupCgListImages: 'Page design',
       code: 'List design'
     },
     field: {
