@@ -1,4 +1,3 @@
-mvn install:install-file -Dfile=lib/DeviceFinger-1.2.6-SNAPSHOT.jar -DgroupId=com.svein -DartifactId=DeviceFinger -Dversion=1.2.6-SNAPSHOT -Dpackaging=jar
-mvn install:install-file -Dfile=lib/SDK_BEAN-1.2.6.jar -DgroupId=com.svein.bean -DartifactId=SDK_BEAN -Dversion=1.2.6 -Dpackaging=jar
-mvn install:install-file -Dfile=lib/SDKClient-1.2.6.jar -DgroupId=com.svein.sdkclient -DartifactId=SDKClient -Dversion=1.2.6 -Dpackaging=jar
+mvn install:install-file -Dfile=lib/DeviceFinger-1.5.0-SNAPSHOT.jar -DgroupId=com.svein -DartifactId=DeviceFinger -Dversion=1.5.0-SNAPSHOT -Dpackaging=jar
+mvn install:install-file -Dfile=lib/SDKClient-1.4.0.jar -DgroupId=com.svein.sdkclient -DartifactId=SDKClient -Dversion=1.4.0 -Dpackaging=jar
 
