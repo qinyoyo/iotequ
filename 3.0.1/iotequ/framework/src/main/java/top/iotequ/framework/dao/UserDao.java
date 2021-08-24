@@ -11,7 +11,7 @@ import top.iotequ.framework.service.IDaoService;
 import top.iotequ.framework.pojo.User;
 import java.util.*;
 
-//  Mapper dao : UserDao (用户数据访问接口)
+//  Mapper dao : UserDao (用户|Login user数据访问接口)
 public interface UserDao  extends IDaoService<User> {
     int insert(User record);
     int insertBatchWithId(List<User> list);

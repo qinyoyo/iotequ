@@ -13,7 +13,7 @@ import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
 import java.util.*;
 
-//  Pojo entity : Task (调度任务)
+//  Pojo entity : Task (调度任务|Task)
 @CgTableAnnotation(name="sys_task",
                    title="sysTask",
                    baseUrl="/framework/sysTask",

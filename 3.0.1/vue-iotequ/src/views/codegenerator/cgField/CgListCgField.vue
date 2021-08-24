@@ -6,7 +6,7 @@
     </el-backtop>
     <el-table ref="cgList" v-if="isTableMode()" v-loading="listLoading" :data="rows" :class="className" row-key="id" :row-class-name="rowClassName" 
               style="width: 100%" :height="tableHeight()" :size="$store.state.app.size" 
-              stripe :border="!mobile" highlight-current-row fit 
+              v-set-input:no-tab-index="{tabIndex: -1}" v-table-enter-tab stripe :border="!mobile" highlight-current-row fit 
               @row-click="(row, column, event)=>cgList.list_rowClick(myself,{ row, column, event })" 
               @row-contextmenu="(row, column, event)=>cgList.list_rowContextmenu(myself,{ row, column, event })" 
               @header-click="(column, event)=>cgList.list_headClick(myself,{ column, event })" 
@@ -19,22 +19,25 @@
       <el-table-column v-if="!mobile" type="index" width="50" align="center" class-name="drag-filter" label-class-name="pointer-cursor" header-align="center">
         <i slot="header" class="el-icon-menu"/>
       </el-table-column>
-      <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter" width="36" />
+      <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter no-tab-index" width="36" />
       <cg-table-column prop="entityName" :page="1" :label="$t('cgField.field.entityName')" sortable align="left" >
         <template slot-scope="scope">
-          {{ scope.row.entityName }}
+          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.entityName" type="text" />
+          <span v-else>{{ scope.row.entityName }}</span>
         </template>
 
       </cg-table-column>
       <cg-table-column prop="name" :page="1" :label="$t('cgField.field.name')" sortable align="left" >
         <template slot-scope="scope">
-          {{ scope.row.name }}
+          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.name" type="text" />
+          <span v-else>{{ scope.row.name }}</span>
         </template>
 
       </cg-table-column>
       <cg-table-column prop="title" :page="1" :label="$t('cgField.field.title')" sortable align="left" >
         <template slot-scope="scope">
-          {{ localeText(scope.row.title) }}
+          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.title" type="text" />
+          <span v-else>{{ scope.row.title }}</span>
         </template>
 
       </cg-table-column>
@@ -46,31 +49,36 @@
       </cg-table-column>
       <cg-table-column prop="type" type="dict" :page="1" :label="$t('cgField.field.type')" align="left" >
         <template slot-scope="scope">
-          {{ dictValue(scope.row.type,dictionary.dictType,false,true) }}
+          <cg-select v-if="scope.row.inlineEditting" v-model="scope.row.type" automaticDropdown appendToBody :dictionary="dictionary.dictType" allow-create numberic />
+          <span v-else>{{ dictValue(scope.row.type,dictionary.dictType,false,true) }}</span>
         </template>
 
       </cg-table-column>
       <cg-table-column prop="length" :page="1" :label="$t('cgField.field.length')" align="left" >
         <template slot-scope="scope">
-          {{ scope.row.length }}
+          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.length" type="text" />
+          <span v-else>{{ scope.row.length }}</span>
         </template>
 
       </cg-table-column>
       <cg-table-column prop="keyType" type="dict" :page="1" :label="$t('cgField.field.keyType')" align="left" >
         <template slot-scope="scope">
-          {{ dictValue(scope.row.keyType,dictionary.dictKeyType,false,true) }}
+          <cg-select v-if="scope.row.inlineEditting" v-model="scope.row.keyType" automaticDropdown appendToBody :dictionary="dictionary.dictKeyType" allow-create numberic />
+          <span v-else>{{ dictValue(scope.row.keyType,dictionary.dictKeyType,false,true) }}</span>
         </template>
 
       </cg-table-column>
       <cg-table-column prop="isNull" :page="1" :label="$t('cgField.field.isNull')" align="left" >
         <template slot-scope="scope">
-          <cg-icon :color="scope.row.isNull?'#46a6ff':'grey'" :icon="scope.row.isNull?'fa fa-check-circle':'fa fa-circle-o'"/>
+          <el-switch v-if="scope.row.inlineEditting" v-model="scope.row.isNull" />
+          <cg-icon v-else :color="scope.row.isNull?'#46a6ff':'grey'" :icon="scope.row.isNull?'fa fa-check-circle':'fa fa-circle-o'"/>
         </template>
 
       </cg-table-column>
       <cg-table-column prop="defaultValue" :page="1" :label="$t('cgField.field.defaultValue')" align="left" >
         <template slot-scope="scope">
-          {{ scope.row.defaultValue }}
+          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.defaultValue" type="text" />
+          <span v-else>{{ scope.row.defaultValue }}</span>
         </template>
 
       </cg-table-column>
@@ -116,7 +124,7 @@
                     :readonly="fixedQueryRecord.name?true:false" :label="$t('cgField.field.name')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('cgField.field.title')" prop="title" :size="$store.state.app.size">
-          <cg-input v-model="queryRecord.title" type="text" name="title"
+          <el-input v-model="queryRecord.title" type="text" name="title"
                     :readonly="fixedQueryRecord.title?true:false" :label="$t('cgField.field.title')" clearable resize autofocus/>
         </el-form-item>
       </div>
@@ -125,8 +133,8 @@
 </template>
 
 <script>
-import {localeText} from '@/lang'
 import {hasAuthority} from '@/utils/cg'
+import rulesObject from './rules.js'
 import ParentTable from '@/views/common-views/components/table'
 const Comp = {
   name: 'CgListCgField',
@@ -139,6 +147,7 @@ const Comp = {
   },
   data() {
     return {
+      rulesObject,
       path: 'list',
       defaultOrder: 'table_id,order_num',
       queryRecordFields: ['entityName','name','title'],
@@ -154,6 +163,8 @@ const Comp = {
         dictKeyType: this.getDictionary('0,1,2,3,4,5,11,12,13','cgField.field.keyType_0,cgField.field.keyType_1,cgField.field.keyType_2,cgField.field.keyType_3,cgField.field.keyType_4,cgField.field.keyType_5,cgField.field.keyType_6,cgField.field.keyType_7,cgField.field.keyType_8')
       },
       needLoadDictionary: true,
+      totalEdittingRows: 0,
+      editInlineFields: hasAuthority('/codegenerator/cgField/updateSelective')?['entityName', 'name', 'title', 'type', 'length', 'keyType', 'isNull', 'defaultValue']:null,
       listName: 'cgField',
       generatorName: 'cgField',
       baseUrl: '/codegenerator/cgField'
@@ -166,7 +177,7 @@ const Comp = {
     }
   },
   mounted() {
-    this.cgList.list_tableInit(this)
+    this.cgList.list_tableInit(this,'orderNum')
   },
   methods: {
     initialQueryRecord() {

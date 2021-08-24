@@ -11,7 +11,7 @@ import top.iotequ.framework.service.IDaoService;
 import top.iotequ.attendance.data.pojo.AdData;
 import java.util.*;
 
-//  Mapper dao : AdDataDao (考勤数据数据访问接口)
+//  Mapper dao : AdDataDao (考勤数据|Attendance data数据访问接口)
 public interface AdDataDao  extends IDaoService<AdData> {
     int insert(AdData record);
     int insertBatchWithoutId(List<AdData> list);

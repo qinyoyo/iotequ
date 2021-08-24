@@ -10,6 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.env.Environment;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import top.iotequ.framework.bean.SpringContext;
 import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.exception.IotequThrowable;
 import top.iotequ.framework.flow.IFlowService;
@@ -30,8 +31,8 @@ import java.util.*;
 public abstract class CgService<T extends CgEntity> implements ICgService<T>, CommandLineRunner {
     private static final Logger log = LoggerFactory.getLogger(CgService.class);
     /**************************  Licence 控制管理    **********************************************/
-    private Integer verLicence=null;
-    private Integer verTrialDays=null;
+    private Integer verLicence=null;  // licence数量，null表示无限制
+    private Integer verTrialDays=null; // 试用天数，null表示无限制
     Class<T> clazz = getEntityClass();
     private CgTableAnnotation annotation=null;
     protected IDaoService daoService = getDaoService();
@@ -39,13 +40,16 @@ public abstract class CgService<T extends CgEntity> implements ICgService<T>, Co
 
     /** Licence 处理 **************************************/
 
-    @Override public Integer getLicence() { return verLicence;};
+    @Override public Integer getLicence() { return verLicence; };
     @Override public Integer getTrialDays() { return verTrialDays; };
 
     @Override
     public int checkAvailable() throws IotequException {
         if (verTrialDays==null)  return Integer.MAX_VALUE;
-        else if (verTrialDays<=0) throw new IotequException(IotequThrowable.VERSION_EXPIRED,null);
+        else if (verTrialDays<=0) {
+            log.error("---------- {} trial version expired", annotation.module());
+            throw new IotequException(IotequThrowable.VERSION_EXPIRED,null);
+        }
         else return verTrialDays;
     }
     @Override
@@ -99,15 +103,24 @@ public abstract class CgService<T extends CgEntity> implements ICgService<T>, Co
             if (verTrialDays == null) {
                 if (verLicence == null)
                     log.info("---------- {} free version", scModule);
-                else
+                else {
                     log.info("---------- {}s version,licence = {}", scModule, verLicence);
-            } else if (verTrialDays <= 0)
+                    IotequVersionInfo.licencesInfo.put(scModule,"licence = "+String.valueOf(li));
+                }
+            } else if (verTrialDays <= 0) {
                 log.info("---------- {} trial version expired", scModule);
+                IotequVersionInfo.licencesInfo.put(scModule,"expired");
+            }
             else {
-                if (verLicence == null)
+                if (verLicence == null) {
                     log.info("---------- {} unlimitted trial version : {} days left", scModule, verTrialDays);
-                else
+                    verLicence = Integer.MAX_VALUE;
+                    IotequVersionInfo.licencesInfo.put(scModule,verTrialDays+" days left");
+                }
+                else {
                     log.info("---------- {} trial version : {} days left , licence = {}", scModule, verTrialDays, verLicence);
+                    IotequVersionInfo.licencesInfo.put(scModule,verTrialDays+" days left , licence = "+verLicence);
+                }
             }
             try {
                 getLicenceLeft();
@@ -165,7 +178,8 @@ public abstract class CgService<T extends CgEntity> implements ICgService<T>, Co
             else whereString="("+filter+") and (" +whereString+")";
         }
 		if (annotation.hasLicence()) {
-            filter = SqlUtil.licenceCondition(annotation.module(), annotation.name(), getLicence());
+		    Integer licence = getLicence();
+            filter = (licence ==null ? null : SqlUtil.licenceCondition(annotation.module(), annotation.name(), licence));
             if (!Util.isEmpty(filter)) {
                 if (Util.isEmpty(whereString)) whereString = filter;
                 else whereString = "(" + filter + ") and (" + whereString + ")";

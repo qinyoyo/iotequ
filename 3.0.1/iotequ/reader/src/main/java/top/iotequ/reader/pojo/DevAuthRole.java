@@ -13,7 +13,7 @@ import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
 import java.util.*;
 
-//  Pojo entity : DevAuthRole (权限定义)
+//  Pojo entity : DevAuthRole (权限定义|Authorization role)
 @CgTableAnnotation(name="dev_auth_role",
                    title="devAuthRole",
                    baseUrl="/reader/devAuthRole",

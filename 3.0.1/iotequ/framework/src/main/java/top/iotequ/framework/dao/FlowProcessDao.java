@@ -11,7 +11,7 @@ import top.iotequ.framework.service.IDaoService;
 import top.iotequ.framework.pojo.FlowProcess;
 import java.util.*;
 
-//  Mapper dao : FlowProcessDao (流程处理数据访问接口)
+//  Mapper dao : FlowProcessDao (流程处理|Flow process数据访问接口)
 public interface FlowProcessDao  extends IDaoService<FlowProcess> {
     int insert(FlowProcess record);
     int insertBatchWithoutId(List<FlowProcess> list);

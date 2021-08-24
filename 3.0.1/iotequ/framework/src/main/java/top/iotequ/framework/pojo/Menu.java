@@ -13,7 +13,7 @@ import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
 import java.util.*;
 
-//  Pojo entity : Menu (系统菜单)
+//  Pojo entity : Menu (系统菜单|Menu)
 @CgTableAnnotation(name="sys_menu",
                    title="sysMenu",
                    baseUrl="/framework/sysMenu",

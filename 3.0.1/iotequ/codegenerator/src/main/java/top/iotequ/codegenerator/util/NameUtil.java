@@ -33,8 +33,8 @@ public class NameUtil {
 
     public static String basePackage(CgTable t) {
         assert (t != null);
-        String md = (Util.isEmpty(t.getGroupId()) ? "" : t.getGroupId().trim() + ".") + t.getModule().trim();
-        if (!Util.isEmpty(t.getSubPackage())) md = md + "." + t.getSubPackage().trim();
+        String md = (Util.isEmpty(t.getGroupId()) ? "" : t.getGroupId().trim() + ".") + StringUtil.camelString(t.getModule().trim());
+        if (!Util.isEmpty(t.getSubPackage())) md = md + "." + StringUtil.camelString(t.getSubPackage().trim());
         return md;
     }
 

@@ -22,7 +22,7 @@
       <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter" width="36" />
       <cg-table-column prop="headTitle" :page="1" :label="$t('cgList.field.headTitle')" align="left" >
         <template slot-scope="scope">
-          {{ localeText(scope.row.headTitle) }}
+          {{ scope.row.headTitle }}
         </template>
 
       </cg-table-column>
@@ -64,7 +64,6 @@
 </template>
 
 <script>
-import {localeText} from '@/lang'
 import {hasAuthority} from '@/utils/cg'
 import ParentTable from '@/views/common-views/components/table'
 const Comp = {

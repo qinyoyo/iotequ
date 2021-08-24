@@ -90,7 +90,7 @@ public class CgField implements CgEntity {
     private Boolean dictMultiple;		//多选 db field:dict_multiple
 
     @SerializedName(value = "dictText", alternate = {"dict_text","DICT_TEXT"})
-    @CgFieldAnnotation(name="dict_text",jdbcType="VARCHAR",length=1000,nullable=true,format="@")
+    @CgFieldAnnotation(name="dict_text",jdbcType="VARCHAR",length=500,nullable=true,format="@")
     private String dictText;		//字典Text db field:dict_text
 
     @SerializedName(value = "dynaCondition", alternate = {"dyna_condition","DYNA_CONDITION"})

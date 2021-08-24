@@ -19,7 +19,7 @@ export default {
       orderNum: '排序',
       entityNameValid: '实体类的属性名,为数据库名对应驼峰标识',
       entityName: 'Entity名',
-      titleValid: '字段编辑显示标题，可以同时输入中文和英文，以',
+      titleValid: '字段编辑显示标题，输入中文和英文，以',
       title: '标题',
       nameValid: '数据库字段名,n:fun可定义数据库计算字段,为空可以定义非数据库的自定义显示字段',
       name: '字段名',

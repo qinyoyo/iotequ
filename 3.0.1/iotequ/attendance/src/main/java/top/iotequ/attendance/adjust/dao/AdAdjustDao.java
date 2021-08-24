@@ -11,7 +11,7 @@ import top.iotequ.framework.service.IDaoService;
 import top.iotequ.attendance.adjust.pojo.AdAdjust;
 import java.util.*;
 
-//  Mapper dao : AdAdjustDao (考勤调整数据访问接口)
+//  Mapper dao : AdAdjustDao (考勤调整|Action of attendance数据访问接口)
 public interface AdAdjustDao  extends IDaoService<AdAdjust> {
     int insert(AdAdjust record);
     int insertBatchWithoutId(List<AdAdjust> list);

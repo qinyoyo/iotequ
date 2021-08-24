@@ -11,7 +11,7 @@ import top.iotequ.framework.service.IDaoService;
 import top.iotequ.framework.pojo.Action;
 import java.util.*;
 
-//  Mapper dao : ActionDao (功能列表数据访问接口)
+//  Mapper dao : ActionDao (功能列表|System action数据访问接口)
 public interface ActionDao  extends IDaoService<Action> {
     int insert(Action record);
     int insertBatchWithoutId(List<Action> list);

@@ -56,7 +56,8 @@ public class CgDevPeopleService extends CgService<DevPeople>  {
         checkAvailable();
         if (devPeople==null)  devPeople=new DevPeople();
         else devPeople.setUserNo(null);
-        devPeople.setExpiredDate(DateUtil.dateAdd(new Date(),1, DateUtil.DAY));
+        devPeople.setValidDate(DateUtil.startOf(new Date(), DateUtil.DAY));
+        devPeople.setExpiredDate(DateUtil.dateAdd(new Date(),1,DateUtil.YEAR));
         return devPeople;
     }
     @Override
@@ -89,12 +90,6 @@ public class CgDevPeopleService extends CgService<DevPeople>  {
         }
         if (devPeople.getRegisterType()==null) {
             devPeople.setRegisterType(1);
-        }
-        if (devPeople.getValidDate()==null) {
-            devPeople.setValidDate(new Date());
-        }
-        if (devPeople.getExpiredDate()==null) {
-            devPeople.setExpiredDate(DateUtil.dateAdd(new Date(),1, DateUtil.DAY));
         }
     }
     @Override

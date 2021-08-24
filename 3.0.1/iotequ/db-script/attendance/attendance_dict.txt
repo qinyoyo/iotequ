@@ -33,7 +33,7 @@ start_date	开始日期	date	✘
 week_day	工作属性	int	✘	
 description	详细描述	varchar	√	
 
-表：ad_employee : 考勤职员表
+表：ad_employee : 考勤职员表|Employee
 employee_no	工号	varchar	✘	
 em_level	职务级别	int	√	
 is_attendance	是否考勤	tinyint(1)	✘	
@@ -43,7 +43,7 @@ overtime_minutes	可调休时间	int	✘
 shift_id	考勤排班	int	√	
 id	用户	varchar	✘	
 
-表：ad_approve_list : 审核信息表
+表：ad_approve_list : 审核信息表|Audit infomation
 id		int	✘	
 approve_time	审批时间	datetime	✘	
 state1	审批后状态	int	√	f:{String.valueOf(AdUtil.st_waiting):等待审批  String.valueOf(AdUtil.st_doing):审批中  String.valueOf(AdUtil.st_passed):批准  String.valueOf(AdUtil.st_refused)}:未批准  
@@ -76,7 +76,7 @@ end_date	终止时间(含)	date	✘
 minutes_per_day	工作时长(分)	int	✘	
 description	描述	varchar	√	
 
-表：ad_day_result : 日考勤结果
+表：ad_day_result : 日考勤结果|Attendance result by day
 id		int	✘	
 org_code	部门	int	✘	
 org_name	部门名	varchar	✘	
@@ -92,7 +92,7 @@ work_minutes	工作时长	int	✘
 shift_id	班次排序	int	✘	
 employee_no	工号	varchar	✘	
 
-表：ad_data : 考勤数据
+表：ad_data : 考勤数据|Attendance data
 id		varchar	✘	
 rec_source_type	来源类别	varchar	✘	
 rec_source	来源	varchar	√	
@@ -101,7 +101,7 @@ rec_time	时间	datetime	✘
 is_used	被使用	boolean	✘	
 employee_no	工号	varchar	✘	
 
-表：ad_adjust : 考勤调整
+表：ad_adjust : 考勤调整|Action of attendance
 id	id	char	✘	
 org_code	部门	int	✘	
 adjust_type	调整类别	int	√	f:{String.valueOf(AdUtil.ad_add_data):数据补登  String.valueOf(AdUtil.ad_business_local):市内出差  String.valueOf(AdUtil.ad_business_out):外地出差    String.valueOf(AdUtil.ad_leave_s):事假  String.valueOf(AdUtil.ad_leave_b):病假  String.valueOf(AdUtil.ad_leave_c):产假    String.valueOf(AdUtil.ad_leave_n):年假  String.valueOf(AdUtil.ad_leave_t):调休  String.valueOf(AdUtil.ad_overwork)}:加班  

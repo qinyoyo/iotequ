@@ -11,7 +11,7 @@ import top.iotequ.framework.service.IDaoService;
 import top.iotequ.reader.pojo.DevAuthGroup;
 import java.util.*;
 
-//  Mapper dao : DevAuthGroupDao (人员授权分组数据访问接口)
+//  Mapper dao : DevAuthGroupDao (人员授权分组|Group of people数据访问接口)
 public interface DevAuthGroupDao  extends IDaoService<DevAuthGroup> {
     int insert(DevAuthGroup record);
     int insertBatchWithoutId(List<DevAuthGroup> list);

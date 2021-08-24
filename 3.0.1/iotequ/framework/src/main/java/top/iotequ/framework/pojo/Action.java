@@ -13,7 +13,7 @@ import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
 import java.util.*;
 
-//  Pojo entity : Action (功能列表)
+//  Pojo entity : Action (功能列表|System action)
 @CgTableAnnotation(name="sys_action",
                    title="sysAction",
                    baseUrl="/framework/sysAction",

@@ -1,5 +1,5 @@
 
-表：sys_user : 用户
+表：sys_user : 用户|Login user
 id	uuid主键	varchar	✘	
 icon	头像	text	√	
 name	用户名	varchar	✘	
@@ -22,7 +22,7 @@ password_expired_time	密码过期时间	date	√
 password	密码	varchar	✘	
 password_error_times		int	✘	
 
-表：sys_task : 调度任务
+表：sys_task : 调度任务|Task
 id		int	✘	
 name	任务名	varchar	✘	
 description	详细说明	varchar	√	
@@ -38,7 +38,7 @@ is_static	静态方法	tinyint(1)	✘
 parames	参数	varchar	√	
 is_running	运行中	tinyint(1)	✘	
 
-表：sys_route : 路由表
+表：sys_route : 路由表|Route
 id	ID	int	✘	
 path	路径	varchar	✘	
 name	名称	varchar	✘	
@@ -48,18 +48,18 @@ breadcrumb_show	面包屑显示	tinyint(1)	✘
 need_cache	需要缓存	tinyint(1)	✘	
 tag_view	标签显示	tinyint(1)	✘	
 
-表：sys_role : 角色表
+表：sys_role : 角色表|Role
 id		int	✘	
 code	代码	varchar	✘	
 name	名称	varchar	✘	
 note	说明	varchar	√	
 
-表：sys_permission : 功能分配表
+表：sys_permission : 功能分配表|Role permission
 id		int	✘	
 role	角色	int	✘	
 action	功能	int	✘	
 
-表：sys_org : 组织机构
+表：sys_org : 组织机构|Organization
 org_code	代码	int	✘	
 name	名称	varchar	✘	
 parent	上级机构	int	√	
@@ -68,7 +68,7 @@ fax	传真	varchar	√
 role_list	角色序列	varchar	√	
 address	地址	varchar	√	
 
-表：sys_message : 消息
+表：sys_message : 消息|Message
 id	主键	int	✘	
 read_time	已阅	datetime	√	
 create_time	创建时间	datetime	✘	
@@ -81,7 +81,7 @@ receiver	消息接收人	varchar	√
 sender	消息发送人	varchar	√	
 event_id	关联id	varchar	√	
 
-表：sys_menu : 系统菜单
+表：sys_menu : 系统菜单|Menu
 id		int	✘	
 sort_num	排列顺序	int	✘	
 name	名称	varchar	✘	
@@ -95,7 +95,7 @@ bigIcon	大图标	varchar	√
 mobile_hidden	手机隐藏	tinyint(1)	✘	
 js_cmd	操作函数	varchar	√	
 
-表：sys_log : 系统日志
+表：sys_log : 系统日志|System logs
 id	uuid主键	varchar	✘	
 time	时间	datetime	✘	
 keyword	关键词	varchar	✘	
@@ -103,7 +103,7 @@ user_type	用户类别	varchar	√
 user_info	用户信息	varchar	√	
 note	详情	varchar	√	
 
-表：sys_flow_process : 流程处理
+表：sys_flow_process : 流程处理|Flow process
 id		varchar	✘	
 flow_id	流程单	varchar	✘	
 operation	操作	varchar	√	
@@ -117,25 +117,25 @@ state1	处理后状态	int	✘
 operator	处理人	varchar	✘	
 next_operator	后续处理人	varchar	√	
 
-表：sys_data_dict : 数据字典
+表：sys_data_dict : 数据字典|Data dictionary
 id		int	✘	
 dict	分类	varchar	✘	
 code	代码	varchar	✘	
 text	显示值	varchar	✘	
 order_num	排列顺序	int	√	
 
-表：sys_action : 功能列表
+表：sys_action : 功能列表|System action
 note	描述	varchar	√	
 id	ID	int	✘	
 value	值	varchar	✘	
 params	参数	varchar	√	
 method	方法	varchar	√	
 
-表：oauth_client_details : OAuth2客户端配置
+表：oauth_client_details : OAuth2客户端配置|OAuth2 setting
 client_id	client_id	varchar	✘	
 client_secret	client_secret	varchar	✘	
 scope	scope	varchar	✘	
-authorized_grant_types	认证类型	varchar	✘	password:密码模式  authorization_code:授权码模式  implicit:简化模式  client_credentials:客户端模式  
+authorized_grant_types	认证类型	varchar	✘	password:密码模式|Password  authorization_code:授权码模式|Authorization_code  implicit:简化模式|Implicit  client_credentials:客户端模式|Client_credentials  
 web_server_redirect_uri	redirect_url	varchar	√	
 authorities	权限集	varchar	✘	
 access_token_validity	token有效时间	int	✘	

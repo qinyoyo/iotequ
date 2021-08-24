@@ -6,7 +6,7 @@
     </el-backtop>
     <el-table ref="cgList" v-if="isTableMode()" v-loading="listLoading" :data="rows" :class="className" row-key="id" :row-class-name="rowClassName" 
               style="width: 100%" :height="tableHeight()" :size="$store.state.app.size" 
-              stripe :border="!mobile" highlight-current-row fit 
+              v-set-input:no-tab-index="{tabIndex: -1}" v-table-enter-tab stripe :border="!mobile" highlight-current-row fit 
               @row-click="(row, column, event)=>cgList.list_rowClick(myself,{ row, column, event })" 
               @row-contextmenu="(row, column, event)=>cgList.list_rowContextmenu(myself,{ row, column, event })" 
               @header-click="(column, event)=>cgList.list_headClick(myself,{ column, event })" 
@@ -19,46 +19,53 @@
       <el-table-column v-if="!mobile" type="index" width="50" align="center" class-name="drag-filter" label-class-name="pointer-cursor" header-align="center">
         <i slot="header" class="el-icon-menu"/>
       </el-table-column>
-      <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter" width="36" />
+      <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter no-tab-index" width="36" />
       <cg-table-column prop="action" :page="1" :label="$t('cgButton.field.action')" align="left" >
         <template slot-scope="scope">
-          {{ scope.row.action }}
+          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.action" type="text" />
+          <span v-else>{{ scope.row.action }}</span>
         </template>
 
       </cg-table-column>
       <cg-table-column prop="title" :page="1" :label="$t('cgButton.field.title')" align="left" >
         <template slot-scope="scope">
-          {{ scope.row.title }}
+          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.title" type="text" />
+          <span v-else>{{ scope.row.title }}</span>
         </template>
 
       </cg-table-column>
       <cg-table-column prop="icon" :page="1" :label="$t('cgButton.field.icon')" align="left" >
         <template slot-scope="scope">
-          {{ scope.row.icon }}
+          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.icon" type="text" />
+          <span v-else>{{ scope.row.icon }}</span>
         </template>
 
       </cg-table-column>
       <cg-table-column prop="appendClass" :page="1" :label="$t('cgButton.field.appendClass')" align="left" >
         <template slot-scope="scope">
-          {{ scope.row.appendClass }}
+          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.appendClass" type="text" />
+          <span v-else>{{ scope.row.appendClass }}</span>
         </template>
 
       </cg-table-column>
       <cg-table-column prop="actionProperty" type="dict" :page="1" :label="$t('cgButton.field.actionProperty')" align="left" >
         <template slot-scope="scope">
-          {{ dictValue(scope.row.actionProperty,dictionary.dictActionProperty,false,true) }}
+          <cg-select v-if="scope.row.inlineEditting" v-model="scope.row.actionProperty" automaticDropdown appendToBody :dictionary="dictionary.dictActionProperty" />
+          <span v-else>{{ dictValue(scope.row.actionProperty,dictionary.dictActionProperty,false,true) }}</span>
         </template>
 
       </cg-table-column>
       <cg-table-column prop="rowProperty" type="dict" :page="1" :label="$t('cgButton.field.rowProperty')" align="left" >
         <template slot-scope="scope">
-          {{ dictValue(scope.row.rowProperty,dictionary.dictRowProperty,false,true) }}
+          <cg-select v-if="scope.row.inlineEditting" v-model="scope.row.rowProperty" automaticDropdown appendToBody :dictionary="dictionary.dictRowProperty" />
+          <span v-else>{{ dictValue(scope.row.rowProperty,dictionary.dictRowProperty,false,true) }}</span>
         </template>
 
       </cg-table-column>
       <cg-table-column prop="displayProperties" type="dict" :page="1" :label="$t('cgButton.field.displayProperties')" align="left" >
         <template slot-scope="scope">
-          {{ dictValue(scope.row.displayProperties,dictionary.dictDisplayProperties,false,true) }}
+          <cg-select v-if="scope.row.inlineEditting" v-model="scope.row.displayProperties" automaticDropdown appendToBody :dictionary="dictionary.dictDisplayProperties" multiple />
+          <span v-else>{{ dictValue(scope.row.displayProperties,dictionary.dictDisplayProperties,false,true) }}</span>
         </template>
 
       </cg-table-column>
@@ -89,6 +96,7 @@
 
 <script>
 import {hasAuthority} from '@/utils/cg'
+import rulesObject from './rules.js'
 import ParentTable from '@/views/common-views/components/table'
 const Comp = {
   name: 'CgListCgButton',
@@ -101,6 +109,7 @@ const Comp = {
   },
   data() {
     return {
+      rulesObject,
       path: 'list',
       defaultOrder: 'order_num',
       queryRecordFields: [],
@@ -111,6 +120,8 @@ const Comp = {
         dictRowProperty: this.getDictionary('sr,mr,nr','cgButton.field.rowProperty_0,cgButton.field.rowProperty_1,cgButton.field.rowProperty_2'),
         dictDisplayProperties: this.getDictionary('hm,hp,tb,rw,ed,gs','cgButton.field.displayProperties_0,cgButton.field.displayProperties_1,cgButton.field.displayProperties_2,cgButton.field.displayProperties_3,cgButton.field.displayProperties_4,cgButton.field.displayProperties_5')
       },
+      totalEdittingRows: 0,
+      editInlineFields: hasAuthority('/codegenerator/cgButton/updateSelective')?['action', 'title', 'icon', 'appendClass', 'actionProperty', 'rowProperty', 'displayProperties']:null,
       listName: 'cgButton',
       multipleSelection: true,
       generatorName: 'cgButton',

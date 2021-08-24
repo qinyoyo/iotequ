@@ -11,7 +11,7 @@ import top.iotequ.framework.service.IDaoService;
 import top.iotequ.reader.pojo.DevEvent;
 import java.util.*;
 
-//  Mapper dao : DevEventDao (设备事件数据访问接口)
+//  Mapper dao : DevEventDao (设备事件|Event of device数据访问接口)
 public interface DevEventDao  extends IDaoService<DevEvent> {
     int insert(DevEvent record);
     int insertBatchWithoutId(List<DevEvent> list);

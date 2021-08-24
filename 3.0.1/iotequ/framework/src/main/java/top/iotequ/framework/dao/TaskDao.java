@@ -11,7 +11,7 @@ import top.iotequ.framework.service.IDaoService;
 import top.iotequ.framework.pojo.Task;
 import java.util.*;
 
-//  Mapper dao : TaskDao (调度任务数据访问接口)
+//  Mapper dao : TaskDao (调度任务|Task数据访问接口)
 public interface TaskDao  extends IDaoService<Task> {
     int insert(Task record);
     int insertBatchWithoutId(List<Task> list);

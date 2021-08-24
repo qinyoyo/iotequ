@@ -13,7 +13,7 @@ import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
 import java.util.*;
 
-//  Pojo entity : DevReaderGroup (设备分组)
+//  Pojo entity : DevReaderGroup (设备分组|Device group)
 @CgTableAnnotation(name="dev_reader_group",
                    title="devReaderGroup",
                    baseUrl="/reader/devReaderGroup",

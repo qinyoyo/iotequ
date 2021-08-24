@@ -25,7 +25,7 @@ import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
 import java.util.*;
 
-//  Pojo entity : User (用户)
+//  Pojo entity : User (用户|Login user)
 @CgTableAnnotation(name="sys_user",
                    title="sysUser",
                    baseUrl="/framework/sysUser",

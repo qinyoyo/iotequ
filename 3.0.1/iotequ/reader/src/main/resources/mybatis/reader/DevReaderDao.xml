@@ -3,12 +3,12 @@
 <mapper namespace="top.iotequ.reader.dao.DevReaderDao">
   <resultMap id="BaseResultMap" type="top.iotequ.reader.pojo.DevReader">
     <id column="id" jdbcType="CHAR" property="id" />
-    <result column="capacity" jdbcType="INTEGER" property="capacity" />
     <result column="reader_no" jdbcType="VARCHAR" property="readerNo" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="reader_group" jdbcType="INTEGER" property="readerGroup" />
     <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="capacity" jdbcType="INTEGER" property="capacity" />
     <result column="connect_type" jdbcType="VARCHAR" property="connectType" />
     <result column="ip" jdbcType="VARCHAR" property="ip" />
     <result column="sn_no" jdbcType="VARCHAR" property="snNo" />
@@ -37,7 +37,7 @@
     <result column="wifi_psw" jdbcType="VARCHAR" property="wifiPsw" />
   </resultMap>
   <sql id = "selectSql">
-     SELECT id,capacity,reader_no,name,type,reader_group,address,connect_type,ip,sn_no,dev_mode,firmware,is_online,is_time_sync,align_method,blacklight_time,voiceprompt,menu_time,wengenform,wengen_output,wengen_out_area,regfinger_out_time,authfinger_out_time,wg_order,relay_time,fixed_value,alarm_enable,open_enable,door_state,relay_enable,doorbell_enable,wifi_ssid,wifi_psw FROM dev_reader
+     SELECT id,reader_no,name,type,reader_group,address,capacity,connect_type,ip,sn_no,dev_mode,firmware,is_online,is_time_sync,align_method,blacklight_time,voiceprompt,menu_time,wengenform,wengen_output,wengen_out_area,regfinger_out_time,authfinger_out_time,wg_order,relay_time,fixed_value,alarm_enable,open_enable,door_state,relay_enable,doorbell_enable,wifi_ssid,wifi_psw FROM dev_reader
   </sql>
   <insert id="insert" parameterType="top.iotequ.reader.pojo.DevReader">
     <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String" >
@@ -49,42 +49,42 @@
     <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String" databaseId="Oracle">
       SELECT replace(lower(sys_guid()), '-', '') from dual
     </selectKey>
-    insert into dev_reader (id,capacity,reader_no,name,type,reader_group,address,connect_type,ip,sn_no,dev_mode,firmware,is_online,is_time_sync,align_method,blacklight_time,voiceprompt,menu_time,wengenform,wengen_output,wengen_out_area,regfinger_out_time,authfinger_out_time,wg_order,relay_time,fixed_value,alarm_enable,open_enable,door_state,relay_enable,doorbell_enable,wifi_ssid,wifi_psw)
+    insert into dev_reader (id,reader_no,name,type,reader_group,address,capacity,connect_type,ip,sn_no,dev_mode,firmware,is_online,is_time_sync,align_method,blacklight_time,voiceprompt,menu_time,wengenform,wengen_output,wengen_out_area,regfinger_out_time,authfinger_out_time,wg_order,relay_time,fixed_value,alarm_enable,open_enable,door_state,relay_enable,doorbell_enable,wifi_ssid,wifi_psw)
       values 
-      (#{id,jdbcType=CHAR},#{capacity,jdbcType=INTEGER},#{readerNo,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{type,jdbcType=VARCHAR},#{readerGroup,jdbcType=INTEGER},#{address,jdbcType=VARCHAR},#{connectType,jdbcType=VARCHAR},#{ip,jdbcType=VARCHAR},#{snNo,jdbcType=VARCHAR},#{devMode,jdbcType=VARCHAR},#{firmware,jdbcType=VARCHAR},#{isOnline,jdbcType=VARCHAR},#{isTimeSync,jdbcType=VARCHAR},#{alignMethod,jdbcType=TINYINT},#{blacklightTime,jdbcType=TINYINT},#{voiceprompt,jdbcType=VARCHAR},#{menuTime,jdbcType=TINYINT},#{wengenform,jdbcType=TINYINT},#{wengenOutput,jdbcType=TINYINT},#{wengenOutArea,jdbcType=TINYINT},#{regfingerOutTime,jdbcType=TINYINT},#{authfingerOutTime,jdbcType=TINYINT},#{wgOrder,jdbcType=TINYINT},#{relayTime,jdbcType=TINYINT},#{fixedValue,jdbcType=VARCHAR},#{alarmEnable,jdbcType=TINYINT},#{openEnable,jdbcType=TINYINT},#{doorState,jdbcType=TINYINT},#{relayEnable,jdbcType=TINYINT},#{doorbellEnable,jdbcType=TINYINT},#{wifiSsid,jdbcType=VARCHAR},#{wifiPsw,jdbcType=VARCHAR})
+      (#{id,jdbcType=CHAR},#{readerNo,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{type,jdbcType=VARCHAR},#{readerGroup,jdbcType=INTEGER},#{address,jdbcType=VARCHAR},#{capacity,jdbcType=INTEGER},#{connectType,jdbcType=VARCHAR},#{ip,jdbcType=VARCHAR},#{snNo,jdbcType=VARCHAR},#{devMode,jdbcType=VARCHAR},#{firmware,jdbcType=VARCHAR},#{isOnline,jdbcType=VARCHAR},#{isTimeSync,jdbcType=VARCHAR},#{alignMethod,jdbcType=TINYINT},#{blacklightTime,jdbcType=TINYINT},#{voiceprompt,jdbcType=VARCHAR},#{menuTime,jdbcType=TINYINT},#{wengenform,jdbcType=TINYINT},#{wengenOutput,jdbcType=TINYINT},#{wengenOutArea,jdbcType=TINYINT},#{regfingerOutTime,jdbcType=TINYINT},#{authfingerOutTime,jdbcType=TINYINT},#{wgOrder,jdbcType=TINYINT},#{relayTime,jdbcType=TINYINT},#{fixedValue,jdbcType=VARCHAR},#{alarmEnable,jdbcType=TINYINT},#{openEnable,jdbcType=TINYINT},#{doorState,jdbcType=TINYINT},#{relayEnable,jdbcType=TINYINT},#{doorbellEnable,jdbcType=TINYINT},#{wifiSsid,jdbcType=VARCHAR},#{wifiPsw,jdbcType=VARCHAR})
   </insert>
   <insert id="insertBatchWithoutId" parameterType="top.iotequ.reader.pojo.DevReader">
-    insert into dev_reader (id,capacity,reader_no,name,type,reader_group,address,connect_type,ip,sn_no,dev_mode,firmware,is_online,is_time_sync,align_method,blacklight_time,voiceprompt,menu_time,wengenform,wengen_output,wengen_out_area,regfinger_out_time,authfinger_out_time,wg_order,relay_time,fixed_value,alarm_enable,open_enable,door_state,relay_enable,doorbell_enable,wifi_ssid,wifi_psw)
+    insert into dev_reader (id,reader_no,name,type,reader_group,address,capacity,connect_type,ip,sn_no,dev_mode,firmware,is_online,is_time_sync,align_method,blacklight_time,voiceprompt,menu_time,wengenform,wengen_output,wengen_out_area,regfinger_out_time,authfinger_out_time,wg_order,relay_time,fixed_value,alarm_enable,open_enable,door_state,relay_enable,doorbell_enable,wifi_ssid,wifi_psw)
       values 
     <foreach collection="list" item="item" index="index" separator=",">
-      (replace(uuid(), '-', ''),#{item.capacity,jdbcType=INTEGER},#{item.readerNo,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.type,jdbcType=VARCHAR},#{item.readerGroup,jdbcType=INTEGER},#{item.address,jdbcType=VARCHAR},#{item.connectType,jdbcType=VARCHAR},#{item.ip,jdbcType=VARCHAR},#{item.snNo,jdbcType=VARCHAR},#{item.devMode,jdbcType=VARCHAR},#{item.firmware,jdbcType=VARCHAR},#{item.isOnline,jdbcType=VARCHAR},#{item.isTimeSync,jdbcType=VARCHAR},#{item.alignMethod,jdbcType=TINYINT},#{item.blacklightTime,jdbcType=TINYINT},#{item.voiceprompt,jdbcType=VARCHAR},#{item.menuTime,jdbcType=TINYINT},#{item.wengenform,jdbcType=TINYINT},#{item.wengenOutput,jdbcType=TINYINT},#{item.wengenOutArea,jdbcType=TINYINT},#{item.regfingerOutTime,jdbcType=TINYINT},#{item.authfingerOutTime,jdbcType=TINYINT},#{item.wgOrder,jdbcType=TINYINT},#{item.relayTime,jdbcType=TINYINT},#{item.fixedValue,jdbcType=VARCHAR},#{item.alarmEnable,jdbcType=TINYINT},#{item.openEnable,jdbcType=TINYINT},#{item.doorState,jdbcType=TINYINT},#{item.relayEnable,jdbcType=TINYINT},#{item.doorbellEnable,jdbcType=TINYINT},#{item.wifiSsid,jdbcType=VARCHAR},#{item.wifiPsw,jdbcType=VARCHAR})
+      (replace(uuid(), '-', ''),#{item.readerNo,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.type,jdbcType=VARCHAR},#{item.readerGroup,jdbcType=INTEGER},#{item.address,jdbcType=VARCHAR},#{item.capacity,jdbcType=INTEGER},#{item.connectType,jdbcType=VARCHAR},#{item.ip,jdbcType=VARCHAR},#{item.snNo,jdbcType=VARCHAR},#{item.devMode,jdbcType=VARCHAR},#{item.firmware,jdbcType=VARCHAR},#{item.isOnline,jdbcType=VARCHAR},#{item.isTimeSync,jdbcType=VARCHAR},#{item.alignMethod,jdbcType=TINYINT},#{item.blacklightTime,jdbcType=TINYINT},#{item.voiceprompt,jdbcType=VARCHAR},#{item.menuTime,jdbcType=TINYINT},#{item.wengenform,jdbcType=TINYINT},#{item.wengenOutput,jdbcType=TINYINT},#{item.wengenOutArea,jdbcType=TINYINT},#{item.regfingerOutTime,jdbcType=TINYINT},#{item.authfingerOutTime,jdbcType=TINYINT},#{item.wgOrder,jdbcType=TINYINT},#{item.relayTime,jdbcType=TINYINT},#{item.fixedValue,jdbcType=VARCHAR},#{item.alarmEnable,jdbcType=TINYINT},#{item.openEnable,jdbcType=TINYINT},#{item.doorState,jdbcType=TINYINT},#{item.relayEnable,jdbcType=TINYINT},#{item.doorbellEnable,jdbcType=TINYINT},#{item.wifiSsid,jdbcType=VARCHAR},#{item.wifiPsw,jdbcType=VARCHAR})
     </foreach>
   </insert>
   <insert id="insertBatchWithoutId" parameterType="top.iotequ.reader.pojo.DevReader" databaseId="SQLServer">
-    insert into dev_reader (id,capacity,reader_no,name,type,reader_group,address,connect_type,ip,sn_no,dev_mode,firmware,is_online,is_time_sync,align_method,blacklight_time,voiceprompt,menu_time,wengenform,wengen_output,wengen_out_area,regfinger_out_time,authfinger_out_time,wg_order,relay_time,fixed_value,alarm_enable,open_enable,door_state,relay_enable,doorbell_enable,wifi_ssid,wifi_psw)
+    insert into dev_reader (id,reader_no,name,type,reader_group,address,capacity,connect_type,ip,sn_no,dev_mode,firmware,is_online,is_time_sync,align_method,blacklight_time,voiceprompt,menu_time,wengenform,wengen_output,wengen_out_area,regfinger_out_time,authfinger_out_time,wg_order,relay_time,fixed_value,alarm_enable,open_enable,door_state,relay_enable,doorbell_enable,wifi_ssid,wifi_psw)
       values 
     <foreach collection="list" item="item" index="index" separator=",">
-      (replace(lower(newid()), '-', ''),#{item.capacity,jdbcType=INTEGER},#{item.readerNo,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.type,jdbcType=VARCHAR},#{item.readerGroup,jdbcType=INTEGER},#{item.address,jdbcType=VARCHAR},#{item.connectType,jdbcType=VARCHAR},#{item.ip,jdbcType=VARCHAR},#{item.snNo,jdbcType=VARCHAR},#{item.devMode,jdbcType=VARCHAR},#{item.firmware,jdbcType=VARCHAR},#{item.isOnline,jdbcType=VARCHAR},#{item.isTimeSync,jdbcType=VARCHAR},#{item.alignMethod,jdbcType=TINYINT},#{item.blacklightTime,jdbcType=TINYINT},#{item.voiceprompt,jdbcType=VARCHAR},#{item.menuTime,jdbcType=TINYINT},#{item.wengenform,jdbcType=TINYINT},#{item.wengenOutput,jdbcType=TINYINT},#{item.wengenOutArea,jdbcType=TINYINT},#{item.regfingerOutTime,jdbcType=TINYINT},#{item.authfingerOutTime,jdbcType=TINYINT},#{item.wgOrder,jdbcType=TINYINT},#{item.relayTime,jdbcType=TINYINT},#{item.fixedValue,jdbcType=VARCHAR},#{item.alarmEnable,jdbcType=TINYINT},#{item.openEnable,jdbcType=TINYINT},#{item.doorState,jdbcType=TINYINT},#{item.relayEnable,jdbcType=TINYINT},#{item.doorbellEnable,jdbcType=TINYINT},#{item.wifiSsid,jdbcType=VARCHAR},#{item.wifiPsw,jdbcType=VARCHAR})
+      (replace(lower(newid()), '-', ''),#{item.readerNo,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.type,jdbcType=VARCHAR},#{item.readerGroup,jdbcType=INTEGER},#{item.address,jdbcType=VARCHAR},#{item.capacity,jdbcType=INTEGER},#{item.connectType,jdbcType=VARCHAR},#{item.ip,jdbcType=VARCHAR},#{item.snNo,jdbcType=VARCHAR},#{item.devMode,jdbcType=VARCHAR},#{item.firmware,jdbcType=VARCHAR},#{item.isOnline,jdbcType=VARCHAR},#{item.isTimeSync,jdbcType=VARCHAR},#{item.alignMethod,jdbcType=TINYINT},#{item.blacklightTime,jdbcType=TINYINT},#{item.voiceprompt,jdbcType=VARCHAR},#{item.menuTime,jdbcType=TINYINT},#{item.wengenform,jdbcType=TINYINT},#{item.wengenOutput,jdbcType=TINYINT},#{item.wengenOutArea,jdbcType=TINYINT},#{item.regfingerOutTime,jdbcType=TINYINT},#{item.authfingerOutTime,jdbcType=TINYINT},#{item.wgOrder,jdbcType=TINYINT},#{item.relayTime,jdbcType=TINYINT},#{item.fixedValue,jdbcType=VARCHAR},#{item.alarmEnable,jdbcType=TINYINT},#{item.openEnable,jdbcType=TINYINT},#{item.doorState,jdbcType=TINYINT},#{item.relayEnable,jdbcType=TINYINT},#{item.doorbellEnable,jdbcType=TINYINT},#{item.wifiSsid,jdbcType=VARCHAR},#{item.wifiPsw,jdbcType=VARCHAR})
     </foreach>
   </insert>
   <insert id="insertBatchWithoutId" parameterType="top.iotequ.reader.pojo.DevReader" databaseId="Oracle">
     insert all 
     <foreach collection="list" item="item" index="index">
-      into dev_reader (id,capacity,reader_no,name,type,reader_group,address,connect_type,ip,sn_no,dev_mode,firmware,is_online,is_time_sync,align_method,blacklight_time,voiceprompt,menu_time,wengenform,wengen_output,wengen_out_area,regfinger_out_time,authfinger_out_time,wg_order,relay_time,fixed_value,alarm_enable,open_enable,door_state,relay_enable,doorbell_enable,wifi_ssid,wifi_psw) values(replace(lower(sys_guid()), '-', ''),#{item.capacity,jdbcType=INTEGER},#{item.readerNo,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.type,jdbcType=VARCHAR},#{item.readerGroup,jdbcType=INTEGER},#{item.address,jdbcType=VARCHAR},#{item.connectType,jdbcType=VARCHAR},#{item.ip,jdbcType=VARCHAR},#{item.snNo,jdbcType=VARCHAR},#{item.devMode,jdbcType=VARCHAR},#{item.firmware,jdbcType=VARCHAR},#{item.isOnline,jdbcType=VARCHAR},#{item.isTimeSync,jdbcType=VARCHAR},#{item.alignMethod,jdbcType=TINYINT},#{item.blacklightTime,jdbcType=TINYINT},#{item.voiceprompt,jdbcType=VARCHAR},#{item.menuTime,jdbcType=TINYINT},#{item.wengenform,jdbcType=TINYINT},#{item.wengenOutput,jdbcType=TINYINT},#{item.wengenOutArea,jdbcType=TINYINT},#{item.regfingerOutTime,jdbcType=TINYINT},#{item.authfingerOutTime,jdbcType=TINYINT},#{item.wgOrder,jdbcType=TINYINT},#{item.relayTime,jdbcType=TINYINT},#{item.fixedValue,jdbcType=VARCHAR},#{item.alarmEnable,jdbcType=TINYINT},#{item.openEnable,jdbcType=TINYINT},#{item.doorState,jdbcType=TINYINT},#{item.relayEnable,jdbcType=TINYINT},#{item.doorbellEnable,jdbcType=TINYINT},#{item.wifiSsid,jdbcType=VARCHAR},#{item.wifiPsw,jdbcType=VARCHAR})
+      into dev_reader (id,reader_no,name,type,reader_group,address,capacity,connect_type,ip,sn_no,dev_mode,firmware,is_online,is_time_sync,align_method,blacklight_time,voiceprompt,menu_time,wengenform,wengen_output,wengen_out_area,regfinger_out_time,authfinger_out_time,wg_order,relay_time,fixed_value,alarm_enable,open_enable,door_state,relay_enable,doorbell_enable,wifi_ssid,wifi_psw) values(replace(lower(sys_guid()), '-', ''),#{item.readerNo,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.type,jdbcType=VARCHAR},#{item.readerGroup,jdbcType=INTEGER},#{item.address,jdbcType=VARCHAR},#{item.capacity,jdbcType=INTEGER},#{item.connectType,jdbcType=VARCHAR},#{item.ip,jdbcType=VARCHAR},#{item.snNo,jdbcType=VARCHAR},#{item.devMode,jdbcType=VARCHAR},#{item.firmware,jdbcType=VARCHAR},#{item.isOnline,jdbcType=VARCHAR},#{item.isTimeSync,jdbcType=VARCHAR},#{item.alignMethod,jdbcType=TINYINT},#{item.blacklightTime,jdbcType=TINYINT},#{item.voiceprompt,jdbcType=VARCHAR},#{item.menuTime,jdbcType=TINYINT},#{item.wengenform,jdbcType=TINYINT},#{item.wengenOutput,jdbcType=TINYINT},#{item.wengenOutArea,jdbcType=TINYINT},#{item.regfingerOutTime,jdbcType=TINYINT},#{item.authfingerOutTime,jdbcType=TINYINT},#{item.wgOrder,jdbcType=TINYINT},#{item.relayTime,jdbcType=TINYINT},#{item.fixedValue,jdbcType=VARCHAR},#{item.alarmEnable,jdbcType=TINYINT},#{item.openEnable,jdbcType=TINYINT},#{item.doorState,jdbcType=TINYINT},#{item.relayEnable,jdbcType=TINYINT},#{item.doorbellEnable,jdbcType=TINYINT},#{item.wifiSsid,jdbcType=VARCHAR},#{item.wifiPsw,jdbcType=VARCHAR})
     </foreach>
     select 1 from dual
   </insert>
   <insert id="insertBatchWithId" parameterType="top.iotequ.reader.pojo.DevReader">
-    insert into dev_reader (id,capacity,reader_no,name,type,reader_group,address,connect_type,ip,sn_no,dev_mode,firmware,is_online,is_time_sync,align_method,blacklight_time,voiceprompt,menu_time,wengenform,wengen_output,wengen_out_area,regfinger_out_time,authfinger_out_time,wg_order,relay_time,fixed_value,alarm_enable,open_enable,door_state,relay_enable,doorbell_enable,wifi_ssid,wifi_psw)
+    insert into dev_reader (id,reader_no,name,type,reader_group,address,capacity,connect_type,ip,sn_no,dev_mode,firmware,is_online,is_time_sync,align_method,blacklight_time,voiceprompt,menu_time,wengenform,wengen_output,wengen_out_area,regfinger_out_time,authfinger_out_time,wg_order,relay_time,fixed_value,alarm_enable,open_enable,door_state,relay_enable,doorbell_enable,wifi_ssid,wifi_psw)
       values 
     <foreach collection="list" item="item" index="index" separator=",">
-      (#{item.id,jdbcType=CHAR},#{item.capacity,jdbcType=INTEGER},#{item.readerNo,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.type,jdbcType=VARCHAR},#{item.readerGroup,jdbcType=INTEGER},#{item.address,jdbcType=VARCHAR},#{item.connectType,jdbcType=VARCHAR},#{item.ip,jdbcType=VARCHAR},#{item.snNo,jdbcType=VARCHAR},#{item.devMode,jdbcType=VARCHAR},#{item.firmware,jdbcType=VARCHAR},#{item.isOnline,jdbcType=VARCHAR},#{item.isTimeSync,jdbcType=VARCHAR},#{item.alignMethod,jdbcType=TINYINT},#{item.blacklightTime,jdbcType=TINYINT},#{item.voiceprompt,jdbcType=VARCHAR},#{item.menuTime,jdbcType=TINYINT},#{item.wengenform,jdbcType=TINYINT},#{item.wengenOutput,jdbcType=TINYINT},#{item.wengenOutArea,jdbcType=TINYINT},#{item.regfingerOutTime,jdbcType=TINYINT},#{item.authfingerOutTime,jdbcType=TINYINT},#{item.wgOrder,jdbcType=TINYINT},#{item.relayTime,jdbcType=TINYINT},#{item.fixedValue,jdbcType=VARCHAR},#{item.alarmEnable,jdbcType=TINYINT},#{item.openEnable,jdbcType=TINYINT},#{item.doorState,jdbcType=TINYINT},#{item.relayEnable,jdbcType=TINYINT},#{item.doorbellEnable,jdbcType=TINYINT},#{item.wifiSsid,jdbcType=VARCHAR},#{item.wifiPsw,jdbcType=VARCHAR})
+      (#{item.id,jdbcType=CHAR},#{item.readerNo,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.type,jdbcType=VARCHAR},#{item.readerGroup,jdbcType=INTEGER},#{item.address,jdbcType=VARCHAR},#{item.capacity,jdbcType=INTEGER},#{item.connectType,jdbcType=VARCHAR},#{item.ip,jdbcType=VARCHAR},#{item.snNo,jdbcType=VARCHAR},#{item.devMode,jdbcType=VARCHAR},#{item.firmware,jdbcType=VARCHAR},#{item.isOnline,jdbcType=VARCHAR},#{item.isTimeSync,jdbcType=VARCHAR},#{item.alignMethod,jdbcType=TINYINT},#{item.blacklightTime,jdbcType=TINYINT},#{item.voiceprompt,jdbcType=VARCHAR},#{item.menuTime,jdbcType=TINYINT},#{item.wengenform,jdbcType=TINYINT},#{item.wengenOutput,jdbcType=TINYINT},#{item.wengenOutArea,jdbcType=TINYINT},#{item.regfingerOutTime,jdbcType=TINYINT},#{item.authfingerOutTime,jdbcType=TINYINT},#{item.wgOrder,jdbcType=TINYINT},#{item.relayTime,jdbcType=TINYINT},#{item.fixedValue,jdbcType=VARCHAR},#{item.alarmEnable,jdbcType=TINYINT},#{item.openEnable,jdbcType=TINYINT},#{item.doorState,jdbcType=TINYINT},#{item.relayEnable,jdbcType=TINYINT},#{item.doorbellEnable,jdbcType=TINYINT},#{item.wifiSsid,jdbcType=VARCHAR},#{item.wifiPsw,jdbcType=VARCHAR})
     </foreach>
   </insert>
   <insert id="insertBatchWithId" parameterType="top.iotequ.reader.pojo.DevReader" databaseId="Oracle">
     insert all 
     <foreach collection="list" item="item" index="index">
-      into dev_reader (id,capacity,reader_no,name,type,reader_group,address,connect_type,ip,sn_no,dev_mode,firmware,is_online,is_time_sync,align_method,blacklight_time,voiceprompt,menu_time,wengenform,wengen_output,wengen_out_area,regfinger_out_time,authfinger_out_time,wg_order,relay_time,fixed_value,alarm_enable,open_enable,door_state,relay_enable,doorbell_enable,wifi_ssid,wifi_psw) values(#{item.id,jdbcType=CHAR},#{item.capacity,jdbcType=INTEGER},#{item.readerNo,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.type,jdbcType=VARCHAR},#{item.readerGroup,jdbcType=INTEGER},#{item.address,jdbcType=VARCHAR},#{item.connectType,jdbcType=VARCHAR},#{item.ip,jdbcType=VARCHAR},#{item.snNo,jdbcType=VARCHAR},#{item.devMode,jdbcType=VARCHAR},#{item.firmware,jdbcType=VARCHAR},#{item.isOnline,jdbcType=VARCHAR},#{item.isTimeSync,jdbcType=VARCHAR},#{item.alignMethod,jdbcType=TINYINT},#{item.blacklightTime,jdbcType=TINYINT},#{item.voiceprompt,jdbcType=VARCHAR},#{item.menuTime,jdbcType=TINYINT},#{item.wengenform,jdbcType=TINYINT},#{item.wengenOutput,jdbcType=TINYINT},#{item.wengenOutArea,jdbcType=TINYINT},#{item.regfingerOutTime,jdbcType=TINYINT},#{item.authfingerOutTime,jdbcType=TINYINT},#{item.wgOrder,jdbcType=TINYINT},#{item.relayTime,jdbcType=TINYINT},#{item.fixedValue,jdbcType=VARCHAR},#{item.alarmEnable,jdbcType=TINYINT},#{item.openEnable,jdbcType=TINYINT},#{item.doorState,jdbcType=TINYINT},#{item.relayEnable,jdbcType=TINYINT},#{item.doorbellEnable,jdbcType=TINYINT},#{item.wifiSsid,jdbcType=VARCHAR},#{item.wifiPsw,jdbcType=VARCHAR})
+      into dev_reader (id,reader_no,name,type,reader_group,address,capacity,connect_type,ip,sn_no,dev_mode,firmware,is_online,is_time_sync,align_method,blacklight_time,voiceprompt,menu_time,wengenform,wengen_output,wengen_out_area,regfinger_out_time,authfinger_out_time,wg_order,relay_time,fixed_value,alarm_enable,open_enable,door_state,relay_enable,doorbell_enable,wifi_ssid,wifi_psw) values(#{item.id,jdbcType=CHAR},#{item.readerNo,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.type,jdbcType=VARCHAR},#{item.readerGroup,jdbcType=INTEGER},#{item.address,jdbcType=VARCHAR},#{item.capacity,jdbcType=INTEGER},#{item.connectType,jdbcType=VARCHAR},#{item.ip,jdbcType=VARCHAR},#{item.snNo,jdbcType=VARCHAR},#{item.devMode,jdbcType=VARCHAR},#{item.firmware,jdbcType=VARCHAR},#{item.isOnline,jdbcType=VARCHAR},#{item.isTimeSync,jdbcType=VARCHAR},#{item.alignMethod,jdbcType=TINYINT},#{item.blacklightTime,jdbcType=TINYINT},#{item.voiceprompt,jdbcType=VARCHAR},#{item.menuTime,jdbcType=TINYINT},#{item.wengenform,jdbcType=TINYINT},#{item.wengenOutput,jdbcType=TINYINT},#{item.wengenOutArea,jdbcType=TINYINT},#{item.regfingerOutTime,jdbcType=TINYINT},#{item.authfingerOutTime,jdbcType=TINYINT},#{item.wgOrder,jdbcType=TINYINT},#{item.relayTime,jdbcType=TINYINT},#{item.fixedValue,jdbcType=VARCHAR},#{item.alarmEnable,jdbcType=TINYINT},#{item.openEnable,jdbcType=TINYINT},#{item.doorState,jdbcType=TINYINT},#{item.relayEnable,jdbcType=TINYINT},#{item.doorbellEnable,jdbcType=TINYINT},#{item.wifiSsid,jdbcType=VARCHAR},#{item.wifiPsw,jdbcType=VARCHAR})
     </foreach>
     select 1 from dual
   </insert>
@@ -118,12 +118,12 @@
   </delete>
   <update id="update" parameterType="top.iotequ.reader.pojo.DevReader">
     update dev_reader set 
-      capacity = #{capacity,jdbcType=INTEGER},
       reader_no = #{readerNo,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       reader_group = #{readerGroup,jdbcType=INTEGER},
       address = #{address,jdbcType=VARCHAR},
+      capacity = #{capacity,jdbcType=INTEGER},
       connect_type = #{connectType,jdbcType=VARCHAR},
       ip = #{ip,jdbcType=VARCHAR},
       sn_no = #{snNo,jdbcType=VARCHAR},
@@ -155,8 +155,6 @@
   <update id="updateSelective" parameterType="java.util.Map">
     update dev_reader 
       <set>
-        <if test='capacity_string_ == "[null]"'> capacity = NULL, </if>
-        <if test='capacity != null and capacity_string_ != "[null]"'> capacity = #{capacity,jdbcType=INTEGER},</if>
         <if test='readerNo_string_ == "[null]"'> reader_no = NULL, </if>
         <if test='readerNo != null and readerNo_string_ != "[null]"'> reader_no = #{readerNo,jdbcType=VARCHAR},</if>
         <if test='name_string_ == "[null]"'> name = NULL, </if>
@@ -167,6 +165,8 @@
         <if test='readerGroup != null and readerGroup_string_ != "[null]"'> reader_group = #{readerGroup,jdbcType=INTEGER},</if>
         <if test='address_string_ == "[null]"'> address = NULL, </if>
         <if test='address != null and address_string_ != "[null]"'> address = #{address,jdbcType=VARCHAR},</if>
+        <if test='capacity_string_ == "[null]"'> capacity = NULL, </if>
+        <if test='capacity != null and capacity_string_ != "[null]"'> capacity = #{capacity,jdbcType=INTEGER},</if>
         <if test='connectType_string_ == "[null]"'> connect_type = NULL, </if>
         <if test='connectType != null and connectType_string_ != "[null]"'> connect_type = #{connectType,jdbcType=VARCHAR},</if>
         <if test='ip_string_ == "[null]"'> ip = NULL, </if>
@@ -224,13 +224,13 @@
   </update>
   <update id="updateBy" parameterType="top.iotequ.reader.pojo.DevReader">
     update dev_reader set 
-      capacity = #{record.capacity,jdbcType=INTEGER},
       id = #{record.id,jdbcType=CHAR},
       reader_no = #{record.readerNo,jdbcType=VARCHAR},
       name = #{record.name,jdbcType=VARCHAR},
       type = #{record.type,jdbcType=VARCHAR},
       reader_group = #{record.readerGroup,jdbcType=INTEGER},
       address = #{record.address,jdbcType=VARCHAR},
+      capacity = #{record.capacity,jdbcType=INTEGER},
       connect_type = #{record.connectType,jdbcType=VARCHAR},
       ip = #{record.ip,jdbcType=VARCHAR},
       sn_no = #{record.snNo,jdbcType=VARCHAR},
@@ -262,13 +262,13 @@
   <select id="list" parameterType="top.iotequ.reader.pojo.DevReader" resultMap="BaseResultMap">
     <include refid="selectSql" />
      where 1=1 
-        <if test="capacity != null"> and capacity = #{capacity,jdbcType=INTEGER} </if>
         <if test="id != null"> and id like #{id,jdbcType=CHAR} </if>
         <if test="readerNo != null"> and reader_no like #{readerNo,jdbcType=VARCHAR} </if>
         <if test="name != null"> and name like #{name,jdbcType=VARCHAR} </if>
         <if test="type != null"> and type like #{type,jdbcType=VARCHAR} </if>
         <if test="readerGroup != null"> and reader_group = #{readerGroup,jdbcType=INTEGER} </if>
         <if test="address != null"> and address like #{address,jdbcType=VARCHAR} </if>
+        <if test="capacity != null"> and capacity = #{capacity,jdbcType=INTEGER} </if>
         <if test="connectType != null"> and connect_type like #{connectType,jdbcType=VARCHAR} </if>
         <if test="ip != null"> and ip like #{ip,jdbcType=VARCHAR} </if>
         <if test="snNo != null"> and sn_no like #{snNo,jdbcType=VARCHAR} </if>

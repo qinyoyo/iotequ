@@ -1,5 +1,5 @@
 
-表：cg_list_field : 列表视图字段定义
+表：cg_list_field : 列表视图字段定义|Fields of list
 id	ID	int	✘	
 list_id	listID	varchar	✘	
 order_num	排序	int	✘	
@@ -18,13 +18,13 @@ default_query_value	缺省查询条件	varchar	√
 cell_display_slot	自定义字段显示	varchar	√	
 show_type	修改控件类型为	varchar	√	
 
-表：cg_list : 列表视图定义
+表：cg_list : 列表视图定义|List design
 id	ID	varchar	✘	
 name	名称	varchar	✘	
 path	路径最后一级	varchar	✘	
 table_id	对应表单	varchar	✘	
 icon	图标	varchar	√	
-head_title	列表标题	varchar	✘	
+head_title	列表标题	varchar	√	
 tag_title	tag标题	varchar	√	
 edit_inline	行内编辑	tinyint(1)	✘	
 detail_inline	行内详情	tinyint(1)	✘	
@@ -58,7 +58,7 @@ action_list	功能清单	varchar	√
 flow_data_url	流程状态数据url	varchar	√	
 local_export	本地导出	tinyint(1)	✘	
 
-表：cg_form_field : 表单字段定义
+表：cg_form_field : 表单字段定义|Fields of form
 id	id	int	✘	
 form_id	formId	varchar	✘	
 order_num	排序	int	✘	
@@ -76,12 +76,12 @@ validate_as_title	显示title提示	tinyint(1)	✘
 slot_templates	slot模板	longtext	√	
 show_type	更改控件类型为	varchar	√	
 
-表：cg_form : 表单定义表
+表：cg_form : 表单定义表|Form design
 id	ID	varchar	✘	
 name	名称	varchar	✘	
 path	路径	varchar	✘	
 table_id	对应表定义	varchar	✘	
-head_title	form标题	varchar	✘	
+head_title	form标题	varchar	√	
 is_flow	是否流程定义	tinyint(1)	✘	
 icon	图标	varchar	√	
 tag_title	tag标题	varchar	✘	
@@ -94,7 +94,7 @@ form_properties	表单属性	longtext	√
 slot_templates	slot模板	longtext	√	
 action_list	功能清单	varchar	√	
 
-表：cg_field : 字段定义表
+表：cg_field : 字段定义表|Field design
 id	主键ID	varchar	✘	
 table_id	表ID	varchar	✘	
 order_num	排序	int	✘	
@@ -126,7 +126,7 @@ fk_on_delete	On Delete	varchar	√	CASCADE:同步删除子表  SET NULL:设置�
 fk_on_update	On Update	varchar	√	CASCADE:同步更新子表  SET NULL:设置为空  NO ACTION:不允许更新  RESTRICT:高权限不允许更新  
 default_query_value		varchar	√	
 
-表：cg_button : 按钮定义
+表：cg_button : 按钮定义|Define of button
 id	id	varchar	✘	
 table_id	所属表单	varchar	✘	
 order_num	排序	int	✘	
@@ -140,7 +140,7 @@ display_properties	显示属性	varchar	√	hm:手机隐藏  hp:PC隐藏  tb:工
 confirm_text	操作前提示	varchar	√	
 is_refresh_list	操作后刷新列表	tinyint(1)	✘	
 
-表：cg_table : 表单定义
+表：cg_table : 表单定义|Cg table
 id	主键ID	varchar	✘	
 code	cg代码	varchar	✘	
 name	数据库表	varchar	√	
@@ -161,7 +161,7 @@ flow_dyna_fields_op	处理人关联字段	varchar	√
 flow_dyna_fields_cp	抄送人关联字段	varchar	√	
 project_id	项目id	varchar	✘	
 
-表：cg_project : 项目
+表：cg_project : 项目|Cg project
 id	id	varchar	✘	
 code	代码	varchar	✘	
 creator	创建人	varchar	✘	

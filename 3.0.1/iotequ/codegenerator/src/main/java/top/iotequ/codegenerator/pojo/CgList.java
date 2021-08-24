@@ -46,7 +46,7 @@ public class CgList implements CgEntity {
     private String icon;		//图标 db field:icon
 
     @SerializedName(value = "headTitle", alternate = {"head_title","HEAD_TITLE"})
-    @CgFieldAnnotation(name="head_title",jdbcType="VARCHAR",length=64,nullable=false,format="@")
+    @CgFieldAnnotation(name="head_title",jdbcType="VARCHAR",length=64,nullable=true,format="@")
     private String headTitle;		//列表标题 db field:head_title
 
     @SerializedName(value = "tagTitle", alternate = {"tag_title","TAG_TITLE"})

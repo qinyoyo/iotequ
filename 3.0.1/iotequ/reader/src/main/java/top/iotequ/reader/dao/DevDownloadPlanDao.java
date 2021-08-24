@@ -11,7 +11,7 @@ import top.iotequ.framework.service.IDaoService;
 import top.iotequ.reader.pojo.DevDownloadPlan;
 import java.util.*;
 
-//  Mapper dao : DevDownloadPlanDao (下发计划数据访问接口)
+//  Mapper dao : DevDownloadPlanDao (下发计划|Download plan数据访问接口)
 public interface DevDownloadPlanDao  extends IDaoService<DevDownloadPlan> {
     int insert(DevDownloadPlan record);
     int insertBatchWithoutId(List<DevDownloadPlan> list);

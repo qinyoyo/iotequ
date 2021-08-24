@@ -17,7 +17,7 @@ import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
 import java.util.*;
 
-//  Pojo entity : AdAdjust (考勤调整)
+//  Pojo entity : AdAdjust (考勤调整|Action of attendance)
 @CgTableAnnotation(name="ad_adjust",
                    title="adAdjust",
                    join="LEFT JOIN sys_user ON ad_adjust.employee = sys_user.id LEFT JOIN sys_user sys_user1 ON ad_adjust.hr = sys_user1.id LEFT JOIN sys_user sys_user2 ON ad_adjust.approver = sys_user2.id",

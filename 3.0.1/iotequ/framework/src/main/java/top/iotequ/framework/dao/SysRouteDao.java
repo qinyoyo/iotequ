@@ -11,7 +11,7 @@ import top.iotequ.framework.service.IDaoService;
 import top.iotequ.framework.pojo.SysRoute;
 import java.util.*;
 
-//  Mapper dao : SysRouteDao (路由表数据访问接口)
+//  Mapper dao : SysRouteDao (路由表|Route数据访问接口)
 public interface SysRouteDao  extends IDaoService<SysRoute> {
     int insert(SysRoute record);
     int insertBatchWithoutId(List<SysRoute> list);

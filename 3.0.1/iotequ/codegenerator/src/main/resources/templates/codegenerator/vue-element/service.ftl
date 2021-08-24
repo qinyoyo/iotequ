@@ -185,8 +185,12 @@ public class Cg${generatorName?cap_first}Service extends CgService<${table.entit
         <#if f.defaultValue?? && f.defaultValue?trim!="" && (f.defaultValue?trim?length lt 3 || f.defaultValue?trim?substring(0,3)!="js:")>
             <#if f.defaultValue?trim?length gt 2 && f.defaultValue?trim?substring(0,2)=="f:" >
             ${table.entity?uncap_first}.set${f.entityName?cap_first}(${f.defaultValue?trim?substring(2)});
-            <#elseif f.type=="Integer" || f.type=="Short" || f.type=="Long" || f.type=="Byte" || f.type=='BigDecimal'>
+            <#elseif f.type=="Integer" || f.type=="Short" || f.type=='BigDecimal'>
             ${table.entity?uncap_first}.set${f.entityName?cap_first}(${f.defaultValue});
+            <#elseif f.type=="Long">
+            ${table.entity?uncap_first}.set${f.entityName?cap_first}(${f.defaultValue}L);
+            <#elseif f.type=="Byte">
+            ${table.entity?uncap_first}.set${f.entityName?cap_first}((byte)${f.defaultValue});
             <#elseif f.type=="Boolean">
             ${table.entity?uncap_first}.set${f.entityName?cap_first}(Util.boolValue("${f.defaultValue}"));
             <#elseif f.type=="String">
@@ -195,8 +199,10 @@ public class Cg${generatorName?cap_first}Service extends CgService<${table.entit
             ${table.entity?uncap_first}.set${f.entityName?cap_first}(new Date());
             </#if>
         <#else>
-            <#if f.type=="Integer" || f.type=="Short" || f.type=="Long" || f.type=="Byte" || f.type=='BigDecimal'>
+            <#if f.type=="Integer" || f.type=="Short" || f.type=="Long" || f.type=='BigDecimal'>
             ${table.entity?uncap_first}.set${f.entityName?cap_first}(0);
+            <#elseif f.type=="Byte">
+            ${table.entity?uncap_first}.set${f.entityName?cap_first}((byte)0);
             <#elseif f.type=="Boolean">
             ${table.entity?uncap_first}.set${f.entityName?cap_first}(false);
             <#elseif f.type=="String">

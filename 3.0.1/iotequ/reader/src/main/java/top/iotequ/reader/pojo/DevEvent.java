@@ -17,7 +17,7 @@ import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
 import java.util.*;
 
-//  Pojo entity : DevEvent (设备事件)
+//  Pojo entity : DevEvent (设备事件|Event of device)
 @CgTableAnnotation(name="dev_event",
                    title="devEvent",
                    join="LEFT JOIN dev_people ON dev_event.user_no = dev_people.user_no LEFT JOIN dev_people dev_people1 ON dev_event.auditor_user_num = dev_people1.user_no",

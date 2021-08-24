@@ -24,7 +24,7 @@ CREATE TABLE `sys_user` (
   `password_expired_time` date NULL COMMENT '密码过期时间',
   `password` varchar(32) DEFAULT '123456' NOT NULL COMMENT '密码',
   `password_error_times` int(11) DEFAULT 0 NOT NULL
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户|Login user' ROW_FORMAT = Dynamic;
 CREATE INDEX `index_sys_user_org_code` ON `sys_user`(`org_code`);
 
 ALTER TABLE `sys_user` ADD CONSTRAINT  `ui_sys_user01` UNIQUE (`id_type`,`id_number`);
@@ -47,7 +47,7 @@ CREATE TABLE `sys_task` (
   `is_static` tinyint(1) DEFAULT 1 NOT NULL COMMENT '静态方法',
   `parames` varchar(100) NULL COMMENT '参数',
   `is_running` tinyint(1) DEFAULT 1 NOT NULL COMMENT '运行中'
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '调度任务' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '调度任务|Task' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_route
@@ -62,7 +62,7 @@ CREATE TABLE `sys_route` (
   `breadcrumb_show` tinyint(1) DEFAULT 1 NOT NULL COMMENT '面包屑显示',
   `need_cache` tinyint(1) DEFAULT 1 NOT NULL COMMENT '需要缓存',
   `tag_view` tinyint(1) DEFAULT 1 NOT NULL COMMENT '标签显示'
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '路由表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '路由表|Route' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -73,7 +73,7 @@ CREATE TABLE `sys_role` (
   `code` varchar(8) NOT NULL UNIQUE COMMENT '代码',
   `name` varchar(45) NOT NULL UNIQUE COMMENT '名称',
   `note` varchar(64) NULL COMMENT '说明'
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色表|Role' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_permission
@@ -83,7 +83,7 @@ CREATE TABLE `sys_permission` (
   `id` int(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
   `role` int(11) NOT NULL COMMENT '角色',
   `action` int(11) NOT NULL COMMENT '功能'
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '功能分配表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '功能分配表|Role permission' ROW_FORMAT = Dynamic;
 CREATE INDEX `index_sys_permission_role` ON `sys_permission`(`role`);
 CREATE INDEX `index_sys_permission_action` ON `sys_permission`(`action`);
 
@@ -99,7 +99,7 @@ CREATE TABLE `sys_org` (
   `fax` varchar(32) NULL COMMENT '传真',
   `role_list` varchar(200) NULL COMMENT '角色序列',
   `address` varchar(100) NULL COMMENT '地址'
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '组织机构' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '组织机构|Organization' ROW_FORMAT = Dynamic;
 
 ALTER TABLE `sys_org` ADD CONSTRAINT  `ui_sys_org01` UNIQUE (`name`,`parent`);
 -- ----------------------------
@@ -118,7 +118,7 @@ CREATE TABLE `sys_message` (
   `receiver` varchar(50) NULL COMMENT '消息接收人',
   `sender` varchar(100) NULL COMMENT '消息发送人',
   `event_id` varchar(45) NULL COMMENT '关联id'
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '消息' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '消息|Message' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -137,7 +137,7 @@ CREATE TABLE `sys_menu` (
   `bigIcon` varchar(50) NULL COMMENT '大图标',
   `mobile_hidden` tinyint(1) DEFAULT 0 NOT NULL COMMENT '手机隐藏',
   `js_cmd` varchar(45) NULL COMMENT '操作函数'
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统菜单' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统菜单|Menu' ROW_FORMAT = Dynamic;
 
 ALTER TABLE `sys_menu` ADD CONSTRAINT  `ui_sys_menu012` UNIQUE (`name`,`parent`,`action`);
 -- ----------------------------
@@ -151,7 +151,7 @@ CREATE TABLE `sys_log` (
   `user_type` varchar(64) NULL COMMENT '用户类别',
   `user_info` varchar(64) NULL COMMENT '用户信息',
   `note` varchar(1000) NULL COMMENT '详情'
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统日志' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统日志|System logs' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_flow_process
@@ -170,7 +170,7 @@ CREATE TABLE `sys_flow_process` (
   `next_operator` varchar(45) NULL COMMENT '后续处理人',
   `state0` int(11) NULL COMMENT '初始状态',
   `state1` int(11) NOT NULL COMMENT '处理后状态'
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '流程处理' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '流程处理|Flow process' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_data_dict
@@ -182,7 +182,7 @@ CREATE TABLE `sys_data_dict` (
   `code` varchar(45) NOT NULL COMMENT '代码',
   `text` varchar(100) NOT NULL COMMENT '显示值',
   `order_num` int(11) NULL COMMENT '排列顺序'
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '数据字典' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '数据字典|Data dictionary' ROW_FORMAT = Dynamic;
 
 ALTER TABLE `sys_data_dict` ADD CONSTRAINT  `ui_sys_data_dict01` UNIQUE (`dict`,`code`);
 -- ----------------------------
@@ -195,7 +195,7 @@ CREATE TABLE `sys_action` (
   `value` varchar(100) NOT NULL COMMENT '值',
   `params` varchar(100) NULL COMMENT '参数',
   `method` varchar(45) NULL COMMENT '方法'
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '功能列表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '功能列表|System action' ROW_FORMAT = Dynamic;
 CREATE INDEX `index_sys_action_value` ON `sys_action`(`value`);
 
 -- ----------------------------
@@ -218,5 +218,5 @@ CREATE TABLE `oauth_client_details` (
   `decription` varchar(200) NULL COMMENT '描述',
   `additional_information` text NULL COMMENT '附加属性(json)',
   `resource_ids` varchar(255) NULL
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'OAuth2客户端配置' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'OAuth2客户端配置|OAuth2 setting' ROW_FORMAT = Dynamic;
 

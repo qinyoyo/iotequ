@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.iotequ.checkIn.dao.CkSignInDao">
+  <resultMap id="BaseResultMap" type="top.iotequ.checkIn.pojo.CkSignIn">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="org_code" jdbcType="INTEGER" property="orgCode" />
+    <result column="rec_source" jdbcType="VARCHAR" property="recSource" />
+    <result column="rec_source_type" jdbcType="VARCHAR" property="recSourceType" />
+    <result column="event_type" jdbcType="INTEGER" property="eventType" />
+    <result column="rec_time" jdbcType="TIMESTAMP" property="recTime" />
+    <result column="user_no" jdbcType="VARCHAR" property="userNo" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="birth_date" jdbcType="DATE" property="birthDate" />
+    <result column="date_date" jdbcType="DATE" property="dateDate" />
+    <result column="date_time" jdbcType="TIME" property="dateTime" />
+  </resultMap>
+  <sql id = "selectSql">
+     SELECT ck_sign_in.id,ck_sign_in.org_code,ck_sign_in.rec_source,ck_sign_in.rec_source_type,ck_sign_in.event_type,ck_sign_in.rec_time,ck_sign_in.user_no,dev_people.real_name AS real_name,dev_people.sex AS sex,dev_people.birth_date AS birth_date,date(rec_time) as date_date,time(rec_time) as date_time FROM ck_sign_in LEFT JOIN dev_people ON ck_sign_in.user_no = dev_people.user_no
+  </sql>
+  <insert id="insert" parameterType="top.iotequ.checkIn.pojo.CkSignIn">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String" >
+      SELECT replace(uuid(), '-', '')
+    </selectKey>
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String" databaseId="SQLServer">
+      SELECT replace(lower(newid()), '-', '')
+    </selectKey>
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String" databaseId="Oracle">
+      SELECT replace(lower(sys_guid()), '-', '') from dual
+    </selectKey>
+    insert into ck_sign_in (id,org_code,rec_source,rec_source_type,event_type,rec_time,user_no)
+      values 
+      (#{id,jdbcType=VARCHAR},#{orgCode,jdbcType=INTEGER},#{recSource,jdbcType=VARCHAR},#{recSourceType,jdbcType=VARCHAR},#{eventType,jdbcType=INTEGER},#{recTime,jdbcType=TIMESTAMP},#{userNo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.checkIn.pojo.CkSignIn">
+    insert into ck_sign_in (id,org_code,rec_source,rec_source_type,event_type,rec_time,user_no)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (replace(uuid(), '-', ''),#{item.orgCode,jdbcType=INTEGER},#{item.recSource,jdbcType=VARCHAR},#{item.recSourceType,jdbcType=VARCHAR},#{item.eventType,jdbcType=INTEGER},#{item.recTime,jdbcType=TIMESTAMP},#{item.userNo,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.checkIn.pojo.CkSignIn" databaseId="SQLServer">
+    insert into ck_sign_in (id,org_code,rec_source,rec_source_type,event_type,rec_time,user_no)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (replace(lower(newid()), '-', ''),#{item.orgCode,jdbcType=INTEGER},#{item.recSource,jdbcType=VARCHAR},#{item.recSourceType,jdbcType=VARCHAR},#{item.eventType,jdbcType=INTEGER},#{item.recTime,jdbcType=TIMESTAMP},#{item.userNo,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithoutId" parameterType="top.iotequ.checkIn.pojo.CkSignIn" databaseId="Oracle">
+    insert all 
+    <foreach collection="list" item="item" index="index">
+      into ck_sign_in (id,org_code,rec_source,rec_source_type,event_type,rec_time,user_no) values(replace(lower(sys_guid()), '-', ''),#{item.orgCode,jdbcType=INTEGER},#{item.recSource,jdbcType=VARCHAR},#{item.recSourceType,jdbcType=VARCHAR},#{item.eventType,jdbcType=INTEGER},#{item.recTime,jdbcType=TIMESTAMP},#{item.userNo,jdbcType=VARCHAR})
+    </foreach>
+    select 1 from dual
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.checkIn.pojo.CkSignIn">
+    insert into ck_sign_in (id,org_code,rec_source,rec_source_type,event_type,rec_time,user_no)
+      values 
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=VARCHAR},#{item.orgCode,jdbcType=INTEGER},#{item.recSource,jdbcType=VARCHAR},#{item.recSourceType,jdbcType=VARCHAR},#{item.eventType,jdbcType=INTEGER},#{item.recTime,jdbcType=TIMESTAMP},#{item.userNo,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertBatchWithId" parameterType="top.iotequ.checkIn.pojo.CkSignIn" databaseId="Oracle">
+    insert all 
+    <foreach collection="list" item="item" index="index">
+      into ck_sign_in (id,org_code,rec_source,rec_source_type,event_type,rec_time,user_no) values(#{item.id,jdbcType=VARCHAR},#{item.orgCode,jdbcType=INTEGER},#{item.recSource,jdbcType=VARCHAR},#{item.recSourceType,jdbcType=VARCHAR},#{item.eventType,jdbcType=INTEGER},#{item.recTime,jdbcType=TIMESTAMP},#{item.userNo,jdbcType=VARCHAR})
+    </foreach>
+    select 1 from dual
+  </insert>
+  <select id="select" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where ck_sign_in.id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="delete" parameterType="java.lang.String">
+    delete from ck_sign_in where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteBatch" parameterType="java.lang.String">
+    delete from ck_sign_in where id in     <foreach item="item" index="index" collection="_parameter.split(',')" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+  <select id="selectByOrgCode" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where ck_sign_in.org_code = #{orgCode,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByOrgCode" parameterType="java.lang.Integer">
+    delete from ck_sign_in where org_code = #{orgCode,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteBatchByOrgCode" parameterType="java.lang.String">
+    delete from ck_sign_in where org_code in (${_parameter})
+  </delete>
+  <select id="selectByRecTime" parameterType="java.util.Date" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where ck_sign_in.rec_time = #{recTime,jdbcType=TIMESTAMP}
+  </select>
+  <delete id="deleteByRecTime" parameterType="java.util.Date">
+    delete from ck_sign_in where rec_time = #{recTime,jdbcType=TIMESTAMP}
+  </delete>
+  <delete id="deleteBatchByRecTime" parameterType="java.lang.String">
+    delete from ck_sign_in where rec_time in     <foreach item="item" index="index" collection="_parameter.split(',')" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+  <select id="selectByUserNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where ck_sign_in.user_no = #{userNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByUserNo" parameterType="java.lang.String">
+    delete from ck_sign_in where user_no = #{userNo,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteBatchByUserNo" parameterType="java.lang.String">
+    delete from ck_sign_in where user_no in     <foreach item="item" index="index" collection="_parameter.split(',')" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+  <delete id="deleteList" parameterType="java.util.List">
+    delete from ck_sign_in where id in
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")"> 
+       #{item.id,jdbcType=VARCHAR}
+    </foreach>
+  </delete>
+  <update id="update" parameterType="top.iotequ.checkIn.pojo.CkSignIn">
+    update ck_sign_in set 
+      org_code = #{orgCode,jdbcType=INTEGER},
+      rec_source = #{recSource,jdbcType=VARCHAR},
+      rec_source_type = #{recSourceType,jdbcType=VARCHAR},
+      event_type = #{eventType,jdbcType=INTEGER},
+      rec_time = #{recTime,jdbcType=TIMESTAMP},
+      user_no = #{userNo,jdbcType=VARCHAR}
+      where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateSelective" parameterType="java.util.Map">
+    update ck_sign_in 
+      <set>
+        <if test='orgCode_string_ == "[null]"'> org_code = NULL, </if>
+        <if test='orgCode != null and orgCode_string_ != "[null]"'> org_code = #{orgCode,jdbcType=INTEGER},</if>
+        <if test='recSource_string_ == "[null]"'> rec_source = NULL, </if>
+        <if test='recSource != null and recSource_string_ != "[null]"'> rec_source = #{recSource,jdbcType=VARCHAR},</if>
+        <if test='recSourceType_string_ == "[null]"'> rec_source_type = NULL, </if>
+        <if test='recSourceType != null and recSourceType_string_ != "[null]"'> rec_source_type = #{recSourceType,jdbcType=VARCHAR},</if>
+        <if test='eventType_string_ == "[null]"'> event_type = NULL, </if>
+        <if test='eventType != null and eventType_string_ != "[null]"'> event_type = #{eventType,jdbcType=INTEGER},</if>
+        <if test='recTime_string_ == "[null]"'> rec_time = NULL, </if>
+        <if test='recTime != null and recTime_string_ != "[null]"'> rec_time = #{recTime,jdbcType=TIMESTAMP},</if>
+        <if test="userNo != null"> user_no = #{userNo,jdbcType=VARCHAR},</if>
+      </set>
+      where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateBy" parameterType="top.iotequ.checkIn.pojo.CkSignIn">
+    update ck_sign_in set 
+      id = #{record.id,jdbcType=VARCHAR},
+      org_code = #{record.orgCode,jdbcType=INTEGER},
+      rec_source = #{record.recSource,jdbcType=VARCHAR},
+      rec_source_type = #{record.recSourceType,jdbcType=VARCHAR},
+      event_type = #{record.eventType,jdbcType=INTEGER},
+      rec_time = #{record.recTime,jdbcType=TIMESTAMP},
+      user_no = #{record.userNo,jdbcType=VARCHAR}
+      where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="list" parameterType="top.iotequ.checkIn.pojo.CkSignIn" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+     where 1=1 
+        <if test="id != null"> and ck_sign_in.id like #{id,jdbcType=VARCHAR} </if>
+        <if test="orgCode != null"> and ck_sign_in.org_code = #{orgCode,jdbcType=INTEGER} </if>
+        <if test="recSource != null"> and ck_sign_in.rec_source like #{recSource,jdbcType=VARCHAR} </if>
+        <if test="recSourceType != null"> and ck_sign_in.rec_source_type like #{recSourceType,jdbcType=VARCHAR} </if>
+        <if test="eventType != null"> and ck_sign_in.event_type = #{eventType,jdbcType=INTEGER} </if>
+        <if test="recTime != null"> and ck_sign_in.rec_time like #{recTime,jdbcType=TIMESTAMP} </if>
+        <if test="userNo != null"> and ck_sign_in.user_no like #{userNo,jdbcType=VARCHAR} </if>
+        <if test="realName != null"> and dev_people.real_name like #{realName,jdbcType=VARCHAR} </if>
+        <if test="sex != null"> and dev_people.sex like #{sex,jdbcType=VARCHAR} </if>
+        <if test="birthDate != null"> and dev_people.birth_date = #{birthDate,jdbcType=DATE} </if>
+  </select>
+  <select id="listBy" parameterType="map" resultMap="BaseResultMap">
+    <include refid="selectSql" />
+        <if test="whereString != null and whereString !=''"> where ${whereString} </if>
+        <if test="orderString != null and orderString!=''"> order by ${orderString} </if>
+  </select>
+  <select id="query" parameterType="map" resultMap="BaseResultMap">
+        ${sqlString}
+  </select>
+</mapper>

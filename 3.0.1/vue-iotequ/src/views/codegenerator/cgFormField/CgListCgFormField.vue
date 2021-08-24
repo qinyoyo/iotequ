@@ -64,8 +64,8 @@
       </cg-table-column>
       <cg-table-column prop="groupTitle" :page="1" :label="$t('cgFormField.field.groupTitle')" align="left" >
         <template slot-scope="scope">
-          <cg-input v-if="scope.row.inlineEditting" v-model="scope.row.groupTitle" type="text" />
-          <span v-else>{{ localeText(scope.row.groupTitle) }}</span>
+          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.groupTitle" type="text" />
+          <span v-else>{{ scope.row.groupTitle }}</span>
         </template>
 
       </cg-table-column>
@@ -119,7 +119,6 @@
 </template>
 
 <script>
-import {localeText} from '@/lang'
 import {hasAuthority} from '@/utils/cg'
 import rulesObject from './rules.js'
 import ParentTable from '@/views/common-views/components/table'

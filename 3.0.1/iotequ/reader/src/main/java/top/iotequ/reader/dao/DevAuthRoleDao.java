@@ -11,7 +11,7 @@ import top.iotequ.framework.service.IDaoService;
 import top.iotequ.reader.pojo.DevAuthRole;
 import java.util.*;
 
-//  Mapper dao : DevAuthRoleDao (权限定义数据访问接口)
+//  Mapper dao : DevAuthRoleDao (权限定义|Authorization role数据访问接口)
 public interface DevAuthRoleDao  extends IDaoService<DevAuthRole> {
     int insert(DevAuthRole record);
     int insertBatchWithoutId(List<DevAuthRole> list);

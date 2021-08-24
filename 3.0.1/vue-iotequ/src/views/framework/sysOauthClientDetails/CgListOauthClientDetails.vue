@@ -22,13 +22,15 @@
       <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter" width="36" />
       <cg-table-column prop="authorizedGrantTypes" type="dict" :page="paginationCurrentPage" :label="$t('sysOauthClientDetails.field.authorizedGrantTypes')" align="left" >
         <template slot-scope="scope">
-          {{ dictValue(scope.row.authorizedGrantTypes,dictionary.dictAuthorizedGrantTypes,false,true) }}
+          <cg-select v-if="scope.row.inlineEditting" v-model="scope.row.authorizedGrantTypes" automaticDropdown appendToBody :dictionary="dictionary.dictAuthorizedGrantTypes" allow-create numberic />
+          <span v-else>{{ dictValue(scope.row.authorizedGrantTypes,dictionary.dictAuthorizedGrantTypes,false,true) }}</span>
         </template>
 
       </cg-table-column>
       <cg-table-column prop="clientId" :page="paginationCurrentPage" :label="$t('sysOauthClientDetails.field.clientId')" align="left" >
         <template slot-scope="scope">
-          {{ scope.row.clientId }}
+          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.clientId" type="text" />
+          <span v-else>{{ scope.row.clientId }}</span>
         </template>
 
       </cg-table-column>
@@ -40,13 +42,15 @@
       </cg-table-column>
       <cg-table-column prop="scope" :page="paginationCurrentPage" :label="$t('sysOauthClientDetails.field.scope')" align="left" >
         <template slot-scope="scope">
-          {{ scope.row.scope }}
+          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.scope" type="text" />
+          <span v-else>{{ scope.row.scope }}</span>
         </template>
 
       </cg-table-column>
       <cg-table-column prop="authorities" type="dict" :page="paginationCurrentPage" :label="$t('sysOauthClientDetails.field.authorities')" align="left" >
         <template slot-scope="scope">
-          {{ dictValue(scope.row.authorities,dictionary.dictAuthorities,false,true) }}
+          <cg-select v-if="scope.row.inlineEditting" v-model="scope.row.authorities" automaticDropdown appendToBody :dictionary="dictionary.dictAuthorities" allow-create multiple />
+          <span v-else>{{ dictValue(scope.row.authorities,dictionary.dictAuthorities,false,true) }}</span>
         </template>
 
       </cg-table-column>
@@ -64,7 +68,8 @@
       </cg-table-column>
       <cg-table-column prop="decription" :page="paginationCurrentPage" :label="$t('sysOauthClientDetails.field.decription')" align="left" >
         <template slot-scope="scope">
-          {{ scope.row.decription }}
+          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.decription" type="text" />
+          <span v-else>{{ scope.row.decription }}</span>
         </template>
 
       </cg-table-column>
@@ -135,6 +140,8 @@ const Comp = {
       paginationCurrentPage: 1,
       paginationPageSize: this.$store.state.app.device === 'mobile' ? 10 : 30,
       paginationTotalRecords: 0,
+      totalEdittingRows: 0,
+      editInlineFields: hasAuthority('/framework/sysOauthClientDetails/updateSelective')?['authorizedGrantTypes', 'clientId', 'scope', 'authorities', 'decription']:null,
       listName: 'oauthClientDetails',
       multipleSelection: true,
       generatorName: 'sysOauthClientDetails',

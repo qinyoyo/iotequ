@@ -6,7 +6,7 @@
     </el-backtop>
     <el-table ref="cgList" v-if="isTableMode()" v-loading="listLoading" :data="rows" :class="className" row-key="id" :row-class-name="rowClassName" 
               style="width: 100%" :height="tableHeight()" :size="$store.state.app.size" 
-              stripe :border="!mobile" highlight-current-row fit :span-method="groupFields" 
+              v-set-input:no-tab-index="{tabIndex: -1}" v-table-enter-tab stripe :border="!mobile" highlight-current-row fit :span-method="groupFields" 
               @row-click="(row, column, event)=>cgList.list_rowClick(myself,{ row, column, event })" 
               @row-contextmenu="(row, column, event)=>cgList.list_rowContextmenu(myself,{ row, column, event })" 
               @header-click="(column, event)=>cgList.list_headClick(myself,{ column, event })" 
@@ -19,28 +19,32 @@
       <el-table-column v-if="!mobile" type="index" width="50" align="center" class-name="drag-filter" label-class-name="pointer-cursor" header-align="center">
         <i slot="header" class="el-icon-menu"/>
       </el-table-column>
-      <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter" width="36" />
+      <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter no-tab-index" width="36" />
       <cg-table-column prop="module" :page="1" :label="$t('cgProject.field.name')" sortable align="left" >
         <template slot-scope="scope">
-          {{ scope.row.module }}
+          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.module" type="text" />
+          <span v-else>{{ scope.row.module }}</span>
         </template>
 
       </cg-table-column>
       <cg-table-column prop="code" :page="1" :label="$t('cgTable.field.code')" sortable align="left" >
         <template slot-scope="scope">
-          {{ scope.row.code }}
+          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.code" type="text" />
+          <span v-else>{{ scope.row.code }}</span>
         </template>
 
       </cg-table-column>
       <cg-table-column prop="title" :page="1" :label="$t('cgTable.field.title')" align="left" >
         <template slot-scope="scope">
-          {{ localeText(scope.row.title) }}
+          <cg-input v-if="scope.row.inlineEditting" v-model="scope.row.title" type="text" />
+          <span v-else>{{ localeText(scope.row.title) }}</span>
         </template>
 
       </cg-table-column>
       <cg-table-column prop="name" :page="1" :label="$t('cgTable.field.name')" sortable align="left" >
         <template slot-scope="scope">
-          {{ scope.row.name }}
+          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.name" type="text" />
+          <span v-else>{{ scope.row.name }}</span>
         </template>
 
       </cg-table-column>
@@ -97,6 +101,7 @@
 <script>
 import {localeText} from '@/lang'
 import {hasAuthority} from '@/utils/cg'
+import rulesObject from './rules.js'
 import ParentTable from '@/views/common-views/components/table'
 const Comp = {
   name: 'CgListCgTable',
@@ -109,6 +114,7 @@ const Comp = {
   },
   data() {
     return {
+      rulesObject,
       path: 'list',
       defaultOrder: 'module,code',
       queryRecordFields: ['module','code','name'],
@@ -123,6 +129,8 @@ const Comp = {
       filterQueryDictionary: {
         module: [],
       },
+      totalEdittingRows: 0,
+      editInlineFields: hasAuthority('/codegenerator/cgTable/updateSelective')?['module', 'code', 'title', 'name']:null,
       hasSonTables: true,
       groupByEntityFields: 'module',
       listName: 'cgTable',

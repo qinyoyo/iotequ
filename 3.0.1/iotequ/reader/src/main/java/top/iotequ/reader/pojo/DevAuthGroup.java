@@ -13,7 +13,7 @@ import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
 import java.util.*;
 
-//  Pojo entity : DevAuthGroup (人员授权分组)
+//  Pojo entity : DevAuthGroup (人员授权分组|Group of people)
 @CgTableAnnotation(name="dev_auth_group",
                    title="devAuthGroup",
                    baseUrl="/reader/devAuthGroup",

@@ -14,6 +14,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
+import sun.misc.Regexp;
 import top.iotequ.codegenerator.dao.CgProjectDao;
 import top.iotequ.codegenerator.pojo.*;
 import top.iotequ.codegenerator.util.*;
@@ -859,7 +860,6 @@ public class GenService implements ApplicationContextAware {
 
     private Map<String, Object> appendFormProperties(CgForm form, List<CgFormField> forms) throws CgException {
         List<CgField> allFields = dtoService.getAllFieldsIncludeSplitedJoin(table, tabFields, joinFields, calFields);
-
         if (form.getIsFlow()!=null && form.getIsFlow()) {
             for (CgFormField f: forms) {
                 if (!f.getHidden()) {
@@ -991,6 +991,18 @@ public class GenService implements ApplicationContextAware {
             for (int i=0;i<forms.size();i++) {
                 CgForm item = forms.get(i);
                 Map<String, Object> map = new HashMap<>();
+                if (item.getIsDialog() && !Util.isEmpty(item.getViewProperties())) {
+                    String vp=item.getViewProperties();
+                    Pattern p = Pattern.compile("\\:?width\\s*=\\s*\".*?\"");
+                    Matcher m = p.matcher(vp);
+                    if (m.find()) {
+                        String w = vp.substring(m.start(),m.end());
+                        map.put("dialogWidth",w);
+                        vp = (m.start() > 0 ? vp.substring(0,m.start()) : "") + (m.end()<vp.length() ? vp.substring(m.end()) : "");
+                        item.setViewProperties(vp);
+                    }
+                }
+
                 map.put("FP", item);
                 List<CgFormField> usedFields = dtoService.getCgFormFields(item.getId());
                 if (Objects.isNull(usedFields) || usedFields.isEmpty()) continue;

@@ -11,7 +11,7 @@ import top.iotequ.framework.service.IDaoService;
 import top.iotequ.reader.pojo.DevReader;
 import java.util.*;
 
-//  Mapper dao : DevReaderDao (终端设备表数据访问接口)
+//  Mapper dao : DevReaderDao (终端设备表|Device数据访问接口)
 public interface DevReaderDao  extends IDaoService<DevReader> {
     int insert(DevReader record);
     int insertBatchWithoutId(List<DevReader> list);

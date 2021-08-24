@@ -13,7 +13,7 @@ import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
 import java.util.*;
 
-//  Pojo entity : Org (组织机构)
+//  Pojo entity : Org (组织机构|Organization)
 @CgTableAnnotation(name="sys_org",
                    title="sysOrg",
                    pk="org_code",

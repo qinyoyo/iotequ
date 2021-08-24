@@ -11,7 +11,7 @@ import top.iotequ.framework.service.IDaoService;
 import top.iotequ.framework.pojo.DataDict;
 import java.util.*;
 
-//  Mapper dao : DataDictDao (数据字典数据访问接口)
+//  Mapper dao : DataDictDao (数据字典|Data dictionary数据访问接口)
 public interface DataDictDao  extends IDaoService<DataDict> {
     int insert(DataDict record);
     int insertBatchWithoutId(List<DataDict> list);

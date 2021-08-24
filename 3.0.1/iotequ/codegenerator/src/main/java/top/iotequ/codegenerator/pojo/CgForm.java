@@ -42,7 +42,7 @@ public class CgForm implements CgEntity {
     private String tableId;		//对应表定义 db field:table_id
 
     @SerializedName(value = "headTitle", alternate = {"head_title","HEAD_TITLE"})
-    @CgFieldAnnotation(name="head_title",jdbcType="VARCHAR",length=400,nullable=false,format="@")
+    @CgFieldAnnotation(name="head_title",jdbcType="VARCHAR",length=400,nullable=true,format="@")
     private String headTitle;		//form标题 db field:head_title
 
     @SerializedName(value = "isFlow", alternate = {"is_flow","IS_FLOW"})

@@ -74,9 +74,6 @@ public class CgCgListService extends CgService<CgList>  {
         if (cgList.getTableId()==null) {
             cgList.setTableId("");
         }
-        if (cgList.getHeadTitle()==null) {
-            cgList.setHeadTitle("");
-        }
         if (cgList.getEditInline()==null) {
             cgList.setEditInline(false);
         }

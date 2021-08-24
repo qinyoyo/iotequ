@@ -20,7 +20,7 @@ import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
 import java.util.*;
 
-//  Pojo entity : DevReaderPeople (设备人员信息)
+//  Pojo entity : DevReaderPeople (设备人员信息|Device people infomation)
 @CgTableAnnotation(name="dev_reader_people",
                    title="devReaderPeople",
                    join="LEFT JOIN dev_people ON dev_reader_people.user_no = dev_people.user_no",

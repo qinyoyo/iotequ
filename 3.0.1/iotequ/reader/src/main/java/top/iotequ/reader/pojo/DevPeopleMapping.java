@@ -13,7 +13,7 @@ import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
 import java.util.*;
 
-//  Pojo entity : DevPeopleMapping (下发用户关系)
+//  Pojo entity : DevPeopleMapping (下发用户关系|Map of download users)
 @CgTableAnnotation(name="dev_people_mapping",
                    title="devPeopleMapping",
                    baseUrl="/reader/devPeopleMapping",

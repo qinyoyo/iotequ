@@ -306,7 +306,8 @@ public class AdUtil {
 		for (AdOrg o : orgList) {
 			if (code==o.getOrgCode() || (calcChildrenOrg && OrgUtil.isOrgChildren(o.getOrgCode(),code))) {
 				ICgService adEmployeeService=(ICgService) Util.getBean("adEmployeeService");
-				String filter=SqlUtil.licenceCondition("ad_employee", "id", adEmployeeService.getLicence());
+				Integer licence= adEmployeeService.getLicence();
+				String filter = (licence==null ? null : SqlUtil.licenceCondition("ad_employee", "id", licence));
 				List<AdEmployee> users= Util.getBean(AdEmployeeDao.class).listBy(
 						"sys_user.org_code="+o.getOrgCode()+" and ad_employee.is_attendance=1"+(filter==null?"":" and "+filter),
 						"ad_employee.employee_no");

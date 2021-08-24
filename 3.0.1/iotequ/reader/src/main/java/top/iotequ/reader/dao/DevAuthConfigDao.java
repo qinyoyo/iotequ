@@ -11,7 +11,7 @@ import top.iotequ.framework.service.IDaoService;
 import top.iotequ.reader.pojo.DevAuthConfig;
 import java.util.*;
 
-//  Mapper dao : DevAuthConfigDao (权限配置数据访问接口)
+//  Mapper dao : DevAuthConfigDao (权限配置|Authorization config数据访问接口)
 public interface DevAuthConfigDao  extends IDaoService<DevAuthConfig> {
     int insert(DevAuthConfig record);
     int insertBatchWithoutId(List<DevAuthConfig> list);

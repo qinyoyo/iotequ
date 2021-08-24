@@ -21,7 +21,7 @@ import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
 import java.util.*;
 
-//  Pojo entity : DevAuthConfig (权限配置)
+//  Pojo entity : DevAuthConfig (权限配置|Authorization config)
 @CgTableAnnotation(name="dev_auth_config",
                    title="devAuthConfig",
                    baseUrl="/reader/devAuthConfig",

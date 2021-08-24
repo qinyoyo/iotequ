@@ -17,7 +17,7 @@ import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
 import java.util.*;
 
-//  Pojo entity : SysLog (系统日志)
+//  Pojo entity : SysLog (系统日志|System logs)
 @CgTableAnnotation(name="sys_log",
                    title="sysLog",
                    baseUrl="/framework/sysLog",

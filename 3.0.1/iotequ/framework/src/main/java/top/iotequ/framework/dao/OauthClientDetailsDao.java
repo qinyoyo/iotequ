@@ -11,7 +11,7 @@ import top.iotequ.framework.service.IDaoService;
 import top.iotequ.framework.pojo.OauthClientDetails;
 import java.util.*;
 
-//  Mapper dao : OauthClientDetailsDao (OAuth2客户端配置数据访问接口)
+//  Mapper dao : OauthClientDetailsDao (OAuth2客户端配置|OAuth2 setting数据访问接口)
 public interface OauthClientDetailsDao  extends IDaoService<OauthClientDetails> {
     int insert(OauthClientDetails record);
     int insertBatchWithId(List<OauthClientDetails> list);

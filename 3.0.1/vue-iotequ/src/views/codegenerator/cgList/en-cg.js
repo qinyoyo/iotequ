@@ -4,9 +4,9 @@ export default {
       list: 'List',
       join: 'Select list',
       record: 'List design',
-      groupCgListTableId: 'Base defination',
+      groupCgListTableId: 'Base properties',
       groupCgListSons: 'M-S/Tree/Group',
-      groupCgListTableHeight: 'Table properties',
+      groupCgListTableHeight: 'Table attributes',
       groupCgListImages: 'Page design',
       code: 'List design'
     },

@@ -13,7 +13,7 @@
   <div class="cg-form"<#if FP.isDialog> :class="dialogClass"</#if>>
     <#if FP.isDialog>
     <el-dialog ref="dialog" v-el-drag-dialog :visible.sync="showDialog" top="0px" :class="dialogClass" :close-on-click-modal="false"
-               :append-to-body="true" :show-close="!mobile || isDetail" :before-close="beforeClose" @closed="close">
+               :append-to-body="true" :show-close="!mobile || isDetail" :before-close="beforeClose" @closed="close"<#if dialogWidth??> ${dialogWidth}</#if>>
     <#else>
     <el-card shadow="hover">
     </#if>

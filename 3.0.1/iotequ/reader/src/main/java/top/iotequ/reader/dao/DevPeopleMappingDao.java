@@ -11,7 +11,7 @@ import top.iotequ.framework.service.IDaoService;
 import top.iotequ.reader.pojo.DevPeopleMapping;
 import java.util.*;
 
-//  Mapper dao : DevPeopleMappingDao (下发用户关系数据访问接口)
+//  Mapper dao : DevPeopleMappingDao (下发用户关系|Map of download users数据访问接口)
 public interface DevPeopleMappingDao  extends IDaoService<DevPeopleMapping> {
     int insert(DevPeopleMapping record);
     int insertBatchWithoutId(List<DevPeopleMapping> list);

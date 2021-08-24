@@ -20,7 +20,7 @@ CREATE TABLE `cg_list_field` (
   `default_query_value` varchar(200) NULL COMMENT '缺省查询条件',
   `cell_display_slot` varchar(500) NULL COMMENT '自定义字段显示',
   `show_type` varchar(45) NULL COMMENT '修改控件类型为'
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '列表视图字段定义' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '列表视图字段定义|Fields of list' ROW_FORMAT = Dynamic;
 
 ALTER TABLE `cg_list_field` ADD CONSTRAINT  `ui_cg_list_field01` UNIQUE (`list_id`,`entity_field`);
 -- ----------------------------
@@ -33,7 +33,7 @@ CREATE TABLE `cg_list` (
   `path` varchar(45) DEFAULT 'list' NOT NULL COMMENT '路径最后一级',
   `table_id` varchar(32) NOT NULL COMMENT '对应表单',
   `icon` varchar(45) NULL COMMENT '图标',
-  `head_title` varchar(64) NOT NULL COMMENT '列表标题',
+  `head_title` varchar(64) NULL COMMENT '列表标题',
   `tag_title` varchar(45) NULL COMMENT 'tag标题',
   `edit_inline` tinyint(1) NOT NULL COMMENT '行内编辑',
   `detail_inline` tinyint(1) NOT NULL COMMENT '行内详情',
@@ -66,7 +66,7 @@ CREATE TABLE `cg_list` (
   `action_list` varchar(200) NULL COMMENT '功能清单',
   `flow_data_url` varchar(200) NULL COMMENT '流程状态数据url',
   `local_export` tinyint(1) DEFAULT 0 NOT NULL COMMENT '本地导出'
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '列表视图定义' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '列表视图定义|List design' ROW_FORMAT = Dynamic;
 
 ALTER TABLE `cg_list` ADD CONSTRAINT  `ui_cg_list01` UNIQUE (`path`,`table_id`);
 -- ----------------------------
@@ -90,7 +90,7 @@ CREATE TABLE `cg_form_field` (
   `validate_as_title` tinyint(1) DEFAULT 0 NOT NULL COMMENT '显示title提示',
   `slot_templates` text NULL COMMENT 'slot模板',
   `show_type` varchar(45) NULL COMMENT '更改控件类型为'
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '表单字段定义' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '表单字段定义|Fields of form' ROW_FORMAT = Dynamic;
 
 ALTER TABLE `cg_form_field` ADD CONSTRAINT  `ui_cg_form_field01` UNIQUE (`form_id`,`entity_field`);
 -- ----------------------------
@@ -102,7 +102,7 @@ CREATE TABLE `cg_form` (
   `name` varchar(45) NOT NULL COMMENT '名称',
   `path` varchar(200) DEFAULT 'record' NOT NULL COMMENT '路径',
   `table_id` varchar(32) NOT NULL COMMENT '对应表定义',
-  `head_title` varchar(400) NOT NULL COMMENT 'form标题',
+  `head_title` varchar(400) NULL COMMENT 'form标题',
   `is_flow` tinyint(1) DEFAULT 0 NOT NULL COMMENT '是否流程定义',
   `icon` varchar(300) NULL COMMENT '图标',
   `tag_title` varchar(45) NOT NULL COMMENT 'tag标题',
@@ -114,7 +114,7 @@ CREATE TABLE `cg_form` (
   `form_properties` text NULL COMMENT '表单属性',
   `slot_templates` text NULL COMMENT 'slot模板',
   `action_list` varchar(200) NULL COMMENT '功能清单'
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '表单定义表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '表单定义表|Form design' ROW_FORMAT = Dynamic;
 
 ALTER TABLE `cg_form` ADD CONSTRAINT  `ui_cg_form01` UNIQUE (`path`,`table_id`);
 -- ----------------------------
@@ -138,7 +138,7 @@ CREATE TABLE `cg_field` (
   `dict_table` varchar(200) NULL COMMENT '字典表或SQL语句',
   `dict_field` varchar(1000) NULL COMMENT '字典code',
   `dict_multiple` tinyint(1) DEFAULT 0 NOT NULL COMMENT '多选',
-  `dict_text` varchar(1000) NULL COMMENT '字典Text',
+  `dict_text` varchar(500) NULL COMMENT '字典Text',
   `dyna_condition` varchar(200) NULL COMMENT '动态条件',
   `dict_full_name` tinyint(1) DEFAULT 0 NOT NULL COMMENT '显示全名',
   `dict_parent` varchar(100) NULL COMMENT '父亲字段名',
@@ -152,7 +152,7 @@ CREATE TABLE `cg_field` (
   `fk_on_delete` varchar(45) NULL COMMENT 'On Delete',
   `fk_on_update` varchar(45) NULL COMMENT 'On Update',
   `default_query_value` varchar(45) NULL
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '字段定义表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '字段定义表|Field design' ROW_FORMAT = Dynamic;
 
 ALTER TABLE `cg_field` ADD CONSTRAINT  `ui_cg_field01` UNIQUE (`table_id`,`entity_name`);
 -- ----------------------------
@@ -172,7 +172,7 @@ CREATE TABLE `cg_button` (
   `display_properties` varchar(45) NULL COMMENT '显示属性',
   `confirm_text` varchar(100) NULL COMMENT '操作前提示',
   `is_refresh_list` tinyint(1) NOT NULL COMMENT '操作后刷新列表'
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '按钮定义' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '按钮定义|Define of button' ROW_FORMAT = Dynamic;
 
 ALTER TABLE `cg_button` ADD CONSTRAINT  `ui_cg_button01` UNIQUE (`table_id`,`action`);
 -- ----------------------------
@@ -199,7 +199,7 @@ CREATE TABLE `cg_table` (
   `creator` varchar(45) NOT NULL COMMENT '创建人',
   `flow_dyna_fields_op` varchar(100) NULL COMMENT '处理人关联字段',
   `flow_dyna_fields_cp` varchar(100) NULL COMMENT '抄送人关联字段'
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '表单定义' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '表单定义|Cg table' ROW_FORMAT = Dynamic;
 
 ALTER TABLE `cg_table` ADD CONSTRAINT  `ui_cg_table01` UNIQUE (`code`,`project_id`);
 -- ----------------------------
@@ -220,7 +220,7 @@ CREATE TABLE `cg_project` (
   `maven_server` varchar(100) NULL COMMENT '内部maven库地址',
   `addtional_dependencies` text NULL COMMENT '附件依赖',
   `test` tinyint(1) DEFAULT 0 NOT NULL COMMENT 'test依赖模块'
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '项目' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '项目|Cg project' ROW_FORMAT = Dynamic;
 
 ALTER TABLE `cg_project` ADD CONSTRAINT  `ui_cg_project01` UNIQUE (`code`,`creator`);
 ALTER TABLE `cg_list_field` ADD CONSTRAINT `fk_cg_list_field_list_id_cg_list_id` FOREIGN KEY(`list_id`) REFERENCES `cg_list`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

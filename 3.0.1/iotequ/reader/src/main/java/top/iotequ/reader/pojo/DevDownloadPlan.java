@@ -17,7 +17,7 @@ import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
 import java.util.*;
 
-//  Pojo entity : DevDownloadPlan (下发计划)
+//  Pojo entity : DevDownloadPlan (下发计划|Download plan)
 @CgTableAnnotation(name="dev_download_plan",
                    title="devDownloadPlan",
                    baseUrl="/reader/devDownloadPlan",

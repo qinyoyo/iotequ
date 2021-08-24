@@ -13,7 +13,7 @@ import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
 import java.util.*;
 
-//  Pojo entity : SysRoute (路由表)
+//  Pojo entity : SysRoute (路由表|Route)
 @CgTableAnnotation(name="sys_route",
                    title="sysRoute",
                    baseUrl="/framework/sysRoute",

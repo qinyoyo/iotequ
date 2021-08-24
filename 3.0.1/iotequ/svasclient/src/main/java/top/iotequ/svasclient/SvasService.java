@@ -16,6 +16,7 @@ import top.iotequ.framework.event.PeopleInfoChangedEvent;
 import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.exception.IotequThrowable;
 import top.iotequ.util.EntityUtil;
+import top.iotequ.util.IotequVersionInfo;
 import top.iotequ.util.Util;
 import top.iotequ.svasclient.SvasTypes.*;
 import top.iotequ.svasclient.db.dao.SvasUserNoDao;
@@ -76,6 +77,7 @@ public class SvasService implements ApplicationRunner, ApplicationContextAware, 
         daysLeft = getTrialDays();
         if (licence > 0 && daysLeft > 3650) {
             log.info(String.format("---------- Svas version %s, licence = %d", version, licence));
+            IotequVersionInfo.licencesInfo.put("svas","licence = "+String.valueOf(licence));
         } else {
             if (daysLeft > 0) {
                 log.info(String.format("---------- Svas trial version %s, licence = %d, %d days left", version, licence, daysLeft));
@@ -88,8 +90,11 @@ public class SvasService implements ApplicationRunner, ApplicationContextAware, 
                         daysLeft = 0;
                     }
                 }, ca.getTime());
-            } else
+                IotequVersionInfo.licencesInfo.put("svas",daysLeft+" days left , licence = "+licence);
+            } else {
                 log.info(String.format("---------- Svas trial version expired"));
+                IotequVersionInfo.licencesInfo.put("svas", "expired");
+            }
         }
         svasClient.setLicence(licence);
     }

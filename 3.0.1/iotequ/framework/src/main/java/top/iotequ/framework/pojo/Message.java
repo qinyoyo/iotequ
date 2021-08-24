@@ -17,7 +17,7 @@ import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
 import java.util.*;
 
-//  Pojo entity : Message (消息)
+//  Pojo entity : Message (消息|Message)
 @CgTableAnnotation(name="sys_message",
                    title="sysMessage",
                    baseUrl="/framework/sysMessage",

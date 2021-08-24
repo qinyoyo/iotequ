@@ -11,7 +11,7 @@ import top.iotequ.framework.service.IDaoService;
 import top.iotequ.attendance.approvelist.pojo.AdApproveList;
 import java.util.*;
 
-//  Mapper dao : AdApproveListDao (审核信息表数据访问接口)
+//  Mapper dao : AdApproveListDao (审核信息表|Audit infomation数据访问接口)
 public interface AdApproveListDao  extends IDaoService<AdApproveList> {
     int insert(AdApproveList record);
     int insertBatchWithoutId(List<AdApproveList> list);

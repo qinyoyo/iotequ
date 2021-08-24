@@ -11,7 +11,7 @@ import top.iotequ.framework.service.IDaoService;
 import top.iotequ.framework.pojo.SysLog;
 import java.util.*;
 
-//  Mapper dao : SysLogDao (系统日志数据访问接口)
+//  Mapper dao : SysLogDao (系统日志|System logs数据访问接口)
 public interface SysLogDao  extends IDaoService<SysLog> {
     int insert(SysLog record);
     int insertBatchWithoutId(List<SysLog> list);

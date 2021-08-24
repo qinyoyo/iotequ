@@ -22,7 +22,7 @@ import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
 import java.util.*;
 
-//  Pojo entity : AdData (考勤数据)
+//  Pojo entity : AdData (考勤数据|Attendance data)
 @CgTableAnnotation(name="ad_data",
                    title="adData",
                    join="LEFT JOIN ad_employee ON ad_data.employee_no = ad_employee.employee_no LEFT JOIN sys_user employee_no_sys_user ON ad_employee.id = employee_no_sys_user.id",

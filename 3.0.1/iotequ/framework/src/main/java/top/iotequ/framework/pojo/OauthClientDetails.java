@@ -17,7 +17,7 @@ import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
 import java.util.*;
 
-//  Pojo entity : OauthClientDetails (OAuth2客户端配置)
+//  Pojo entity : OauthClientDetails (OAuth2客户端配置|OAuth2 setting)
 @CgTableAnnotation(name="oauth_client_details",
                    title="sysOauthClientDetails",
                    pk="client_id",

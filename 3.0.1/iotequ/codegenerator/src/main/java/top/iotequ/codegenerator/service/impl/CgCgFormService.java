@@ -72,9 +72,6 @@ public class CgCgFormService extends CgService<CgForm>  {
         if (cgForm.getTableId()==null) {
             cgForm.setTableId("");
         }
-        if (cgForm.getHeadTitle()==null) {
-            cgForm.setHeadTitle("");
-        }
         if (cgForm.getIsFlow()==null) {
             cgForm.setIsFlow(Util.boolValue("0"));
         }

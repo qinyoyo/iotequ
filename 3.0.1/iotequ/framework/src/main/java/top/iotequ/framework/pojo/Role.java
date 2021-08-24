@@ -15,7 +15,7 @@ import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
 import java.util.*;
 
-//  Pojo entity : Role (角色表)
+//  Pojo entity : Role (角色表|Role)
 @CgTableAnnotation(name="sys_role",
                    title="sysRole",
                    baseUrl="/framework/sysRole",

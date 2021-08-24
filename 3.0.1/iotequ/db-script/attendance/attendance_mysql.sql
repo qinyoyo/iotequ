@@ -65,7 +65,7 @@ CREATE TABLE `ad_employee` (
   `leave_date` date NULL COMMENT '离职日期',
   `overtime_minutes` int(11) DEFAULT 0 NOT NULL COMMENT '可调休时间',
   `shift_id` int(11) NULL COMMENT '考勤排班'
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '考勤职员表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '考勤职员表|Employee' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for ad_approve_list
@@ -79,7 +79,7 @@ CREATE TABLE `ad_approve_list` (
   `state0` int(11) NULL COMMENT '初始状态',
   `approve_note` varchar(200) NULL COMMENT '审批意见',
   `adjust_id` varchar(32) NOT NULL COMMENT '考勤调整单编号'
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '审核信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '审核信息表|Audit infomation' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for ad_special_shift
@@ -134,7 +134,7 @@ CREATE TABLE `ad_day_result` (
   `minutes` int(11) DEFAULT 0 NOT NULL COMMENT '时长',
   `work_minutes` int(11) DEFAULT 0 NOT NULL COMMENT '工作时长',
   `shift_id` int(11) DEFAULT 0 NOT NULL COMMENT '班次排序'
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '日考勤结果' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '日考勤结果|Attendance result by day' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for ad_data
@@ -148,7 +148,7 @@ CREATE TABLE `ad_data` (
   `rec_type` int(11) DEFAULT 3 NOT NULL COMMENT '类别',
   `rec_time` datetime NOT NULL COMMENT '时间',
   `is_used` tinyint(1) DEFAULT '0' NOT NULL COMMENT '被使用'
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '考勤数据' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '考勤数据|Attendance data' ROW_FORMAT = Dynamic;
 CREATE INDEX `index_ad_data_employee_no` ON `ad_data`(`employee_no`);
 
 -- ----------------------------
@@ -169,7 +169,7 @@ CREATE TABLE `ad_adjust` (
   `approver` varchar(36) NULL COMMENT '后续审批人',
   `approve_org` int(11) NULL COMMENT '审批部门',
   `add_file` varchar(200) NULL COMMENT '附件'
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '考勤调整' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '考勤调整|Action of attendance' ROW_FORMAT = Dynamic;
 
 ALTER TABLE `ad_special_shift_time` ADD CONSTRAINT `fk_ad_special_shift_time_special_shift_id_ad_special_shift_id` FOREIGN KEY(`special_shift_id`) REFERENCES `ad_special_shift`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `ad_shift_time` ADD CONSTRAINT `fk_ad_shift_time_shift_id_ad_shift_id` FOREIGN KEY(`shift_id`) REFERENCES `ad_shift`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

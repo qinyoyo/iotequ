@@ -40,6 +40,9 @@ export default  {
          headTitle:[
             { required: true, message: vueObject.$t('system.message.needValue') + ':' + vueObject.$t('cgList.field.headTitle'), trigger: 'blur' }
          ],
+         tagTitle:[
+            { required: true, message: vueObject.$t('system.message.needValue') + ':' + vueObject.$t('cgList.field.tagTitle'), trigger: 'blur' }
+         ],
          editInline:[
             { required: true, message: vueObject.$t('system.message.needValue') + ':' + vueObject.$t('cgList.field.editInline'), trigger: 'blur' }
          ],

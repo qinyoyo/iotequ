@@ -17,7 +17,7 @@ import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
 import java.util.*;
 
-//  Pojo entity : AdApproveList (审核信息表)
+//  Pojo entity : AdApproveList (审核信息表|Audit infomation)
 @CgTableAnnotation(name="ad_approve_list",
                    title="adApproveList",
                    join="LEFT JOIN sys_user ON ad_approve_list.approver = sys_user.id",

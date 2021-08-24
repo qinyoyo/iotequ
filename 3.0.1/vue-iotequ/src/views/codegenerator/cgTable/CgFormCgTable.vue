@@ -44,9 +44,9 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item class="cg-item-text" :label="$t('cgTable.field.title')" :title="$t('cgTable.field.titleValid')" prop="title" :size="$store.state.app.size" >
-                <el-input v-model="record.title" name="title" 
-                          type="text" 
+              <el-form-item class="cg-item-mltext" :label="$t('cgTable.field.title')" :title="$t('cgTable.field.titleValid')" prop="title" :size="$store.state.app.size" >
+                <cg-input v-model="record.title" name="title" 
+                          type="mltext" 
                           :label="$t('cgTable.field.title')" :placeholder="$t('system.message.needValue')" 
                           resize autofocus validate-event 
                           :readonly="isDetail" :maxlength="32" show-word-limit />

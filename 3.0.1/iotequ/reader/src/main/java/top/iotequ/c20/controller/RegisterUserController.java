@@ -30,6 +30,7 @@ import top.iotequ.svasclient.SvasTypes.SvasTemplates;
 import top.iotequ.svasclient.TemplatesChangedEvent;
 import top.iotequ.reader.service.impl.DevPeopleService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.DatatypeConverter;
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -54,18 +55,28 @@ public class RegisterUserController {
 	ApplicationContext applicationContext;
 	// 注册设备
 	@RequestMapping(value = Links.C20DeviceBIND, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public JSONObject BindingDevice(@RequestBody C20HttpServer.C20BindInfo bindInfo) {
+	public JSONObject BindingDevice(HttpServletRequest request, @RequestBody C20HttpServer.C20BindInfo bindInfo) {
 		C20log.error("upload C20  readerNo:"+bindInfo.devNo+",snNo:"+bindInfo.SN);
 		JSONObject js=new JSONObject();
 		Boolean status=true;
 		String sql = "select * from dev_reader where reader_no=?";// 查询编号是否存在
 		if (!SqlUtil.sqlExist(sql, bindInfo.devNo)) {
 			try {
-				Integer readerGroupId=SqlUtil.sqlQueryInteger("select max(id) from dev_reader_group where parent is null");
+				// 插入到第一个分组，缺省为智脉通
+				Integer readerGroupId=SqlUtil.sqlQueryInteger("select min(id) from dev_reader_group where parent is null");
+				String ip = Util.getIpAddr(request);
 				if(readerGroupId!=null) {
 					String uid=UUID.randomUUID().toString().replace("-","").toLowerCase();
-					SqlUtil.sqlExecute("insert into dev_reader(id,reader_no,name,type,reader_group,connect_type,ip,dev_mode,sn_no) values(?,?,?,?,?,?,?,?,?)",uid, bindInfo.devNo,bindInfo.devNo,"C20",readerGroupId,"HTTP","192.168.1."+ bindInfo.devNo,"MJ",bindInfo.SN);
+					SqlUtil.sqlExecute("insert into dev_reader(id,reader_no,name,type,reader_group,connect_type,ip,dev_mode,sn_no,is_online) values(?,?,?,?,?,?,?,?,?,1)",uid, bindInfo.devNo,bindInfo.devNo,"C20",readerGroupId,"HTTP",ip,"MJ",bindInfo.SN);
 				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				C20log.error(e.getMessage());
+				status=false;
+			}
+		} else {
+			try {
+				SqlUtil.sqlExecute("update dev_reader set is_online = 1 where reader_no=?",bindInfo.devNo);
 			} catch (Exception e) {
 				// TODO: handle exception
 				C20log.error(e.getMessage());

@@ -17,7 +17,7 @@ import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
 import java.util.*;
 
-//  Pojo entity : FlowProcess (流程处理)
+//  Pojo entity : FlowProcess (流程处理|Flow process)
 @CgTableAnnotation(name="sys_flow_process",
                    title="sysFlowProcess",
                    join="LEFT JOIN sys_user ON sys_flow_process.operator = sys_user.id LEFT JOIN sys_user sys_user1 ON sys_flow_process.next_operator = sys_user1.id",

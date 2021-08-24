@@ -11,7 +11,7 @@ import top.iotequ.framework.service.IDaoService;
 import top.iotequ.framework.pojo.Permission;
 import java.util.*;
 
-//  Mapper dao : PermissionDao (功能分配表数据访问接口)
+//  Mapper dao : PermissionDao (功能分配表|Role permission数据访问接口)
 public interface PermissionDao  extends IDaoService<Permission> {
     int insert(Permission record);
     int insertBatchWithoutId(List<Permission> list);

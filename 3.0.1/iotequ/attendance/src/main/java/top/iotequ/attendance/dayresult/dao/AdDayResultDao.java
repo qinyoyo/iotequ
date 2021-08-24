@@ -11,7 +11,7 @@ import top.iotequ.framework.service.IDaoService;
 import top.iotequ.attendance.dayresult.pojo.AdDayResult;
 import java.util.*;
 
-//  Mapper dao : AdDayResultDao (日考勤结果数据访问接口)
+//  Mapper dao : AdDayResultDao (日考勤结果|Attendance result by day数据访问接口)
 public interface AdDayResultDao  extends IDaoService<AdDayResult> {
     int insert(AdDayResult record);
     int insertBatchWithoutId(List<AdDayResult> list);

@@ -22,49 +22,57 @@
       <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter" width="36" />
       <cg-table-column prop="name" :page="1" :label="$t('cgList.field.name')" sortable align="left" >
         <template slot-scope="scope">
-          {{ scope.row.name }}
+          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.name" type="text" />
+          <span v-else>{{ scope.row.name }}</span>
         </template>
 
       </cg-table-column>
       <cg-table-column prop="headTitle" :page="1" :label="$t('cgList.field.headTitle')" align="left" >
         <template slot-scope="scope">
-          {{ localeText(scope.row.headTitle) }}
+          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.headTitle" type="text" />
+          <span v-else>{{ scope.row.headTitle }}</span>
         </template>
 
       </cg-table-column>
       <cg-table-column prop="tagTitle" :page="1" :label="$t('cgList.field.tagTitle')" align="left" >
         <template slot-scope="scope">
-          {{ localeText(scope.row.tagTitle) }}
+          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.tagTitle" type="text" />
+          <span v-else>{{ scope.row.tagTitle }}</span>
         </template>
 
       </cg-table-column>
       <cg-table-column prop="pagination" :page="1" :label="$t('cgList.field.pagination')" align="left" >
         <template slot-scope="scope">
-          <cg-icon :color="scope.row.pagination?'#46a6ff':'grey'" :icon="scope.row.pagination?'fa fa-check-circle':'fa fa-circle-o'"/>
+          <el-switch v-if="scope.row.inlineEditting" v-model="scope.row.pagination" />
+          <cg-icon v-else :color="scope.row.pagination?'#46a6ff':'grey'" :icon="scope.row.pagination?'fa fa-check-circle':'fa fa-circle-o'"/>
         </template>
 
       </cg-table-column>
       <cg-table-column prop="editInline" :page="1" :label="$t('cgList.field.editInline')" align="left" >
         <template slot-scope="scope">
-          <cg-icon :color="scope.row.editInline?'#46a6ff':'grey'" :icon="scope.row.editInline?'fa fa-check-circle':'fa fa-circle-o'"/>
+          <el-switch v-if="scope.row.inlineEditting" v-model="scope.row.editInline" />
+          <cg-icon v-else :color="scope.row.editInline?'#46a6ff':'grey'" :icon="scope.row.editInline?'fa fa-check-circle':'fa fa-circle-o'"/>
         </template>
 
       </cg-table-column>
       <cg-table-column prop="tableHeight" :page="1" :label="$t('cgList.field.tableHeight')" align="left" >
         <template slot-scope="scope">
-          {{ scope.row.tableHeight }}
+          <el-input v-if="scope.row.inlineEditting" v-model="scope.row.tableHeight" type="text" />
+          <span v-else>{{ scope.row.tableHeight }}</span>
         </template>
 
       </cg-table-column>
       <cg-table-column prop="sortField" type="dict" :page="1" :label="$t('cgList.field.sortField')" align="left" >
         <template slot-scope="scope">
-          {{ dictValue(scope.row.sortField,dictionary.dictTitleField,false,true) }}
+          <cg-select v-if="scope.row.inlineEditting" v-model="scope.row.sortField" automaticDropdown appendToBody :dictionary="dictionary.dictTitleField" allow-create numberic />
+          <span v-else>{{ dictValue(scope.row.sortField,dictionary.dictTitleField,false,true) }}</span>
         </template>
 
       </cg-table-column>
       <cg-table-column prop="multiple" :page="1" :label="$t('cgList.field.multiple')" align="left" >
         <template slot-scope="scope">
-          <cg-icon :color="scope.row.multiple?'#46a6ff':'grey'" :icon="scope.row.multiple?'fa fa-check-circle':'fa fa-circle-o'"/>
+          <el-switch v-if="scope.row.inlineEditting" v-model="scope.row.multiple" />
+          <cg-icon v-else :color="scope.row.multiple?'#46a6ff':'grey'" :icon="scope.row.multiple?'fa fa-check-circle':'fa fa-circle-o'"/>
         </template>
 
       </cg-table-column>
@@ -119,7 +127,6 @@
 </template>
 
 <script>
-import {localeText} from '@/lang'
 import {hasAuthority} from '@/utils/cg'
 import ParentTable from '@/views/common-views/components/table'
 const Comp = {
@@ -147,6 +154,8 @@ const Comp = {
         dictTableId: []
       },
       needLoadDictionary: true,
+      totalEdittingRows: 0,
+      editInlineFields: hasAuthority('/codegenerator/cgList/updateSelective')?['name', 'headTitle', 'tagTitle', 'pagination', 'editInline', 'tableHeight', 'sortField', 'multiple']:null,
       hasSonTables: true,
       groupByEntityFields: 'tableId',
       listName: 'cgList',

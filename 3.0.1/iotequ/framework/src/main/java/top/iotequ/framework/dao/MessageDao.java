@@ -11,7 +11,7 @@ import top.iotequ.framework.service.IDaoService;
 import top.iotequ.framework.pojo.Message;
 import java.util.*;
 
-//  Mapper dao : MessageDao (消息数据访问接口)
+//  Mapper dao : MessageDao (消息|Message数据访问接口)
 public interface MessageDao  extends IDaoService<Message> {
     int insert(Message record);
     int insertBatchWithoutId(List<Message> list);

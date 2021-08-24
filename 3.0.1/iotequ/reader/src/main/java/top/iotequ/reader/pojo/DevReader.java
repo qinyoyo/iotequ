@@ -14,12 +14,12 @@ import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
 import java.util.*;
 
-//  Pojo entity : DevReader (终端设备表)
+//  Pojo entity : DevReader (终端设备表|Device)
 @CgTableAnnotation(name="dev_reader",
                    title="devReader",
                    baseUrl="/reader/devReader",
                    hasLicence=true,
-                   trialLicence=10,
+                   trialDays=160,
                    pkType="String",
                    pkKeyType="2",
                    generatorName="devReader",
@@ -27,10 +27,6 @@ import java.util.*;
 @Getter
 @Setter
 public class DevReader implements CgEntity {
-    @SerializedName(value = "capacity", alternate = {"CAPACITY"})
-    @CgFieldAnnotation(name="capacity",jdbcType="INTEGER",length=10,nullable=true,format="")
-    private Integer capacity;		//容量 db field:capacity
-
     @SerializedName(value = "id", alternate = {"ID"})
     @CgFieldAnnotation(name="id",jdbcType="CHAR",length=36,nullable=false,format="@")
     private String id;		//主键 db field:id
@@ -54,6 +50,10 @@ public class DevReader implements CgEntity {
     @SerializedName(value = "address", alternate = {"ADDRESS"})
     @CgFieldAnnotation(name="address",jdbcType="VARCHAR",length=100,nullable=true,format="@")
     private String address;		//地点 db field:address
+
+    @SerializedName(value = "capacity", alternate = {"CAPACITY"})
+    @CgFieldAnnotation(name="capacity",jdbcType="INTEGER",length=10,nullable=true,format="")
+    private Integer capacity;		//容量 db field:capacity
 
     @SerializedName(value = "connectType", alternate = {"connect_type","CONNECT_TYPE"})
     @CgFieldAnnotation(name="connect_type",jdbcType="VARCHAR",length=11,nullable=false,format="@")
@@ -157,7 +157,7 @@ public class DevReader implements CgEntity {
 
     @SerializedName(value = "wifiPsw", alternate = {"wifi_psw","WIFI_PSW"})
     @CgFieldAnnotation(name="wifi_psw",jdbcType="VARCHAR",length=36,nullable=true,format="@")
-    private String wifiPsw;		//wifi密码 db field:wifi_psw
+    private String wifiPsw;		//wifi密码|Wifi password db field:wifi_psw
 
     @Override public Object getPkValue(){ return getId(); }
     @Override

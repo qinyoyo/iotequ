@@ -1,28 +1,40 @@
 
-表：dev_reader : 终端设备表
-id	主键	varchar	✘	
+表：dev_reader : 终端设备表|Device
+id	主键	char	✘	
 reader_no	设备编号	varchar	✘	
-name	设备标识名	varchar	✘	
+name	名称	varchar	✘	
 type	型号	varchar	✘	
 reader_group	设备组	int	✘	
 address	地点	varchar	√	
+capacity	容量	int	√	
 connect_type	连接类型	varchar	✘	
 ip	IP地址	varchar	✘	
+sn_no	设备序列号	varchar	√	
 dev_mode	设备模式	varchar	✘	
 firmware	固件版本	varchar	√	
-is_online	在线	tinyint(1)	✘	
-is_time_sync	同步	tinyint(1)	✘	
-align_method	验证方式	tinyint(8)	✘	
-blacklight_time	背光时间	tinyint(8)	✘	0:10s  1:30s  2:60s  3:90s  4:常亮  
-voiceprompt	语言提示	tinyint(1)	✘	
-menu_time	菜单时间	tinyint(8)	✘	0:10s  1:30s  2:60s  3:90s  
-wengenform	韦根格式	tinyint(8)	✘	
-wengen_output	韦根输出	tinyint(8)	✘	
-wengen_out_area	韦根输出区位码	tinyint(8)	✘	
-regfinger_out_time	指静脉注册超时时长	tinyint(8)	✘	
-authfinger_out_time	验证超时时长	tinyint(8)	✘	
+is_online	在线	boolean	✘	
+is_time_sync	同步	boolean	✘	
+align_method	验证方式	tinyint	✘	
+blacklight_time	背光时间	tinyint	✘	0:10s|10s  1:30s|30s  2:60s|60s  3:90s|90s  4:常亮|Always  
+voiceprompt	语言提示	boolean	✘	
+menu_time	菜单时间	tinyint	✘	0:10s  1:30s  2:60s  3:90s  
+wengenform	韦根格式	tinyint	✘	
+wengen_output	韦根输出	tinyint	✘	
+wengen_out_area	韦根输出区位码	tinyint	✘	
+regfinger_out_time	指静脉注册超时时长	tinyint	✘	
+authfinger_out_time	验证超时时长	tinyint	✘	
+wg_order	高低位	tinyint	√	0:低位先发|little endian  1:高位先发|big endian  
+relay_time	继电器开启时间	tinyint	√	
+fixed_value	固定码	varchar	√	
+alarm_enable	防拆告警使能	tinyint	√	0:关闭|Off  1:开启|On  
+open_enable	开门按钮使能	tinyint	√	0:关闭|Off  1:开启|On  
+door_state	开门状态检测使能	tinyint	√	0:关闭|Off  1:开启|On  
+relay_enable	继电器使能	tinyint	√	0:关闭|Off  1:开启|On  
+doorbell_enable	门铃输出使能	tinyint	√	0:关闭|Off  1:开启|On  
+wifi_ssid	wifi名称	varchar	√	
+wifi_psw	wifi密码|Wifi password	varchar	√	
 
-表：dev_auth_config : 权限配置
+表：dev_auth_config : 权限配置|Authorization config
 id	主键	int	✘	
 role_id	配置id	int	✘	
 begin_at	开始日期	date	√	
@@ -32,7 +44,15 @@ end_time	结束时间	time	√
 only_work_day	仅工作日有效	boolean	✘	
 auth	权限	int	✘	
 
-表：dev_reader_group : 设备分组
+表：dev_reader_people : 设备人员信息|Device people infomation
+type	操作类型	int	✘	0:新增|Insert  1:修改|Modify  2:删除|Remove  
+order_num	排序	int	√	
+status	状态	int	√	0:同步|Synchronized  1:未同步|Unsynchronized  
+reader_no	设备编号1234	varchar	√	
+id	主键	int	✘	
+user_no	用户编号	varchar	✘	
+
+表：dev_reader_group : 设备分组|Device group
 id	主键	int	✘	
 name	组名称	varchar	✘	
 parent	父节点ID	int	√	
@@ -41,12 +61,18 @@ org_auth	部门通行权限	varchar	√
 sub_org_auth	子部门通行权限	varchar	√	
 auth_group_list	人员分组授权列表	varchar	√	
 
-表：dev_people_group : 分组人员
+表：dev_people_mapping : 下发用户关系|Map of download users
+id	id	int	✘	
+reader_no	设备编号	varchar	✘	
+user_no	用户	varchar	✘	
+status	状态	boolean	✘	
+
+表：dev_people_group : 分组人员|Pelple group
 id	id	int	✘	
 group_id	分组id	int	✘	
 user_no	姓名	varchar	✘	
 
-表：dev_people : 注册人员
+表：dev_people : 注册人员|People
 user_no	用户号	varchar	✘	
 real_name	姓名	varchar	✘	
 sex	性别	varchar	√	
@@ -56,7 +82,7 @@ duty_rank	职务	varchar	√
 card_no	卡号	varchar	√	
 id_type	证件类型	int	✘	
 id_number	证件号码	varchar	✘	
-user_type	用户类型	int	✘	1:管理员  2:普通人员  
+user_type	用户类型	int	✘	1:管理员|Administrator  2:普通人员|User  
 mobile_phone	手机号码	varchar	√	
 email	邮箱	varchar	√	
 register_type	创建类型	int	✘	
@@ -70,26 +96,39 @@ id_nation	民族	varchar	√
 photo	照片	varchar	√	
 home_addr	住址	varchar	√	
 
-表：dev_org_group : 分组部门
+表：dev_org_group : 分组部门|Organization of group
 id		int	✘	
 group_id	分组id	int	✘	
 is_include_sub_org	包括子部门	tinyint(1)	✘	
 org_id	部门	int	✘	
 
-表：dev_event : 设备事件
-id		varchar	✘	
+表：dev_event : 设备事件|Event of device
+id		char	✘	
 dev_type	设备类别	varchar	✘	
 dev_no	设备号	varchar	✘	
 org_code	部门	int	√	
 status	状态	int	√	
 time	时间	datetime	✘	
+auditee_auth_type	用户验证方式	tinyint	√	0:指静脉|Vein  1:刷卡|Card  2:密码|Password  3:卡+指静脉|Card & vein  4:密码+指静脉|Password & vein  5:卡+密码|Card & password  6:服务器认证|Server auth  7:人脸识别|Face ID  
+auditor_auth_type	审核人验证方式	tinyint	√	0:指静脉|Vein  1:刷卡|Card  2:密码|Password  3:卡+指静脉|Card & vein  4:密码+指静脉|Password & vein  5:卡+密码|Card & password  6:服务器认证|Server auth  7:人脸识别|Face ID  
+auditor_org	审核人部门	int	√	
+auth_type	验证模式	tinyint	√	0:单人认证|Single finger  1:双人认证|Twice fingers  
 user_no	用户	varchar	√	
+auditor_user_num	审核人	varchar	√	
 
-表：dev_auth_role : 权限定义
+表：dev_download_plan : 下发计划|Download plan
+id	id	int	✘	
+user_no	用户编号	varchar	✘	
+reader_no	设备编号	varchar	✘	
+type	下发	int	✘	
+download_num	尝试下发次数	int	✘	
+time	创建时间	datetime	✘	
+
+表：dev_auth_role : 权限定义|Authorization role
 id	主键	int	✘	
 name	配置名称	varchar	✘	
 
-表：dev_auth_group : 人员授权分组
+表：dev_auth_group : 人员授权分组|Group of people
 id	id	int	✘	
 name	分组名	varchar	✘	
 auth	授权权限	varchar	✘	

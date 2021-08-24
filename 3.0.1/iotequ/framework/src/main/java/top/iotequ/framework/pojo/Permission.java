@@ -13,7 +13,7 @@ import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
 import java.util.*;
 
-//  Pojo entity : Permission (功能分配表)
+//  Pojo entity : Permission (功能分配表|Role permission)
 @CgTableAnnotation(name="sys_permission",
                    title="sysPermission",
                    baseUrl="/framework/sysPermission",

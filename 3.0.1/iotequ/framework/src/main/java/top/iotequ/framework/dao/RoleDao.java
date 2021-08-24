@@ -11,7 +11,7 @@ import top.iotequ.framework.service.IDaoService;
 import top.iotequ.framework.pojo.Role;
 import java.util.*;
 
-//  Mapper dao : RoleDao (角色表数据访问接口)
+//  Mapper dao : RoleDao (角色表|Role数据访问接口)
 public interface RoleDao  extends IDaoService<Role> {
     int insert(Role record);
     int insertBatchWithoutId(List<Role> list);

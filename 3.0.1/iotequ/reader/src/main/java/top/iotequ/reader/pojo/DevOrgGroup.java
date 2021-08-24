@@ -13,7 +13,7 @@ import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
 import java.util.*;
 
-//  Pojo entity : DevOrgGroup (分组部门)
+//  Pojo entity : DevOrgGroup (分组部门|Organization of group)
 @CgTableAnnotation(name="dev_org_group",
                    title="devOrgGroup",
                    join="RIGHT JOIN sys_org ON dev_org_group.org_id = sys_org.org_code",

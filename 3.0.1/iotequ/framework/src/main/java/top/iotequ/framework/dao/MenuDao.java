@@ -11,7 +11,7 @@ import top.iotequ.framework.service.IDaoService;
 import top.iotequ.framework.pojo.Menu;
 import java.util.*;
 
-//  Mapper dao : MenuDao (系统菜单数据访问接口)
+//  Mapper dao : MenuDao (系统菜单|Menu数据访问接口)
 public interface MenuDao  extends IDaoService<Menu> {
     int insert(Menu record);
     int insertBatchWithoutId(List<Menu> list);

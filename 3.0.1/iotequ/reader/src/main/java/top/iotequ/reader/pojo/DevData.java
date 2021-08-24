@@ -11,7 +11,7 @@ import lombok.Setter;
 import top.iotequ.util.CgTableAnnotation;
 import java.util.*;
 
-//  Pojo entity : DevData (设备数据)
+//  Pojo entity : DevData (设备数据|Data of device)
 @CgTableAnnotation(name="null",
                    title="devData",
                    baseUrl="/reader/devData",

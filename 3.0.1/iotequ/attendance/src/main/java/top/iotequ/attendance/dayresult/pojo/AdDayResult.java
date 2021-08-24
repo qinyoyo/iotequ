@@ -19,7 +19,7 @@ import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
 import java.util.*;
 
-//  Pojo entity : AdDayResult (日考勤结果)
+//  Pojo entity : AdDayResult (日考勤结果|Attendance result by day)
 @CgTableAnnotation(name="ad_day_result",
                    title="adDayResult",
                    join="INNER JOIN ad_employee ON ad_day_result.employee_no = ad_employee.employee_no LEFT JOIN sys_user employee_no_sys_user ON ad_employee.id = employee_no_sys_user.id",

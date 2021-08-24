@@ -11,7 +11,7 @@ import top.iotequ.framework.service.IDaoService;
 import top.iotequ.attendance.employee.pojo.AdEmployee;
 import java.util.*;
 
-//  Mapper dao : AdEmployeeDao (考勤职员表数据访问接口)
+//  Mapper dao : AdEmployeeDao (考勤职员表|Employee数据访问接口)
 public interface AdEmployeeDao  extends IDaoService<AdEmployee> {
     int insert(AdEmployee record);
     int insertBatchWithId(List<AdEmployee> list);

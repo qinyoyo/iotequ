@@ -6,26 +6,38 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[dev
 GO
 CREATE TABLE [dbo].[dev_reader] (
   [id] char(32) NOT NULL PRIMARY KEY,
-  [reader_no] varchar(10) NOT NULL UNIQUE,
+  [reader_no] varchar(20) NOT NULL UNIQUE,
   [name] varchar(30) NOT NULL,
   [type] varchar(30) DEFAULT ('D10') NOT NULL,
   [reader_group] int NOT NULL,
   [address] varchar(100) NULL,
+  [capacity] int NULL,
   [connect_type] varchar(11) NOT NULL,
   [ip] varchar(20) NOT NULL,
+  [sn_no] varchar(36) NULL,
   [dev_mode] varchar(32) NOT NULL,
   [firmware] varchar(40) NULL,
-  [is_online] bit DEFAULT ((0)) NOT NULL,
-  [is_time_sync] bit DEFAULT ((0)) NOT NULL,
+  [is_online] bit DEFAULT ('0') NOT NULL,
+  [is_time_sync] bit DEFAULT ('0') NOT NULL,
   [align_method] tinyint DEFAULT ((4)) NOT NULL,
   [blacklight_time] tinyint DEFAULT ((0)) NOT NULL,
-  [voiceprompt] bit DEFAULT ((1)) NOT NULL,
+  [voiceprompt] bit DEFAULT ('1') NOT NULL,
   [menu_time] tinyint DEFAULT ((0)) NOT NULL,
   [wengenform] tinyint DEFAULT ((2)) NOT NULL,
   [wengen_output] tinyint DEFAULT ((1)) NOT NULL,
   [wengen_out_area] tinyint DEFAULT ((26)) NOT NULL,
   [regfinger_out_time] tinyint DEFAULT ((49)) NOT NULL,
-  [authfinger_out_time] tinyint DEFAULT ((49)) NOT NULL
+  [authfinger_out_time] tinyint DEFAULT ((49)) NOT NULL,
+  [wg_order] tinyint DEFAULT ((0)) NULL,
+  [relay_time] tinyint DEFAULT ((5)) NULL,
+  [fixed_value] varchar(36) NULL,
+  [alarm_enable] tinyint DEFAULT ((1)) NULL,
+  [open_enable] tinyint DEFAULT ((0)) NULL,
+  [door_state] tinyint DEFAULT ((1)) NULL,
+  [relay_enable] tinyint DEFAULT ((1)) NULL,
+  [doorbell_enable] tinyint DEFAULT ((1)) NULL,
+  [wifi_ssid] varchar(36) NULL,
+  [wifi_psw] varchar(36) NULL
 )
 GO
 ALTER TABLE [dbo].[dev_reader] SET (LOCK_ESCALATION = TABLE)
@@ -52,6 +64,24 @@ ALTER TABLE [dbo].[dev_auth_config] SET (LOCK_ESCALATION = TABLE)
 GO
 
 -- ----------------------------
+-- Table structure for dev_reader_people
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[dev_reader_people]') AND type IN ('U'))
+	DROP TABLE [dbo].[dev_reader_people]
+GO
+CREATE TABLE [dbo].[dev_reader_people] (
+  [type] int DEFAULT ((0)) NOT NULL,
+  [order_num] int NULL,
+  [user_no] varchar(36) NOT NULL,
+  [status] int DEFAULT ((1)) NULL,
+  [reader_no] varchar(20) NULL,
+  [id] int IDENTITY(1,1) NOT NULL PRIMARY KEY
+)
+GO
+ALTER TABLE [dbo].[dev_reader_people] SET (LOCK_ESCALATION = TABLE)
+GO
+
+-- ----------------------------
 -- Table structure for dev_reader_group
 -- ----------------------------
 IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[dev_reader_group]') AND type IN ('U'))
@@ -68,6 +98,22 @@ CREATE TABLE [dbo].[dev_reader_group] (
 )
 GO
 ALTER TABLE [dbo].[dev_reader_group] SET (LOCK_ESCALATION = TABLE)
+GO
+
+-- ----------------------------
+-- Table structure for dev_people_mapping
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[dev_people_mapping]') AND type IN ('U'))
+	DROP TABLE [dbo].[dev_people_mapping]
+GO
+CREATE TABLE [dbo].[dev_people_mapping] (
+  [id] int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+  [reader_no] varchar(20) NOT NULL,
+  [user_no] varchar(36) NOT NULL,
+  [status] bit NOT NULL
+)
+GO
+ALTER TABLE [dbo].[dev_people_mapping] SET (LOCK_ESCALATION = TABLE)
 GO
 
 -- ----------------------------
@@ -217,10 +263,33 @@ CREATE TABLE [dbo].[dev_event] (
   [org_code] int NULL,
   [user_no] varchar(45) NULL,
   [status] int NULL,
-  [time] datetime NOT NULL
+  [time] datetime NOT NULL,
+  [auditee_auth_type] tinyint NULL,
+  [auditor_user_num] varchar(45) NULL,
+  [auditor_auth_type] tinyint NULL,
+  [auditor_org] int NULL,
+  [auth_type] tinyint NULL
 )
 GO
 ALTER TABLE [dbo].[dev_event] SET (LOCK_ESCALATION = TABLE)
+GO
+
+-- ----------------------------
+-- Table structure for dev_download_plan
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[dev_download_plan]') AND type IN ('U'))
+	DROP TABLE [dbo].[dev_download_plan]
+GO
+CREATE TABLE [dbo].[dev_download_plan] (
+  [id] int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+  [user_no] varchar(36) NOT NULL,
+  [reader_no] varchar(20) NOT NULL,
+  [type] int NOT NULL,
+  [download_num] int DEFAULT ((3)) NOT NULL,
+  [time] datetime NOT NULL
+)
+GO
+ALTER TABLE [dbo].[dev_download_plan] SET (LOCK_ESCALATION = TABLE)
 GO
 
 -- ----------------------------

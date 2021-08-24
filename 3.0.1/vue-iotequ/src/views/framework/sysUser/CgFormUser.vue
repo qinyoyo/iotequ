@@ -51,16 +51,18 @@
             <el-col :span="12">
               <el-form-item class="cg-item-select" :label="$t('sysUser.field.idType')" prop="idType" :size="$store.state.app.size" >
                 <cg-select v-model="record.idType" name="idType"
-                           :dictionary="dictionary.dictIdType" :readonly="!isNew" :filterable="false" :allow-create="false" numberic :placeholder="$t('system.message.needValue')" />
+                           :readonly="!admin || isDetail"
+                           :dictionary="dictionary.dictIdType" :filterable="false" :allow-create="false" numberic :placeholder="$t('system.message.needValue')" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item class="cg-item-text" :label="$t('sysUser.field.idNumber')" prop="idNumber" :size="$store.state.app.size" >
                 <el-input v-model="record.idNumber" name="idNumber" 
+                          :readonly="!admin || isDetail"
                           type="text" 
                           :label="$t('sysUser.field.idNumber')" :placeholder="$t('system.message.needValue')" 
                           resize autofocus validate-event 
-                          :readonly="!isNew" :maxlength="45" show-word-limit />
+                          :maxlength="45" show-word-limit />
               </el-form-item>
             </el-col>
           </el-row>

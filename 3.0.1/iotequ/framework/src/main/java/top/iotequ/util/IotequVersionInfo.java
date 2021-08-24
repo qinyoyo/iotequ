@@ -16,6 +16,7 @@ public class IotequVersionInfo {
     private String module;
     private String version;
     private Date buildTime;
+    public  static Map<String,String> licencesInfo = new HashMap();
     private boolean isIotequModule=false;
     static public void readVersionInfo(@NonNull Class<?> clazz) {
         ApplicationHome home = new ApplicationHome(clazz);
@@ -115,7 +116,8 @@ public class IotequVersionInfo {
     @Override
     public String toString() {
         if (isIotequModule) {
-            return groupId + "." + module + " : " + version + " (" + DateUtil.date2String(buildTime, null) + ")";
+            return groupId + "." + module + " : " + version + " (" + DateUtil.date2String(buildTime, null) + ")"
+                    + (licencesInfo.containsKey(module) ? ", "+licencesInfo.get(module):"");
         } else return null;
     }
 }

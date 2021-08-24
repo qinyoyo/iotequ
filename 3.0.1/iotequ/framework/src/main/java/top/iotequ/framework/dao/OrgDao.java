@@ -11,7 +11,7 @@ import top.iotequ.framework.service.IDaoService;
 import top.iotequ.framework.pojo.Org;
 import java.util.*;
 
-//  Mapper dao : OrgDao (组织机构数据访问接口)
+//  Mapper dao : OrgDao (组织机构|Organization数据访问接口)
 public interface OrgDao  extends IDaoService<Org> {
     int insert(Org record);
     int insertBatchWithoutId(List<Org> list);

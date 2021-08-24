@@ -13,7 +13,7 @@ import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
 import java.util.*;
 
-//  Pojo entity : DataDict (数据字典)
+//  Pojo entity : DataDict (数据字典|Data dictionary)
 @CgTableAnnotation(name="sys_data_dict",
                    title="sysDataDict",
                    baseUrl="/framework/sysDataDict",
