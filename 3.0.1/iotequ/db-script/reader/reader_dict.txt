@@ -102,6 +102,12 @@ group_id	分组id	int	✘
 is_include_sub_org	包括子部门	tinyint(1)	✘	
 org_id	部门	int	✘	
 
+表：dev_new_device : 未注册设备
+reader_no	模块号	varchar	✘	
+sn_no	序列号	varchar	√	
+type	型号	varchar	✘	
+ip	IP地址	varchar	√	
+
 表：dev_event : 设备事件|Event of device
 id		char	✘	
 dev_type	设备类别	varchar	✘	

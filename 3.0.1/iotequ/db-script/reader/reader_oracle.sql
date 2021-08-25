@@ -157,6 +157,17 @@ CREATE SEQUENCE SEQUENCE_DEV_ORG_GROUP;
 
 ALTER TABLE "IOTEQU"."DEV_ORG_GROUP" ADD CONSTRAINT  "UI_DEV_ORG_GROUP01" UNIQUE ("GROUP_ID","ORG_ID");
 -- ----------------------------
+-- Table structure for dev_new_device
+-- ----------------------------
+CALL REMOVE_OBJECT('TABLE','DEV_NEW_DEVICE','IOTEQU');
+CREATE TABLE "IOTEQU"."DEV_NEW_DEVICE" (
+  "READER_NO" VARCHAR2(20 BYTE) NOT NULL PRIMARY KEY,
+  "SN_NO" VARCHAR2(36 BYTE) NULL,
+  "TYPE" VARCHAR2(30 BYTE) NOT NULL,
+  "IP" VARCHAR2(20 BYTE) NULL
+);
+
+-- ----------------------------
 -- Table structure for dev_event
 -- ----------------------------
 CALL REMOVE_OBJECT('TABLE','DEV_EVENT','IOTEQU');

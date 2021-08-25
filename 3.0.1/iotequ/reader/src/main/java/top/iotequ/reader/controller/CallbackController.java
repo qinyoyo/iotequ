@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import net.sf.json.JSONObject;
 import top.iotequ.framework.event.DeviceEvent;
+import top.iotequ.reader.dao.DevNewDeviceDao;
+import top.iotequ.reader.pojo.DevNewDevice;
 import top.iotequ.util.DateUtil;
 import top.iotequ.util.SqlUtil;
 import top.iotequ.util.StringUtil;
@@ -31,6 +33,9 @@ import com.dyna.bean.D10ServerBean.D10Record;
 
 import top.iotequ.svasclient.SvasTypes.*;
 import top.iotequ.svasclient.SvasService;
+import top.iotequ.util.Util;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class CallbackController {
@@ -45,7 +50,8 @@ public class CallbackController {
 	ApplicationContext applicationContext;
 	@Autowired
 	DevReaderService devReaderService;
-
+	@Autowired
+	private DevNewDeviceDao devNewDeviceDao;
 	public boolean isLicenceAuthorized(DevReader reader) {
 		if (reader==null) return false;
 		Integer licence=devReaderService.getLicence();
@@ -53,13 +59,24 @@ public class CallbackController {
 		else return SqlUtil.getRowCount("dev_reader", "id", reader.getId()) <= licence ;
 	}
 	@RequestMapping(value = D10ClientService.Callback_Auth)
-	public String AuthDevice(@RequestBody JSONObject body) {
+	public String AuthDevice(@RequestBody JSONObject body, HttpServletRequest request) {
 		log.debug("Callback_Auth：{}",body);
 		String dno=body.getString("devnum");
 		DevReader reader=readerDao.selectByReaderNo(dno);
 		if (reader==null) {
 			log.debug("设备未注册：{}",dno);
 			D10ClientService.getD10client().unRegistDevice(dno, "D10");
+			try {
+				DevNewDevice device = devNewDeviceDao.select(dno);
+				if (device!=null) devNewDeviceDao.delete(dno);
+				device = new DevNewDevice();
+				device.setType("D10");
+				device.setIp(Util.getIpAddr(request));
+				device.setReaderNo(dno);
+				devNewDeviceDao.insert(device);
+			} catch (Exception e) {
+				log.error(e.getMessage());
+			}
 		}
 		else if (!isLicenceAuthorized(reader)) {
 			log.debug("设备未获得Licence许可：{}",dno);		

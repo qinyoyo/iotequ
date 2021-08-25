@@ -18,6 +18,8 @@ import top.iotequ.c20.controller.C20HttpServer.UserBaseInfoRsp.C20Finger;
 import top.iotequ.framework.event.DeviceEvent;
 import top.iotequ.framework.event.PeopleInfoChangedEvent;
 import top.iotequ.framework.exception.IotequException;
+import top.iotequ.reader.dao.DevNewDeviceDao;
+import top.iotequ.reader.pojo.DevNewDevice;
 import top.iotequ.util.*;
 import top.iotequ.reader.dao.DevPeopleDao;
 import top.iotequ.reader.pojo.DevPeople;
@@ -48,7 +50,8 @@ public class RegisterUserController {
 	private SvasService svasService;
 	@Autowired
 	private DevPeopleDao devPeopleDao;
-
+	@Autowired
+	private DevNewDeviceDao devNewDeviceDao;
 	@Autowired
 	private DevPeopleService devPeopleService;
 	@Autowired
@@ -62,13 +65,14 @@ public class RegisterUserController {
 		String sql = "select * from dev_reader where reader_no=?";// 查询编号是否存在
 		if (!SqlUtil.sqlExist(sql, bindInfo.devNo)) {
 			try {
-				// 插入到第一个分组，缺省为智脉通
-				Integer readerGroupId=SqlUtil.sqlQueryInteger("select min(id) from dev_reader_group where parent is null");
-				String ip = Util.getIpAddr(request);
-				if(readerGroupId!=null) {
-					String uid=UUID.randomUUID().toString().replace("-","").toLowerCase();
-					SqlUtil.sqlExecute("insert into dev_reader(id,reader_no,name,type,reader_group,connect_type,ip,dev_mode,sn_no,is_online) values(?,?,?,?,?,?,?,?,?,1)",uid, bindInfo.devNo,bindInfo.devNo,"C20",readerGroupId,"HTTP",ip,"MJ",bindInfo.SN);
-				}
+				DevNewDevice device = devNewDeviceDao.select(bindInfo.devNo);
+				if (device!=null) devNewDeviceDao.delete(bindInfo.devNo);
+				device = new DevNewDevice();
+				device.setType("C20");
+				device.setIp(Util.getIpAddr(request));
+				device.setReaderNo(bindInfo.devNo);
+				device.setSnNo(bindInfo.SN);
+				devNewDeviceDao.insert(device);
 			} catch (Exception e) {
 				// TODO: handle exception
 				C20log.error(e.getMessage());

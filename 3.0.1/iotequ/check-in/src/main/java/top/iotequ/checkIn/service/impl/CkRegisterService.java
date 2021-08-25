@@ -28,29 +28,29 @@ public class CkRegisterService extends CgCkRegisterService {
     private OrgDao orgDao;
 
     static final String sound_err_on = "sound_err_on.mp3";
-    static final String text_err_on = "您已上机, 无需重复登记";
+    static final String text_err_on = "您已登记, 无需重复登记";
     static final String sound_err_not_on = "sound_err_not_on.mp3";
-    static final String text_err_not_on = "尚未办理上机";
+    static final String text_err_not_on = "您尚未办理登记";
     static final String sound_err_not_off = "sound_err_not_off.mp3";
-    static final String text_err_not_off = "尚未下机";
+    static final String text_err_not_off = "您尚未下机";
 
     static final String sound_suc_on = "sound_suc_on.mp3";
-    static final String text_suc_on = "上机成功";
+    static final String text_suc_on = "登记成功";
 
     static final String sound_suc_off = "sound_suc_off.mp3";
-    static final String text_suc_off = "下机成功";
+    static final String text_suc_off = "下机完成";
 
     static final String sound_suc_cancel = "sound_suc_cancel.mp3";
-    static final String text_suc_cancel = "取消下机成功";
+    static final String text_suc_cancel = "已经取消下机";
 
     static final String sound_suc_remove = "sound_suc_remove.mp3";
-    static final String text_suc_remove = "取消上机成功";
+    static final String text_suc_remove = "成功删除登记";
 
     static final String sound_sign = "sound_sign.mp3";
     static final String text_sign = "认证成功";
 
     static final String sound_err_sign = "sound_err_sign.mp3";
-    static final String text_err_sign = "认证失败";
+    static final String text_err_sign = "识别失败";
 
     @Override
     public RestJson doAction(String action, String id, HttpServletRequest request) throws IotequException {
@@ -59,6 +59,8 @@ public class CkRegisterService extends CgCkRegisterService {
             if ("register".equals(action)) {
                 Map<String,Object> params = HttpUtils.getRequestBody(request);
                 int orgCode = Integer.parseInt(params.get("orgCode").toString());
+                Org org = orgDao.select(orgCode);
+                if (org==null) return new RestJson().setSuccess(false).data("sound",sound_err_sign).setMessage(text_err_sign);
                 String mode = params.get("mode").toString();
                 if ("check".equals(mode)) { // 心跳检查，防止掉线
                     return j.setSuccess(true);
@@ -67,8 +69,9 @@ public class CkRegisterService extends CgCkRegisterService {
                 SvasTypes.SvasMatched matchInfo = svasService.auth(template, 0);
                 if (!Util.isEmpty(matchInfo) && matchInfo.count==1) {
                     String userNo = matchInfo.list.get(0).userNo;
-                    String name = matchInfo.list.get(0).name;
-                    return register(orgCode,mode,userNo, name);
+                    DevPeople people = devPeopleDao.select(userNo);
+                    if (people==null) return new RestJson().setSuccess(false).data("sound",sound_err_sign).setMessage(text_err_sign);
+                    return register(orgCode,mode,userNo, people, org);
                 } else {
                     j.setSuccess(false).data("sound",sound_err_sign)
                      .setMessage(text_err_sign);
@@ -81,21 +84,21 @@ public class CkRegisterService extends CgCkRegisterService {
     }
 
 
-    public RestJson register(int orgCode, String mode, String userNo, String name) throws Exception {
+    public RestJson register(int orgCode, String mode, String userNo, DevPeople people, Org org) throws Exception {
         RestJson j = new RestJson();
         Date now = new Date();
-        Date date0 = DateUtil.startOf(now,DateUtil.DAY), date1 = DateUtil.endOf(now,DateUtil.DAY);
+        Date date0 = DateUtil.startOf(now,DateUtil.DAY);
         CkRegister rec = ckRegisterDao.selectByUserNoOrgCodeInDate(userNo,orgCode,date0);
-        j.data("name",name);
+        j.data("name",people.getRealName());
         if ("on".equals(mode)) {
             if (rec!=null) return j.setSuccess(false).data("sound",sound_err_on).setMessage(text_err_on);
-            else return on(orgCode,now,userNo,name);
+            else return on(orgCode,now,people,org);
         } else if ("off".equals(mode)) {
             if (rec==null) return j.setSuccess(false).data("sound",sound_err_not_on).setMessage(text_err_not_on);
-            else return off(rec.getId(),now,name);
+            else return off(rec,now);
         } else if ("auto".equals(mode)) {
-            if (rec==null) return on(orgCode,now,userNo,name);
-            else return off(rec.getId(),now,name);
+            if (rec==null) return on(orgCode,now,people,org);
+            else return off(rec,now);
         } else if ("cancel".equals(mode)) {
             if (rec!=null) {
                 rec.setOffTime(null);
@@ -111,15 +114,11 @@ public class CkRegisterService extends CgCkRegisterService {
             else return j.setSuccess(false).data("sound",sound_err_not_on).setMessage(text_err_not_on);
         } else  return j.setSuccess(true).data("sound",sound_sign).setMessage(text_sign);
     }
-    private RestJson on(int orgCode, Date now, String userNo, String name) throws Exception {
-        DevPeople people = devPeopleDao.select(userNo);
-        if (people==null) return new RestJson().setSuccess(false).data("sound",sound_err_sign).setMessage(text_err_sign);
-        Org org = orgDao.select(orgCode);
-        if (org==null) return new RestJson().setSuccess(false).data("sound",sound_err_sign).setMessage(text_err_sign);
+    private RestJson on(int orgCode, Date now, DevPeople people, Org org) throws Exception {
         CkRegister rec = new CkRegister();
         rec.setOrgCode(orgCode);
         rec.setOrgName(org.getName());
-        rec.setUserNo(userNo);
+        rec.setUserNo(people.getUserNo());
         rec.setName(people.getRealName());
         rec.setSex(people.getSex());
         rec.setBirthDate(people.getBirthDate());
@@ -127,13 +126,14 @@ public class CkRegisterService extends CgCkRegisterService {
         rec.setOnTime(now);
         ckRegisterDao.insert(rec);
         return new RestJson().setSuccess(true)
-                .data(name,people.getRealName())
+                .data("name",people.getRealName())
                 .data("sound",sound_suc_on).setMessage(text_suc_on);
     }
-    private RestJson off(String id, Date now,String name) throws Exception {
-        SqlUtil.sqlExecute("update ck_register set out_time=? where id=?", now, id);
+    private RestJson off(CkRegister rec, Date now) throws Exception {
+        rec.setOffTime(now);
+        ckRegisterDao.update(rec);
         return new RestJson().setSuccess(true)
-                .data(name,name)
+                .data("name",rec.getName())
                 .data("sound",sound_suc_off).setMessage(text_suc_off);
     }
 
@@ -146,44 +146,22 @@ public class CkRegisterService extends CgCkRegisterService {
         Date dt1 = DateUtil.string2Date(params.get("date1").toString());
         RestJson j=new RestJson();
         String sql = "";
-        List<Object> xAxis = new ArrayList<>();
         if ("amountByDay".equals(action)) {
             sql = "select in_date, org_name,  org_code, count(*) as amount from ck_register " +
                     "where in_date between ? and ? " + orgFilter +
                     "group by in_date, org_name, org_code";
-            Date d = dt0;
-            while (d.getTime()<dt1.getTime()) {
-                xAxis.add(d);
-                d = DateUtil.dateAdd(d,1,DateUtil.DAY);
-            }
         } else if ("amountByMounth".equals(action)) {
             sql = "select DATE_FORMAT(in_date,'%Y-%m') as mounth, org_name,  org_code, count(*) as amount from ck_register " +
                     "where in_date between ? and ? "  + orgFilter +
                     "group by mounth, org_name, org_code";
-            Date d = DateUtil.startOf(dt0,DateUtil.MONTH);
-            while (d.getTime()<dt1.getTime()) {
-                xAxis.add(d);
-                d = DateUtil.dateAdd(d,1,DateUtil.MONTH);
-            }
         } else if ("amountByAge".equals(action)) {
             sql = "select concat(truncate(round(datediff(CURDATE(),birth_date)/365.25,0)/10,0)*10, '-', truncate(round(datediff(CURDATE(),birth_date)/365.25,0)/10,0)*10 + 9) as age, " +
                     "org_name,  org_code, count(*) as amount from ck_register " +
                     "where in_date between ? and ?"  + orgFilter +
                     "group by age, org_name, org_code";
-            while (d.getTime()<dt1.getTime()) {
-                xAxis.add(d);
-                d = DateUtil.dateAdd(d,1,DateUtil.MONTH);
-            }
         }
         List<Map<String,Object>> data = SqlUtil.sqlQuery(orgCode==null, sql, dt0, dt1);
-        if (!Util.isEmpty(data)) {
-            for (Map<String,Object> m : data) {
-                int org = Integer.parseInt(m.get("org_code").toString());
-                m.put("orgName",OrgUtil.getOrgFullName(org));
-            }
-        }
         j.data(data);
-
         return j;
     }
 }

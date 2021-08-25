@@ -251,6 +251,22 @@ GO
 ALTER TABLE [dbo].[dev_org_group] ADD CONSTRAINT  [ui_dev_org_group01] UNIQUE ([group_id],[org_id])
 GO
 -- ----------------------------
+-- Table structure for dev_new_device
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[dev_new_device]') AND type IN ('U'))
+	DROP TABLE [dbo].[dev_new_device]
+GO
+CREATE TABLE [dbo].[dev_new_device] (
+  [reader_no] varchar(20) NOT NULL PRIMARY KEY,
+  [sn_no] varchar(36) NULL,
+  [type] varchar(30) NOT NULL,
+  [ip] varchar(20) NULL
+)
+GO
+ALTER TABLE [dbo].[dev_new_device] SET (LOCK_ESCALATION = TABLE)
+GO
+
+-- ----------------------------
 -- Table structure for dev_event
 -- ----------------------------
 IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[dev_event]') AND type IN ('U'))

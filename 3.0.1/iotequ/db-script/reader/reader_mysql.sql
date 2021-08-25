@@ -145,6 +145,17 @@ CREATE TABLE `dev_org_group` (
 
 ALTER TABLE `dev_org_group` ADD CONSTRAINT  `ui_dev_org_group01` UNIQUE (`group_id`,`org_id`);
 -- ----------------------------
+-- Table structure for dev_new_device
+-- ----------------------------
+DROP TABLE IF EXISTS `dev_new_device`;
+CREATE TABLE `dev_new_device` (
+  `reader_no` varchar(20) NOT NULL PRIMARY KEY COMMENT '模块号',
+  `sn_no` varchar(36) NULL COMMENT '序列号',
+  `type` varchar(30) NOT NULL COMMENT '型号',
+  `ip` varchar(20) NULL COMMENT 'IP地址'
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '未注册设备' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
 -- Table structure for dev_event
 -- ----------------------------
 DROP TABLE IF EXISTS `dev_event`;
