@@ -141,20 +141,25 @@ public class CkRegisterService extends CgCkRegisterService {
     public RestJson sqlQuery(Map<String, Object> params) throws Exception {
         String action = StringUtil.toString(params.get("action"));
         Integer orgCode = (params.get("orgCode")==null ? null : Integer.parseInt(params.get("orgCode").toString()));
-        String orgFilter = (orgCode==null?"" : " and org_code = "+orgCode);
+        String orgFilter = (orgCode==null?"" : " and org_code in ("+OrgUtil.getOrgAndChildrenOrgList(orgCode)+") ");
         Date dt0 = DateUtil.string2Date(params.get("date0").toString());
         Date dt1 = DateUtil.string2Date(params.get("date1").toString());
         RestJson j=new RestJson();
         String sql = "";
-        if ("amountByDay".equals(action)) {
+        if ("amountByDay".equals(action)) {  // 流量按天统计
             sql = "select in_date, org_name,  org_code, count(*) as amount from ck_register " +
                     "where in_date between ? and ? " + orgFilter +
                     "group by in_date, org_name, org_code";
-        } else if ("amountByMounth".equals(action)) {
-            sql = "select DATE_FORMAT(in_date,'%Y-%m') as mounth, org_name,  org_code, count(*) as amount from ck_register " +
+        } else if ("amountByMonth".equals(action)) {  // 流量按照天统计
+            sql = "select DATE_FORMAT(in_date,'%Y-%m') as month, org_name,  org_code, count(*) as amount from ck_register " +
                     "where in_date between ? and ? "  + orgFilter +
-                    "group by mounth, org_name, org_code";
-        } else if ("amountByAge".equals(action)) {
+                    "group by month, org_name, org_code";
+        } else if ("amountByAge".equals(action)) {  // 区间年龄段统计
+            sql = "select concat(truncate(round(datediff(CURDATE(),birth_date)/365.25,0)/10,0)*10, '-', truncate(round(datediff(CURDATE(),birth_date)/365.25,0)/10,0)*10 + 9) as age, " +
+                    "org_name,  org_code, count(*) as amount from ck_register " +
+                    "where in_date between ? and ?"  + orgFilter +
+                    "group by age, org_name, org_code";
+        } else if ("amountByAgeMonth".equals(action)) {  // 区间年龄段月统计
             sql = "select concat(truncate(round(datediff(CURDATE(),birth_date)/365.25,0)/10,0)*10, '-', truncate(round(datediff(CURDATE(),birth_date)/365.25,0)/10,0)*10 + 9) as age, " +
                     "org_name,  org_code, count(*) as amount from ck_register " +
                     "where in_date between ? and ?"  + orgFilter +

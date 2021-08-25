@@ -43,7 +43,10 @@ public class CgCkRegisterService extends CgService<CkRegister>  {
     public Map<String,Object> getDictionary(CkRegister obj, Boolean useTree, String dynaFields) {
         Map<String,Object> map=new HashMap<>();
         if (Objects.isNull(dynaFields) || StringUtil.containsItem(dynaFields,"sex")) map.put("dictSex", DictionaryUtil.getDictListFromDatabase(obj,"sys_sex",null,null,null,false,null));
-        if (Objects.isNull(dynaFields) || StringUtil.containsItem(dynaFields,"orgCode")) map.put("dictOrgCode", DictionaryUtil.getDictListFromDatabase(obj,"select org_code,name from sys_org","org_code","name",null,false,null));
+        if (Objects.isNull(dynaFields) || StringUtil.containsItem(dynaFields,"orgCode")) {
+            if (useTree) map.put("dictOrgCode", DictionaryUtil.getTreeViewData(obj,"select org_code,name from sys_org","org_code","name","parent","org_code",null,null,null));
+            else map.put("dictOrgCode", DictionaryUtil.getDictListFromDatabase(obj,"select org_code,name from sys_org","org_code","name",null,false,null));
+        }
         return map;
     }
     @Override

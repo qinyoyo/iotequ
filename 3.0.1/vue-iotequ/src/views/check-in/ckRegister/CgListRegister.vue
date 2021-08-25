@@ -102,8 +102,8 @@
                         @refresh="doAction('refresh')" @reset="queryRecord=initialQueryRecord()">
       <div>
         <el-form-item :label="$t('ckRegister.field.orgCode')" prop="orgCode" :size="$store.state.app.size">
-          <cg-select v-model="queryRecord.orgCode" :dictionary="dictionary.dictOrgCode"
-                     :disabled="fixedQueryRecord.orgCode?true:false"  :allow-create="!mobile" multiple clearable />
+          <cg-cascader v-model="queryRecord.orgCode" name="orgCode"  multiple collapse-tags clearable
+                       :disabled="fixedQueryRecord.orgCode?true:false" :dictionary="dictionary.dictOrgCode" show-all-levels/>
         </el-form-item>
         <el-form-item :label="$t('ckRegister.field.name')" prop="name" :size="$store.state.app.size">
           <el-input v-model="queryRecord.name" type="text" name="name"
