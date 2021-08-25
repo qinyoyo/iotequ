@@ -11,10 +11,11 @@ import lombok.Setter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import top.iotequ.framework.serializer.jackson.DateDeserializer;
-import top.iotequ.framework.serializer.jackson.DatetimeSerializer;
 import top.iotequ.framework.serializer.jackson.DateSerializer;
 import top.iotequ.framework.serializer.gson.GsonDateTypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
+import top.iotequ.framework.serializer.jackson.TimeSerializer;
+import top.iotequ.framework.serializer.gson.GsonTimeTypeAdapter;
 import com.google.gson.annotations.SerializedName;
 import top.iotequ.util.CgFieldAnnotation;
 import top.iotequ.util.CgTableAnnotation;
@@ -23,7 +24,6 @@ import java.util.*;
 //  Pojo entity : CkRegister (上机记录)
 @CgTableAnnotation(name="ck_register",
                    title="ckRegister",
-                   join="LEFT JOIN dev_people ON ck_register.user_no = dev_people.user_no",
                    baseUrl="/check-in/ckRegister",
                    hasLicence=false,
                    pkType="String",
@@ -34,48 +34,56 @@ import java.util.*;
 @Setter
 public class CkRegister implements CgEntity {
     @SerializedName(value = "id", alternate = {"ID"})
-    @CgFieldAnnotation(name="ck_register.id",jdbcType="CHAR",length=32,nullable=false,format="@")
+    @CgFieldAnnotation(name="id",jdbcType="CHAR",length=32,nullable=false,format="@")
     private String id;		//ID db field:id
 
-    @SerializedName(value = "orgCode", alternate = {"org_code","ORG_CODE"})
-    @CgFieldAnnotation(name="ck_register.org_code",jdbcType="INTEGER",length=36,nullable=false,format="")
-    private Integer orgCode;		//医院科室 db field:org_code
-
-    @JsonDeserialize(using = DateDeserializer.class)
-    @JsonSerialize(using = DatetimeSerializer.class)
-    @SerializedName(value = "inTime", alternate = {"in_time","IN_TIME"})
-    @CgFieldAnnotation(name="ck_register.in_time",jdbcType="TIMESTAMP",length=36,nullable=false,format="yyyy-mm-dd hh:mm")
-    private Date inTime;		//上机日 db field:in_time
-
-    @JsonDeserialize(using = DateDeserializer.class)
-    @JsonSerialize(using = DatetimeSerializer.class)
-    @SerializedName(value = "outTime", alternate = {"out_time","OUT_TIME"})
-    @CgFieldAnnotation(name="ck_register.out_time",jdbcType="TIMESTAMP",length=36,nullable=true,format="yyyy-mm-dd hh:mm")
-    private Date outTime;		//下机时间 db field:out_time
-
     @SerializedName(value = "userNo", alternate = {"user_no","USER_NO"})
-    @CgFieldAnnotation(name="ck_register.user_no",jdbcType="VARCHAR",length=36,nullable=false,format="@")
+    @CgFieldAnnotation(name="user_no",jdbcType="VARCHAR",length=36,nullable=false,format="@")
     private String userNo;		//用户号 db field:user_no
-    @SerializedName(value = "realName", alternate = {"real_name","REAL_NAME"})
-    @CgFieldAnnotation(name="dev_people.real_name",jdbcType="VARCHAR")
-    private String realName;
+
+    @SerializedName(value = "name", alternate = {"NAME"})
+    @CgFieldAnnotation(name="name",jdbcType="VARCHAR",length=32,nullable=false,format="@")
+    private String name;		//姓名 db field:name
+
     @SerializedName(value = "sex", alternate = {"SEX"})
-    @CgFieldAnnotation(name="dev_people.sex",jdbcType="VARCHAR")
-    private String sex;
+    @CgFieldAnnotation(name="sex",jdbcType="VARCHAR",length=1,nullable=false,format="@")
+    private String sex;		//性别 db field:sex
+
     @JsonDeserialize(using = DateDeserializer.class)
     @JsonSerialize(using = DateSerializer.class)
     @JsonAdapter(value= GsonDateTypeAdapter.class)
     @SerializedName(value = "birthDate", alternate = {"birth_date","BIRTH_DATE"})
-    @CgFieldAnnotation(name="dev_people.birth_date",jdbcType="VARCHAR")
-    private Date birthDate;
+    @CgFieldAnnotation(name="birth_date",jdbcType="DATE",length=36,nullable=true,format="yyyy-mm-dd")
+    private Date birthDate;		//出生日 db field:birth_date
 
+    @SerializedName(value = "orgCode", alternate = {"org_code","ORG_CODE"})
+    @CgFieldAnnotation(name="org_code",jdbcType="INTEGER",length=36,nullable=false,format="")
+    private Integer orgCode;		//科室编号 db field:org_code
+
+    @SerializedName(value = "orgName", alternate = {"org_name","ORG_NAME"})
+    @CgFieldAnnotation(name="org_name",jdbcType="VARCHAR",length=32,nullable=false,format="@")
+    private String orgName;		//医院科室 db field:org_name
+
+    @JsonDeserialize(using = DateDeserializer.class)
+    @JsonSerialize(using = DateSerializer.class)
+    @JsonAdapter(value= GsonDateTypeAdapter.class)
+    @SerializedName(value = "inDate", alternate = {"in_date","IN_DATE"})
+    @CgFieldAnnotation(name="in_date",jdbcType="DATE",length=36,nullable=false,format="yyyy-mm-dd")
+    private Date inDate;		//上机日 db field:in_date
+
+    @JsonDeserialize(using = DateDeserializer.class)
+    @JsonSerialize(using = TimeSerializer.class)
+    @JsonAdapter(value= GsonTimeTypeAdapter.class)
     @SerializedName(value = "onTime", alternate = {"on_time","ON_TIME"})
-    @CgFieldAnnotation(name="on_time",expression="in_time",jdbcType="VARCHAR",length=36,nullable=true,format="hh:mm")
-    private String onTime;		//上机时间 db field:on_time:in_time
+    @CgFieldAnnotation(name="on_time",jdbcType="TIME",length=6,nullable=false,format="hh:mm")
+    private Date onTime;		//上机时间 db field:on_time
 
+    @JsonDeserialize(using = DateDeserializer.class)
+    @JsonSerialize(using = TimeSerializer.class)
+    @JsonAdapter(value= GsonTimeTypeAdapter.class)
     @SerializedName(value = "offTime", alternate = {"off_time","OFF_TIME"})
-    @CgFieldAnnotation(name="off_time",expression="out_time",jdbcType="VARCHAR",length=36,nullable=true,format="hh:mm")
-    private String offTime;		//下机时间 db field:off_time:out_time
+    @CgFieldAnnotation(name="off_time",jdbcType="TIME",length=6,nullable=true,format="hh:mm")
+    private Date offTime;		//下机时间 db field:off_time
 
     private String mode;		//模式 非数据库字段
 

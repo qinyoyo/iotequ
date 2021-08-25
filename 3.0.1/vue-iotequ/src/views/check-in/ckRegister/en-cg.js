@@ -14,17 +14,20 @@ export default {
     },
     field: {
       id: 'Id',
-      orgCode: 'Org code',
-      inTime: 'In time',
-      outTime: 'Out time',
-      realName: 'Real name',
       userNo: 'User no',
+      name: 'Name',
+      sex: 'Sex',
+      birthDate: 'Birth date',
+      orgCode: 'Org code',
+      orgName: 'Org name',
+      inDate: 'In date',
       onTime: 'On time',
       offTime: 'Off time',
       mode_0: '自动识别',
       mode_1: '上机',
-      mode_2: '签到',
-      mode_3: '下机',
+      mode_2: '下机',
+      mode_3: '取消下机',
+      mode_4: '取消上机',
       mode: 'Mode'
     }
   }

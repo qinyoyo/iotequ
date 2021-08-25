@@ -66,14 +66,23 @@ public class CgCkRegisterService extends CgService<CkRegister>  {
         if (ckRegister.getUserNo()==null) {
             ckRegister.setUserNo("");
         }
-        if (ckRegister.getRealName()==null) {
-            ckRegister.setRealName("");
+        if (ckRegister.getName()==null) {
+            ckRegister.setName("");
+        }
+        if (ckRegister.getSex()==null) {
+            ckRegister.setSex("1");
         }
         if (ckRegister.getOrgCode()==null) {
             ckRegister.setOrgCode(0);
         }
-        if (ckRegister.getInTime()==null) {
-            ckRegister.setInTime(new Date());
+        if (ckRegister.getOrgName()==null) {
+            ckRegister.setOrgName("");
+        }
+        if (ckRegister.getInDate()==null) {
+            ckRegister.setInDate(new Date());
+        }
+        if (ckRegister.getOnTime()==null) {
+            ckRegister.setOnTime(new Date());
         }
     }
 }

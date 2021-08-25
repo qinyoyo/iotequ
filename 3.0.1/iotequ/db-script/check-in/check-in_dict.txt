@@ -10,7 +10,12 @@ user_no	用户号	varchar	✘
 
 表：ck_register : 上机记录
 id	ID	char	✘	
-org_code	医院科室	int	✘	
-in_time	上机日	datetime	✘	
-out_time	下机时间	datetime	√	
 user_no	用户号	varchar	✘	
+name	姓名	varchar	✘	
+sex	性别	varchar	✘	
+birth_date	出生日	date	√	
+org_code	科室编号	int	✘	
+org_name	医院科室	varchar	✘	
+in_date	上机日	date	✘	
+on_time	上机时间	time	✘	
+off_time	下机时间	time	√	

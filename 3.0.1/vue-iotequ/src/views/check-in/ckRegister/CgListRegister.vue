@@ -20,33 +20,33 @@
         <i slot="header" class="el-icon-menu"/>
       </el-table-column>
       <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter" width="36" />
-      <cg-table-column prop="orgCode" type="dict" :page="paginationCurrentPage" :label="$t('ckRegister.field.orgCode')" sortable align="left" >
+      <cg-table-column prop="orgName" :page="paginationCurrentPage" :label="$t('ckRegister.field.orgName')" align="left" >
         <template slot-scope="scope">
-          {{ dictValue(scope.row.orgCode,dictionary.dictOrgCode,false,true) }}
+          {{ scope.row.orgName }}
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="realName" :page="paginationCurrentPage" :label="$t('ckRegister.field.realName')" sortable align="left" >
+      <cg-table-column prop="name" :page="paginationCurrentPage" :label="$t('ckRegister.field.name')" sortable align="left" >
         <template slot-scope="scope">
-          {{ localeText(scope.row.realName) }}
+          {{ scope.row.name }}
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="sex" type="dict" :page="paginationCurrentPage" :label="$t('devPeople.field.sex')" align="left" >
+      <cg-table-column prop="sex" type="dict" :page="paginationCurrentPage" :label="$t('ckRegister.field.sex')" align="left" >
         <template slot-scope="scope">
           {{ dictValue(scope.row.sex,dictionary.dictSex,false,true) }}
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="birthDate" type="date" :page="paginationCurrentPage" :label="$t('devPeople.field.birthDate')" align="left" >
+      <cg-table-column prop="birthDate" type="date" :page="paginationCurrentPage" :label="$t('ckRegister.field.birthDate')" align="left" >
         <template slot-scope="scope">
           {{ time2String(scope.row.birthDate,'YYYY-MM-DD') }}
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="inTime" type="date" :page="paginationCurrentPage" :label="$t('ckRegister.field.inTime')" sortable align="left" >
+      <cg-table-column prop="inDate" type="date" :page="paginationCurrentPage" :label="$t('ckRegister.field.inDate')" sortable align="left" >
         <template slot-scope="scope">
-          {{ time2String(scope.row.inTime,'YYYY-MM-DD') }}
+          {{ time2String(scope.row.inDate,'YYYY-MM-DD') }}
         </template>
 
       </cg-table-column>
@@ -105,17 +105,13 @@
           <cg-select v-model="queryRecord.orgCode" :dictionary="dictionary.dictOrgCode"
                      :disabled="fixedQueryRecord.orgCode?true:false"  :allow-create="!mobile" multiple clearable />
         </el-form-item>
-        <cg-join v-model="userNoJoinVisible">
-          <CgListDevPeople slot="popover" ref="userNoJoin" openID="userno-join" :height="joinHeight()" :joinShow="userNoJoinVisible" joinMultiple
-            :originSelections="queryRecord.userNo" selectionKey="userNo" joinMode @closeJoinList="(rows)=>{ getJoinFields('userNo',rows)}" @showJoinList="userNoJoinVisible=true"/>
-        <el-form-item slot="reference" :label="$t('ckRegister.field.realName')" prop="realName" :size="$store.state.app.size">
-          <cg-input v-model="queryRecord.realName" type="text" name="realName"
-                    :readonly="fixedQueryRecord.realName?true:false" :label="$t('ckRegister.field.realName')" clearable resize autofocus @clear="clearJoinValues(myself,'userNoJoin')"/>
+        <el-form-item :label="$t('ckRegister.field.name')" prop="name" :size="$store.state.app.size">
+          <el-input v-model="queryRecord.name" type="text" name="name"
+                    :readonly="fixedQueryRecord.name?true:false" :label="$t('ckRegister.field.name')" clearable resize autofocus/>
         </el-form-item>
-        </cg-join>
-        <el-form-item :label="$t('ckRegister.field.inTime')" prop="inTime" :size="$store.state.app.size">
-          <cg-date-picker v-model="queryRecord.inTime" :title="$t('ckRegister.field.inTime')" name="inTime" :align="mobile?'right':'center'" type="daterange" :picker-options="datePickerOptions()"
-                          :readonly="fixedQueryRecord.inTime?true:false"  clearable />
+        <el-form-item :label="$t('ckRegister.field.inDate')" prop="inDate" :size="$store.state.app.size">
+          <cg-date-picker v-model="queryRecord.inDate" :title="$t('ckRegister.field.inDate')" name="inDate" :align="mobile?'right':'center'" type="daterange" :picker-options="datePickerOptions()"
+                          :readonly="fixedQueryRecord.inDate?true:false"  clearable />
         </el-form-item>
       </div>
     </cg-query-condition>
@@ -123,9 +119,7 @@
 </template>
 
 <script>
-import {localeText} from '@/lang'
 import {hasAuthority} from '@/utils/cg'
-import CgListDevPeople from '@/views/reader/devPeople/CgListDevPeople.vue'
 import ParentTable from '@/views/common-views/components/table'
 const Comp = {
   name: 'CgListRegister',
@@ -136,20 +130,20 @@ const Comp = {
       default: 'id'
     }
   },
-  components: { CgListDevPeople },
   data() {
     return {
       path: 'list',
       defaultOrder: 'id desc',
-      queryRecordFields: ['orgCode','userNo','inTime'],
+      queryRecordFields: ['orgCode','name','inDate'],
       formPath: '/check-in/ckRegister/record',
+      localExport: true,
       idField: 'id',
       dictionary: {
+        dictMode: this.getDictionary('auto,on,off,cancel,remove','ckRegister.field.mode_0,ckRegister.field.mode_1,ckRegister.field.mode_2,ckRegister.field.mode_3,ckRegister.field.mode_4'),
         dictOrgCode: [],
         dictSex: []
       },
       needLoadDictionary: true,
-      userNoJoinVisible: false,
       paginationCurrentPage: 1,
       paginationPageSize: this.$store.state.app.device === 'mobile' ? 10 : 30,
       paginationTotalRecords: 0,
@@ -161,7 +155,7 @@ const Comp = {
   computed: {
     allActions() {
       if (this.joinMode) return 'refresh,query'
-      else return 'query,'
+      else return 'query,,view,list,localExport,'
     }
   },
   mounted() {
@@ -170,24 +164,16 @@ const Comp = {
   methods: {
     initialQueryRecord() {
       return Object.assign({
+        mode: null,
         orgCode: null,
-        realName: null,
+        orgName: null,
+        name: null,
         sex: null,
         birthDate: null,
-        inTime: null,
+        inDate: null,
         onTime: null,
         offTime: null,
       }, this.fixedQueryRecord)
-    },
-    getJoinFields(field,rows) {
-      const joinDefine = {
-        userNo: {
-          valueField: 'userNo',
-          fields: 'realName=realName,sex=sex,birthDate=birthDate'
-        },
-      }
-      this[field+'JoinVisible'] = false
-      this.setJoinValues(this.queryRecord, field, joinDefine[field], rows)
     },
   }
 }

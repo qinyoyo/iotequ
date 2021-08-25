@@ -5,7 +5,11 @@
                           :class="className" :rules="rules" 
              :label-position="labelPosition" :label-width="labelWidth" :size="$store.state.app.size" 
              hide-required-asterisk >
-      <el-form-item class="cg-item-radio cg-auto-focus" :label="$t('ckRegister.field.mode')" prop="mode" :size="$store.state.app.size" >
+      <el-form-item class="hide-item-label" prop="orgCode" :size="$store.state.app.size" >
+        <cg-select v-model="record.orgCode" name="orgCode"
+                   :dictionary="dictionary.dictOrgCode" readonly :filterable="false" :allow-create="false" numberic :placeholder="$t('system.message.needValue')" />
+      </el-form-item>
+      <el-form-item class="hide-item-label" prop="mode" :size="$store.state.app.size" >
         <cg-radio v-model="record.mode" name="mode" :dictionary="dictionary.dictMode" :readonly="isDetail"  />
       </el-form-item>
     </el-form>
@@ -49,8 +53,9 @@ const Comp = {
       idField: 'id',
       idSaved: this.openParams().record && typeof this.openParams().record === 'object' ? this.openParams().record.id : null,
       dictionary: {
-        dictMode: this.getDictionary('0,1,2,3','ckRegister.field.mode_0,ckRegister.field.mode_1,ckRegister.field.mode_2,ckRegister.field.mode_3'),
-        dictOrgCode: []
+        dictSex: [],
+        dictOrgCode: [],
+        dictMode: this.getDictionary('auto,on,off,cancel,remove','ckRegister.field.mode_0,ckRegister.field.mode_1,ckRegister.field.mode_2,ckRegister.field.mode_3,ckRegister.field.mode_4')
       },
       needLoadDictionary: true,
       generatorName: 'ckRegister',
@@ -60,9 +65,14 @@ const Comp = {
   methods: {
     newRecord: function() {
         return {
-            inTime: new Date(),
-            mode: '0',
+            userNo: '',
+            name: '',
+            sex: '1',
+            orgName: '',
+            inDate: new Date(),
+            onTime: new Date(),
             orgCode: this.$store.state.user.org,
+            mode: 'auto',
         }
     },
   }

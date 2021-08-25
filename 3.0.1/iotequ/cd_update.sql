@@ -44,5 +44,8 @@ insert into iotequ3.ck_sign_in SELECT replace(uuid(),'-',''),p.user_no,p.org_cod
   d.rec_source,'U53',2,rec_time FROM iotequ_simp.ad_data d, iotequ_simp.dev_people p where d.employee_no = d.employee_no; 
   
 truncate table iotequ3.ck_register;
-insert into iotequ3.ck_register(id,org_code,user_no,in_time,out_time) 
-SELECT replace(uuid(),'-',''),org_code, user_no, min(rec_time),max(rec_time) FROM iotequ3.ck_sign_in group by org_code, user_no, date(rec_time);  
+insert into iotequ3.ck_register(id,user_no,name,sex,birth_date,org_code,org_name,in_date,on_time,off_time) 
+SELECT replace(uuid(),'-',''),s.user_no, p.real_name, p.sex, p.birth_date, s.org_code, o.name, date(min(s.rec_time)),time(min(s.rec_time)), time(max(rec_time)) 
+FROM iotequ3.ck_sign_in s, dev_people p, sys_org o 
+where s.user_no = p.user_no and s.org_code = o.org_code
+group by org_code, user_no, date(rec_time);  

@@ -103,6 +103,14 @@ public class CkRegisterController  {
 			Util.setProgress(100);
 		}
 	}
+	@RequestMapping(value = "/query",method = {RequestMethod.GET,RequestMethod.POST})
+	public ResponseEntity<Map<String, Object>> sqlQuery(HttpServletRequest request) {
+		try {
+			return cgService.sqlQuery(EntityUtil.mapFromBody(request)).toResponse();
+		} catch (Exception e) {
+			return new RestJson().setMessage(e).toResponse();
+		}
+	}
 	@RequestMapping(value = "/action/register")
 	public ResponseEntity<Map<String, Object>> actionRegister(String id,HttpServletRequest request, HttpServletResponse response){
 		try {

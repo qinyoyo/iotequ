@@ -3,18 +3,18 @@
 <mapper namespace="top.iotequ.checkIn.dao.CkRegisterDao">
   <resultMap id="BaseResultMap" type="top.iotequ.checkIn.pojo.CkRegister">
     <id column="id" jdbcType="CHAR" property="id" />
-    <result column="org_code" jdbcType="INTEGER" property="orgCode" />
-    <result column="in_time" jdbcType="TIMESTAMP" property="inTime" />
-    <result column="out_time" jdbcType="TIMESTAMP" property="outTime" />
     <result column="user_no" jdbcType="VARCHAR" property="userNo" />
-    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="sex" jdbcType="VARCHAR" property="sex" />
     <result column="birth_date" jdbcType="DATE" property="birthDate" />
-    <result column="on_time" jdbcType="VARCHAR" property="onTime" />
-    <result column="off_time" jdbcType="VARCHAR" property="offTime" />
+    <result column="org_code" jdbcType="INTEGER" property="orgCode" />
+    <result column="org_name" jdbcType="VARCHAR" property="orgName" />
+    <result column="in_date" jdbcType="DATE" property="inDate" />
+    <result column="on_time" jdbcType="TIME" property="onTime" />
+    <result column="off_time" jdbcType="TIME" property="offTime" />
   </resultMap>
   <sql id = "selectSql">
-     SELECT ck_register.id,ck_register.org_code,ck_register.in_time,ck_register.out_time,ck_register.user_no,dev_people.real_name AS real_name,dev_people.sex AS sex,dev_people.birth_date AS birth_date,in_time as on_time,out_time as off_time FROM ck_register LEFT JOIN dev_people ON ck_register.user_no = dev_people.user_no
+     SELECT id,user_no,name,sex,birth_date,org_code,org_name,in_date,on_time,off_time FROM ck_register
   </sql>
   <insert id="insert" parameterType="top.iotequ.checkIn.pojo.CkRegister">
     <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String" >
@@ -26,47 +26,47 @@
     <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String" databaseId="Oracle">
       SELECT replace(lower(sys_guid()), '-', '') from dual
     </selectKey>
-    insert into ck_register (id,org_code,in_time,out_time,user_no)
+    insert into ck_register (id,user_no,name,sex,birth_date,org_code,org_name,in_date,on_time,off_time)
       values 
-      (#{id,jdbcType=CHAR},#{orgCode,jdbcType=INTEGER},#{inTime,jdbcType=TIMESTAMP},#{outTime,jdbcType=TIMESTAMP},#{userNo,jdbcType=VARCHAR})
+      (#{id,jdbcType=CHAR},#{userNo,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{sex,jdbcType=VARCHAR},#{birthDate,jdbcType=DATE},#{orgCode,jdbcType=INTEGER},#{orgName,jdbcType=VARCHAR},#{inDate,jdbcType=DATE},#{onTime,jdbcType=TIME},#{offTime,jdbcType=TIME})
   </insert>
   <insert id="insertBatchWithoutId" parameterType="top.iotequ.checkIn.pojo.CkRegister">
-    insert into ck_register (id,org_code,in_time,out_time,user_no)
+    insert into ck_register (id,user_no,name,sex,birth_date,org_code,org_name,in_date,on_time,off_time)
       values 
     <foreach collection="list" item="item" index="index" separator=",">
-      (replace(uuid(), '-', ''),#{item.orgCode,jdbcType=INTEGER},#{item.inTime,jdbcType=TIMESTAMP},#{item.outTime,jdbcType=TIMESTAMP},#{item.userNo,jdbcType=VARCHAR})
+      (replace(uuid(), '-', ''),#{item.userNo,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.sex,jdbcType=VARCHAR},#{item.birthDate,jdbcType=DATE},#{item.orgCode,jdbcType=INTEGER},#{item.orgName,jdbcType=VARCHAR},#{item.inDate,jdbcType=DATE},#{item.onTime,jdbcType=TIME},#{item.offTime,jdbcType=TIME})
     </foreach>
   </insert>
   <insert id="insertBatchWithoutId" parameterType="top.iotequ.checkIn.pojo.CkRegister" databaseId="SQLServer">
-    insert into ck_register (id,org_code,in_time,out_time,user_no)
+    insert into ck_register (id,user_no,name,sex,birth_date,org_code,org_name,in_date,on_time,off_time)
       values 
     <foreach collection="list" item="item" index="index" separator=",">
-      (replace(lower(newid()), '-', ''),#{item.orgCode,jdbcType=INTEGER},#{item.inTime,jdbcType=TIMESTAMP},#{item.outTime,jdbcType=TIMESTAMP},#{item.userNo,jdbcType=VARCHAR})
+      (replace(lower(newid()), '-', ''),#{item.userNo,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.sex,jdbcType=VARCHAR},#{item.birthDate,jdbcType=DATE},#{item.orgCode,jdbcType=INTEGER},#{item.orgName,jdbcType=VARCHAR},#{item.inDate,jdbcType=DATE},#{item.onTime,jdbcType=TIME},#{item.offTime,jdbcType=TIME})
     </foreach>
   </insert>
   <insert id="insertBatchWithoutId" parameterType="top.iotequ.checkIn.pojo.CkRegister" databaseId="Oracle">
     insert all 
     <foreach collection="list" item="item" index="index">
-      into ck_register (id,org_code,in_time,out_time,user_no) values(replace(lower(sys_guid()), '-', ''),#{item.orgCode,jdbcType=INTEGER},#{item.inTime,jdbcType=TIMESTAMP},#{item.outTime,jdbcType=TIMESTAMP},#{item.userNo,jdbcType=VARCHAR})
+      into ck_register (id,user_no,name,sex,birth_date,org_code,org_name,in_date,on_time,off_time) values(replace(lower(sys_guid()), '-', ''),#{item.userNo,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.sex,jdbcType=VARCHAR},#{item.birthDate,jdbcType=DATE},#{item.orgCode,jdbcType=INTEGER},#{item.orgName,jdbcType=VARCHAR},#{item.inDate,jdbcType=DATE},#{item.onTime,jdbcType=TIME},#{item.offTime,jdbcType=TIME})
     </foreach>
     select 1 from dual
   </insert>
   <insert id="insertBatchWithId" parameterType="top.iotequ.checkIn.pojo.CkRegister">
-    insert into ck_register (id,org_code,in_time,out_time,user_no)
+    insert into ck_register (id,user_no,name,sex,birth_date,org_code,org_name,in_date,on_time,off_time)
       values 
     <foreach collection="list" item="item" index="index" separator=",">
-      (#{item.id,jdbcType=CHAR},#{item.orgCode,jdbcType=INTEGER},#{item.inTime,jdbcType=TIMESTAMP},#{item.outTime,jdbcType=TIMESTAMP},#{item.userNo,jdbcType=VARCHAR})
+      (#{item.id,jdbcType=CHAR},#{item.userNo,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.sex,jdbcType=VARCHAR},#{item.birthDate,jdbcType=DATE},#{item.orgCode,jdbcType=INTEGER},#{item.orgName,jdbcType=VARCHAR},#{item.inDate,jdbcType=DATE},#{item.onTime,jdbcType=TIME},#{item.offTime,jdbcType=TIME})
     </foreach>
   </insert>
   <insert id="insertBatchWithId" parameterType="top.iotequ.checkIn.pojo.CkRegister" databaseId="Oracle">
     insert all 
     <foreach collection="list" item="item" index="index">
-      into ck_register (id,org_code,in_time,out_time,user_no) values(#{item.id,jdbcType=CHAR},#{item.orgCode,jdbcType=INTEGER},#{item.inTime,jdbcType=TIMESTAMP},#{item.outTime,jdbcType=TIMESTAMP},#{item.userNo,jdbcType=VARCHAR})
+      into ck_register (id,user_no,name,sex,birth_date,org_code,org_name,in_date,on_time,off_time) values(#{item.id,jdbcType=CHAR},#{item.userNo,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.sex,jdbcType=VARCHAR},#{item.birthDate,jdbcType=DATE},#{item.orgCode,jdbcType=INTEGER},#{item.orgName,jdbcType=VARCHAR},#{item.inDate,jdbcType=DATE},#{item.onTime,jdbcType=TIME},#{item.offTime,jdbcType=TIME})
     </foreach>
     select 1 from dual
   </insert>
   <select id="select" parameterType="java.lang.String" resultMap="BaseResultMap">
-    <include refid="selectSql" /> where ck_register.id = #{id,jdbcType=CHAR}
+    <include refid="selectSql" /> where id = #{id,jdbcType=CHAR}
   </select>
   <delete id="delete" parameterType="java.lang.String">
     delete from ck_register where id = #{id,jdbcType=CHAR}
@@ -76,25 +76,11 @@
       #{item}
     </foreach>
   </delete>
-  <select id="selectByOrgCode" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    <include refid="selectSql" /> where ck_register.org_code = #{orgCode,jdbcType=INTEGER}
+  <select id="selectByUserNoOrgCodeInDate" parameterType="map" resultMap="BaseResultMap">
+    <include refid="selectSql" /> where user_no = #{userNo} AND org_code = #{orgCode} AND in_date = #{inDate}
   </select>
-  <delete id="deleteByOrgCode" parameterType="java.lang.Integer">
-    delete from ck_register where org_code = #{orgCode,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteBatchByOrgCode" parameterType="java.lang.String">
-    delete from ck_register where org_code in (${_parameter})
-  </delete>
-  <select id="selectByUserNo" parameterType="java.lang.String" resultMap="BaseResultMap">
-    <include refid="selectSql" /> where ck_register.user_no = #{userNo,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByUserNo" parameterType="java.lang.String">
-    delete from ck_register where user_no = #{userNo,jdbcType=VARCHAR}
-  </delete>
-  <delete id="deleteBatchByUserNo" parameterType="java.lang.String">
-    delete from ck_register where user_no in     <foreach item="item" index="index" collection="_parameter.split(',')" open="(" separator="," close=")">
-      #{item}
-    </foreach>
+  <delete id="deleteByUserNoOrgCodeInDate" parameterType="map" >
+    delete from ck_register where user_no = #{userNo} AND org_code = #{orgCode} AND in_date = #{inDate}
   </delete>
   <delete id="deleteList" parameterType="java.util.List">
     delete from ck_register where id in
@@ -104,45 +90,68 @@
   </delete>
   <update id="update" parameterType="top.iotequ.checkIn.pojo.CkRegister">
     update ck_register set 
+      user_no = #{userNo,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      birth_date = #{birthDate,jdbcType=DATE},
       org_code = #{orgCode,jdbcType=INTEGER},
-      in_time = #{inTime,jdbcType=TIMESTAMP},
-      out_time = #{outTime,jdbcType=TIMESTAMP},
-      user_no = #{userNo,jdbcType=VARCHAR}
+      org_name = #{orgName,jdbcType=VARCHAR},
+      in_date = #{inDate,jdbcType=DATE},
+      on_time = #{onTime,jdbcType=TIME},
+      off_time = #{offTime,jdbcType=TIME}
       where id = #{id,jdbcType=CHAR}
   </update>
   <update id="updateSelective" parameterType="java.util.Map">
     update ck_register 
       <set>
+        <if test='userNo_string_ == "[null]"'> user_no = NULL, </if>
+        <if test='userNo != null and userNo_string_ != "[null]"'> user_no = #{userNo,jdbcType=VARCHAR},</if>
+        <if test='name_string_ == "[null]"'> name = NULL, </if>
+        <if test='name != null and name_string_ != "[null]"'> name = #{name,jdbcType=VARCHAR},</if>
+        <if test='sex_string_ == "[null]"'> sex = NULL, </if>
+        <if test='sex != null and sex_string_ != "[null]"'> sex = #{sex,jdbcType=VARCHAR},</if>
+        <if test='birthDate_string_ == "[null]"'> birth_date = NULL, </if>
+        <if test='birthDate != null and birthDate_string_ != "[null]"'> birth_date = #{birthDate,jdbcType=DATE},</if>
         <if test='orgCode_string_ == "[null]"'> org_code = NULL, </if>
         <if test='orgCode != null and orgCode_string_ != "[null]"'> org_code = #{orgCode,jdbcType=INTEGER},</if>
-        <if test='inTime_string_ == "[null]"'> in_time = NULL, </if>
-        <if test='inTime != null and inTime_string_ != "[null]"'> in_time = #{inTime,jdbcType=TIMESTAMP},</if>
-        <if test='outTime_string_ == "[null]"'> out_time = NULL, </if>
-        <if test='outTime != null and outTime_string_ != "[null]"'> out_time = #{outTime,jdbcType=TIMESTAMP},</if>
-        <if test="userNo != null"> user_no = #{userNo,jdbcType=VARCHAR},</if>
+        <if test='orgName_string_ == "[null]"'> org_name = NULL, </if>
+        <if test='orgName != null and orgName_string_ != "[null]"'> org_name = #{orgName,jdbcType=VARCHAR},</if>
+        <if test='inDate_string_ == "[null]"'> in_date = NULL, </if>
+        <if test='inDate != null and inDate_string_ != "[null]"'> in_date = #{inDate,jdbcType=DATE},</if>
+        <if test='onTime_string_ == "[null]"'> on_time = NULL, </if>
+        <if test='onTime != null and onTime_string_ != "[null]"'> on_time = #{onTime,jdbcType=TIME},</if>
+        <if test='offTime_string_ == "[null]"'> off_time = NULL, </if>
+        <if test='offTime != null and offTime_string_ != "[null]"'> off_time = #{offTime,jdbcType=TIME},</if>
       </set>
       where id = #{id,jdbcType=CHAR}
   </update>
   <update id="updateBy" parameterType="top.iotequ.checkIn.pojo.CkRegister">
     update ck_register set 
       id = #{record.id,jdbcType=CHAR},
+      user_no = #{record.userNo,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=VARCHAR},
+      birth_date = #{record.birthDate,jdbcType=DATE},
       org_code = #{record.orgCode,jdbcType=INTEGER},
-      in_time = #{record.inTime,jdbcType=TIMESTAMP},
-      out_time = #{record.outTime,jdbcType=TIMESTAMP},
-      user_no = #{record.userNo,jdbcType=VARCHAR}
+      org_name = #{record.orgName,jdbcType=VARCHAR},
+      in_date = #{record.inDate,jdbcType=DATE},
+      on_time = #{record.onTime,jdbcType=TIME},
+      off_time = #{record.offTime,jdbcType=TIME}
       where id = #{id,jdbcType=CHAR}
   </update>
   <select id="list" parameterType="top.iotequ.checkIn.pojo.CkRegister" resultMap="BaseResultMap">
     <include refid="selectSql" />
      where 1=1 
-        <if test="id != null"> and ck_register.id like #{id,jdbcType=CHAR} </if>
-        <if test="orgCode != null"> and ck_register.org_code = #{orgCode,jdbcType=INTEGER} </if>
-        <if test="inTime != null"> and ck_register.in_time like #{inTime,jdbcType=TIMESTAMP} </if>
-        <if test="outTime != null"> and ck_register.out_time like #{outTime,jdbcType=TIMESTAMP} </if>
-        <if test="userNo != null"> and ck_register.user_no like #{userNo,jdbcType=VARCHAR} </if>
-        <if test="realName != null"> and dev_people.real_name like #{realName,jdbcType=VARCHAR} </if>
-        <if test="sex != null"> and dev_people.sex like #{sex,jdbcType=VARCHAR} </if>
-        <if test="birthDate != null"> and dev_people.birth_date = #{birthDate,jdbcType=DATE} </if>
+        <if test="id != null"> and id like #{id,jdbcType=CHAR} </if>
+        <if test="userNo != null"> and user_no like #{userNo,jdbcType=VARCHAR} </if>
+        <if test="name != null"> and name like #{name,jdbcType=VARCHAR} </if>
+        <if test="sex != null"> and sex like #{sex,jdbcType=VARCHAR} </if>
+        <if test="birthDate != null"> and birth_date like #{birthDate,jdbcType=DATE} </if>
+        <if test="orgCode != null"> and org_code = #{orgCode,jdbcType=INTEGER} </if>
+        <if test="orgName != null"> and org_name like #{orgName,jdbcType=VARCHAR} </if>
+        <if test="inDate != null"> and in_date like #{inDate,jdbcType=DATE} </if>
+        <if test="onTime != null"> and on_time like #{onTime,jdbcType=TIME} </if>
+        <if test="offTime != null"> and off_time like #{offTime,jdbcType=TIME} </if>
   </select>
   <select id="listBy" parameterType="map" resultMap="BaseResultMap">
     <include refid="selectSql" />
