@@ -28,6 +28,7 @@ public class SpringContext implements ApplicationContextAware {
     private static String projectHomePath = null;
     private static String propertyFile = null;
     public  static final String nodeId = uuid();
+    public  static Date  buildTime = null;
     @Autowired
     private DataDictDao dictDao;
 
@@ -86,6 +87,9 @@ public class SpringContext implements ApplicationContextAware {
             List<IotequVersionInfo> versions = IotequVersionInfo.getAllVersions();
             if (!Util.isEmpty(versions)) {
                 log.info("-----------------------------------------Version infomation-----------------------------------");
+                if (SpringContext.buildTime!=null) {
+                    log.info("Build time ={}",DateUtil.date2String(SpringContext.buildTime,null));
+                }
                 for (IotequVersionInfo v : versions) {
                     log.info("{}",v.toString());
                 }

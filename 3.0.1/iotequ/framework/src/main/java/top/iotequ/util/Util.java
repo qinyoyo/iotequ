@@ -812,6 +812,7 @@ public class Util extends Utils {
             FileUtil.writeToFile(String.valueOf(pid), new File(SpringContext.getProjectHomePath(),"pid.log"));
         } catch (Exception e) {}
         IotequVersionInfo.readVersionInfo(clazz);
+        SpringContext.buildTime = IotequVersionInfo.getBuildTime();
         SpringApplicationBuilder appBuilder = new SpringApplicationBuilder(clazz);
         appBuilder.properties("file.encoding=UTF-8");
         String myPropertyFile = additionalPropertyFile(customerProperties == null ? "iotequ" : customerProperties);

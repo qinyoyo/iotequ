@@ -195,7 +195,7 @@ public class CkRegisterService extends CgCkRegisterService implements Applicatio
                     "where in_date between ? and ?"  + orgFilter +
                     "group by age";
         } else if ("timeByDay".equals(action)) {  // 使用时长按天统计
-            sql = "select in_date, org_name,  org_code, round((time_to_sec(off_time)-time_to_sec(on_time))/3600,1) as amount from ck_register  " +
+            sql = "select in_date, org_name,  org_code, round(sum(time_to_sec(off_time)-time_to_sec(on_time))/3600,1) as amount from ck_register  " +
                     "where off_time is not null and in_date between ? and ? " + orgFilter +
                     "group by in_date, org_name, org_code";
         } else return j;

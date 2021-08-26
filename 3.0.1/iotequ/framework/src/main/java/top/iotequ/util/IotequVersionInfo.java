@@ -2,6 +2,7 @@ package top.iotequ.util;
 
 import lombok.NonNull;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.system.ApplicationHome;
 
 import java.io.File;
@@ -10,14 +11,45 @@ import java.util.*;
 import java.util.jar.*;
 
 @Getter
+@Setter
 public class IotequVersionInfo {
     private static List<IotequVersionInfo> IotequVersionInfoList = null;
     private String groupId;
     private String module;
     private String version;
     private Date buildTime;
-    public  static Map<String,String> licencesInfo = new HashMap();
+    private Integer verLicence=null;
+    private Integer verTrialDays=null;
+    private Integer licenceLeft = null;
+    private Integer trialDaysLeft = null;
+    //public  static Map<String,String> licencesInfo = new HashMap();
     private boolean isIotequModule=false;
+    static public Date getBuildTime() {
+        if (Util.isEmpty(IotequVersionInfoList)) return null;
+        else return IotequVersionInfoList.get(0).buildTime;
+    }
+    static public IotequVersionInfo getModuleVersion(String module) {
+        if (Util.isEmpty(IotequVersionInfoList)) return null;
+        Optional<IotequVersionInfo> ov = IotequVersionInfoList.stream().filter(v -> module.equals(v.module)).findFirst();
+        if (ov.isPresent()) return ov.get();
+        else return null;
+    }
+    static public void setModuleLicence(String module,Integer licence) {
+        IotequVersionInfo m = getModuleVersion(module);
+        if (m!=null) m.verLicence = licence;
+    }
+    static public void setModuleLicenceLeft(String module,Integer licenceLeft) {
+        IotequVersionInfo m = getModuleVersion(module);
+        if (m!=null) m.licenceLeft = licenceLeft;
+    }
+    static public void setModuleTrialDays(String module,Integer trialDays) {
+        IotequVersionInfo m = getModuleVersion(module);
+        if (m!=null) m.verTrialDays = trialDays;
+    }
+    static public void setModuleTrialDaysLeft(String module,Integer trialDaysLeft) {
+        IotequVersionInfo m = getModuleVersion(module);
+        if (m!=null) m.trialDaysLeft = trialDaysLeft;
+    }
     static public void readVersionInfo(@NonNull Class<?> clazz) {
         ApplicationHome home = new ApplicationHome(clazz);
         String path = home.getSource().getAbsolutePath();
@@ -116,8 +148,12 @@ public class IotequVersionInfo {
     @Override
     public String toString() {
         if (isIotequModule) {
-            return groupId + "." + module + " : " + version + " (" + DateUtil.date2String(buildTime, null) + ")"
-                    + (licencesInfo.containsKey(module) ? ", "+licencesInfo.get(module):"");
+            String ver = groupId + "." + module + " : " + version + " (" + DateUtil.date2String(buildTime, null) + ")";
+            if (verLicence!=null) ver += (" Licence = "+verLicence);
+            if (licenceLeft!=null) ver += (" LicenceLeft = "+licenceLeft);
+            if (verTrialDays!=null) ver += (" TrialDays = "+verTrialDays);
+            if (trialDaysLeft!=null) ver += (" TrialDaysLeft = "+trialDaysLeft);
+            return ver;
         } else return null;
     }
 }

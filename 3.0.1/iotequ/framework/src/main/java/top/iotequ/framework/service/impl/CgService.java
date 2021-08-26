@@ -86,9 +86,20 @@ public abstract class CgService<T extends CgEntity> implements ICgService<T>, Co
                 li = Util.getLicence(sn, scModule);
             }
             if (li <= 0) {  // 未配置序列号
-                if (annotation.trialLicence()>=0) verLicence = annotation.trialLicence();
+                if (annotation.trialLicence()>=0) {
+                    verLicence = annotation.trialLicence();
+                    IotequVersionInfo.setModuleLicence(scModule,verLicence);
+                }
                 if (annotation.trialDays()>0) {
                     verTrialDays = annotation.trialDays();
+                    IotequVersionInfo.setModuleTrialDays(scModule,verTrialDays);
+                    Date bdt = SpringContext.buildTime;
+                    if (bdt!=null) {
+                        long dp = (DateUtil.startOf(new Date(),DateUtil.DAY).getTime() - DateUtil.startOf(bdt,DateUtil.DAY).getTime())/DateUtil.dayLength;
+                        if (dp<0 || dp >= verTrialDays) throw new RuntimeException("Bad time for version check");
+                        verTrialDays = verTrialDays - (int)dp;
+                    }
+                    IotequVersionInfo.setModuleTrialDaysLeft(scModule,verTrialDays);
                     Timer timer = new Timer();
                     timer.schedule(new TimerTask() {
                         @Override
@@ -99,33 +110,33 @@ public abstract class CgService<T extends CgEntity> implements ICgService<T>, Co
                 }
             } else {
                 verLicence = li;
+                IotequVersionInfo.setModuleLicence(scModule,li);
             }
             if (verTrialDays == null) {
                 if (verLicence == null)
                     log.info("---------- {} free version", scModule);
                 else {
                     log.info("---------- {}s version,licence = {}", scModule, verLicence);
-                    IotequVersionInfo.licencesInfo.put(scModule,"licence = "+String.valueOf(li));
+
                 }
             } else if (verTrialDays <= 0) {
                 log.info("---------- {} trial version expired", scModule);
-                IotequVersionInfo.licencesInfo.put(scModule,"expired");
+
             }
             else {
                 if (verLicence == null) {
                     log.info("---------- {} unlimitted trial version : {} days left", scModule, verTrialDays);
                     verLicence = Integer.MAX_VALUE;
-                    IotequVersionInfo.licencesInfo.put(scModule,verTrialDays+" days left");
                 }
                 else {
                     log.info("---------- {} trial version : {} days left , licence = {}", scModule, verTrialDays, verLicence);
-                    IotequVersionInfo.licencesInfo.put(scModule,verTrialDays+" days left , licence = "+verLicence);
                 }
             }
             try {
-                getLicenceLeft();
+                IotequVersionInfo.setModuleLicenceLeft(scModule,getLicenceLeft());
             } catch (Exception e) {
                 log.error(e.getMessage());
+                IotequVersionInfo.setModuleLicenceLeft(scModule,0);
             }
         }
         log.debug("Initialed service {} for {}",this.getClass().getName(), clazz.getName());

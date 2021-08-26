@@ -10,7 +10,7 @@ public class DateUtil {
 
 	static private final String amString=new SimpleDateFormat("a").format(string2Date("19701116060606"));
 	static private final String pmString=new SimpleDateFormat("a").format(string2Date("19701116161616"));
-
+	static public final long dayLength = 86400000l;
 	/**
 	 * 字符串转换为日期
 	 * @param dt    日期字符串

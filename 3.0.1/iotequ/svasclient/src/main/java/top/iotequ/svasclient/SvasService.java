@@ -77,7 +77,7 @@ public class SvasService implements ApplicationRunner, ApplicationContextAware, 
         daysLeft = getTrialDays();
         if (licence > 0 && daysLeft > 3650) {
             log.info(String.format("---------- Svas version %s, licence = %d", version, licence));
-            IotequVersionInfo.licencesInfo.put("svas","licence = "+String.valueOf(licence));
+            IotequVersionInfo.setModuleLicence("svas",licence);
         } else {
             if (daysLeft > 0) {
                 log.info(String.format("---------- Svas trial version %s, licence = %d, %d days left", version, licence, daysLeft));
@@ -90,10 +90,11 @@ public class SvasService implements ApplicationRunner, ApplicationContextAware, 
                         daysLeft = 0;
                     }
                 }, ca.getTime());
-                IotequVersionInfo.licencesInfo.put("svas",daysLeft+" days left , licence = "+licence);
+                IotequVersionInfo.setModuleTrialDaysLeft("svas",daysLeft);
+                IotequVersionInfo.setModuleLicence("svas",licence);
             } else {
                 log.info(String.format("---------- Svas trial version expired"));
-                IotequVersionInfo.licencesInfo.put("svas", "expired");
+                IotequVersionInfo.setModuleTrialDaysLeft("svas",0);
             }
         }
         svasClient.setLicence(licence);
