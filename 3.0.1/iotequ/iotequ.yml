@@ -4,7 +4,7 @@ server:
    servlet: 
       context-path : /
       session:
-         timeout: PT1H  #会话最大保持时间，以秒为单位，不低于1分钟，
+         timeout: PT2M  #会话最大保持时间，以秒为单位，不低于1分钟，
 #配置ssl请将 server.port 配置 为 443，然后配置以下参数
 #   http:
 #      port : 80       

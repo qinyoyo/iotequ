@@ -61,12 +61,6 @@ export default  {
          registerType:[
             { required: true, message: vueObject.$t('system.message.needValue') + ':' + vueObject.$t('devPeople.field.registerType'), trigger: 'blur' }
          ],
-         validDate:[
-            { required: true, message: vueObject.$t('system.message.needValue') + ':' + vueObject.$t('devPeople.field.validDate'), trigger: 'blur' }
-         ],
-         expiredDate:[
-            { required: true, message: vueObject.$t('system.message.needValue') + ':' + vueObject.$t('devPeople.field.expiredDate'), trigger: 'blur' }
-         ],
       }, typeof extendRules == 'function' ? extendRules(vueObject, _=>{ return vueObject.record ? vueObject.record : this_.record} ) : extendRules)
    }
 }

@@ -63,7 +63,7 @@
                 <span slot="label"><cg-icon icon="fa fa-calendar" :size="14" :width="20"/>{{$t('devPeople.field.validDate')}}</span>
                 <cg-date-picker v-model="record.validDate" name="validDate" 
                                 :align="mobile?'right':'center'" type="date" :title="$t('devPeople.field.validDate')" :readonly="isDetail" 
-                                />
+                                clearable />
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -71,7 +71,7 @@
                 <span slot="label"><cg-icon icon="fa fa-calendar" :size="14" :width="20"/>{{$t('devPeople.field.expiredDate')}}</span>
                 <cg-date-picker v-model="record.expiredDate" name="expiredDate" 
                                 :align="mobile?'right':'center'" type="date" :title="$t('devPeople.field.expiredDate')" :readonly="isDetail" 
-                                />
+                                clearable />
               </el-form-item>
             </el-col>
           </el-row>
@@ -141,7 +141,7 @@
             <el-col :span="12">
               <el-form-item class="cg-item-select" :label="$t('devPeople.field.registerType')" prop="registerType" :size="$store.state.app.size" >
                 <cg-select v-model="record.registerType" name="registerType"
-                           :dictionary="dictionary.dictRegisterType" :readonly="!isNew" :filterable="false" :allow-create="false" numberic :placeholder="$t('system.message.needValue')" />
+                           :dictionary="dictionary.dictRegisterType" readonly :filterable="false" :allow-create="false" numberic :placeholder="$t('system.message.needValue')" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
