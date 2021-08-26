@@ -161,10 +161,11 @@ public class CkRegisterService extends CgCkRegisterService {
                     "group by age, org_name, org_code";
         } else if ("amountByAgeMonth".equals(action)) {  // 区间年龄段月统计
             sql = "select concat(truncate(round(datediff(CURDATE(),birth_date)/365.25,0)/10,0)*10, '-', truncate(round(datediff(CURDATE(),birth_date)/365.25,0)/10,0)*10 + 9) as age, " +
-                    "org_name,  org_code, count(*) as amount from ck_register " +
+                    "DATE_FORMAT(in_date,'%Y-%m') as month, count(*) as amount from ck_register " +
                     "where in_date between ? and ?"  + orgFilter +
-                    "group by age, org_name, org_code";
+                    "group by age, month";
         }
+        System.out.println(SqlUtil.sqlString(sql,dt0,dt1));
         List<Map<String,Object>> data = SqlUtil.sqlQuery(orgCode==null, sql, dt0, dt1);
         j.data(data);
         return j;
