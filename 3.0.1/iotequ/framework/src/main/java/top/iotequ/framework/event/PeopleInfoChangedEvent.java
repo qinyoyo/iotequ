@@ -72,4 +72,16 @@ public class PeopleInfoChangedEvent extends ApplicationEvent {
 			return null;
 		}
 	}
+
+	public static PeopleInfoChangedEvent createPeopleInfoChangedEvent(@NonNull  Object source, People people, int mode) {
+		try {
+			if (EntityUtil.isEntityEmpty(people)) return null;
+			PeopleInfoChangedEvent event = new PeopleInfoChangedEvent(source);
+			event.setMode(mode);
+			event.setPeople(people);
+			return event;
+		} catch (Exception e) {
+			return null;
+		}
+	}
 }

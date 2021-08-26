@@ -161,4 +161,18 @@ public class SysUserService extends CgSysUserService implements ApplicationListe
 		}
 		return new RestJson();
 	}
+	@Override
+	public Map<String,Object> getDictionary(User obj, Boolean useTree, String dynaFields) {
+		Map<String,Object> map = super.getDictionary(obj, useTree, dynaFields);
+		Object v = map.get("dictOrgPrivilege");
+		if (v!=null) {
+			List<Map<String, Object>> ll = (List<Map<String, Object>>) v;
+			Map<String, Object> m = new HashMap<String, Object>();
+			m.put("value", String.valueOf(OrgUtil.ALL_PERMISSION));  // value 统一为string
+			m.put("text", "system.action.all");
+			m.put("fullname", "system.action.all");
+			ll.add(0,m);
+		}
+		return map;
+	}
 }

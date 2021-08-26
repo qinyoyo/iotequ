@@ -24,7 +24,9 @@
         </el-carousel-item>
       </el-carousel>
       <#else>
-      <img class="img-center cg-hide-join" src="/static/img/${LP.images}" alt="" />
+      <div class="img-center-box">
+        <img class="img-center cg-header-image cg-hide-join" src="/static/img/${LP.images}" alt="" />
+      </div>
       </#if>
       </#if>
       <#if sons??>

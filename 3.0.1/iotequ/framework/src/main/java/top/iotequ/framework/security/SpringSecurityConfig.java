@@ -45,7 +45,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public static final String[] whiteList = new String[]
             {
                 "/index.html", "/favicon.ico", "/dashboard", "/static/**",   // allow vue inside
-                "/","/m/**",
+                "/","/m/**","/vein/auth",
                 errorPage + "/**",
                 resourcePage + "/**", commonPage + "/**"
             };   //  以上名单不经过security验证

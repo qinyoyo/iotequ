@@ -2,7 +2,6 @@ package top.iotequ.c20.controller;
 
 import com.google.gson.Gson;
 import net.sf.json.JSONObject;
-import sun.misc.BASE64Encoder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,14 +16,11 @@ import top.iotequ.c20.controller.C20HttpServer.*;
 import top.iotequ.c20.controller.C20HttpServer.UserBaseInfoRsp.C20Finger;
 import top.iotequ.framework.event.DeviceEvent;
 import top.iotequ.framework.event.PeopleInfoChangedEvent;
-import top.iotequ.framework.exception.IotequException;
 import top.iotequ.reader.dao.DevNewDeviceDao;
 import top.iotequ.reader.pojo.DevNewDevice;
 import top.iotequ.util.*;
 import top.iotequ.reader.dao.DevPeopleDao;
 import top.iotequ.reader.pojo.DevPeople;
-import top.iotequ.reader.pojo.DevReader;
-import top.iotequ.reader.pojo.DevReaderGroup;
 import top.iotequ.svasclient.SvasService;
 import top.iotequ.svasclient.SvasTypes.SvasMatchInfo;
 import top.iotequ.svasclient.SvasTypes.SvasMatched;
@@ -39,7 +35,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 public class RegisterUserController {
@@ -121,6 +116,7 @@ public class RegisterUserController {
 				out.flush();
 				out.close();
 			}
+
 			svasService.changeUserInfo(people);
 
 			List<C20Finger> list =new ArrayList<>();
@@ -153,7 +149,7 @@ public class RegisterUserController {
 			String userNo = rsp.RegReq.getUserNo();// 用户编号
 			List<C20Finger> Fingers = rsp.c20fingers;
 
-			int orgCode = getOrgCode(rsp.c20info, rsp.RegReq.getUserNo());
+			int orgCode = getDeviceOrgCode(rsp.c20info.devNo);
 			
 			if (SqlUtil.sqlExist("select * from dev_people where user_no=?", userNo)) {
 
@@ -176,10 +172,26 @@ public class RegisterUserController {
 
 			DevPeople p=devPeopleDao.select(userNo);
 			Util.getApplicationContext().publishEvent(PeopleInfoChangedEvent.createPeopleInfoChangedEvent(devPeopleService,null,p,"userNo"));
+			if (p!=null) {
+				try {
+					DeviceEvent event = new DeviceEvent(this);
+					event.setDeviceType("C20");
+					event.setDeviceNo(rsp.c20info.devNo);
+					event.setDeviceMode("AD");
+					event.setTime(new Date());
+					event.setUserNo(userNo);
+					event.put("orgCode", orgCode);
+					event.setWarning(false);
+					event.put("authType", (byte) 0);
+					event.put("auditeeAuthType", (byte) 0);
+					applicationContext.publishEvent(event);
+				} catch (Exception e) {
+				}
+			}
 
 			// 手指信息更新
-			Integer type1=null,type2=null;
-			Boolean warning1=null,warning2=null;
+			Integer type1=null, type2=null;
+			Boolean warning1=null, warning2=null;
 			String temp1=null,temp2=null;
 			for (int i = 0; i < Fingers.size(); i++) {
 				C20Finger finger = Fingers.get(i);// 手指信息
@@ -251,10 +263,9 @@ public class RegisterUserController {
 		String msg = "上传失败";
 		if(SqlUtil.sqlExist("select * from dev_reader where reader_no=?", log.c20info.devNo)) {
 			C20log.error("C20 LogInfo" + new Gson().toJson(log));
-			int orgCode = getOrgCode(log.c20info, log.userNo);
+			int orgCode = getDeviceOrgCode(log.c20info.devNo);
 			Date dt = DateUtil.string2Date(log.date, "yyyy/MM/dd HH:mm:ss");
 			try {
-
 				DeviceEvent event = new DeviceEvent(this);
 				event.setDeviceType("C20");
 				event.setDeviceNo(log.c20info.devNo);
@@ -321,27 +332,10 @@ public class RegisterUserController {
 		return JSONObject.fromObject(reslut);
 	}
 
-	private int getOrgCode(C20BindInfo c20info, String userNo) throws Exception {
-
-		Integer orgCode = null;
-		try {
-			Integer readerGroup = SqlUtil.sqlQueryInteger("select reader_group from dev_reader where reader_no=? and sn_no=?",
-					c20info.devNo, c20info.SN);// 查询编号是否存在
-			if(readerGroup!=null&&readerGroup!=0) {
-				orgCode=SqlUtil.sqlQueryInteger("select org_code from dev_reader_group where id=?", readerGroup);
-			}
-			
-		} catch (Exception e) {}
-		if (orgCode == null && userNo != null) {
-			orgCode = SqlUtil.sqlQueryInteger("select org_code from dev_people where user_no=?", userNo);
-			if (orgCode != null) {
-				return orgCode.intValue();
-			}
-		} else {
-			if (orgCode != null)
-				return orgCode.intValue();
-		}
-		return 0;
+	private int getDeviceOrgCode(String devNo) throws Exception {
+		Integer orgCode = SqlUtil.sqlQueryInteger(false,"select org_code from dev_reader_group g, dev_reader r where r.reader_group = g.id and r.reader_no = ?",devNo);
+		if (orgCode!=null) return orgCode;
+		else throw new Exception("部门不存在");
 	}
 	/*
 	@RequestMapping(value = Links.GET_PEOPLE, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)

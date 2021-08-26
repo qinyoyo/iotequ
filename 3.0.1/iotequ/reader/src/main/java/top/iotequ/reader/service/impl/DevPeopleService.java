@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
+import top.iotequ.framework.event.DeviceEvent;
 import top.iotequ.framework.event.PeopleInfoChangedEvent;
 import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.exception.IotequThrowable;
@@ -43,14 +44,16 @@ public class DevPeopleService extends CgDevPeopleService implements ApplicationL
 	public void onApplicationEvent(PeopleInfoChangedEvent event) {
 		try {
 			if (event.getSource() instanceof DevPeopleService) return;
-			int mode=event.getMode();
-			if (mode==PeopleInfoChangedEvent.update) {
-				DevPeople people= EntityUtil.entityCopyFrom(DevPeople.class,event.getPeople());
-				if (people!=null) {
-					String userNo = people.getUserNo();
-					if (Util.isEmpty(userNo)) return;
+			DevPeople people= EntityUtil.entityCopyFrom(DevPeople.class,event.getPeople());
+			if (people!=null) {
+				String userNo = people.getUserNo();
+				if (Util.isEmpty(userNo)) return;
+				DevPeople people0 = devPeopleDao.select(userNo);
+				if (people0!=null) {
 					saveImage2File(people);
 					devPeopleDao.update(people);
+				} else {
+					devPeopleDao.insert(people);
 				}
 			}
 		} catch (Exception e) {}

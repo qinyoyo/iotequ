@@ -39,13 +39,8 @@ truncate table iotequ3.dev_vein_info;
 insert into  iotequ3.dev_vein_info SELECT id,user_no,finger_no,templates,warning,finger_type
  FROM iotequ_simp.dev_vein_info;
  
-truncate table iotequ3.ck_sign_in; 
-insert into iotequ3.ck_sign_in SELECT replace(uuid(),'-',''),p.user_no,p.org_code,
-  d.rec_source,'U53',2,rec_time FROM iotequ_simp.ad_data d, iotequ_simp.dev_people p where d.employee_no = d.employee_no; 
-  
-truncate table iotequ3.ck_register;
 insert into iotequ3.ck_register(id,user_no,name,sex,birth_date,org_code,org_name,in_date,on_time,off_time) 
-SELECT replace(uuid(),'-',''),s.user_no, p.real_name, p.sex, p.birth_date, s.org_code, o.name, date(min(s.rec_time)),time(min(s.rec_time)), time(max(rec_time)) 
-FROM iotequ3.ck_sign_in s, dev_people p, sys_org o 
+SELECT replace(uuid(),'-',''),s.user_no, p.real_name, p.sex, p.birth_date, s.org_code, o.name, date(min(s.time)),time(min(s.time)), time(max(s.time)) 
+FROM iotequ_simp.dev_event s, dev_people p, sys_org o 
 where s.user_no = p.user_no and s.org_code = o.org_code
-group by org_code, user_no, date(rec_time);  
+group by s.org_code, s.user_no, date(s.time); 

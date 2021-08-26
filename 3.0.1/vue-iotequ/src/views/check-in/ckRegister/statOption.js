@@ -12,7 +12,7 @@ function distincOf(data,field) {
       return 0
   }
   export function getEChartsOptions(data,legendField, xField, yField, charType) {
-    var legend = distincOf(data,legendField)
+    var legend = (legendField ? distincOf(data,legendField) : [''])
     var xAxis = distincOf(data,xField)
     var series = []
     for (let i=0;i<legend.length;i++) {
@@ -25,11 +25,17 @@ function distincOf(data,field) {
           },
           data: []
        }
+       if (charType == 'pie') s.roseType = 'radius'
        for (let j=0;j<xAxis.length;j++) {
          let test = function(d) {
-           return (d[legendField] == legend[i] && d[xField] == xAxis[j])
+           return (legendField ? (d[legendField] == legend[i] && d[xField] == xAxis[j]) : d[xField] == xAxis[j])
          }
-         s.data.push(getValue(data,yField,test))
+         if (charType == 'pie') {
+             s.data.push({
+                value:getValue(data,yField,test),
+                name:xAxis[j]
+            })
+        } else s.data.push(getValue(data,yField,test))
        } 
        series.push(s)
     }
@@ -51,19 +57,19 @@ function distincOf(data,field) {
             feature: {
                 mark: {show: true},
                 dataView: {show: true, readOnly: false},
-                magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                magicType: charType == 'pie' ? null : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
                 restore: {show: true},
                 saveAsImage: {show: true}
             }
         },
-        xAxis: [
+        xAxis: charType == 'pie' ? null : [
             {
                 type: 'category',
                 axisTick: {show: false},
                 data: xAxis
             }
         ],
-        yAxis: [
+        yAxis: charType == 'pie' ? null : [
             {
                 type: 'value'
             }

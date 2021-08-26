@@ -7,7 +7,7 @@
           legendField="org_name"
           xField="month"
           yField="amount"
-          charType="pie"
+          charType="bar"
           :initRange="[startOf(null,'year'),endOf(null,'year')]"   
     />
   </div>

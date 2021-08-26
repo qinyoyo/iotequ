@@ -8,6 +8,7 @@ export default {
       u53Disconnect(_=>{
         u53Connect(0, _=>{
           that.hasU53 = true
+          document.querySelector('img.cg-header-image').src = '/static/img/input.gif'
           that.u53read()
           that.keepLogin()
         })
@@ -72,7 +73,7 @@ export default {
       },
       u53login(template) {
         const _this=this
-        const imageElement = document.querySelector('img[src="/static/img/input.gif"]')
+        const imageElement = document.querySelector('img.cg-header-image')
         const startRead = function() {
           _this.record.mode = 'auto'  
           imageElement.style.opacity = 1

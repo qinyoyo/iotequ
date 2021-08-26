@@ -57,6 +57,30 @@ export default {
         tagView: true,
         noCache: false
       }
-    }    
+    },
+    {
+      path: 'distributionByAge',
+      component: () => import('@/views/check-in/ckRegister/distributionByAge'),
+      name: 'CkDistributionByAge',
+      meta: {
+        title: 'ckStat.title.distributionByAge',
+        authorities: ['/check-in/ckRegister/query'],
+        breadcrumb: true,
+        tagView: true,
+        noCache: false
+      }
+    },
+    {
+      path: 'timeByDay',
+      component: () => import('@/views/check-in/ckRegister/timeByDay'),
+      name: 'CkTimeByDay',
+      meta: {
+        title: 'ckStat.title.timeByDay',
+        authorities: ['/check-in/ckRegister/query'],
+        breadcrumb: true,
+        tagView: true,
+        noCache: false
+      }
+    }            
   ]
 }

@@ -31,7 +31,9 @@
         </el-carousel-item>
       </el-carousel>
       <#else>
-      <img class="img-center" src="/static/img/${FP.images}" alt="" />
+      <div class="img-center-box">
+        <img class="img-center cg-header-image" src="/static/img/${FP.images}" alt="" />
+      </div>
       </#if>
       </#if>
       <CgForm${FP.name?cap_first} ref="cgForm"<#if !isEmpty(FP.viewProperties!'')> ${FP.viewProperties?trim}</#if>

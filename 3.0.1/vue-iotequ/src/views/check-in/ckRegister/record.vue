@@ -8,7 +8,9 @@
                    @menuAction="submit" @goBack="close"
         />
       </div>
-      <img class="img-center" src="/static/img/input.gif" alt="" />
+      <div class="img-center-box">
+        <img class="img-center cg-header-image" src="/static/img/not_found.png" alt="" />
+      </div>
       <CgFormRegister ref="cgForm" class="hide-cg-buttons"
                       :routeParams="routeParams"
                       :showInDialog="showDialog"

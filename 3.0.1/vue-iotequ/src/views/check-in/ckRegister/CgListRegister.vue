@@ -102,8 +102,8 @@
                         @refresh="doAction('refresh')" @reset="queryRecord=initialQueryRecord()">
       <div>
         <el-form-item :label="$t('ckRegister.field.orgCode')" prop="orgCode" :size="$store.state.app.size">
-          <cg-cascader v-model="queryRecord.orgCode" name="orgCode"  multiple collapse-tags clearable
-                       :disabled="fixedQueryRecord.orgCode?true:false" :dictionary="dictionary.dictOrgCode" show-all-levels/>
+          <cg-select v-model="queryRecord.orgCode" :dictionary="dictionary.dictOrgCode"
+                     :disabled="fixedQueryRecord.orgCode?true:false"  :allow-create="!mobile" multiple clearable />
         </el-form-item>
         <el-form-item :label="$t('ckRegister.field.name')" prop="name" :size="$store.state.app.size">
           <el-input v-model="queryRecord.name" type="text" name="name"
@@ -139,7 +139,6 @@ const Comp = {
       localExport: true,
       idField: 'id',
       dictionary: {
-        dictMode: this.getDictionary('auto,on,off,cancel,remove','ckRegister.field.mode_0,ckRegister.field.mode_1,ckRegister.field.mode_2,ckRegister.field.mode_3,ckRegister.field.mode_4'),
         dictOrgCode: [],
         dictSex: []
       },
@@ -155,7 +154,7 @@ const Comp = {
   computed: {
     allActions() {
       if (this.joinMode) return 'refresh,query'
-      else return 'query,,view,list,localExport,'
+      else return 'query,,list,localExport,'
     }
   },
   mounted() {
@@ -164,7 +163,6 @@ const Comp = {
   methods: {
     initialQueryRecord() {
       return Object.assign({
-        mode: null,
         orgCode: null,
         orgName: null,
         name: null,

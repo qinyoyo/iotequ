@@ -129,6 +129,15 @@ public class DevReaderService extends CgDevReaderService {
 			}
 		}
 	}
+
+	@Override
+	public void afterSave(DevReader obj0, DevReader obj, HttpServletRequest request, RestJson j) throws IotequException {
+		super.afterSave(obj0,obj,request,j);
+		if (obj!=null) {
+			SqlUtil.sqlExecute("delete from dev_new_device where reader_no = ?",obj.getReaderNo());
+		}
+	}
+
 	@Override
 	public  void beforeDelete(String id,HttpServletRequest request) throws IotequException {
 		DevReader devReader=devReaderDao.select(id.toString());  // 删除，取消注册

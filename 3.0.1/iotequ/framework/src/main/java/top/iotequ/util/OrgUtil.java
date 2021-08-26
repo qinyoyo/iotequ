@@ -137,14 +137,20 @@ public class OrgUtil {
     	if (orgList!=null) return isOrgChildren(org,orgList);
     	else return true;
     }
+	static public final int ALL_PERMISSION = -99;
 
+	/**
+	 * 获取数据权限
+	 * @return 返回null表示不限制
+	 */
 	static public Integer getOrgPrivilegeCode() {
 		User u= Util.getUser();
 		if (u!=null) {
 			if (EntityUtil.entityEquals(u.getName(),"admin")) return null;
 			Integer orgCode = u.getOrgPrivilege();
 			if (Util.isEmpty(orgCode)) return u.getOrgCode();
-			else 	return orgCode;
+			else if (orgCode == ALL_PERMISSION) return null;
+			else return orgCode;
 		}
 		return null;
 	}

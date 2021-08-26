@@ -1,23 +1,28 @@
 package top.iotequ.checkIn.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Service;
 import top.iotequ.checkIn.dao.CkRegisterDao;
 import top.iotequ.checkIn.pojo.CkRegister;
 import top.iotequ.framework.dao.OrgDao;
+import top.iotequ.framework.event.DeviceEvent;
+import top.iotequ.framework.event.PeopleInfoChangedEvent;
 import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.pojo.Org;
 import top.iotequ.reader.dao.DevPeopleDao;
 import top.iotequ.reader.pojo.DevPeople;
+import top.iotequ.reader.service.impl.DevPeopleService;
 import top.iotequ.svasclient.SvasService;
 import top.iotequ.svasclient.SvasTypes;
 import top.iotequ.util.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.util.*;
 
 @Service
-public class CkRegisterService extends CgCkRegisterService {
+public class CkRegisterService extends CgCkRegisterService implements ApplicationListener<DeviceEvent> {
     @Autowired
     private SvasService svasService;
     @Autowired
@@ -52,6 +57,9 @@ public class CkRegisterService extends CgCkRegisterService {
     static final String sound_err_sign = "sound_err_sign.mp3";
     static final String text_err_sign = "识别失败";
 
+    static final String sound_err_too_many = "sound_err_too_many.mp3";
+    static final String text_err_too_many = "请勿频繁打卡";
+
     @Override
     public RestJson doAction(String action, String id, HttpServletRequest request) throws IotequException {
         RestJson j = new RestJson();
@@ -71,6 +79,16 @@ public class CkRegisterService extends CgCkRegisterService {
                     String userNo = matchInfo.list.get(0).userNo;
                     DevPeople people = devPeopleDao.select(userNo);
                     if (people==null) return new RestJson().setSuccess(false).data("sound",sound_err_sign).setMessage(text_err_sign);
+                    DeviceEvent event = new DeviceEvent(this);
+                    event.setDeviceType("U53");
+                    event.setDeviceNo("<null>");
+                    event.setDeviceMode("AD");
+                    event.setTime(new Date());
+                    event.setUserNo(userNo);
+                    event.setWarning(false);
+                    event.put("authType", (byte)0);
+                    event.put("auditeeAuthType", (byte)0);
+                    Util.getApplicationContext().publishEvent(event);
                     return register(orgCode,mode,userNo, people, org);
                 } else {
                     j.setSuccess(false).data("sound",sound_err_sign)
@@ -89,6 +107,13 @@ public class CkRegisterService extends CgCkRegisterService {
         Date now = new Date();
         Date date0 = DateUtil.startOf(now,DateUtil.DAY);
         CkRegister rec = ckRegisterDao.selectByUserNoOrgCodeInDate(userNo,orgCode,date0);
+        if (rec!=null) {
+            Date lastTime =  (rec.getOffTime()==null ? rec.getOnTime() : rec.getOffTime());
+            int lt = DateUtil.get(lastTime,DateUtil.HOUR) * 60 + DateUtil.get(lastTime,DateUtil.MINUTE);
+            int nw = DateUtil.get(now,DateUtil.HOUR) * 60 + DateUtil.get(now,DateUtil.MINUTE);
+            if (nw - lt < 2 || (!"cancel".equals(mode) && !"remove".equals(mode) && nw - lt < 5))
+                return j.setSuccess(false).data("name",people.getRealName()).data("sound",sound_err_too_many).setMessage(text_err_too_many);
+        }
         j.data("name",people.getRealName());
         if ("on".equals(mode)) {
             if (rec!=null) return j.setSuccess(false).data("sound",sound_err_on).setMessage(text_err_on);
@@ -164,10 +189,38 @@ public class CkRegisterService extends CgCkRegisterService {
                     "DATE_FORMAT(in_date,'%Y-%m') as month, count(*) as amount from ck_register " +
                     "where in_date between ? and ?"  + orgFilter +
                     "group by age, month";
-        }
+        } else if ("distributionByAge".equals(action)) {  // 年龄分布统计
+            sql = "select concat(truncate(round(datediff(CURDATE(),birth_date)/365.25,0)/10,0)*10, '-', truncate(round(datediff(CURDATE(),birth_date)/365.25,0)/10,0)*10 + 9) as age, " +
+                    "count(*) as amount from ck_register " +
+                    "where in_date between ? and ?"  + orgFilter +
+                    "group by age";
+        } else if ("timeByDay".equals(action)) {  // 使用时长按天统计
+            sql = "select in_date, org_name,  org_code, round((time_to_sec(off_time)-time_to_sec(on_time))/3600,1) as amount from ck_register  " +
+                    "where off_time is not null and in_date between ? and ? " + orgFilter +
+                    "group by in_date, org_name, org_code";
+        } else return j;
+
         System.out.println(SqlUtil.sqlString(sql,dt0,dt1));
         List<Map<String,Object>> data = SqlUtil.sqlQuery(orgCode==null, sql, dt0, dt1);
         j.data(data);
         return j;
+    }
+
+    @Override
+    public void onApplicationEvent(DeviceEvent event) {
+        try {
+            if (event.getSource() instanceof CkRegisterService) return;
+            String readerNo = event.getDeviceNo();
+            if (readerNo==null) return;
+            String userNo = event.getUserNo();
+            if (userNo==null) return;
+            Integer orgCode = SqlUtil.sqlQueryInteger(false,"select org_code from dev_reader_group g, dev_reader r where r.reader_group = g.id and r.reader_no = ?",readerNo);
+            if (orgCode==null) return;
+            DevPeople people = devPeopleDao.select(userNo);
+            if (people==null) return;
+            Org org = orgDao.select(orgCode);
+            if (org==null) return;
+            register(orgCode, "auto",  userNo,  people,  org);
+        } catch (Exception e) {}
     }
 }
