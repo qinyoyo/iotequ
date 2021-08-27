@@ -12,7 +12,7 @@
         <settings />
       </right-panel>
     </div>
-    <el-footer v-if="footer && (!mobile || $route.path === '/dashboard')" class="footer" v-html="footer"></el-footer>
+    <el-footer v-if="footer && (!mobile || $route.path === '/home')" class="footer" v-html="footer"></el-footer>
   </div>
 </template>
 

@@ -6,7 +6,7 @@
                    :content="title" @goBack="goBack"
         />
       </div>
-      <el-row>
+      <el-row v-if="showCondition">
         <el-col :span="8">
           <cg-cascader v-model="queryRecord.orgCode" name="orgCode" collapse-tags clearable
                        :dictionary="dictOrgCode" show-all-levels/>
@@ -22,7 +22,7 @@
            </el-button>
         </el-col>
       </el-row>      
-      <el-divider />
+      <el-divider v-if="showCondition" />
       <div>
         <cg-chart ref="chart" width="100%" :height="clientHeight-120" :options="chartOptions" />
       </div>
@@ -51,6 +51,10 @@ export default {
       icon: {
           type: String,
           default: 'svg-chart/chart-rose'
+      },
+      showCondition: {
+        type: Boolean,
+        default: true
       },
       action: {
           type: String,

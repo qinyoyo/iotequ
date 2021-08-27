@@ -81,6 +81,18 @@ export default {
         tagView: true,
         noCache: false
       }
-    }            
+    },
+    {
+      path: 'amountByArea',
+      component: () => import('@/views/check-in/ckRegister/amountByArea'),
+      name: 'CkAmountByArea',
+      meta: {
+        title: 'ckStat.title.amountByArea',
+        authorities: ['/check-in/ckRegister/query'],
+        breadcrumb: true,
+        tagView: true,
+        noCache: false
+      }
+    }               
   ]
 }

@@ -66,6 +66,18 @@ public abstract class CgService<T extends CgEntity> implements ICgService<T>, Co
     public String getGeneratorName() {
         return annotation.generatorName();
     }
+    private void checkTrialDaysLeft() {
+        if (verTrialDays>0) {
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                verTrialDays--;
+                IotequVersionInfo.setModuleTrialDaysLeft(annotation.module(), verTrialDays);
+                checkTrialDaysLeft();
+                }
+            }, DateUtil.dateAdd(DateUtil.startOf(new Date(), DateUtil.DAY), 1, DateUtil.DAY));
+        }
+    }
     @Override
     public void initial() {
         clazz = getEntityClass();
@@ -100,13 +112,7 @@ public abstract class CgService<T extends CgEntity> implements ICgService<T>, Co
                         verTrialDays = verTrialDays - (int)dp;
                     }
                     IotequVersionInfo.setModuleTrialDaysLeft(scModule,verTrialDays);
-                    Timer timer = new Timer();
-                    timer.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
-                            verTrialDays=0;
-                        }
-                    }, DateUtil.dateAdd(new Date(), verTrialDays, DateUtil.DAY));
+                    checkTrialDaysLeft();
                 }
             } else {
                 verLicence = li;

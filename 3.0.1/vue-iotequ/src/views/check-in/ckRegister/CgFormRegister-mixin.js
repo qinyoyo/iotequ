@@ -69,7 +69,7 @@ export default {
           request(req, true).finally(_=>{
               _this.keepLogin()
           })
-        },60000)
+        },300000)
       },
       u53login(template) {
         const _this=this

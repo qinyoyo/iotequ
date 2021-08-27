@@ -166,46 +166,77 @@ public class CkRegisterService extends CgCkRegisterService implements Applicatio
     public RestJson sqlQuery(Map<String, Object> params) throws Exception {
         String action = StringUtil.toString(params.get("action"));
         Integer orgCode = (params.get("orgCode")==null ? null : Integer.parseInt(params.get("orgCode").toString()));
-        String orgFilter = (orgCode==null?"" : " and org_code in ("+OrgUtil.getOrgAndChildrenOrgList(orgCode)+") ");
         Date dt0 = DateUtil.string2Date(params.get("date0").toString());
         Date dt1 = DateUtil.string2Date(params.get("date1").toString());
         RestJson j=new RestJson();
+        List<Map<String,Object>> data = queryStatData(action,orgCode,dt0,dt1);
+        if (data!=null) j.data(data);
+        return j;
+    }
+
+    public List<Map<String,Object>> queryStatData(String action,Integer orgCode,Date dt0,Date dt1) throws Exception {
+        String orgFilter = (orgCode==null || orgCode==OrgUtil.ALL_PERMISSION ? "" : " and org_code in ("+OrgUtil.getOrgAndChildrenOrgList(orgCode)+") ");
+        String dateFilter = "";
+        if (dt0!=null && dt1!=null) {
+            dateFilter = SqlUtil.sqlString("in_date between ? and ?",dt0,dt1);
+        } else if (dt0!=null) {
+            dateFilter = SqlUtil.sqlString("in_date >= ?",dt0);
+        } else if (dt1!=null) {
+            dateFilter = SqlUtil.sqlString("in_date <= ?",dt1);
+        }
+        String filter = "";
+        if (!orgFilter.isEmpty() && !dateFilter.isEmpty()) filter = "where "+orgFilter + " and " + dateFilter +" ";
+        else if (!orgFilter.isEmpty()) filter = "where "+orgFilter+" ";
+        else if (!dateFilter.isEmpty()) filter = "where "+dateFilter+" ";
+
         String sql = "";
+
         if ("amountByDay".equals(action)) {  // 流量按天统计
             sql = "select in_date, org_name,  org_code, count(*) as amount from ck_register " +
-                    "where in_date between ? and ? " + orgFilter +
+                    filter +
                     "group by in_date, org_name, org_code";
         } else if ("amountByMonth".equals(action)) {  // 流量按照天统计
             sql = "select DATE_FORMAT(in_date,'%Y-%m') as month, org_name,  org_code, count(*) as amount from ck_register " +
-                    "where in_date between ? and ? "  + orgFilter +
+                    filter +
                     "group by month, org_name, org_code";
         } else if ("amountByAge".equals(action)) {  // 区间年龄段统计
             sql = "select concat(truncate(round(datediff(CURDATE(),birth_date)/365.25,0)/10,0)*10, '-', truncate(round(datediff(CURDATE(),birth_date)/365.25,0)/10,0)*10 + 9) as age, " +
                     "org_name,  org_code, count(*) as amount from ck_register " +
-                    "where in_date between ? and ?"  + orgFilter +
+                    filter +
                     "group by age, org_name, org_code";
         } else if ("amountByAgeMonth".equals(action)) {  // 区间年龄段月统计
             sql = "select concat(truncate(round(datediff(CURDATE(),birth_date)/365.25,0)/10,0)*10, '-', truncate(round(datediff(CURDATE(),birth_date)/365.25,0)/10,0)*10 + 9) as age, " +
                     "DATE_FORMAT(in_date,'%Y-%m') as month, count(*) as amount from ck_register " +
-                    "where in_date between ? and ?"  + orgFilter +
+                    filter +
                     "group by age, month";
         } else if ("distributionByAge".equals(action)) {  // 年龄分布统计
             sql = "select concat(truncate(round(datediff(CURDATE(),birth_date)/365.25,0)/10,0)*10, '-', truncate(round(datediff(CURDATE(),birth_date)/365.25,0)/10,0)*10 + 9) as age, " +
                     "count(*) as amount from ck_register " +
-                    "where in_date between ? and ?"  + orgFilter +
+                    filter +
                     "group by age";
         } else if ("timeByDay".equals(action)) {  // 使用时长按天统计
             sql = "select in_date, org_name,  org_code, round(sum(time_to_sec(off_time)-time_to_sec(on_time))/3600,1) as amount from ck_register  " +
-                    "where off_time is not null and in_date between ? and ? " + orgFilter +
+                    (filter.isEmpty() ? "where off_time is not null " : filter+" and off_time is not null ") +
                     "group by in_date, org_name, org_code";
-        } else return j;
-
-        System.out.println(SqlUtil.sqlString(sql,dt0,dt1));
-        List<Map<String,Object>> data = SqlUtil.sqlQuery(orgCode==null, sql, dt0, dt1);
-        j.data(data);
-        return j;
+        } else if ("amountByArea".equals(action)) {
+            orgCode = 1;
+            sql = "SELECT " +
+                    "  case " +
+                    "    when note regexp '成都市郫都区' then '郫都区'" +
+                    "    when note regexp '四川省郫县' then '郫都区'" +
+                    "    when note regexp '四川省.*县' then substring(note,4,position('县' in note)-3) " +
+                    "    when note regexp '四川省.*市' then substring(note,4,position('市' in note)-3) " +
+                    "    when note regexp '成都市' then left(note,3)" +
+                    "    else '其他' " +
+                    "  end as area," +
+                    "  count(*) as amount" +
+                    " FROM dev_people" +
+                    " group by area";
+        }
+        else return null;
+        System.out.println(sql);
+        return SqlUtil.sqlQuery(orgCode==null || orgCode==OrgUtil.ALL_PERMISSION, sql);
     }
-
     @Override
     public void onApplicationEvent(DeviceEvent event) {
         try {

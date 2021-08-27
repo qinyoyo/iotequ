@@ -1,20 +1,21 @@
 <template>
   <div class="cg-stat">
     <CkBaseStat 
-          :title = "'ckStat.title.timeByDay'.local()"
+          :title = "'ckStat.title.amountByArea'.local()"
           icon="svg-chart/chart-rose"
-          action="timeByDay"
-          legendField="org_name"
-          xField="in_date"
+          action="amountByArea"
+          legendField=""
+          xField="area"
           yField="amount"
-          charType="line"   
+          charType="pie"  
+          :showCondition="false" 
     />
   </div>
 </template>
 <script>
 import CkBaseStat from './baseStat.vue'
 export default {
-  name: 'CkTimeByDay',
+  name: 'CkAmountByArea',
   components: { CkBaseStat },
 }
 </script>

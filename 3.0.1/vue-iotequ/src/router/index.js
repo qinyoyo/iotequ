@@ -106,15 +106,22 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/about',
+    component: () => import('@/views/common-views/about/index'),
+    hidden: true,
+    name: 'About',
+    meta: { title: 'About', affix: true }
+  },
+  {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
+    redirect: '/home',
     hidden: true,
     name: 'ROOT',
     children: [
       {
-        path: 'dashboard',
-        component: () => import('@/views/common-views/dashboard/index'),
+        path: 'home',
+        component: () => import('@/views/dashboard/index'),
         name: 'Dashboard',
         meta: { title: 'system.layout.dashboard', icon: 'dashboard', affix: true }
       }

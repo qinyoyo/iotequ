@@ -25,7 +25,24 @@ function distincOf(data,field) {
           },
           data: []
        }
-       if (charType == 'pie') s.roseType = 'radius'
+       if (charType == 'pie') {
+           s.roseType = 'radius'
+           s.label = {
+               normal: {
+                   formatter: '{b}:{c}({d}%)'
+               }
+           }
+       }
+       else {
+           s.itemStyle = {
+               normal: {
+                   label: {
+                       show: true,
+                       position: 'top'
+                   }
+               }
+           }
+       }
        for (let j=0;j<xAxis.length;j++) {
          let test = function(d) {
            return (legendField ? (d[legendField] == legend[i] && d[xField] == xAxis[j]) : d[xField] == xAxis[j])

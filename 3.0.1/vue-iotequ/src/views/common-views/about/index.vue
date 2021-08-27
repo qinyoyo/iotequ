@@ -1,5 +1,5 @@
 <template>
-  <div class="home-editor-container">
+  <div class="dashboard-container home-editor-container">
     <div v-if="authentication"><el-avatar :size="100" :src="avatar+'&tick='+new Date().getTime()"></el-avatar><span class="user-name">{{ name }}</span></div>
     <div class="info-container">
         <span>{{'system.layout.welcome'.local()}}! {{ authentication ? localeText(introduction) : '' }}</span>
@@ -28,7 +28,7 @@
 import { mapGetters } from 'vuex'
 import {localeText} from '@/lang'
 export default {
-  name: 'Home',
+  name: 'About',
   data() {
     return {
       navigator : navigator

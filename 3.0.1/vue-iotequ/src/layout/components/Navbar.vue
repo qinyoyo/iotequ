@@ -1,6 +1,6 @@
 <template>
 
-  <div v-if="device!=='mobile' || $route.path === '/dashboard'" class="navbar">
+  <div v-if="device!=='mobile' || $route.path === '/home'" class="navbar">
     <hamburger id="hamburger-container" :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
     <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     <div class="right-menu">
@@ -97,7 +97,7 @@ export default {
       if (this.$store.state.user.authentication) {
         const that=this
         this.$store.dispatch('user/logout').then(() => {
-          if (that.$route.path!='/dashboard') that.$router.push('/')
+          if (that.$route.path!='/home') that.$router.push('/')
         }).catch(_ => {})
       } else {
         this.$router.push('/login')
