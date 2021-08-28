@@ -57,7 +57,7 @@ export default {
           duration: 3000,
           center: true,
           type: type,
-          offset: 200,
+          offset: window.innerHeight/2 - 100,
           onClose: onClose,
           message: msg
         })

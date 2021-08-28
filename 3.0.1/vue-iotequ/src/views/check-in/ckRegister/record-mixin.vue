@@ -32,16 +32,19 @@ export default {
   }
 }
 </script>
-<style scope>
-.cg-form-ckRegister  .el-page-header__content {
-  font-size: 32px;
-  color:blue;
-}
-.cg-form-ckRegister .img-center-box {
+<style lang="scss" scope>
+.cg-form-ckRegister {
+  background-image: url(/static/login_back_h.jpg)!important;
+  .el-page-header__content {
+    font-size: 32px;
+    color:blue;
+  }
+  .img-center-box {
     margin: 10px;
-}
-.cg-form-ckRegister .el-dialog__body {
-  padding-bottom: 0;
+  }
+  .el-dialog__body {
+    padding-bottom: 0;
+  }
 }
 .hide-close .el-dialog__headerbtn {
   display:none;
