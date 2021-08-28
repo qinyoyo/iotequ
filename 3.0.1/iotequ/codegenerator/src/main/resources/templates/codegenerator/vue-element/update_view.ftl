@@ -10,9 +10,9 @@
 </#function>
 <#macro SPACE n><#list 1..n as i> </#list></#macro>
 <template>
-  <div class="cg-form"<#if FP.isDialog> :class="dialogClass"</#if>>
+  <div class="cg-form cg-form-${generatorName}">
     <#if FP.isDialog>
-    <el-dialog ref="dialog" v-el-drag-dialog :visible.sync="showDialog" top="0px" :class="dialogClass" :close-on-click-modal="false"
+    <el-dialog ref="dialog" v-el-drag-dialog :visible.sync="showDialog" top="0px" :class="'cg-form cg-form-${generatorName}'+(dialogClass?' '+dialogClass:'')" :close-on-click-modal="false"
                :append-to-body="true" :show-close="!mobile || isDetail" :before-close="beforeClose" @closed="close"<#if dialogWidth??> ${dialogWidth}</#if>>
     <#else>
     <el-card shadow="hover">

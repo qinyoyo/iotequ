@@ -1,0 +1,50 @@
+<script>
+import { fullScreen, exitFullScreen, isFullScreen} from '@/layout/components/Screenfull/index'
+import { addClass,removeClass } from '@/utils/dom'
+export default {
+    created() {
+      const _this=this
+      document.addEventListener("fullscreenchange", function (e) {
+        if (document.fullscreenElement) {
+            addClass(_this.$refs.dialog.$el,'hide-close')
+          } else {
+            removeClass(_this.$refs.dialog.$el,'hide-close')
+        }
+      })
+      this.isFullScreen = isFullScreen()
+      if (!this.isFullScreen) fullScreen()
+    },
+    computed: {
+      content() {
+        return this.$store.state.user.orgName
+      },
+      title() {
+        return 'ckRegister.action.register'.local()
+      }
+    },
+    methods: {
+      close() {
+        this.showDialog = false
+        this.$emit('close')
+        if (!this.routeParams) this.$store.dispatch('tagsView/activeLastAfterRemove', this.$route)
+        if (!this.isFullScreen && isFullScreen()) exitFullScreen()
+    }
+  }
+}
+</script>
+<style scope>
+.cg-form-ckRegister  .el-page-header__content {
+  font-size: 32px;
+  color:blue;
+}
+.cg-form-ckRegister .img-center-box {
+    margin: 10px;
+}
+.cg-form-ckRegister .el-dialog__body {
+  padding-bottom: 0;
+}
+.hide-close .el-dialog__headerbtn {
+  display:none;
+}
+</style>
+  

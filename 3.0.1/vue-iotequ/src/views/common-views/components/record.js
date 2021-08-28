@@ -47,11 +47,13 @@ export default {
       else return this.isNew?'el-icon-circle-plus':(this.isEdit?'el-icon-edit-outline':'el-icon-view')
     },
     content() {
-      if (this.openParams().content) return this.openParams().content
+      if (this.newContent) return this.newContent()
+      else if (this.openParams().content) return this.openParams().content
       else return this.$t(this.generatorName+'.title.'+this.path)
     },
     title() {
-      if (this.openParams().title) return this.openParams().title
+      if (this.newTitle) return this.newTitle()
+      else if (this.openParams().title) return this.openParams().title
       else return this.isNew ? this.$t('system.action.new'):(this.isDetail ? this.$t('system.action.view') : this.$t('system.action.edit'))
     }
   },

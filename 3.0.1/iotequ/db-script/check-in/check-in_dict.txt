@@ -1,13 +1,4 @@
 
-表：ck_sign_in : 认证记录
-id		varchar	✘	
-org_code	医院科室|Depart	int	✘	
-rec_source	来源|Source	varchar	✘	
-rec_source_type	来源类别|Device type	varchar	✘	
-event_type	事件类别	int	✘	1:上机  2:签到  3:下机  
-rec_time	时间|Sign time	datetime	✘	
-user_no	用户号	varchar	✘	
-
 表：ck_register : 上机记录
 id	ID	char	✘	
 user_no	用户号	varchar	✘	

@@ -1,5 +1,5 @@
 <template>
-  <div class="cg-list">
+  <div class="cg-list cg-list-cgButton">
     <el-card shadow="hover">
       <div slot="header">
         <cg-header homeMenu icon="el-icon-s-operation" :hasMenu="hasMenu()"

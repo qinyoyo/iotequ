@@ -1,17 +1,14 @@
 import {u53Disconnect,u53Connect,u53Read} from '@/views/common-views/login/u53read'
 import { request } from '@/utils/request'
 import { Message } from 'element-ui'
+
 export default {
     created() {
       const that = this
       this.ignoreRecordChanged = true
+      this.keepLogin()
       u53Disconnect(_=>{
-        u53Connect(0, _=>{
-          that.hasU53 = true
-          document.querySelector('img.cg-header-image').src = '/static/img/input.gif'
-          that.u53read()
-          that.keepLogin()
-        })
+        u53Connect(0, this.foundU53, this.notFoundU53)
       })
     },
     destroyed () {
@@ -21,6 +18,16 @@ export default {
       }
     },
     methods: {
+      foundU53() {
+        this.hasU53 = true
+        document.querySelector('img.cg-header-image').src = '/static/img/input.gif'
+        this.u53read()
+      },
+      notFoundU53(){
+        this.hasU53 = false
+        document.querySelector('img.cg-header-image').src = '/static/img/not_found.png'
+        u53Connect(0, this.foundU53, this.notFoundU53)
+      },
       u53read() {
         const that=this
         if (this.hasU53) {
@@ -29,7 +36,7 @@ export default {
                 that.u53login(data.Msg)
             }
           },_=>{
-            that.u53read()
+            u53Connect(0, that.foundU53, that.notFoundU53)
           })
         }
       },
@@ -50,7 +57,7 @@ export default {
           duration: 3000,
           center: true,
           type: type,
-          offset: 400,
+          offset: 200,
           onClose: onClose,
           message: msg
         })

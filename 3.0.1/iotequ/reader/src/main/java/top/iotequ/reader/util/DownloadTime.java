@@ -15,10 +15,10 @@ import top.iotequ.reader.pojo.DevDownloadPlan;
 import top.iotequ.reader.pojo.DevPeople;
 import top.iotequ.reader.pojo.DevReader;
 import top.iotequ.reader.service.impl.D10ClientService;
-@Configuration
-@EnableScheduling
+//@Configuration
+//@EnableScheduling
 public class DownloadTime {
-	@Scheduled(cron = "0 0/10 * * * ?") // 每10分钟执行一次
+	//@Scheduled(cron = "0 0/10 * * * ?") // 每10分钟执行一次
 	public static void download() {
 		try {
 			List<String> list=SqlUtil.sqlQuery(String.class, "select * from dev_download_plan group by reader_no");

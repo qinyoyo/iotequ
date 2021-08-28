@@ -1,5 +1,5 @@
 <template>
-  <div class="cg-list">
+  <div class="cg-list cg-list-adAdjust">
     <el-card shadow="hover">
       <div slot="header">
         <cg-header homeMenu :showMaster="getShowMaster()" icon="fa fa-handshake-o" :hasMenu="hasMenu()"

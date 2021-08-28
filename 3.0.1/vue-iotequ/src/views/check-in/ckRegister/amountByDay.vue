@@ -7,7 +7,8 @@
           legendField="org_name"
           xField="in_date"
           yField="amount"
-          charType="bar"   
+          charType="line"  
+          :exOption="{series: {areaStyle: {}}}" 
     />
   </div>
 </template>

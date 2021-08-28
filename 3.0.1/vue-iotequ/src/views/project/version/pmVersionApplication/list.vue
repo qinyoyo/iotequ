@@ -1,5 +1,5 @@
 <template>
-  <div class="cg-list">
+  <div class="cg-list cg-list-pmVersionApplication">
     <el-card shadow="hover">
       <div slot="header">
         <cg-header homeMenu :showMaster="getShowMaster()" icon="el-icon-s-operation" :hasMenu="hasMenu()"

@@ -5,10 +5,6 @@
                           :class="className" :rules="rules" 
              :label-position="labelPosition" :label-width="labelWidth" :size="$store.state.app.size" 
              hide-required-asterisk >
-      <el-form-item class="hide-item-label" prop="orgCode" :size="$store.state.app.size" >
-        <cg-select v-model="record.orgCode" name="orgCode"
-                   :dictionary="dictionary.dictOrgCode" readonly :filterable="false" :allow-create="false" numberic :placeholder="$t('system.message.needValue')" />
-      </el-form-item>
       <el-form-item class="hide-item-label" prop="mode" :size="$store.state.app.size" >
         <cg-radio v-model="record.mode" name="mode" :dictionary="dictionary.dictMode" :readonly="isDetail"  />
       </el-form-item>
@@ -68,10 +64,10 @@ const Comp = {
             userNo: '',
             name: '',
             sex: '1',
+            orgCode: this.$store.state.user.org,
             orgName: '',
             inDate: new Date(),
             onTime: new Date(),
-            orgCode: this.$store.state.user.org,
             mode: 'auto',
         }
     },

@@ -7,7 +7,8 @@
           legendField=""
           xField="age"
           yField="amount"
-          charType="pie"   
+          charType="pie"
+          :exOption="{series:{roseType: 'radius'}}"
     />
   </div>
 </template>

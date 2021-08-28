@@ -9,6 +9,7 @@
           yField="amount"
           charType="pie"  
           :showCondition="false" 
+          :exOption="{series: {radius: [0, '40%']}}"
     />
   </div>
 </template>

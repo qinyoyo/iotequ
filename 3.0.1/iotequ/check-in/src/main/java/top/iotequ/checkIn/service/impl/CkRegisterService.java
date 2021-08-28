@@ -166,8 +166,8 @@ public class CkRegisterService extends CgCkRegisterService implements Applicatio
     public RestJson sqlQuery(Map<String, Object> params) throws Exception {
         String action = StringUtil.toString(params.get("action"));
         Integer orgCode = (params.get("orgCode")==null ? null : Integer.parseInt(params.get("orgCode").toString()));
-        Date dt0 = DateUtil.string2Date(params.get("date0").toString());
-        Date dt1 = DateUtil.string2Date(params.get("date1").toString());
+        Date dt0 = params.get("date0")==null?null:DateUtil.string2Date(params.get("date0").toString());
+        Date dt1 = params.get("date1")==null?null:DateUtil.string2Date(params.get("date1").toString());
         RestJson j=new RestJson();
         List<Map<String,Object>> data = queryStatData(action,orgCode,dt0,dt1);
         if (data!=null) j.data(data);
@@ -175,7 +175,7 @@ public class CkRegisterService extends CgCkRegisterService implements Applicatio
     }
 
     public List<Map<String,Object>> queryStatData(String action,Integer orgCode,Date dt0,Date dt1) throws Exception {
-        String orgFilter = (orgCode==null || orgCode==OrgUtil.ALL_PERMISSION ? "" : " and org_code in ("+OrgUtil.getOrgAndChildrenOrgList(orgCode)+") ");
+        String orgFilter = (orgCode==null || orgCode==OrgUtil.ALL_PERMISSION ? "" : "org_code in ("+OrgUtil.getOrgAndChildrenOrgList(orgCode)+") ");
         String dateFilter = "";
         if (dt0!=null && dt1!=null) {
             dateFilter = SqlUtil.sqlString("in_date between ? and ?",dt0,dt1);
@@ -231,11 +231,35 @@ public class CkRegisterService extends CgCkRegisterService implements Applicatio
                     "  end as area," +
                     "  count(*) as amount" +
                     " FROM dev_people" +
-                    " group by area";
+                    " group by area order by amount desc";
         }
         else return null;
-        System.out.println(sql);
-        return SqlUtil.sqlQuery(orgCode==null || orgCode==OrgUtil.ALL_PERMISSION, sql);
+        //System.out.println(sql);
+        List<Map<String,Object>> data = SqlUtil.sqlQuery(orgCode==null || orgCode==OrgUtil.ALL_PERMISSION, sql);
+        if ("amountByArea".equals(action) && data!=null && data.size()>20) {
+            int otherAmout = 0, otherIndex = -1;
+            List<Map<String,Object>> list = new ArrayList<>();
+            for (int i=0;i<data.size();i++) {
+                Map<String,Object> m = data.get(i);
+                if (i<20) {
+                    list.add(m);
+                    if ("其他".equals(StringUtil.toString(m.get("area")))) {
+                        otherIndex = i;
+                        otherAmout = Integer.parseInt(m.get("amount").toString());
+                    }
+                } else {
+                    otherAmout += Integer.parseInt(m.get("amount").toString());
+                }
+            }
+            if (otherIndex>=0) list.get(otherIndex).put("amount",otherAmout);
+            else {
+                Map<String,Object> o = new HashMap<String,Object>();
+                o.put("area","其他");
+                o.put("amount",otherAmout);
+                list.add(o);
+            }
+            return list;
+        } else return data;
     }
     @Override
     public void onApplicationEvent(DeviceEvent event) {

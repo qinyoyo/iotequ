@@ -7,7 +7,7 @@
           legendField="org_name"
           xField="age"
           yField="amount"
-          charType="bar"   
+          charType="polar"  
     />
   </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <div class="cg-form">
+  <div class="cg-form cg-form-adEmployee">
     <el-card shadow="hover">
       <div slot="header" :class="titleColor">
         <cg-header hoemMenu :icon="icon" :content="content" :title="title"

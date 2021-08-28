@@ -7,7 +7,7 @@
           legendField="org_name"
           xField="in_date"
           yField="amount"
-          charType="line"   
+          charType="line"            
     />
   </div>
 </template>

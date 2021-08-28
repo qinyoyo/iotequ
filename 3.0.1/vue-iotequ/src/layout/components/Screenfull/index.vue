@@ -6,7 +6,43 @@
 </template>
 
 <script>
-
+export function exitFullScreen() {
+    let element = document.documentElement;
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.webkitCancelFullScreen) {
+        document.webkitCancelFullScreen();
+    } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+    } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+    }
+}
+export function fullScreen() {
+    let element = document.documentElement;
+    if (element.requestFullscreen) {
+        element.requestFullscreen();
+    } else if (element.webkitRequestFullScreen) {
+        element.webkitRequestFullScreen();
+    } else if (element.mozRequestFullScreen) {
+        element.mozRequestFullScreen();
+    } else if (element.msRequestFullscreen) {
+        // IE11
+        element.msRequestFullscreen();
+    }
+}
+export function isFullScreen() {
+    const fullscreenEnabled = document.fullscreenEnabled       ||
+        document.mozFullScreenEnabled    ||
+        document.webkitFullscreenEnabled ||
+        document.msFullscreenEnabled;
+    if (fullscreenEnabled) {
+        const fullscreenElement = document.fullscreenElement    ||
+            document.mozFullScreenElement ||
+            document.webkitFullscreenElement;
+        return  fullscreenElement
+    } else return 0
+}
 export default {
   name: 'Screenfull',
   data() {
@@ -18,26 +54,9 @@ export default {
     handleFullScreen(){
       let element = document.documentElement;
       if (this.isFullscreen) {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        } else if (document.webkitCancelFullScreen) {
-            document.webkitCancelFullScreen();
-        } else if (document.mozCancelFullScreen) {
-            document.mozCancelFullScreen();
-        } else if (document.msExitFullscreen) {
-            document.msExitFullscreen();
-        }
+        exitFullScreen()
       } else {
-        if (element.requestFullscreen) {
-            element.requestFullscreen();
-        } else if (element.webkitRequestFullScreen) {
-            element.webkitRequestFullScreen();
-        } else if (element.mozRequestFullScreen) {
-            element.mozRequestFullScreen();
-        } else if (element.msRequestFullscreen) {
-            // IE11
-            element.msRequestFullscreen();
-        }
+        fullScreen()
       }
       this.isFullscreen = !this.isFullscreen;
     }

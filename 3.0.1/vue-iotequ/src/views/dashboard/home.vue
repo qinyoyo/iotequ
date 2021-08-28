@@ -36,6 +36,11 @@ export default {
       chartOptions3: {}
     }
   },
+  computed: {
+    mobile() {
+      return this.$store.state.app.device === 'mobile'
+    }
+  },
   created() {
         const that = this
         let req = {
@@ -44,32 +49,34 @@ export default {
         }
         request(req, true).then(res => {
             if (res && res.hasOwnProperty('success') && res.success && res.data) {
+
+              let ex =  {
+                  toolbox:null,
+                  legend:{
+                    top: '32px',
+                  },
+                  title: {
+                    x: 'center'
+                  } 
+              }
               if (res.data.hasOwnProperty('ageData')) {
-                  that.chartOptions1 = getEChartsOptions(res.data.ageData, "age", "month", 'amount', 'bar')
-                  that.chartOptions1.toolbox=null
-                  that.chartOptions1.title = {
-                      text: '实名制患者总览',
-                      x: 'center'
-                  }
-                  that.chartOptions1.legend.top = '32px'
+                that.chartOptions1 = Object.assign(getEChartsOptions(res.data.ageData, "age", "month", 'amount', 'bar',that.mobile),
+                  ex,{
+                  title: { text : '实名制患者总览',x: 'center'}
+                })
               }
               if (res.data.hasOwnProperty('amountData')) {
-                  that.chartOptions2 = getEChartsOptions(res.data.amountData, "org_name", 'month', 'amount', 'line')
-                  that.chartOptions2.toolbox=null
-                  that.chartOptions2.title = {
-                      text: '实名制就医流量统计',
-                      x: 'center'
-                  }
-                  that.chartOptions2.legend.top = '32px'
+                  that.chartOptions2 = Object.assign(getEChartsOptions(res.data.amountData, "org_name", 'month', 'amount', 'line',that.mobile),
+                  ex,{
+                  title: { text : '实名制就医流量统计',x: 'center'}
+                })
               }
               if (res.data.hasOwnProperty('areaData')) {
-                  that.chartOptions3 = getEChartsOptions(res.data.areaData, "", 'area', 'amount', 'pie')
-                  that.chartOptions3.toolbox=null
-                  that.chartOptions3.title = {
-                      text: '实名制患者区域',
-                      x: 'center'
-                  } 
-                  that.chartOptions3.legend.top = '32px'                 
+                  that.chartOptions3 = Object.assign(getEChartsOptions(res.data.areaData, "", 'area', 'amount', 'pie',that.mobile,{series: {radius: [0, '40%']}}),
+                  ex,{
+                    legend: {show: false},
+                    title: { text : '实名制患者区域',x: 'center'}
+                  })     
               }
             }
         }).catch(error => {

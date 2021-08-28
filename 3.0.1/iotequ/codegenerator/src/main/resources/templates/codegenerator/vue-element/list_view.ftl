@@ -9,7 +9,7 @@
   <#return v?trim=='' />
 </#function>
 <template>
-  <div class="cg-list">
+  <div class="cg-list cg-list-${generatorName}">
     <el-card shadow="hover">
       <div slot="header">
         <cg-header homeMenu<#if sons??> :showMaster="getShowMaster()"</#if> icon="<#if LP.icon?? && LP.icon?trim!=''>${LP.icon?trim}<#else>el-icon-s-operation</#if>" :hasMenu="hasMenu()"

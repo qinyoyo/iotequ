@@ -35,6 +35,7 @@ const state = {
   id: '',
   newMessages: 0,
   org: '',
+  orgName: '',
   avatar: '',
   introduction: '',
   authentication: false,
@@ -54,6 +55,9 @@ const mutations = {
   },
   SET_ORG: (state, org) => {
     state.org = org
+  },
+  SET_ORGNAME: (state, orgName) => {
+    state.orgName = orgName
   },
   SET_NEWMESSAGES: (state, newMessages) => {
     state.newMessages = newMessages
@@ -163,6 +167,7 @@ const actions = {
         commit('SET_NAME', data.user.name)
         commit('SET_ID', data.user.id)
         commit('SET_ORG', data.user.orgCode)
+        commit('SET_ORGNAME', data.orgName)
         commit('SET_AVATAR', apiUrl('/res/getUploadImage?id=' + data.user.id + '&path=sysUser&field=icon&name='+data.user.icon))
         commit('SET_INTRODUCTION', data.user.realName)
 
@@ -192,6 +197,7 @@ const actions = {
       commit('SET_NAME', user.name)
       commit('SET_ID', user.id)
       commit('SET_ORG', user.orgCode)
+      commit('SET_ORGNAME', user.orgName)
       commit('SET_AVATAR', apiUrl('/res/getUploadImage?id=' + user.id + '&path=sysUser&field=icon&name='+user.icon))
       commit('SET_INTRODUCTION', user.realName)
       resolve(data)
@@ -206,6 +212,7 @@ const actions = {
         commit('SET_APIS', [])
         commit('SET_ROUTES', [])
         commit('SET_NAME', '')
+        commit('SET_ORGNAME', '')
         commit('SET_ID', '')
         commit('SET_ORG', '')
         commit('SET_NEWMESSAGES', 0)

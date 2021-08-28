@@ -24,7 +24,7 @@
       </el-row>      
       <el-divider v-if="showCondition" />
       <div>
-        <cg-chart ref="chart" width="100%" :height="clientHeight-120" :options="chartOptions" />
+        <cg-chart ref="chart" width="100%" :height="containerHeight() - (showCondition?120:20)" :options="chartOptions" />
       </div>
     </el-card>
   </div>
@@ -78,12 +78,15 @@ export default {
       },
       initRange: {
           type: Array,
-          default: [startOf(null,'month'),endOf(null,'month')]
+          default: ()=> [startOf(null,'month'),endOf(null,'month')]
+      },
+      exOption: {
+        type: Object,
+        default: ()=>null
       }
   },
   data() {
     return {
-      clientHeight: containerHeight(),
       baseUrl: '/check-in/ckRegister',
       dictOrgCode: [],
       queryRecord: {
@@ -103,6 +106,7 @@ export default {
     }
   },
   methods: {
+    containerHeight,
     datePickerOptions,
     loadDictionary() {
         const that = this
@@ -140,7 +144,8 @@ export default {
         }
         request(req, true).then(res => {
             if (res && res.hasOwnProperty('success') && res.success) {
-              that.chartOptions = getEChartsOptions(res.data, that.legendField, that.xField, that.yField, that.charType)
+              that.chartOptions = getEChartsOptions(res.data, that.legendField, that.xField, that.yField, 
+                                  that.charType,that.mobile,that.exOption)
             }
         }).catch(error => {
         })

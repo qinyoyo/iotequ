@@ -1,5 +1,5 @@
 <template>
-  <div class="cg-list">
+  <div class="cg-list cg-list-devAuthGroup">
     <el-card shadow="hover">
       <div slot="header">
         <cg-header homeMenu :showMaster="getShowMaster()" icon="fa fa-user-plus" :hasMenu="hasMenu()"

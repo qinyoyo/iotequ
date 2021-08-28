@@ -198,6 +198,7 @@ public class HomeController implements CommandLineRunner {
                 map.put("menus", menus);
             }
             map.put("user", user);
+            map.put("orgName",OrgUtil.getOrgName(user.getOrgCode()));
         } else {
             log.error("Guest not found!");
         }

@@ -1,5 +1,5 @@
 <template>
-  <div class="cg-list">
+  <div class="cg-list cg-list-sysMessage">
     <el-card shadow="hover">
       <div slot="header">
         <cg-header homeMenu icon="fa fa-commenting-o" :hasMenu="hasMenu()"
