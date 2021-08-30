@@ -49,5 +49,8 @@ export default {
 .hide-close .el-dialog__headerbtn {
   display:none;
 }
+.ck-register-message .el-message__icon {
+  font-size:24px;
+}
 </style>
   

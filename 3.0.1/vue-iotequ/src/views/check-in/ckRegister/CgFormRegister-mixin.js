@@ -43,21 +43,35 @@ export default {
       showMessage(res,onClose) {
         let msg = ''
         let type = 'error'
-        const textDiv = '<div style="height: 64px; font-size:36px; '
-        if (!res) msg = textDiv + 'color:red;">未知错误</div>'
-        else if (typeof res === 'string') msg = textDiv +'color:red; ">'+res+'</div>'
+        let height=32
+        const textDiv = '<div style="height: 64px; line-height:64px; vertical-align: middle; font-size:36px; '
+        if (!res) {
+          msg = textDiv + 'color:red;">未知错误</div>'
+          height += 64
+        }
+        else if (typeof res === 'string') {
+          msg = textDiv +'color:red; ">'+res+'</div>'
+          height += 64
+        }
         else {
           if (res.success) type = 'success'
-          if (res.data && res.data.name) msg = textDiv + 'color: blue;">' + res.data.name + '</div>'
-          if (res.message) msg = msg + textDiv + 'color:'+(res.success ? 'black' : 'red')+';">'+res.message+'</div>'
+          if (res.data && res.data.name) {
+            msg = textDiv + 'color: blue;">' + res.data.name + '</div>'
+            height += 64
+          }
+          if (res.message) {
+            msg = msg + textDiv + 'color:'+(res.success ? 'black' : 'red')+';">'+res.message+'</div>'
+            height += 64
+          }
           if (res.data && res.data.sound) msg = msg + '<audio src="/static/sound/'+res.data.sound+'" autoplay style="display:none"></audio>'
         }
         Message({
           dangerouslyUseHTMLString:true,
           duration: 3000,
+          customClass: 'ck-register-message',
           center: true,
           type: type,
-          offset: window.innerHeight/2 - 100,
+          offset: (window.innerHeight - height)/2,
           onClose: onClose,
           message: msg
         })
