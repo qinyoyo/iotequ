@@ -18,7 +18,7 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
 	</properties>
-	<distributionManagement>
+<!--	<distributionManagement>
 		<repository>
 			<id>releases</id>
 			<url>http://192.168.1.120:8081/repository/maven-releases/</url>
@@ -27,7 +27,7 @@
 			<id>snapshots</id>
 			<url>http://192.168.1.120:8081/repository/maven-snapshots/</url>
 		</snapshotRepository>
-	</distributionManagement>
+	</distributionManagement>-->
 
 	<dependencies>
 		<dependency>

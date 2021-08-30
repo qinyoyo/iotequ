@@ -69,11 +69,11 @@
 				<artifactId>project</artifactId>
 				<version>3.0.1-SNAPSHOT</version>
 			</dependency>-->
-			<dependency>
+<!--			<dependency>
 				<groupId>top.iotequ</groupId>
 				<artifactId>codegenerator</artifactId>
 				<version>3.0.1-SNAPSHOT</version>
-			</dependency>
+			</dependency>-->
 			<dependency>
 				<groupId>top.iotequ</groupId>
 				<artifactId>svas</artifactId>

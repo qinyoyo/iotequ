@@ -33,7 +33,7 @@ export default {
         if (this.hasU53) {
           u53Read((data)=>{
             if(data.isSucc){
-                that.u53login(data.Msg)
+              that.u53login(data.Msg)
             }
           },_=>{
             u53Connect(0, that.foundU53, that.notFoundU53)
@@ -41,6 +41,7 @@ export default {
         }
       },
       showMessage(res,onClose) {
+        
         let msg = ''
         let type = 'error'
         let height=32

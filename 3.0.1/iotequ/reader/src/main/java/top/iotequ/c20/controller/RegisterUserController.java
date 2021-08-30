@@ -305,10 +305,10 @@ public class RegisterUserController {
 					sevAuth.userBaseInfo = new UserBaseInfo();
 					sevAuth.userBaseInfo.setIdType(StringUtil.toString(devPeople.getIdType()));
 					sevAuth.userBaseInfo.setIdSex(devPeople.getSex().equals("1") ? "男" : "女");
-					sevAuth.userBaseInfo.setIdCertNumber(devPeople.getIdNumber());
+					sevAuth.userBaseInfo.setIdCertNumber(Util.isEmpty(devPeople.getIdNumber(),""));
 					sevAuth.userBaseInfo.setUserNo(devPeople.getUserNo());
 					sevAuth.userBaseInfo.setIdName(devPeople.getRealName());
-					sevAuth.userBaseInfo.setIdCertAddress(devPeople.getHomeAddr());
+					sevAuth.userBaseInfo.setIdCertAddress(Util.isEmpty(devPeople.getHomeAddr(),""));
 					sevAuth.userBaseInfo.setIdBirth(DateUtil.date2String(devPeople.getBirthDate(),"yyyyMMdd"));
 					sevAuth.userBaseInfo.setIdNation(devPeople.getIdNation());
 

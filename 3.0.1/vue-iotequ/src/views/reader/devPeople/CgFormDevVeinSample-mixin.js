@@ -30,7 +30,7 @@ export default {
     const that = this
     this.record.fingerType = 1
     this.record.warning = false
-
+    this.ignoreRecordChanged = true
     this.testService(_=>{
       that.connect(0)
     })

@@ -62,20 +62,20 @@ export default {
               if (res.data.hasOwnProperty('ageData')) {
                 that.chartOptions1 = Object.assign(getEChartsOptions(res.data.ageData, "age", "month", 'amount', 'bar',that.mobile),
                   ex,{
-                  title: { text : '实名制患者总览',x: 'center'}
+                  title: { text : '实名制就医流量按年龄段月度汇总(人次)',x: 'center'}
                 })
               }
               if (res.data.hasOwnProperty('amountData')) {
                   that.chartOptions2 = Object.assign(getEChartsOptions(res.data.amountData, "org_name", 'month', 'amount', 'line',that.mobile),
                   ex,{
-                  title: { text : '实名制就医流量统计',x: 'center'}
+                  title: { text : '实名制就医流量月度统计(人次)',x: 'center'}
                 })
               }
               if (res.data.hasOwnProperty('areaData')) {
                   that.chartOptions3 = Object.assign(getEChartsOptions(res.data.areaData, "", 'area', 'amount', 'pie',that.mobile,{series: {radius: [0, '40%']}}),
                   ex,{
                     legend: {show: false},
-                    title: { text : '实名制患者区域',x: 'center'}
+                    title: { text : '实名制患者区域分布图',x: 'center'}
                   })     
               }
             }

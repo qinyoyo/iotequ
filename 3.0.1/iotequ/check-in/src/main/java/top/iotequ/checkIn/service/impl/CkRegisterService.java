@@ -222,11 +222,11 @@ public class CkRegisterService extends CgCkRegisterService implements Applicatio
             orgCode = 1;
             sql = "SELECT " +
                     "  case " +
-                    "    when note regexp '成都市郫都区' then '郫都区'" +
-                    "    when note regexp '四川省郫县' then '郫都区'" +
-                    "    when note regexp '四川省.*县' then substring(note,4,position('县' in note)-3) " +
-                    "    when note regexp '四川省.*市' then substring(note,4,position('市' in note)-3) " +
-                    "    when note regexp '成都市' then left(note,3)" +
+                    "    when home_addr regexp '成都市郫都区' then '郫都区'" +
+                    "    when home_addr regexp '四川省郫县' then '郫都区'" +
+                    "    when home_addr regexp '四川省.*县' then substring(home_addr,4,position('县' in home_addr)-3) " +
+                    "    when home_addr regexp '四川省.*市' then substring(home_addr,4,position('市' in home_addr)-3) " +
+                    "    when home_addr regexp '成都市' then left(home_addr,3)" +
                     "    else '其他' " +
                     "  end as area," +
                     "  count(*) as amount" +
