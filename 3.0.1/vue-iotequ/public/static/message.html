@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>提示</title>
+</head>
+<style>
+    .message {
+        height: 64px;
+        line-height:64px;
+        vertical-align: middle;
+        font-size:36px;
+        text-align: center;
+    		width: 100%;
+    }
+    .error {
+        color: red!important;
+    }
+    .back-success {
+        background-color: #e7faf0;
+    }
+    .back-error {
+        background-color: #ffeded;
+    }
+</style>
+<script>
+    function getQueryVariable(variable)
+    {
+        let query = window.location.search.substring(1);
+        let vars = query.split("&");
+        for (let i=0;i<vars.length;i++) {
+            let pair = vars[i].split("=");
+            if(pair[0] == variable){return decodeURI(pair[1]);}
+        }
+        return(false);
+    }
+    function loaded() {
+        let e_name = document.getElementById('name')
+        let e_message = document.getElementById('message')
+        let e_sound = document.getElementById('sound')
+        let success = getQueryVariable('success')
+        let name = getQueryVariable('name')
+        let message = getQueryVariable('message')
+        let sound = getQueryVariable('sound')
+        if (success) {
+           document.body.className = 'back-success'
+        } else {
+        	document.body.className = 'back-error'
+        }
+        if (sound) {
+            e_sound.src = '/static/sound/'+sound
+        }
+        if (name) {
+            e_name.innerHTML = name
+            e_message.className = 'message' + (success?'':' error')
+            e_message.innerHTML = (message?message:'未知错误')
+        } else if (message) {
+            e_name.style.display = 'none'
+            e_message.className = 'message error'
+            e_message.innerHTML = message
+        } else {
+            e_name.style.display = 'none'
+            e_message.className = 'message error'
+            e_message.innerHTML = '未知错误'
+        }
+        setTimeout(_=>{
+            window.close()
+        },3000)
+    }
+</script>
+<body onload="loaded()">
+<div id="name" class = "message" style="color: blue;">彭颋</div>
+<div id="message" class = "message" style="color:black;">登记成功</div>
+<audio id="sound" src="/static/sound/sound_suc_on.mp3" autoplay="" style="display:none"></audio></p>
+</body>
+</html>

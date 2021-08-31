@@ -40,8 +40,39 @@ export default {
           })
         }
       },
+      openNewWindow(res,onClose) {
+          let url = window.location.origin + '/static/message.html'
+          let height=32
+          let params = []
+          if (!res) {
+            params.push("message="+encodeURI('未知错误'))
+            height += 64
+          }
+          else if (typeof res === 'string') {
+            params.push("message="+encodeURI(res))
+            height += 64
+          }
+          else {
+            if (res.success) params.push("success=true")
+            if (res.data && res.data.name) {
+              params.push("name="+encodeURI(res.data.name))
+              height += 64
+            }
+            if (res.message) {
+              params.push("message="+encodeURI(res.message))
+              height += 64
+            }
+            if (res.data && res.data.sound) params.push("sound="+encodeURI(res.data.sound))
+          }
+          if (params.length>0) url = url + '?' + params.join('&')
+          let left = (window.innerWidth - 380)/2, top = (window.innerHeight - height)/2
+          window.open(url,url,"channelmode=yes, fullscreen=yes, titlebar=no, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, "
+           +"left=" + left +", top="+top+", width=380, height="+height)
+          setTimeout(onClose,3000)
+      },
       showMessage(res,onClose) {
-        
+        this.openNewWindow(res,onClose)
+        return
         let msg = ''
         let type = 'error'
         let height=32
