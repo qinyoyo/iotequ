@@ -1,10 +1,10 @@
 <template>
   <div style="padding:16px">
     <div style="text-align:center; font-size:24px;">
-        <span>成都市郫都区医疗保障局血透中心</span>
+        <span>成都市郫都区医疗保障局</span>
     </div>
     <div style="text-align:center; font-size:18px; padding-top:12px;">
-        <span>指静脉医保基金监管系统</span>
+        <span>血透中心指静脉医保基金监管系统</span>
     </div>
     <el-divider/>
     <div>

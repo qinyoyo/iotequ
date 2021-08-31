@@ -27,6 +27,7 @@ export default {
     methods: {
       close() {
         this.showDialog = false
+        this.$refs.cgForm.dialogClosed = true
         this.$emit('close')
         if (!this.routeParams) this.$store.dispatch('tagsView/activeLastAfterRemove', this.$route)
         if ((!this.routeParams || !this.routeParams.background) && !this.isFullScreen && isFullScreen()) exitFullScreen()

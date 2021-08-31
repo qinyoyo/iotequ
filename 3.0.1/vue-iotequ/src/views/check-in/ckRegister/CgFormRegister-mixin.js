@@ -3,15 +3,37 @@ import { request } from '@/utils/request'
 import { Message } from 'element-ui'
 
 export default {
+
     created() {
       const that = this
+      this.dialogClosed = false
       this.ignoreRecordChanged = true
+      this.registerId = new Date().getDate()
       this.runBackground = this.routeParams && this.routeParams.background
       this.keepLogin()
-      u53Disconnect()
-      this.u53read()
+      this.checkU53Busy(_=>{  // 等待上一次调用结束
+        u53Disconnect()
+        that.u53read()
+      })
     },
     methods: {
+      checkU53Busy(callback) {
+        if (!window.registerId || window.registerId ==this.registerId) {
+          window.registerId = this.registerId
+          console.log('start u53 read 1')
+          callback()
+          return
+        }
+        const _this = this
+        let timeId = window.setInterval(_=>{
+          if (_this.dialogClosed()) window.clearInterval(timeId)
+          else if (!window.registerId || window.registerId ==this.registerId) {
+            window.clearInterval(timeId)
+            console.log('start u53 read 2')
+            callback()
+          }
+        },2000)
+      },
       foundU53() {
         this.hasU53 = true
         if (document.querySelector('img.cg-header-image')) {
@@ -23,23 +45,30 @@ export default {
         if (document.querySelector('img.cg-header-image')) document.querySelector('img.cg-header-image').src = '/static/img/not_found.png'
       },
       u53read() {
-        const that=this
-        u53Connect(0,_=>{
-          that.foundU53()
-          u53Read((data)=>{
-            u53Disconnect()
-            if(data.isSucc) that.u53login(data.Msg)
-            else that.u53read()
-          },_=>{
-            u53Disconnect()
+        if (!this.dialogClosed) {
+          const that=this
+          u53Connect(0,_=>{
+            that.foundU53()
+
+            u53Read((data)=>{
+              u53Disconnect()
+              if(data.isSucc) that.u53login(data.Msg)
+              else that.u53read()
+            },_=>{
+              u53Disconnect()
+              that.notFoundU53()
+              that.u53read()
+            })
+          },
+          _=>{
             that.notFoundU53()
             that.u53read()
           })
-        },
-        _=>{
-          that.notFoundU53()
-          that.u53read()
-        })
+        } else {
+          u53Disconnect()
+          window.registerId = 0
+          console.log('close u53 read')
+        }
       },
       openNewWindow(res,onClose) {
           let url = window.location.origin + '/static/message.html'
@@ -69,7 +98,7 @@ export default {
           let left = (window.innerWidth - 380)/2, top = (window.innerHeight - height)/2
           window.open(url,url,"channelmode=yes, fullscreen=yes, titlebar=no, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, "
            +"left=" + left +", top="+top+", width=380, height="+height)
-          setTimeout(onClose,3000)
+          setTimeout(onClose,2000)
       },
       showMessage(res,onClose) {
         if (this.runBackground) {
@@ -102,7 +131,7 @@ export default {
         }
         Message({
           dangerouslyUseHTMLString:true,
-          duration: 3000,
+          duration: 2000,
           customClass: 'ck-register-message',
           center: true,
           type: type,
