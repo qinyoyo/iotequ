@@ -1,7 +1,10 @@
 <template>
-  <div class="home-editor-container">
-    <div class="info-container" style="text-align:center; font-size:24px;">
-        <span>医疗保障局血透中心指静脉监管系统</span>
+  <div style="padding:16px">
+    <div style="text-align:center; font-size:24px;">
+        <span>成都市郫都区医疗保障局血透中心</span>
+    </div>
+    <div style="text-align:center; font-size:18px; padding-top:12px;">
+        <span>指静脉医保基金监管系统</span>
     </div>
     <el-divider/>
     <div>
@@ -68,14 +71,14 @@ export default {
               if (res.data.hasOwnProperty('amountData')) {
                   that.chartOptions2 = Object.assign(getEChartsOptions(res.data.amountData, "org_name", 'month', 'amount', 'line',that.mobile),
                   ex,{
-                  title: { text : '实名制就医流量月度统计(人次)',x: 'center'}
+                  title: { text : '各医院实名制就医流量月度统计(人次)',x: 'center'}
                 })
               }
               if (res.data.hasOwnProperty('areaData')) {
                   that.chartOptions3 = Object.assign(getEChartsOptions(res.data.areaData, "", 'area', 'amount', 'pie',that.mobile,{series: {radius: [0, '40%']}}),
                   ex,{
                     legend: {show: false},
-                    title: { text : '实名制患者区域分布图',x: 'center'}
+                    title: { text : '实名制患者户籍分布图',x: 'center'}
                   })     
               }
             }

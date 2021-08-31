@@ -9,10 +9,10 @@
         <CgListUserJoin slot="popover" ref="userIdJoin" openID="userid-join" :height="500" :joinShow="userIdJoinVisible" :joinMultiple="true"
                         :originSelections="String(record.userId)" selectionKey="id" joinMode @closeJoinList="(rows)=>{ getJoinFields('userId',rows)}"
                         @showJoinList="userIdJoinVisible=true" />
-        <el-form-item class="cg-item-mltext cg-auto-focus" slot="reference" :label="$t('pmPeople.field.userId')" prop="realName" :size="$store.state.app.size" >
+        <el-form-item class="cg-item-mltext cg-auto-focus" slot="reference" :label="$t('sysUser.field.realName')" prop="realName" :size="$store.state.app.size" >
           <cg-input v-model="record.realName" name="realName" 
                     type="mltext" 
-                    :label="$t('pmPeople.field.userId')" :placeholder="$t('system.message.needValue')" 
+                    :label="$t('sysUser.field.realName')" :placeholder="$t('system.message.needValue')" 
                     resize autofocus validate-event 
                      clearable @clear="clearJoinValues(myself,'userIdJoin')"/>
         </el-form-item>

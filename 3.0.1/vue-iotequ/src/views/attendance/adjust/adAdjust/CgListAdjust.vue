@@ -26,7 +26,7 @@
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="realName" :page="paginationCurrentPage" :label="$t('adAdjust.field.employee')" align="left" >
+      <cg-table-column prop="realName" :page="paginationCurrentPage" :label="$t('sysUser.field.realName')" align="left" >
         <template slot-scope="scope">
           {{ localeText(scope.row.realName) }}
         </template>
@@ -44,13 +44,13 @@
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="hrRealName" :page="paginationCurrentPage" :label="$t('adAdjust.field.hr')" align="left" >
+      <cg-table-column prop="hrRealName" :page="paginationCurrentPage" :label="$t('sysUser.field.hrRealName')" align="left" >
         <template slot-scope="scope">
           {{ localeText(scope.row.hrRealName) }}
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="approverName" :page="paginationCurrentPage" :label="$t('adAdjust.field.approver')" align="left" >
+      <cg-table-column prop="approverName" :page="paginationCurrentPage" :label="$t('sysUser.field.approverName')" align="left" >
         <template slot-scope="scope">
           {{ localeText(scope.row.approverName) }}
         </template>

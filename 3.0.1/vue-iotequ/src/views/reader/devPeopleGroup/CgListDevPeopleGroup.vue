@@ -20,7 +20,7 @@
         <i slot="header" class="el-icon-menu"/>
       </el-table-column>
       <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter" width="36" />
-      <cg-table-column prop="realName" :page="paginationCurrentPage" :label="$t('devPeopleGroup.field.userNo')" align="left" >
+      <cg-table-column prop="realName" :page="paginationCurrentPage" :label="$t('devPeople.field.realName')" align="left" >
         <template slot-scope="scope">
           {{ localeText(scope.row.realName) }}
         </template>

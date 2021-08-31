@@ -4,15 +4,17 @@ import { addClass,removeClass } from '@/utils/dom'
 export default {
     created() {
       const _this=this
-      document.addEventListener("fullscreenchange", function (e) {
-        if (document.fullscreenElement) {
-            addClass(_this.$refs.dialog.$el,'hide-close')
-          } else {
-            removeClass(_this.$refs.dialog.$el,'hide-close')
-        }
-      })
-      this.isFullScreen = isFullScreen()
-      if (!this.isFullScreen) fullScreen()
+      if (!this.routeParams || !this.routeParams.background) {
+        document.addEventListener("fullscreenchange", function (e) {
+          if (document.fullscreenElement) {
+              addClass(_this.$refs.dialog.$el,'hide-close')
+            } else {
+              removeClass(_this.$refs.dialog.$el,'hide-close')
+          }
+        })
+        this.isFullScreen = isFullScreen()
+        if (!this.isFullScreen) fullScreen()
+      }
     },
     computed: {
       content() {
@@ -27,7 +29,7 @@ export default {
         this.showDialog = false
         this.$emit('close')
         if (!this.routeParams) this.$store.dispatch('tagsView/activeLastAfterRemove', this.$route)
-        if (!this.isFullScreen && isFullScreen()) exitFullScreen()
+        if ((!this.routeParams || !this.routeParams.background) && !this.isFullScreen && isFullScreen()) exitFullScreen()
     }
   }
 }

@@ -32,7 +32,7 @@
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="registerByName" :page="paginationCurrentPage" :label="$t('pmVersionApplication.field.flowRegisterBy')" align="left" >
+      <cg-table-column prop="registerByName" :page="paginationCurrentPage" :label="$t('sysUser.field.registerByName')" align="left" >
         <template slot-scope="scope">
           {{ localeText(scope.row.registerByName) }}
         </template>

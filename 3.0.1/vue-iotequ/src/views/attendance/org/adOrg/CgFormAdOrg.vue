@@ -33,10 +33,10 @@
             <CgListUserJoin slot="popover" ref="hrJoin" openID="hr-join" :height="500" :joinShow="hrJoinVisible" :joinMultiple="false"
                             :originSelections="String(record.hr)" selectionKey="id" joinMode @closeJoinList="(rows)=>{ getJoinFields('hr',rows)}"
                             @showJoinList="hrJoinVisible=true" />
-            <el-form-item class="cg-item-mltext" slot="reference" :label="$t('adOrg.field.hr')" prop="hrName" :size="$store.state.app.size" >
+            <el-form-item class="cg-item-mltext" slot="reference" :label="$t('sysUser.field.hrName')" prop="hrName" :size="$store.state.app.size" >
               <cg-input v-model="record.hrName" name="hrName" 
                         type="mltext" 
-                        :label="$t('adOrg.field.hr')" :placeholder="$t('system.message.unknown')" 
+                        :label="$t('sysUser.field.hrName')" :placeholder="$t('system.message.unknown')" 
                         resize autofocus validate-event 
                         readonly :maxlength="32" show-word-limit clearable />
             </el-form-item>
@@ -47,10 +47,10 @@
             <CgListUserJoin slot="popover" ref="managerJoin" openID="manager-join" :height="500" :joinShow="managerJoinVisible" :joinMultiple="false"
                             :originSelections="String(record.manager)" selectionKey="id" joinMode @closeJoinList="(rows)=>{ getJoinFields('manager',rows)}"
                             @showJoinList="managerJoinVisible=true" />
-            <el-form-item class="cg-item-mltext" slot="reference" :label="$t('adOrg.field.manager')" prop="managerName" :size="$store.state.app.size" >
+            <el-form-item class="cg-item-mltext" slot="reference" :label="$t('sysUser.field.managerName')" prop="managerName" :size="$store.state.app.size" >
               <cg-input v-model="record.managerName" name="managerName" 
                         type="mltext" 
-                        :label="$t('adOrg.field.manager')" :placeholder="$t('system.message.unknown')" 
+                        :label="$t('sysUser.field.managerName')" :placeholder="$t('system.message.unknown')" 
                         resize autofocus validate-event 
                         readonly :maxlength="32" show-word-limit clearable />
             </el-form-item>

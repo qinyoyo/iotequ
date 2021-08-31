@@ -375,7 +375,7 @@ const Comp = {
       </#if>
       path: '${LP.path}',
       <#assign firstField = true />
-      defaultOrder: <#if LP.orderBy?? && LP.orderBy?trim !="">'${LP.orderBy?trim}'<#elseif LP.sortField?? && LP.sortField?trim!=''>'${getDbName(LP.sortField)} asc'<#elseif createTimeField=="">'${pk.name} desc'<#else>'${createTimeField} desc'</#if>,
+      defaultOrder: <#if LP.orderBy?? && LP.orderBy?trim !="">'${LP.orderBy?trim}'<#elseif LP.sortField?? && LP.sortField?trim!=''>'${getDbName(LP.sortField)} asc'<#elseif pk.keyType=='1'>'${pk.name} desc'<#elseif createTimeField!="">'${createTimeField} desc'<#else>''</#if>,
       queryRecordFields: [<#assign firstItemInArray=true /><#list fields as f><#if f.queryMode?? && f.queryMode gt 0><#if firstItemInArray><#assign firstItemInArray=false /><#else>,</#if>'<#if (f.id?starts_with("join:") || f.id?starts_with("list:")) && f.queryMode != 2><#assign joinFields = f.id?split(":") />${joinFields[1]}<#else>${f.entityName}</#if>'</#if></#list>],
       formPath: '/${moduleName}/<#if subModule??>${subModule}/</#if>${generatorName}/record',
       <#if LP.actionList ?? && LP.actionList?index_of(",export,") gte 0 && LP.localExport ?? && LP.localExport>

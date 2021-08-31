@@ -18,10 +18,10 @@
       </el-menu-item>
     </template>
     <template v-else-if="!mobile || !item.mobileHidden">
-      <el-menu-item v-if="isDialog(item.action)" :index="'id_'+item.id" :class="itemClass(item)" @click.native="openDialog(item.action)">
+      <el-menu-item v-if="isDialog(item.action)" :index="'id_'+item.id" :class="itemClass(item)" @click.native="openDialog(item)">
         <item :icon="item.icon" :title="generateTitle(item.name)" />
       </el-menu-item>      
-      <app-link v-else-if="item.action" :to="item.action">
+      <app-link v-else-if="item.action" :to="realUrl(item)">
         <el-menu-item :index="'id_'+item.id" :class="itemClass(item)">
           <item :icon="item.icon" :title="generateTitle(item.name)" />
         </el-menu-item>
@@ -79,11 +79,35 @@ export default {
       if (item.className) cls.push(item.className)
       return cls.join(' ')
     },
-    openDialog(url) {
-      const route = findRouteByUrl(url,this.$router)
+    openDialog(item) {
+      const route = findRouteByUrl(item.action,this.$router)
       if (route && route.meta && route.meta.dialog) {
-        window.$vue.$dialog(route.components,{routeParams: {}})
+        let ap = {}
+        if (item.dataAction) {
+          try {
+            ap = eval('(' + item.dataAction + ')')
+          } catch {
+            ap={}
+          }
+        }
+        window.$vue.$dialog(route.components,{routeParams: ap})
       }
+    },
+    realUrl(item) {
+      let url = item.action
+      if (item.dataAction) {
+      try {
+          const ap = eval('(' + item.dataAction + ')')
+          let params = []
+          Object.keys(ap).forEach(key=>{
+            params.push(key + '=' + encodeURI(ap[key]))
+          })
+          if (params.length>0) {
+            url = url + '?' + params.join('&')
+          }
+        } catch {}
+      }
+      return url
     },
     jsCmd(menu) {
       let options = {}

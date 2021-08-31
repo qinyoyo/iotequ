@@ -29,10 +29,10 @@
         <CgListDevReader slot="popover" ref="readerSelectionJoin" openID="readerselection-join" :height="500" :joinShow="readerSelectionJoinVisible" :joinMultiple="true"
                          :originSelections="String(record.readerSelection)" selectionKey="id" joinMode @closeJoinList="(rows)=>{ getJoinFields('readerSelection',rows)}"
                          @showJoinList="readerSelectionJoinVisible=true" />
-        <el-form-item v-if="record.deviceSelectionMode=='2'" class="cg-item-mltext" slot="reference" :label="$t('devData.field.readerSelection')" prop="readerName" :size="$store.state.app.size" >
+        <el-form-item v-if="record.deviceSelectionMode=='2'" class="cg-item-mltext" slot="reference" :label="$t('devReader.field.readerName')" prop="readerName" :size="$store.state.app.size" >
           <cg-input v-model="record.readerName" name="readerName" 
                     type="mltext" 
-                    :label="$t('devData.field.readerSelection')" :placeholder="$t('system.message.needValue')" 
+                    :label="$t('devReader.field.readerName')" :placeholder="$t('system.message.needValue')" 
                     resize autofocus validate-event 
                     readonly :maxlength="30" show-word-limit />
         </el-form-item>
@@ -58,10 +58,10 @@
         <CgListDevPeopleSelect slot="popover" ref="userSelectionJoin" openID="userselection-join" :height="500" :joinShow="userSelectionJoinVisible" :joinMultiple="true"
                                :originSelections="String(record.userSelection)" selectionKey="userNo" joinMode @closeJoinList="(rows)=>{ getJoinFields('userSelection',rows)}"
                                @showJoinList="userSelectionJoinVisible=true" />
-        <el-form-item v-if="record.userSelectionMode=='2'" class="cg-item-mltext" slot="reference" :label="$t('devData.field.userSelection')" prop="userName" :size="$store.state.app.size" >
+        <el-form-item v-if="record.userSelectionMode=='2'" class="cg-item-mltext" slot="reference" :label="$t('devPeople.field.userName')" prop="userName" :size="$store.state.app.size" >
           <cg-input v-model="record.userName" name="userName" 
                     type="mltext" 
-                    :label="$t('devData.field.userSelection')" :placeholder="$t('system.message.needValue')" 
+                    :label="$t('devPeople.field.userName')" :placeholder="$t('system.message.needValue')" 
                     resize autofocus validate-event 
                     readonly :maxlength="32" show-word-limit />
         </el-form-item>

@@ -26,6 +26,12 @@
         </template>
 
       </cg-table-column>
+      <cg-table-column prop="userNo" :page="paginationCurrentPage" :label="$t('devPeople.field.userNo')" align="left" >
+        <template slot-scope="scope">
+          {{ scope.row.userNo }}
+        </template>
+
+      </cg-table-column>
       <cg-table-column prop="realName" :page="paginationCurrentPage" :label="$t('devPeople.field.realName')" sortable align="left" >
         <template slot-scope="scope">
           {{ localeText(scope.row.realName) }}
@@ -215,8 +221,8 @@ const Comp = {
         fingerNo1: null,
         fingerNo2: null,
         fingerType: null,
-        userNo: null,
         orgCode: null,
+        userNo: null,
         realName: null,
         sex: null,
         birthDate: null,

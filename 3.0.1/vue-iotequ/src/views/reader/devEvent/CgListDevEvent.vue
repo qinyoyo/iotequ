@@ -44,9 +44,15 @@
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="realName" :page="paginationCurrentPage" :label="$t('devEvent.field.userNo')" align="left" >
+      <cg-table-column prop="userNo" :page="paginationCurrentPage" :label="$t('devEvent.field.userNo')" align="left" >
         <template slot-scope="scope">
-          {{ localeText(scope.row.realName) }}
+          {{ scope.row.userNo }}
+        </template>
+
+      </cg-table-column>
+      <cg-table-column prop="realName" :page="paginationCurrentPage" :label="$t('devPeople.field.realName')" sortable align="left" >
+        <template slot-scope="scope">
+          {{ scope.row.realName }}
         </template>
 
       </cg-table-column>
@@ -111,7 +117,7 @@
                   prefix-icon="el-icon-search" :placeholder="$t('system.message.fuzzyQueryTip')" @keyup.enter.native="doAction('refresh')" />
       </el-form-item>
       <el-form-item v-show="queryRecord.search" :label="$t('system.action.field')" prop="searchFields" :size="$store.state.app.size">
-        <cg-select v-model="queryRecord.searchFields" dictionary="devNo|devEvent.field.devNo,orgCode|devEvent.field.orgCode,userNo|devEvent.field.userNo,status|devEvent.field.status," multiple/>
+        <cg-select v-model="queryRecord.searchFields" dictionary="devNo|devEvent.field.devNo,orgCode|devEvent.field.orgCode,realName|devPeople.field.realName,status|devEvent.field.status,time|devEvent.field.time," multiple/>
       </el-form-item>
       <el-divider />
       <div v-show="!queryRecord.search">
@@ -123,13 +129,17 @@
           <cg-cascader v-model="queryRecord.orgCode" name="orgCode"  multiple collapse-tags clearable
                        :disabled="fixedQueryRecord.orgCode?true:false" :dictionary="dictionary.dictOrgCode" show-all-levels/>
         </el-form-item>
-        <el-form-item :label="$t('devEvent.field.userNo')" prop="userNo" :size="$store.state.app.size">
-          <el-input v-model="queryRecord.userNo" type="text" name="userNo"
-                    :readonly="fixedQueryRecord.userNo?true:false" :label="$t('devEvent.field.userNo')" clearable resize autofocus/>
+        <el-form-item :label="$t('devPeople.field.realName')" prop="realName" :size="$store.state.app.size">
+          <el-input v-model="queryRecord.realName" type="text" name="realName"
+                    :readonly="fixedQueryRecord.realName?true:false" :label="$t('devPeople.field.realName')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('devEvent.field.status')" prop="status" :size="$store.state.app.size">
           <cg-select v-model="queryRecord.status" :dictionary="dictionary.dictStatus"
                      :disabled="fixedQueryRecord.status?true:false"  :allow-create="!mobile" multiple clearable />
+        </el-form-item>
+        <el-form-item :label="$t('devEvent.field.time')" prop="time" :size="$store.state.app.size">
+          <cg-date-picker v-model="queryRecord.time" :title="$t('devEvent.field.time')" name="time" :align="mobile?'right':'center'" type="daterange" :picker-options="datePickerOptions()"
+                          :readonly="fixedQueryRecord.time?true:false"  clearable />
         </el-form-item>
       </div>
     </cg-query-condition>
@@ -137,7 +147,6 @@
 </template>
 
 <script>
-import {localeText} from '@/lang'
 import {hasAuthority} from '@/utils/cg'
 import ParentTable from '@/views/common-views/components/table'
 const Comp = {
@@ -153,7 +162,7 @@ const Comp = {
     return {
       path: 'list',
       defaultOrder: 'time desc',
-      queryRecordFields: ['devNo','orgCode','userNo','status'],
+      queryRecordFields: ['devNo','orgCode','realName','status','time'],
       formPath: '/reader/devEvent/record',
       idField: 'id',
       dictionary: {
@@ -193,11 +202,12 @@ const Comp = {
         devType: null,
         devNo: null,
         orgCode: null,
-        realName: null,
         userNo: null,
+        realName: null,
         auditeeAuthType: null,
         datTime: null,
         status: null,
+        time: null,
       }, this.fixedQueryRecord)
     },
     groupFields({ row, column, rowIndex, columnIndex }) {

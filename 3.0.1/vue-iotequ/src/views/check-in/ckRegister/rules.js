@@ -21,6 +21,9 @@ export default  {
          else return {}
       }
       return Object.assign({
+         orgCode:[
+            { required: true, message: vueObject.$t('system.message.needValue') + ':' + vueObject.$t('ckRegister.field.orgCode'), trigger: 'blur' }
+         ],
       }, typeof extendRules == 'function' ? extendRules(vueObject, _=>{ return vueObject.record ? vueObject.record : this_.record} ) : extendRules)
    }
 }

@@ -117,7 +117,7 @@
                   prefix-icon="el-icon-search" :placeholder="$t('system.message.fuzzyQueryTip')" @keyup.enter.native="doAction('refresh')" />
       </el-form-item>
       <el-form-item v-show="queryRecord.search" :label="$t('system.action.field')" prop="searchFields" :size="$store.state.app.size">
-        <cg-select v-model="queryRecord.searchFields" dictionary="orgCode|adDayResult.field.orgCode,employeeNoAdEmployeeRealName|sysUser.field.realName,adDate|adDayResult.field.adDate," multiple/>
+        <cg-select v-model="queryRecord.searchFields" dictionary="orgCode|adDayResult.field.orgCode,employeeNoAdEmployeeRealName|adEmployee.field.employeeNoAdEmployeeRealName,adDate|adDayResult.field.adDate," multiple/>
       </el-form-item>
       <el-divider />
       <div v-show="!queryRecord.search">
@@ -128,9 +128,9 @@
         <cg-join v-model="employeeNoJoinVisible">
           <CgListAdEmployee slot="popover" ref="employeeNoJoin" openID="employeeno-join" :height="joinHeight()" :joinShow="employeeNoJoinVisible" joinMultiple
             :originSelections="queryRecord.employeeNo" selectionKey="employeeNo" joinMode @closeJoinList="(rows)=>{ getJoinFields('employeeNo',rows)}" @showJoinList="employeeNoJoinVisible=true"/>
-        <el-form-item slot="reference" :label="$t('sysUser.field.realName')" prop="employeeNoAdEmployeeRealName" :size="$store.state.app.size">
+        <el-form-item slot="reference" :label="$t('adEmployee.field.employeeNoAdEmployeeRealName')" prop="employeeNoAdEmployeeRealName" :size="$store.state.app.size">
           <cg-input v-model="queryRecord.employeeNoAdEmployeeRealName" type="text" name="employeeNoAdEmployeeRealName"
-                    :readonly="fixedQueryRecord.employeeNoAdEmployeeRealName?true:false" :label="$t('sysUser.field.realName')" clearable resize autofocus @clear="clearJoinValues(myself,'employeeNoJoin')"/>
+                    :readonly="fixedQueryRecord.employeeNoAdEmployeeRealName?true:false" :label="$t('adEmployee.field.employeeNoAdEmployeeRealName')" clearable resize autofocus @clear="clearJoinValues(myself,'employeeNoJoin')"/>
         </el-form-item>
         </cg-join>
         <el-form-item :label="$t('adDayResult.field.adDate')" prop="adDate" :size="$store.state.app.size">

@@ -12,10 +12,10 @@
         <CgListOrg slot="popover" ref="orgIdJoin" openID="orgid-join" :height="500" :joinShow="orgIdJoinVisible" :joinMultiple="true"
                    :originSelections="String(record.orgId)" selectionKey="orgCode" joinMode @closeJoinList="(rows)=>{ getJoinFields('orgId',rows)}"
                    @showJoinList="orgIdJoinVisible=true" />
-        <el-form-item class="cg-item-mltext" slot="reference" :label="$t('devOrgGroup.field.orgId')" prop="orgName" :size="$store.state.app.size" >
+        <el-form-item class="cg-item-mltext" slot="reference" :label="$t('sysOrg.field.orgName')" prop="orgName" :size="$store.state.app.size" >
           <cg-input v-model="record.orgName" name="orgName" 
                     type="mltext" 
-                    :label="$t('devOrgGroup.field.orgId')" :placeholder="$t('system.message.needValue')" 
+                    :label="$t('sysOrg.field.orgName')" :placeholder="$t('system.message.needValue')" 
                     resize autofocus validate-event 
                      clearable @clear="clearJoinValues(myself,'orgIdJoin')"/>
         </el-form-item>

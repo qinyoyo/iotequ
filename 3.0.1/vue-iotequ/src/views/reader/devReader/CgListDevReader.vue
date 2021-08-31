@@ -109,7 +109,7 @@ const Comp = {
   data() {
     return {
       path: 'list',
-      defaultOrder: 'id desc',
+      defaultOrder: '',
       queryRecordFields: [],
       formPath: '/reader/devReader/record',
       idField: 'id',

@@ -11,10 +11,10 @@
             <CgListUserJoin slot="popover" ref="idJoin" openID="id-join" :height="500" :joinShow="idJoinVisible" :joinMultiple="false"
                             :originSelections="String(record.id)" selectionKey="id" joinMode @closeJoinList="(rows)=>{ getJoinFields('id',rows)}"
                             @showJoinList="idJoinVisible=true" />
-            <el-form-item class="cg-item-mltext" slot="reference" :label="$t('adEmployee.field.id')" prop="realName" :size="$store.state.app.size" >
+            <el-form-item class="cg-item-mltext" slot="reference" :label="$t('sysUser.field.realName')" prop="realName" :size="$store.state.app.size" >
               <cg-input v-model="record.realName" name="realName" 
                         type="mltext" 
-                        :label="$t('adEmployee.field.id')" :placeholder="$t('system.message.needValue')" 
+                        :label="$t('sysUser.field.realName')" :placeholder="$t('system.message.needValue')" 
                         resize autofocus validate-event 
                         readonly :maxlength="32" show-word-limit />
             </el-form-item>

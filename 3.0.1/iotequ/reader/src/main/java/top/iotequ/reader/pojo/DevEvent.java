@@ -74,7 +74,7 @@ public class DevEvent implements CgEntity {
 
     @SerializedName(value = "userNo", alternate = {"user_no","USER_NO"})
     @CgFieldAnnotation(name="dev_event.user_no",jdbcType="VARCHAR",length=45,nullable=true,format="@")
-    private String userNo;		//用户 db field:user_no
+    private String userNo;		//用户号 db field:user_no
     @SerializedName(value = "realName", alternate = {"real_name","REAL_NAME"})
     @CgFieldAnnotation(name="dev_people.real_name",jdbcType="VARCHAR")
     private String realName;

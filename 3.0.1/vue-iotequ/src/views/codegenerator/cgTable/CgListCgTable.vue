@@ -20,7 +20,7 @@
         <i slot="header" class="el-icon-menu"/>
       </el-table-column>
       <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter no-tab-index" width="36" />
-      <cg-table-column prop="module" :page="1" :label="$t('cgProject.field.name')" sortable align="left" >
+      <cg-table-column prop="module" :page="1" :label="$t('cgProject.field.module')" sortable align="left" >
         <template slot-scope="scope">
           <el-input v-if="scope.row.inlineEditting" v-model="scope.row.module" type="text" />
           <span v-else>{{ scope.row.module }}</span>
@@ -77,11 +77,11 @@
                   prefix-icon="el-icon-search" :placeholder="$t('system.message.fuzzyQueryTip')" @keyup.enter.native="doAction('refresh')" />
       </el-form-item>
       <el-form-item v-show="queryRecord.search" :label="$t('system.action.field')" prop="searchFields" :size="$store.state.app.size">
-        <cg-select v-model="queryRecord.searchFields" dictionary="module|cgProject.field.name,code|cgTable.field.code,name|cgTable.field.name," multiple/>
+        <cg-select v-model="queryRecord.searchFields" dictionary="module|cgProject.field.module,code|cgTable.field.code,name|cgTable.field.name," multiple/>
       </el-form-item>
       <el-divider />
       <div v-show="!queryRecord.search">
-        <el-form-item :label="$t('cgProject.field.name')" prop="module" :size="$store.state.app.size">
+        <el-form-item :label="$t('cgProject.field.module')" prop="module" :size="$store.state.app.size">
           <cg-select v-model="queryRecord.module" :dictionary="filterQueryDictionary.module"
                      :disabled="fixedQueryRecord.module?true:false" allow-create multiple clearable />
         </el-form-item>

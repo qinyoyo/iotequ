@@ -6,39 +6,40 @@ export default {
     created() {
       const that = this
       this.ignoreRecordChanged = true
+      this.runBackground = this.routeParams && this.routeParams.background
       this.keepLogin()
-      u53Disconnect(_=>{
-        u53Connect(0, this.foundU53, this.notFoundU53)
-      })
-    },
-    destroyed () {
-      if (this.hasU53) {
-        this.hasU53=false
-        u53Disconnect()
-      }
+      u53Disconnect()
+      this.u53read()
     },
     methods: {
       foundU53() {
         this.hasU53 = true
-        document.querySelector('img.cg-header-image').src = '/static/img/input.gif'
-        this.u53read()
+        if (document.querySelector('img.cg-header-image')) {
+          document.querySelector('img.cg-header-image').src = '/static/img/input.gif'
+        }
       },
       notFoundU53(){
         this.hasU53 = false
-        document.querySelector('img.cg-header-image').src = '/static/img/not_found.png'
-        u53Connect(0, this.foundU53, this.notFoundU53)
+        if (document.querySelector('img.cg-header-image')) document.querySelector('img.cg-header-image').src = '/static/img/not_found.png'
       },
       u53read() {
         const that=this
-        if (this.hasU53) {
+        u53Connect(0,_=>{
+          that.foundU53()
           u53Read((data)=>{
-            if(data.isSucc){
-              that.u53login(data.Msg)
-            }
+            u53Disconnect()
+            if(data.isSucc) that.u53login(data.Msg)
+            else that.u53read()
           },_=>{
-            u53Connect(0, that.foundU53, that.notFoundU53)
+            u53Disconnect()
+            that.notFoundU53()
+            that.u53read()
           })
-        }
+        },
+        _=>{
+          that.notFoundU53()
+          that.u53read()
+        })
       },
       openNewWindow(res,onClose) {
           let url = window.location.origin + '/static/message.html'
@@ -71,8 +72,10 @@ export default {
           setTimeout(onClose,3000)
       },
       showMessage(res,onClose) {
-        this.openNewWindow(res,onClose)
-        return
+        if (this.runBackground) {
+          this.openNewWindow(res,onClose)
+          return
+        }
         let msg = ''
         let type = 'error'
         let height=32

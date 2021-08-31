@@ -133,7 +133,7 @@ const Comp = {
   data() {
     return {
       path: 'list',
-      defaultOrder: 'id desc',
+      defaultOrder: 'in_date desc, on_time desc',
       queryRecordFields: ['orgCode','name','inDate'],
       formPath: '/check-in/ckRegister/record',
       localExport: true,

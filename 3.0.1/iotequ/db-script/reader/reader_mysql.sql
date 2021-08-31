@@ -164,7 +164,7 @@ CREATE TABLE `dev_event` (
   `dev_type` varchar(45) DEFAULT 'D10' NOT NULL COMMENT '设备类别',
   `dev_no` varchar(45) NOT NULL COMMENT '设备号',
   `org_code` int(11) NULL COMMENT '部门',
-  `user_no` varchar(45) NULL COMMENT '用户',
+  `user_no` varchar(45) NULL COMMENT '用户号',
   `status` int(11) NULL COMMENT '状态',
   `time` datetime NOT NULL COMMENT '时间',
   `auditee_auth_type` tinyint(2) NULL COMMENT '用户验证方式',

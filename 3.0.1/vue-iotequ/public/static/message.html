@@ -48,7 +48,7 @@
         	document.body.className = 'back-error'
         }
         if (sound) {
-            e_sound.src = '/static/sound/'+sound
+            e_sound.src = './sound/'+sound
         }
         if (name) {
             e_name.innerHTML = name
@@ -69,8 +69,9 @@
     }
 </script>
 <body onload="loaded()">
-<div id="name" class = "message" style="color: blue;">彭颋</div>
-<div id="message" class = "message" style="color:black;">登记成功</div>
-<audio id="sound" src="/static/sound/sound_suc_on.mp3" autoplay="" style="display:none"></audio></p>
+<div id="name" class = "message" style="color: blue;">name</div>
+<div id="message" class = "message" style="color:black;">message</div>
+<audio id="sound" autoplay src="http://localhost:8705/static/sound/sound_err_sign.mp3" style="display:none" type="audio/mpeg">
+</audio>
 </body>
 </html>

@@ -78,7 +78,7 @@ const Comp = {
   data() {
     return {
       path: 'list',
-      defaultOrder: 'id desc',
+      defaultOrder: '',
       queryRecordFields: [],
       formPath: '/codegenerator/cgProject/record',
       idField: 'id',

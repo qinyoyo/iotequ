@@ -207,7 +207,7 @@ const Comp = {
   data() {
     return {
       path: 'list',
-      defaultOrder: 'no desc',
+      defaultOrder: '',
       queryRecordFields: ['no','isCharge','userNo','dt','costType','shopId','operatorNo'],
       formPath: '/ewallet/ewBill/record',
       idField: 'no',

@@ -20,7 +20,7 @@
         <i slot="header" class="el-icon-menu"/>
       </el-table-column>
       <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter no-tab-index" width="36" />
-      <cg-table-column prop="realName" :page="1" :label="$t('adEmployee.field.id')" sortable align="left" >
+      <cg-table-column prop="realName" :page="1" :label="$t('sysUser.field.realName')" sortable align="left" >
         <template slot-scope="scope">
           {{ localeText(scope.row.realName) }}
         </template>
@@ -103,16 +103,16 @@
                   prefix-icon="el-icon-search" :placeholder="$t('system.message.fuzzyQueryTip')" @keyup.enter.native="doAction('refresh')" />
       </el-form-item>
       <el-form-item v-show="queryRecord.search" :label="$t('system.action.field')" prop="searchFields" :size="$store.state.app.size">
-        <cg-select v-model="queryRecord.searchFields" dictionary="realName|adEmployee.field.id,sex|sysUser.field.sex,employeeNo|adEmployee.field.employeeNo,isAttendance|adEmployee.field.isAttendance," multiple/>
+        <cg-select v-model="queryRecord.searchFields" dictionary="realName|sysUser.field.realName,sex|sysUser.field.sex,employeeNo|adEmployee.field.employeeNo,isAttendance|adEmployee.field.isAttendance," multiple/>
       </el-form-item>
       <el-divider />
       <div v-show="!queryRecord.search">
         <cg-join v-model="idJoinVisible">
           <CgListUserJoin slot="popover" ref="idJoin" openID="id-join" :height="joinHeight()" :joinShow="idJoinVisible" joinMultiple
             :originSelections="queryRecord.id" selectionKey="id" joinMode @closeJoinList="(rows)=>{ getJoinFields('id',rows)}" @showJoinList="idJoinVisible=true"/>
-        <el-form-item slot="reference" :label="$t('adEmployee.field.id')" prop="realName" :size="$store.state.app.size">
+        <el-form-item slot="reference" :label="$t('sysUser.field.realName')" prop="realName" :size="$store.state.app.size">
           <cg-input v-model="queryRecord.realName" type="text" name="realName"
-                    :readonly="fixedQueryRecord.realName?true:false" :label="$t('adEmployee.field.id')" clearable resize autofocus @clear="clearJoinValues(myself,'idJoin')"/>
+                    :readonly="fixedQueryRecord.realName?true:false" :label="$t('sysUser.field.realName')" clearable resize autofocus @clear="clearJoinValues(myself,'idJoin')"/>
         </el-form-item>
         </cg-join>
         <el-form-item slot="reference" :label="$t('sysUser.field.sex')" prop="sex" :size="$store.state.app.size">
