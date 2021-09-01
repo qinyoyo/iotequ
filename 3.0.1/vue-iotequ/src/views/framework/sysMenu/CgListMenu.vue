@@ -14,13 +14,14 @@
               @cell-click="(row, column, cell, event)=>cgList.list_cellClick(myself,{ row, column, cell, event })" 
               @selection-change="(selection)=>cgList.list_selectionChange(myself, selection)" 
               @current-change="(selection)=>cgList.list_selectionChange(myself, selection)" 
+              @sort-change="(options)=>cgList.list_sortChange(myself, options)" 
     >
       <cg-icon slot="empty" icon="el-icon-minus" color="grey" />
       <el-table-column v-if="!mobile" type="index" width="50" align="center" class-name="drag-filter" label-class-name="pointer-cursor" header-align="center">
         <i slot="header" class="el-icon-menu"/>
       </el-table-column>
       <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter no-tab-index" width="36" />
-      <el-table-column prop="name" width="200" :label="$t('sysMenu.field.name')" sortable align="left" >
+      <el-table-column prop="name" width="200" :label="$t('sysMenu.field.name')" sortable :sort-method="(a,b)=>chineseSort(a.name,b.name)" align="left" >
         <template slot-scope="scope">
           <el-input v-if="scope.row.inlineEditting" v-model="scope.row.name" type="text" />
           <span v-else>{{ $t(scope.row.name) }}</span>
@@ -48,7 +49,7 @@
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="action" :page="1" :label="$t('sysMenu.field.action')" sortable align="left" >
+      <cg-table-column prop="action" :page="1" :label="$t('sysMenu.field.action')" sortable :sort-method="(a,b)=>chineseSort(a.action,b.action)" align="left" >
         <template slot-scope="scope">
           <el-input v-if="scope.row.inlineEditting" v-model="scope.row.action" type="text" />
           <span v-else>{{ scope.row.action }}</span>

@@ -14,13 +14,14 @@
               @cell-click="(row, column, cell, event)=>cgList.list_cellClick(myself,{ row, column, cell, event })" 
               @selection-change="(selection)=>cgList.list_selectionChange(myself, selection)" 
               @current-change="(selection)=>cgList.list_selectionChange(myself, selection)" 
+              @sort-change="(options)=>cgList.list_sortChange(myself, options)" 
     >
       <cg-icon slot="empty" icon="el-icon-minus" color="grey" />
       <el-table-column v-if="!mobile" type="index" width="50" align="center" class-name="drag-filter" label-class-name="pointer-cursor" header-align="center">
         <i slot="header" class="el-icon-menu"/>
       </el-table-column>
       <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter" width="36" />
-      <cg-table-column prop="readerNo" :page="1" :label="$t('devNewDevice.field.readerNo')" sortable align="left" >
+      <cg-table-column prop="readerNo" :page="1" :label="$t('devNewDevice.field.readerNo')" sortable :sort-method="(a,b)=>chineseSort(a.readerNo,b.readerNo)" align="left" >
         <template slot-scope="scope">
           {{ scope.row.readerNo }}
         </template>

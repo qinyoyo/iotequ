@@ -971,6 +971,12 @@ export function displayTabPane(tabsObject, paneIndex, show) {
     tabsObject.$children[0].$refs.tabs[paneIndex].style.display = (show ? 'inline-block' : 'none')
   }  
 }
+export function chineseSort(a,b) {
+  if (typeof a === 'string') return a.toLocaleLowerCase().localeCompare(b.toLocaleLowerCase(), 'zh-CN')
+  else if (a<b) return -1
+  else if (a==b) return 0
+  else if (a>b) return 1
+}
 export default {
   dateAdd: time.dateAdd,
   timeRange: time.timeRange,
@@ -1022,5 +1028,6 @@ export default {
   jump2Url,
   displayTabPane,
   localeText,
-  setLocaleText
+  setLocaleText,
+  chineseSort
 }

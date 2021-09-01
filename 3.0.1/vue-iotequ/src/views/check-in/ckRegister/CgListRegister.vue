@@ -14,6 +14,7 @@
               @cell-click="(row, column, cell, event)=>cgList.list_cellClick(myself,{ row, column, cell, event })" 
               @selection-change="(selection)=>cgList.list_selectionChange(myself, selection)" 
               @current-change="(selection)=>cgList.list_selectionChange(myself, selection)" 
+              @sort-change="(options)=>cgList.list_sortChange(myself, options)" 
     >
       <cg-icon slot="empty" icon="el-icon-minus" color="grey" />
       <el-table-column v-if="!mobile" type="index" width="50" align="center" class-name="drag-filter" label-class-name="pointer-cursor" header-align="center">
@@ -26,7 +27,7 @@
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="name" :page="paginationCurrentPage" :label="$t('ckRegister.field.name')" sortable align="left" >
+      <cg-table-column prop="name" :page="paginationCurrentPage" :label="$t('ckRegister.field.name')" sortable :sort-method="(a,b)=>chineseSort(a.name,b.name)" align="left" >
         <template slot-scope="scope">
           {{ scope.row.name }}
         </template>
@@ -91,7 +92,7 @@
                   @loadMore="cgList.list_loadMore(myself)"
                   @pulldown="doAction('refresh',{ isPullDownEvent : true})"
     />
-    <el-pagination v-if="!mobile" @size-change="doAction('refresh')" @current-change="doAction('refresh')" :page-sizes="[10, 20, 30, 50, 100, 200]" layout="total, sizes, prev, pager, next, jumper"
+    <el-pagination v-if="!mobile" hide-on-single-page @size-change="doAction('refresh')" @current-change="doAction('refresh')" :page-sizes="pageSizeSelections" layout="total, sizes, prev, pager, next, jumper"
       :current-page.sync="paginationCurrentPage" :page-size.sync="paginationPageSize" :total="paginationTotalRecords">
     </el-pagination>
     <cg-context-menu :show="contextMenu.visible" :actions="contextMenu.actions"
@@ -152,6 +153,17 @@ const Comp = {
     }
   },
   computed: {
+    pageSizeSelections() {
+      if (this.localExport) {
+        let total = this.paginationTotalRecords
+        if (total<=10) return [10]
+        else if (total<=20)  return [10,20]
+        else if (total<=30)  return [10,20,30]
+        else if (total<=50)  return [10,20,30,50]
+        else if (total<=100) return [10,20,30,50,100]
+        else  return [10,20,30,50,100,total]
+      } else return [10, 20, 30, 50, 100, 200]
+    },
     allActions() {
       if (this.joinMode) return 'refresh,query'
       else return 'query,,list,localExport,'
@@ -162,6 +174,7 @@ const Comp = {
   },
   methods: {
     initialQueryRecord() {
+      this.paginationPageSize = (this.$store.state.app.device === 'mobile' ? 10 : 30)
       return Object.assign({
         orgCode: null,
         orgName: null,

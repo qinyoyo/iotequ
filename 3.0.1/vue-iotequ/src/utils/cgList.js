@@ -146,6 +146,10 @@ export default {
     })
     params.queryEntities = entities.join(',')
     params.pathNameOfQuery = listObject.path
+    if (listObject.sortOptions) {
+      params.sort = listObject.sortOptions.prop
+      params.order = listObject.sortOptions.order
+    }
     return Object.assign(params, fixedQueryRecord) // fixedQueryRecord 优先
   },
 
@@ -1126,6 +1130,10 @@ export default {
       } else listObject.selections = selection[listObject.selectionKey] + ''
     }
     listObject.$emit('selectionChange', selection)
+  },
+  list_sortChange(listObject, options) { // 列表排序变化
+    listObject.sortOptions = options
+    listObject.$emit('sortChange', options)
   },
   list_destroyScroll(listObject) {
     if (listObject.bscroller) listObject.bscroller.scroll.destroy()

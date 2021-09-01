@@ -14,13 +14,14 @@
               @cell-click="(row, column, cell, event)=>cgList.list_cellClick(myself,{ row, column, cell, event })" 
               @selection-change="(selection)=>cgList.list_selectionChange(myself, selection)" 
               @current-change="(selection)=>cgList.list_selectionChange(myself, selection)" 
+              @sort-change="(options)=>cgList.list_sortChange(myself, options)" 
     >
       <cg-icon slot="empty" icon="el-icon-minus" color="grey" />
       <el-table-column v-if="!mobile" type="index" width="50" align="center" class-name="drag-filter" label-class-name="pointer-cursor" header-align="center">
         <i slot="header" class="el-icon-menu"/>
       </el-table-column>
       <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter" width="36" />
-      <cg-table-column prop="no" :page="paginationCurrentPage" :label="$t('payPos.field.no')" sortable align="left" >
+      <cg-table-column prop="no" :page="paginationCurrentPage" :label="$t('payPos.field.no')" sortable :sort-method="(a,b)=>chineseSort(a.no,b.no)" align="left" >
         <template slot-scope="scope">
           {{ scope.row.no }}
         </template>
@@ -85,7 +86,7 @@
                   @loadMore="cgList.list_loadMore(myself)"
                   @pulldown="doAction('refresh',{ isPullDownEvent : true})"
     />
-    <el-pagination v-if="!mobile" @size-change="doAction('refresh')" @current-change="doAction('refresh')" :page-sizes="[10, 20, 30, 50, 100, 200]" layout="total, sizes, prev, pager, next, jumper"
+    <el-pagination v-if="!mobile" hide-on-single-page @size-change="doAction('refresh')" @current-change="doAction('refresh')" :page-sizes="[10, 20, 30, 50, 100, 200]" layout="total, sizes, prev, pager, next, jumper"
       :current-page.sync="paginationCurrentPage" :page-size.sync="paginationPageSize" :total="paginationTotalRecords">
     </el-pagination>
     <cg-context-menu :show="contextMenu.visible" :actions="contextMenu.actions"
@@ -157,6 +158,7 @@ const Comp = {
   },
   methods: {
     initialQueryRecord() {
+      this.paginationPageSize = (this.$store.state.app.device === 'mobile' ? 10 : 30)
       return Object.assign({
         no: null,
         shopId: null,

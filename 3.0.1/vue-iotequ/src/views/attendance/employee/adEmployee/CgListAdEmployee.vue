@@ -14,25 +14,26 @@
               @cell-click="(row, column, cell, event)=>cgList.list_cellClick(myself,{ row, column, cell, event })" 
               @selection-change="(selection)=>cgList.list_selectionChange(myself, selection)" 
               @current-change="(selection)=>cgList.list_selectionChange(myself, selection)" 
+              @sort-change="(options)=>cgList.list_sortChange(myself, options)" 
     >
       <cg-icon slot="empty" icon="el-icon-minus" color="grey" />
       <el-table-column v-if="!mobile" type="index" width="50" align="center" class-name="drag-filter" label-class-name="pointer-cursor" header-align="center">
         <i slot="header" class="el-icon-menu"/>
       </el-table-column>
       <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter no-tab-index" width="36" />
-      <cg-table-column prop="realName" :page="1" :label="$t('sysUser.field.realName')" sortable align="left" >
+      <cg-table-column prop="realName" :page="1" :label="$t('sysUser.field.realName')" sortable :sort-method="(a,b)=>chineseSort(a.realName,b.realName)" align="left" >
         <template slot-scope="scope">
           {{ localeText(scope.row.realName) }}
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="sex" type="dict" :page="1" :label="$t('sysUser.field.sex')" sortable align="left" >
+      <cg-table-column prop="sex" type="dict" :page="1" :label="$t('sysUser.field.sex')" sortable :sort-method="(a,b)=>chineseSort(a.sex,b.sex)" align="left" >
         <template slot-scope="scope">
           {{ dictValue(scope.row.sex,dictionary.dictSex,false,true) }}
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="employeeNo" :page="1" :label="$t('adEmployee.field.employeeNo')" sortable align="left" >
+      <cg-table-column prop="employeeNo" :page="1" :label="$t('adEmployee.field.employeeNo')" sortable :sort-method="(a,b)=>chineseSort(a.employeeNo,b.employeeNo)" align="left" >
         <template slot-scope="scope">
           <el-input v-if="scope.row.inlineEditting" v-model="scope.row.employeeNo" type="text" />
           <span v-else>{{ scope.row.employeeNo }}</span>

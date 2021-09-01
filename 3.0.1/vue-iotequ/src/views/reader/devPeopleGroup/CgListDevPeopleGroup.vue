@@ -61,7 +61,7 @@
                   @loadMore="cgList.list_loadMore(myself)"
                   @pulldown="doAction('refresh',{ isPullDownEvent : true})"
     />
-    <el-pagination v-if="!mobile" @size-change="doAction('refresh')" @current-change="doAction('refresh')" :page-sizes="[10, 20, 30, 50, 100, 200]" layout="total, sizes, prev, pager, next, jumper"
+    <el-pagination v-if="!mobile" hide-on-single-page @size-change="doAction('refresh')" @current-change="doAction('refresh')" :page-sizes="[10, 20, 30, 50, 100, 200]" layout="total, sizes, prev, pager, next, jumper"
       :current-page.sync="paginationCurrentPage" :page-size.sync="paginationPageSize" :total="paginationTotalRecords">
     </el-pagination>
     <cg-context-menu :show="contextMenu.visible" :actions="contextMenu.actions"

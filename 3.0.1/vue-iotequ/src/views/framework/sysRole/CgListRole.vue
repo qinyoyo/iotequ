@@ -14,20 +14,21 @@
               @cell-click="(row, column, cell, event)=>cgList.list_cellClick(myself,{ row, column, cell, event })" 
               @selection-change="(selection)=>cgList.list_selectionChange(myself, selection)" 
               @current-change="(selection)=>cgList.list_selectionChange(myself, selection)" 
+              @sort-change="(options)=>cgList.list_sortChange(myself, options)" 
     >
       <cg-icon slot="empty" icon="el-icon-minus" color="grey" />
       <el-table-column v-if="!mobile" type="index" width="50" align="center" class-name="drag-filter" label-class-name="pointer-cursor" header-align="center">
         <i slot="header" class="el-icon-menu"/>
       </el-table-column>
       <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter no-tab-index" width="36" />
-      <el-table-column prop="code" width="100" :label="$t('sysRole.field.code')" sortable align="left" >
+      <el-table-column prop="code" width="100" :label="$t('sysRole.field.code')" sortable :sort-method="(a,b)=>chineseSort(a.code,b.code)" align="left" >
         <template slot-scope="scope">
           <el-input v-if="scope.row.inlineEditting" v-model="scope.row.code" type="text" />
           <span v-else>{{ scope.row.code }}</span>
         </template>
 
       </el-table-column>
-      <el-table-column prop="name" width="120" :label="$t('sysRole.field.name')" sortable align="left" >
+      <el-table-column prop="name" width="120" :label="$t('sysRole.field.name')" sortable :sort-method="(a,b)=>chineseSort(a.name,b.name)" align="left" >
         <template slot-scope="scope">
           <cg-input v-if="scope.row.inlineEditting" v-model="scope.row.name" type="text" />
           <span v-else>{{ localeText(scope.row.name) }}</span>

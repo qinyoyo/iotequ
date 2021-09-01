@@ -1,6 +1,8 @@
 package top.iotequ.framework.service.utils;
 
 import lombok.NonNull;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.exception.IotequThrowable;
 import top.iotequ.util.EntityUtil;
@@ -39,10 +41,17 @@ public class QueryUtil {
         List<Map<String,String>> orderList0 = new ArrayList<Map<String,String>>();
         if (!Util.isEmpty(sort)) {
             String [] ss=sort.split(","),  oo=order.split(",");
+            SqlSessionTemplate sqlSessionTemplate = Util.getBean(SqlSessionTemplate.class);
+            String dbId=sqlSessionTemplate.getConfiguration().getDatabaseId();
             for (int i=0;i<ss.length;i++) {
                 Map<String,String> m=new HashMap<String,String>();
-                m.put("sort", EntityUtil.getDBFieldNameFrom(clazz,ss[i].trim()));
-                m.put("order", i>=oo.length?"asc":oo[i].trim());
+                String sortFieldName = EntityUtil.getDBFieldNameFrom(clazz,ss[i].trim());
+                String fieldType = EntityUtil.getJdbcTypeFrom(clazz,ss[i].trim());
+                if ("MySql".equals(dbId) && fieldType!=null && ("char".equals(fieldType.toLowerCase()) || "varchar".equals(fieldType.toLowerCase()))) {
+                    sortFieldName = "CONVERT("+sortFieldName+" using gbk)";
+                }
+                m.put("sort", sortFieldName);
+                m.put("order", i>=oo.length?"asc":(oo[i].trim().toLowerCase().startsWith("desc")?"desc":"asc"));
                 orderList0.add(m);
             }
         }

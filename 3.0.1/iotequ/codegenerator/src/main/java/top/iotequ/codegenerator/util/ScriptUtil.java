@@ -132,6 +132,9 @@ public class ScriptUtil {
                                 + " ON " + NameUtil.objectName(dbType, table.getName()) + "(" + NameUtil.fieldName(dbType, f.getName()) + ");\n");
                     }
                 }
+                if (dbType == SQLSERVER && TypeUtil.jdbcType(f).toLowerCase().contains("char")) {
+                    sb.append(" COLLATE Chinese_PRC_CI_AS");
+                }
                 if (!Util.isEmpty(f.getTitle())) {
                     if (dbType == MYSQL) {
                         sb.append(" COMMENT '" + f.getTitle() + "'");

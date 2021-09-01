@@ -768,6 +768,7 @@ public class GenService implements ApplicationContextAware {
     private Map<String, Object> appendListProperties(CgList lp, List<CgListField> lists) throws CgException {
         dtoService.resetFieldList(table,tabFields, joinFields, calFields);  // list使用了流程数据的join类型，不能修改流程字段
         List<CgField> allFields = dtoService.getAllFieldsIncludeSplitedJoin(table, tabFields, joinFields, calFields);
+        allFields.stream().forEach(f->f.setType(TypeUtil.javaType(f)));
         List<Map<String, Object>> list = new ArrayList<>();
         List<Map<String, Object>> joinedFields = new ArrayList<>();
         for (CgListField item : lists) {

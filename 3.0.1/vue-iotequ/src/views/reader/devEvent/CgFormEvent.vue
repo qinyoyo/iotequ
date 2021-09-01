@@ -50,7 +50,7 @@
         <el-col :span="8">
           <el-form-item class="cg-item-select" :label="$t('devEvent.field.auditeeAuthType')" prop="auditeeAuthType" :size="$store.state.app.size" >
             <cg-select v-model="record.auditeeAuthType" name="auditeeAuthType"
-                       :dictionary="dictionary.dictAuditeeAuthType" :readonly="isDetail" :filterable="false" :allow-create="false" numberic :placeholder="$t('system.message.unknown')" clearable />
+                       :dictionary="dictionary.dictAuditeeAuthType" :readonly="isDetail" :filterable="false" :allow-create="false" :placeholder="$t('system.message.unknown')" clearable />
           </el-form-item>
         </el-col>
       </el-row>
@@ -79,7 +79,7 @@
         <el-col :span="8">
           <el-form-item class="cg-item-select" :label="$t('devEvent.field.auditorAuthType')" prop="auditorAuthType" :size="$store.state.app.size" >
             <cg-select v-model="record.auditorAuthType" name="auditorAuthType"
-                       :dictionary="dictionary.dictAuditorAuthType" :readonly="isDetail" :filterable="false" :allow-create="false" numberic :placeholder="$t('system.message.unknown')" clearable />
+                       :dictionary="dictionary.dictAuditorAuthType" :readonly="isDetail" :filterable="false" :allow-create="false" :placeholder="$t('system.message.unknown')" clearable />
           </el-form-item>
         </el-col>
       </el-row>
@@ -87,7 +87,7 @@
         <el-col :span="8">
           <el-form-item class="cg-item-select" :label="$t('devEvent.field.authType')" prop="authType" :size="$store.state.app.size" >
             <cg-select v-model="record.authType" name="authType"
-                       :dictionary="dictionary.dictAuthType" :readonly="isDetail" :filterable="false" :allow-create="false" numberic :placeholder="$t('system.message.unknown')" clearable />
+                       :dictionary="dictionary.dictAuthType" :readonly="isDetail" :filterable="false" :allow-create="false" :placeholder="$t('system.message.unknown')" clearable />
           </el-form-item>
         </el-col>
         <el-col :span="8">

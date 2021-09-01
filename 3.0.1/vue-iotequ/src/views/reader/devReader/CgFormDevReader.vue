@@ -87,13 +87,13 @@
             <el-col :span="8">
               <el-form-item class="cg-item-select cg-auto-focus" :label="$t('devReader.field.alignMethod')" prop="alignMethod" :size="$store.state.app.size" >
                 <cg-select v-model="record.alignMethod" name="alignMethod"
-                           :dictionary="dictionary.dictAlignMethod" :readonly="isDetail" :filterable="false" :allow-create="false" numberic :placeholder="$t('system.message.needValue')" />
+                           :dictionary="dictionary.dictAlignMethod" :readonly="isDetail" :filterable="false" :allow-create="false" :placeholder="$t('system.message.needValue')" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item class="cg-item-select" :label="$t('devReader.field.blacklightTime')" prop="blacklightTime" :size="$store.state.app.size" >
                 <cg-select v-model="record.blacklightTime" name="blacklightTime"
-                           :dictionary="dictionary.dictBlacklightTime" :readonly="isDetail" :filterable="false" :allow-create="false" numberic :placeholder="$t('system.message.needValue')" />
+                           :dictionary="dictionary.dictBlacklightTime" :readonly="isDetail" :filterable="false" :allow-create="false" :placeholder="$t('system.message.needValue')" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -106,19 +106,19 @@
             <el-col :span="8">
               <el-form-item class="cg-item-select" :label="$t('devReader.field.menuTime')" prop="menuTime" :size="$store.state.app.size" >
                 <cg-select v-model="record.menuTime" name="menuTime"
-                           :dictionary="dictionary.dictMenuTime" :readonly="isDetail" :filterable="false" :allow-create="false" numberic :placeholder="$t('system.message.needValue')" />
+                           :dictionary="dictionary.dictMenuTime" :readonly="isDetail" :filterable="false" :allow-create="false" :placeholder="$t('system.message.needValue')" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item class="cg-item-select" :label="$t('devReader.field.wengenform')" prop="wengenform" :size="$store.state.app.size" >
                 <cg-select v-model="record.wengenform" name="wengenform"
-                           :dictionary="dictionary.dictWengenform" :readonly="isDetail" :filterable="false" :allow-create="false" numberic :placeholder="$t('system.message.needValue')" />
+                           :dictionary="dictionary.dictWengenform" :readonly="isDetail" :filterable="false" :allow-create="false" :placeholder="$t('system.message.needValue')" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item class="cg-item-select" :label="$t('devReader.field.wengenOutput')" prop="wengenOutput" :size="$store.state.app.size" >
                 <cg-select v-model="record.wengenOutput" name="wengenOutput"
-                           :dictionary="dictionary.dictWengenOutput" :readonly="isDetail" :filterable="false" :allow-create="false" numberic :placeholder="$t('system.message.needValue')" />
+                           :dictionary="dictionary.dictWengenOutput" :readonly="isDetail" :filterable="false" :allow-create="false" :placeholder="$t('system.message.needValue')" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -154,7 +154,7 @@
             <el-col :span="12">
               <el-form-item class="cg-item-select cg-auto-focus" :label="$t('devReader.field.wgOrder')" prop="wgOrder" :size="$store.state.app.size" >
                 <cg-select v-model="record.wgOrder" name="wgOrder"
-                           :dictionary="dictionary.dictWgOrder" :readonly="isDetail" :filterable="false" :allow-create="false" numberic :placeholder="$t('system.message.unknown')" clearable />
+                           :dictionary="dictionary.dictWgOrder" :readonly="isDetail" :filterable="false" :allow-create="false" :placeholder="$t('system.message.unknown')" clearable />
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -179,7 +179,7 @@
             <el-col :span="12">
               <el-form-item class="cg-item-select" :label="$t('devReader.field.alarmEnable')" prop="alarmEnable" :size="$store.state.app.size" >
                 <cg-select v-model="record.alarmEnable" name="alarmEnable"
-                           :dictionary="dictionary.dictAlarmEnable" :readonly="isDetail" :filterable="false" :allow-create="false" numberic :placeholder="$t('system.message.unknown')" clearable />
+                           :dictionary="dictionary.dictAlarmEnable" :readonly="isDetail" :filterable="false" :allow-create="false" :placeholder="$t('system.message.unknown')" clearable />
               </el-form-item>
             </el-col>
           </el-row>
@@ -187,13 +187,13 @@
             <el-col :span="12">
               <el-form-item class="cg-item-select" :label="$t('devReader.field.openEnable')" prop="openEnable" :size="$store.state.app.size" >
                 <cg-select v-model="record.openEnable" name="openEnable"
-                           :dictionary="dictionary.dictOpenEnable" :readonly="isDetail" :filterable="false" :allow-create="false" numberic :placeholder="$t('system.message.unknown')" clearable />
+                           :dictionary="dictionary.dictOpenEnable" :readonly="isDetail" :filterable="false" :allow-create="false" :placeholder="$t('system.message.unknown')" clearable />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item class="cg-item-select" :label="$t('devReader.field.doorState')" prop="doorState" :size="$store.state.app.size" >
                 <cg-select v-model="record.doorState" name="doorState"
-                           :dictionary="dictionary.dictDoorState" :readonly="isDetail" :filterable="false" :allow-create="false" numberic :placeholder="$t('system.message.unknown')" clearable />
+                           :dictionary="dictionary.dictDoorState" :readonly="isDetail" :filterable="false" :allow-create="false" :placeholder="$t('system.message.unknown')" clearable />
               </el-form-item>
             </el-col>
           </el-row>
@@ -201,13 +201,13 @@
             <el-col :span="12">
               <el-form-item class="cg-item-select" :label="$t('devReader.field.relayEnable')" prop="relayEnable" :size="$store.state.app.size" >
                 <cg-select v-model="record.relayEnable" name="relayEnable"
-                           :dictionary="dictionary.dictRelayEnable" :readonly="isDetail" :filterable="false" :allow-create="false" numberic :placeholder="$t('system.message.unknown')" clearable />
+                           :dictionary="dictionary.dictRelayEnable" :readonly="isDetail" :filterable="false" :allow-create="false" :placeholder="$t('system.message.unknown')" clearable />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item class="cg-item-select" :label="$t('devReader.field.doorbellEnable')" prop="doorbellEnable" :size="$store.state.app.size" >
                 <cg-select v-model="record.doorbellEnable" name="doorbellEnable"
-                           :dictionary="dictionary.dictDoorbellEnable" :readonly="isDetail" :filterable="false" :allow-create="false" numberic :placeholder="$t('system.message.unknown')" clearable />
+                           :dictionary="dictionary.dictDoorbellEnable" :readonly="isDetail" :filterable="false" :allow-create="false" :placeholder="$t('system.message.unknown')" clearable />
               </el-form-item>
             </el-col>
           </el-row>
@@ -372,22 +372,22 @@ const Comp = {
             connectType: '',
             readerGroup: 0,
             devMode: '',
-            alignMethod: 4,
-            blacklightTime: 0,
+            alignMethod: '4',
+            blacklightTime: '0',
             voiceprompt: true,
-            menuTime: 0,
-            wengenform: 2,
-            wengenOutput: 1,
-            wengenOutArea: 26,
-            regfingerOutTime: 49,
-            authfingerOutTime: 49,
-            wgOrder: 0,
-            relayTime: 5,
-            alarmEnable: 1,
-            openEnable: 0,
-            doorState: 1,
-            relayEnable: 1,
-            doorbellEnable: 1,
+            menuTime: '0',
+            wengenform: '2',
+            wengenOutput: '1',
+            wengenOutArea: '26',
+            regfingerOutTime: '49',
+            authfingerOutTime: '49',
+            wgOrder: '0',
+            relayTime: '5',
+            alarmEnable: '1',
+            openEnable: '0',
+            doorState: '1',
+            relayEnable: '1',
+            doorbellEnable: '1',
         }
     },
     groupPaneTitle: function(defTitle) {

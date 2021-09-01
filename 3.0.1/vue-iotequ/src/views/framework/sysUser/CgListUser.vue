@@ -14,6 +14,7 @@
               @cell-click="(row, column, cell, event)=>cgList.list_cellClick(myself,{ row, column, cell, event })" 
               @selection-change="(selection)=>cgList.list_selectionChange(myself, selection)" 
               @current-change="(selection)=>cgList.list_selectionChange(myself, selection)" 
+              @sort-change="(options)=>cgList.list_sortChange(myself, options)" 
     >
       <cg-icon slot="empty" icon="el-icon-minus" color="grey" />
       <el-table-column v-if="!mobile" type="index" width="50" align="center" class-name="drag-filter" label-class-name="pointer-cursor" header-align="center">
@@ -33,28 +34,28 @@
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="name" :page="paginationCurrentPage" :label="$t('sysUser.field.name')" sortable align="left" >
+      <cg-table-column prop="name" :page="paginationCurrentPage" :label="$t('sysUser.field.name')" sortable :sort-method="(a,b)=>chineseSort(a.name,b.name)" align="left" >
         <template slot-scope="scope">
           <el-input v-if="scope.row.inlineEditting" v-model="scope.row.name" type="text" />
           <span v-else>{{ scope.row.name }}</span>
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="realName" :page="paginationCurrentPage" :label="$t('sysUser.field.realName')" sortable align="left" >
+      <cg-table-column prop="realName" :page="paginationCurrentPage" :label="$t('sysUser.field.realName')" sortable :sort-method="(a,b)=>chineseSort(a.realName,b.realName)" align="left" >
         <template slot-scope="scope">
           <cg-input v-if="scope.row.inlineEditting" v-model="scope.row.realName" type="text" />
           <span v-else>{{ localeText(scope.row.realName) }}</span>
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="sex" type="dict" :page="paginationCurrentPage" :label="$t('sysUser.field.sex')" sortable align="left" >
+      <cg-table-column prop="sex" type="dict" :page="paginationCurrentPage" :label="$t('sysUser.field.sex')" sortable :sort-method="(a,b)=>chineseSort(a.sex,b.sex)" align="left" >
         <template slot-scope="scope">
           <cg-select v-if="scope.row.inlineEditting" v-model="scope.row.sex" automaticDropdown appendToBody :dictionary="dictionary.dictSex" />
           <span v-else>{{ dictValue(scope.row.sex,dictionary.dictSex,false,true) }}</span>
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="mobilePhone" :page="paginationCurrentPage" :label="$t('sysUser.field.mobilePhone')" sortable align="left" >
+      <cg-table-column prop="mobilePhone" :page="paginationCurrentPage" :label="$t('sysUser.field.mobilePhone')" sortable :sort-method="(a,b)=>chineseSort(a.mobilePhone,b.mobilePhone)" align="left" >
         <template slot-scope="scope">
           <el-input v-if="scope.row.inlineEditting" v-model="scope.row.mobilePhone" type="text" />
           <span v-else>{{ scope.row.mobilePhone }}</span>
@@ -81,7 +82,7 @@
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="roleList" type="dict" :page="paginationCurrentPage" :label="$t('sysUser.field.roleList')" sortable align="left" >
+      <cg-table-column prop="roleList" type="dict" :page="paginationCurrentPage" :label="$t('sysUser.field.roleList')" sortable :sort-method="(a,b)=>chineseSort(a.roleList,b.roleList)" align="left" >
         <template slot-scope="scope">
           {{ dictValue(scope.row.roleList,dictionary.dictRoleList,false,true) }}
         </template>
@@ -128,7 +129,7 @@
                   @loadMore="cgList.list_loadMore(myself)"
                   @pulldown="doAction('refresh',{ isPullDownEvent : true})"
     />
-    <el-pagination v-if="!mobile" @size-change="doAction('refresh')" @current-change="doAction('refresh')" :page-sizes="[10, 20, 30, 50, 100, 200]" layout="total, sizes, prev, pager, next, jumper"
+    <el-pagination v-if="!mobile" hide-on-single-page @size-change="doAction('refresh')" @current-change="doAction('refresh')" :page-sizes="[10, 20, 30, 50, 100, 200]" layout="total, sizes, prev, pager, next, jumper"
       :current-page.sync="paginationCurrentPage" :page-size.sync="paginationPageSize" :total="paginationTotalRecords">
     </el-pagination>
     <cg-context-menu :show="contextMenu.visible" :actions="contextMenu.actions"
@@ -251,6 +252,7 @@ const Comp = {
   },
   methods: {
     initialQueryRecord() {
+      this.paginationPageSize = (this.$store.state.app.device === 'mobile' ? 10 : 30)
       return Object.assign({
         orgPrivilege: null,
         orgCode: null,

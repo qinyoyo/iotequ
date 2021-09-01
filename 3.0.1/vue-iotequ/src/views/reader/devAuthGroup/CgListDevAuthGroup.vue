@@ -14,20 +14,21 @@
               @cell-click="(row, column, cell, event)=>cgList.list_cellClick(myself,{ row, column, cell, event })" 
               @selection-change="(selection)=>cgList.list_selectionChange(myself, selection)" 
               @current-change="(selection)=>cgList.list_selectionChange(myself, selection)" 
+              @sort-change="(options)=>cgList.list_sortChange(myself, options)" 
     >
       <cg-icon slot="empty" icon="el-icon-minus" color="grey" />
       <el-table-column v-if="!mobile" type="index" width="50" align="center" class-name="drag-filter" label-class-name="pointer-cursor" header-align="center">
         <i slot="header" class="el-icon-menu"/>
       </el-table-column>
       <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter no-tab-index" width="36" />
-      <cg-table-column prop="name" :page="1" :label="$t('devAuthGroup.field.name')" sortable align="left" >
+      <cg-table-column prop="name" :page="1" :label="$t('devAuthGroup.field.name')" sortable :sort-method="(a,b)=>chineseSort(a.name,b.name)" align="left" >
         <template slot-scope="scope">
           <cg-input v-if="scope.row.inlineEditting" v-model="scope.row.name" type="text" />
           <span v-else>{{ localeText(scope.row.name) }}</span>
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="auth" type="dict" :page="1" :label="$t('devAuthGroup.field.auth')" sortable align="left" >
+      <cg-table-column prop="auth" type="dict" :page="1" :label="$t('devAuthGroup.field.auth')" sortable :sort-method="(a,b)=>chineseSort(a.auth,b.auth)" align="left" >
         <template slot-scope="scope">
           <cg-select v-if="scope.row.inlineEditting" v-model="scope.row.auth" automaticDropdown appendToBody :dictionary="dictionary.dictAuth" allow-create multiple />
           <span v-else>{{ dictValue(scope.row.auth,dictionary.dictAuth,false,true) }}</span>
