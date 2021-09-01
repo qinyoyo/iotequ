@@ -6,10 +6,10 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[ew_
 GO
 CREATE TABLE [dbo].[ew_user_time] (
   [id] int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  [user_no] varchar(45) NOT NULL,
+  [user_no] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
   [time_id] int NOT NULL,
   [amount_time] int DEFAULT ((0)) NOT NULL,
-  [check_code] varchar(45) NOT NULL,
+  [check_code] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
   [cost_limit] int DEFAULT ((0)) NOT NULL,
   [day_limit] int DEFAULT ((0)) NOT NULL
 )
@@ -27,10 +27,10 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[ew_
 GO
 CREATE TABLE [dbo].[ew_user_count] (
   [id] int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  [user_no] varchar(45) NOT NULL,
+  [user_no] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
   [count_id] int NOT NULL,
   [amount_count] int DEFAULT ((0)) NOT NULL,
-  [check_code] varchar(45) NOT NULL,
+  [check_code] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
   [cost_limit] int DEFAULT ((0)) NOT NULL,
   [day_limit] int DEFAULT ((0)) NOT NULL
 )
@@ -47,24 +47,24 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[ew_
 	DROP TABLE [dbo].[ew_user]
 GO
 CREATE TABLE [dbo].[ew_user] (
-  [user_no] varchar(32) NOT NULL PRIMARY KEY,
+  [user_no] varchar(32) NOT NULL PRIMARY KEY COLLATE Chinese_PRC_CI_AS,
   [is_active] bit DEFAULT ((1)) NULL,
-  [name] varchar(32) NOT NULL,
+  [name] varchar(32) NOT NULL COLLATE Chinese_PRC_CI_AS,
   [gender] int NOT NULL,
   [id_type] int NOT NULL,
-  [id_no] varchar(45) NOT NULL,
-  [mobile_phone] varchar(45) NULL,
-  [email] varchar(45) NULL,
-  [wechat_openid] varchar(45) NULL,
+  [id_no] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [mobile_phone] varchar(45) NULL COLLATE Chinese_PRC_CI_AS,
+  [email] varchar(45) NULL COLLATE Chinese_PRC_CI_AS,
+  [wechat_openid] varchar(45) NULL COLLATE Chinese_PRC_CI_AS,
   [birth_date] datetime NULL,
-  [member_group] varchar(45) NULL,
+  [member_group] varchar(45) NULL COLLATE Chinese_PRC_CI_AS,
   [bonus_point] int DEFAULT ((0)) NOT NULL,
   [amount_money] int DEFAULT ((0)) NOT NULL,
   [cost_limit] int DEFAULT ((0)) NOT NULL,
   [day_limit] int DEFAULT ((0)) NOT NULL,
   [active_since] datetime NULL,
   [expire_at] datetime NULL,
-  [check_code] varchar(45) NOT NULL
+  [check_code] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS
 )
 GO
 ALTER TABLE [dbo].[ew_user] SET (LOCK_ESCALATION = TABLE)
@@ -141,8 +141,8 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[ew_
 GO
 CREATE TABLE [dbo].[ew_time_project] (
   [id] int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  [icon] varchar(45) NULL,
-  [name] varchar(45) NOT NULL,
+  [icon] varchar(45) NULL COLLATE Chinese_PRC_CI_AS,
+  [name] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
   [base_value] int DEFAULT ((60)) NOT NULL,
   [base_price] int DEFAULT ((10)) NOT NULL,
   [bonus_point] double(12:2) NOT NULL,
@@ -161,9 +161,9 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[ew_
 GO
 CREATE TABLE [dbo].[ew_device] (
   [id] int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  [device_no] varchar(45) NOT NULL,
-  [shop_id] varchar(45) NOT NULL,
-  [privilege_list] varchar(64) NOT NULL
+  [device_no] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [shop_id] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [privilege_list] varchar(64) NOT NULL COLLATE Chinese_PRC_CI_AS
 )
 GO
 ALTER TABLE [dbo].[ew_device] SET (LOCK_ESCALATION = TABLE)
@@ -177,8 +177,8 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[ew_
 GO
 CREATE TABLE [dbo].[ew_count_project] (
   [id] int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  [icon] varchar(45) NULL,
-  [name] varchar(45) NOT NULL,
+  [icon] varchar(45) NULL COLLATE Chinese_PRC_CI_AS,
+  [name] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
   [base_price] int DEFAULT ((10)) NOT NULL,
   [base_value] int DEFAULT ((1)) NOT NULL,
   [bonus_point] double(12:2) NOT NULL,
@@ -196,29 +196,29 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[ew_
 	DROP TABLE [dbo].[ew_bill]
 GO
 CREATE TABLE [dbo].[ew_bill] (
-  [no] varchar(32) NOT NULL PRIMARY KEY,
+  [no] varchar(32) NOT NULL PRIMARY KEY COLLATE Chinese_PRC_CI_AS,
   [canceled] bit DEFAULT ((0)) NOT NULL,
   [is_charge] bit DEFAULT ((0)) NOT NULL,
-  [user_no] varchar(45) NOT NULL,
-  [batch_no] varchar(45) NOT NULL,
+  [user_no] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [batch_no] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
   [dt] datetime NOT NULL,
   [operation_type] int NOT NULL,
   [cost_type] int DEFAULT ((1)) NOT NULL,
   [project_id] int DEFAULT ((0)) NOT NULL,
-  [project_name] varchar(45) DEFAULT ('消费') NOT NULL,
+  [project_name] varchar(45) DEFAULT ('消费') NOT NULL COLLATE Chinese_PRC_CI_AS,
   [project_price] int NOT NULL,
   [amount] int NOT NULL,
   [amount_before] int NOT NULL,
   [bonus] int NOT NULL,
   [bonus_before] int NOT NULL,
-  [device_no] varchar(45) NOT NULL,
-  [shop_id] varchar(45) NOT NULL,
-  [device_stream] varchar(45) NOT NULL,
+  [device_no] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [shop_id] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [device_stream] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
   [device_dt] datetime NOT NULL,
-  [trade_no] varchar(45) NOT NULL UNIQUE,
-  [operator_no] varchar(45) NOT NULL,
-  [check_code] varchar(45) NOT NULL,
-  [link_no] varchar(45) NULL,
+  [trade_no] varchar(45) NOT NULL UNIQUE COLLATE Chinese_PRC_CI_AS,
+  [operator_no] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [check_code] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [link_no] varchar(45) NULL COLLATE Chinese_PRC_CI_AS,
   [login_id] int NOT NULL
 )
 GO

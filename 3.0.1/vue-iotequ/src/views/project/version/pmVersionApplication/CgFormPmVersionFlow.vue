@@ -19,10 +19,10 @@
                 <CgListUserJoin slot="popover" ref="flowRegisterByJoin" openID="flowregisterby-join" :height="500" :joinShow="flowRegisterByJoinVisible" :joinMultiple="false"
                                 :originSelections="String(record.flowRegisterBy)" selectionKey="id" joinMode @closeJoinList="(rows)=>{ getJoinFields('flowRegisterBy',rows)}"
                                 @showJoinList="flowRegisterByJoinVisible=true" />
-                <el-form-item class="cg-item-mltext" slot="reference" :label="$t('sysUser.field.registerByName')" prop="registerByName" :size="$store.state.app.size" >
+                <el-form-item class="cg-item-mltext" slot="reference" :label="$t('sysUser.field.realName')" prop="registerByName" :size="$store.state.app.size" >
                   <cg-input v-model="record.registerByName" name="registerByName" 
                             type="mltext" 
-                            :label="$t('sysUser.field.registerByName')" :placeholder="$t('system.message.needValue')" 
+                            :label="$t('sysUser.field.realName')" :placeholder="$t('system.message.needValue')" 
                             resize autofocus validate-event 
                             readonly :maxlength="32" show-word-limit />
                 </el-form-item>

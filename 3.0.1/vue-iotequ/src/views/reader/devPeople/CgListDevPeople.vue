@@ -27,15 +27,9 @@
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="userNo" :page="paginationCurrentPage" :label="$t('devPeople.field.userNo')" align="left" >
-        <template slot-scope="scope">
-          {{ scope.row.userNo }}
-        </template>
-
-      </cg-table-column>
       <cg-table-column prop="realName" :page="paginationCurrentPage" :label="$t('devPeople.field.realName')" sortable :sort-method="(a,b)=>chineseSort(a.realName,b.realName)" align="left" >
         <template slot-scope="scope">
-          {{ localeText(scope.row.realName) }}
+          {{ scope.row.realName }}
         </template>
 
       </cg-table-column>
@@ -57,21 +51,39 @@
         </template>
 
       </cg-table-column>
+      <cg-table-column prop="idNumber" :page="paginationCurrentPage" :label="$t('devPeople.field.idNumber')" sortable :sort-method="(a,b)=>chineseSort(a.idNumber,b.idNumber)" align="left" >
+        <template slot-scope="scope">
+          {{ scope.row.idNumber }}
+        </template>
+
+      </cg-table-column>
+      <cg-table-column prop="idNation" :page="paginationCurrentPage" :label="$t('devPeople.field.idNation')" align="left" >
+        <template slot-scope="scope">
+          {{ scope.row.idNation }}
+        </template>
+
+      </cg-table-column>
       <cg-table-column prop="mobilePhone" :page="paginationCurrentPage" :label="$t('devPeople.field.mobilePhone')" sortable :sort-method="(a,b)=>chineseSort(a.mobilePhone,b.mobilePhone)" align="left" >
         <template slot-scope="scope">
           {{ scope.row.mobilePhone }}
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="email" :page="paginationCurrentPage" :label="$t('devPeople.field.email')" align="left" >
+      <cg-table-column prop="homeAddr" :page="paginationCurrentPage" :label="$t('devPeople.field.homeAddr')" sortable :sort-method="(a,b)=>chineseSort(a.homeAddr,b.homeAddr)" align="left" >
         <template slot-scope="scope">
-          {{ scope.row.email }}
+          {{ scope.row.homeAddr }}
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="regFingers" :page="paginationCurrentPage" :label="$t('devPeople.field.regFingers')" align="right" >
+      <cg-table-column prop="userNo" :page="paginationCurrentPage" :label="$t('devPeople.field.userNo')" align="left" >
         <template slot-scope="scope">
-          {{ scope.row.regFingers }}
+          {{ scope.row.userNo }}
+        </template>
+
+      </cg-table-column>
+      <cg-table-column prop="regTime" type="datetime" :page="paginationCurrentPage" :label="$t('devPeople.field.regTime')" sortable align="left" >
+        <template slot-scope="scope">
+          {{ time2String(scope.row.regTime,'YYYY-MM-DD HH:mm') }}
         </template>
 
       </cg-table-column>
@@ -104,7 +116,7 @@
                   @loadMore="cgList.list_loadMore(myself)"
                   @pulldown="doAction('refresh',{ isPullDownEvent : true})"
     />
-    <el-pagination v-if="!mobile" hide-on-single-page @size-change="doAction('refresh')" @current-change="doAction('refresh')" :page-sizes="[10, 20, 30, 50, 100, 200]" layout="total, sizes, prev, pager, next, jumper"
+    <el-pagination v-if="!mobile" hide-on-single-page @size-change="doAction('refresh')" @current-change="doAction('refresh')" :page-sizes="pageSizeSelections" layout="total, sizes, prev, pager, next, jumper"
       :current-page.sync="paginationCurrentPage" :page-size.sync="paginationPageSize" :total="paginationTotalRecords">
     </el-pagination>
     <cg-context-menu :show="contextMenu.visible" :actions="contextMenu.actions"
@@ -118,7 +130,7 @@
                   prefix-icon="el-icon-search" :placeholder="$t('system.message.fuzzyQueryTip')" @keyup.enter.native="doAction('refresh')" />
       </el-form-item>
       <el-form-item v-show="queryRecord.search" :label="$t('system.action.field')" prop="searchFields" :size="$store.state.app.size">
-        <cg-select v-model="queryRecord.searchFields" dictionary="orgCode|devPeople.field.orgCode,realName|devPeople.field.realName,mobilePhone|devPeople.field.mobilePhone," multiple/>
+        <cg-select v-model="queryRecord.searchFields" dictionary="orgCode|devPeople.field.orgCode,realName|devPeople.field.realName,idNumber|devPeople.field.idNumber,mobilePhone|devPeople.field.mobilePhone,homeAddr|devPeople.field.homeAddr,regTime|devPeople.field.regTime," multiple/>
       </el-form-item>
       <el-divider />
       <div v-show="!queryRecord.search">
@@ -127,12 +139,24 @@
                        :disabled="fixedQueryRecord.orgCode?true:false" :dictionary="dictionary.dictOrgCode" show-all-levels/>
         </el-form-item>
         <el-form-item :label="$t('devPeople.field.realName')" prop="realName" :size="$store.state.app.size">
-          <cg-input v-model="queryRecord.realName" type="text" name="realName"
+          <el-input v-model="queryRecord.realName" type="text" name="realName"
                     :readonly="fixedQueryRecord.realName?true:false" :label="$t('devPeople.field.realName')" clearable resize autofocus/>
+        </el-form-item>
+        <el-form-item :label="$t('devPeople.field.idNumber')" prop="idNumber" :size="$store.state.app.size">
+          <el-input v-model="queryRecord.idNumber" type="text" name="idNumber"
+                    :readonly="fixedQueryRecord.idNumber?true:false" :label="$t('devPeople.field.idNumber')" clearable resize autofocus/>
         </el-form-item>
         <el-form-item :label="$t('devPeople.field.mobilePhone')" prop="mobilePhone" :size="$store.state.app.size">
           <el-input v-model="queryRecord.mobilePhone" type="text" name="mobilePhone"
                     :readonly="fixedQueryRecord.mobilePhone?true:false" :label="$t('devPeople.field.mobilePhone')" clearable resize autofocus/>
+        </el-form-item>
+        <el-form-item :label="$t('devPeople.field.homeAddr')" prop="homeAddr" :size="$store.state.app.size">
+          <el-input v-model="queryRecord.homeAddr" type="text" name="homeAddr"
+                    :readonly="fixedQueryRecord.homeAddr?true:false" :label="$t('devPeople.field.homeAddr')" clearable resize autofocus/>
+        </el-form-item>
+        <el-form-item :label="$t('devPeople.field.regTime')" prop="regTime" :size="$store.state.app.size">
+          <cg-date-picker v-model="queryRecord.regTime" :title="$t('devPeople.field.regTime')" name="regTime" :align="mobile?'right':'center'" type="datetimerange" :picker-options="datePickerOptions()"
+                          :readonly="fixedQueryRecord.regTime?true:false"  clearable />
         </el-form-item>
       </div>
     </cg-query-condition>
@@ -140,7 +164,6 @@
 </template>
 
 <script>
-import {localeText} from '@/lang'
 import {hasAuthority} from '@/utils/cg'
 import ParentTable from '@/views/common-views/components/table'
 const Comp = {
@@ -155,9 +178,10 @@ const Comp = {
   data() {
     return {
       path: 'list',
-      defaultOrder: 'org_code,sex,real_name',
-      queryRecordFields: ['orgCode','realName','mobilePhone'],
+      defaultOrder: 'org_code,reg_time desc',
+      queryRecordFields: ['orgCode','realName','idNumber','mobilePhone','homeAddr','regTime'],
       formPath: '/reader/devPeople/record',
+      localExport: true,
       idField: 'userNo',
       dictionary: {
         dictFingerType: this.getDictionary('1,2,3,4,5,6,11,12','devPeople.field.fingerType_0,devPeople.field.fingerType_1,devPeople.field.fingerType_2,devPeople.field.fingerType_3,devPeople.field.fingerType_4,devPeople.field.fingerType_5,devPeople.field.fingerType_6,devPeople.field.fingerType_7'),
@@ -208,9 +232,20 @@ const Comp = {
         },
       ]
     },
+    pageSizeSelections() {
+      if (this.localExport) {
+        let total = this.paginationTotalRecords
+        if (total<=10) return [10]
+        else if (total<=20)  return [10,20]
+        else if (total<=30)  return [10,20,30]
+        else if (total<=50)  return [10,20,30,50]
+        else if (total<=100) return [10,20,30,50,100]
+        else  return [10,20,30,50,100,total]
+      } else return [10, 20, 30, 50, 100, 200]
+    },
     allActions() {
       if (this.joinMode) return 'refresh,query'
-      else return 'query,,list,add,view,edit,delete,batdel,import,export,syncRegFingers,sample,'
+      else return 'query,,list,add,view,edit,delete,batdel,localExport,syncRegFingers,sample,'
     }
   },
   mounted() {
@@ -224,26 +259,26 @@ const Comp = {
         fingerNo2: null,
         fingerType: null,
         orgCode: null,
-        userNo: null,
         realName: null,
         sex: null,
         birthDate: null,
         idType: null,
+        idNumber: null,
+        idNation: null,
         mobilePhone: null,
+        homeAddr: null,
+        userNo: null,
+        regTime: null,
         email: null,
         dutyRank: null,
         cardNo: null,
-        idNumber: null,
         userType: null,
         registerType: null,
         validDate: null,
         expiredDate: null,
-        regTime: null,
         devPassword: null,
         note: null,
-        idNation: null,
         photo: null,
-        homeAddr: null,
       }, this.fixedQueryRecord)
     },
     groupFields({ row, column, rowIndex, columnIndex }) {

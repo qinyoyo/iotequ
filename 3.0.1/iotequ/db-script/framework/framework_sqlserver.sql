@@ -5,26 +5,26 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[sys
 	DROP TABLE [dbo].[sys_user]
 GO
 CREATE TABLE [dbo].[sys_user] (
-  [id] varchar(32) NOT NULL PRIMARY KEY,
-  [icon] text NULL,
-  [name] varchar(32) NOT NULL UNIQUE,
-  [real_name] varchar(32) NOT NULL,
-  [sex] varchar(1) DEFAULT ('1') NULL,
+  [id] varchar(32) NOT NULL PRIMARY KEY COLLATE Chinese_PRC_CI_AS,
+  [icon] text NULL COLLATE Chinese_PRC_CI_AS,
+  [name] varchar(32) NOT NULL UNIQUE COLLATE Chinese_PRC_CI_AS,
+  [real_name] varchar(32) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [sex] varchar(1) DEFAULT ('1') NULL COLLATE Chinese_PRC_CI_AS,
   [birth_date] datetime NULL,
   [reg_time] datetime NULL,
-  [mobile_phone] varchar(32) NULL,
-  [email] varchar(50) NULL,
-  [wechat_openid] varchar(50) NULL,
+  [mobile_phone] varchar(32) NULL COLLATE Chinese_PRC_CI_AS,
+  [email] varchar(50) NULL COLLATE Chinese_PRC_CI_AS,
+  [wechat_openid] varchar(50) NULL COLLATE Chinese_PRC_CI_AS,
   [org_code] int NOT NULL,
   [org_privilege] int NULL,
-  [role_list] varchar(200) NULL,
+  [role_list] varchar(200) NULL COLLATE Chinese_PRC_CI_AS,
   [locked] bit DEFAULT ((0)) NOT NULL,
   [state] bit DEFAULT ((1)) NOT NULL,
   [id_type] int DEFAULT ((1)) NOT NULL,
-  [id_number] varchar(45) NOT NULL,
+  [id_number] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
   [expired_time] datetime NULL,
   [password_expired_time] datetime NULL,
-  [password] varchar(32) DEFAULT ('123456') NOT NULL,
+  [password] varchar(32) DEFAULT ('123456') NOT NULL COLLATE Chinese_PRC_CI_AS,
   [password_error_times] int DEFAULT ((0)) NOT NULL
 )
 GO
@@ -105,18 +105,18 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[sys
 GO
 CREATE TABLE [dbo].[sys_task] (
   [id] int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  [name] varchar(45) NOT NULL,
-  [description] varchar(300) NULL,
-  [scedule_years] varchar(100) DEFAULT ('*') NOT NULL,
-  [schedule_months] varchar(100) DEFAULT ('*') NOT NULL,
-  [schedule_days] varchar(100) DEFAULT ('*') NOT NULL,
-  [schedule_weeks] varchar(100) DEFAULT ('*') NOT NULL,
-  [schedule_hours] varchar(100) DEFAULT ('*') NOT NULL,
-  [schedule_minutes] varchar(100) DEFAULT ('*') NOT NULL,
-  [class_name] varchar(100) NOT NULL,
-  [mothod_name] varchar(500) NOT NULL,
+  [name] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [description] varchar(300) NULL COLLATE Chinese_PRC_CI_AS,
+  [scedule_years] varchar(100) DEFAULT ('*') NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [schedule_months] varchar(100) DEFAULT ('*') NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [schedule_days] varchar(100) DEFAULT ('*') NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [schedule_weeks] varchar(100) DEFAULT ('*') NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [schedule_hours] varchar(100) DEFAULT ('*') NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [schedule_minutes] varchar(100) DEFAULT ('*') NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [class_name] varchar(100) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [mothod_name] varchar(500) NOT NULL COLLATE Chinese_PRC_CI_AS,
   [is_static] bit DEFAULT ((1)) NOT NULL,
-  [parames] varchar(100) NULL,
+  [parames] varchar(100) NULL COLLATE Chinese_PRC_CI_AS,
   [is_running] bit DEFAULT ((1)) NOT NULL
 )
 GO
@@ -131,10 +131,10 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[sys
 GO
 CREATE TABLE [dbo].[sys_route] (
   [id] int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  [path] varchar(200) NOT NULL UNIQUE,
-  [name] varchar(100) NOT NULL UNIQUE,
-  [component] varchar(200) DEFAULT ('Layout') NOT NULL,
-  [title] varchar(100) NOT NULL,
+  [path] varchar(200) NOT NULL UNIQUE COLLATE Chinese_PRC_CI_AS,
+  [name] varchar(100) NOT NULL UNIQUE COLLATE Chinese_PRC_CI_AS,
+  [component] varchar(200) DEFAULT ('Layout') NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [title] varchar(100) NOT NULL COLLATE Chinese_PRC_CI_AS,
   [breadcrumb_show] bit DEFAULT ((1)) NOT NULL,
   [need_cache] bit DEFAULT ((1)) NOT NULL,
   [tag_view] bit DEFAULT ((1)) NOT NULL
@@ -151,9 +151,9 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[sys
 GO
 CREATE TABLE [dbo].[sys_role] (
   [id] int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  [code] varchar(8) NOT NULL UNIQUE,
-  [name] varchar(45) NOT NULL UNIQUE,
-  [note] varchar(64) NULL
+  [code] varchar(8) NOT NULL UNIQUE COLLATE Chinese_PRC_CI_AS,
+  [name] varchar(45) NOT NULL UNIQUE COLLATE Chinese_PRC_CI_AS,
+  [note] varchar(64) NULL COLLATE Chinese_PRC_CI_AS
 )
 GO
 ALTER TABLE [dbo].[sys_role] SET (LOCK_ESCALATION = TABLE)
@@ -184,12 +184,12 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[sys
 GO
 CREATE TABLE [dbo].[sys_org] (
   [org_code] int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  [name] varchar(32) NOT NULL,
+  [name] varchar(32) NOT NULL COLLATE Chinese_PRC_CI_AS,
   [parent] int NULL,
-  [phone] varchar(32) NULL,
-  [fax] varchar(32) NULL,
-  [role_list] varchar(200) NULL,
-  [address] varchar(100) NULL
+  [phone] varchar(32) NULL COLLATE Chinese_PRC_CI_AS,
+  [fax] varchar(32) NULL COLLATE Chinese_PRC_CI_AS,
+  [role_list] varchar(200) NULL COLLATE Chinese_PRC_CI_AS,
+  [address] varchar(100) NULL COLLATE Chinese_PRC_CI_AS
 )
 GO
 ALTER TABLE [dbo].[sys_org] SET (LOCK_ESCALATION = TABLE)
@@ -207,14 +207,14 @@ CREATE TABLE [dbo].[sys_message] (
   [id] int IDENTITY(1,1) NOT NULL PRIMARY KEY,
   [read_time] datetime NULL,
   [create_time] datetime NOT NULL,
-  [receiver_name] varchar(50) NULL,
-  [sender_name] varchar(50) NULL,
-  [title] varchar(100) NOT NULL,
-  [content] text NOT NULL,
-  [url] varchar(100) NULL,
-  [receiver] varchar(50) NULL,
-  [sender] varchar(100) NULL,
-  [event_id] varchar(45) NULL
+  [receiver_name] varchar(50) NULL COLLATE Chinese_PRC_CI_AS,
+  [sender_name] varchar(50) NULL COLLATE Chinese_PRC_CI_AS,
+  [title] varchar(100) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [content] text NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [url] varchar(100) NULL COLLATE Chinese_PRC_CI_AS,
+  [receiver] varchar(50) NULL COLLATE Chinese_PRC_CI_AS,
+  [sender] varchar(100) NULL COLLATE Chinese_PRC_CI_AS,
+  [event_id] varchar(45) NULL COLLATE Chinese_PRC_CI_AS
 )
 GO
 ALTER TABLE [dbo].[sys_message] SET (LOCK_ESCALATION = TABLE)
@@ -229,16 +229,16 @@ GO
 CREATE TABLE [dbo].[sys_menu] (
   [id] int IDENTITY(1,1) NOT NULL PRIMARY KEY,
   [sort_num] int DEFAULT ((10)) NOT NULL,
-  [name] varchar(45) NOT NULL,
+  [name] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
   [parent] int NULL,
   [is_divider] bit DEFAULT ((0)) NOT NULL,
-  [icon] varchar(50) NULL,
-  [action] varchar(100) NULL,
-  [class_name] varchar(45) NULL,
-  [data_action] varchar(200) NULL,
-  [bigIcon] varchar(50) NULL,
+  [icon] varchar(50) NULL COLLATE Chinese_PRC_CI_AS,
+  [action] varchar(100) NULL COLLATE Chinese_PRC_CI_AS,
+  [class_name] varchar(45) NULL COLLATE Chinese_PRC_CI_AS,
+  [data_action] varchar(200) NULL COLLATE Chinese_PRC_CI_AS,
+  [bigIcon] varchar(50) NULL COLLATE Chinese_PRC_CI_AS,
   [mobile_hidden] bit DEFAULT ((0)) NOT NULL,
-  [js_cmd] varchar(45) NULL
+  [js_cmd] varchar(45) NULL COLLATE Chinese_PRC_CI_AS
 )
 GO
 ALTER TABLE [dbo].[sys_menu] SET (LOCK_ESCALATION = TABLE)
@@ -253,12 +253,12 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[sys
 	DROP TABLE [dbo].[sys_log]
 GO
 CREATE TABLE [dbo].[sys_log] (
-  [id] char(32) NOT NULL PRIMARY KEY,
+  [id] char(32) NOT NULL PRIMARY KEY COLLATE Chinese_PRC_CI_AS,
   [time] datetime NOT NULL,
-  [keyword] varchar(100) NOT NULL,
-  [user_type] varchar(64) NULL,
-  [user_info] varchar(64) NULL,
-  [note] varchar(1000) NULL
+  [keyword] varchar(100) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [user_type] varchar(64) NULL COLLATE Chinese_PRC_CI_AS,
+  [user_info] varchar(64) NULL COLLATE Chinese_PRC_CI_AS,
+  [note] varchar(1000) NULL COLLATE Chinese_PRC_CI_AS
 )
 GO
 ALTER TABLE [dbo].[sys_log] SET (LOCK_ESCALATION = TABLE)
@@ -271,16 +271,16 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[sys
 	DROP TABLE [dbo].[sys_flow_process]
 GO
 CREATE TABLE [dbo].[sys_flow_process] (
-  [id] char(32) NOT NULL PRIMARY KEY,
-  [flow_id] varchar(36) NOT NULL,
-  [operation] varchar(36) NULL,
-  [selection] varchar(36) NULL,
-  [state_name0] varchar(45) NULL,
-  [state_name1] varchar(45) NULL,
-  [operator] varchar(36) NOT NULL,
+  [id] char(32) NOT NULL PRIMARY KEY COLLATE Chinese_PRC_CI_AS,
+  [flow_id] varchar(36) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [operation] varchar(36) NULL COLLATE Chinese_PRC_CI_AS,
+  [selection] varchar(36) NULL COLLATE Chinese_PRC_CI_AS,
+  [state_name0] varchar(45) NULL COLLATE Chinese_PRC_CI_AS,
+  [state_name1] varchar(45) NULL COLLATE Chinese_PRC_CI_AS,
+  [operator] varchar(36) NOT NULL COLLATE Chinese_PRC_CI_AS,
   [time] datetime NOT NULL,
-  [note] varchar(200) NULL,
-  [next_operator] varchar(45) NULL,
+  [note] varchar(200) NULL COLLATE Chinese_PRC_CI_AS,
+  [next_operator] varchar(45) NULL COLLATE Chinese_PRC_CI_AS,
   [state0] int NULL,
   [state1] int NOT NULL
 )
@@ -296,9 +296,9 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[sys
 GO
 CREATE TABLE [dbo].[sys_data_dict] (
   [id] int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  [dict] varchar(45) NOT NULL,
-  [code] varchar(45) NOT NULL,
-  [text] varchar(100) NOT NULL,
+  [dict] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [code] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [text] varchar(100) NOT NULL COLLATE Chinese_PRC_CI_AS,
   [order_num] int NULL
 )
 GO
@@ -314,11 +314,11 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[sys
 	DROP TABLE [dbo].[sys_action]
 GO
 CREATE TABLE [dbo].[sys_action] (
-  [note] varchar(200) NULL,
+  [note] varchar(200) NULL COLLATE Chinese_PRC_CI_AS,
   [id] int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  [value] varchar(100) NOT NULL,
-  [params] varchar(100) NULL,
-  [method] varchar(45) NULL
+  [value] varchar(100) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [params] varchar(100) NULL COLLATE Chinese_PRC_CI_AS,
+  [method] varchar(45) NULL COLLATE Chinese_PRC_CI_AS
 )
 GO
 ALTER TABLE [dbo].[sys_action] SET (LOCK_ESCALATION = TABLE)
@@ -332,21 +332,21 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[oau
 	DROP TABLE [dbo].[oauth_client_details]
 GO
 CREATE TABLE [dbo].[oauth_client_details] (
-  [client_id] varchar(255) NOT NULL PRIMARY KEY,
-  [client_secret] varchar(255) NOT NULL,
-  [scope] varchar(255) NOT NULL,
-  [authorized_grant_types] varchar(255) NOT NULL,
-  [web_server_redirect_uri] varchar(255) NULL,
-  [authorities] varchar(255) NOT NULL,
+  [client_id] varchar(255) NOT NULL PRIMARY KEY COLLATE Chinese_PRC_CI_AS,
+  [client_secret] varchar(255) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [scope] varchar(255) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [authorized_grant_types] varchar(255) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [web_server_redirect_uri] varchar(255) NULL COLLATE Chinese_PRC_CI_AS,
+  [authorities] varchar(255) NOT NULL COLLATE Chinese_PRC_CI_AS,
   [access_token_validity] int DEFAULT ((86400)) NOT NULL,
   [refresh_token_validity] int DEFAULT ((0)) NOT NULL,
-  [autoapprove] varchar(20) DEFAULT ('1') NOT NULL,
+  [autoapprove] varchar(20) DEFAULT ('1') NOT NULL COLLATE Chinese_PRC_CI_AS,
   [expired_date] datetime NULL,
   [locked] bit DEFAULT ((0)) NOT NULL,
   [enabled] bit DEFAULT ((1)) NOT NULL,
-  [decription] varchar(200) NULL,
-  [additional_information] text NULL,
-  [resource_ids] varchar(255) NULL
+  [decription] varchar(200) NULL COLLATE Chinese_PRC_CI_AS,
+  [additional_information] text NULL COLLATE Chinese_PRC_CI_AS,
+  [resource_ids] varchar(255) NULL COLLATE Chinese_PRC_CI_AS
 )
 GO
 ALTER TABLE [dbo].[oauth_client_details] SET (LOCK_ESCALATION = TABLE)

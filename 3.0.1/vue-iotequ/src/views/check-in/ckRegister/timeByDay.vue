@@ -7,6 +7,8 @@
           legendField="org_name"
           xField="in_date"
           yField="amount"
+          yFieldName="时长"
+          xFieldName="日期"
           charType="line"            
     />
   </div>

@@ -7,7 +7,7 @@ GO
 CREATE TABLE [dbo].[pm_people] (
   [id] int IDENTITY(1,1) NOT NULL PRIMARY KEY,
   [group_id] int NOT NULL,
-  [user_id] varchar(45) NOT NULL
+  [user_id] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS
 )
 GO
 ALTER TABLE [dbo].[pm_people] SET (LOCK_ESCALATION = TABLE)
@@ -22,21 +22,21 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[pm_
 	DROP TABLE [dbo].[pm_version_application]
 GO
 CREATE TABLE [dbo].[pm_version_application] (
-  [id] char(32) NOT NULL PRIMARY KEY,
+  [id] char(32) NOT NULL PRIMARY KEY COLLATE Chinese_PRC_CI_AS,
   [flow_state] int DEFAULT ((1)) NOT NULL,
   [flow_register_time] datetime NOT NULL,
-  [flow_register_by] varchar(45) NOT NULL,
-  [project] varchar(36) NOT NULL,
+  [flow_register_by] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [project] varchar(36) NOT NULL COLLATE Chinese_PRC_CI_AS,
   [application_type] int NOT NULL,
-  [customer] varchar(20) NOT NULL,
-  [licence] varchar(100) NOT NULL,
-  [contract_no] varchar(45) NULL,
-  [description] varchar(200) NOT NULL,
-  [version_info] varchar(200) NULL,
-  [flow_note] varchar(1000) NULL,
-  [add_file] varchar(200) NULL,
-  [flow_next_operator] varchar(45) NULL,
-  [flow_copy_to_list] varchar(100) NULL
+  [customer] varchar(20) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [licence] varchar(100) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [contract_no] varchar(45) NULL COLLATE Chinese_PRC_CI_AS,
+  [description] varchar(200) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [version_info] varchar(200) NULL COLLATE Chinese_PRC_CI_AS,
+  [flow_note] varchar(1000) NULL COLLATE Chinese_PRC_CI_AS,
+  [add_file] varchar(200) NULL COLLATE Chinese_PRC_CI_AS,
+  [flow_next_operator] varchar(45) NULL COLLATE Chinese_PRC_CI_AS,
+  [flow_copy_to_list] varchar(100) NULL COLLATE Chinese_PRC_CI_AS
 )
 GO
 ALTER TABLE [dbo].[pm_version_application] SET (LOCK_ESCALATION = TABLE)
@@ -50,22 +50,22 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[pm_
 	DROP TABLE [dbo].[pm_project]
 GO
 CREATE TABLE [dbo].[pm_project] (
-  [id] char(32) NOT NULL PRIMARY KEY,
+  [id] char(32) NOT NULL PRIMARY KEY COLLATE Chinese_PRC_CI_AS,
   [flow_state] int DEFAULT ((1)) NOT NULL,
   [flow_register_time] datetime NOT NULL,
-  [flow_register_by] varchar(45) NOT NULL,
-  [name] varchar(45) NOT NULL UNIQUE,
+  [flow_register_by] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [name] varchar(45) NOT NULL UNIQUE COLLATE Chinese_PRC_CI_AS,
   [type] int DEFAULT ((1)) NOT NULL,
-  [customer] varchar(200) NULL,
+  [customer] varchar(200) NULL COLLATE Chinese_PRC_CI_AS,
   [market_size] int NULL,
   [human_cost] int NULL,
   [material_cost] int NULL,
-  [code] varchar(45) NULL,
-  [description] varchar(500) NULL,
-  [flow_note] varchar(1000) NULL,
-  [add_file] varchar(45) NULL,
-  [flow_next_operator] varchar(45) NULL,
-  [flow_copy_to_list] varchar(100) NULL
+  [code] varchar(45) NULL COLLATE Chinese_PRC_CI_AS,
+  [description] varchar(500) NULL COLLATE Chinese_PRC_CI_AS,
+  [flow_note] varchar(1000) NULL COLLATE Chinese_PRC_CI_AS,
+  [add_file] varchar(45) NULL COLLATE Chinese_PRC_CI_AS,
+  [flow_next_operator] varchar(45) NULL COLLATE Chinese_PRC_CI_AS,
+  [flow_copy_to_list] varchar(100) NULL COLLATE Chinese_PRC_CI_AS
 )
 GO
 ALTER TABLE [dbo].[pm_project] SET (LOCK_ESCALATION = TABLE)
@@ -101,10 +101,10 @@ GO
 CREATE TABLE [dbo].[pm_people_group] (
   [id] int IDENTITY(1,1) NOT NULL PRIMARY KEY,
   [parent] int NULL,
-  [name] varchar(45) NOT NULL,
-  [group_type] varchar(45) NOT NULL UNIQUE,
+  [name] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [group_type] varchar(45) NOT NULL UNIQUE COLLATE Chinese_PRC_CI_AS,
   [enabled] bit DEFAULT ((1)) NOT NULL,
-  [description] varchar(200) NULL
+  [description] varchar(200) NULL COLLATE Chinese_PRC_CI_AS
 )
 GO
 ALTER TABLE [dbo].[pm_people_group] SET (LOCK_ESCALATION = TABLE)

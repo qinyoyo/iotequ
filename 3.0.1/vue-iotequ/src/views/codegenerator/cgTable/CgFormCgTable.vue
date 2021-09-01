@@ -13,10 +13,10 @@
                 <CgListCgProject slot="popover" ref="projectIdJoin" openID="projectid-join" :height="500" :joinShow="projectIdJoinVisible" :joinMultiple="false"
                                  :originSelections="String(record.projectId)" selectionKey="id" joinMode @closeJoinList="(rows)=>{ getJoinFields('projectId',rows)}"
                                  @showJoinList="projectIdJoinVisible=true" />
-                <el-form-item class="cg-item-text cg-auto-focus" slot="reference" :label="$t('cgProject.field.module')" :title="$t('cgProject.field.moduleValid')" prop="module" :size="$store.state.app.size" >
+                <el-form-item class="cg-item-text cg-auto-focus" slot="reference" :label="$t('cgProject.field.name')" :title="$t('cgProject.field.nameValid')" prop="module" :size="$store.state.app.size" >
                   <el-input v-model="record.module" name="module" 
                             type="text" 
-                            :label="$t('cgProject.field.module')" :placeholder="$t('system.message.needValue')" 
+                            :label="$t('cgProject.field.name')" :placeholder="$t('system.message.needValue')" 
                             resize autofocus validate-event 
                             readonly :maxlength="36" show-word-limit />
                 </el-form-item>

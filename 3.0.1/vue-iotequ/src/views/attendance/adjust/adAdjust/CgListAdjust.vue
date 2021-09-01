@@ -45,13 +45,13 @@
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="hrRealName" :page="paginationCurrentPage" :label="$t('sysUser.field.hrRealName')" align="left" >
+      <cg-table-column prop="hrRealName" :page="paginationCurrentPage" :label="$t('sysUser.field.realName')" align="left" >
         <template slot-scope="scope">
           {{ localeText(scope.row.hrRealName) }}
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="approverName" :page="paginationCurrentPage" :label="$t('sysUser.field.approverName')" align="left" >
+      <cg-table-column prop="approverName" :page="paginationCurrentPage" :label="$t('sysUser.field.realName')" align="left" >
         <template slot-scope="scope">
           {{ localeText(scope.row.approverName) }}
         </template>

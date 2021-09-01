@@ -177,12 +177,13 @@ public class CkRegisterService extends CgCkRegisterService implements Applicatio
     public List<Map<String,Object>> queryStatData(String action,Integer orgCode,Date dt0,Date dt1) throws Exception {
         String orgFilter = (orgCode==null || orgCode==OrgUtil.ALL_PERMISSION ? "" : "org_code in ("+OrgUtil.getOrgAndChildrenOrgList(orgCode)+") ");
         String dateFilter = "";
+        String dateField = ("amountByArea".equals(action) ? "reg_time" : "in_date");
         if (dt0!=null && dt1!=null) {
-            dateFilter = SqlUtil.sqlString("in_date between ? and ?",dt0,dt1);
+            dateFilter = SqlUtil.sqlString(dateField+" between ? and ?",dt0,dt1);
         } else if (dt0!=null) {
-            dateFilter = SqlUtil.sqlString("in_date >= ?",dt0);
+            dateFilter = SqlUtil.sqlString(dateField+" >= ?",dt0);
         } else if (dt1!=null) {
-            dateFilter = SqlUtil.sqlString("in_date <= ?",dt1);
+            dateFilter = SqlUtil.sqlString(dateField+" <= ?",dt1);
         }
         String filter = "";
         if (!orgFilter.isEmpty() && !dateFilter.isEmpty()) filter = "where "+orgFilter + " and " + dateFilter +" ";
@@ -230,7 +231,7 @@ public class CkRegisterService extends CgCkRegisterService implements Applicatio
                     "    else '其他' " +
                     "  end as area," +
                     "  count(*) as amount" +
-                    " FROM dev_people" +
+                    " FROM dev_people " + filter +
                     " group by area order by amount desc";
         }
         else return null;

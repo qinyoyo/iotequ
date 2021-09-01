@@ -22,6 +22,9 @@ export default {
       removeFinger: '删除',
       resetDevice: '复位'
     },
+    route: {
+      listTag: '注册人员'
+    },
     field: {
       userNoValid: '指静脉唯一识别代码',
       userNo: '用户号',

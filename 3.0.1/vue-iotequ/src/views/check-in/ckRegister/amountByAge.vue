@@ -7,6 +7,8 @@
           legendField="org_name"
           xField="age"
           yField="amount"
+          yFieldName="人次"
+          xFieldName="年龄段"
           charType="polar"  
     />
   </div>

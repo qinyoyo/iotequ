@@ -1,3 +1,4 @@
+import { chineseSort } from '@/utils/cg'
 function distincOf(data,field) {
     let r = []
     for (let i=0;i<data.length;i++) {
@@ -12,8 +13,8 @@ function distincOf(data,field) {
       return 0
   }
   export function getEChartsOptions(data,legendField, xField, yField, charType, mobile,exOption) {
-    var legend = (legendField ? distincOf(data,legendField) : [''])
-    var xAxis = distincOf(data,xField)
+    var legend = (legendField ? distincOf(data,legendField).sort((a,b)=>chineseSort(a,b)) : [''])
+    var xAxis = distincOf(data,xField).sort((a,b)=>chineseSort(a,b))
     var series = []
     for (let i=0;i<legend.length;i++) {
       let s = {
@@ -67,12 +68,12 @@ function distincOf(data,field) {
                 type: 'shadow'
             }
         },
-        legend: {
-            show: charType != 'pie',
+        legend: legendField ? {
+            //show: charType != 'pie',
             data: legend,
             type:'scroll',
             orient:'horizontal'
-        },
+        } : null,
         toolbox: {
             show: true,
             orient: 'vertical',
@@ -91,6 +92,7 @@ function distincOf(data,field) {
         lazyUpdate: false,
         silent: true
     }
+
     if (charType=="polar") {
         option.radiusAxis = {
             type: 'value'
@@ -101,7 +103,7 @@ function distincOf(data,field) {
         }
         option.polar = {}
     } else if (charType == 'pie') {
-
+        
     } else {
         option.xAxis = [
             {

@@ -6,14 +6,14 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[pay
 GO
 CREATE TABLE [dbo].[pay_pos] (
   [id] int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  [no] varchar(45) NOT NULL UNIQUE,
+  [no] varchar(45) NOT NULL UNIQUE COLLATE Chinese_PRC_CI_AS,
   [shop_id] int NOT NULL,
-  [security_code] varchar(45) NULL,
-  [work_code] varchar(45) NULL,
+  [security_code] varchar(45) NULL COLLATE Chinese_PRC_CI_AS,
+  [work_code] varchar(45) NULL COLLATE Chinese_PRC_CI_AS,
   [login_id] int NULL,
   [ewallet_active] bit DEFAULT ((1)) NOT NULL,
-  [count_project_list] varchar(200) NULL,
-  [time_project_list] varchar(200) NULL
+  [count_project_list] varchar(200) NULL COLLATE Chinese_PRC_CI_AS,
+  [time_project_list] varchar(200) NULL COLLATE Chinese_PRC_CI_AS
 )
 GO
 ALTER TABLE [dbo].[pay_pos] SET (LOCK_ESCALATION = TABLE)
@@ -27,11 +27,11 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[pay
 GO
 CREATE TABLE [dbo].[pay_operator] (
   [id] int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  [name] varchar(45) NOT NULL UNIQUE,
-  [real_name] varchar(45) NOT NULL,
-  [password] varchar(45) NOT NULL,
+  [name] varchar(45) NOT NULL UNIQUE COLLATE Chinese_PRC_CI_AS,
+  [real_name] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [password] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
   [shop_id] int NOT NULL,
-  [user_no] varchar(45) NULL
+  [user_no] varchar(45) NULL COLLATE Chinese_PRC_CI_AS
 )
 GO
 ALTER TABLE [dbo].[pay_operator] SET (LOCK_ESCALATION = TABLE)
@@ -67,10 +67,10 @@ GO
 CREATE TABLE [dbo].[pay_shop] (
   [id] int IDENTITY(1,1) NOT NULL PRIMARY KEY,
   [corporation_id] int NOT NULL,
-  [name] varchar(45) NOT NULL,
-  [linkman] varchar(45) NOT NULL,
-  [link_phone] varchar(45) NOT NULL,
-  [address] varchar(45) NOT NULL
+  [name] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [linkman] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [link_phone] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [address] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS
 )
 GO
 ALTER TABLE [dbo].[pay_shop] SET (LOCK_ESCALATION = TABLE)
@@ -87,12 +87,12 @@ CREATE TABLE [dbo].[pay_login] (
   [pos_id] int NOT NULL,
   [shop_id] int NOT NULL,
   [operator_id] int NOT NULL,
-  [batch_no] varchar(45) NOT NULL,
+  [batch_no] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
   [login_time] datetime NOT NULL,
   [logout_time] datetime NULL,
-  [device_stream] varchar(45) NULL,
-  [random_no] varchar(45) NOT NULL,
-  [app_version] varchar(45) NOT NULL,
+  [device_stream] varchar(45) NULL COLLATE Chinese_PRC_CI_AS,
+  [random_no] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [app_version] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
   [trade_count] int DEFAULT ((0)) NOT NULL,
   [failure_count] int DEFAULT ((0)) NOT NULL
 )
@@ -109,10 +109,10 @@ GO
 CREATE TABLE [dbo].[pay_corporation] (
   [id] int IDENTITY(1,1) NOT NULL PRIMARY KEY,
   [parent_id] int NULL,
-  [name] varchar(45) NOT NULL,
-  [address] varchar(45) NOT NULL,
-  [linkman] varchar(45) NOT NULL,
-  [linkphone] varchar(45) NOT NULL
+  [name] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [address] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [linkman] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [linkphone] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS
 )
 GO
 ALTER TABLE [dbo].[pay_corporation] SET (LOCK_ESCALATION = TABLE)

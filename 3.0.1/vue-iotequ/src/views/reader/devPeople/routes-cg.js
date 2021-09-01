@@ -16,9 +16,9 @@ export default {
       name: 'DevPeopleList',
       props: true,
       meta: {
-        title: 'devPeople.title.list',
+        title: 'devPeople.route.listTag',
         authorities: ['/reader/devPeople/list'],
-        breadcrumb: false,
+        breadcrumb: true,
         tagView: true,
         noCache: false
       }

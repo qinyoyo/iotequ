@@ -22,6 +22,9 @@ export default {
       removeFinger: 'Remove finger',
       resetDevice: 'Reset device'
     },
+    route: {
+      listTag: 'Register people'
+    },
     field: {
       userNoValid: 'Please input correct value for user no',
       userNo: 'User no',

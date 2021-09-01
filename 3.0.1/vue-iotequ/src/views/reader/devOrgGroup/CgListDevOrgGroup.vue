@@ -28,7 +28,7 @@
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="orgName" :page="paginationCurrentPage" :label="$t('sysOrg.field.orgName')" align="left" >
+      <cg-table-column prop="orgName" :page="paginationCurrentPage" :label="$t('sysOrg.field.name')" align="left" >
         <template slot-scope="scope">
           {{ localeText(scope.row.orgName) }}
         </template>

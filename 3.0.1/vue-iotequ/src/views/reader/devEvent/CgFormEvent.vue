@@ -38,9 +38,9 @@
             <CgListDevPeople slot="popover" ref="userNoJoin" openID="userno-join" :height="500" :joinShow="userNoJoinVisible" :joinMultiple="false"
                              :originSelections="String(record.userNo)" selectionKey="userNo" joinMode @closeJoinList="(rows)=>{ getJoinFields('userNo',rows)}"
                              @showJoinList="userNoJoinVisible=true" />
-            <el-form-item class="cg-item-mltext" slot="reference" :label="$t('devPeople.field.realName')" prop="realName" :size="$store.state.app.size" >
-              <cg-input v-model="record.realName" name="realName" 
-                        type="mltext" 
+            <el-form-item class="cg-item-text" slot="reference" :label="$t('devPeople.field.realName')" prop="realName" :size="$store.state.app.size" >
+              <el-input v-model="record.realName" name="realName" 
+                        type="text" 
                         :label="$t('devPeople.field.realName')" :placeholder="$t('system.message.unknown')" 
                         resize autofocus validate-event 
                         readonly :maxlength="32" show-word-limit clearable />
@@ -67,10 +67,10 @@
             <CgListDevPeople slot="popover" ref="auditorUserNumJoin" openID="auditorusernum-join" :height="500" :joinShow="auditorUserNumJoinVisible" :joinMultiple="false"
                              :originSelections="String(record.auditorUserNum)" selectionKey="userNo" joinMode @closeJoinList="(rows)=>{ getJoinFields('auditorUserNum',rows)}"
                              @showJoinList="auditorUserNumJoinVisible=true" />
-            <el-form-item class="cg-item-mltext" slot="reference" :label="$t('devPeople.field.auditorName')" prop="auditorName" :size="$store.state.app.size" >
-              <cg-input v-model="record.auditorName" name="auditorName" 
-                        type="mltext" 
-                        :label="$t('devPeople.field.auditorName')" :placeholder="$t('system.message.unknown')" 
+            <el-form-item class="cg-item-text" slot="reference" :label="$t('devPeople.field.realName')" prop="auditorName" :size="$store.state.app.size" >
+              <el-input v-model="record.auditorName" name="auditorName" 
+                        type="text" 
+                        :label="$t('devPeople.field.realName')" :placeholder="$t('system.message.unknown')" 
                         resize autofocus validate-event 
                         readonly :maxlength="32" show-word-limit clearable />
             </el-form-item>

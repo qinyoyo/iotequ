@@ -7,16 +7,24 @@
           legendField=""
           xField="area"
           yField="amount"
+          yFieldName="人数"
+          xFieldName="户籍"
           charType="pie"  
-          :showCondition="false" 
+          :initRange="[startOf(null,'year'),endOf(null,'year')]"
+          :showCondition="true" 
           :exOption="{series: {radius: [0, '40%']}}"
     />
   </div>
 </template>
 <script>
 import CkBaseStat from './baseStat.vue'
+import { startOf, endOf } from '@/utils/time'
 export default {
   name: 'CkAmountByArea',
   components: { CkBaseStat },
+  methods: {
+    startOf, 
+    endOf
+  }
 }
 </script>

@@ -7,7 +7,7 @@ GO
 CREATE TABLE [dbo].[ad_special_shift_time] (
   [id] int IDENTITY(1,1) NOT NULL PRIMARY KEY,
   [special_shift_id] int NOT NULL,
-  [name] varchar(45) NOT NULL,
+  [name] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
   [start_time] datetime NOT NULL,
   [end_time] datetime NOT NULL
 )
@@ -24,8 +24,8 @@ GO
 CREATE TABLE [dbo].[ad_shift_time] (
   [id] int IDENTITY(1,1) NOT NULL PRIMARY KEY,
   [shift_id] int NOT NULL,
-  [name] varchar(100) NOT NULL,
-  [week_days] varchar(45) DEFAULT ('1,2,3,4,5') NOT NULL,
+  [name] varchar(100) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [week_days] varchar(45) DEFAULT ('1,2,3,4,5') NOT NULL COLLATE Chinese_PRC_CI_AS,
   [start_work_time] datetime NOT NULL,
   [end_work_time] datetime NOT NULL
 )
@@ -42,8 +42,8 @@ GO
 CREATE TABLE [dbo].[ad_org] (
   [org_code] int NOT NULL PRIMARY KEY,
   [shift_id] int NULL,
-  [hr] varchar(36) NULL,
-  [manager] varchar(36) NULL,
+  [hr] varchar(36) NULL COLLATE Chinese_PRC_CI_AS,
+  [manager] varchar(36) NULL COLLATE Chinese_PRC_CI_AS,
   [manage_limit] int NULL,
   [deviation] int NULL,
   [float_limit] int NULL,
@@ -66,7 +66,7 @@ CREATE TABLE [dbo].[ad_exception] (
   [end_date] datetime NOT NULL,
   [start_date] datetime NOT NULL,
   [week_day] int NOT NULL,
-  [description] varchar(100) NULL
+  [description] varchar(100) NULL COLLATE Chinese_PRC_CI_AS
 )
 GO
 ALTER TABLE [dbo].[ad_exception] SET (LOCK_ESCALATION = TABLE)
@@ -79,8 +79,8 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[ad_
 	DROP TABLE [dbo].[ad_employee]
 GO
 CREATE TABLE [dbo].[ad_employee] (
-  [id] varchar(36) NOT NULL PRIMARY KEY,
-  [employee_no] varchar(32) NOT NULL UNIQUE,
+  [id] varchar(36) NOT NULL PRIMARY KEY COLLATE Chinese_PRC_CI_AS,
+  [employee_no] varchar(32) NOT NULL UNIQUE COLLATE Chinese_PRC_CI_AS,
   [em_level] int NULL,
   [is_attendance] bit DEFAULT ((1)) NOT NULL,
   [enter_date] datetime NULL,
@@ -100,12 +100,12 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[ad_
 GO
 CREATE TABLE [dbo].[ad_approve_list] (
   [id] int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  [approver] varchar(36) NULL,
+  [approver] varchar(36) NULL COLLATE Chinese_PRC_CI_AS,
   [approve_time] datetime NOT NULL,
   [state1] int NULL,
   [state0] int NULL,
-  [approve_note] varchar(200) NULL,
-  [adjust_id] varchar(32) NOT NULL
+  [approve_note] varchar(200) NULL COLLATE Chinese_PRC_CI_AS,
+  [adjust_id] varchar(32) NOT NULL COLLATE Chinese_PRC_CI_AS
 )
 GO
 ALTER TABLE [dbo].[ad_approve_list] SET (LOCK_ESCALATION = TABLE)
@@ -120,17 +120,17 @@ GO
 CREATE TABLE [dbo].[ad_special_shift] (
   [id] int IDENTITY(1,1) NOT NULL PRIMARY KEY,
   [shift_mode] int NOT NULL,
-  [name] varchar(45) NOT NULL,
+  [name] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
   [mode_property] int NULL,
   [start_date] datetime NOT NULL,
   [end_date] datetime NOT NULL,
-  [org_codes] varchar(300) NOT NULL,
+  [org_codes] varchar(300) NOT NULL COLLATE Chinese_PRC_CI_AS,
   [sex_property] int NULL,
   [age_property0] int NULL,
   [age_property1] int NULL,
   [level_property0] int NULL,
   [level_property1] int NULL,
-  [description] varchar(45) NULL
+  [description] varchar(45) NULL COLLATE Chinese_PRC_CI_AS
 )
 GO
 ALTER TABLE [dbo].[ad_special_shift] SET (LOCK_ESCALATION = TABLE)
@@ -144,12 +144,12 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[ad_
 GO
 CREATE TABLE [dbo].[ad_shift] (
   [id] int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  [name] varchar(45) NOT NULL,
+  [name] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
   [ad_mode] int DEFAULT ((1)) NOT NULL,
   [start_date] datetime NOT NULL,
   [end_date] datetime NOT NULL,
   [minutes_per_day] int DEFAULT ((480)) NOT NULL,
-  [description] varchar(200) NULL
+  [description] varchar(200) NULL COLLATE Chinese_PRC_CI_AS
 )
 GO
 ALTER TABLE [dbo].[ad_shift] SET (LOCK_ESCALATION = TABLE)
@@ -164,14 +164,14 @@ GO
 CREATE TABLE [dbo].[ad_day_result] (
   [id] int IDENTITY(1,1) NOT NULL PRIMARY KEY,
   [org_code] int NOT NULL,
-  [org_name] varchar(100) NOT NULL,
-  [employee] varchar(45) NOT NULL,
-  [employee_no] varchar(45) NOT NULL,
-  [real_name] varchar(45) NOT NULL,
+  [org_name] varchar(100) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [employee] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [employee_no] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [real_name] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
   [ad_date] datetime NOT NULL,
-  [shift_name] varchar(45) NOT NULL,
+  [shift_name] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
   [state] int NOT NULL,
-  [state_name] varchar(45) NOT NULL,
+  [state_name] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
   [times] int DEFAULT ((1)) NOT NULL,
   [minutes] int DEFAULT ((0)) NOT NULL,
   [work_minutes] int DEFAULT ((0)) NOT NULL,
@@ -188,13 +188,13 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[ad_
 	DROP TABLE [dbo].[ad_data]
 GO
 CREATE TABLE [dbo].[ad_data] (
-  [id] char(32) NOT NULL PRIMARY KEY,
-  [employee_no] varchar(45) NOT NULL,
-  [rec_source_type] varchar(45) DEFAULT ('D10') NOT NULL,
-  [rec_source] varchar(45) NULL,
+  [id] char(32) NOT NULL PRIMARY KEY COLLATE Chinese_PRC_CI_AS,
+  [employee_no] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [rec_source_type] varchar(45) DEFAULT ('D10') NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [rec_source] varchar(45) NULL COLLATE Chinese_PRC_CI_AS,
   [rec_type] int DEFAULT ((3)) NOT NULL,
   [rec_time] datetime NOT NULL,
-  [is_used] bit DEFAULT ('0') NOT NULL
+  [is_used] bit DEFAULT ('0') NOT NULL COLLATE Chinese_PRC_CI_AS
 )
 GO
 ALTER TABLE [dbo].[ad_data] SET (LOCK_ESCALATION = TABLE)
@@ -208,19 +208,19 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[ad_
 	DROP TABLE [dbo].[ad_adjust]
 GO
 CREATE TABLE [dbo].[ad_adjust] (
-  [id] char(32) NOT NULL PRIMARY KEY,
-  [employee] varchar(36) NOT NULL,
+  [id] char(32) NOT NULL PRIMARY KEY COLLATE Chinese_PRC_CI_AS,
+  [employee] varchar(36) NOT NULL COLLATE Chinese_PRC_CI_AS,
   [org_code] int NOT NULL,
-  [hr] varchar(45) NULL,
+  [hr] varchar(45) NULL COLLATE Chinese_PRC_CI_AS,
   [adjust_type] int DEFAULT ((10)) NULL,
   [state] int NOT NULL,
   [register_time] datetime NOT NULL,
   [start_time] datetime NULL,
   [end_time] datetime NULL,
-  [description] varchar(500) NOT NULL,
-  [approver] varchar(36) NULL,
+  [description] varchar(500) NOT NULL COLLATE Chinese_PRC_CI_AS,
+  [approver] varchar(36) NULL COLLATE Chinese_PRC_CI_AS,
   [approve_org] int NULL,
-  [add_file] varchar(200) NULL
+  [add_file] varchar(200) NULL COLLATE Chinese_PRC_CI_AS
 )
 GO
 ALTER TABLE [dbo].[ad_adjust] SET (LOCK_ESCALATION = TABLE)

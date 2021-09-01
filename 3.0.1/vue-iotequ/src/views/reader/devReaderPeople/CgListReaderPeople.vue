@@ -35,7 +35,7 @@
       </cg-table-column>
       <cg-table-column prop="realName" :page="1" :label="$t('devPeople.field.realName')" align="left" >
         <template slot-scope="scope">
-          {{ localeText(scope.row.realName) }}
+          {{ scope.row.realName }}
         </template>
 
       </cg-table-column>
@@ -110,7 +110,6 @@
 </template>
 
 <script>
-import {localeText} from '@/lang'
 import {hasAuthority} from '@/utils/cg'
 import ParentTable from '@/views/common-views/components/table'
 const Comp = {

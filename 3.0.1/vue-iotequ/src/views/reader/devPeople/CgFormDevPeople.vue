@@ -9,9 +9,9 @@
         <el-tab-pane :label="groupPaneTitle('devPeople.title.groupDevPeopleRealName')">
           <el-row :gutter="mobile?0:20">
             <el-col :span="8">
-              <el-form-item class="cg-item-mltext cg-auto-focus" :label="$t('devPeople.field.realName')" prop="realName" :size="$store.state.app.size" >
-                <cg-input v-model="record.realName" name="realName" 
-                          type="mltext" 
+              <el-form-item class="cg-item-text cg-auto-focus" :label="$t('devPeople.field.realName')" prop="realName" :size="$store.state.app.size" >
+                <el-input v-model="record.realName" name="realName" 
+                          type="text" 
                           :label="$t('devPeople.field.realName')" :placeholder="$t('system.message.needValue')" 
                           resize autofocus validate-event 
                           :readonly="isDetail" :maxlength="32" show-word-limit />

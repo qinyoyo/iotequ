@@ -68,13 +68,13 @@
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="managerName" :page="1" :label="$t('sysUser.field.managerName')" align="left" >
+      <cg-table-column prop="managerName" :page="1" :label="$t('sysUser.field.realName')" align="left" >
         <template slot-scope="scope">
           {{ localeText(scope.row.managerName) }}
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="hrName" :page="1" :label="$t('sysUser.field.hrName')" align="left" >
+      <cg-table-column prop="hrName" :page="1" :label="$t('sysUser.field.realName')" align="left" >
         <template slot-scope="scope">
           {{ localeText(scope.row.hrName) }}
         </template>

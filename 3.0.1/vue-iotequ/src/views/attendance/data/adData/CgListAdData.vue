@@ -27,7 +27,7 @@
         </template>
 
       </cg-table-column>
-      <el-table-column prop="orgCode" type="dict" width="200" :label="$t('adEmployee.field.orgCode')" align="left" >
+      <el-table-column prop="orgCode" type="dict" width="200" :label="$t('sysUser.field.orgCode')" align="left" >
         <template slot-scope="scope">
           {{ dictValue(scope.row.orgCode,dictionary.dictOrgCode,true,true) }}
         </template>
@@ -39,7 +39,7 @@
         </template>
 
       </cg-table-column>
-      <el-table-column prop="realName" width="100" :label="$t('adEmployee.field.realName')" sortable :sort-method="(a,b)=>chineseSort(a.realName,b.realName)" align="left" >
+      <el-table-column prop="realName" width="100" :label="$t('sysUser.field.realName')" sortable :sort-method="(a,b)=>chineseSort(a.realName,b.realName)" align="left" >
         <template slot-scope="scope">
           {{ localeText(scope.row.realName) }}
         </template>
@@ -112,7 +112,7 @@
                   prefix-icon="el-icon-search" :placeholder="$t('system.message.fuzzyQueryTip')" @keyup.enter.native="doAction('refresh')" />
       </el-form-item>
       <el-form-item v-show="queryRecord.search" :label="$t('system.action.field')" prop="searchFields" :size="$store.state.app.size">
-        <cg-select v-model="queryRecord.searchFields" dictionary="dateDate|adData.field.dateDate,realName|adEmployee.field.realName,recType|adData.field.recType,recSourceType|adData.field.recSourceType,recSource|adData.field.recSource," multiple/>
+        <cg-select v-model="queryRecord.searchFields" dictionary="dateDate|adData.field.dateDate,realName|sysUser.field.realName,recType|adData.field.recType,recSourceType|adData.field.recSourceType,recSource|adData.field.recSource," multiple/>
       </el-form-item>
       <el-divider />
       <div v-show="!queryRecord.search">
@@ -123,9 +123,9 @@
         <cg-join v-model="employeeNoJoinVisible">
           <CgListAdEmployee slot="popover" ref="employeeNoJoin" openID="employeeno-join" :height="joinHeight()" :joinShow="employeeNoJoinVisible" joinMultiple
             :originSelections="queryRecord.employeeNo" selectionKey="employeeNo" joinMode @closeJoinList="(rows)=>{ getJoinFields('employeeNo',rows)}" @showJoinList="employeeNoJoinVisible=true"/>
-        <el-form-item slot="reference" :label="$t('adEmployee.field.realName')" prop="realName" :size="$store.state.app.size">
+        <el-form-item slot="reference" :label="$t('sysUser.field.realName')" prop="realName" :size="$store.state.app.size">
           <cg-input v-model="queryRecord.realName" type="text" name="realName"
-                    :readonly="fixedQueryRecord.realName?true:false" :label="$t('adEmployee.field.realName')" clearable resize autofocus @clear="clearJoinValues(myself,'employeeNoJoin')"/>
+                    :readonly="fixedQueryRecord.realName?true:false" :label="$t('sysUser.field.realName')" clearable resize autofocus @clear="clearJoinValues(myself,'employeeNoJoin')"/>
         </el-form-item>
         </cg-join>
         <el-form-item :label="$t('adData.field.recType')" prop="recType" :size="$store.state.app.size">

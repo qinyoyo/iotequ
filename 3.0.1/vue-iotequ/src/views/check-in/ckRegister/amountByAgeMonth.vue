@@ -7,6 +7,8 @@
           legendField="age"
           xField="month"
           yField="amount"
+          yFieldName="人次"
+          xFieldName="月份"
           charType="bar"   
           :initRange="[startOf(null,'year'),endOf(null,'year')]"   
     />

@@ -7,6 +7,8 @@
           legendField=""
           xField="age"
           yField="amount"
+          yFieldName="人次"
+          xFieldName="年龄段"
           charType="pie"
           :exOption="{series:{roseType: 'radius'}}"
     />

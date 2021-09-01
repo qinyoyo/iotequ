@@ -11,17 +11,23 @@
           <cg-cascader v-model="queryRecord.orgCode" name="orgCode" collapse-tags clearable
                        :dictionary="dictOrgCode" show-all-levels/>
         </el-col>
-        <el-col :span="12">
+        <el-col :span="10">
             <cg-date-picker v-model="queryRecord.inDate" :title="$t('ckRegister.field.inDate')" name="inDate" :align="mobile?'right':'center'" type="daterange" 
                             :picker-options="datePickerOptions()"
                             clearable />
         </el-col>
-        <el-col :span="4">
-           <el-button class="cg-button" type="primary" plain icon="el-icon-check" @click.native="refresh()">
+        <el-col :span="6">
+           <el-button class="cg-button" type="default" plain icon="el-icon-refresh-left" @click.native="refresh()">
              {{ $t('system.action.refresh') }}
            </el-button>
+           <el-button class="cg-button" type="primary" :disabled="noData" plain icon="el-icon-download" @click.native="download()">
+             {{ $t('system.action.save') }}
+           </el-button>
         </el-col>
-      </el-row>      
+      </el-row> 
+      <el-button v-else class="cg-button" type="primary" :disabled="noData" plain icon="el-icon-download" @click.native="download()">
+         {{ $t('system.action.save') }}
+      </el-button>     
       <el-divider v-if="showCondition" />
       <div>
         <cg-chart ref="chart" width="100%" :height="containerHeight() - (showCondition?120:20)" :options="chartOptions" />
@@ -39,7 +45,7 @@ import { request } from '@/utils/request'
 //require('echarts/lib/chart/bar')
 //require("echarts/lib/component/polar")
 import echarts from 'echarts'
-
+import { toString } from '@/utils/time' 
 import { getEChartsOptions } from './statOption'
 export default {
   name: 'CkBaseStat',
@@ -47,6 +53,10 @@ export default {
       title: {
           type: String,
           default: 'ckStat.title.amountByDay'.local()
+      },
+      dataHeader : {
+          type: Array,
+          default: ()=> ['']
       },
       icon: {
           type: String,
@@ -68,9 +78,17 @@ export default {
           type: String,
           default: 'in_date'
       },
+      xFieldName: {
+          type: String,
+          default: '日期'
+      },
       yField: {
           type: String,
           default: 'amount',
+      },
+      yFieldName: {
+          type: String,
+          default: '人次'
       },
       charType: {
           type: String,
@@ -87,6 +105,7 @@ export default {
   },
   data() {
     return {
+      records: [],
       baseUrl: '/check-in/ckRegister',
       dictOrgCode: [],
       queryRecord: {
@@ -103,6 +122,9 @@ export default {
   computed: {
     mobile() {
       return this.$store.state.app.device === 'mobile'
+    },
+    noData() {
+      return !this.chartOptions || !this.chartOptions.series || !this.chartOptions.series.length
     }
   },
   methods: {
@@ -130,6 +152,13 @@ export default {
         }).catch(error => {
         })
     },
+    dateRangeString() {
+      if (!this.queryRecord || !this.queryRecord.inDate || !this.queryRecord.inDate.length) return ''
+      if (typeof this.queryRecord.inDate == 'string') return this.queryRecord.inDate
+      else if (this.queryRecord.inDate.length==1) return toString(this.queryRecord.inDate[0],'YYYY-MM-DD')
+       else if (this.queryRecord.inDate.length==2) return toString(this.queryRecord.inDate[0],'YYYY-MM-DD') 
+               + ' 至 ' + toString(this.queryRecord.inDate[1],'YYYY-MM-DD')
+    },
     refresh() {
         const that = this
         let req = {
@@ -144,11 +173,65 @@ export default {
         }
         request(req, true).then(res => {
             if (res && res.hasOwnProperty('success') && res.success) {
+              that.records = res.data
               that.chartOptions = getEChartsOptions(res.data, that.legendField, that.xField, that.yField, 
                                   that.charType,that.mobile,that.exOption)
             }
         }).catch(error => {
         })
+    },
+    download() {
+      const titles = [this.title]
+      const dateRange = [this.dateRangeString()]
+      const header = [this.xFieldName]
+      if (this.chartOptions.legend && this.chartOptions.legend.data && this.chartOptions.legend.data.length>1) {
+        this.chartOptions.legend.data.forEach(e => {
+          header.push(e)
+          titles.push('')
+          dateRange.push('')
+        })
+      } else {
+        header.push(this.yFieldName)
+        titles.push('')
+        dateRange.push('')
+      }
+      const multiHeader = [titles,dateRange]
+      const merges = []
+      merges.push("A1:"+String.fromCharCode(header.length+64)+"1")
+      merges.push("A2:"+String.fromCharCode(header.length+64)+"2")
+      const data = []
+      let xAxis = null
+      if (this.chartOptions.angleAxis && this.chartOptions.angleAxis.data)  xAxis = this.chartOptions.angleAxis.data
+      else if (this.chartOptions.xAxis && this.chartOptions.xAxis.length>0) xAxis = this.chartOptions.xAxis[0].data
+      if (xAxis) {
+        for (let i=0;i< xAxis.length ;i++) {
+          const d = [xAxis[i]]
+          const series = this.chartOptions.series.forEach(e => {
+            d.push(typeof e.data[i] == 'object' ? e.data[i].value : e.data[i])
+          })
+          data.push(d)
+        }
+      } else {
+        const series = this.chartOptions.series.forEach(e => {
+          e.data.forEach(v=>{
+            const d = []
+            d.push(typeof v == 'object' ? v.name : '')
+            d.push(typeof v == 'object' ? v.value : v)
+            data.push(d)
+          })
+        })
+      }
+      import('@/utils/Export2Excel').then(excel => {
+        excel.export_json_to_excel({
+          multiHeader,
+          header,
+          data,
+          merges,
+          filename: this.title,
+          autoWidth: true,
+          bookType: 'xlsx'
+        })
+      })
     },
     goBack() {
       if (this.mobile) cg.goBack()

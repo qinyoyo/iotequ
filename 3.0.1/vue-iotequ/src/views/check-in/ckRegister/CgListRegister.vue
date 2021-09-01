@@ -6,7 +6,7 @@
     </el-backtop>
     <el-table ref="cgList" v-if="isTableMode()" v-loading="listLoading" :data="rows" :class="className" row-key="id" :row-class-name="rowClassName" 
               style="width: 100%" :height="tableHeight()" :size="$store.state.app.size" 
-              stripe highlight-current-row fit 
+              stripe highlight-current-row fit :span-method="groupFields" 
               @row-click="(row, column, event)=>cgList.list_rowClick(myself,{ row, column, event })" 
               @row-contextmenu="(row, column, event)=>cgList.list_rowContextmenu(myself,{ row, column, event })" 
               @header-click="(column, event)=>cgList.list_headClick(myself,{ column, event })" 
@@ -66,7 +66,7 @@
       <cg-action v-model="showActionView" mode="2" :url="baseUrl" :actions="cgList.list_allActions(myself,'main')" @actionClick="doAction" />
     </el-table>
     <cg-card-list v-else ref="cgList" v-loading="listLoading" :render="rowRender" :data="rows" :mainClass="className" row-key="id" :multiple="false" :height="tableHeight()" 
-                  :isLoading="listLoading" 
+                  :isLoading="listLoading" :groupBy="rowRenderGroupTitle?rowRenderGroupTitle:'orgName'"
                   :isUnMore="paginationCurrentPage * paginationPageSize >= paginationTotalRecords" :cgList="myself"
                   @doAction="(a,row)=>doAction(a,{row})"
                   @loadMore="cgList.list_loadMore(myself)"
@@ -147,6 +147,7 @@ const Comp = {
       paginationCurrentPage: 1,
       paginationPageSize: this.$store.state.app.device === 'mobile' ? 10 : 30,
       paginationTotalRecords: 0,
+      groupByEntityFields: 'orgName',
       listName: 'register',
       generatorName: 'ckRegister',
       baseUrl: '/check-in/ckRegister'
@@ -185,6 +186,9 @@ const Comp = {
         onTime: null,
         offTime: null,
       }, this.fixedQueryRecord)
+    },
+    groupFields({ row, column, rowIndex, columnIndex }) {
+      return this.cgList.list_groupFields(this, this.groupByEntityFields.split(','), row, column, rowIndex, columnIndex)
     },
   }
 }

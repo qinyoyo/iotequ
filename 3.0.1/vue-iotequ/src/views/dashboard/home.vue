@@ -57,6 +57,8 @@ export default {
                   toolbox:null,
                   legend:{
                     top: '32px',
+                    type:'scroll',
+                    orient:'horizontal'
                   },
                   title: {
                     x: 'center'

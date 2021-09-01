@@ -16,9 +16,9 @@
           </el-form-item>
         </el-col>
         <el-col :span="8">
-          <el-form-item class="cg-item-mltext" :label="$t('devPeople.field.realName')" prop="realName" :size="$store.state.app.size" >
-            <cg-input v-model="record.realName" name="realName" 
-                      type="mltext" 
+          <el-form-item class="cg-item-text" :label="$t('devPeople.field.realName')" prop="realName" :size="$store.state.app.size" >
+            <el-input v-model="record.realName" name="realName" 
+                      type="text" 
                       :label="$t('devPeople.field.realName')" :placeholder="$t('system.message.needValue')" 
                       resize autofocus validate-event 
                       readonly :maxlength="32" show-word-limit />

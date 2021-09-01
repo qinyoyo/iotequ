@@ -249,7 +249,7 @@ public class JoinUtil {
             nf.setDictMultiple(f.getShowType().equals("dict_list") ? true : f.getDictMultiple());
             //if (!Util.isEmpty(jfArr[0])) nf.setTitle(NameUtil.generatorName(table)+".field."+jentity);
             //else if (joinIndex==1) nf.setTitle(NameUtil.generatorName(table)+".field."+f.getEntityName());    // join字段字段标识
-            nf.setTitle(NameUtil.generatorName(refTab)+".field."+jentity);  // 使用原表标签， 2021-08-31
+            //nf.setTitle(NameUtil.generatorName(refTab)+".field."+jentity);  // 使用原表标签， 2021-08-31
             nf.setOrderNum(f.getOrderNum()+joinIndex);
 
             nf.setTableId(joinComponent(f));
