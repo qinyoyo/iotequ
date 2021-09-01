@@ -6,28 +6,36 @@
                    :content="title" @goBack="goBack"
         />
       </div>
+      <el-form>
       <el-row v-if="showCondition">
         <el-col :span="8">
+          <el-form-item :label="$t('ckRegister.field.orgName')">
           <cg-cascader v-model="queryRecord.orgCode" name="orgCode" collapse-tags clearable
                        :dictionary="dictOrgCode" show-all-levels/>
+          </el-form-item>
         </el-col>
         <el-col :span="10">
-            <cg-date-picker v-model="queryRecord.inDate" :title="$t('ckRegister.field.inDate')" name="inDate" :align="mobile?'right':'center'" type="daterange" 
+          <el-form-item :label="dateLabel">
+            <cg-date-picker v-model="queryRecord.inDate" :title="dateLabel" name="inDate" :align="mobile?'right':'center'" type="daterange" 
                             :picker-options="datePickerOptions()"
                             clearable />
+          </el-form-item>
         </el-col>
         <el-col :span="6">
-           <el-button class="cg-button" type="default" plain icon="el-icon-refresh-left" @click.native="refresh()">
-             {{ $t('system.action.refresh') }}
-           </el-button>
-           <el-button class="cg-button" type="primary" :disabled="noData" plain icon="el-icon-download" @click.native="download()">
-             {{ $t('system.action.save') }}
-           </el-button>
+          <div class="cg-form-buttons">
+            <el-button class="cg-button" type="default" plain icon="el-icon-refresh-left" @click.native="refresh()">
+              {{ $t('system.action.refresh') }}
+            </el-button>
+            <el-button class="cg-button" type="primary" :disabled="noData" plain icon="el-icon-download" @click.native="download()">
+              {{ $t('system.action.save') }}
+            </el-button>
+          </div>
         </el-col>
       </el-row> 
       <el-button v-else class="cg-button" type="primary" :disabled="noData" plain icon="el-icon-download" @click.native="download()">
          {{ $t('system.action.save') }}
-      </el-button>     
+      </el-button> 
+      </el-form>    
       <el-divider v-if="showCondition" />
       <div>
         <cg-chart ref="chart" width="100%" :height="containerHeight() - (showCondition?120:20)" :options="chartOptions" />
@@ -53,6 +61,10 @@ export default {
       title: {
           type: String,
           default: 'ckStat.title.amountByDay'.local()
+      },
+      dateLabel: {
+        type: String,
+        default: 'ckRegister.field.inDate'.local()
       },
       dataHeader : {
           type: Array,
@@ -105,7 +117,6 @@ export default {
   },
   data() {
     return {
-      records: [],
       baseUrl: '/check-in/ckRegister',
       dictOrgCode: [],
       queryRecord: {
@@ -173,7 +184,6 @@ export default {
         }
         request(req, true).then(res => {
             if (res && res.hasOwnProperty('success') && res.success) {
-              that.records = res.data
               that.chartOptions = getEChartsOptions(res.data, that.legendField, that.xField, that.yField, 
                                   that.charType,that.mobile,that.exOption)
             }
@@ -242,3 +252,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+  .el-divider {
+    margin:0 0 12px 0;
+  }
+</style>

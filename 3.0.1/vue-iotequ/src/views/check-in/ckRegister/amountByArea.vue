@@ -10,6 +10,7 @@
           yFieldName="人数"
           xFieldName="户籍"
           charType="pie"  
+          :dateLabel="'devPeople.field.regTime'.local()"
           :initRange="[startOf(null,'year'),endOf(null,'year')]"
           :showCondition="true" 
           :exOption="{series: {radius: [0, '40%']}}"
