@@ -109,6 +109,10 @@ export function timeRange(mode) {
 export function toTime(dt) {
   return toDate('1970-01-01 '+toString(dt,'HH:mm:ss.SSS'))
 }
+export function ageOf(dt) {
+  if (!dt) return null
+  return Math.round((new Date().getTime() - new Date(dt).getTime())/365.25/24/3600000)
+}
 export default {
   timestamp,
   partOf,
@@ -123,5 +127,6 @@ export default {
   startOf,
   endOf,
   prevWorkDay,
-  timeRange
+  timeRange,
+  ageOf
 }

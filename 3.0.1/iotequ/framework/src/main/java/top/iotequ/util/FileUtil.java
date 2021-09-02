@@ -125,9 +125,12 @@ public class FileUtil extends FileIOUtil {
      * @return File对象
      */
     static public File uploadFile(String generatorName,String entityName, String pkId, String name) {
-        String uploadPath = Util.getBean(Environment.class).getProperty("spring.upload-path");
+        String uploadPath = Util.getBean(Environment.class).getProperty("spring.upload-path").replaceAll("\\\\","/");
         if (!Util.isEmpty(name) && (name.indexOf("/")>=0 || name.indexOf("\\")>=0)) { // 文件名包含路径，直接读取
-            if (name.startsWith("~/") || name.startsWith("~\\")) return new File(uploadPath,name.substring(2));
+            name = name.replaceAll("\\\\","/");
+            int pos = name.indexOf(uploadPath);
+            if (pos>=0) return new File(name.substring(pos));
+            else if (name.startsWith("~/")) return new File(uploadPath,name.substring(2));
             else return new File(name);
         } else return new File(uploadFileDir(generatorName),uploadFilename(entityName, pkId, name));
     }

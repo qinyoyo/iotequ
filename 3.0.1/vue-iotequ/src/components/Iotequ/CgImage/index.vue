@@ -42,11 +42,11 @@ export default {
     },
     maxWidth: {
       type: Number,
-      default: 0
+      default: 64
     },
     maxHeight: {
       type: Number,
-      default: 0
+      default: 64
     },
     alignCenter: {
       type: Boolean,

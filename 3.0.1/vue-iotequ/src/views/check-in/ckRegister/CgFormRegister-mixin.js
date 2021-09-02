@@ -8,7 +8,7 @@ export default {
       const that = this
       this.dialogClosed = false
       this.ignoreRecordChanged = true
-      this.registerId = new Date().getDate()
+      this.registerId = new Date().getTime()
       this.runBackground = this.routeParams && this.routeParams.background
       this.keepLogin()
       this.checkU53Busy(_=>{  // 等待上一次调用结束

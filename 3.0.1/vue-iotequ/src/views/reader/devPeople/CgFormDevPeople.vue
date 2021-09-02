@@ -110,10 +110,9 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-form-item class="cg-item-file" :label="$t('devPeople.field.photo')" prop="photo" :size="$store.state.app.size" >
-            <cg-file v-model="blobRecord.photo" name="photo" :id="record.userNo" :baseUrl="baseUrl" field="photo" 
-                     accept="image/*" :readonly="isDetail" 
-                     @input="recordChanged=true"  />
+          <el-form-item class="cg-item-image" :label="$t('devPeople.field.photo')" prop="photo" :size="$store.state.app.size" >
+            <cg-image v-model="blobRecord.photo" name="photo" :title="$t('devPeople.field.photo')"   :readonly="!admin || isDetail" :id="record.userNo" generatorName="devPeople" field="photo" :maxWidth="128" :maxHeight="128" alignCenter 
+                      @input="recordChanged=true" />
           </el-form-item>
         </el-tab-pane>
         <el-tab-pane :label="groupPaneTitle('devPeople.title.groupDevPeopleCardNo')">
@@ -250,7 +249,7 @@ const Comp = {
           groupid: 10,
           confirm: '',
           rowProperty: 'sr',
-          displayProperties: 'tb,ed,rw',
+          displayProperties: 'tb,ed,rw,hm',
           actionProperty: 'go',
           appendClass: '{url:"/reader/devPeople/sample",openMode:"edit"}',
           needRefresh: false

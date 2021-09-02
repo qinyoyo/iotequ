@@ -226,7 +226,7 @@ const Comp = {
           confirm: '',
           rowProperty: 'sr',
           actionProperty: 'go',
-          displayProperties: 'tb,ed,rw',
+          displayProperties: 'tb,ed,rw,hm',
           appendClass: '{url:"/reader/devPeople/sample",openMode:"edit"}',
           needRefresh: false
         },

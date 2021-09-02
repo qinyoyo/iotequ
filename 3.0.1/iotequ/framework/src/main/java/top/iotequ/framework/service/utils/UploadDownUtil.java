@@ -109,7 +109,7 @@ public class UploadDownUtil {
 
     public static void downloadFile(Class<?> clazz,String entityName,String pkId,String fileName, HttpServletResponse response) throws IotequException {
         if (!Util.isEmpty(fileName) && (fileName.indexOf("/")>=0 || fileName.indexOf("\\")>=0)) {
-            FileUtil.downloadFile(new File(fileName), response,true);
+            FileUtil.downloadFile(FileUtil.uploadFile(entityName,null,pkId,fileName), response,true);
         } else {
             if (Util.isEmpty(entityName) || Util.isEmpty(pkId)) throw new IotequException(IotequThrowable.NULL_OBJECT,"参数不全");
             File dir = FileUtil.uploadFileDir(clazz);
