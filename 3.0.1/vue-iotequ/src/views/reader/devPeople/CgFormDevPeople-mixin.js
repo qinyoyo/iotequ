@@ -2,7 +2,7 @@
 export default {
   computed: {
     admin() {
-      return this.$store.state.user.roles.indexOf('admin') >= 0
+      return this.$store.state.user.name === 'admin'
     }
   },  
   methods: {

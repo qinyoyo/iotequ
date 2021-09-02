@@ -190,7 +190,7 @@ export function hasAuthorityOf(obj,baseUrl,action,record) {
   if (obj && typeof obj.extendActionFilter==='function' && !obj.extendActionFilter(action.action, record))  return false // 调用对象是否定义了 extendActionFilter函数
   const mobile=isMobile()
   if (action.displayProperties && ( (mobile && action.displayProperties.indexOf('hm')>=0) || (!mobile && action.displayProperties.indexOf('hp')>=0)) ) return false 
-  if (action.actionProperty!='aj') return true
+  if (action.actionProperty!='aj' && action.action != 'editInline_add') return true
   if (!baseUrl) baseUrl = '/'
   else if (baseUrl.substring(baseUrl.length-1,baseUrl.length) !== '/') baseUrl = baseUrl + '/'
   const whiteList = ['/res/','/login/','/common/']
@@ -199,7 +199,7 @@ export function hasAuthorityOf(obj,baseUrl,action,record) {
   const a=action.action
   if (a==='localExport') return true
   else if ((a==='refresh' || a==='query' || a==='list') && apis.indexOf(baseUrl+'list') >= 0) return true
-  else if (a==='add' && apis.indexOf(baseUrl+'record') >= 0 && apis.indexOf(baseUrl+'default') >= 0 && apis.indexOf(baseUrl+'save') >=0 ) return true
+  else if ((a==='add' || a==='editInline_add') && apis.indexOf(baseUrl+'record') >= 0 && apis.indexOf(baseUrl+'default') >= 0 && apis.indexOf(baseUrl+'save') >=0 ) return true
   else if (a==='view' && apis.indexOf(baseUrl+'record') >= 0 ) return true
   else if (a==='edit' && apis.indexOf(baseUrl+'record') >= 0 && apis.indexOf(baseUrl+'save') >=0 ) return true
   else if (action.isSystemAction && apis.indexOf(baseUrl+a) >= 0) return true

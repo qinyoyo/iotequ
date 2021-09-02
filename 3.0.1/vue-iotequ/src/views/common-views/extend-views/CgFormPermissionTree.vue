@@ -7,7 +7,7 @@
     </el-form>
     <div v-if="!isDetail" style="padding-bottom:20px;">
       <el-divider></el-divider>
-      <el-button class="cg-button" type="primary" plain :disabled="!recordChanged"
+      <el-button v-if="hasAuthority(baseUrl+'/update')" class="cg-button" type="primary" plain :disabled="!recordChanged"
                @click.native="submit()" icon="el-icon-check">
                {{ $t('system.action.save') }}
       </el-button>

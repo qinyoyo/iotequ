@@ -6,12 +6,13 @@ function distincOf(data,field) {
     }
     return r
   }
-  function getValue(data, field, test) {
-      for (let i=0;i<data.length;i++) {
-        if (test(data[i])) return data[i][field] 
-      }
-      return 0
-  }
+
+  function getValueIndex(data, field, test) {
+    for (let i=0;i<data.length;i++) {
+      if (test(data[i])) return i 
+    }
+    return 0
+}
   export function getEChartsOptions(data,legendField, xField, yField, charType, mobile,exOption) {
     var legend = (legendField ? distincOf(data,legendField).sort((a,b)=>chineseSort(a,b)) : [''])
     var xAxis = distincOf(data,xField).sort((a,b)=>chineseSort(a,b))
@@ -36,6 +37,24 @@ function distincOf(data,field) {
                     formatter: '{b}:{c}({d}%)'
                 }
             }
+            s.itemStyle = {
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                 },
+                normal:{
+                    color:function(params) {
+                    //自定义颜色
+                    var colorList = [          
+                        '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+                        '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+                        '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0',
+                        ];
+                        return colorList[params.data.originIndex % colorList.length]
+                     }
+                }
+            }
         }
         else {
             s.itemStyle = {
@@ -52,12 +71,14 @@ function distincOf(data,field) {
          let test = function(d) {
            return (legendField ? (d[legendField] == legend[i] && d[xField] == xAxis[j]) : d[xField] == xAxis[j])
          }
-         if (charType == 'pie') {
+         let index = getValueIndex(data,yField,test)
+         if (charType == 'pie') {            
              s.data.push({
-                value:getValue(data,yField,test),
-                name:xAxis[j]
+                value: data[index][yField],
+                name:xAxis[j],
+                originIndex: index 
             })
-        } else s.data.push(getValue(data,yField,test))
+        } else s.data.push(data[index][yField])
        } 
        series.push(s)
     }
