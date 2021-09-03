@@ -167,8 +167,8 @@ export default {
       if (!this.queryRecord || !this.queryRecord.inDate || !this.queryRecord.inDate.length) return ''
       if (typeof this.queryRecord.inDate == 'string') return this.queryRecord.inDate
       else if (this.queryRecord.inDate.length==1) return toString(this.queryRecord.inDate[0],'YYYY-MM-DD')
-       else if (this.queryRecord.inDate.length==2) return toString(this.queryRecord.inDate[0],'YYYY-MM-DD') 
-               + ' 至 ' + toString(this.queryRecord.inDate[1],'YYYY-MM-DD')
+      else if (this.queryRecord.inDate.length==2) return toString(this.queryRecord.inDate[0],'YYYY-MM-DD') 
+               + (this.queryRecord.inDate[0] ? ' 至 ':'') + toString(this.queryRecord.inDate[1],'YYYY-MM-DD')
     },
     refresh() {
         const that = this
@@ -194,7 +194,7 @@ export default {
       const titles = [this.title]
       const dateRange = [this.dateRangeString()]
       const header = [this.xFieldName]
-      if (this.chartOptions.legend && this.chartOptions.legend.data && this.chartOptions.legend.data.length>1) {
+      if (this.charType!='pie' && this.chartOptions.legend && this.chartOptions.legend.data && this.chartOptions.legend.data.length>1) {
         this.chartOptions.legend.data.forEach(e => {
           header.push(e)
           titles.push('')

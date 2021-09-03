@@ -78,10 +78,10 @@ export default {
               }
               if (res.data.hasOwnProperty('areaData')) {
                   that.chartOptions3 = Object.assign(getEChartsOptions(res.data.areaData, "", 'area', 'amount', 'pie',that.mobile,{series: {radius: [0, '40%']}}),
-                  ex,{
-                    legend: {show: false},
+                  { toolbox: null,
                     title: { text : '实名制患者户籍分布图',x: 'center'}
-                  })     
+                  })  
+                  that.chartOptions3.legend.padding = [0,0,0,0]   
               }
             }
         }).catch(error => {

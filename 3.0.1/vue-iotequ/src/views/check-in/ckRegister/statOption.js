@@ -101,7 +101,7 @@ function distincOf(data,field) {
             data: legend,
             type:'scroll',
             orient:'horizontal'
-        } : (charType == 'pie' ? {
+        } : (charType == 'pie' && !mobile ? {
             data: xAxis,
             type:'scroll',
             orient:'vertical',
