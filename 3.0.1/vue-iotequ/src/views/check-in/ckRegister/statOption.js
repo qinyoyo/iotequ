@@ -15,7 +15,15 @@ function distincOf(data,field) {
 }
   export function getEChartsOptions(data,legendField, xField, yField, charType, mobile,exOption) {
     var legend = (legendField ? distincOf(data,legendField).sort((a,b)=>chineseSort(a,b)) : [''])
-    var xAxis = distincOf(data,xField).sort((a,b)=>chineseSort(a,b))
+    var xAxis = distincOf(data,xField)
+    if (charType != 'pie') xAxis.sort((a,b)=>chineseSort(a,b))
+    else {
+        let other = xAxis.indexOf('其他')
+        if (other>=0) {
+            xAxis.splice(other,1)
+            xAxis.push('其他')
+        }
+    }
     var series = []
     for (let i=0;i<legend.length;i++) {
       let s = {
@@ -45,11 +53,11 @@ function distincOf(data,field) {
                  },
                 normal:{
                     color:function(params) {
-                    //自定义颜色
                     var colorList = [          
-                        '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
-                        '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
-                        '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0',
+                        '#e41b1b','#ca5b13','#cab813','#76ca13','#13ca61','#13a3ca','#ca139e','#d6b4b2',
+                        '#dad19d','#beda9d','#9ddaba','#9dd0da','#b69dda','#a7a4ab','#b8b8b8','#606060',
+                        '#a41b6b','#aa5b63','#aab863','#36ca63','#02cae1','#02a3ea','#8a13fe','#a6b4f2',
+                        '#8ad1fd','#6edafd','#2ddafa','#4dd0fa','#869dfa','#87a4fb','#484848','#202020'
                         ];
                         return colorList[params.data.originIndex % colorList.length]
                      }
@@ -90,11 +98,17 @@ function distincOf(data,field) {
             }
         },
         legend: legendField ? {
-            //show: charType != 'pie',
             data: legend,
             type:'scroll',
             orient:'horizontal'
-        } : null,
+        } : (charType == 'pie' ? {
+            data: xAxis,
+            type:'scroll',
+            orient:'vertical',
+            left: 'right',
+            padding: [0,100,0,0],
+            top:'middle'
+        } :null),
         toolbox: {
             show: true,
             orient: 'vertical',

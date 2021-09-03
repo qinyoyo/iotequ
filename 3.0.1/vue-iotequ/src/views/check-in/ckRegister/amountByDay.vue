@@ -2,7 +2,7 @@
   <div class="cg-stat">
     <CkBaseStat 
           :title = "'ckStat.title.amountByDay'.local()"
-          icon="svg-chart/chart-rose"
+          icon="svg-chart/chart-area"
           action="amountByDay"
           legendField="org_name"
           xField="in_date"

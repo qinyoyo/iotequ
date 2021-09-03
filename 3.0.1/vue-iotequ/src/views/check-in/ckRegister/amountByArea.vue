@@ -2,7 +2,7 @@
   <div class="cg-stat">
     <CkBaseStat 
           :title = "'ckStat.title.amountByArea'.local()"
-          icon="svg-chart/chart-rose"
+          icon="svg-chart/chart-2"
           action="amountByArea"
           legendField=""
           xField="area"
@@ -13,7 +13,7 @@
           :dateLabel="'devPeople.field.regTime'.local()"
           :initRange="[startOf(null,'year'),endOf(null,'year')]"
           :showCondition="true" 
-          :exOption="{series: {radius: [0, '40%']}}"
+          :exOption="{series: {radius: [0, '60%']}}"
     />
   </div>
 </template>

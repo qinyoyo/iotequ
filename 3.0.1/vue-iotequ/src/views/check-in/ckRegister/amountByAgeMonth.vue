@@ -2,7 +2,7 @@
   <div class="cg-stat">
     <CkBaseStat 
           :title = "'ckStat.title.amountByAgeMonth'.local()"
-          icon="svg-chart/chart-rose"
+          icon="svg-chart/chart-bar"
           action="amountByAgeMonth"
           legendField="age"
           xField="month"
