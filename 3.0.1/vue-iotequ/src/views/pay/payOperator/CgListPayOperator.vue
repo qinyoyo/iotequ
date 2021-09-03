@@ -27,7 +27,7 @@
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="realName" :page="paginationCurrentPage" :label="$t('payOperator.field.realName')" sortable :sort-method="(a,b)=>chineseSort(a.realName,b.realName)" align="left" >
+      <cg-table-column prop="realName" :page="paginationCurrentPage" :label="$t('payOperator.field.realName')" sortable="custom" align="left" >
         <template slot-scope="scope">
           {{ scope.row.realName }}
         </template>
@@ -128,6 +128,7 @@ const Comp = {
       paginationPageSize: this.$store.state.app.device === 'mobile' ? 10 : 30,
       paginationTotalRecords: 0,
       groupByEntityFields: 'shopId',
+      groupByEntityFieldsOrder: {},
       listName: 'payOperator',
       multipleSelection: true,
       generatorName: 'payOperator',

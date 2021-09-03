@@ -21,7 +21,7 @@
         <i slot="header" class="el-icon-menu"/>
       </el-table-column>
       <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter" width="36" />
-      <cg-table-column prop="name" :page="1" :label="$t('cgForm.field.name')" sortable :sort-method="(a,b)=>chineseSort(a.name,b.name)" align="left" header-align="left" >
+      <cg-table-column prop="name" :page="1" :label="$t('cgForm.field.name')" sortable="custom" align="left" header-align="left" >
         <template slot-scope="scope">
           {{ scope.row.name }}
         </template>
@@ -150,6 +150,7 @@ const Comp = {
       editInlineFields: hasAuthority('/codegenerator/cgForm/updateSelective')?['icon', 'headTitle', 'tagTitle', 'isFlow', 'isDialog', 'continueAdd', 'labelPosition']:null,
       hasSonTables: true,
       groupByEntityFields: 'tableId',
+      groupByEntityFieldsOrder: {},
       listName: 'cgForm',
       multipleSelection: true,
       generatorName: 'cgForm',

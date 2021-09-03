@@ -21,13 +21,13 @@
         <i slot="header" class="el-icon-menu"/>
       </el-table-column>
       <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter" width="36" />
-      <cg-table-column prop="orgCode" type="dict" :page="paginationCurrentPage" :label="$t('devPeople.field.orgCode')" sortable align="left" >
+      <cg-table-column prop="orgCode" type="dict" :page="paginationCurrentPage" :label="$t('devPeople.field.orgCode')" sortable="custom" align="left" >
         <template slot-scope="scope">
           {{ dictValue(scope.row.orgCode,dictionary.dictOrgCode,true,true) }}
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="realName" :page="paginationCurrentPage" :label="$t('devPeople.field.realName')" sortable :sort-method="(a,b)=>chineseSort(a.realName,b.realName)" align="left" >
+      <cg-table-column prop="realName" :page="paginationCurrentPage" :label="$t('devPeople.field.realName')" sortable="custom" align="left" >
         <template slot-scope="scope">
           {{ scope.row.realName }}
         </template>
@@ -51,7 +51,7 @@
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="idNumber" :page="paginationCurrentPage" :label="$t('devPeople.field.idNumber')" sortable :sort-method="(a,b)=>chineseSort(a.idNumber,b.idNumber)" align="left" >
+      <cg-table-column prop="idNumber" :page="paginationCurrentPage" :label="$t('devPeople.field.idNumber')" sortable="custom" align="left" >
         <template slot-scope="scope">
           {{ scope.row.idNumber }}
         </template>
@@ -63,13 +63,13 @@
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="mobilePhone" :page="paginationCurrentPage" :label="$t('devPeople.field.mobilePhone')" sortable :sort-method="(a,b)=>chineseSort(a.mobilePhone,b.mobilePhone)" align="left" >
+      <cg-table-column prop="mobilePhone" :page="paginationCurrentPage" :label="$t('devPeople.field.mobilePhone')" sortable="custom" align="left" >
         <template slot-scope="scope">
           {{ scope.row.mobilePhone }}
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="homeAddr" :page="paginationCurrentPage" :label="$t('devPeople.field.homeAddr')" sortable :sort-method="(a,b)=>chineseSort(a.homeAddr,b.homeAddr)" align="left" >
+      <cg-table-column prop="homeAddr" :page="paginationCurrentPage" :label="$t('devPeople.field.homeAddr')" sortable="custom" align="left" >
         <template slot-scope="scope">
           {{ scope.row.homeAddr }}
         </template>
@@ -81,7 +81,7 @@
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="regTime" type="datetime" :page="paginationCurrentPage" :label="$t('devPeople.field.regTime')" sortable align="left" >
+      <cg-table-column prop="regTime" type="datetime" :page="paginationCurrentPage" :label="$t('devPeople.field.regTime')" sortable="custom" align="left" >
         <template slot-scope="scope">
           {{ time2String(scope.row.regTime,'YYYY-MM-DD HH:mm') }}
         </template>
@@ -196,6 +196,7 @@ const Comp = {
       paginationPageSize: this.$store.state.app.device === 'mobile' ? 10 : 30,
       paginationTotalRecords: 0,
       groupByEntityFields: 'orgCode',
+      groupByEntityFieldsOrder: {},
       listName: 'devPeople',
       multipleSelection: true,
       generatorName: 'devPeople',

@@ -21,14 +21,14 @@
         <i slot="header" class="el-icon-menu"/>
       </el-table-column>
       <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter no-tab-index" width="36" />
-      <cg-table-column prop="module" :page="1" :label="$t('cgProject.field.name')" sortable :sort-method="(a,b)=>chineseSort(a.module,b.module)" align="left" >
+      <cg-table-column prop="module" :page="1" :label="$t('cgProject.field.name')" sortable="custom" align="left" >
         <template slot-scope="scope">
           <el-input v-if="scope.row.inlineEditting" v-model="scope.row.module" type="text" />
           <span v-else>{{ scope.row.module }}</span>
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="code" :page="1" :label="$t('cgTable.field.code')" sortable :sort-method="(a,b)=>chineseSort(a.code,b.code)" align="left" >
+      <cg-table-column prop="code" :page="1" :label="$t('cgTable.field.code')" sortable="custom" align="left" >
         <template slot-scope="scope">
           <el-input v-if="scope.row.inlineEditting" v-model="scope.row.code" type="text" />
           <span v-else>{{ scope.row.code }}</span>
@@ -42,7 +42,7 @@
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="name" :page="1" :label="$t('cgTable.field.name')" sortable :sort-method="(a,b)=>chineseSort(a.name,b.name)" align="left" >
+      <cg-table-column prop="name" :page="1" :label="$t('cgTable.field.name')" sortable="custom" align="left" >
         <template slot-scope="scope">
           <el-input v-if="scope.row.inlineEditting" v-model="scope.row.name" type="text" />
           <span v-else>{{ scope.row.name }}</span>
@@ -134,6 +134,7 @@ const Comp = {
       editInlineFields: hasAuthority('/codegenerator/cgTable/updateSelective')?['module', 'code', 'title', 'name']:null,
       hasSonTables: true,
       groupByEntityFields: 'module',
+      groupByEntityFieldsOrder: {},
       listName: 'cgTable',
       multipleSelection: true,
       generatorName: 'cgTable',

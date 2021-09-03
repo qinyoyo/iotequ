@@ -33,13 +33,13 @@
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="devNo" :page="paginationCurrentPage" :label="$t('devEvent.field.devNo')" sortable :sort-method="(a,b)=>chineseSort(a.devNo,b.devNo)" align="left" >
+      <cg-table-column prop="devNo" :page="paginationCurrentPage" :label="$t('devEvent.field.devNo')" sortable="custom" align="left" >
         <template slot-scope="scope">
           {{ scope.row.devNo }}
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="orgCode" type="dict" :page="paginationCurrentPage" :label="$t('devEvent.field.orgCode')" sortable align="left" >
+      <cg-table-column prop="orgCode" type="dict" :page="paginationCurrentPage" :label="$t('devEvent.field.orgCode')" sortable="custom" align="left" >
         <template slot-scope="scope">
           {{ dictValue(scope.row.orgCode,dictionary.dictOrgCode,true,true) }}
         </template>
@@ -51,7 +51,7 @@
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="realName" :page="paginationCurrentPage" :label="$t('devPeople.field.realName')" sortable :sort-method="(a,b)=>chineseSort(a.realName,b.realName)" align="left" >
+      <cg-table-column prop="realName" :page="paginationCurrentPage" :label="$t('devPeople.field.realName')" sortable="custom" align="left" >
         <template slot-scope="scope">
           {{ scope.row.realName }}
         </template>
@@ -69,7 +69,7 @@
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="status" type="dict" :page="paginationCurrentPage" :label="$t('devEvent.field.status')" sortable align="left" >
+      <cg-table-column prop="status" type="dict" :page="paginationCurrentPage" :label="$t('devEvent.field.status')" sortable="custom" align="left" >
         <template slot-scope="scope">
           {{ dictValue(scope.row.status,dictionary.dictStatus,false,true) }}
         </template>
@@ -179,6 +179,7 @@ const Comp = {
       paginationPageSize: this.$store.state.app.device === 'mobile' ? 10 : 30,
       paginationTotalRecords: 0,
       groupByEntityFields: 'datDate',
+      groupByEntityFieldsOrder: {},
       listName: 'devEvent',
       generatorName: 'devEvent',
       baseUrl: '/reader/devEvent'

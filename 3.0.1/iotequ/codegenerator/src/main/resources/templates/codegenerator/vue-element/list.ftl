@@ -203,7 +203,7 @@
       <#if LP.parentEntity?? && LP.parentEntity?trim!='' && LP.treeShowEntity?? && LP.treeShowEntity?trim!=''>
       <#list fields as f>
       <#if f.entityName == LP.treeShowEntity?trim >
-      <#nt><<#if f.width?? && f.width gt 0>el<#else>cg</#if>-table-column prop="${f.entityName}"<#if f.showType=='date' || f.showType=='datetime'|| f.showType=='time'> type="${f.showType}"<#elseif f.showType=='select' || f.showType=="checkbox" || f.showType=="radio"> type="dict"</#if> <#if !f.width?? || f.width == 0 >:page="<#if LP.pagination>paginationCurrentPage<#else>1</#if>" </#if><#if !isEmpty(f.columnProperties!'')>${f.columnProperties} </#if><#if f.width?? && f.width gt 0><@WL f "width" ""+f.width?c/></#if><@WL f ":label" "$t('"+f.title+"')"/><#if f.fix?? && f.fix><@WL f "fixed"/></#if><#if (f.queryMode?? && f.queryMode gt 0) || (LP.sortField?? && f.entityName == LP.sortField)><@WL f "sortable"/><#if f.type=="String"><@WL f ":sort-method" "(a,b)=>chineseSort(a."+f.entityName+",b."+f.entityName+")" /></#if></#if><@WL f "align" "left"/><#if f.headerAlign?? && f.headerAlign?trim!=''><@WL f "header-align" f.headerAlign/></#if><#if f.overflowTooltip></#if>>
+      <#nt><<#if f.width?? && f.width gt 0>el<#else>cg</#if>-table-column prop="${f.entityName}"<#if f.showType=='date' || f.showType=='datetime'|| f.showType=='time'> type="${f.showType}"<#elseif f.showType=='select' || f.showType=="checkbox" || f.showType=="radio"> type="dict"</#if> <#if !f.width?? || f.width == 0 >:page="<#if LP.pagination>paginationCurrentPage<#else>1</#if>" </#if><#if !isEmpty(f.columnProperties!'')>${f.columnProperties} </#if><#if f.width?? && f.width gt 0><@WL f "width" ""+f.width?c/></#if><@WL f ":label" "$t('"+f.title+"')"/><#if f.fix?? && f.fix><@WL f "fixed"/></#if><#if (f.queryMode?? && f.queryMode gt 0) || (LP.sortField?? && f.entityName == LP.sortField)><#if LP.spanEntities?? && LP.spanEntities?trim!=''><@WL f "sortable" "custom"/><#else><@WL f "sortable"/><#if f.type=="String"><@WL f ":sort-method" "(a,b)=>chineseSort(a."+f.entityName+",b."+f.entityName+")" /></#if></#if></#if><@WL f "align" "left"/><#if f.headerAlign?? && f.headerAlign?trim!=''><@WL f "header-align" f.headerAlign/></#if><#if f.overflowTooltip></#if>>
         <#nt><@fieldShow f,LP.editInline?? && f.editInline,8/>
       </<#if f.width?? && f.width gt 0>el<#else>cg</#if>-table-column>
       <#assign TREESHOWENTITY = f.entityName />
@@ -213,7 +213,7 @@
       </#if>
       <#list fields as f>
       <#if !f.hidden && f.entityName !=TREESHOWENTITY>
-      <#nt><<#if f.width?? && f.width gt 0>el<#else>cg</#if>-table-column prop="${f.entityName}"<#if f.showType=='date' || f.showType=='datetime'|| f.showType=='time'> type="${f.showType}"<#elseif f.showType=='select' || f.showType=="checkbox" || f.showType=="radio"> type="dict"</#if> <#if !f.width?? || f.width == 0>:page="<#if LP.pagination>paginationCurrentPage<#else>1</#if>" </#if><#if !isEmpty(f.columnProperties!'')>${f.columnProperties} </#if><#if f.width?? && f.width gt 0><@WL f "width" f.width?c+""/></#if><@WL f ":label" "$t('"+f.title+"')"/><#if f.fix?? && f.fix><@WL f "fixed"/></#if><#if (f.queryMode?? && f.queryMode gt 0) || (LP.sortField?? && f.entityName == LP.sortField)><@WL f "sortable"/><#if f.type=="String"><@WL f ":sort-method" "(a,b)=>chineseSort(a."+f.entityName+",b."+f.entityName+")" /></#if></#if><@WL f "align" f.align/><#if f.headerAlign?? && f.headerAlign?trim!=''><@WL f "header-align" f.headerAlign/></#if><#if f.overflowTooltip></#if>>
+      <#nt><<#if f.width?? && f.width gt 0>el<#else>cg</#if>-table-column prop="${f.entityName}"<#if f.showType=='date' || f.showType=='datetime'|| f.showType=='time'> type="${f.showType}"<#elseif f.showType=='select' || f.showType=="checkbox" || f.showType=="radio"> type="dict"</#if> <#if !f.width?? || f.width == 0>:page="<#if LP.pagination>paginationCurrentPage<#else>1</#if>" </#if><#if !isEmpty(f.columnProperties!'')>${f.columnProperties} </#if><#if f.width?? && f.width gt 0><@WL f "width" f.width?c+""/></#if><@WL f ":label" "$t('"+f.title+"')"/><#if f.fix?? && f.fix><@WL f "fixed"/></#if><#if (f.queryMode?? && f.queryMode gt 0) || (LP.sortField?? && f.entityName == LP.sortField)><#if LP.spanEntities?? && LP.spanEntities?trim!=''><@WL f "sortable" "custom"/><#else><@WL f "sortable"/><#if f.type=="String"><@WL f ":sort-method" "(a,b)=>chineseSort(a."+f.entityName+",b."+f.entityName+")" /></#if></#if></#if><@WL f "align" f.align/><#if f.headerAlign?? && f.headerAlign?trim!=''><@WL f "header-align" f.headerAlign/></#if><#if f.overflowTooltip></#if>>
         <#nt><@fieldShow f,LP.editInline?? && f.editInline,8/>
       </<#if f.width?? && f.width gt 0>el<#else>cg</#if>-table-column>
       </#if>
@@ -451,6 +451,7 @@ const Comp = {
       </#if>
       <#if LP.spanEntities?? && LP.spanEntities?trim!=''>
       groupByEntityFields: '${LP.spanEntities?trim}',
+      groupByEntityFieldsOrder: {},
       </#if>
       listName: '${LP.name}',
       <#if LP.multiple>

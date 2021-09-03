@@ -21,7 +21,7 @@
         <i slot="header" class="el-icon-menu"/>
       </el-table-column>
       <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter" width="36" />
-      <cg-table-column prop="dateDate" type="date" :page="paginationCurrentPage" :label="$t('adData.field.dateDate')" sortable align="left" >
+      <cg-table-column prop="dateDate" type="date" :page="paginationCurrentPage" :label="$t('adData.field.dateDate')" sortable="custom" align="left" >
         <template slot-scope="scope">
           {{ time2String(scope.row.dateDate,'YYYY-MM-DD') }}
         </template>
@@ -39,7 +39,7 @@
         </template>
 
       </cg-table-column>
-      <el-table-column prop="realName" width="100" :label="$t('sysUser.field.realName')" sortable :sort-method="(a,b)=>chineseSort(a.realName,b.realName)" align="left" >
+      <el-table-column prop="realName" width="100" :label="$t('sysUser.field.realName')" sortable="custom" align="left" >
         <template slot-scope="scope">
           {{ localeText(scope.row.realName) }}
         </template>
@@ -51,19 +51,19 @@
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="recType" type="dict" :page="paginationCurrentPage" :label="$t('adData.field.recType')" sortable align="left" >
+      <cg-table-column prop="recType" type="dict" :page="paginationCurrentPage" :label="$t('adData.field.recType')" sortable="custom" align="left" >
         <template slot-scope="scope">
           {{ dictValue(scope.row.recType,dictionary.dictRecType,false,true) }}
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="recSourceType" :page="paginationCurrentPage" :label="$t('adData.field.recSourceType')" sortable :sort-method="(a,b)=>chineseSort(a.recSourceType,b.recSourceType)" align="left" >
+      <cg-table-column prop="recSourceType" :page="paginationCurrentPage" :label="$t('adData.field.recSourceType')" sortable="custom" align="left" >
         <template slot-scope="scope">
           {{ scope.row.recSourceType }}
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="recSource" :page="paginationCurrentPage" :label="$t('adData.field.recSource')" sortable :sort-method="(a,b)=>chineseSort(a.recSource,b.recSource)" align="left" >
+      <cg-table-column prop="recSource" :page="paginationCurrentPage" :label="$t('adData.field.recSource')" sortable="custom" align="left" >
         <template slot-scope="scope">
           {{ scope.row.recSource }}
         </template>
@@ -178,6 +178,7 @@ const Comp = {
       paginationPageSize: this.$store.state.app.device === 'mobile' ? 10 : 30,
       paginationTotalRecords: 0,
       groupByEntityFields: 'dateDate,orgCode,employeeNo,realName',
+      groupByEntityFieldsOrder: {},
       listName: 'adData',
       generatorName: 'adData',
       baseUrl: '/attendance/data/adData'

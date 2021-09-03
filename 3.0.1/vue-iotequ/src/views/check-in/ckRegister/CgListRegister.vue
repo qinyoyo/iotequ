@@ -27,7 +27,7 @@
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="name" :page="paginationCurrentPage" :label="$t('ckRegister.field.name')" sortable :sort-method="(a,b)=>chineseSort(a.name,b.name)" align="left" >
+      <cg-table-column prop="name" :page="paginationCurrentPage" :label="$t('ckRegister.field.name')" sortable="custom" align="left" >
         <template slot-scope="scope">
           {{ scope.row.name }}
         </template>
@@ -45,7 +45,7 @@
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="inDate" type="date" :page="paginationCurrentPage" :label="$t('ckRegister.field.inDate')" sortable align="left" >
+      <cg-table-column prop="inDate" type="date" :page="paginationCurrentPage" :label="$t('ckRegister.field.inDate')" sortable="custom" align="left" >
         <template slot-scope="scope">
           {{ time2String(scope.row.inDate,'YYYY-MM-DD') }}
         </template>
@@ -148,6 +148,7 @@ const Comp = {
       paginationPageSize: this.$store.state.app.device === 'mobile' ? 10 : 30,
       paginationTotalRecords: 0,
       groupByEntityFields: 'orgName',
+      groupByEntityFieldsOrder: {},
       listName: 'register',
       generatorName: 'ckRegister',
       baseUrl: '/check-in/ckRegister'

@@ -39,7 +39,7 @@
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="adDate" type="date" :page="paginationCurrentPage" :label="$t('adDayResult.field.adDate')" sortable align="center" >
+      <cg-table-column prop="adDate" type="date" :page="paginationCurrentPage" :label="$t('adDayResult.field.adDate')" sortable="custom" align="center" >
         <template slot-scope="scope">
           {{ time2String(scope.row.adDate,'YYYY-MM-DD') }}
         </template>
@@ -174,6 +174,7 @@ const Comp = {
       paginationPageSize: this.$store.state.app.device === 'mobile' ? 10 : 30,
       paginationTotalRecords: 0,
       groupByEntityFields: 'orgName,employeeNo,realName',
+      groupByEntityFieldsOrder: {},
       listName: 'adDayResult',
       generatorName: 'adDayResult',
       baseUrl: '/attendance/dayresult/adDayResult'

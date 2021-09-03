@@ -146,9 +146,21 @@ export default {
     })
     params.queryEntities = entities.join(',')
     params.pathNameOfQuery = listObject.path
+    let sortFields = [], fieldOrder = []
+    if (listObject.groupByEntityFields) { // 有分组，需要后台排序
+      let groupedFields = listObject.groupByEntityFields.split(",")
+      groupedFields.forEach(f=>{
+        sortFields.push(f)
+        fieldOrder.push(listObject.groupByEntityFieldsOrder[f]?listObject.groupByEntityFieldsOrder[f]:'ascending')
+      })
+    } 
     if (listObject.sortOptions) {
-      params.sort = listObject.sortOptions.prop
-      params.order = listObject.sortOptions.order
+      sortFields.push(listObject.sortOptions.prop)
+      fieldOrder.push(listObject.sortOptions.order)
+    }
+    if (sortFields.length) {
+      params.sort = sortFields.join(',')
+      params.order = fieldOrder.join(',')
     }
     return Object.assign(params, fixedQueryRecord) // fixedQueryRecord 优先
   },
@@ -1131,9 +1143,30 @@ export default {
     }
     listObject.$emit('selectionChange', selection)
   },
+  list_sortWithGroup(listObject, a, b, field) {
+    if (listObject.groupByEntityFields) {
+      listObject.groupFieldsFunction = _=> {return [0,0]}
+      let groupFields = listObject.groupByEntityFields.split(',')
+      for (let i=0;i<groupFields.length;i++) {
+        let gc = cg.chineseSort(a[groupFields[i]],b[groupFields[i]])
+        if (gc!=0) {
+          if ('descending'==listObject.groupByEntityFieldsOrder[groupFields[i]]) return (gc>0?-1:1);
+          else return gc;
+        }
+      }
+    } 
+    return cg.chineseSort(a[field],b[field])
+  },
   list_sortChange(listObject, options) { // 列表排序变化
     listObject.sortOptions = options
     listObject.$emit('sortChange', options)
+    if (listObject.groupByEntityFields) { // 有分组，需要后台排序
+      let groupedFields = listObject.groupByEntityFields.split(",")
+      groupedFields.forEach(f=>{
+        if (f==options.prop) listObject.groupByEntityFieldsOrder[f] = options.order
+      })
+      this.list_getDataFromServer(listObject)
+    } 
   },
   list_destroyScroll(listObject) {
     if (listObject.bscroller) listObject.bscroller.scroll.destroy()

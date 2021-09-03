@@ -21,7 +21,7 @@
         <i slot="header" class="el-icon-menu"/>
       </el-table-column>
       <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter" width="36" />
-      <cg-table-column prop="name" :page="1" :label="$t('cgList.field.name')" sortable :sort-method="(a,b)=>chineseSort(a.name,b.name)" align="left" >
+      <cg-table-column prop="name" :page="1" :label="$t('cgList.field.name')" sortable="custom" align="left" >
         <template slot-scope="scope">
           <el-input v-if="scope.row.inlineEditting" v-model="scope.row.name" type="text" />
           <span v-else>{{ scope.row.name }}</span>
@@ -159,6 +159,7 @@ const Comp = {
       editInlineFields: hasAuthority('/codegenerator/cgList/updateSelective')?['name', 'headTitle', 'tagTitle', 'pagination', 'editInline', 'tableHeight', 'sortField', 'multiple']:null,
       hasSonTables: true,
       groupByEntityFields: 'tableId',
+      groupByEntityFieldsOrder: {},
       listName: 'cgList',
       multipleSelection: true,
       generatorName: 'cgList',

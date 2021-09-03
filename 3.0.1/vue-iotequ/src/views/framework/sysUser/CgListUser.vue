@@ -21,7 +21,7 @@
         <i slot="header" class="el-icon-menu"/>
       </el-table-column>
       <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter" width="36" />
-      <cg-table-column prop="orgCode" type="dict" :page="paginationCurrentPage" v-if="!fixedQueryRecord.orgCode" :label="$t('sysUser.field.orgCode')" sortable align="left" >
+      <cg-table-column prop="orgCode" type="dict" :page="paginationCurrentPage" v-if="!fixedQueryRecord.orgCode" :label="$t('sysUser.field.orgCode')" sortable="custom" align="left" >
         <template slot-scope="scope">
           <cg-cascader v-if="scope.row.inlineEditting" v-model="scope.row.orgCode" :dictionary="dictionary.dictOrgCode" numberic show-all-levels />
           <span v-else>{{ dictValue(scope.row.orgCode,dictionary.dictOrgCode,true,true) }}</span>
@@ -34,28 +34,28 @@
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="name" :page="paginationCurrentPage" :label="$t('sysUser.field.name')" sortable :sort-method="(a,b)=>chineseSort(a.name,b.name)" align="left" >
+      <cg-table-column prop="name" :page="paginationCurrentPage" :label="$t('sysUser.field.name')" sortable="custom" align="left" >
         <template slot-scope="scope">
           <el-input v-if="scope.row.inlineEditting" v-model="scope.row.name" type="text" />
           <span v-else>{{ scope.row.name }}</span>
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="realName" :page="paginationCurrentPage" :label="$t('sysUser.field.realName')" sortable :sort-method="(a,b)=>chineseSort(a.realName,b.realName)" align="left" >
+      <cg-table-column prop="realName" :page="paginationCurrentPage" :label="$t('sysUser.field.realName')" sortable="custom" align="left" >
         <template slot-scope="scope">
           <cg-input v-if="scope.row.inlineEditting" v-model="scope.row.realName" type="text" />
           <span v-else>{{ localeText(scope.row.realName) }}</span>
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="sex" type="dict" :page="paginationCurrentPage" :label="$t('sysUser.field.sex')" sortable :sort-method="(a,b)=>chineseSort(a.sex,b.sex)" align="left" >
+      <cg-table-column prop="sex" type="dict" :page="paginationCurrentPage" :label="$t('sysUser.field.sex')" sortable="custom" align="left" >
         <template slot-scope="scope">
           <cg-select v-if="scope.row.inlineEditting" v-model="scope.row.sex" automaticDropdown appendToBody :dictionary="dictionary.dictSex" />
           <span v-else>{{ dictValue(scope.row.sex,dictionary.dictSex,false,true) }}</span>
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="mobilePhone" :page="paginationCurrentPage" :label="$t('sysUser.field.mobilePhone')" sortable :sort-method="(a,b)=>chineseSort(a.mobilePhone,b.mobilePhone)" align="left" >
+      <cg-table-column prop="mobilePhone" :page="paginationCurrentPage" :label="$t('sysUser.field.mobilePhone')" sortable="custom" align="left" >
         <template slot-scope="scope">
           <el-input v-if="scope.row.inlineEditting" v-model="scope.row.mobilePhone" type="text" />
           <span v-else>{{ scope.row.mobilePhone }}</span>
@@ -69,20 +69,20 @@
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="idType" type="dict" :page="paginationCurrentPage" :label="$t('sysUser.field.idType')" sortable align="left" >
+      <cg-table-column prop="idType" type="dict" :page="paginationCurrentPage" :label="$t('sysUser.field.idType')" sortable="custom" align="left" >
         <template slot-scope="scope">
           {{ dictValue(scope.row.idType,dictionary.dictIdType,false,true) }}
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="birthDate" type="date" :page="paginationCurrentPage" :label="$t('sysUser.field.birthDate')" sortable align="center" >
+      <cg-table-column prop="birthDate" type="date" :page="paginationCurrentPage" :label="$t('sysUser.field.birthDate')" sortable="custom" align="center" >
         <template slot-scope="scope">
           <cg-date-picker v-if="scope.row.inlineEditting" v-model="scope.row.birthDate" :align="mobile?'right':'center'" type="date" :title="$t('sysUser.field.birthDate')"  clearable/>
           <span v-else>{{ time2String(scope.row.birthDate,'YYYY-MM-DD') }}</span>
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="roleList" type="dict" :page="paginationCurrentPage" :label="$t('sysUser.field.roleList')" sortable :sort-method="(a,b)=>chineseSort(a.roleList,b.roleList)" align="left" >
+      <cg-table-column prop="roleList" type="dict" :page="paginationCurrentPage" :label="$t('sysUser.field.roleList')" sortable="custom" align="left" >
         <template slot-scope="scope">
           {{ dictValue(scope.row.roleList,dictionary.dictRoleList,false,true) }}
         </template>
@@ -218,6 +218,7 @@ const Comp = {
       totalEdittingRows: 0,
       editInlineFields: hasAuthority('/framework/sysUser/updateSelective')?['orgCode', 'name', 'realName', 'sex', 'mobilePhone', 'email', 'birthDate']:null,
       groupByEntityFields: 'orgCode',
+      groupByEntityFieldsOrder: {},
       listName: 'user',
       multipleSelection: true,
       generatorName: 'sysUser',

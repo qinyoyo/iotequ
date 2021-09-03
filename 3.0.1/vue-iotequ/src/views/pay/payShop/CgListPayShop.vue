@@ -122,6 +122,7 @@ const Comp = {
       paginationPageSize: this.$store.state.app.device === 'mobile' ? 10 : 30,
       paginationTotalRecords: 0,
       groupByEntityFields: 'corporationId',
+      groupByEntityFieldsOrder: {},
       listName: 'payShop',
       multipleSelection: true,
       generatorName: 'payShop',

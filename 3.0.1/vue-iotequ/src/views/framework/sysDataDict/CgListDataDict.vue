@@ -21,21 +21,21 @@
         <i slot="header" class="el-icon-menu"/>
       </el-table-column>
       <el-table-column v-if="multiple" type="selection" align="center" reserve-selection class-name="drag-filter no-tab-index" width="36" />
-      <cg-table-column prop="dict" :page="paginationCurrentPage" :label="$t('sysDataDict.field.dict')" sortable :sort-method="(a,b)=>chineseSort(a.dict,b.dict)" align="left" >
+      <cg-table-column prop="dict" :page="paginationCurrentPage" :label="$t('sysDataDict.field.dict')" sortable="custom" align="left" >
         <template slot-scope="scope">
           <el-input v-if="scope.row.inlineEditting" v-model="scope.row.dict" type="text" />
           <span v-else>{{ scope.row.dict }}</span>
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="code" :page="paginationCurrentPage" :label="$t('sysDataDict.field.code')" sortable :sort-method="(a,b)=>chineseSort(a.code,b.code)" align="left" >
+      <cg-table-column prop="code" :page="paginationCurrentPage" :label="$t('sysDataDict.field.code')" sortable="custom" align="left" >
         <template slot-scope="scope">
           <el-input v-if="scope.row.inlineEditting" v-model="scope.row.code" type="text" />
           <span v-else>{{ scope.row.code }}</span>
         </template>
 
       </cg-table-column>
-      <cg-table-column prop="text" :page="paginationCurrentPage" :label="$t('sysDataDict.field.text')" sortable :sort-method="(a,b)=>chineseSort(a.text,b.text)" align="left" >
+      <cg-table-column prop="text" :page="paginationCurrentPage" :label="$t('sysDataDict.field.text')" sortable="custom" align="left" >
         <template slot-scope="scope">
           <el-input v-if="scope.row.inlineEditting" v-model="scope.row.text" type="text" />
           <span v-else>{{ $t(scope.row.text) }}</span>
@@ -140,6 +140,7 @@ const Comp = {
       totalEdittingRows: 0,
       editInlineFields: hasAuthority('/framework/sysDataDict/updateSelective')?['dict', 'code', 'text', 'orderNum']:null,
       groupByEntityFields: 'dict',
+      groupByEntityFieldsOrder: {},
       listName: 'dataDict',
       multipleSelection: true,
       generatorName: 'sysDataDict',
