@@ -60,6 +60,20 @@ public class CkRegisterService extends CgCkRegisterService implements Applicatio
     static final String sound_err_too_many = "sound_err_too_many.mp3";
     static final String text_err_too_many = "请勿频繁打卡";
 
+    static public byte getAuthType(String mode) {
+        if (mode==null) return 0;
+        else if ("on".equals(mode)) {
+            return 1;
+        } else if ("off".equals(mode)) {
+            return 2;
+        } else if ("auto".equals(mode)) {
+            return 3;
+        } else if ("cancel".equals(mode)) {
+            return 4;
+        } else if ("remove".equals(mode)) {
+            return 5;
+        } else  return 6;
+    }
     @Override
     public RestJson doAction(String action, String id, HttpServletRequest request) throws IotequException {
         RestJson j = new RestJson();
@@ -81,12 +95,12 @@ public class CkRegisterService extends CgCkRegisterService implements Applicatio
                     if (people==null) return new RestJson().setSuccess(false).data("sound",sound_err_sign).setMessage(text_err_sign);
                     DeviceEvent event = new DeviceEvent(this);
                     event.setDeviceType("U53");
-                    event.setDeviceNo("<null>");
+                    event.setDeviceNo(Util.getUser().getName());
                     event.setDeviceMode("AD");
                     event.setTime(new Date());
                     event.setUserNo(userNo);
                     event.setWarning(false);
-                    event.put("authType", (byte)0);
+                    event.put("authType", getAuthType(mode));
                     event.put("auditeeAuthType", (byte)0);
                     Util.getApplicationContext().publishEvent(event);
                     return register(orgCode,mode,userNo, people, org);

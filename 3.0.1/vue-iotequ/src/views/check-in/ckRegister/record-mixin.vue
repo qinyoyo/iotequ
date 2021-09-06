@@ -1,25 +1,13 @@
 <script>
 import { fullScreen, exitFullScreen, isFullScreen} from '@/layout/components/Screenfull/index'
 import { addClass,removeClass } from '@/utils/dom'
-import { u53Disconnect } from '@/views/common-views/login/u53read'
+import { u53Disconnect, u53Connect } from '@/views/common-views/login/u53read'
 import { Message } from 'element-ui'
 export default {
     created() {
+      this.u53Connected = false
       const _this=this
-      u53Disconnect(_=>{
-        if (!this.routeParams || !this.routeParams.background) {
-          document.addEventListener("fullscreenchange", function (e) {
-            if (document.fullscreenElement) {
-                addClass(_this.$refs.dialog.$el,'hide-close')
-              } else {
-                removeClass(_this.$refs.dialog.$el,'hide-close')
-            }
-          })
-          _this.isFullScreen = isFullScreen()
-          if (!_this.isFullScreen) fullScreen()
-        }
-      },_=>{
-          Message({
+      let errorMessage = {
             dangerouslyUseHTMLString:true,
             duration: 2000,
             customClass: 'ck-register-message',
@@ -30,7 +18,27 @@ export default {
               _this.close()
             },
             message: '<div style="height: 64px; line-height:64px; vertical-align: middle; font-size:36px; color:red;">未找到驱动程序</div>'
+        }
+      u53Disconnect(_=>{
+        u53Connect(0, _=>{
+          _this.u53Connected = true
+          if (!this.routeParams || !this.routeParams.background) {
+            document.addEventListener("fullscreenchange", function (e) {
+              if (document.fullscreenElement) {
+                  addClass(_this.$refs.dialog.$el,'hide-close')
+                } else {
+                  removeClass(_this.$refs.dialog.$el,'hide-close')
+              }
+            })
+            _this.isFullScreen = isFullScreen()
+            if (!_this.isFullScreen) fullScreen()
+          }
+        },_=>{
+          errorMessage.message = '<div style="height: 64px; line-height:64px; vertical-align: middle; font-size:36px; color:red;">设备连接失败</div>'
+          Message(errorMessage)
         })
+      },_=>{
+          Message(errorMessage)
       })
     },
     computed: {
@@ -43,6 +51,7 @@ export default {
     },
     methods: {
       close() {
+        if (this.u53Connected) u53Disconnect()
         this.showDialog = false
         this.$refs.cgForm.dialogClosed = true
         this.$emit('close')

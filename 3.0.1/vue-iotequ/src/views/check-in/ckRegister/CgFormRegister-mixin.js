@@ -1,34 +1,33 @@
-import {u53Disconnect,u53Connect,u53Read,u53DisplayMessage} from '@/views/common-views/login/u53read'
+import {u53Connect,u53Read,u53DisplayMessage} from '@/views/common-views/login/u53read'
 import { request } from '@/utils/request'
 import { Message } from 'element-ui'
 
 export default {
-
     created() {
       const that = this
       this.dialogClosed = false
       this.ignoreRecordChanged = true
       this.registerId = new Date().getTime()
       if (that.routeParams && that.routeParams.background) {
-        u53DisplayMessage({},(res)=>{
-          if (res && res.isSucc) that.runBackground = true
-          else {
+        setTimeout(_=>{
+          u53DisplayMessage({},(res)=>{
+            if (res && res.isSucc) that.runBackground = true
+            else {
+              that.runBackground = false
+              that.showMessage('驱动版本不支持后台消息')
+            }
+          },_=>{
             that.runBackground = false
-            that.showMessage('驱动版本不存在或不支持后台模式')
-          }
-        },_=>{
-          that.runBackground = false
-          that.showMessage('驱动版本不存在或不支持后台模式')
-        })
-        that.keepLogin()
-        that.checkU53Busy(_=>{  // 等待上一次调用结束
-          u53Disconnect()
-          that.u53read()
-        })
+            that.showMessage('驱动版本不支持后台消息')
+          })
+          that.keepLogin()
+          that.checkU53Busy(_=>{  // 等待上一次调用结束
+            that.u53read()
+          })
+        },1000)
       } else {
         that.keepLogin()
         that.checkU53Busy(_=>{  // 等待上一次调用结束
-          u53Disconnect()
           that.u53read()
         })
       }
@@ -65,24 +64,20 @@ export default {
         if (!this.dialogClosed) {
           const that=this
           u53Connect(0,_=>{
-            that.foundU53()
-
-            u53Read((data)=>{
-              u53Disconnect()
-              if(data.isSucc) that.u53login(data.Msg)
-              else that.u53read()
-            },_=>{
-              u53Disconnect()
+              that.foundU53()
+              u53Read((data)=>{
+                if(data.isSucc) that.u53login(data.Msg)
+                else that.u53read()
+              },_=>{
+                that.notFoundU53()
+                that.u53read()
+              })
+            },
+            _=>{
               that.notFoundU53()
               that.u53read()
             })
-          },
-          _=>{
-            that.notFoundU53()
-            that.u53read()
-          })
         } else {
-          u53Disconnect()
           window.registerId = 0
           console.log('close u53 read')
         }
@@ -117,36 +112,6 @@ export default {
         },_=>{
           if (typeof onClose === 'function') onClose()
         })
-        /*
-          let url = window.location.origin + '/static/message.html'
-          let height=32
-          let params = []
-          if (!res) {
-            params.push("message="+encodeURI('未知错误'))
-            height += 64
-          }
-          else if (typeof res === 'string') {
-            params.push("message="+encodeURI(res))
-            height += 64
-          }
-          else {
-            if (res.success) params.push("success=true")
-            if (res.data && res.data.name) {
-              params.push("name="+encodeURI(res.data.name))
-              height += 64
-            }
-            if (res.message) {
-              params.push("message="+encodeURI(res.message))
-              height += 64
-            }
-            if (res.data && res.data.sound) params.push("sound="+encodeURI(res.data.sound))
-          }
-          if (params.length>0) url = url + '?' + params.join('&')
-          let left = (window.innerWidth - 380)/2, top = (window.innerHeight - height)/2
-          window.open(url,url,"channelmode=yes, fullscreen=yes, titlebar=no, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, "
-           +"left=" + left +", top="+top+", width=380, height="+height)
-          setTimeout(onClose,2000)
-          */
       },
       showMessage(res,onClose) {
         if (this.runBackground) {
@@ -190,7 +155,7 @@ export default {
       },
       keepLogin() {
         const _this=this
-        setTimeout(_=>{
+        this.keepLoginTimerId = setInterval(_=>{
           const req = {
             url: _this.baseUrl + '/action/register',
             method: 'post',
@@ -200,7 +165,7 @@ export default {
             }
           }
           request(req, true).finally(_=>{
-              _this.keepLogin()
+              if (_this.dialogClosed) clearInterval(_this.keepLoginTimerId)
           })
         },300000)
       },
