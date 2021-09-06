@@ -1,20 +1,37 @@
 <script>
 import { fullScreen, exitFullScreen, isFullScreen} from '@/layout/components/Screenfull/index'
 import { addClass,removeClass } from '@/utils/dom'
+import { u53Disconnect } from '@/views/common-views/login/u53read'
+import { Message } from 'element-ui'
 export default {
     created() {
       const _this=this
-      if (!this.routeParams || !this.routeParams.background) {
-        document.addEventListener("fullscreenchange", function (e) {
-          if (document.fullscreenElement) {
-              addClass(_this.$refs.dialog.$el,'hide-close')
-            } else {
-              removeClass(_this.$refs.dialog.$el,'hide-close')
-          }
+      u53Disconnect(_=>{
+        if (!this.routeParams || !this.routeParams.background) {
+          document.addEventListener("fullscreenchange", function (e) {
+            if (document.fullscreenElement) {
+                addClass(_this.$refs.dialog.$el,'hide-close')
+              } else {
+                removeClass(_this.$refs.dialog.$el,'hide-close')
+            }
+          })
+          _this.isFullScreen = isFullScreen()
+          if (!_this.isFullScreen) fullScreen()
+        }
+      },_=>{
+          Message({
+            dangerouslyUseHTMLString:true,
+            duration: 2000,
+            customClass: 'ck-register-message',
+            center: true,
+            type: 'error',
+            offset: (window.innerHeight - 98)/2,
+            onClose: _=>{
+              _this.close()
+            },
+            message: '<div style="height: 64px; line-height:64px; vertical-align: middle; font-size:36px; color:red;">未找到驱动程序</div>'
         })
-        this.isFullScreen = isFullScreen()
-        if (!this.isFullScreen) fullScreen()
-      }
+      })
     },
     computed: {
       content() {

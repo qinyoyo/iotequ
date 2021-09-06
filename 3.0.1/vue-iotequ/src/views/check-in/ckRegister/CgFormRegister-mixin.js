@@ -1,4 +1,4 @@
-import {u53Disconnect,u53Connect,u53Read} from '@/views/common-views/login/u53read'
+import {u53Disconnect,u53Connect,u53Read,u53DisplayMessage} from '@/views/common-views/login/u53read'
 import { request } from '@/utils/request'
 import { Message } from 'element-ui'
 
@@ -9,12 +9,29 @@ export default {
       this.dialogClosed = false
       this.ignoreRecordChanged = true
       this.registerId = new Date().getTime()
-      this.runBackground = this.routeParams && this.routeParams.background
-      this.keepLogin()
-      this.checkU53Busy(_=>{  // 等待上一次调用结束
-        u53Disconnect()
-        that.u53read()
-      })
+      if (that.routeParams && that.routeParams.background) {
+        u53DisplayMessage({},(res)=>{
+          if (res && res.isSucc) that.runBackground = true
+          else {
+            that.runBackground = false
+            that.showMessage('驱动版本不存在或不支持后台模式')
+          }
+        },_=>{
+          that.runBackground = false
+          that.showMessage('驱动版本不存在或不支持后台模式')
+        })
+        that.keepLogin()
+        that.checkU53Busy(_=>{  // 等待上一次调用结束
+          u53Disconnect()
+          that.u53read()
+        })
+      } else {
+        that.keepLogin()
+        that.checkU53Busy(_=>{  // 等待上一次调用结束
+          u53Disconnect()
+          that.u53read()
+        })
+      }
     },
     methods: {
       checkU53Busy(callback) {
@@ -26,7 +43,7 @@ export default {
         }
         const _this = this
         let timeId = window.setInterval(_=>{
-          if (_this.dialogClosed()) window.clearInterval(timeId)
+          if (_this.dialogClosed) window.clearInterval(timeId)
           else if (!window.registerId || window.registerId ==this.registerId) {
             window.clearInterval(timeId)
             console.log('start u53 read 2')
@@ -71,6 +88,36 @@ export default {
         }
       },
       openNewWindow(res,onClose) {
+        let options = {
+          type: 'error',
+          message: '',
+          name: '',
+          delay: 3000,
+          playSound: false
+        }
+        if (!res) {
+          options.message = '未知错误'
+          options.playSound = true
+        }
+        else if (typeof res === 'string') {
+          options.message = res
+        }
+        else {
+          if (res.success) type = 'success'
+          if (res.data && res.data.name) {
+            options.name = res.data.name
+          }
+          if (res.message) {
+            options.message = res.message
+          }
+          if (res.data && res.data.sound) options.playSound = true
+        }
+        u53DisplayMessage(options,_=>{
+          if (typeof onClose === 'function') onClose()
+        },_=>{
+          if (typeof onClose === 'function') onClose()
+        })
+        /*
           let url = window.location.origin + '/static/message.html'
           let height=32
           let params = []
@@ -99,6 +146,7 @@ export default {
           window.open(url,url,"channelmode=yes, fullscreen=yes, titlebar=no, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, "
            +"left=" + left +", top="+top+", width=380, height="+height)
           setTimeout(onClose,2000)
+          */
       },
       showMessage(res,onClose) {
         if (this.runBackground) {

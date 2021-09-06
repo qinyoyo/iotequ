@@ -1,6 +1,32 @@
+import { jsonp } from 'vue-jsonp'
 function u53request(data,action,onSuccess,onError) {
   const url = 'http://localhost:9000/'+action
   const callback = 'CALLBACK' + Math.random().toString().substr(9,18)
+  const callbakcFunction = function(res) {
+    if (res) {
+      if (res.isSucc) {
+        if (typeof onSuccess === 'function') onSuccess(res)
+      } else {
+        if (!res.Msg) {
+            if (res.status) res.Msg = res.status + ':U53 error.failure'.local()
+            else res.Msg = 'U53 error.failure'.local()
+        } 
+        if (typeof onError === 'function') onError(res)
+      } 
+    } else {
+        if (typeof onError === 'function') onError({isSucc: false, Msg: 'U53 error.failure'.local()})
+    }
+  }
+  window[callback] = callbakcFunction
+  jsonp(url,Object.assign({
+    callbackQuery: 'callback',
+    callbackName: callback
+  },data)).then().catch((err)=>{
+    if (typeof onError === 'function') onError({isSucc: false, Msg: err && err.statusText ? err.statusText : '请求错误'})
+  })
+
+  /*
+
   const JSONP = document.createElement('script')
   JSONP.setAttribute('type','text/javascript')
   const headEle = document.getElementsByTagName('head')[0]
@@ -17,23 +43,12 @@ function u53request(data,action,onSuccess,onError) {
   }
   JSONP.src = `${url}?callback=${callback}${ret}`;
   window[callback] = res => {
-    if (res) {
-      if (res.isSucc) {
-        if (typeof onSuccess === 'function') onSuccess(res)
-      } else {
-        if (!res.Msg) {
-            if (res.status) res.Msg = res.status + ':U53 error.failure'.local()
-            else res.Msg = 'U53 error.failure'.local()
-        } 
-        if (typeof onError === 'function') onError(res)
-      } 
-    } else {
-        if (typeof onError === 'function') onError({isSucc: false, Msg: 'U53 error.failure'.local()})
-    }
+    callbakcFunction(res)
     headEle.removeChild(JSONP)
     delete window[callback]
   }
   headEle.appendChild(JSONP)
+  */
 }
 
 export function u53Connect(type,onSuccess,onError) {
@@ -45,4 +60,7 @@ export function u53Disconnect(onSuccess,onError) {
 
 export function u53Read(onSuccess,onError) {
     return u53request({},'ServerAuth',onSuccess,onError)
+}
+export function u53DisplayMessage(messageOptions,onSuccess,onError) {
+  return u53request(messageOptions,'ServerMessage',onSuccess,onError)
 }
