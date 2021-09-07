@@ -1,4 +1,4 @@
-import {u53Connect,u53Read,u53DisplayMessage} from '@/views/common-views/login/u53read'
+import {u53Connect,u53Read,u53DisplayMessage} from '@/utils/u53'
 import { request } from '@/utils/request'
 import { Message } from 'element-ui'
 
@@ -71,7 +71,7 @@ export default {
               },_=>{
                 that.notFoundU53()
                 that.u53read()
-              })
+              },{timeOut:10000})
             },
             _=>{
               that.notFoundU53()

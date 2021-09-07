@@ -1,7 +1,7 @@
 <script>
 import { fullScreen, exitFullScreen, isFullScreen} from '@/layout/components/Screenfull/index'
 import { addClass,removeClass } from '@/utils/dom'
-import { u53Disconnect, u53Connect } from '@/views/common-views/login/u53read'
+import { u53Disconnect, u53Connect } from '@/utils/u53'
 import { Message } from 'element-ui'
 export default {
     created() {

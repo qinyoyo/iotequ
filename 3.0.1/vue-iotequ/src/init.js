@@ -7,6 +7,7 @@ if(xhr.status===200) {
         footer: '©2020 Qinyoyo　<a href="http://www.beian.miit.gov.cn/" target="_blank" class="text">渝ICP备17011611号-1</a>',
         server: '/api',
         baseUrl: '',
+        u53ServerUrl: 'http://localhost:9000',
         showSettings: true,
         disableMLText: false,
         tagsView: true,

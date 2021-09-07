@@ -119,7 +119,7 @@ import { apiUrl } from '@/utils/requestService'
 import { request } from '@/utils/request'
 import Cookies from 'js-cookie'
 import { generateTitle } from '@/utils/i18n'
-import {u53Disconnect,u53Connect,u53Read} from './u53read'
+import {u53Disconnect,u53Connect,u53Read} from '@/utils/u53'
 export default {
   name: 'Login',
   components: { LangSelect, MDinput },

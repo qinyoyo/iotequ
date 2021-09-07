@@ -1,41 +1,24 @@
+import { jsonp } from '@/utils/jsonp'
 function u53request(data,action,onSuccess,onError) {
-  const url = 'http://localhost:9000/'+action
-  const callback = 'CALLBACK' + Math.random().toString().substr(9,18)
-  const JSONP = document.createElement('script')
-  JSONP.setAttribute('type','text/javascript')
-  const headEle = document.getElementsByTagName('head')[0]
-
-  let ret = '';
-  if(data) {
-    if(typeof data === 'string')
-        ret = '&' + data;
-    else if(typeof data === 'object') {
-        for(let key in data)
-            ret += '&' + key + '=' + encodeURIComponent(data[key]);
-  }
-  ret += '&_time=' + Date.now();
-  }
-  JSONP.src = `${url}?callback=${callback}${ret}`;
-  window[callback] = res => {
+  const url = window.userSettings.u53ServerUrl+'/'+action
+  jsonp(url,data).then((res)=>{
     if (res) {
       if (res.isSucc) {
         if (typeof onSuccess === 'function') onSuccess(res)
       } else {
         if (!res.Msg) {
-            if (res.status) res.Msg = res.status+ ':U53 error.failure'.local()
-            else res.Msg = 'U53 error.failure'.local()
+            if (res.status) res.Msg = res.status+":"+'reader.checkU53'.local()
+            else res.Msg = 'reader.u53error'.local()
         } 
         if (typeof onError === 'function') onError(res)
       } 
     } else {
-        if (typeof onError === 'function') onError({isSucc: false, Msg: 'U53 error.failure'.local()})
+        if (typeof onError === 'function') onError({isSucc: false, Msg: 'reader.u53error'.local()})
     }
-    headEle.removeChild(JSONP)
-    delete window[callback]
-  }
-  headEle.appendChild(JSONP)
+  }).catch((err)=>{
+    if (typeof onError === 'function') onError({isSucc: false, Msg: '微服务访问失败'})
+  })
 }
-
 export function u53Connect(type,onSuccess,onError) {
     return u53request( {'isSetComm':type }, 'connectDev',onSuccess,onError)
 }
@@ -58,15 +41,18 @@ export function u53Auth(userId,fingerId,templateData,onSuccess,onError) {
     return u53request({userId,fingerId,templateData,timeOut:60000},'AuthFingersOneByOne',onSuccess,onError)
 }
 
-export function u53Read(onSuccess,onError) {
-    return u53request({},'ServerAuth',onSuccess,onError)
+export function u53Read(onSuccess,onError,options) {
+    return u53request(options?options:{timeOut:60000},'ServerAuth',onSuccess,onError)
 }
-
+export function u53DisplayMessage(messageOptions,onSuccess,onError) {
+  return u53request(messageOptions,'ShowMessage',onSuccess,onError)
+}
 export default {
     u53Connect,
     u53Disconnect,
     u53Reset,
     u53Register,
     u53Auth,
-    u53Read
+    u53Read,
+    u53DisplayMessage
 }
