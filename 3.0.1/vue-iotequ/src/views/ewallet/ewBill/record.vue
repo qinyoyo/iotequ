@@ -1,6 +1,7 @@
 <template>
   <div class="cg-form cg-form-ewBill">
-    <el-dialog ref="dialog" v-el-drag-dialog :visible.sync="showDialog" top="0px" :class="'cg-form cg-form-ewBill'+(dialogClass?' '+dialogClass:'')" :close-on-click-modal="false"
+    <el-dialog ref="dialog" v-el-drag-dialog :visible.sync="showDialog" top="0px" :destroy-on-close="destroyOnClose"
+               :class="'cg-form cg-form-ewBill'+(dialogClass?' '+dialogClass:'')" :close-on-click-modal="false"
                :append-to-body="true" :show-close="!mobile || isDetail" :before-close="beforeClose" @closed="close">
       <div slot="title" :class="titleColor">
         <cg-header :icon="icon" :content="content" :title="title"
@@ -26,6 +27,7 @@ const Comp = {
   mixins: [ParentForm],
   data() {
     return {
+      destroyOnClose: true,
       allowEditRecord: false,
       allowAddRecord: false,
       path: 'record',

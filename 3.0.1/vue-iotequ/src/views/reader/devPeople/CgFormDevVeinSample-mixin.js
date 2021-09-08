@@ -90,8 +90,8 @@ export default {
           that.hasFingerService=true
           if (typeof onSuccess === 'function') onSuccess()
         }, _=> {
-          connected=false;
-          hasFingerService=false;	
+          that.connected=false;
+          that.hasFingerService=false;	
           Message({
             message: 'error.resource_not_found'.local() + ' : '+'reader.checkU53'.local(),
             code: '',

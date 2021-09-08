@@ -12,7 +12,8 @@
 <template>
   <div class="cg-form cg-form-${generatorName}">
     <#if FP.isDialog>
-    <el-dialog ref="dialog" v-el-drag-dialog :visible.sync="showDialog" top="0px" :class="'cg-form cg-form-${generatorName}'+(dialogClass?' '+dialogClass:'')" :close-on-click-modal="false"
+    <el-dialog ref="dialog" v-el-drag-dialog :visible.sync="showDialog" top="0px" :destroy-on-close="destroyOnClose"
+               :class="'cg-form cg-form-${generatorName}'+(dialogClass?' '+dialogClass:'')" :close-on-click-modal="false"
                :append-to-body="true" :show-close="!mobile || isDetail" :before-close="beforeClose" @closed="close"<#if dialogWidth??> ${dialogWidth}</#if>>
     <#else>
     <el-card shadow="hover">
@@ -68,6 +69,9 @@ const Comp = {
   mixins: [ParentForm],
   data() {
     return {
+      <#if FP.isDialog>
+      destroyOnClose: true,
+      </#if>
       <#if !table.actionList ?? || (table.actionList?index_of(",edit,") lt 0 && table.actionList?index_of(",view,") lt 0) >
       allowViewRecord: false,
       </#if>

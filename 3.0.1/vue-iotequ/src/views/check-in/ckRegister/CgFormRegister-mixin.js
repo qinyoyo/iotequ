@@ -1,54 +1,57 @@
-import {u53Connect,u53Read,u53DisplayMessage} from '@/utils/u53'
+import {u53Connect,u53Read,u53DisplayMessage, u53Version} from '@/utils/u53'
+import { fullScreen, isFullScreen, exitFullScreen} from '@/layout/components/Screenfull/index'
 import { request } from '@/utils/request'
 import { Message } from 'element-ui'
 
 export default {
-    created() {
+    created () {
       const that = this
-      this.dialogClosed = false
       this.ignoreRecordChanged = true
-      this.registerId = new Date().getTime()
-      if (that.routeParams && that.routeParams.background) {
-        setTimeout(_=>{
-          u53DisplayMessage({},(res)=>{
-            if (res && res.isSucc) that.runBackground = true
-            else {
-              that.runBackground = false
-              that.showMessage('驱动版本不支持后台消息')
-            }
-          },_=>{
-            that.runBackground = false
-            that.showMessage('驱动版本不支持后台消息')
-          })
+      this.dialogClosed = false
+      setTimeout(_=>{
+        this.checkAndConnectU5(_=>{
           that.keepLogin()
-          that.checkU53Busy(_=>{  // 等待上一次调用结束
-            that.u53read()
-          })
-        },1000)
-      } else {
-        that.keepLogin()
-        that.checkU53Busy(_=>{  // 等待上一次调用结束
           that.u53read()
         })
-      }
+      },1000)
+    },
+    destroyed() {
+      this.dialogClosed = true
+      if (this.keepLoginTimerId) clearInterval(this.keepLoginTimerId)
+      if (!this.isFullScreen && isFullScreen()) exitFullScreen()
     },
     methods: {
-      checkU53Busy(callback) {
-        if (!window.registerId || window.registerId ==this.registerId) {
-          window.registerId = this.registerId
-          console.log('start u53 read 1')
-          callback()
-          return
+      checkAndConnectU5(callback) {
+        const _this=this
+        if (!_this || _this.dialogClosed) return
+        const connect = (supportMessage)=>{
+          if (!_this || _this.dialogClosed) return
+          u53Connect(0, _=>{
+            _this.foundU53()
+            if (_this.routeParams && _this.routeParams.background) {
+              if (!supportMessage) {
+                _this.showMessage('驱动版本不支持后台消息')
+              }
+              _this.runBackground = supportMessage
+            } 
+            if (!_this.runBackground) {
+              _this.isFullScreen = isFullScreen()
+              if (!_this.isFullScreen) fullScreen()
+            }
+            callback() 
+          },(res)=>{
+            if (supportMessage && res && res.retCode == 20) {
+              _this.showMessage('设备忙',_=>{_this.$emit('closeDialog')})
+            } else 
+            _this.showMessage('设备连接失败',_=>{_this.$emit('closeDialog')})
+          })
         }
-        const _this = this
-        let timeId = window.setInterval(_=>{
-          if (_this.dialogClosed) window.clearInterval(timeId)
-          else if (!window.registerId || window.registerId ==this.registerId) {
-            window.clearInterval(timeId)
-            console.log('start u53 read 2')
-            callback()
-          }
-        },2000)
+        u53Version((res)=>{ 
+          connect(true)
+        },(res)=>{
+          if (res && res.retCode == 1001) _this.showMessage('设备连接失败',_=>{_this.$emit('closeDialog')})
+          else connect(false)
+        })
       },
       foundU53() {
         this.hasU53 = true
@@ -61,8 +64,8 @@ export default {
         if (document.querySelector('img.cg-header-image')) document.querySelector('img.cg-header-image').src = '/static/img/not_found.png'
       },
       u53read() {
-        if (!this.dialogClosed) {
-          const that=this
+        const that=this
+        if (that && !that.dialogClosed) {
           u53Connect(0,_=>{
               that.foundU53()
               u53Read((data)=>{
@@ -77,9 +80,6 @@ export default {
               that.notFoundU53()
               that.u53read()
             })
-        } else {
-          window.registerId = 0
-          console.log('close u53 read')
         }
       },
       openNewWindow(res,onClose) {
@@ -164,9 +164,7 @@ export default {
                 orgCode: _this.record.orgCode
             }
           }
-          request(req, true).finally(_=>{
-              if (_this.dialogClosed) clearInterval(_this.keepLoginTimerId)
-          })
+          request(req, true)
         },300000)
       },
       u53login(template) {
