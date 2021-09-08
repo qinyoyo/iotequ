@@ -1,7 +1,7 @@
 import { jsonp } from '@/utils/jsonp'
 function u53request(data,action,onSuccess,onError) {
   const url = window.userSettings.u53ServerUrl+'/'+action
-  console.log(url)
+  //console.log(url)
   jsonp(url,data).then((res)=>{
     try {
       if (res) {
@@ -49,6 +49,9 @@ export function u53DisplayMessage(messageOptions,onSuccess,onError) {
 export function u53Version(onSuccess,onError) {
   return u53request({},'Version',onSuccess,onError)
 }
+export function u53Cancel(onSuccess,onError) {
+  return u53request({},'Cancel',onSuccess,onError)
+}
 export default {
     u53Connect,
     u53Disconnect,
@@ -57,5 +60,6 @@ export default {
     u53Auth,
     u53Read,
     u53DisplayMessage,
-    u53Version
+    u53Version,
+    u53Cancel
 }

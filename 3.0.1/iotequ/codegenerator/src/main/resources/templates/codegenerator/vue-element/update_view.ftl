@@ -12,7 +12,7 @@
 <template>
   <div class="cg-form cg-form-${generatorName}">
     <#if FP.isDialog>
-    <el-dialog ref="dialog" v-el-drag-dialog :visible.sync="showDialog" top="0px" :destroy-on-close="destroyOnClose"
+    <el-dialog ref="dialog" v-el-drag-dialog :visible.sync="showDialog" top="0px" v-if="showDialog || !destroyOnClose"
                :class="'cg-form cg-form-${generatorName}'+(dialogClass?' '+dialogClass:'')" :close-on-click-modal="false"
                :append-to-body="true" :show-close="!mobile || isDetail" :before-close="beforeClose" @closed="close"<#if dialogWidth??> ${dialogWidth}</#if>>
     <#else>

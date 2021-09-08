@@ -1,6 +1,6 @@
 <template>
   <div class="cg-form cg-form-ckRegister">
-    <el-dialog ref="dialog" v-el-drag-dialog :visible.sync="showDialog" top="0px" :destroy-on-close="destroyOnClose"
+    <el-dialog ref="dialog" v-el-drag-dialog :visible.sync="showDialog" top="0px" v-if="showDialog || !destroyOnClose"
                :class="'cg-form cg-form-ckRegister'+(dialogClass?' '+dialogClass:'')" :close-on-click-modal="false"
                :append-to-body="true" :show-close="!mobile || isDetail" :before-close="beforeClose" @closed="close" width="640px">
       <div slot="title" :class="titleColor">

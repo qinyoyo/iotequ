@@ -61,6 +61,7 @@ export default {
       else return !this.hasFingerService
     },
     disconnect(onSuccess,onError) {
+      u53.u53Cancel();
       u53.u53Disconnect(onSuccess,onError)
     },
     connect(type){

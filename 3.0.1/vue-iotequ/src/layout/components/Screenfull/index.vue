@@ -8,27 +8,35 @@
 <script>
 export function exitFullScreen() {
     let element = document.documentElement;
-    if (document.exitFullscreen) {
-        document.exitFullscreen();
-    } else if (document.webkitCancelFullScreen) {
-        document.webkitCancelFullScreen();
-    } else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen();
-    } else if (document.msExitFullscreen) {
-        document.msExitFullscreen();
+    try {
+      if (document.exitFullscreen) {
+          document.exitFullscreen();
+      } else if (document.webkitCancelFullScreen) {
+          document.webkitCancelFullScreen();
+      } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+      } else if (document.msExitFullscreen) {
+          document.msExitFullscreen();
+      }
+    } catch (e) {
+      console.log(e)
     }
 }
 export function fullScreen() {
-    let element = document.documentElement;
-    if (element.requestFullscreen) {
-        element.requestFullscreen();
-    } else if (element.webkitRequestFullScreen) {
-        element.webkitRequestFullScreen();
-    } else if (element.mozRequestFullScreen) {
-        element.mozRequestFullScreen();
-    } else if (element.msRequestFullscreen) {
-        // IE11
-        element.msRequestFullscreen();
+    try {
+      let element = document.documentElement;
+      if (element.requestFullscreen) {
+          element.requestFullscreen();
+      } else if (element.webkitRequestFullScreen) {
+          element.webkitRequestFullScreen();
+      } else if (element.mozRequestFullScreen) {
+          element.mozRequestFullScreen();
+      } else if (element.msRequestFullscreen) {
+          // IE11
+          element.msRequestFullscreen();
+      }
+    } catch (e) {
+      console.log(e)
     }
 }
 export function isFullScreen() {

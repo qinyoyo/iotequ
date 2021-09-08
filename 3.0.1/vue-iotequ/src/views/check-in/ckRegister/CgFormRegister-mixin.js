@@ -1,4 +1,4 @@
-import {u53Connect,u53Read,u53DisplayMessage, u53Version} from '@/utils/u53'
+import {u53Connect,u53Read,u53DisplayMessage, u53Version, u53Cancel} from '@/utils/u53'
 import { fullScreen, isFullScreen, exitFullScreen} from '@/layout/components/Screenfull/index'
 import { request } from '@/utils/request'
 import { Message } from 'element-ui'
@@ -8,17 +8,16 @@ export default {
       const that = this
       this.ignoreRecordChanged = true
       this.dialogClosed = false
-      setTimeout(_=>{
-        this.checkAndConnectU5(_=>{
-          that.keepLogin()
-          that.u53read()
-        })
-      },1000)
+      this.checkAndConnectU5(_=>{
+        that.keepLogin()
+        that.u53read()
+      })
     },
     destroyed() {
       this.dialogClosed = true
       if (this.keepLoginTimerId) clearInterval(this.keepLoginTimerId)
       if (!this.isFullScreen && isFullScreen()) exitFullScreen()
+      u53Cancel()
     },
     methods: {
       checkAndConnectU5(callback) {
@@ -74,7 +73,7 @@ export default {
               },_=>{
                 that.notFoundU53()
                 that.u53read()
-              },{timeOut:10000})
+              })
             },
             _=>{
               that.notFoundU53()

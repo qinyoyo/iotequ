@@ -2,14 +2,7 @@
 import { addClass,removeClass } from '@/utils/dom'
 export default {
     created() {
-      const _this = this
-      document.addEventListener("fullscreenchange", function (e) {
-        if (document.fullscreenElement) {
-            addClass(_this.$refs.dialog.$el,'hide-close')
-          } else {
-            removeClass(_this.$refs.dialog.$el,'hide-close')
-        }
-      })
+      document.addEventListener("fullscreenchange", this.fullscreenchangeEvent)
     },
     computed: {
       content() {
@@ -17,6 +10,18 @@ export default {
       },
       title() {
         return 'ckRegister.action.register'.local()
+      }
+    },
+    methods: {
+      fullscreenchangeEvent(e) {
+        let $el = document.querySelector('.cg-form-ckRegister.el-dialog__wrapper')
+        if ($el) {
+          if (document.fullscreenElement) {
+            addClass($el,'hide-close')
+          } else {
+            removeClass($el,'hide-close')
+          }
+        } else document.removeEventListener("fullscreenchange",this.fullscreenchangeEvent)
       }
     }
 }

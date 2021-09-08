@@ -119,7 +119,7 @@ import { apiUrl } from '@/utils/requestService'
 import { request } from '@/utils/request'
 import Cookies from 'js-cookie'
 import { generateTitle } from '@/utils/i18n'
-import {u53Disconnect,u53Connect,u53Read} from '@/utils/u53'
+import {u53Disconnect,u53Connect,u53Read,u53Cancel} from '@/utils/u53'
 export default {
   name: 'Login',
   components: { LangSelect, MDinput },
@@ -215,7 +215,7 @@ export default {
   destroyed () {
     if (this.hasU53) {
       this.hasU53=false
-      u53Disconnect()
+      u53Cancel()
     }
   },
   methods: {
