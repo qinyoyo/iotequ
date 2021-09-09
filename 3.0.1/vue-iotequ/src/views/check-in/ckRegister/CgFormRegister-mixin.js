@@ -81,7 +81,7 @@ export default {
             })
         }
       },
-      openNewWindow(res,onClose) {
+      showMessage(res,onClose) {
         let options = {
           type: 'error',
           message: '',
@@ -97,7 +97,7 @@ export default {
           options.message = res
         }
         else {
-          if (res.success) type = 'success'
+          if (res.success) options.type = 'success'
           if (res.data && res.data.name) {
             options.name = res.data.name
           }
@@ -106,52 +106,37 @@ export default {
           }
           if (res.data && res.data.sound) options.playSound = true
         }
-        u53DisplayMessage(options,_=>{
-          if (typeof onClose === 'function') onClose()
-        },_=>{
-          if (typeof onClose === 'function') onClose()
-        })
-      },
-      showMessage(res,onClose) {
         if (this.runBackground) {
-          this.openNewWindow(res,onClose)
-          return
-        }
-        let msg = ''
-        let type = 'error'
-        let height=32
-        const textDiv = '<div style="height: 64px; line-height:64px; vertical-align: middle; font-size:36px; '
-        if (!res) {
-          msg = textDiv + 'color:red;">未知错误</div>'
-          height += 64
-        }
-        else if (typeof res === 'string') {
-          msg = textDiv +'color:red; ">'+res+'</div>'
-          height += 64
-        }
-        else {
-          if (res.success) type = 'success'
-          if (res.data && res.data.name) {
-            msg = textDiv + 'color: blue;">' + res.data.name + '</div>'
+          u53DisplayMessage(options,_=>{
+            if (typeof onClose === 'function') onClose()
+          },_=>{
+            if (typeof onClose === 'function') onClose()
+          })
+        } else {
+          let height=32
+          let msg = ''
+          const textDiv = '<div style="height: 64px; line-height:64px; vertical-align: middle; font-size:36px; '
+          if (options.name) {
+            msg = textDiv + 'color: blue;">' + options.name + '</div>'
             height += 64
           }
-          if (res.message) {
-            msg = msg + textDiv + 'color:'+(res.success ? 'black' : 'red')+';">'+res.message+'</div>'
+          if (options.message) {
+            msg = msg + textDiv + 'color:'+(options.type=='error' ? 'red' : 'black')+';">'+options.message+'</div>'
             height += 64
           }
           if (res.data && res.data.sound) msg = msg + '<audio src="/static/sound/'+res.data.sound+'" autoplay style="display:none"></audio>'
+          Message({
+            dangerouslyUseHTMLString:true,
+            duration: 2000,
+            customClass: 'ck-register-message',
+            center: true,
+            type: options.type,
+            offset: (window.innerHeight - height)/2,
+            onClose: onClose,
+            message: msg
+          })
         }
-        Message({
-          dangerouslyUseHTMLString:true,
-          duration: 2000,
-          customClass: 'ck-register-message',
-          center: true,
-          type: type,
-          offset: (window.innerHeight - height)/2,
-          onClose: onClose,
-          message: msg
-        })
-      },
+      },      
       keepLogin() {
         const _this=this
         this.keepLoginTimerId = setInterval(_=>{
