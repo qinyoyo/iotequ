@@ -43,13 +43,13 @@ public class SvasController {
 		return svasServer.svein_getUserNo(idType, idNo, name,def,prefix);
 	}
 	@RequestMapping(value = "/getUserNoFromDict")
-	public Map<String,Object> getUserNoFromDict(String templates,HttpServletRequest request, HttpServletResponse response) {
-		return svasServer.svein_getUserNoFromDict(templates);
+	public Map<String,Object> getUserNoFromDict(String template,HttpServletRequest request, HttpServletResponse response) {
+		return svasServer.svein_getUserNoFromDict(template);
 	}
 
 	@RequestMapping(value = "/setUserNoForDict")
-	public Map<String,Object> setUserNoForDict(String templates,String userNo, HttpServletRequest request, HttpServletResponse response) {
-		return svasServer.svein_setUserNoForDict(templates,userNo);
+	public Map<String,Object> setUserNoForDict(String template,String userNo, HttpServletRequest request, HttpServletResponse response) {
+		return svasServer.svein_setUserNoForDict(template,userNo);
 	}
 
 	@RequestMapping(value = "/getUserInfo")
