@@ -1,32 +1,29 @@
 package svas;
 
-import org.springframework.boot.web.servlet.error.ErrorController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
-import javax.jws.WebResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.NoHandlerFoundException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
-@RestController
-public class SvasErrorController implements ErrorController {
-
-    private final static String ERROR_PATH = "/error";
-
+@ControllerAdvice
+public class SvasErrorController {
+    @ExceptionHandler(Exception.class)
     @ResponseBody
-    @RequestMapping(path  = ERROR_PATH )
-    public Map<String,Object> error(HttpServletRequest request, HttpServletResponse response){
+    public Map<String,Object> errorHandler(HttpServletRequest request, HttpServletResponse response,Exception e){
         Map<String,Object> map = new HashMap<>();
         map.put("success",false);
-        map.put("error",404);
-        map.put("message","Invalid url");
+        if (e instanceof NoHandlerFoundException) {
+            map.put("error",404);
+            map.put("url", ((NoHandlerFoundException) e).getRequestURL());
+            map.put("message",e.getMessage());
+        } else {
+            map.put("error", 500);
+            map.put("message", e.getMessage());
+        }
         return map;
-    }
-    @Override
-    public String getErrorPath() {
-        return ERROR_PATH;
     }
 }

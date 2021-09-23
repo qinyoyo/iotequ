@@ -10,8 +10,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
-@ServletComponentScan(basePackages = {"top.iotequ","svas"})
-@SpringBootApplication(scanBasePackages= {"top.iotequ"})
+@ServletComponentScan(basePackages = {"top.iotequ"})
+@SpringBootApplication(scanBasePackages= {"top.iotequ","svas"})
 public class SvasApplication {
     private static String additionalPropertyFile(String fileName) {
         String path = ".";

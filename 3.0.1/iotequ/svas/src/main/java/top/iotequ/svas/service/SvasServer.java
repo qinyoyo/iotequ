@@ -244,7 +244,8 @@ public class SvasServer  implements ApplicationContextAware {
 		}
 		if (SvasUtil.isEmpty(idNo) || idType==null || idType==0) {
 			map.put("success", false);
-			map.put("message","please input id number and id type");
+			map.put("message","please input"+(SvasUtil.isEmpty(idNo)?" <idNo>":"") + (idType==null || idType==0 ? " <idType>":""));
+			map.put("error", ERR_PARAMETER);
 		} else {
 			if (SvasUtil.isEmpty(name)) name="";
 			if (prefix==null) prefix=env.getProperty("svas.user-no-prefix");
@@ -273,7 +274,8 @@ public class SvasServer  implements ApplicationContextAware {
 		}
 		if (SvasUtil.isEmpty(temp)) {
 			map.put("success", false);
-			map.put("message","please input template");
+			map.put("message","please input <template>");
+			map.put("error", ERR_PARAMETER);
 		} else {
 			JniStringReturn userNo=new JniStringReturn();
 			int r=Svas.instance.svein_getUserNoFromDict(temp,userNo);
@@ -300,7 +302,8 @@ public class SvasServer  implements ApplicationContextAware {
 		}
 		if (SvasUtil.isEmpty(temp) || SvasUtil.isEmpty(userNo)) {
 			map.put("success", false);
-			map.put("message","please input template or userNo");
+			map.put("message","please input" + (SvasUtil.isEmpty(userNo)?" <userNo>":"") + (SvasUtil.isEmpty(temp)?" <template>":""));
+			map.put("error", ERR_PARAMETER);
 		} else {
 			JniStringReturn newTemp=new JniStringReturn();
 			int r=Svas.instance.svein_setUserNoForDict(temp,userNo,newTemp);
@@ -327,7 +330,8 @@ public class SvasServer  implements ApplicationContextAware {
 		}
 		if (SvasUtil.isEmpty(userNo)) {
 			map.put("success", false);
-			map.put("message","please input user no");
+			map.put("message","please input <userNo>");
+			map.put("error", ERR_PARAMETER);
 		} else {
 			SvasUserInfo u = new SvasUserInfo();
 			u.userNo = userNo;
@@ -358,10 +362,12 @@ public class SvasServer  implements ApplicationContextAware {
 		if (idType==null) idType=0;
 		if (SvasUtil.isEmpty(userNo)) {
 			map.put("success", false);
-			map.put("message","please input user no");
+			map.put("message","please input <userNo>");
+			map.put("error", ERR_PARAMETER);
 		}else if (idType==0 && SvasUtil.isEmpty(idNo) && SvasUtil.isEmpty(name)) {
 			map.put("success", false);
-			map.put("message","please select one parameter to modify");			
+			map.put("message","please input <idType> or <idNo> or <name>");
+			map.put("error", ERR_PARAMETER);
 		}
 		else {
 			int r=Svas.instance.svein_changeUserInfo(userNo,idType, idNo, name);
@@ -385,7 +391,8 @@ public class SvasServer  implements ApplicationContextAware {
 		}
 		if (SvasUtil.isEmpty(userNo)) {
 			map.put("success", false);
-			map.put("message","please input user no");
+			map.put("message","please input <userNo>");
+			map.put("error", ERR_PARAMETER);
 		} else {
 			int r=Svas.instance.svein_getUserAllInfo(userNo,includePhoto!=null &&  includePhoto ? 1: 0, map);
 			if (r!=SUCCESS) {
@@ -406,7 +413,8 @@ public class SvasServer  implements ApplicationContextAware {
 		}
 		if (mapPeople==null || SvasUtil.isEmpty(mapPeople.get("userNo"))) {
 			map.put("success", false);
-			map.put("message","please input user no");
+			map.put("message","please input <userNo>");
+			map.put("error", ERR_PARAMETER);
 		} else {
 			int r=Svas.instance.svein_changeUserInfoByMap(mapPeople);
 			log.debug("svein_changeUserInfoByMap()={}",r);
@@ -429,7 +437,8 @@ public class SvasServer  implements ApplicationContextAware {
 		}
 		if (SvasUtil.isEmpty(userNo)) {
 			map.put("success", false);
-			map.put("message","please input user no");
+			map.put("message","please input <userNo>");
+			map.put("error", ERR_PARAMETER);
 		} else {
 			int r=Svas.instance.svein_removeUserNo(userNo);
 	        log.debug("svein_removeUserNo({})={}",userNo,r);
@@ -453,7 +462,8 @@ public class SvasServer  implements ApplicationContextAware {
 		}
 		if (SvasUtil.isEmpty(userNo) || fingerNo==null ) {
 			map.put("success", false);
-			map.put("message","please input user no and finger no");
+			map.put("message","please input"+(SvasUtil.isEmpty(userNo)?" <userNo>":"")+(fingerNo==null?" <fingerNo>":""));
+			map.put("error", ERR_PARAMETER);
 		}	else {
 			int r=Svas.instance.svein_removeFinger(userNo,fingerNo);
 	        log.debug("svein_removeFinger({},{})={}",userNo,fingerNo,r);
@@ -476,7 +486,8 @@ public class SvasServer  implements ApplicationContextAware {
 		}
 		if (SvasUtil.isEmpty(userNo) || fingerNo==null) {
 			map.put("success", false);
-			map.put("message","please input user no and finger no");
+			map.put("message","please input"+(SvasUtil.isEmpty(userNo)?" <userNo>":"")+(fingerNo==null?" <fingerNo>":""));
+			map.put("error", ERR_PARAMETER);
 		} else if (SvasUtil.isEmpty(templates) ) {
 			map.put("success", false);
 			map.put("message","please templates");
@@ -506,7 +517,8 @@ public class SvasServer  implements ApplicationContextAware {
 		}
 		if (SvasUtil.isEmpty(userNo) || fingerNo==null) {
 			map.put("success", false);
-			map.put("message","please input user no and finger no");
+			map.put("message","please input"+(SvasUtil.isEmpty(userNo)?" <userNo>":"")+(fingerNo==null?" <fingerNo>":""));
+			map.put("error", ERR_PARAMETER);
 		} else if (SvasUtil.isEmpty(templates) ) {
 			map.put("success", false);
 			map.put("message","please templates");
@@ -533,11 +545,15 @@ public class SvasServer  implements ApplicationContextAware {
 			map.put("error", TRIAL_EXPIRED);
 			return map;
 		}
-		if (SvasUtil.isEmpty(templates1) && SvasUtil.isEmpty(templates2)) {
+		if (SvasUtil.isEmpty(userNo)) {
 			map.put("success", false);
-			map.put("message","please templates");
-		}
-		else  {
+			map.put("message","please input <userNo>");
+			map.put("error", ERR_PARAMETER);
+		} else if (SvasUtil.isEmpty(templates1) && SvasUtil.isEmpty(templates2)) {
+			map.put("success", false);
+			map.put("message","please input <templates1> or <templates2>");
+			map.put("error", ERR_PARAMETER);
+		} else  {
 			int t1=type1;
 			int r=Svas.instance.svein_setFingers(userNo,(type1!=null?type1:0),(warning1!=null && warning1 ? 1 : 0) , templates1 ,(type2!=null?type2:0),(warning2!=null && warning2 ? 1 : 0),templates2);
 			log.debug("svein_setFingers(...)={}",r);
@@ -562,7 +578,8 @@ public class SvasServer  implements ApplicationContextAware {
 		}
 		if (SvasUtil.isEmpty(userNo)) {
 			map.put("success", false);
-			map.put("message","please input user no");
+			map.put("message","please input <userNo>");
+			map.put("error", ERR_PARAMETER);
 		}
 		else  {
 			int r=Svas.instance.svein_setPhoto(userNo,photo);
@@ -586,7 +603,8 @@ public class SvasServer  implements ApplicationContextAware {
 		}
 		if (SvasUtil.isEmpty(userNo) || fingerNo==null) {
 			map.put("success", false);
-			map.put("message","please input user no");
+			map.put("message","please input <userNo>");
+			map.put("error", ERR_PARAMETER);
 		} else {
 			SvasTemplates templates = new SvasTemplates();
 			templates.fingerNo = fingerNo;
@@ -616,6 +634,8 @@ public class SvasServer  implements ApplicationContextAware {
 		}
 		if (SvasUtil.isEmpty(userNo)) {
 			map.put("success", false);
+			map.put("message","please input <userNo>");
+			map.put("error", ERR_PARAMETER);
 		} else {
 			SvasFingerInfo info = new SvasFingerInfo();
 			int r=Svas.instance.svein_getFingerCount(userNo,1, info);
@@ -632,10 +652,12 @@ public class SvasServer  implements ApplicationContextAware {
 	}
 
 	public Map<String,Object>  svein_getFingerInfo(String userNo)  {
+		Map<String,Object> ret=new HashMap<String,Object>();
 		if (SvasUtil.isEmpty(userNo)) {
-			return null;
+			ret.put("success", false);
+			ret.put("message","please input <userNo>");
+			ret.put("error", ERR_PARAMETER);
 		} else {
-			Map<String,Object> ret=new HashMap<String,Object>();
 			if (trialDay<=0) {
 				ret.put("success", false);
 				ret.put("message","version expired");	
@@ -653,8 +675,8 @@ public class SvasServer  implements ApplicationContextAware {
 				ret.put("success", false);
 				ret.put("error",r);				
 			}
-			return ret;
 		}
+		return ret;
 	}
 
 	public static void matchedCallback(SvasMatched matched) // svas.dll中调用
@@ -673,7 +695,8 @@ public class SvasServer  implements ApplicationContextAware {
 		}
 		if (SvasUtil.isEmpty(template) ) {
 			map.put("success", false);
-			map.put("message","please input template");
+			map.put("message","please input <template>");
+			map.put("error", ERR_PARAMETER);
 		}
 		else  {
 			SvasMatched m=new SvasMatched();

@@ -94,7 +94,7 @@
 			<properties>
 				<build.groupId>org.apache.maven.plugins</build.groupId>
 				<build.artifactId>maven-compiler-plugin</build.artifactId>
-				<build.excludes>top/iotequ/CodegeneratorApplication.java</build.excludes>
+				<build.excludes>top/iotequ/CodegeneratorApplication.java,svas/SvasErrorController.java</build.excludes>
 				<resource.excludes>application.yml</resource.excludes>
 			</properties>
 			<build>

@@ -141,7 +141,7 @@ public class SvasController {
 		return svasServer.svein_addFinger(userNo, fingerNo, fingerType,templates, warning);
 	}
 	@RequestMapping(value = "/set")
-	public Map<String,Object> add(String userNo,Integer fingerType1, Boolean warning1, String templates1, Integer fingerType2, Boolean warning2, String templates2,HttpServletRequest request, HttpServletResponse response) {
+	public Map<String,Object> set(String userNo,Integer fingerType1, Boolean warning1, String templates1, Integer fingerType2, Boolean warning2, String templates2,HttpServletRequest request, HttpServletResponse response) {
 		return svasServer.svein_setFingers(userNo, fingerType1, warning1,templates1,fingerType2,warning2,templates2);
 	}
 	@RequestMapping(value = "/photo")
