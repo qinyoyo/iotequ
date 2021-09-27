@@ -19,8 +19,6 @@ null/
 *.zip
 *.jar
 *.log
-*.doc
-*.docx
 *.vsd
 *.xlsx
 *.xls
