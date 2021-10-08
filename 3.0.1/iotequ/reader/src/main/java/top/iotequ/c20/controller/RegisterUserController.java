@@ -184,6 +184,13 @@ public class RegisterUserController {
 					event.setWarning(false);
 					event.put("authType", (byte) 0);
 					event.put("auditeeAuthType", (byte) 0);
+					if (!Util.isEmpty(rsp.c20fingers)) {
+						String template = rsp.c20fingers.get(0).getTemplates();
+						if (template!=null) {
+							if (template.length()>576) template = template.substring(0,576);
+							event.setTemplate(template);
+						}
+					}
 					applicationContext.publishEvent(event);
 				} catch (Exception e) {
 				}

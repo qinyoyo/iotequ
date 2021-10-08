@@ -18,6 +18,8 @@ public class DeviceEvent extends ApplicationEvent  {
 	String  userNo;             // 人员userNo
 	Boolean warning;            // 是否胁迫
 	Date    time;               // 事件事件
+	String  template;           // 模板
+	String  image;              // 图像
 	Map<String,Object> data;    // 事件扩展参数
 	public DeviceEvent(Object source) {
 		super(source);

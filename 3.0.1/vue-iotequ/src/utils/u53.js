@@ -22,14 +22,14 @@ function u53request(data,action,onSuccess,onError) {
   })
 }
 export function u53Connect(type,onSuccess,onError) {
-    return u53request( {'isSetComm':type }, 'connectDev',onSuccess,onError)
+    return u53request( {'isSetComm':type }, 'Connect',onSuccess,onError)
 }
 export function u53Disconnect(onSuccess,onError) {
-    return u53request({},'existDev',onSuccess,onError)
+    return u53request({},'Disconnect',onSuccess,onError)
 }
 
 export function u53Reset(onSuccess,onError) {
-    return u53request({},'DynaClearUsers',onSuccess,onError)
+    return u53request({},'ClearUsers',onSuccess,onError)
 }
 
 export function u53Register(userId,fingerId,onSuccess,onError) {
@@ -40,8 +40,14 @@ export function u53Auth(userId,fingerId,templateData,onSuccess,onError) {
     return u53request({userId,fingerId,templateData,timeOut:60000},'AuthFingersOneByOne',onSuccess,onError)
 }
 
-export function u53Read(onSuccess,onError,options) {
-    return u53request(options?options:{timeOut:60000},'ServerAuth',onSuccess,onError)
+export function u53Read2(onSuccess,onError,options) {
+    return u53request(options?options:{timeOut:60000},'TemplateAndImage',onSuccess,onError)
+}
+export function u53Image(onSuccess,onError,options) {
+  return u53request(options?options:{timeOut:60000},'Image',onSuccess,onError)
+}
+export function u53Sample(onSuccess,onError,options) {
+  return u53request(options?options:{timeOut:60000},'Template',onSuccess,onError)
 }
 export function u53DisplayMessage(messageOptions,onSuccess,onError) {
   return u53request(messageOptions,'ShowMessage',onSuccess,onError)
@@ -58,7 +64,9 @@ export default {
     u53Reset,
     u53Register,
     u53Auth,
-    u53Read,
+    u53Read2,
+    u53Image,
+    u53Sample,
     u53DisplayMessage,
     u53Version,
     u53Cancel

@@ -102,6 +102,8 @@ public class CkRegisterService extends CgCkRegisterService implements Applicatio
                     event.setWarning(false);
                     event.put("authType", getAuthType(mode));
                     event.put("auditeeAuthType", (byte)0);
+                    event.setTemplate(template);
+                    event.setImage(StringUtil.toString(params.get("image")));
                     Util.getApplicationContext().publishEvent(event);
                     return register(orgCode,mode,userNo, people, org);
                 } else {

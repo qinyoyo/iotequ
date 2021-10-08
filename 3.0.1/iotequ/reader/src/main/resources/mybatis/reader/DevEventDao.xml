@@ -12,13 +12,15 @@
     <result column="auditor_auth_type" jdbcType="TINYINT" property="auditorAuthType" />
     <result column="auditor_org" jdbcType="INTEGER" property="auditorOrg" />
     <result column="auth_type" jdbcType="TINYINT" property="authType" />
+    <result column="template" jdbcType="VARCHAR" property="template" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
     <result column="user_no" jdbcType="VARCHAR" property="userNo" />
     <result column="real_name" jdbcType="VARCHAR" property="realName" />
     <result column="auditor_user_num" jdbcType="VARCHAR" property="auditorUserNum" />
     <result column="auditor_name" jdbcType="VARCHAR" property="auditorName" />
   </resultMap>
   <sql id = "selectSql">
-     SELECT dev_event.id,dev_event.dev_type,dev_event.dev_no,dev_event.org_code,dev_event.status,dev_event.time,dev_event.auditee_auth_type,dev_event.auditor_auth_type,dev_event.auditor_org,dev_event.auth_type,dev_event.user_no,dev_people.real_name AS real_name,dev_event.auditor_user_num,dev_people1.real_name AS auditor_name FROM dev_event LEFT JOIN dev_people ON dev_event.user_no = dev_people.user_no LEFT JOIN dev_people dev_people1 ON dev_event.auditor_user_num = dev_people1.user_no
+     SELECT dev_event.id,dev_event.dev_type,dev_event.dev_no,dev_event.org_code,dev_event.status,dev_event.time,dev_event.auditee_auth_type,dev_event.auditor_auth_type,dev_event.auditor_org,dev_event.auth_type,dev_event.template,dev_event.image,dev_event.user_no,dev_people.real_name AS real_name,dev_event.auditor_user_num,dev_people1.real_name AS auditor_name FROM dev_event LEFT JOIN dev_people ON dev_event.user_no = dev_people.user_no LEFT JOIN dev_people dev_people1 ON dev_event.auditor_user_num = dev_people1.user_no
   </sql>
   <insert id="insert" parameterType="top.iotequ.reader.pojo.DevEvent">
     <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String" >
@@ -30,42 +32,42 @@
     <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String" databaseId="Oracle">
       SELECT replace(lower(sys_guid()), '-', '') from dual
     </selectKey>
-    insert into dev_event (id,dev_type,dev_no,org_code,status,time,auditee_auth_type,auditor_auth_type,auditor_org,auth_type,user_no,auditor_user_num)
+    insert into dev_event (id,dev_type,dev_no,org_code,status,time,auditee_auth_type,auditor_auth_type,auditor_org,auth_type,template,image,user_no,auditor_user_num)
       values 
-      (#{id,jdbcType=CHAR},#{devType,jdbcType=VARCHAR},#{devNo,jdbcType=VARCHAR},#{orgCode,jdbcType=INTEGER},#{status,jdbcType=INTEGER},#{time,jdbcType=TIMESTAMP},#{auditeeAuthType,jdbcType=TINYINT},#{auditorAuthType,jdbcType=TINYINT},#{auditorOrg,jdbcType=INTEGER},#{authType,jdbcType=TINYINT},#{userNo,jdbcType=VARCHAR},#{auditorUserNum,jdbcType=VARCHAR})
+      (#{id,jdbcType=CHAR},#{devType,jdbcType=VARCHAR},#{devNo,jdbcType=VARCHAR},#{orgCode,jdbcType=INTEGER},#{status,jdbcType=INTEGER},#{time,jdbcType=TIMESTAMP},#{auditeeAuthType,jdbcType=TINYINT},#{auditorAuthType,jdbcType=TINYINT},#{auditorOrg,jdbcType=INTEGER},#{authType,jdbcType=TINYINT},#{template,jdbcType=VARCHAR},#{image,jdbcType=VARCHAR},#{userNo,jdbcType=VARCHAR},#{auditorUserNum,jdbcType=VARCHAR})
   </insert>
   <insert id="insertBatchWithoutId" parameterType="top.iotequ.reader.pojo.DevEvent">
-    insert into dev_event (id,dev_type,dev_no,org_code,status,time,auditee_auth_type,auditor_auth_type,auditor_org,auth_type,user_no,auditor_user_num)
+    insert into dev_event (id,dev_type,dev_no,org_code,status,time,auditee_auth_type,auditor_auth_type,auditor_org,auth_type,template,image,user_no,auditor_user_num)
       values 
     <foreach collection="list" item="item" index="index" separator=",">
-      (replace(uuid(), '-', ''),#{item.devType,jdbcType=VARCHAR},#{item.devNo,jdbcType=VARCHAR},#{item.orgCode,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.time,jdbcType=TIMESTAMP},#{item.auditeeAuthType,jdbcType=TINYINT},#{item.auditorAuthType,jdbcType=TINYINT},#{item.auditorOrg,jdbcType=INTEGER},#{item.authType,jdbcType=TINYINT},#{item.userNo,jdbcType=VARCHAR},#{item.auditorUserNum,jdbcType=VARCHAR})
+      (replace(uuid(), '-', ''),#{item.devType,jdbcType=VARCHAR},#{item.devNo,jdbcType=VARCHAR},#{item.orgCode,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.time,jdbcType=TIMESTAMP},#{item.auditeeAuthType,jdbcType=TINYINT},#{item.auditorAuthType,jdbcType=TINYINT},#{item.auditorOrg,jdbcType=INTEGER},#{item.authType,jdbcType=TINYINT},#{item.template,jdbcType=VARCHAR},#{item.image,jdbcType=VARCHAR},#{item.userNo,jdbcType=VARCHAR},#{item.auditorUserNum,jdbcType=VARCHAR})
     </foreach>
   </insert>
   <insert id="insertBatchWithoutId" parameterType="top.iotequ.reader.pojo.DevEvent" databaseId="SQLServer">
-    insert into dev_event (id,dev_type,dev_no,org_code,status,time,auditee_auth_type,auditor_auth_type,auditor_org,auth_type,user_no,auditor_user_num)
+    insert into dev_event (id,dev_type,dev_no,org_code,status,time,auditee_auth_type,auditor_auth_type,auditor_org,auth_type,template,image,user_no,auditor_user_num)
       values 
     <foreach collection="list" item="item" index="index" separator=",">
-      (replace(lower(newid()), '-', ''),#{item.devType,jdbcType=VARCHAR},#{item.devNo,jdbcType=VARCHAR},#{item.orgCode,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.time,jdbcType=TIMESTAMP},#{item.auditeeAuthType,jdbcType=TINYINT},#{item.auditorAuthType,jdbcType=TINYINT},#{item.auditorOrg,jdbcType=INTEGER},#{item.authType,jdbcType=TINYINT},#{item.userNo,jdbcType=VARCHAR},#{item.auditorUserNum,jdbcType=VARCHAR})
+      (replace(lower(newid()), '-', ''),#{item.devType,jdbcType=VARCHAR},#{item.devNo,jdbcType=VARCHAR},#{item.orgCode,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.time,jdbcType=TIMESTAMP},#{item.auditeeAuthType,jdbcType=TINYINT},#{item.auditorAuthType,jdbcType=TINYINT},#{item.auditorOrg,jdbcType=INTEGER},#{item.authType,jdbcType=TINYINT},#{item.template,jdbcType=VARCHAR},#{item.image,jdbcType=VARCHAR},#{item.userNo,jdbcType=VARCHAR},#{item.auditorUserNum,jdbcType=VARCHAR})
     </foreach>
   </insert>
   <insert id="insertBatchWithoutId" parameterType="top.iotequ.reader.pojo.DevEvent" databaseId="Oracle">
     insert all 
     <foreach collection="list" item="item" index="index">
-      into dev_event (id,dev_type,dev_no,org_code,status,time,auditee_auth_type,auditor_auth_type,auditor_org,auth_type,user_no,auditor_user_num) values(replace(lower(sys_guid()), '-', ''),#{item.devType,jdbcType=VARCHAR},#{item.devNo,jdbcType=VARCHAR},#{item.orgCode,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.time,jdbcType=TIMESTAMP},#{item.auditeeAuthType,jdbcType=TINYINT},#{item.auditorAuthType,jdbcType=TINYINT},#{item.auditorOrg,jdbcType=INTEGER},#{item.authType,jdbcType=TINYINT},#{item.userNo,jdbcType=VARCHAR},#{item.auditorUserNum,jdbcType=VARCHAR})
+      into dev_event (id,dev_type,dev_no,org_code,status,time,auditee_auth_type,auditor_auth_type,auditor_org,auth_type,template,image,user_no,auditor_user_num) values(replace(lower(sys_guid()), '-', ''),#{item.devType,jdbcType=VARCHAR},#{item.devNo,jdbcType=VARCHAR},#{item.orgCode,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.time,jdbcType=TIMESTAMP},#{item.auditeeAuthType,jdbcType=TINYINT},#{item.auditorAuthType,jdbcType=TINYINT},#{item.auditorOrg,jdbcType=INTEGER},#{item.authType,jdbcType=TINYINT},#{item.template,jdbcType=VARCHAR},#{item.image,jdbcType=VARCHAR},#{item.userNo,jdbcType=VARCHAR},#{item.auditorUserNum,jdbcType=VARCHAR})
     </foreach>
     select 1 from dual
   </insert>
   <insert id="insertBatchWithId" parameterType="top.iotequ.reader.pojo.DevEvent">
-    insert into dev_event (id,dev_type,dev_no,org_code,status,time,auditee_auth_type,auditor_auth_type,auditor_org,auth_type,user_no,auditor_user_num)
+    insert into dev_event (id,dev_type,dev_no,org_code,status,time,auditee_auth_type,auditor_auth_type,auditor_org,auth_type,template,image,user_no,auditor_user_num)
       values 
     <foreach collection="list" item="item" index="index" separator=",">
-      (#{item.id,jdbcType=CHAR},#{item.devType,jdbcType=VARCHAR},#{item.devNo,jdbcType=VARCHAR},#{item.orgCode,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.time,jdbcType=TIMESTAMP},#{item.auditeeAuthType,jdbcType=TINYINT},#{item.auditorAuthType,jdbcType=TINYINT},#{item.auditorOrg,jdbcType=INTEGER},#{item.authType,jdbcType=TINYINT},#{item.userNo,jdbcType=VARCHAR},#{item.auditorUserNum,jdbcType=VARCHAR})
+      (#{item.id,jdbcType=CHAR},#{item.devType,jdbcType=VARCHAR},#{item.devNo,jdbcType=VARCHAR},#{item.orgCode,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.time,jdbcType=TIMESTAMP},#{item.auditeeAuthType,jdbcType=TINYINT},#{item.auditorAuthType,jdbcType=TINYINT},#{item.auditorOrg,jdbcType=INTEGER},#{item.authType,jdbcType=TINYINT},#{item.template,jdbcType=VARCHAR},#{item.image,jdbcType=VARCHAR},#{item.userNo,jdbcType=VARCHAR},#{item.auditorUserNum,jdbcType=VARCHAR})
     </foreach>
   </insert>
   <insert id="insertBatchWithId" parameterType="top.iotequ.reader.pojo.DevEvent" databaseId="Oracle">
     insert all 
     <foreach collection="list" item="item" index="index">
-      into dev_event (id,dev_type,dev_no,org_code,status,time,auditee_auth_type,auditor_auth_type,auditor_org,auth_type,user_no,auditor_user_num) values(#{item.id,jdbcType=CHAR},#{item.devType,jdbcType=VARCHAR},#{item.devNo,jdbcType=VARCHAR},#{item.orgCode,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.time,jdbcType=TIMESTAMP},#{item.auditeeAuthType,jdbcType=TINYINT},#{item.auditorAuthType,jdbcType=TINYINT},#{item.auditorOrg,jdbcType=INTEGER},#{item.authType,jdbcType=TINYINT},#{item.userNo,jdbcType=VARCHAR},#{item.auditorUserNum,jdbcType=VARCHAR})
+      into dev_event (id,dev_type,dev_no,org_code,status,time,auditee_auth_type,auditor_auth_type,auditor_org,auth_type,template,image,user_no,auditor_user_num) values(#{item.id,jdbcType=CHAR},#{item.devType,jdbcType=VARCHAR},#{item.devNo,jdbcType=VARCHAR},#{item.orgCode,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.time,jdbcType=TIMESTAMP},#{item.auditeeAuthType,jdbcType=TINYINT},#{item.auditorAuthType,jdbcType=TINYINT},#{item.auditorOrg,jdbcType=INTEGER},#{item.authType,jdbcType=TINYINT},#{item.template,jdbcType=VARCHAR},#{item.image,jdbcType=VARCHAR},#{item.userNo,jdbcType=VARCHAR},#{item.auditorUserNum,jdbcType=VARCHAR})
     </foreach>
     select 1 from dual
   </insert>
@@ -97,6 +99,8 @@
       auditor_auth_type = #{auditorAuthType,jdbcType=TINYINT},
       auditor_org = #{auditorOrg,jdbcType=INTEGER},
       auth_type = #{authType,jdbcType=TINYINT},
+      template = #{template,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR},
       user_no = #{userNo,jdbcType=VARCHAR},
       auditor_user_num = #{auditorUserNum,jdbcType=VARCHAR}
       where id = #{id,jdbcType=CHAR}
@@ -122,6 +126,10 @@
         <if test='auditorOrg != null and auditorOrg_string_ != "[null]"'> auditor_org = #{auditorOrg,jdbcType=INTEGER},</if>
         <if test='authType_string_ == "[null]"'> auth_type = NULL, </if>
         <if test='authType != null and authType_string_ != "[null]"'> auth_type = #{authType,jdbcType=TINYINT},</if>
+        <if test='template_string_ == "[null]"'> template = NULL, </if>
+        <if test='template != null and template_string_ != "[null]"'> template = #{template,jdbcType=VARCHAR},</if>
+        <if test='image_string_ == "[null]"'> image = NULL, </if>
+        <if test='image != null and image_string_ != "[null]"'> image = #{image,jdbcType=VARCHAR},</if>
         <if test="userNo != null"> user_no = #{userNo,jdbcType=VARCHAR},</if>
         <if test="auditorUserNum != null"> auditor_user_num = #{auditorUserNum,jdbcType=VARCHAR},</if>
       </set>
@@ -139,6 +147,8 @@
       auditor_auth_type = #{record.auditorAuthType,jdbcType=TINYINT},
       auditor_org = #{record.auditorOrg,jdbcType=INTEGER},
       auth_type = #{record.authType,jdbcType=TINYINT},
+      template = #{record.template,jdbcType=VARCHAR},
+      image = #{record.image,jdbcType=VARCHAR},
       user_no = #{record.userNo,jdbcType=VARCHAR},
       auditor_user_num = #{record.auditorUserNum,jdbcType=VARCHAR}
       where id = #{id,jdbcType=CHAR}
@@ -156,6 +166,8 @@
         <if test="auditorAuthType != null"> and dev_event.auditor_auth_type = #{auditorAuthType,jdbcType=TINYINT} </if>
         <if test="auditorOrg != null"> and dev_event.auditor_org = #{auditorOrg,jdbcType=INTEGER} </if>
         <if test="authType != null"> and dev_event.auth_type = #{authType,jdbcType=TINYINT} </if>
+        <if test="template != null"> and dev_event.template like #{template,jdbcType=VARCHAR} </if>
+        <if test="image != null"> and dev_event.image like #{image,jdbcType=VARCHAR} </if>
         <if test="userNo != null"> and dev_event.user_no like #{userNo,jdbcType=VARCHAR} </if>
         <if test="realName != null"> and dev_people.real_name like #{realName,jdbcType=VARCHAR} </if>
         <if test="auditorUserNum != null"> and dev_event.auditor_user_num like #{auditorUserNum,jdbcType=VARCHAR} </if>

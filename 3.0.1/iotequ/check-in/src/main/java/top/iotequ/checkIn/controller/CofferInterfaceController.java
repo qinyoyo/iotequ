@@ -443,6 +443,9 @@ public class CofferInterfaceController {
 			event.setTime(new Date());
 			event.setUserNo(ui.userNo);
 			event.setWarning(false);
+			event.setTemplate(paramsJson.getString("templates"));
+			if (paramsJson.containsKey("image") && !StringUtil.isEmpty(paramsJson.getString("image")))
+				event.setImage(paramsJson.getString("image"));
 			event.put("authType", (byte)0);
 			event.put("auditeeAuthType", (byte)0);
 			Util.getApplicationContext().publishEvent(event);

@@ -31,9 +31,7 @@ export default {
     this.record.fingerType = 1
     this.record.warning = false
     this.ignoreRecordChanged = true
-    this.testService(_=>{
-      that.connect(0)
-    })
+    this.connect(1)
     cgForm.form_request({ 
       formObject: that, 
       method: 'get', 
@@ -65,41 +63,27 @@ export default {
       u53.u53Disconnect(onSuccess,onError)
     },
     connect(type){
-      if (!this.hasFingerService) return
       const that = this
       u53.u53Connect(type,
           (data)=>{
             if (!data.isSucc) {
-              if (type==0) that.connect(1)
-              else {
-                that.connected=false
-              }
+              that.connected=false;
+              that.hasFingerService=false;	
+              Message({
+                message: 'error.resource_not_found'.local() + ' : '+'reader.checkU53'.local(),
+                code: '',
+                type: 'error',
+                duration: 3 * 1000
+              })   
             } else {
               that.connected=true
+              that.hasFingerService=true
             }
           },
           (data)=> {
             that.connected=false
             showError(data)
           }
-      )
-    },
-    testService(onSuccess) {
-      const that = this
-      this.disconnect(_=>{
-          that.connected=false
-          that.hasFingerService=true
-          if (typeof onSuccess === 'function') onSuccess()
-        }, _=> {
-          that.connected=false;
-          that.hasFingerService=false;	
-          Message({
-            message: 'error.resource_not_found'.local() + ' : '+'reader.checkU53'.local(),
-            code: '',
-            type: 'error',
-            duration: 3 * 1000
-          })   
-        }
       )
     },
     resetU53(){
@@ -197,16 +181,20 @@ export default {
           duration: 60000,
           message: 'reader.readFromDevice'.local()
       }) 
-      u53.u53Read(
+      u53.u53Read2(
           (data) => {
             instance.close()
             if(data.isSucc){
-              that.template = data.Msg
+              const t_i = data.Msg.split(";")
+              that.template = t_i[0]
+              if (t_i.length>1) that.templateImage = t_i[1]
+              else that.templateImage = null
               cgForm.form_request({ 
                 formObject: that, 
                 method: 'get', 
                 params: {
                   template: that.template,
+                  image: that.templateImage,
                   thresh:0
                 }, 
                 action: 'action/matchFinger',
@@ -245,6 +233,9 @@ export default {
           },
           (data)=>{
             instance.close()
+          },
+          {
+            isShow: true
           }
       )		
     },

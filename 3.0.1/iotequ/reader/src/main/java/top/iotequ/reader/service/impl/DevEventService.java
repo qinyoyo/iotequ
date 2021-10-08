@@ -36,6 +36,8 @@ public class DevEventService extends CgDevEventService implements ApplicationLis
 			devEvent.setDevNo(event.getDeviceNo());
 			devEvent.setUserNo(event.getUserNo());
 			devEvent.setTime(event.getTime());
+			devEvent.setTemplate(event.getTemplate());
+			devEvent.setImage(event.getImage());
 
 			// 0 passed 1 refused 2 warning
 			Object o = event.get("status");

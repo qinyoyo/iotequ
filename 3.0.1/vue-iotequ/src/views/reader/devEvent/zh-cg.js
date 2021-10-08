@@ -34,6 +34,8 @@ export default {
       authType_0: '单人认证',
       authType_1: '双人认证',
       authType: '验证模式',
+      template: '模板',
+      image: '图像',
       userNo: '用户号',
       auditorName: '审核人',
       auditorUserNum: '审核人',

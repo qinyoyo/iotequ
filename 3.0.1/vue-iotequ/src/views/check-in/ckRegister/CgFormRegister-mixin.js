@@ -1,4 +1,4 @@
-import {u53Connect,u53Read,u53DisplayMessage, u53Version, u53Cancel} from '@/utils/u53'
+import {u53Connect,u53Read2,u53DisplayMessage, u53Version, u53Cancel} from '@/utils/u53'
 import { fullScreen, isFullScreen, exitFullScreen} from '@/layout/components/Screenfull/index'
 import { request } from '@/utils/request'
 import { Message } from 'element-ui'
@@ -67,8 +67,11 @@ export default {
         if (that && !that.dialogClosed) {
           u53Connect(0,_=>{
               that.foundU53()
-              u53Read((data)=>{
-                if(data.isSucc) that.u53login(data.Msg)
+              u53Read2((data)=>{
+                if(data.isSucc){
+                  let t_i = data.Msg.split(";")
+                  that.u53login(t_i[0],t_i.length>0?t_i[1]:null)
+                } 
                 else that.u53read()
               },_=>{
                 that.notFoundU53()
@@ -151,7 +154,7 @@ export default {
           request(req, true)
         },300000)
       },
-      u53login(template) {
+      u53login(template,image) {
         const _this=this
         const imageElement = document.querySelector('img.cg-header-image')
         const startRead = function() {
@@ -168,6 +171,7 @@ export default {
             method: 'post',
             data: { 
                 template:template,  
+                image:image,
                 mode: _this.record.mode+'',
                 orgCode: _this.record.orgCode+''
             }

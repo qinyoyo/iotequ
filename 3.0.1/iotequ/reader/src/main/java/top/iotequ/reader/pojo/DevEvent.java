@@ -72,6 +72,14 @@ public class DevEvent implements CgEntity {
     @CgFieldAnnotation(name="dev_event.auth_type",jdbcType="TINYINT",length=11,nullable=true,format="")
     private Byte authType;		//验证模式 db field:auth_type
 
+    @SerializedName(value = "template", alternate = {"TEMPLATE"})
+    @CgFieldAnnotation(name="dev_event.template",jdbcType="VARCHAR",length=1000,nullable=true,format="@")
+    private String template;		//模板 db field:template
+
+    @SerializedName(value = "image", alternate = {"IMAGE"})
+    @CgFieldAnnotation(name="dev_event.image",jdbcType="VARCHAR",length=2000,nullable=true,format="@")
+    private String image;		//图像 db field:image
+
     @SerializedName(value = "userNo", alternate = {"user_no","USER_NO"})
     @CgFieldAnnotation(name="dev_event.user_no",jdbcType="VARCHAR",length=45,nullable=true,format="@")
     private String userNo;		//用户号 db field:user_no

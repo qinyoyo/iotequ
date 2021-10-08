@@ -119,7 +119,7 @@ import { apiUrl } from '@/utils/requestService'
 import { request } from '@/utils/request'
 import Cookies from 'js-cookie'
 import { generateTitle } from '@/utils/i18n'
-import {u53Disconnect,u53Connect,u53Read,u53Cancel} from '@/utils/u53'
+import {u53Disconnect,u53Connect,u53Sample,u53Cancel} from '@/utils/u53'
 export default {
   name: 'Login',
   components: { LangSelect, MDinput },
@@ -201,11 +201,9 @@ export default {
   },
   created() {
     const that = this
-    u53Disconnect(_=>{
-      u53Connect(0, _=>{
-        that.hasU53 = true
-        that.u53read()
-      })
+    u53Connect(0, _=>{
+      that.hasU53 = true
+      that.u53read()
     })
   },
   mounted() {
@@ -222,7 +220,7 @@ export default {
     u53read() {
       const that=this
       if (this.hasU53) {
-        u53Read((data)=>{
+        u53Sample((data)=>{
           if(data.isSucc){
               that.u53login(data.Msg)
           }

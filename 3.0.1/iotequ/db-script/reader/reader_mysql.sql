@@ -171,7 +171,9 @@ CREATE TABLE `dev_event` (
   `auditor_user_num` varchar(45) NULL COMMENT '审核人',
   `auditor_auth_type` tinyint(2) NULL COMMENT '审核人验证方式',
   `auditor_org` int(11) NULL COMMENT '审核人部门',
-  `auth_type` tinyint(11) NULL COMMENT '验证模式'
+  `auth_type` tinyint(11) NULL COMMENT '验证模式',
+  `template` text NULL COMMENT '模板',
+  `image` text NULL COMMENT '图像'
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '设备事件|Event of device' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
