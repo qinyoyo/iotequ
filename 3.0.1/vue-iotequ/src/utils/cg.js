@@ -221,6 +221,7 @@ export function allActionsOf(obj, baseUrl, actionList, additional, singleRowMode
   if (!actionList) return vv
   const checkAction = function(action,srmode,rows,selctions) {
     if (!action) return false
+    if (obj && typeof obj.disabledAction == "function" && obj.disabledAction(action)) return false
     if (srmode) return action.rowProperty.indexOf('sr')>=0
     else if (action.rowProperty.indexOf('sr')>=0) return selctions == 1
     else if (action.rowProperty.indexOf('mr')>=0) return selctions > 0

@@ -21,6 +21,9 @@ function u53request(data,action,onSuccess,onError) {
     if (typeof onError === 'function') onError({isSucc: false, Msg: 'reader.checkU53'.local(), retCode: 1001})
   })
 }
+export function u53Version(onSuccess,onError) {
+    return u53request( {}, 'Version',onSuccess,onError)
+}
 export function u53Connect(type,onSuccess,onError) {
     return u53request( {'isSetComm':type }, 'Connect',onSuccess,onError)
 }
@@ -52,13 +55,21 @@ export function u53Sample(onSuccess,onError,options) {
 export function u53DisplayMessage(messageOptions,onSuccess,onError) {
   return u53request(messageOptions,'ShowMessage',onSuccess,onError)
 }
-export function u53Version(onSuccess,onError) {
-  return u53request({},'Version',onSuccess,onError)
+export function u53MessageCapacity(onSuccess,onError) {
+  return u53request({},'ShowMessage',(d)=>{
+    if (d && d.isSucc && d.Msg) {
+      if (d.Msg.indexOf('sound')>=0) d.sound=true
+      if (d.Msg.indexOf('window')>=0) d.window = true
+    }
+    if (typeof onSuccess === 'function')  onSuccess(d)
+  },onError)
 }
+
 export function u53Cancel(onSuccess,onError) {
   return u53request({},'Cancel',onSuccess,onError)
 }
 export default {
+    u53Version,
     u53Connect,
     u53Disconnect,
     u53Reset,
@@ -67,6 +78,7 @@ export default {
     u53Read2,
     u53Image,
     u53Sample,
+    u53MessageCapacity,
     u53DisplayMessage,
     u53Version,
     u53Cancel

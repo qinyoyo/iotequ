@@ -1,4 +1,4 @@
-import {u53Connect,u53Read2,u53DisplayMessage, u53Version, u53Cancel} from '@/utils/u53'
+import {u53Connect,u53Read2,u53DisplayMessage, u53MessageCapacity, u53Version, u53Cancel} from '@/utils/u53'
 import { fullScreen, isFullScreen, exitFullScreen} from '@/layout/components/Screenfull/index'
 import { request } from '@/utils/request'
 import { Message } from 'element-ui'
@@ -46,10 +46,18 @@ export default {
           })
         }
         u53Version((res)=>{ 
-          connect(true)
+          if (res.Msg >= '3.2') {
+            u53MessageCapacity((r)=>{
+              connect(r.isSucc && r.window) 
+            },_=>{
+              connect(false)
+            })
+          } 
+          else {
+            _this.showMessage('需要3.2及以上的驱动版本',_=>{_this.$emit('closeDialog')})
+          }
         },(res)=>{
-          if (res && res.retCode == 1001) _this.showMessage('设备连接失败',_=>{_this.$emit('closeDialog')})
-          else connect(false)
+          _this.showMessage('需要开启3.2及以上的驱动服务',_=>{_this.$emit('closeDialog')})
         })
       },
       foundU53() {

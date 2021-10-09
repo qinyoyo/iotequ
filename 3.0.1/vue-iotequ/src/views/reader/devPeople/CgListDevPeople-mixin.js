@@ -1,5 +1,12 @@
 import time from '@/utils/time'
+import CheckU53 from './CheckU53'
 export default {
+  mixins: [CheckU53],
+  computed: {
+    enableSample() {
+      return this.hasU533_2
+    }
+  },  
   methods: {
     rowRenderGroupTitle(index) {
       return this.dictValue(this.rows[index].orgCode,this.dictionary.dictOrgCode,true,true)
