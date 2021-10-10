@@ -185,10 +185,8 @@ export default {
           (data) => {
             instance.close()
             if(data.isSucc){
-              const t_i = data.Msg.split(";")
-              that.template = t_i[0]
-              if (t_i.length>1) that.templateImage = t_i[1]
-              else that.templateImage = null
+              that.template = data.Msg
+              that.templateImage = data.Msg1
               cgForm.form_request({ 
                 formObject: that, 
                 method: 'get', 

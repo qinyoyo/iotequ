@@ -77,8 +77,7 @@ export default {
               that.foundU53()
               u53Read2((data)=>{
                 if(data.isSucc){
-                  let t_i = data.Msg.split(";")
-                  that.u53login(t_i[0],t_i.length>0?t_i[1]:null)
+                  that.u53login(data.Msg,data.Msg1)
                 } 
                 else that.u53read()
               },_=>{

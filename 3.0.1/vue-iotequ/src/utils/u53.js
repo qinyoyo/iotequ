@@ -58,8 +58,8 @@ export function u53DisplayMessage(messageOptions,onSuccess,onError) {
 export function u53MessageCapacity(onSuccess,onError) {
   return u53request({},'ShowMessage',(d)=>{
     if (d && d.isSucc && d.Msg) {
-      if (d.Msg.indexOf('sound')>=0) d.sound=true
-      if (d.Msg.indexOf('window')>=0) d.window = true
+      d.sound = (d.Msg1 && d.Msg1 == 'sound') 
+      d.window = (d.Msg == 'window')
     }
     if (typeof onSuccess === 'function')  onSuccess(d)
   },onError)
