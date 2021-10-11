@@ -46,6 +46,7 @@ class Svas
 		logger.info("Load native libary {} ...",dll);
 		System.load(dll);
         int r = svein_initial(settings);
+        apiTest();
         return r;
 	}
 	public static void logInfo(String s) {
@@ -56,6 +57,50 @@ class Svas
 	}
 	public static void logError(String s) {
 		logger.error(s);
+	}
+	private static void apiTest() {
+		int  r = svein_getVersion(null);
+		JniStringReturn ver=new JniStringReturn();
+		svein_getVersion(ver);
+		r=svein_getLicence();
+		r=svein_getLicenceAvailable();
+		r=svein_getTrialDays();
+		//r=svein_initial(null);
+		//SvasSetting settings=new SvasSetting();
+		//r=svein_initial(settings);
+		/*
+		JniStringReturn userNo=new JniStringReturn();
+		r=svein_getUserNo(0, null ,null, null,null, userNo);
+		r=svein_getUserNo(1, "1234" ,null, null,null, userNo);
+		r=svein_getUserNo(67, "5678" ,"", null,null, userNo);
+		r=svein_getUserNo(5, "56789" ,"ddd", "dd",null, userNo);
+		r=svein_getUserNo(5, "566789" ,"ddd", "dd","02dhg", userNo);
+		r=svein_getUserNo(1, "56678dsfklgjsdfkgjsdfklgjsdklfgjsdklfgjsdkfgjsdfgsdfgsdfgsdfgdfgdgfsdfgdsfgsdfgsdfgsdfgsdg9" ,
+				"精神抖擞的房间卡士大夫爱神的箭饭卡上的房间阿克苏的房间爱神的箭饭卡上单反安居客水电费阿斯蒂芬阿斯蒂芬dd",
+				"快递费关键时刻东方闪电反光镜水电费改水电费敢打的沙发斯蒂芬阿斯顿发斯蒂芬撒旦法阿斯蒂芬阿斯蒂芬阿斯蒂芬",
+				"时代峰峻阿考虑是否啊撒旦法撒旦法飞阿斯顿发送到发斯蒂芬", userNo);
+        */
+
+		r=svein_getUserNoFromDict(null, null);
+		r=svein_getUserNoFromDict("null", null);
+		JniStringReturn userNo=new JniStringReturn();
+		r=svein_getUserNoFromDict("null", userNo);
+		/*
+		r=svein_setUserNoForDict(String temp, String userNo, JniStringReturn newTemp);
+		r=svein_getUserInfo(String userNo, SvasUserInfo info);
+		r=svein_changeUserInfo(String userNo, int idType, String idNo, String name);
+		r=svein_changeUserInfoByMap(HashMap<String,String> people);
+		r=svein_getUserAllInfo(String userNo, int includePhoto, Map<String,Object> info);
+		r=svein_removeUserNo(String userNo);
+		r=svein_removeFinger(String userNo, int fingerNo);
+		r=svein_updateFinger(String userNo, int fingerNo, int fingerType, String temp);
+		r=svein_getFingerCount(String userNo,int onlyCountNeed, SvasFingerInfo fingers);
+		r=svein_getTemplates(String userNo, int fingerNo, SvasTemplates temp);
+		r=svein_matchFinger(String temp, int thresh, SvasMatched matched);
+		r=svein_addFinger(String userNo, int fingerNo, int fingerType,String temp, int warning);
+		r=svein_setFingers(String userNo, int type1,int warning1, String hexTemp1,int type2,int warning2,String hexTemp2);
+		r=svein_setPhoto(String userNo, String photo);
+		r=svein_getEnvProperties(JniStringReturn result);*/
 	}
 }
 
