@@ -1,4 +1,9 @@
 
+application:
+   groupId: ${application.groupId}
+   module: ${application.module}
+   version: ${application.version}
+   buildTime: ${application.buildTime}
 spring:
    http: 
       encoding:
