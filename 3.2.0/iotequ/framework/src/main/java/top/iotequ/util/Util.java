@@ -27,7 +27,7 @@ import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.exception.IotequThrowable;
 import top.iotequ.framework.pojo.*;
 import top.iotequ.framework.service.ISmsService;
-import top.iotequ.framework.bean.SpringContext;
+import top.iotequ.framework.context.SpringContext;
 import top.iotequ.framework.serializer.gson.*;
 import org.apache.commons.codec.binary.Base64;
 import javax.servlet.http.*;
@@ -811,7 +811,6 @@ public class Util extends Utils {
         try {
             FileUtil.writeToFile(String.valueOf(pid), new File(SpringContext.getProjectHomePath(),"pid.log"));
         } catch (Exception e) {}
-        IotequVersionInfo.readVersionInfo(clazz);
         SpringContext.buildTime = IotequVersionInfo.getBuildTime();
         SpringApplicationBuilder appBuilder = new SpringApplicationBuilder(clazz);
         appBuilder.properties("file.encoding=UTF-8");

@@ -1,9 +1,10 @@
-package top.iotequ.framework.bean;
+package top.iotequ.framework.context;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
@@ -20,7 +21,7 @@ import java.util.*;
 import static top.iotequ.util.StringUtil.uuid;
 
 @Component
-public class SpringContext implements ApplicationContextAware {
+public class SpringContext implements ApplicationContextAware, CommandLineRunner {
     private static final Logger log = LoggerFactory.getLogger(SpringContext.class);
     public static Map<String, List<Map<String, Object>>> systemDataDict = null;
     private static ApplicationContext applicationContext = null;
@@ -132,5 +133,17 @@ public class SpringContext implements ApplicationContextAware {
     //通过name,以及Clazz返回指定的Bean
     public static <T> T getBean(String name, Class<T> clazz) {
         return getApplicationContext().getBean(name, clazz);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {  // 所有bean加载完成之后
+        String[] beans = getApplicationContext().getBeanDefinitionNames();
+        for (String bean : beans)
+        {
+            if (bean.endsWith(".iotequModule")) {
+                Object beanObj = getApplicationContext().getBean(bean);
+                IotequVersionInfo.addModule(beanObj);
+            }
+        }
     }
 }

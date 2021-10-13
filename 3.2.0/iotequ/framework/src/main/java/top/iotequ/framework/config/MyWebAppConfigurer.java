@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import top.iotequ.framework.bean.SpringContext;
+import top.iotequ.framework.context.SpringContext;
 
 @Configuration
 public class MyWebAppConfigurer implements WebMvcConfigurer  {

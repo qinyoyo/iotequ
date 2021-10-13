@@ -4,29 +4,28 @@ import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import top.iotequ.svas.service.SvasServer;
-import top.iotequ.svas.*;
+import top.iotequ.svas.IotequModule;
 @SuppressWarnings("static-access")
 @RestController
 @RequestMapping("/svas")
 public class SvasController {
 	@Autowired
 	SvasServer svasServer;
-	@Value("${application.version}")
-	private String version;
+	@Autowired
+	IotequModule version;
 
 	@RequestMapping(value = "/version")
 	public Map<String,Object> version(HttpServletRequest request, HttpServletResponse response) {
 		Map<String, Object> map = svasServer.svein_getVersion();
 		if (map!=null) {
-			map.put("module", Version.getModule());
-			map.put("groupId", Version.getGroupId());
-			map.put("moduleVersion", Version.getVersion());
-			map.put("buildTime", Version.getBuildTime());
+			map.put("module", version.getName());
+			map.put("groupId", version.getGroupId());
+			map.put("moduleVersion", version.getVersion());
+			map.put("buildTime", version.getBuildTime());
 		}
 		return map;
 	}

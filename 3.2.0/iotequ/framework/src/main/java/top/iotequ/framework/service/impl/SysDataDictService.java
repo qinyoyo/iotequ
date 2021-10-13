@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import top.iotequ.framework.event.SystemParameterChangedEvent;
 import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.pojo.DataDict;
-import top.iotequ.framework.bean.SpringContext;
+import top.iotequ.framework.context.SpringContext;
 import top.iotequ.util.RestJson;
 import top.iotequ.util.SqlUtil;
 

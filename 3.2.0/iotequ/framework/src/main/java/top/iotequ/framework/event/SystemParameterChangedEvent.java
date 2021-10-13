@@ -3,7 +3,7 @@ package top.iotequ.framework.event;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.context.ApplicationEvent;
-import top.iotequ.framework.bean.SpringContext;
+import top.iotequ.framework.context.SpringContext;
 import top.iotequ.util.Util;
 
 @Setter

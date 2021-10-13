@@ -50,46 +50,10 @@ public class IotequVersionInfo {
         IotequVersionInfo m = getModuleVersion(module);
         if (m!=null) m.trialDaysLeft = trialDaysLeft;
     }
-    static public void readVersionInfo(@NonNull Class<?> clazz) {
-        ApplicationHome home = new ApplicationHome(clazz);
-        String path = home.getSource().getAbsolutePath();
-        if (path.endsWith("\\target\\classes") || path.endsWith("/target/classes")) {
-            File hd = new File(path).getParentFile();
-            File[] jarFiels = hd.listFiles(new FileFilter() {
-                @Override
-                public boolean accept(File file) {
-                    if (file.isDirectory()) {
-                        return false;
-                    }
-                    if (file.getName().toLowerCase().endsWith(".jar")) {
-                        return true;
-                    }
-                    return false;
-                }
-            });
-            if (jarFiels.length>0) path = jarFiels[0].getAbsolutePath();
-            else return;
-        }
-        System.out.println("jar path = "+path);
-        try {
-            JarFile jarfile =  new JarFile(path);
-            Manifest manifest = jarfile.getManifest();
-            if (manifest==null) return;
-            IotequVersionInfoList = new ArrayList<>();
-            IotequVersionInfo md = new IotequVersionInfo(manifest);
-            if (md.isIotequModule) IotequVersionInfoList.add(md);
-            for (Enumeration<JarEntry> e = jarfile .entries(); e.hasMoreElements(); ) {
-                JarEntry entry = e.nextElement();
-                String name = entry.getName();
-                if (name.endsWith(".jar") && name.startsWith("BOOT-INF/lib/")) {
-                    JarInputStream ji = new JarInputStream(jarfile.getInputStream(entry));
-                    IotequVersionInfo sub = new IotequVersionInfo(ji.getManifest());
-                    if (sub.isIotequModule) IotequVersionInfoList.add(sub);
-                }
-            }
-        } catch (Exception e) {
-            return;
-        }
+    static public void addModule(Object beanObj) {
+        if (IotequVersionInfoList==null) IotequVersionInfoList=new ArrayList<>();
+        IotequVersionInfo md = new IotequVersionInfo(beanObj);
+        if (md.isIotequModule) IotequVersionInfoList.add(md);
     }
     public static IotequVersionInfo getVersion(@NonNull String module) {
         if (!Util.isEmpty(IotequVersionInfoList)) {
@@ -116,25 +80,23 @@ public class IotequVersionInfo {
         }
         return null;
     }
-    /*
-    <Iotequ-Module>true</Iotequ-Module>
-    <Group-Id>${project.groupId}</Group-Id>
-    <Artifact-Id>${project.artifactId}</Artifact-Id>
-    <Version>${project.version}</Version>
-    <Build-Time>${maven.build.timestamp}</Build-Time>
-    */
-    public IotequVersionInfo(Manifest manifest) {
-        if (Objects.nonNull(manifest)) {
-            Attributes attrs = manifest.getMainAttributes();
-            if (attrs==null) return;
-            isIotequModule = Util.boolValue(attrs.getValue("Iotequ-Module"));
-            if (!isIotequModule) return;
-            groupId = attrs.getValue("Group-Id");
-            module = attrs.getValue("Artifact-Id");
-            version = attrs.getValue("Version");
-            buildTime = DateUtil.string2Date(attrs.getValue("Build-Time"));
-            if (buildTime==null) buildTime=new Date();
-            else buildTime.setTime(buildTime.getTime()+8L*3600000L);
+
+    public IotequVersionInfo(Object iotequModule) {
+        if (Objects.nonNull(iotequModule)) {
+            try {
+                module = StringUtil.toString(ObjectUtil.getPrivateField(iotequModule, "name"));
+                groupId = StringUtil.toString(ObjectUtil.getPrivateField(iotequModule, "groupId"));
+                version = StringUtil.toString(ObjectUtil.getPrivateField(iotequModule, "version"));
+                Object dt = ObjectUtil.runMethod(iotequModule, "getBuildTime");
+                if (dt == null) buildTime = new Date();
+                else buildTime = (Date) dt;
+                isIotequModule = (boolean)ObjectUtil.runMethod(iotequModule,"isIotequModule");
+                if (isIotequModule) {
+                    System.out.println("---------- module: "+groupId+"."+module+" "+version+" build at "+DateUtil.date2String(buildTime,null) +" --------");
+                }
+                //if (buildTime==null) buildTime=new Date();
+                //else buildTime.setTime(buildTime.getTime()+8L*3600000L);
+            } catch (Exception e) {}
         }
     }
     public String toJsonString() {

@@ -7,7 +7,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import top.iotequ.framework.bean.SpringContext;
+import top.iotequ.framework.context.SpringContext;
 import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.exception.IotequIOException;
 import top.iotequ.framework.exception.IotequThrowable;

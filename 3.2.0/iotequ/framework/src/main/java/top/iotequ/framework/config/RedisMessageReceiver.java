@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
-import top.iotequ.framework.bean.SpringContext;
+import top.iotequ.framework.context.SpringContext;
 import top.iotequ.framework.event.SystemParameterChangedEvent;
 import top.iotequ.framework.security.service.SecurityService;
 import top.iotequ.util.OrgUtil;

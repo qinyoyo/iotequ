@@ -23,10 +23,6 @@
 		<java.version>1.8</java.version>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
 		<application.iotequModule>true</application.iotequModule>
-		<application.groupId>${project.groupId}</application.groupId>
-		<application.module>${project.artifactId}</application.module>
-		<application.version>${project.version}</application.version>
-		<application.buildTime>${maven.build.timestamp}</application.buildTime>
 	</properties>
 <!--	<distributionManagement>
 		<repository>
@@ -158,24 +154,13 @@
 		</profile>
 	</profiles>
 	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>templating-maven-plugin</artifactId>
-				<version>1.0.0</version>
-				<executions>
-					<execution>
-						<id>filter-src</id>
-						<goals>
-							<goal>filter-sources</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
+				<includes>
+					<include>*.properties</include>
+				</includes>
+				<filtering>true</filtering>
 			</resource>
 			<resource>
 				<directory>src/main/resources</directory>

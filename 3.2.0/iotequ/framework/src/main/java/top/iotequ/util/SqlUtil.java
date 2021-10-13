@@ -14,7 +14,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.dao.*;
 import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.exception.IotequThrowable;
-import top.iotequ.framework.bean.SpringContext;
+import top.iotequ.framework.context.SpringContext;
 import top.iotequ.framework.pojo.User;
 import top.iotequ.framework.service.impl.SqlService;
 
