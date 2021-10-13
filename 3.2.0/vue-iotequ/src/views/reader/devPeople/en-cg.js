@@ -15,11 +15,8 @@ export default {
       syncRegFingers: 'Sync reg fingers',
       sample: 'Sample',
       connectDevice: 'Connect device',
-      registerFinger: 'Register finger',
       verifyFinger: 'Verify finger',
       matchFinger: 'Match finger',
-      removeFingerConfirm: 'Confirm remove finger',
-      removeFinger: 'Remove finger',
       resetDevice: 'Reset device'
     },
     route: {
@@ -54,16 +51,16 @@ export default {
       homeAddr: 'Home addr',
       fingerNo1: 'Finger no1',
       fingerNo2: 'Finger no2',
-      fingerType_0: 'Right index finger',
-      fingerType_1: 'Right middle finger',
-      fingerType_2: 'Right ring finger',
-      fingerType_3: 'Left index finger',
-      fingerType_4: 'Left middle finger',
-      fingerType_5: 'Left ring finger',
-      fingerType_6: 'Customize 1',
-      fingerType_7: 'Customize 2',
-      fingerType: 'Finger type',
-      warning: 'Warning'
+      warning1_0: 'Right index finger',
+      warning1_1: 'Right middle finger',
+      warning1_2: 'Right ring finger',
+      warning1_3: 'Left index finger',
+      warning1_4: 'Left middle finger',
+      warning1_5: 'Left ring finger',
+      warning1_6: 'Customize 1',
+      warning1_7: 'Customize 2',
+      warning1: 'Warning1',
+      warning2: 'Warning2'
     }
   }
 }

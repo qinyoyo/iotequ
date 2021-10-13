@@ -184,7 +184,6 @@ const Comp = {
       localExport: true,
       idField: 'userNo',
       dictionary: {
-        dictFingerType: this.getDictionary('1,2,3,4,5,6,11,12','devPeople.field.fingerType_0,devPeople.field.fingerType_1,devPeople.field.fingerType_2,devPeople.field.fingerType_3,devPeople.field.fingerType_4,devPeople.field.fingerType_5,devPeople.field.fingerType_6,devPeople.field.fingerType_7'),
         dictOrgCode: [],
         dictSex: [],
         dictIdType: [],
@@ -258,7 +257,6 @@ const Comp = {
       return Object.assign({
         fingerNo1: null,
         fingerNo2: null,
-        fingerType: null,
         orgCode: null,
         realName: null,
         sex: null,

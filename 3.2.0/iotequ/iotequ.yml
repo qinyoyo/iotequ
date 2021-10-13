@@ -64,10 +64,9 @@ logging:
 
 #代码生成配置  
 generator: 
-    path: D:/iotequ/web/generator/3.0.1
+    path: D:/iotequ/web/generator
     org: top.iotequ
     project : codegenerator
-    codepath : E:/J2EE/iotequ/3.0.1/
     nosamplecode : true
     localMode : true
 

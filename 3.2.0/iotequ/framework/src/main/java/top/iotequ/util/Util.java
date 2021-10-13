@@ -388,6 +388,18 @@ public class Util extends Utils {
         return SpringContext.getApplicationContext();
     }
 
+    public static Object getIotequModuleProperty(String groupId, String artifactId, String property) {
+        try {
+            String beanName = groupId + "." + artifactId + ".IotequModule";
+            Object bean = getBean(beanName);
+            if (bean != null) {
+                return ObjectUtil.getPrivateField(bean, property);
+            } else return null;
+        } catch(Exception e) {
+            return null;
+        }
+    }
+
     public static void publishEvent(ApplicationEvent event) {
         if (event!=null) getApplicationContext().publishEvent(event);
     }

@@ -15,11 +15,8 @@ export default {
       syncRegFingers: '同步注册数',
       sample: '采集指静脉',
       connectDevice: '连接',
-      registerFinger: '录入',
       verifyFinger: '前端验证',
       matchFinger: '后端验证',
-      removeFingerConfirm: '确定删除指定编号的指静脉信息吗',
-      removeFinger: '删除',
       resetDevice: '复位'
     },
     route: {
@@ -54,16 +51,16 @@ export default {
       homeAddr: '住址',
       fingerNo1: '已采集手指1',
       fingerNo2: '已采集手指2',
-      fingerType_0: '右食指',
-      fingerType_1: '右中指',
-      fingerType_2: '右无名指',
-      fingerType_3: '左食指',
-      fingerType_4: '左中指',
-      fingerType_5: '左无名指',
-      fingerType_6: '自定义1',
-      fingerType_7: '自定义2',
-      fingerType: '选择需要编辑的手指',
-      warning: '设置胁迫标识'
+      warning1_0: '右食指',
+      warning1_1: '右中指',
+      warning1_2: '右无名指',
+      warning1_3: '左食指',
+      warning1_4: '左中指',
+      warning1_5: '左无名指',
+      warning1_6: '自定义1',
+      warning1_7: '自定义2',
+      warning1: '胁迫标识',
+      warning2: '胁迫标识'
     }
   }
 }

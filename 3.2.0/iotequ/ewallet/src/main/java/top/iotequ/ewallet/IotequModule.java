@@ -1,19 +1,19 @@
-package top.iotequ.attendance;
+package top.iotequ.ewallet;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-@PropertySource("attendance.properties")
-@Component(value="top.iotequ.attendance.iotequModule")
+@PropertySource("ewallet.properties")
+@Component(value="top.iotequ.ewallet.iotequModule")
 public class IotequModule {
-    @Value("${module.attendance.name}")
+    @Value("${module.ewallet.name}")
     private String name;
-    @Value("${module.attendance.groupId}")
+    @Value("${module.ewallet.groupId}")
     private String groupId;
-    @Value("${module.attendance.version}")
+    @Value("${module.ewallet.version}")
     private String version;
-    @Value("${module.attendance.buildTime}")
+    @Value("${module.ewallet.buildTime}")
     private String buildTime;
     public boolean isIotequModule() { return true; }
     public String getGroupId() {

@@ -284,9 +284,7 @@ CREATE TABLE [dbo].[dev_event] (
   [auditor_user_num] varchar(45) NULL COLLATE Chinese_PRC_CI_AS,
   [auditor_auth_type] tinyint NULL,
   [auditor_org] int NULL,
-  [auth_type] tinyint NULL,
-  [template] text NULL COLLATE Chinese_PRC_CI_AS,
-  [image] text NULL COLLATE Chinese_PRC_CI_AS
+  [auth_type] tinyint NULL
 )
 GO
 ALTER TABLE [dbo].[dev_event] SET (LOCK_ESCALATION = TABLE)

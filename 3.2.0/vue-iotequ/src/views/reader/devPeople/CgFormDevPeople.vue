@@ -269,6 +269,7 @@ const Comp = {
             registerType: 1,
             userType: 2,
             orgCode: 0,
+            fingerNo1: '1',
         }
     },
     groupPaneTitle: function(defTitle) {

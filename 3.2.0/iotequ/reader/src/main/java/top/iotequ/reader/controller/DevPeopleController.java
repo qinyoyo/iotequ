@@ -168,12 +168,4 @@ public class DevPeopleController  {
 			return new RestJson().setMessage(e).toResponse();
 		}
 	}
-	@RequestMapping(value = "/action/removeFinger")
-	public ResponseEntity<Map<String, Object>> actionRemoveFinger(String id,HttpServletRequest request, HttpServletResponse response){
-		try {
-		  return cgService.doAction("removeFinger",id,request).toResponse();
-		} catch (Exception e) {
-			return new RestJson().setMessage(e).toResponse();
-		}
-	}
 }

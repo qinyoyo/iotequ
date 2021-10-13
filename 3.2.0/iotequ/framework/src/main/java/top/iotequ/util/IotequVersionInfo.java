@@ -92,7 +92,7 @@ public class IotequVersionInfo {
                 else buildTime = (Date) dt;
                 isIotequModule = (boolean)ObjectUtil.runMethod(iotequModule,"isIotequModule");
                 if (isIotequModule) {
-                    System.out.println("---------- module: "+groupId+"."+module+" "+version+" build at "+DateUtil.date2String(buildTime,null) +" --------");
+                    System.out.println("---------- module: "+ toString());
                 }
                 //if (buildTime==null) buildTime=new Date();
                 //else buildTime.setTime(buildTime.getTime()+8L*3600000L);

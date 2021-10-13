@@ -118,8 +118,12 @@
       ${HD}<#nt>           <@WF f ":dictionary" dictionary(f)/><@READONLY f /><@WF f ":filterable" "false"/><@WF f ":allow-create" "false"/><#if f.dictMultiple?? && f.dictMultiple><@WF f "multiple"/><#elseif f.type!='String'><@WF f "numberic"/></#if><@WF f ":placeholder" "$t('system.message."+(f.mustInput || !f.isNull)?string("needValue","unknown")+"')"/><#if f.isNull && !f.mustInput><@WF f "clearable"/></#if>/>
       <#elseif f.showType == 'html'>
       ${HD}<#nt><div name="${f.entityName}"<#if !isEmpty(f.itemProperties!'')> ${f.itemProperties?trim}</#if>>
+      <#if f.slotTemplates?? && f.slotTemplates?trim!=''>
+      ${HD}<#nt>  ${f.slotTemplates}
+      <#else>
       ${HD}<#nt>  <#if f.validTitle?? && f.validTitle?trim!=""><div v-html="$t('${f.title}Valid')"></div></#if>
       ${HD}<#nt>  <div v-html="record.${f.entityName}"></div>
+      </#if>
       ${HD}<#nt></div>
       <#elseif f.showType == 'image'>
       <#assign imageWidth='' />

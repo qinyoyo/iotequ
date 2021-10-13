@@ -155,21 +155,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<configuration>
-					<archive>
-						<manifestEntries>
-							<Iotequ-Module>true</Iotequ-Module>
-							<Group-Id>${project.groupId}</Group-Id>
-							<Artifact-Id>${project.artifactId}</Artifact-Id>
-							<Version>${project.version}</Version>
-							<Build-Time>${maven.build.timestamp}</Build-Time>
-						</manifestEntries>
-					</archive>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
 </project>

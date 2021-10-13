@@ -55,6 +55,13 @@
 			<resource>
 				<directory>src/main/resources</directory>
 			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>*.properties</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>					
 		</resources>
 		<finalName>${project.artifactId}-${project.version}</finalName>
 		<plugins>
@@ -95,17 +102,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				<configuration>
-					<archive>
-						<manifestEntries>
-							<Iotequ-Module>true</Iotequ-Module>
-							<Group-Id>${project.groupId}</Group-Id>
-							<Artifact-Id>${project.artifactId}</Artifact-Id>
-							<Version>${project.version}</Version>
-							<Build-Time>${maven.build.timestamp}</Build-Time>
-						</manifestEntries>
-					</archive>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>

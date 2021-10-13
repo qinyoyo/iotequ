@@ -34,8 +34,6 @@ export default {
       authType_0: 'Single finger',
       authType_1: 'Twice fingers',
       authType: 'Auth type',
-      template: 'Template',
-      image: 'Image',
       userNo: 'User no',
       auditorName: 'Auditor name',
       auditorUserNum: 'Auditor user num',

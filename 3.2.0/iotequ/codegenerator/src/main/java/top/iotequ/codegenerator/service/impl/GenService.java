@@ -15,6 +15,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import sun.misc.Regexp;
+import top.iotequ.codegenerator.IotequModule;
 import top.iotequ.codegenerator.dao.CgProjectDao;
 import top.iotequ.codegenerator.pojo.*;
 import top.iotequ.codegenerator.util.*;
@@ -52,6 +53,8 @@ public class GenService implements ApplicationContextAware {
     private Environment env;
     @Autowired
     private SqlSessionTemplate sqlSessionTemplate;
+    @Autowired
+    private IotequModule iotequModule;
     private CgTable table;
     private List<CgField> tabFields = new ArrayList<CgField>();    // 数据库表字段
     private List<CgField> joinFields = new ArrayList<CgField>();    // join字段
@@ -198,6 +201,7 @@ public class GenService implements ApplicationContextAware {
         if (Util.isEmpty(tab)) throw new CgException("表单不能为空");
         generatorPath = env.getProperty("generator.path");
         if (generatorPath == null) throw new CgException("请配置代码生成文件路径 generator.path");
+        generatorPath = new File(generatorPath,iotequModule.getVersion()).getAbsolutePath();
         boolean gMessage = true, gController = true, gPojo = false, gDao = false, gMapper = false, gDict = false, gUpdate = false, gList = false;
         setTable(project, tab);
         if (!Util.isEmpty(table.getName()))
@@ -691,7 +695,7 @@ public class GenService implements ApplicationContextAware {
             Writer out = new BufferedWriter(new OutputStreamWriter(fos, "utf-8"), 102400);
             Map<String, Object> map = new HashMap<>();
             map.put("gp", gp);
-            String mdv = Util.getVersion("framework");
+            String mdv = iotequModule.getVersion();
             if (mdv == null) mdv = "3.2.0-SNAPSHOT";
             map.put("mdVersion", mdv);
             map.put("camelName", StringUtil.camelString(gp.getName()));
@@ -705,6 +709,7 @@ public class GenService implements ApplicationContextAware {
     public void project(String id) throws CgException {
         generatorPath = env.getProperty("generator.path");
         if (generatorPath == null) throw new CgException("请配置代码生成文件路径 generator.path");
+        generatorPath = new File(generatorPath,iotequModule.getVersion()).getAbsolutePath();
         CgProject gp = cgProjectDao.select(id);
         if (id == null) return;
         setupFreeMarker("project");
@@ -715,12 +720,18 @@ public class GenService implements ApplicationContextAware {
         if (!path.exists()) path.mkdirs();
 
         freeMarkerWriterProject("pom.ftl", basePath + "pom.xml", gp);
+        freeMarkerWriterProject("module.ftl", basePath + "src/main/resources/"+StringUtil.camelString(gp.getName())+".properties", gp);
+        freeMarkerWriterProject("iotequModule.ftl", basePath + "src/main/java/" +
+                gp.getGroupId().replace(".", "/") + "/" + StringUtil.camelString(gp.getName()) +
+                "/IotequModule.java", gp);
+
         if (gp.getSpringModule()) {
             freeMarkerWriterProject("yml.ftl", basePath + "src/main/resources/application.yml", gp);
             freeMarkerWriterProject("iotequ.ftl", basePath + "iotequ.yml", gp);
             freeMarkerWriterProject("starter.ftl", basePath + "src/main/java/" +
                     gp.getGroupId().replace(".", "/") +
                     "/" + StringUtil.firstLetterUpper(StringUtil.camelString(gp.getName())) + "Application.java", gp);
+
         }
     }
 

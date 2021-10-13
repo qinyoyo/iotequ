@@ -3,6 +3,7 @@ package top.iotequ.codegenerator.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
+import top.iotequ.codegenerator.IotequModule;
 import top.iotequ.codegenerator.pojo.CgProject;
 import top.iotequ.codegenerator.util.CgException;
 import top.iotequ.codegenerator.util.NameUtil;
@@ -26,7 +27,8 @@ public class CgProjectService extends CgCgProjectService {
     private GenService genService;
     @Autowired
     private Environment env;
-
+    @Autowired
+    private IotequModule iotequModule;
     public static void toZip(File sourceFile, OutputStream out, boolean KeepDirStructure) throws Exception {
         ZipOutputStream zos = new ZipOutputStream(out);
         compress(sourceFile, zos, sourceFile.getName(), KeepDirStructure);
@@ -98,6 +100,7 @@ public class CgProjectService extends CgCgProjectService {
         } else if ("down".equals(action)) {
             String generatorPath = env.getProperty("generator.path");
             if (generatorPath == null) throw new CgException("请配置代码生成文件路径 generator.path");
+            generatorPath = new File(generatorPath,iotequModule.getVersion()).getAbsolutePath();
             String path = NameUtil.userPath(generatorPath, false);
             File dir = new File(path);
             if (dir.exists() && dir.isDirectory()) {

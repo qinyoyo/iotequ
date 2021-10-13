@@ -131,6 +131,13 @@
 				</excludes>
 				</#if>
 			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>*.properties</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
 		</resources>
 		<finalName>${D}{project.artifactId}-${D}{project.version}</finalName>
 		<plugins>
@@ -178,21 +185,6 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<configuration>
-					<archive>
-						<manifestEntries>
-							<Iotequ-Module>true</Iotequ-Module>
-							<Group-Id>${D}{project.groupId}</Group-Id>
-							<Artifact-Id>${D}{project.artifactId}</Artifact-Id>
-							<Version>${D}{project.version}</Version>
-							<Build-Time>${D}{maven.build.timestamp}</Build-Time>
-						</manifestEntries>
-					</archive>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
