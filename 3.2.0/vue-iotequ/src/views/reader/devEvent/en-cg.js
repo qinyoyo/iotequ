@@ -6,6 +6,7 @@ export default {
       code: 'Event of device'
     },
     field: {
+      image: 'Image',
       id: 'Id',
       devType: 'Dev type',
       devNo: 'Dev no',
@@ -34,6 +35,7 @@ export default {
       authType_0: 'Single finger',
       authType_1: 'Twice fingers',
       authType: 'Auth type',
+      template: 'Template',
       userNo: 'User no',
       auditorName: 'Auditor name',
       auditorUserNum: 'Auditor user num',

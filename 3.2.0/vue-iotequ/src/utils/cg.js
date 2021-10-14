@@ -978,6 +978,9 @@ export function chineseSort(a,b) {
   else if (a==b) return 0
   else if (a>b) return 1
 }
+export function toBool(a) {
+  return a?true:false
+}
 export default {
   dateAdd: time.dateAdd,
   timeRange: time.timeRange,
@@ -1030,5 +1033,6 @@ export default {
   displayTabPane,
   localeText,
   setLocaleText,
-  chineseSort
+  chineseSort,
+  toBool
 }

@@ -91,6 +91,7 @@ export default {
       detail: '详情',
       process: '审批',
       dbsync: '数据库同步',
+      verify: '验证',
       view: '查看',
       edit: '修改',
       update: '更改',

@@ -30,6 +30,10 @@ import java.util.*;
 @Getter
 @Setter
 public class DevEvent implements CgEntity {
+    @SerializedName(value = "image", alternate = {"IMAGE"})
+    @CgFieldAnnotation(name="dev_event.image",jdbcType="VARCHAR",length=500,nullable=true,format="@")
+    private String image;		//图像 db field:image
+
     @SerializedName(value = "id", alternate = {"ID"})
     @CgFieldAnnotation(name="dev_event.id",jdbcType="CHAR",length=36,nullable=false,format="@")
     private String id;
@@ -71,6 +75,10 @@ public class DevEvent implements CgEntity {
     @SerializedName(value = "authType", alternate = {"auth_type","AUTH_TYPE"})
     @CgFieldAnnotation(name="dev_event.auth_type",jdbcType="TINYINT",length=11,nullable=true,format="")
     private Byte authType;		//验证模式 db field:auth_type
+
+    @SerializedName(value = "template", alternate = {"TEMPLATE"})
+    @CgFieldAnnotation(name="dev_event.template",jdbcType="VARCHAR",length=500,nullable=true,format="@")
+    private String template;		//模板 db field:template
 
     @SerializedName(value = "userNo", alternate = {"user_no","USER_NO"})
     @CgFieldAnnotation(name="dev_event.user_no",jdbcType="VARCHAR",length=45,nullable=true,format="@")

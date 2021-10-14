@@ -88,6 +88,7 @@ export default {
       new: 'New',
       detail: 'Detail',
       dbsync: 'DB sync',
+      verify: 'Verify',
       view: 'View',
       edit: 'Edit',
       update: 'Update',

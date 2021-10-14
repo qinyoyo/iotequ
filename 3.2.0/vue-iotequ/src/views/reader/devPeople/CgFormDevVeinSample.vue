@@ -37,32 +37,37 @@
         <el-col :span="8">
           <el-form-item class="cg-item-select cg-auto-focus" :label="$t('devPeople.field.fingerNo1')" prop="fingerNo1" :size="$store.state.app.size" >
             <cg-select v-model="record.fingerNo1" name="fingerNo1"
-                       v-set-input.input="record.warning1 ? {style: 'append:color:red!important'} : {}"
-                       :dictionary="dictionary.dictFingerType" :readonly="isDetail" :filterable="false" :allow-create="false" :placeholder="$t('system.message.unknown')" clearable />
+                       :readonly="isDetail || toBool(fingerOriginalType1)"
+                       :dictionary="dictionary.dictFingerNo1" :filterable="false" :allow-create="false" :placeholder="$t('system.message.unknown')" clearable />
           </el-form-item>
         </el-col>
-        <el-col :span="5">
-          <el-form-item label="　" class="cg-item-html" prop="btnRecord1" :size="$store.state.app.size" >
-            <div name="btnRecord1">
-                      <el-button type="default" plain icon="fa fa-hand-pointer-o  fa-fw" :disabled="record.fingerNo1 || isDetail" @click.native="doRegister(1)" >
-        {{ $t('system.action.add') }}
-        </el-button>
-            </div>
-          </el-form-item>
-        </el-col>
-        <el-col :span="5">
-          <el-form-item label="　" class="cg-item-html" prop="btnRemove1" :size="$store.state.app.size" >
-            <div name="btnRemove1">
-                      <el-button type="default" plain icon="fa fa-hand-pointer-o  fa-fw" :disabled="!record.fingerNo1 || isDetail" @click.native="doRemove(1)" >
-        {{ $t('system.action.remove') }}
-        </el-button>
-            </div>
-          </el-form-item>
-        </el-col>
-        <el-col :span="6">
+        <el-col :span="4">
           <el-form-item label="　" class="cg-item-html" prop="chkWarning1" :size="$store.state.app.size" >
             <div name="chkWarning1">
-              <el-switch v-model="record.warning1" name="warning" active-color="red" :active-text="mobile?'':$t('devPeople.field.warning1')" inactive-text="" :disabled="isDetail || record.fingerNo1"  />
+              <el-switch v-model="record.warning1" name="warning" active-color="red" :active-text="mobile?'':$t('devPeople.field.warning1')" inactive-text="" :disabled="!toBool(record.fingerNo1)||isDetail || toBool(fingerOriginalType1)"  />
+            </div>
+          </el-form-item>
+        </el-col>
+        <el-col :span="4">
+          <el-form-item label="　" class="cg-item-html" prop="btnAuth1" :size="$store.state.app.size" >
+            <div name="btnAuth1">
+              <el-button type="default" plain icon="fa fa-hand-o-left  fa-fw" :disabled="!toBool(fingerOriginalType1)|| isDetail" @click.native="auth(1)" >
+        {{ $t('system.action.verify') }}
+        </el-button>
+            </div>
+          </el-form-item>
+        </el-col>
+        <el-col :span="4">
+          <el-form-item label="　" class="cg-item-html" prop="btnRecord1" :size="$store.state.app.size" >
+            <div name="btnRecord1">
+              <el-button type="default" plain icon="fa fa-hand-pointer-o  fa-fw" :disabled="!toBool(record.fingerNo1)|| isDetail" @click.native="doRegister(1)" >         {{ fingerOriginalType1 ? $t('system.action.modify') : $t('system.action.add') }}         </el-button>
+            </div>
+          </el-form-item>
+        </el-col>
+        <el-col :span="4">
+          <el-form-item label="　" class="cg-item-html" prop="btnRemove1" :size="$store.state.app.size" >
+            <div name="btnRemove1">
+              <el-button type="default" plain icon="fa fa-times  fa-fw" :disabled="!toBool(record.fingerNo1) || !fingerOriginalType1 || isDetail" @click.native="doRemove(1)" >         {{ $t('system.action.remove') }}         </el-button>
             </div>
           </el-form-item>
         </el-col>
@@ -71,32 +76,37 @@
         <el-col :span="8">
           <el-form-item class="cg-item-select" :label="$t('devPeople.field.fingerNo2')" prop="fingerNo2" :size="$store.state.app.size" >
             <cg-select v-model="record.fingerNo2" name="fingerNo2"
-                       v-set-input.input="record.warning2 ? {style: 'append:color:red!important'} : {}"
-                       :dictionary="dictionary.dictFingerType" :readonly="isDetail" :filterable="false" :allow-create="false" :placeholder="$t('system.message.unknown')" clearable />
+                       :readonly="isDetail || toBool(fingerOriginalType2)"
+                       :dictionary="dictionary.dictFingerNo1" :filterable="false" :allow-create="false" :placeholder="$t('system.message.unknown')" clearable />
           </el-form-item>
         </el-col>
-        <el-col :span="5">
-          <el-form-item label="　" class="cg-item-html" prop="btnRecord2" :size="$store.state.app.size" >
-            <div name="btnRecord2">
-                      <el-button type="default" plain icon="fa fa-hand-pointer-o  fa-fw" :disabled="record.fingerNo2 || isDetail" @click.native="doRegister(2)" >
-        {{ $t('system.action.add') }}
-        </el-button>
-            </div>
-          </el-form-item>
-        </el-col>
-        <el-col :span="5">
-          <el-form-item label="　" class="cg-item-html" prop="btnRemove2" :size="$store.state.app.size" >
-            <div name="btnRemove2">
-                      <el-button type="default" plain icon="fa fa-hand-pointer-o  fa-fw" :disabled="!record.fingerNo2 || isDetail" @click.native="doRemove(2)" >
-        {{ $t('system.action.remove') }}
-        </el-button>
-            </div>
-          </el-form-item>
-        </el-col>
-        <el-col :span="6">
+        <el-col :span="4">
           <el-form-item label="　" class="cg-item-html" prop="chkWarning2" :size="$store.state.app.size" >
             <div name="chkWarning2">
-              <el-switch v-model="record.warning2" name="warning" active-color="red" :active-text="mobile?'':$t('devPeople.field.warning2')" inactive-text="" :disabled="isDetail || record.fingerNo2"  />
+              <el-switch v-model="record.warning2" name="warning" active-color="red" :active-text="mobile?'':$t('devPeople.field.warning2')" inactive-text="" :disabled="!toBool(record.fingerNo2)||isDetail || toBool(fingerOriginalType2)"  />
+            </div>
+          </el-form-item>
+        </el-col>
+        <el-col :span="4">
+          <el-form-item label="　" class="cg-item-html" prop="btnAuth2" :size="$store.state.app.size" >
+            <div name="btnAuth2">
+              <el-button type="default" plain icon="fa fa-hand-o-left  fa-fw" :disabled="!toBool(fingerOriginalType2)|| isDetail" @click.native="auth(2)" >
+        {{ $t('system.action.verify') }}
+        </el-button>
+            </div>
+          </el-form-item>
+        </el-col>
+        <el-col :span="4">
+          <el-form-item label="　" class="cg-item-html" prop="btnRecord2" :size="$store.state.app.size" >
+            <div name="btnRecord2">
+              <el-button type="default" plain icon="fa fa-hand-pointer-o  fa-fw" :disabled="!toBool(record.fingerNo2)|| isDetail" @click.native="doRegister(2)" >         {{ fingerOriginalType2 ? $t('system.action.modify') : $t('system.action.add') }}         </el-button>
+            </div>
+          </el-form-item>
+        </el-col>
+        <el-col :span="4">
+          <el-form-item label="　" class="cg-item-html" prop="btnRemove2" :size="$store.state.app.size" >
+            <div name="btnRemove2">
+              <el-button type="default" plain icon="fa fa-times  fa-fw" :disabled="!toBool(record.fingerNo2)|| !fingerOriginalType2 || isDetail" @click.native="doRemove(2)" >         {{ $t('system.action.remove') }}         </el-button>
             </div>
           </el-form-item>
         </el-col>
@@ -147,7 +157,8 @@ const Comp = {
         dictOrgCode: [],
         dictIdType: [],
         dictUserType: this.getDictionary('1,2','devPeople.field.userType_0,devPeople.field.userType_1'),
-        dictRegisterType: []
+        dictRegisterType: [],
+        dictFingerNo1: this.getDictionary('1,2,3,4,5,6,11,12','devPeople.field.fingerNo1_0,devPeople.field.fingerNo1_1,devPeople.field.fingerNo1_2,devPeople.field.fingerNo1_3,devPeople.field.fingerNo1_4,devPeople.field.fingerNo1_5,devPeople.field.fingerNo1_6,devPeople.field.fingerNo1_7')
       },
       needLoadDictionary: true,
       generatorName: 'devPeople',
@@ -167,18 +178,6 @@ const Comp = {
           displayProperties: 'hm,ed',
           actionProperty: 'js',
           appendClass: 'this.connect(0)',
-          needRefresh: false
-        },
-        {
-          action: 'verifyFinger',
-          icon: 'fa fa-hand-o-left  fa-fw',
-          title: 'devPeople.action.verifyFinger',
-          groupid: 10,
-          confirm: '',
-          rowProperty: 'sr',
-          displayProperties: 'hm,ed',
-          actionProperty: 'pg',
-          appendClass: 'this.auth()',
           needRefresh: false
         },
         {

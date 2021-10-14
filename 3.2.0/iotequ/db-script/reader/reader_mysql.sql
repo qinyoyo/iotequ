@@ -160,6 +160,7 @@ CREATE TABLE `dev_new_device` (
 -- ----------------------------
 DROP TABLE IF EXISTS `dev_event`;
 CREATE TABLE `dev_event` (
+  `image` text NULL COMMENT '图像',
   `id` char(32) NOT NULL PRIMARY KEY,
   `dev_type` varchar(45) DEFAULT 'D10' NOT NULL COMMENT '设备类别',
   `dev_no` varchar(45) NOT NULL COMMENT '设备号',
@@ -171,7 +172,8 @@ CREATE TABLE `dev_event` (
   `auditor_user_num` varchar(45) NULL COMMENT '审核人',
   `auditor_auth_type` tinyint(2) NULL COMMENT '审核人验证方式',
   `auditor_org` int(11) NULL COMMENT '审核人部门',
-  `auth_type` tinyint(11) NULL COMMENT '验证模式'
+  `auth_type` tinyint(11) NULL COMMENT '验证模式',
+  `template` text NULL COMMENT '模板'
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '设备事件|Event of device' ROW_FORMAT = Dynamic;
 
 -- ----------------------------

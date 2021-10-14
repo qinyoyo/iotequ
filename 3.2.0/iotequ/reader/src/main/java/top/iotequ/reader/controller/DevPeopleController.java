@@ -128,18 +128,18 @@ public class DevPeopleController  {
 			return new RestJson().setMessage(e).toResponse();
 		}
 	}
-	@RequestMapping(value = "/action/getRegistered")
-	public ResponseEntity<Map<String, Object>> actionGetRegistered(String id,HttpServletRequest request, HttpServletResponse response){
+	@RequestMapping(value = "/action/verifyFinger")
+	public ResponseEntity<Map<String, Object>> actionVerifyFinger(String id,HttpServletRequest request, HttpServletResponse response){
 		try {
-		  return cgService.doAction("getRegistered",id,request).toResponse();
+		  return cgService.doAction("verifyFinger",id,request).toResponse();
 		} catch (Exception e) {
 			return new RestJson().setMessage(e).toResponse();
 		}
 	}
-	@RequestMapping(value = "/action/syncRegFingers")
-	public ResponseEntity<Map<String, Object>> actionSyncRegFingers(String id,HttpServletRequest request, HttpServletResponse response){
+	@RequestMapping(value = "/action/removeFinger")
+	public ResponseEntity<Map<String, Object>> actionRemoveFinger(String id,HttpServletRequest request, HttpServletResponse response){
 		try {
-		  return cgService.doAction("syncRegFingers",id,request).toResponse();
+		  return cgService.doAction("removeFinger",id,request).toResponse();
 		} catch (Exception e) {
 			return new RestJson().setMessage(e).toResponse();
 		}
@@ -152,10 +152,18 @@ public class DevPeopleController  {
 			return new RestJson().setMessage(e).toResponse();
 		}
 	}
-	@RequestMapping(value = "/action/verifyFinger")
-	public ResponseEntity<Map<String, Object>> actionVerifyFinger(String id,HttpServletRequest request, HttpServletResponse response){
+	@RequestMapping(value = "/action/getRegistered")
+	public ResponseEntity<Map<String, Object>> actionGetRegistered(String id,HttpServletRequest request, HttpServletResponse response){
 		try {
-		  return cgService.doAction("verifyFinger",id,request).toResponse();
+		  return cgService.doAction("getRegistered",id,request).toResponse();
+		} catch (Exception e) {
+			return new RestJson().setMessage(e).toResponse();
+		}
+	}
+	@RequestMapping(value = "/action/syncRegFingers")
+	public ResponseEntity<Map<String, Object>> actionSyncRegFingers(String id,HttpServletRequest request, HttpServletResponse response){
+		try {
+		  return cgService.doAction("syncRegFingers",id,request).toResponse();
 		} catch (Exception e) {
 			return new RestJson().setMessage(e).toResponse();
 		}

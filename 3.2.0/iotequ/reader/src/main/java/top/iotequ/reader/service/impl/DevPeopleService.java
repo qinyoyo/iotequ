@@ -141,7 +141,8 @@ public class DevPeopleService extends CgDevPeopleService implements ApplicationL
 			m.put( "warning1", warning1);
 			m.put( "warning2", warning2);
 			j.parameter("record", m);
-		} catch (Exception e) {}
+		} catch (Exception e) {
+		}
 	}
 	@Override
 	public RestJson doAction(String action, String id, HttpServletRequest request) throws IotequException {
@@ -152,10 +153,11 @@ public class DevPeopleService extends CgDevPeopleService implements ApplicationL
 		}
 		else if ("removeFinger".equals(action)) {
 			int fingerIndex=Integer.parseInt(request.getParameter("fingerIndex"));
-			if (!svasService.removeTemplate(userNo, fingerIndex)) 
-				throw new IotequException(IotequThrowable.FAILURE,"未能删除指定手指或没有注册该手指信息");
-				SqlUtil.sqlExecute("update dev_people_mapping set status=? where user_no=?", "1",userNo);
-				DownloadPlan.download(userNo, 1,true);
+			if (!svasService.removeTemplate(userNo, fingerIndex)) {
+				throw new IotequException(IotequThrowable.FAILURE, "未能删除指定手指或没有注册该手指信息");
+			}
+			SqlUtil.sqlExecute("update dev_people_mapping set status=? where user_no=?", "1",userNo);
+			DownloadPlan.download(userNo, 1,true);
 		}
 		else if ("registerFinger".equals(action)) {
 			int fingerIndex=Integer.parseInt(request.getParameter("fingerIndex"));

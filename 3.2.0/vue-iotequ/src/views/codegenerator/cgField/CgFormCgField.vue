@@ -163,7 +163,7 @@
                 <cg-number-input v-model="record.length" name="length" 
                                  :readonly="isDetail" 
                                  :label="$t('cgField.field.length')" :placeholder="$t('system.message.unknown')" clearable 
-                                 :min="1" :max="500" :step="1" :title="$t('system.message.valueRange') + ': 1 - 500'" />
+                                 :min="1" :step="1" :title="$t('system.message.valueRange') + ': 1 - *'" />
               </el-form-item>
             </el-col>
             <el-col :span="8">

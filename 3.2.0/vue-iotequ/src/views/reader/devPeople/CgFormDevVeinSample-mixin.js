@@ -15,11 +15,11 @@ export default {
     return {
       connected: false,
       hasFingerService: false,
-      template: '',
-      record: {
-        fingerType: "1",
-        warning: false
-      }
+      fingerOriginalType1: null,
+      fingerOriginalWarning1: false,
+      fingerOriginalType2: null,
+      fingerOriginalWarning2: false,
+      template: ''
     }
   },
   computed: {
@@ -39,7 +39,8 @@ export default {
         userNo: that.record.userNo
       }, 
       action: 'action/getRegistered',
-      silence: true
+      silence: true,
+      onSuccess: that.getFingerOriginal
     })
   },
   destroyed () {
@@ -49,6 +50,12 @@ export default {
     useMixinMethodsFirst() {
       return true
     },  
+    getFingerOriginal() {
+        this.fingerOriginalType1 = this.record.fingerNo1
+        this.fingerOriginalWarning1 = this.record.warning1
+        this.fingerOriginalType2 = this.record.fingerNo2
+        this.fingerOriginalWarning2 = this.warning2
+    },
     extendActionFilter(action) {
       return action!='edit'
     },
@@ -97,11 +104,10 @@ export default {
           })
         }, showError)
     },
-    doRecord(fingerId) {
+    doRegister(fingerId) {
       const that = this
       if (!this.hasFingerService) return
-      let update = false
-      if ((fingerId == 1 && this.record.fingerNo1) || (fingerId == 2 && this.record.fingerNo2)) {     
+      if (fingerId == 1 || fingerId==2) {     
           u53.u53Register(that.record.userNo,fingerId,
               (data) => {
                 if(data.isSucc){
@@ -112,12 +118,13 @@ export default {
                     params: {
                       userNo: that.record.userNo,
                       fingerIndex: fingerId,
-                      fingerType: fingerId == 1 ? this.record.fingerNo1 : this.record.fingerNo2,
+                      fingerType: fingerId == 1 ? that.record.fingerNo1 : that.record.fingerNo2,
                       template: that.template,
-                      update,
-                      isWarning: that.record.warning
+                      update: (fingerId == 1 && that.fingerOriginalType1) || (fingerId==2 && that.fingerOriginalType2),
+                      isWarning: that.record.warning1
                     }, 
-                    action: 'action/registerFinger'
+                    action: 'action/registerFinger',
+                    onSuccess: that.getFingerOriginal
                   })
                 }
               },showError
@@ -131,35 +138,33 @@ export default {
         })
       }	
     },
-    auth() {
+    auth(index) {
       if (!this.hasFingerService) return
-      const type = this.record.fingerType
-      let index = (type==this.record.fingerNo1 ? 1 : (type==this.record.fingerNo2 ? 2 : 0) )
-      if (!index) {
+      if ((index==1 && this.fingerOriginalType1) || (index==2 && this.fingerOriginalType2)) {
+        cgForm.form_request({ 
+          formObject: this, 
+          method: 'get', 
+          params: {
+            userNo: this.record.userNo,
+            fingerIndex: index
+          }, 
+          action: 'action/verifyFinger',
+          silence: true,
+          onSuccess: (res) => {
+            if (res.success) {
+              const template = res.template
+              u53.u53Auth(this.record.userNo,index,template,null,showError)
+            }
+          }
+        })
+      } else {
         Message({
           message: 'reader.noneAuth'.local(), 
           code: '',
           type: 'warning',
           duration: 3 * 1000
         })
-        return        
       }
-      cgForm.form_request({ 
-        formObject: this, 
-        method: 'get', 
-        params: {
-          userNo: this.record.userNo,
-          fingerIndex: index
-        }, 
-        action: 'action/verifyFinger',
-        silence: true,
-        onSuccess: (res) => {
-          if (res.success) {
-            const template = res.template
-            u53.u53Auth(this.record.userNo,index,template,null,showError)
-          }
-        }
-      })
     },
     match() {
       const that = this
@@ -227,18 +232,27 @@ export default {
           }
       )		
     },
-    doRemove(type) {
+    doRemove(index) {
       const that = this
       if (!this.hasFingerService) return
-      if (type && ( (type==1 && this.record.fingerNo1) || (type==2 && this.record.fingerNo2))) {    
-        cgForm.form_request({ 
-          formObject: that, 
-          method: 'get', 
-          params: {
-            userNo: that.record.userNo,
-            fingerIndex: index
-          }, 
-          action: 'action/removeFinger'
+      if (index && ( (index==1 && this.fingerOriginalType1) || (index==2 && this.fingerOriginalType2))) {    
+        that.$confirm(that.$t('devPeople.action.removeFingerConfirm'), that.$t('system.action.confirm'), {
+          confirmButtonText: that.$t('system.action.ok'),
+          cancelButtonText: that.$t('system.action.cancel'),
+          closeOnClickModal: false,
+          type: 'warning'
+        }).then(_ => {
+          cgForm.form_request({ 
+            formObject: that, 
+            method: 'get', 
+            params: {
+              userNo: that.record.userNo,
+              fingerIndex: index
+            }, 
+            action: 'action/removeFinger',
+            onSuccess: that.getFingerOriginal
+          })
+        }).catch(_ => {
         })
       } else {
         Message({

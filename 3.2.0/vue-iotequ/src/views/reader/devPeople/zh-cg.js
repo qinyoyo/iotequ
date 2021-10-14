@@ -10,12 +10,15 @@ export default {
       code: '注册人员'
     },
     action: {
+      verifyFinger: '验证',
+      removeFingerConfirm: '确定要删除该手指的指静脉信息',
+      removeFinger: '删除指静脉',
+      registerFinger: '注册',
       getRegistered: '已采集',
       syncRegFingersConfirm: '数据异常时后台同步用户注册指静脉数，需要admin权限。确定需要',
       syncRegFingers: '同步注册数',
       sample: '采集指静脉',
       connectDevice: '连接',
-      verifyFinger: '前端验证',
       matchFinger: '后端验证',
       resetDevice: '复位'
     },
@@ -49,6 +52,14 @@ export default {
       idNation: '民族',
       photo: '照片',
       homeAddr: '住址',
+      fingerNo1_0: '右食指',
+      fingerNo1_1: '右中指',
+      fingerNo1_2: '右无名指',
+      fingerNo1_3: '左食指',
+      fingerNo1_4: '左中指',
+      fingerNo1_5: '左无名指',
+      fingerNo1_6: '自定义1',
+      fingerNo1_7: '自定义2',
       fingerNo1: '已采集手指1',
       fingerNo2: '已采集手指2',
       warning1_0: '右食指',
@@ -59,8 +70,8 @@ export default {
       warning1_5: '左无名指',
       warning1_6: '自定义1',
       warning1_7: '自定义2',
-      warning1: '胁迫标识',
-      warning2: '胁迫标识'
+      warning1: '胁迫',
+      warning2: '胁迫'
     }
   }
 }

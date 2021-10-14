@@ -137,9 +137,9 @@ public class DevPeople implements CgEntity {
 
     private String fingerNo2;		//已采集手指2 非数据库字段
 
-    private Boolean warning1;		//胁迫标识 非数据库字段
+    private Boolean warning1;		//胁迫 非数据库字段
 
-    private Boolean warning2;		//胁迫标识 非数据库字段
+    private Boolean warning2;		//胁迫 非数据库字段
 
     @Override public Object getPkValue(){ return getUserNo(); }
     @Override

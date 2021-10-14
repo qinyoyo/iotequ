@@ -273,6 +273,7 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('[dbo].[dev
 	DROP TABLE [dbo].[dev_event]
 GO
 CREATE TABLE [dbo].[dev_event] (
+  [image] text NULL COLLATE Chinese_PRC_CI_AS,
   [id] char(32) NOT NULL PRIMARY KEY COLLATE Chinese_PRC_CI_AS,
   [dev_type] varchar(45) DEFAULT ('D10') NOT NULL COLLATE Chinese_PRC_CI_AS,
   [dev_no] varchar(45) NOT NULL COLLATE Chinese_PRC_CI_AS,
@@ -284,7 +285,8 @@ CREATE TABLE [dbo].[dev_event] (
   [auditor_user_num] varchar(45) NULL COLLATE Chinese_PRC_CI_AS,
   [auditor_auth_type] tinyint NULL,
   [auditor_org] int NULL,
-  [auth_type] tinyint NULL
+  [auth_type] tinyint NULL,
+  [template] text NULL COLLATE Chinese_PRC_CI_AS
 )
 GO
 ALTER TABLE [dbo].[dev_event] SET (LOCK_ESCALATION = TABLE)

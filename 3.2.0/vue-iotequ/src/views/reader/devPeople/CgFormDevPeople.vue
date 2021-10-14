@@ -231,7 +231,8 @@ const Comp = {
         dictIdType: [],
         dictRegisterType: [],
         dictUserType: this.getDictionary('1,2','devPeople.field.userType_0,devPeople.field.userType_1'),
-        dictOrgCode: []
+        dictOrgCode: [],
+        dictFingerNo1: this.getDictionary('1,2,3,4,5,6,11,12','devPeople.field.fingerNo1_0,devPeople.field.fingerNo1_1,devPeople.field.fingerNo1_2,devPeople.field.fingerNo1_3,devPeople.field.fingerNo1_4,devPeople.field.fingerNo1_5,devPeople.field.fingerNo1_6,devPeople.field.fingerNo1_7')
       },
       needLoadDictionary: true,
       tabSelected: '0',

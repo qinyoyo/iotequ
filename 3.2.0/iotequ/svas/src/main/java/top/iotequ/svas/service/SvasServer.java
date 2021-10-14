@@ -671,7 +671,11 @@ public class SvasServer  implements ApplicationContextAware {
 				ret.put("count", info.count);
 				ret.put("success", true);
 				if (info.count > 0) ret.put("list",info.list);
-			} else {
+			} else if (r==ERR_NOT_FOUND) {
+				ret.put("count", 0);
+				ret.put("success", true);
+				ret.put("list",null);
+			} else  {
 				ret.put("success", false);
 				ret.put("error",r);				
 			}
