@@ -2,7 +2,7 @@ package top.iotequ.svas.service;
 
 import java.util.List;
 
-class SvasTypes {
+public class SvasTypes {
     static public class JniStringReturn {
         public String string;
     }

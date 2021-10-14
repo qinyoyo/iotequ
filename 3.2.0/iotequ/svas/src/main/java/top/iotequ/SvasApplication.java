@@ -1,18 +1,31 @@
 package top.iotequ;
 
+import org.slf4j.Logger;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.env.PropertiesPropertySourceLoader;
 import org.springframework.boot.env.YamlPropertySourceLoader;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.lang.management.ManagementFactory;
+import java.lang.management.RuntimeMXBean;
 import java.util.Arrays;
 
 @ServletComponentScan(basePackages = {"top.iotequ"})
 @SpringBootApplication(scanBasePackages= {"top.iotequ","svas"})
 public class SvasApplication {
+    public static void recordProcessID() {
+        RuntimeMXBean runtimeMXBean = ManagementFactory.getRuntimeMXBean();
+        int pid = Integer.valueOf(runtimeMXBean.getName().split("@")[0])
+                .intValue();
+        try {
+            File file = new File("stop.sh");
+            PrintWriter fw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "utf-8")));
+            fw.write("sudo kill "+String.valueOf(pid)+"\n");
+            fw.close();
+        } catch (Exception e) {}
+    }
     private static String additionalPropertyFile(String fileName) {
         String path = ".";
         try {
@@ -59,6 +72,7 @@ public class SvasApplication {
     public static void commonApplicationRun( Class<?> clazz, String applicationProperties, String customerProperties, String[] args) {
         SpringApplicationBuilder appBuilder = new SpringApplicationBuilder(clazz);
         appBuilder.properties("file.encoding=UTF-8");
+        recordProcessID();
         String myPropertyFile = additionalPropertyFile(customerProperties == null ? "iotequ" : customerProperties);
         if (applicationProperties != null) {
             String location = "spring.config.location=classpath:/" + applicationProperties +

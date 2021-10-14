@@ -263,7 +263,33 @@ public class SvasServer  implements ApplicationContextAware {
 		}
 		return map;
 	}
-
+	public Map<String,Object>  svein_queryUserNo(Integer idType, String idNo)  {
+		Map<String,Object> map=new HashMap<String,Object>();
+		if (trialDay<=0) {
+			map.put("success", false);
+			map.put("message","version expired");
+			map.put("error", TRIAL_EXPIRED);
+			return map;
+		}
+		if (SvasUtil.isEmpty(idNo) || idType==null || idType==0) {
+			map.put("success", false);
+			map.put("message","please input"+(SvasUtil.isEmpty(idNo)?" <idNo>":"") + (idType==null || idType==0 ? " <idType>":""));
+			map.put("error", ERR_PARAMETER);
+		} else {
+			JniStringReturn userNo=new JniStringReturn();
+			int r=Svas.instance.svein_queryUserNo(idType, idNo, userNo);
+			if (r==SUCCESS) {
+				map.put("success", true);
+				map.put("userNo", userNo.string);
+				log.debug("svein_queryUserNo({},{})={} ,userNo={}",idType, idNo,r,userNo);
+			} else {
+				map.put("success", false);
+				map.put("error",r);
+				log.debug("svein_getUserNo({},{})={}",idType, idNo, r);
+			}
+		}
+		return map;
+	}
 	public Map<String,Object>  svein_getUserNoFromDict(String temp)  {
 		Map<String,Object> map=new HashMap<String,Object>();
 		if (trialDay<=0) {

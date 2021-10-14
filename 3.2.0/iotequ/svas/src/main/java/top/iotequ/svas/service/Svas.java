@@ -22,6 +22,7 @@ class Svas
 	public native  static int  svein_getTrialDays();
 	public native  static int  svein_initial(SvasSetting settings);
 	public native  static int  svein_getUserNo(int idType, String idNo ,String name, String def,String prefix, JniStringReturn userNo);
+	public native  static int  svein_queryUserNo(int idType, String idNo, JniStringReturn userNo);
 	public native  static int  svein_getUserNoFromDict(String temp, JniStringReturn userNo);
 	public native  static int  svein_setUserNoForDict(String temp, String userNo, JniStringReturn newTemp);
 	public native  static int  svein_getUserInfo(String userNo, SvasUserInfo info);
