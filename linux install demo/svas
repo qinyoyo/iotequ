@@ -1,0 +1,2 @@
+su - svasuser /usr/local/svas/svas.sh
+
