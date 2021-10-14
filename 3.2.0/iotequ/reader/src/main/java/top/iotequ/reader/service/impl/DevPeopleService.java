@@ -144,6 +144,25 @@ public class DevPeopleService extends CgDevPeopleService implements ApplicationL
 		} catch (Exception e) {
 		}
 	}
+	private boolean addFingerAfterNotFound(String userNo, Integer fingerNo, Integer fingerType, String templates, Boolean warning) throws IotequException {
+		DevPeople people=devPeopleDao.select(userNo);
+		if (people==null) return false;
+		try {
+			String uno = svasService.queryUserNo(people.getIdType(), people.getIdNumber());
+		} catch (IotequException e) {
+			if ("svas_error_4".equals(e.getError())) {
+				String uno=svasService.getUserNo(people.getIdType(),people.getIdNumber(),people.getRealName(),userNo,null);
+				if (uno==null) return false;
+				if (uno.equals(userNo)) {
+					return svasService.addTemplate(userNo,fingerNo,fingerType,templates,warning);
+				} else {
+					svasService.removeUserNo(uno);
+					return false;
+				}
+			}
+		}
+		return false;
+	}
 	@Override
 	public RestJson doAction(String action, String id, HttpServletRequest request) throws IotequException {
 		RestJson j = new RestJson();
@@ -156,8 +175,10 @@ public class DevPeopleService extends CgDevPeopleService implements ApplicationL
 			if (!svasService.removeTemplate(userNo, fingerIndex)) {
 				throw new IotequException(IotequThrowable.FAILURE, "未能删除指定手指或没有注册该手指信息");
 			}
-			SqlUtil.sqlExecute("update dev_people_mapping set status=? where user_no=?", "1",userNo);
-			DownloadPlan.download(userNo, 1,true);
+			try {
+				SqlUtil.sqlExecute("update dev_people_mapping set status=? where user_no=?", "1", userNo);
+				DownloadPlan.download(userNo, 1, true);
+			} catch (Exception e){}
 		}
 		else if ("registerFinger".equals(action)) {
 			int fingerIndex=Integer.parseInt(request.getParameter("fingerIndex"));
@@ -165,13 +186,20 @@ public class DevPeopleService extends CgDevPeopleService implements ApplicationL
 			String template=request.getParameter("template");
 			boolean warning=Util.boolValue(request.getParameter("isWarning"));
 			boolean update=Util.boolValue(request.getParameter("update"));
-			if (update) {
-				if (!svasService.updateTemplate(userNo, fingerIndex, fingerType,template))
-					throw new IotequException(IotequThrowable.FAILURE,"未能修改成功");
-			} else	if (!svasService.addTemplate(userNo, fingerIndex, fingerType,template, warning))
-				throw new IotequException(IotequThrowable.FAILURE,"未能注册成功");
-			SqlUtil.sqlExecute("update dev_people_mapping set status=? where user_no=?", "1",userNo);
-			DownloadPlan.download(userNo, 1,true);
+			try {
+				if (update) {
+					if (!svasService.updateTemplate(userNo, fingerIndex, fingerType, template)) {
+						throw new IotequException(IotequThrowable.FAILURE, "未能修改成功");
+					}
+				} else if (!svasService.addTemplate(userNo, fingerIndex, fingerType, template, warning))
+					throw new IotequException(IotequThrowable.FAILURE, "未能注册成功");
+			} catch (IotequException e) {
+				if ("svas_error_4".equals(e.getError())) addFingerAfterNotFound(userNo,fingerIndex,fingerType,template,warning);
+			}
+			try {
+				SqlUtil.sqlExecute("update dev_people_mapping set status=? where user_no=?", "1", userNo);
+				DownloadPlan.download(userNo, 1, true);
+			} catch (Exception e) {}
 		}
 		else if ("verifyFinger".equals(action)) {
 			int fingerIndex=Integer.parseInt(request.getParameter("fingerIndex"));
@@ -265,6 +293,7 @@ public class DevPeopleService extends CgDevPeopleService implements ApplicationL
 		// TODO Auto-generated method stub
 		String[] users=ids.split(",");
 		for(String u:users) {
+			svasService.removeUserNo(u);
 			DownloadPlan.download(u, 2,true);
 		}
 		super.afterDelete(ids, request, j);

@@ -32,6 +32,7 @@ class SvasClient  {
 		static public final int      ALLOW_ALL = -1;
 		static public final String SVAS = "svas/";
 		static public final String getUserNo = "getUserNo";
+		static public final String queryUserNo = "queryUserNo";
 	    static public final String getUserNoFromDict = "getUserNoFromDict";
 	    static public final String setUserNoForDict = "setUserNoForDict";
 		static public final String getUserInfo = "getUserInfo";
@@ -491,6 +492,35 @@ class SvasClient  {
 		}
 	}
 
+	public String queryUserNo(Integer idType,String idNo) throws IotequException {
+		if (Util.isEmpty(idNo) || idType==null || idType<=0) return null;
+		if (svasServer!=null) {
+			try {
+				// svein_getUserNo(Integer idType, String idNo ,String name,String def,String prefix)
+				Object o=EntityUtil.runMethod(svasServer, "svein_queryUserNo",idType,idNo);
+				if (o!=null) {
+					Map<String,Object> map=(Map<String,Object>)o;
+					SvasUserInfo user=getFromMap(map, SvasUserInfo.class);
+					if (user!=null) return user.userNo;
+					else return null;
+				} else return null;
+			} catch (Exception e) {
+				throw IotequException.newInstance(e);
+			}
+		}
+		else if (svasUrl==null ) {
+			String uno=SqlUtil.sqlQueryString("select user_no from dev_user_no where id_type=? and id_no=?", idType,idNo);
+			if (Util.isEmpty(uno)) return null;
+			else return uno;
+		} else {
+			String url=svasUrl+SVAS+queryUserNo;
+			Map<String, Object> req= new HashMap<String, Object>();
+			req.put("idType", idType);
+			req.put("idNo", idNo);
+			SvasUserInfo u=getFromHttp(url,req, SvasUserInfo.class);
+			return u!=null ? u.userNo : null;
+		}
+	}
 	/**
 	 * 从模板读取uid信息
 	 * @param templates 模板，最多三个词典

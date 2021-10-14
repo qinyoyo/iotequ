@@ -152,6 +152,12 @@ public class SvasService implements ApplicationRunner, ApplicationContextAware, 
         if (daysLeft <= 0) throw new IotequException(IotequThrowable.VERSION_EXPIRED, "软件已经过期");
         return svasClient.getUserNo(idType, idNo, name, def, prefix);
     }
+
+    public String queryUserNo(Integer idType, String idNo) throws IotequException {
+        if (daysLeft <= 0) throw new IotequException(IotequThrowable.VERSION_EXPIRED, "软件已经过期");
+        return svasClient.queryUserNo(idType, idNo);
+    }
+
     /**
      * 获得用户信息
      *

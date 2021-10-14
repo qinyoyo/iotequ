@@ -9,6 +9,7 @@ import top.iotequ.svas.util.SvasUtil;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
 
 // 性能考虑，不再使用jna
 class Svas
@@ -47,7 +48,7 @@ class Svas
 		logger.info("Load native libary {} ...",dll);
 		System.load(dll);
         int r = svein_initial(settings);
-        apiTest();
+        //apiTest();
         return r;
 	}
 	public static void logInfo(String s) {
@@ -60,16 +61,17 @@ class Svas
 		logger.error(s);
 	}
 	private static void apiTest() {
+/*
 		int  r = svein_getVersion(null);
 		JniStringReturn ver=new JniStringReturn();
 		svein_getVersion(ver);
 		r=svein_getLicence();
 		r=svein_getLicenceAvailable();
 		r=svein_getTrialDays();
-		//r=svein_initial(null);
-		//SvasSetting settings=new SvasSetting();
-		//r=svein_initial(settings);
-		/*
+		r=svein_initial(null);
+		SvasSetting settings=new SvasSetting();
+		r=svein_initial(settings);
+
 		JniStringReturn userNo=new JniStringReturn();
 		r=svein_getUserNo(0, null ,null, null,null, userNo);
 		r=svein_getUserNo(1, "1234" ,null, null,null, userNo);
@@ -80,28 +82,83 @@ class Svas
 				"精神抖擞的房间卡士大夫爱神的箭饭卡上的房间阿克苏的房间爱神的箭饭卡上单反安居客水电费阿斯蒂芬阿斯蒂芬dd",
 				"快递费关键时刻东方闪电反光镜水电费改水电费敢打的沙发斯蒂芬阿斯顿发斯蒂芬撒旦法阿斯蒂芬阿斯蒂芬阿斯蒂芬",
 				"时代峰峻阿考虑是否啊撒旦法撒旦法飞阿斯顿发送到发斯蒂芬", userNo);
-        */
 
 		r=svein_getUserNoFromDict(null, null);
 		r=svein_getUserNoFromDict("null", null);
-		JniStringReturn userNo=new JniStringReturn();
+		userNo=new JniStringReturn();
 		r=svein_getUserNoFromDict("null", userNo);
-		/*
-		r=svein_setUserNoForDict(String temp, String userNo, JniStringReturn newTemp);
-		r=svein_getUserInfo(String userNo, SvasUserInfo info);
-		r=svein_changeUserInfo(String userNo, int idType, String idNo, String name);
-		r=svein_changeUserInfoByMap(HashMap<String,String> people);
-		r=svein_getUserAllInfo(String userNo, int includePhoto, Map<String,Object> info);
-		r=svein_removeUserNo(String userNo);
-		r=svein_removeFinger(String userNo, int fingerNo);
-		r=svein_updateFinger(String userNo, int fingerNo, int fingerType, String temp);
-		r=svein_getFingerCount(String userNo,int onlyCountNeed, SvasFingerInfo fingers);
-		r=svein_getTemplates(String userNo, int fingerNo, SvasTemplates temp);
-		r=svein_matchFinger(String temp, int thresh, SvasMatched matched);
-		r=svein_addFinger(String userNo, int fingerNo, int fingerType,String temp, int warning);
-		r=svein_setFingers(String userNo, int type1,int warning1, String hexTemp1,int type2,int warning2,String hexTemp2);
-		r=svein_setPhoto(String userNo, String photo);
-		r=svein_getEnvProperties(JniStringReturn result);*/
+		r=svein_setUserNoForDict(null, null, null);
+		r=svein_setUserNoForDict(null, "22", null);
+		r=svein_setUserNoForDict("333", "22", new JniStringReturn());
+
+		r=svein_getUserInfo(null, null);
+		r=svein_getUserInfo(null, new SvasUserInfo());
+		r=svein_getUserInfo("0100000005", new SvasUserInfo());
+
+		r=svein_changeUserInfo(null, 0, null, null);
+		r=svein_changeUserInfo("dd", 0, null, null);
+		r=svein_changeUserInfo("0100000005", 0, null, null);
+		r=svein_changeUserInfo("0100000005", 2, null, null);
+		r=svein_changeUserInfo("0100000005", 1, "2222222", null);
+		r=svein_changeUserInfo("0100000005", 0, "44444", "changed");
+
+
+
+		r=svein_changeUserInfoByMap(null);
+		r=svein_changeUserInfoByMap(new HashMap<String,String>());
+		r=svein_changeUserInfoByMap(new HashMap<String,String>() {{ put("name","map");}});
+		r=svein_changeUserInfoByMap(new HashMap<String,String>() {{ put("name","map"); put("userNo","0100000005");}});
+
+
+
+		r=svein_getUserAllInfo(null, 0, null);
+		r=svein_getUserAllInfo(null, 0, new HashMap<String,Object>());
+		r=svein_getUserAllInfo("0100000005", 0, new HashMap<String,Object>());
+		r=svein_getUserAllInfo("0100000005", 1, new HashMap<String,Object>());
+		r=svein_getUserAllInfo("ddd", 0, new HashMap<String,Object>());
+
+		r=svein_removeUserNo(null);
+		r=svein_removeUserNo("dd");
+		r=svein_removeUserNo("0100000005");
+
+		r=svein_removeFinger(null, 0);
+		r=svein_removeFinger("ddd", 0);
+		r=svein_removeFinger("0100000005", 1);
+		r=svein_removeFinger("0100000006", 2);
+
+		r=svein_updateFinger(null, 0, 1, null);
+		r=svein_updateFinger(null, 0, 1, null);
+		r=svein_updateFinger("ddd", 0, 1, null);
+		r=svein_updateFinger("0100000006", 0, 11, null);
+		r=svein_updateFinger("0100000006", 1, 11, null);
+		r=svein_updateFinger("0100000006", 1, 11, "dddddd");
+
+		r=svein_getFingerCount(null,1, null);
+		r=svein_getFingerCount("0100000006",1, null);
+		r=svein_getFingerCount("0100000006",1, new SvasFingerInfo());
+
+		r=svein_getTemplates(null, 0, null);
+		r=svein_getTemplates("0100000006", 1, null);
+		r=svein_getTemplates("0100000006", 1, new SvasTemplates());
+
+		r=svein_matchFinger(null, 0, null);
+		r=svein_matchFinger("ddd", 2000, null);
+		r=svein_matchFinger("ddd", 2000, new SvasMatched());
+
+		r=svein_addFinger(null, 1, 1,null, 0);
+		r=svein_addFinger("0100000006", 1, 1,null, 0);
+		r=svein_addFinger("0100000006", 1, 1,"ddddd", 0);
+		r=svein_setFingers(null, 1,1, null,2,2,null);
+		r=svein_setFingers("0100000006", 1,1, null,2,2,null);
+		r=svein_setFingers("0100000006", 1,1, "d",2,2,"d");
+
+		r=svein_setPhoto(null, null);
+		r=svein_setPhoto("0100000006", null);
+		r=svein_setPhoto("0100000006", "ddd");
+
+		r=svein_getEnvProperties(null);
+		r=svein_getEnvProperties(new JniStringReturn());
+*/
 	}
 }
 

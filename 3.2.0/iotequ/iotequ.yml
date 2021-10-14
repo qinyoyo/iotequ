@@ -19,16 +19,16 @@ spring:
 
 # 群集环境需要配置redis服务
 #   redis:
-#      url: redis://localhost:6379
+#      url: redis://127.0.0.1:6379
 #      url: redis://192.168.1.162:30379
    #数据库连接配置
    datasource:
-      url : jdbc:mysql://localhost:3306/iotequ3?characterEncoding=utf8&useSSL=true&allowMultiQueries=true&serverTimezone=Asia/Chongqing
+      url : jdbc:mysql://127.0.0.1:3306/iotequ3?characterEncoding=utf8&useSSL=true&allowMultiQueries=true&serverTimezone=Asia/Chongqing
       username : root
       password : root
       driverClassName : com.mysql.cj.jdbc.Driver
       
-#      url : jdbc:sqlserver://localhost:1433;databaseName=iotequ
+#      url : jdbc:sqlserver://127.0.0.1:1433;databaseName=iotequ
 #      driverClassName : com.microsoft.sqlserver.jdbc.SQLServerDriver
 #      username : sa
 #      password : root
@@ -99,7 +99,7 @@ svas:
    userNoMminLength: 10     # userNo 最小长度
 
    datasource:
-      host: localhost
+      host: 127.0.0.1
       port: 3306
       user: root
       password: root
@@ -149,7 +149,7 @@ config:
    D10port: 87     #D10连接的端口地址
    serverIp: 127.0.0.1
    logger:  DEBUG  #DEBUG,ERROR
-#   serverurl : http://localhost
+#   serverurl : http://127.0.0.1
    startflag: 1  #启动项目  0:启动所有，1:启动 D10项目， 2:启动锁项目
 U53:
-   connectUrl: localhost:9000
+   connectUrl: 127.0.0.1:9000
