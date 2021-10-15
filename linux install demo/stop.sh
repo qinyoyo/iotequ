@@ -1,2 +1,0 @@
-sudo kill xxx
-
