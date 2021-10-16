@@ -1,0 +1,13 @@
+# !/bin/sh
+	rm -rf /usr/local/svas
+
+	id -u %{name} >/dev/null 2>&1
+	if [ $? -eq 0 ];then
+		userdel -f %{name}
+	fi
+	id -g %{name} >/dev/null 2>&1
+	if [ $? -eq 0 ];then
+		groupdel -f %{name}
+	fi
+
+	echo svas-3.2.0 removed!

@@ -1,0 +1,9 @@
+# !/bin/sh
+id -g svas >/dev/null 2>&1
+if [ $? -ne 0 ];then
+	groupadd -f -r svas
+fi
+id -u svas >/dev/null 2>&1
+if [ $? -ne 0 ];then
+	useradd -r -g svas --no-create-home -s /sbin/nologin -c "svas service account" svas
+fi

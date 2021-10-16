@@ -1,0 +1,17 @@
+[Unit]
+Description=Svas service
+After=network-online.target
+
+[Service]
+Type=simple
+PIDFile=/usr/local/svas/svas.pid
+WorkingDirectory=/usr/local/svas
+ExecStart=/usr/local/svas/svas.jar
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s QUIT $MAINPID
+Restart=on-failure
+RestartSec=120
+User=svas
+
+[Install]
+WantedBy=multi-user.targe

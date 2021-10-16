@@ -1,0 +1,12 @@
+Package: svas
+Source: svas wec service
+Version: 3.2.0
+Architecture: amd64
+Maintainer: Qinyoyo<qinyoyo@live.com>
+Installed-Size: 30000
+Depends: mysql-community-server(>= 5.7.34), java-1.8.0-openjdk
+Section: service
+Priority: optional
+Multi-Arch: same
+Description: Svein Vein Auth Service with restful web service
+ Must end with a non blank line begin with blank

@@ -1,0 +1,4 @@
+# !/bin/sh
+systemctl stop svas
+systemctl disable svas
+rm -f /etc/systemd/system/multi-user.target.wants/svas.service
