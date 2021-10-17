@@ -1,5 +1,7 @@
 # !/bin/sh
 echo Initial... 
+mkdir -p /usr/local/svas/log
+chown -R svas:svas /usr/local/svas
 exec 6<&0 0</dev/tty
 echo -n Please input the web service port:
 read portOfService
@@ -7,7 +9,14 @@ echo -n Please input password of root for MYSQL:
 read passwordOfRoot
 sed -i 's/port\s*:\s*12345/port : '"$portOfService"'/' /usr/local/svas/iotequ.yml
 sed -i 's/password\s*:\s*root/password : '"$passwordOfRoot"'/g' /usr/local/svas/iotequ.yml
-ln -s /usr/lib/systemd/system/svas.service /etc/systemd/system/multi-user.target.wants/svas.service
 mysql -uroot --host=127.0.0.1 -p$passwordOfRoot < /usr/local/svas/svas.sql
-systemctl start svas.service
+SystemV=`ps 1|grep init`
+if [ -n "$SystemV" ]; then
+	cp /usr/local/svas/svas.init.d /etc/init.d/svas
+	service svas start
+else
+	rm /usr/local/svas/svas.init.d
+	ln -s /usr/lib/systemd/system/svas.service /etc/systemd/system/multi-user.target.wants/svas.service
+	systemctl start svas.service
+fi
 

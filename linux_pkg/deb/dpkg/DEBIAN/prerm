@@ -1,4 +1,10 @@
 # !/bin/sh
-systemctl stop svas
-systemctl disable svas
-rm -f /etc/systemd/system/multi-user.target.wants/svas.service
+SystemV=`ps 1|grep init`
+if [ -n "$SystemV" ]; then
+	service svas stop
+	rm -f /etc/init.d/svas
+else
+	systemctl stop svas
+	systemctl disable svas
+	rm -f /etc/systemd/system/multi-user.target.wants/svas.service
+fi
