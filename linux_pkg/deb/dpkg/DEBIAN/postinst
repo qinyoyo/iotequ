@@ -10,13 +10,19 @@ read passwordOfRoot
 sed -i 's/port\s*:\s*12345/port : '"$portOfService"'/' /usr/local/svas/iotequ.yml
 sed -i 's/password\s*:\s*root/password : '"$passwordOfRoot"'/g' /usr/local/svas/iotequ.yml
 mysql -uroot --host=127.0.0.1 -p$passwordOfRoot < /usr/local/svas/svas.sql
-SystemV=`ps 1|grep init`
-if [ -n "$SystemV" ]; then
+systemctl status >/dev/null 2>&1
+if [ $? -eq 0 ]; then
+	rm /usr/local/svas/svas.init.d
+	if [ -d /usr/lib/systemd/system ]; then
+		cp /usr/local/svas/svas.service /usr/lib/systemd/system/svas.service
+		ln -s /usr/lib/systemd/system/svas.service /etc/systemd/system/multi-user.target.wants/svas.service
+	else
+		cp /usr/local/svas/svas.service /lib/systemd/system/svas.service
+		ln -s /lib/systemd/system/svas.service /etc/systemd/system/multi-user.target.wants/svas.service
+	fi
+	systemctl start svas.service
+else
 	cp /usr/local/svas/svas.init.d /etc/init.d/svas
 	service svas start
-else
-	rm /usr/local/svas/svas.init.d
-	ln -s /usr/lib/systemd/system/svas.service /etc/systemd/system/multi-user.target.wants/svas.service
-	systemctl start svas.service
 fi
 

@@ -1,10 +1,15 @@
 # !/bin/sh
-SystemV=`ps 1|grep init`
-if [ -n "$SystemV" ]; then
-	service svas stop
-	rm -f /etc/init.d/svas
-else
+systemctl status >/dev/null 2>&1
+if [ $? -eq 0 ]; then
 	systemctl stop svas
 	systemctl disable svas
 	rm -f /etc/systemd/system/multi-user.target.wants/svas.service
+	if [ -d /usr/lib/systemd/system ]; then
+		rm -f /usr/lib/systemd/system/svas.service
+	else
+		rm -f /lib/systemd/system/svas.service
+	fi
+else
+	service svas stop
+	rm -f /etc/init.d/svas
 fi

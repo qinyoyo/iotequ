@@ -1,17 +1,16 @@
 [Unit]
 Description=Svas service
-After=network-online.target mysqld
-Requires=mysqld
+After=network-online.target mysql|mysqld
 
 [Service]
 Type=simple
-EnvironmentFile=-/usr/local/svas/svas.cnf
+PIDFile=/usr/local/svas/svas.pid
 WorkingDirectory=/usr/local/svas
 ExecStart=/usr/local/svas/svas.jar
 ExecReload=/bin/kill -s HUP $MAINPID
 ExecStop=/bin/kill -s QUIT $MAINPID
 Restart=on-failure
-RestartSec=20
+RestartSec=120
 User=svas
 
 [Install]

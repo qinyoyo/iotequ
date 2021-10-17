@@ -12,7 +12,8 @@ Source1:	%{name}.so
 Source2:        iotequ.yml
 Source3:	%{name}.sql
 Source4:	%{name}.service
-Requires:       mysql-community-server >= 5.7.34, java-1.8.0-openjdk
+Source5:	%{name}.init.d
+Requires:       mysql-community-server >= 5.7, java-1.8.0-openjdk
 BuildRequires:	systemd
 %{?systemd_requires}
 
@@ -54,7 +55,6 @@ fi
 %install
 
 app_dir=%{buildroot}/usr/local/%{name}
-#service_dir=%{buildroot}/etc/systemd/system
 service_dir=%{buildroot}/%{_unitdir}
 
 # cleanup build root
@@ -72,6 +72,7 @@ cp %{SOURCE0} $app_dir/
 cp %{SOURCE1} $app_dir/
 cp %{SOURCE2} $app_dir/
 cp %{SOURCE3} $app_dir/
+cp %{SOURCE5} $app_dir/
 
 cp %{SOURCE4} $service_dir
 
@@ -88,10 +89,10 @@ cp %{SOURCE4} $service_dir
 /usr/local/%{name}/%{name}.jar
 /usr/local/%{name}/%{name}.so
 /usr/local/%{name}/%{name}.sql
+/usr/local/%{name}/%{name}.init.d
 /usr/local/%{name}/iotequ.yml
 
 /%{_unitdir}/%{name}.service
-#   /usr/lib/systemd/system/%{name}.service
 
 ##### POST INSTALL SECTION #####
 %post
@@ -103,17 +104,27 @@ echo -n Please input password of root for MYSQL:
 read passwordOfRoot
 sed -i 's/port\s*:\s*12345/port : '"$portOfService"'/' /usr/local/%{name}/iotequ.yml
 sed -i 's/password\s*:\s*root/password : '"$passwordOfRoot"'/g' /usr/local/%{name}/iotequ.yml
-# %{_bindir}/systemctl enable %{name}.service
-ln -s /%{_unitdir}/%{name}.service /etc/systemd/system/multi-user.target.wants/%{name}.service
 mysql -uroot --host=127.0.0.1 -p$passwordOfRoot < /usr/local/%{name}/%{name}.sql
-%{_bindir}/systemctl start %{name}.service
+
+systemctl status >/dev/null 2>&1
+if [ $? -eq 0 ]; then
+	ln -s /%{_unitdir}/%{name}.service /etc/systemd/system/multi-user.target.wants/%{name}.service
+	systemctl start svas.service
+else
+	cp /usr/local/svas/svas.init.d /etc/init.d/svas
+	service svas start
+fi
 
 ##### UNINSTALL SECTION #####
 %preun
-
-systemctl stop %{name}
-#systemctl disable %{name}
-rm -f /etc/systemd/system/multi-user.target.wants/%{name}.service
+systemctl status >/dev/null 2>&1
+if [ $? -eq 0 ]; then
+	systemctl stop %{name}
+	rm -f /etc/systemd/system/multi-user.target.wants/%{name}.service
+else
+	service svas stop
+	rm -f /etc/init.d/svas
+fi
 
 %postun
 case "$1" in
