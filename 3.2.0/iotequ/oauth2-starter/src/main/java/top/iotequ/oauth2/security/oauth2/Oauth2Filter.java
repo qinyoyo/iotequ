@@ -10,7 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.web.filter.GenericFilterBean;
-import top.iotequ.framework.security.authentication.AuthenticationToken;
+import top.iotequ.oauth2.security.authentication.AuthenticationToken;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

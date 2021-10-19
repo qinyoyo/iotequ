@@ -7,12 +7,10 @@ import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import top.iotequ.framework.exception.IotequException;
-import top.iotequ.framework.exception.TokenException;
-import top.iotequ.framework.pojo.Role;
-import top.iotequ.util.Util;
+
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -20,7 +18,31 @@ import java.util.Map;
 
 public class OAuth2Util {
 	public static final String HTTP_HEADER_KEY = "Authorization";
+	public static String encodePassword(String password) {
+		if (password==null || password.isEmpty())
+			return password;
+		MessageDigest md5 = null;
+		try {
+			md5 = MessageDigest.getInstance("MD5");
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		char[] charArray = password.toCharArray();
+		byte[] byteArray = new byte[charArray.length];
 
+		for (int i = 0; i < charArray.length; i++)
+			byteArray[i] = (byte) charArray[i];
+		byte[] md5Bytes = md5.digest(byteArray);
+		StringBuffer hexValue = new StringBuffer();
+		for (int i = 0; i < md5Bytes.length; i++) {
+			int val = ((int) md5Bytes[i]) & 0xff;
+			if (val < 16) {
+				hexValue.append("0");
+			}
+			hexValue.append(Integer.toHexString(val));
+		}
+		return hexValue.toString();
+	}
 	public static String getPasswordTokenUrl(@NonNull String host,@NonNull String userName,@NonNull String password,
 			@NonNull String clientId,@NonNull String clientSecret,@NonNull String scope) {
 		if (!host.endsWith("/")) host=host+"/";
@@ -53,7 +75,7 @@ public class OAuth2Util {
 
 	public static Collection<ConfigAttribute> getAttributes(HttpServletRequest request,
 			TokenStore tokenStore) throws IllegalArgumentException {
-		if (tokenStore==null) throw  new TokenException(IotequException.NULL_OBJECT,"Token store为空，请检查oauth2配置");
+		if (tokenStore==null) throw  new IllegalArgumentException("NULL_OBJECT");
 		if (request!=null) {
 			String tokenHeader=request.getHeader(HTTP_HEADER_KEY);
 		    if (tokenHeader==null) tokenHeader=request.getParameter(OAuth2AccessToken.ACCESS_TOKEN);
@@ -62,28 +84,30 @@ public class OAuth2Util {
 				String[] tokenParams = tokenHeader.split(" ");
 				String token = tokenParams[tokenParams.length-1];
 				OAuth2AccessToken ac=tokenStore.readAccessToken(token);
-				if (ac==null) throw new TokenException(IotequException.INVALID_TOKEN,"无效的token");
-				if (ac.isExpired()) throw new TokenException(IotequException.TOKEN_EXPIRED,"Token 已过期");
+				if (ac==null) throw new IllegalArgumentException("INVALID_TOKEN");
+				if (ac.isExpired()) throw new IllegalArgumentException("TOKEN_EXPIRED");
 				OAuth2Authentication auth = tokenStore.readAuthentication(token);
 				if (auth!=null) {
 					Collection<ConfigAttribute> collection = new ArrayList<>();
 					for ( GrantedAuthority a : auth.getAuthorities()) {
-						Role r=new Role();
-						r.setCode(a.getAuthority().substring(5));
-						collection.add(r);
+						String role = a.getAuthority().substring(5);
+						collection.add(new ConfigAttribute() {
+							@Override
+							public String getAttribute() {
+								return role;
+							}
+						});
 					}
 					return collection;
 				} else {
-					throw  new TokenException(IotequException.INVALID_TOKEN,"无效的token");
+					throw  new IllegalArgumentException("INVALID_TOKEN");
 				}
 			}
 		} else return null;
 	}
 
-	public static OAuth2AccessToken getOAuth2AccessToken(String json) {
+	public static OAuth2AccessToken getOAuth2AccessToken(Map<String, String> result) {
 		try {
-			@SuppressWarnings("unchecked")
-			Map<String, String> result = Util.getGson().fromJson(json, Map.class);
 			if (result!=null) return DefaultOAuth2AccessToken.valueOf(result);
 			else return null;
 		} catch (Exception e) {

@@ -1,0 +1,66 @@
+#端口以及主目录路径   
+server:
+   port : 8188
+   servlet: 
+      context-path : /
+      session:
+         timeout: PT10M  #会话最大保持时间，以秒为单位，不低于1分钟，
+#配置ssl请将 server.port 配置 为 443，然后配置以下参数
+#   http:
+#      port : 80       
+#   ssl:
+#      key-store: webapp/ssl_www.svein.com.cn.pfx
+#      key-store-password: xipYs081
+#      keyStoreType: PKCS12
+spring:
+# 正式环境设为false
+   devtools:
+      add-properties: true
+   jackson:
+      date-format: yyyy-MM-dd HH:mm:ss
+      time-zone: GMT+8
+#日志输出
+logging:
+   file: 
+      name: log/iotequ.log
+   level: 
+      root: info
+      org.springframework: info
+      top.iotequ: info
+
+
+#授权，svas配置
+35F8-32D8-296E-37C7-7C52-F069-6739-3930:
+   sn : 2090-B663-7907-628A-2796-148D-6039-7195
+
+F265-49BD-87BC-FC8B-04F7-5A81-CDD9-9507:
+   sn: FFC2-EADF-E88E-80C3-7798-6ACE-0B6F-9F20
+
+1D4B-A54D-CBA2-9034-6D88-012B-AC5C-4CF6:
+   sn : C9DF-DFD0-94D4-3642-C3C4-A37F-E078-72D0
+
+
+svas:
+   matchTestSyncMinutes: 0  # 打开验证测试并设置同步等待时间
+   matchTrace: false        # 验证跟踪
+   thresh: 380              # 默认阈值
+   userNoPrefix : "023"     # userNo 前缀
+   userNoMminLength: 10     # userNo 最小长度
+
+   datasource:
+      host: 127.0.0.1
+      port: 3306
+      user: root
+      password: root
+      schema: iotequ3
+
+   adjust:
+      autoUpdateTemplate: false   # 自动用验证数据更新字典
+      templatesMustMatch: false   # 插入模板三个词典必须匹配
+      multiMatchedWeight: 0       # 相同模板的多个词典多次匹配增加权重
+      maxMatchedWeight: 0         # 最大匹配满足条件增加权重
+      maxMatchedCondition: 100    # 最大匹配条件（差值必须大于该值)
+#   url: https://www.svein.com.cn
+#   client_id: svas
+#   client_secret: e10adc3949ba59abbe56e057f20f883e 
+#   scope: api

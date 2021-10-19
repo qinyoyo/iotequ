@@ -1,5 +1,7 @@
 package top.iotequ.oauth2.security.oauth2;
 
+
+import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -7,8 +9,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import top.iotequ.util.HttpUtils;
-import top.iotequ.util.Util;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -26,9 +26,9 @@ public class Oauth2CodeTestController implements ApplicationRunner {
                     "e10adc3949ba59abbe56e057f20f883e",
                     code, "https://localhost/res/code");
             System.out.println(url);
-            String json = HttpUtils.getHttpString(HttpUtils.doPost(url));
+            String json = HttpUtils.getHttpString(HttpUtils.doPost(url,null,null,null));
             System.out.println(json);
-            OAuth2AccessToken token = OAuth2Util.getOAuth2AccessToken(json);
+            OAuth2AccessToken token = OAuth2Util.getOAuth2AccessToken(new GsonBuilder().create().fromJson(json,Map.class));
             System.out.println(token.toString());
             Map<String,Object> headers = OAuth2Util.getTokenHeader(token);
             System.out.println(headers.toString());
@@ -41,7 +41,7 @@ public class Oauth2CodeTestController implements ApplicationRunner {
 
     @RequestMapping(value="/res/oauth2/url")
     String testClient(HttpServletRequest request,String type,String host) throws Exception {
-    	if (Util.isEmpty(host))  host=HOST;
+    	if (HttpUtils.isEmpty(host))  host=HOST;
     	if (type==null) type="";
     	type=type.toLowerCase().trim();
     	String url="/res/oauth2/url?type=[client|code|password|implicit]<&host=http://www.svein.com.cn>";
