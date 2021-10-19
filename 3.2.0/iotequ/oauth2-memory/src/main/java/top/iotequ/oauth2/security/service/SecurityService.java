@@ -9,20 +9,12 @@ import java.util.*;
 
 @Service("userDetailsService")
 public class SecurityService implements UserDetailsService {
-	public static Collection<? extends GrantedAuthority> ROLE = new ArrayList<GrantedAuthority>() {{
-		add(new GrantedAuthority() {
-			@Override
-			public String getAuthority() {
-				return "ROLE_oauth2";
-			}
-		});
-	}};
 	@Override
 	public UserDetails loadUserByUsername(String userName) { // 重写loadUserByUsername 方法获得 userdetails 类型用户
 		return new UserDetails() {
 			@Override
 			public Collection<? extends GrantedAuthority> getAuthorities() {
-				return ROLE;
+				return null;
 			}
 
 			@Override

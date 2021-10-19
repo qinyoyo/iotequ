@@ -20,6 +20,7 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
 		@SuppressWarnings("unused")
 		FilterInvocation fi = (FilterInvocation) object;
 		Collection<ConfigAttribute> collection = OAuth2Util.getAttributes(fi.getHttpRequest(),tokenStore);
+		if (collection==null || collection.isEmpty()) throw new IllegalArgumentException("NO_AUTHORITY");
 		return collection;
 	}
 

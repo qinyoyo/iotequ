@@ -1,11 +1,12 @@
 package top.iotequ;
 
-import org.slf4j.Logger;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.env.PropertiesPropertySourceLoader;
 import org.springframework.boot.env.YamlPropertySourceLoader;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 import java.io.*;
 import java.lang.management.ManagementFactory;
@@ -14,15 +15,17 @@ import java.util.Arrays;
 
 @ServletComponentScan(basePackages = {"top.iotequ"})
 @SpringBootApplication(scanBasePackages= {"top.iotequ","svas"})
+@EnableAuthorizationServer
+@EnableResourceServer
 public class SvasApplication {
     public static void recordProcessID() {
         RuntimeMXBean runtimeMXBean = ManagementFactory.getRuntimeMXBean();
         int pid = Integer.valueOf(runtimeMXBean.getName().split("@")[0])
                 .intValue();
         try {
-            File file = new File("stop.sh");
+            File file = new File("svas.pid");
             PrintWriter fw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "utf-8")));
-            fw.write("sudo kill "+String.valueOf(pid)+"\n");
+            fw.write(String.valueOf(pid)+"\n");
             fw.close();
         } catch (Exception e) {}
     }
@@ -87,6 +90,6 @@ public class SvasApplication {
         appBuilder.run(args);
     }
     public static void main(String[] args) {
-        commonApplicationRun(SvasApplication.class,"application.yml",null,args);
+        commonApplicationRun(SvasApplication.class,"application.yml","svas",args);
     }
 }
