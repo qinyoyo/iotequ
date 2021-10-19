@@ -9,7 +9,7 @@ License:        GPL
 URL:            http://www.svein.com.cn
 Source0:        %{name}.jar
 Source1:	%{name}.so
-Source2:        iotequ.yml
+Source2:        %{name}.yml
 Source3:	%{name}.sql
 Source4:	%{name}.service
 Source5:	%{name}.init.d
@@ -90,7 +90,7 @@ cp %{SOURCE4} $service_dir
 /usr/local/%{name}/%{name}.so
 /usr/local/%{name}/%{name}.sql
 /usr/local/%{name}/%{name}.init.d
-/usr/local/%{name}/iotequ.yml
+/usr/local/%{name}/%{name}.yml
 
 /%{_unitdir}/%{name}.service
 
@@ -102,8 +102,8 @@ echo -n Please input the web service port:
 read portOfService
 echo -n Please input password of root for MYSQL:
 read passwordOfRoot
-sed -i 's/port\s*:\s*12345/port : '"$portOfService"'/' /usr/local/%{name}/iotequ.yml
-sed -i 's/password\s*:\s*root/password : '"$passwordOfRoot"'/g' /usr/local/%{name}/iotequ.yml
+sed -i 's/port\s*:\s*12345/port : '"$portOfService"'/' /usr/local/%{name}/%{name}.yml
+sed -i 's/password\s*:\s*root/password : '"$passwordOfRoot"'/g' /usr/local/%{name}/%{name}.yml
 mysql -uroot --host=127.0.0.1 -p$passwordOfRoot < /usr/local/%{name}/%{name}.sql
 
 systemctl status >/dev/null 2>&1
