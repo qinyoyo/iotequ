@@ -1,20 +1,14 @@
-package top.iotequ.framework.security.authentication;
-
-import java.util.Collection;
-import java.util.HashSet;
+package top.iotequ.oauth2.security.authentication;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.SpringSecurityCoreVersion;
 
+import java.util.Collection;
+
 
 public class AuthenticationToken extends AbstractAuthenticationToken {
-    public static final Collection<? extends GrantedAuthority> svasAuthorities = new HashSet<GrantedAuthority>(){{add(new GrantedAuthority() {
-        @Override
-        public String getAuthority() {
-            return "ROLE_svas";
-        }
-    });}};
+
     private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
 
     private final Object principal;

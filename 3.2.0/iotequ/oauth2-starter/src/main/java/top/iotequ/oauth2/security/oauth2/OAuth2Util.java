@@ -1,15 +1,22 @@
-package top.iotequ.framework.security.oauth2;
+package top.iotequ.oauth2.security.oauth2;
 
-import java.util.*;
-import javax.servlet.http.HttpServletRequest;
-
-import com.google.gson.GsonBuilder;
 import org.springframework.lang.NonNull;
 import org.springframework.security.access.ConfigAttribute;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import top.iotequ.framework.exception.IotequException;
+import top.iotequ.framework.exception.TokenException;
+import top.iotequ.framework.pojo.Role;
+import top.iotequ.util.Util;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class OAuth2Util {
 	public static final String HTTP_HEADER_KEY = "Authorization";
@@ -46,7 +53,7 @@ public class OAuth2Util {
 
 	public static Collection<ConfigAttribute> getAttributes(HttpServletRequest request,
 			TokenStore tokenStore) throws IllegalArgumentException {
-		if (tokenStore==null) throw  new IllegalArgumentException("Token store为空，请检查oauth2配置");
+		if (tokenStore==null) throw  new TokenException(IotequException.NULL_OBJECT,"Token store为空，请检查oauth2配置");
 		if (request!=null) {
 			String tokenHeader=request.getHeader(HTTP_HEADER_KEY);
 		    if (tokenHeader==null) tokenHeader=request.getParameter(OAuth2AccessToken.ACCESS_TOKEN);
@@ -55,20 +62,19 @@ public class OAuth2Util {
 				String[] tokenParams = tokenHeader.split(" ");
 				String token = tokenParams[tokenParams.length-1];
 				OAuth2AccessToken ac=tokenStore.readAccessToken(token);
-				if (ac==null) throw new IllegalArgumentException("INVALID_TOKEN");
-				if (ac.isExpired()) throw new IllegalArgumentException("TOKEN_EXPIRED");
+				if (ac==null) throw new TokenException(IotequException.INVALID_TOKEN,"无效的token");
+				if (ac.isExpired()) throw new TokenException(IotequException.TOKEN_EXPIRED,"Token 已过期");
 				OAuth2Authentication auth = tokenStore.readAuthentication(token);
 				if (auth!=null) {
 					Collection<ConfigAttribute> collection = new ArrayList<>();
-					collection.add(new ConfigAttribute() {
-						@Override
-						public String getAttribute() {
-							return "svas";
-						}
-					});
+					for ( GrantedAuthority a : auth.getAuthorities()) {
+						Role r=new Role();
+						r.setCode(a.getAuthority().substring(5));
+						collection.add(r);
+					}
 					return collection;
 				} else {
-					throw  new IllegalArgumentException("INVALID_TOKEN");
+					throw  new TokenException(IotequException.INVALID_TOKEN,"无效的token");
 				}
 			}
 		} else return null;
@@ -77,11 +83,7 @@ public class OAuth2Util {
 	public static OAuth2AccessToken getOAuth2AccessToken(String json) {
 		try {
 			@SuppressWarnings("unchecked")
-			Map<String, String> result = new GsonBuilder()
-					.setLenient()
-					.setDateFormat("yyyy-MM-dd HH:mm:ss")
-					.create()
-					.fromJson(json, Map.class);
+			Map<String, String> result = Util.getGson().fromJson(json, Map.class);
 			if (result!=null) return DefaultOAuth2AccessToken.valueOf(result);
 			else return null;
 		} catch (Exception e) {

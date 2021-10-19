@@ -1,14 +1,4 @@
-package top.iotequ.framework.security.oauth2;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletRequest;
+package top.iotequ.oauth2.security.oauth2;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,13 +7,27 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.web.filter.GenericFilterBean;
 import top.iotequ.framework.security.authentication.AuthenticationToken;
 
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+
 @WebFilter(urlPatterns = {"/oauth/authorize"})
 public class Oauth2Filter extends GenericFilterBean {
 	private static final Logger log = LoggerFactory.getLogger(Oauth2Filter.class);
+    @Autowired
+    private ClientDetailsService iotequClientDetailsService;
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
@@ -46,10 +50,11 @@ public class Oauth2Filter extends GenericFilterBean {
         if (clientId == null || clientId.isEmpty()) {
             return null;
         }
+        ClientDetails client = iotequClientDetailsService.loadClientByClientId(clientId);
         Collection<? extends GrantedAuthority> authorities = new ArrayList<>();
         AuthenticationToken auth = new AuthenticationToken(clientId,
                 null,
-                AuthenticationToken.svasAuthorities);
+                client.getAuthorities());
         return auth;
     }
 }

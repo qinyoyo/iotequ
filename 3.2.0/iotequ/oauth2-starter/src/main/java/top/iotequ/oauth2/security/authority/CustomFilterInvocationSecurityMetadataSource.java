@@ -1,13 +1,12 @@
-package top.iotequ.framework.security.authority;
+package top.iotequ.oauth2.security.authority;
 
-import java.util.Collection;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
+import top.iotequ.oauth2.security.oauth2.OAuth2Util;
 
-import top.iotequ.framework.security.oauth2.OAuth2Util;
-
+import java.util.Collection;
 
 public class CustomFilterInvocationSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
 	private TokenStore tokenStore=null;

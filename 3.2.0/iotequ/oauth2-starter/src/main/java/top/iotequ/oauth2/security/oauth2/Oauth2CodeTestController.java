@@ -1,7 +1,4 @@
-package top.iotequ.framework.security.oauth2;
-
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
+package top.iotequ.oauth2.security.oauth2;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -10,13 +7,17 @@ import org.springframework.core.env.Environment;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import top.iotequ.util.HttpUtils;
+import top.iotequ.util.Util;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 @RestController
 public class Oauth2CodeTestController implements ApplicationRunner {
 	@Autowired  
     private Environment env; 
 	private String HOST="http://localhost";
-	/*
     @RequestMapping(value="/res/code")
     String codeTest(HttpServletRequest request,String code,String state) throws Exception {
         if (code!=null) {
@@ -37,10 +38,10 @@ public class Oauth2CodeTestController implements ApplicationRunner {
             return null;
         }
     }
-*/
+
     @RequestMapping(value="/res/oauth2/url")
     String testClient(HttpServletRequest request,String type,String host) throws Exception {
-    	if (host.isEmpty() || host==null)  host=HOST;
+    	if (Util.isEmpty(host))  host=HOST;
     	if (type==null) type="";
     	type=type.toLowerCase().trim();
     	String url="/res/oauth2/url?type=[client|code|password|implicit]<&host=http://www.svein.com.cn>";
