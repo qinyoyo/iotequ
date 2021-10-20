@@ -15,11 +15,15 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import top.iotequ.framework.exception.IotequException;
 import top.iotequ.framework.exception.TokenException;
 import top.iotequ.framework.pojo.Role;
+import top.iotequ.util.StringUtil;
 import top.iotequ.util.Util;
 
 public class OAuth2Util {
 	public static final String HTTP_HEADER_KEY = "Authorization";
-
+	public static boolean isEmpty(Object o) {
+		return (o==null || o.toString().isEmpty());
+	}
+	public static String encodePassword(String password) {return StringUtil.encodePassword(password); }
 	public static String getPasswordTokenUrl(@NonNull String host,@NonNull String userName,@NonNull String password,
 			@NonNull String clientId,@NonNull String clientSecret,@NonNull String scope) {
 		if (!host.endsWith("/")) host=host+"/";

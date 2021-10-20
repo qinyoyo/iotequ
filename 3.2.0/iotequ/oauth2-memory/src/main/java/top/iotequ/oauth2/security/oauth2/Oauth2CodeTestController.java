@@ -40,16 +40,17 @@ public class Oauth2CodeTestController implements ApplicationRunner {
     }
 
     @RequestMapping(value="/res/oauth2/url")
-    String testClient(HttpServletRequest request,String type,String host, String secret, String clientId, String scope, String state) throws Exception {
+    String testClient(HttpServletRequest request,String type,String host, String secret, String clientId, String scope, String state, String redirectUri) throws Exception {
     	if (type==null) type="";
     	type=type.toLowerCase().trim();
-    	String url="/res/oauth2/url?type=[client|code|password|implicit]<&host=http://www.svein.com.cn><&secret=123456><&clientId=svas><&scope=api>";
+    	String url="/res/oauth2/url?type=[client|code|password|implicit]<&host=http://www.svein.com.cn><&secret=123456><&clientId=svas><&scope=api><&redirectUri=http://www....>";
 		clientId = OAuth2Util.isEmpty(clientId)?"svas":clientId;
 		String pass = OAuth2Util.isEmpty(secret)?"123456":secret;
 		secret = OAuth2Util.isEmpty(secret)?"e10adc3949ba59abbe56e057f20f883e":OAuth2Util.encodePassword(secret);
 		scope = OAuth2Util.isEmpty(scope)?"api":scope;
 		state = OAuth2Util.isEmpty(state)?"abcd":state;
 		host = OAuth2Util.isEmpty(host)?HOST:host;
+		redirectUri = OAuth2Util.isEmpty(redirectUri)?"http://www.sevin.com.cn/res/code":redirectUri;
     	if (type.equals("client"))
     		url=OAuth2Util.getClientCredentialsTokenUrl(host,clientId ,secret,scope);
     	else if (type.equals("code"))
@@ -57,7 +58,7 @@ public class Oauth2CodeTestController implements ApplicationRunner {
     	else if (type.equals("password"))
     		url=OAuth2Util.getPasswordTokenUrl(host,"user",pass,clientId, secret, scope);
     	else if (type.equals("implicit"))
-    		url=OAuth2Util.getImplicitTokenUrl(host,clientId, secret, scope,host+"/res/code");
+    		url=OAuth2Util.getImplicitTokenUrl(host,clientId, secret, scope,redirectUri);
     	return url;
     }
 
