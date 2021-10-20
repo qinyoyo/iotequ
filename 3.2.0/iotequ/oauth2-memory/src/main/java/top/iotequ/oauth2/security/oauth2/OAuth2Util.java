@@ -5,6 +5,7 @@ import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
@@ -18,6 +19,13 @@ import java.util.Map;
 
 public class OAuth2Util {
 	public static final String HTTP_HEADER_KEY = "Authorization";
+	public static String  toString(Object o) {
+		if (o==null) return null;
+		else return o.toString();
+	}
+	public static boolean isEmpty(Object o) {
+		return (o==null || o.toString().isEmpty());
+	}
 	public static String encodePassword(String password) {
 		if (password==null || password.isEmpty())
 			return password;
@@ -75,7 +83,7 @@ public class OAuth2Util {
 
 	public static Collection<ConfigAttribute> getAttributes(HttpServletRequest request,
 			TokenStore tokenStore) throws IllegalArgumentException {
-		if (tokenStore==null) throw  new IllegalArgumentException("NULL_OBJECT");
+		if (tokenStore==null) throw  new IllegalArgumentException("<"+ OAuth2Exception.ERROR +">");
 		if (request!=null) {
 			String tokenHeader=request.getHeader(HTTP_HEADER_KEY);
 		    if (tokenHeader==null) tokenHeader=request.getParameter(OAuth2AccessToken.ACCESS_TOKEN);
@@ -84,8 +92,8 @@ public class OAuth2Util {
 				String[] tokenParams = tokenHeader.split(" ");
 				String token = tokenParams[tokenParams.length-1];
 				OAuth2AccessToken ac=tokenStore.readAccessToken(token);
-				if (ac==null) throw new IllegalArgumentException("INVALID_TOKEN");
-				if (ac.isExpired()) throw new IllegalArgumentException("TOKEN_EXPIRED");
+				if (ac==null) throw new IllegalArgumentException("<"+ OAuth2Exception.INVALID_TOKEN +">");
+				if (ac.isExpired()) throw new IllegalArgumentException("<token_expired>");
 				OAuth2Authentication auth = tokenStore.readAuthentication(token);
 				if (auth!=null) {
 					Collection<ConfigAttribute> collection = new ArrayList<>();
@@ -100,7 +108,7 @@ public class OAuth2Util {
 					}
 					return collection;
 				} else {
-					throw  new IllegalArgumentException("INVALID_TOKEN");
+					throw  new IllegalArgumentException("<"+ OAuth2Exception.INVALID_TOKEN +">");
 				}
 			}
 		} else return null;

@@ -1,6 +1,7 @@
 package top.iotequ.oauth2.security.authority;
 
 import org.springframework.security.access.ConfigAttribute;
+import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
@@ -19,9 +20,10 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
 	public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
 		@SuppressWarnings("unused")
 		FilterInvocation fi = (FilterInvocation) object;
+		if (fi.getRequestUrl().startsWith("/oauth/authorize")) return null; // send to oauth2filter
 		Collection<ConfigAttribute> collection = OAuth2Util.getAttributes(fi.getHttpRequest(),tokenStore);
-		if (collection==null || collection.isEmpty()) throw new IllegalArgumentException("NO_AUTHORITY");
-		return collection;
+		if (collection==null || collection.isEmpty()) throw new IllegalArgumentException("<"+ OAuth2Exception.ACCESS_DENIED+">");
+		else return collection;
 	}
 
 

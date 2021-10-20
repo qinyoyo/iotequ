@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.mybatis.spring.SqlSessionTemplate;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.PageHelper;
-import top.iotequ.framework.service.BaseIotequService;
+import top.iotequ.framework.service.ICgService;
 import top.iotequ.framework.service.*;
 import top.iotequ.framework.controller.BaseController;
 import top.iotequ.framework.util.*;

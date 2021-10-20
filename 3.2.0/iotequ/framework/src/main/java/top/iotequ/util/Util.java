@@ -821,7 +821,7 @@ public class Util extends Utils {
         SpringContext.setProjectHomePath(FileIOUtil.getCurrentPath());
         int pid = getProcessID(log);
         try {
-            FileUtil.writeToFile(String.valueOf(pid), new File(SpringContext.getProjectHomePath(),"pid.log"));
+            FileUtil.writeToFile(String.valueOf(pid), new File(SpringContext.getProjectHomePath(),"iotequ.pid"));
         } catch (Exception e) {}
         SpringContext.buildTime = IotequVersionInfo.getBuildTime();
         SpringApplicationBuilder appBuilder = new SpringApplicationBuilder(clazz);

@@ -39,31 +39,23 @@ F265-49BD-87BC-FC8B-04F7-5A81-CDD9-9507:
 1D4B-A54D-CBA2-9034-6D88-012B-AC5C-4CF6:
    sn : C9DF-DFD0-94D4-3642-C3C4-A37F-E078-72D0
 
-#配置是否需要开启oauth2安全鉴权，仅对不使用framework的应用使用
+#配置是否需要开启oauth2安全鉴权，仅对不使用framework而使用oauth2-memory的应用使用
 oauth2:
-   totalClients: 3
+   totalClients: 2
    client0:
-      clientId: s                            # 客户号
+      clientId: svas                         # 客户号
       secret: 123456                         # 安全密码
       scopes: api
       grantTypes: client_credentials         # 授权方式
-      authorities: svas                      #可以访问的资源前缀列表，逗号分隔
+      authorities: svas,vein                 #可以访问的资源前缀列表，逗号分隔
       tokenValiditySeconds: 86400
       refreshTokenValiditySeconds: 600
    client1:
-      clientId: v
+      clientId: qinyoyo
       secret: 123456
-      scopes: api
-      grantTypes: client_credentials
-      authorities: vein
-      tokenValiditySeconds: 86400
-      refreshTokenValiditySeconds: 600
-   client2:
-      clientId: both
-      secret: 123456
-      scopes: api
-      grantTypes: client_credentials
-      authorities: vein,svas
+      scopes: app
+      grantTypes: code
+      authorities: svas
       tokenValiditySeconds: 86400
       refreshTokenValiditySeconds: 600
 

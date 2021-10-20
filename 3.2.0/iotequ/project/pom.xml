@@ -22,17 +22,6 @@
 		<java.version>1.8</java.version>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
 	</properties>
-	<distributionManagement>
-		<repository>
-			<id>releases</id>
-			<url>http://192.168.1.120:8081/repository/maven-releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<url>http://192.168.1.120:8081/repository/maven-snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -45,6 +34,16 @@
 			<version>3.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
+	<!--    <distributionManagement>
+            <repository>
+                <id>releases</id>
+                <url>http://192.168.1.120:8081/repository/maven-releases/</url>
+            </repository>
+            <snapshotRepository>
+                <id>snapshots</id>
+                <url>http://192.168.1.120:8081/repository/maven-snapshots/</url>
+            </snapshotRepository>
+        </distributionManagement>-->
 	<build>
 		<resources>
 			<resource>
@@ -58,7 +57,6 @@
 				<filtering>true</filtering>
 			</resource>
 		</resources>
-		<finalName>${project.artifactId}-${project.version}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -93,21 +91,6 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<configuration>
-					<archive>
-						<manifestEntries>
-							<Iotequ-Module>true</Iotequ-Module>
-							<Group-Id>${project.groupId}</Group-Id>
-							<Artifact-Id>${project.artifactId}</Artifact-Id>
-							<Version>${project.version}</Version>
-							<Build-Time>${maven.build.timestamp}</Build-Time>
-						</manifestEntries>
-					</archive>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import top.iotequ.util.HttpUtils;
+import top.iotequ.util.StringUtil;
 import top.iotequ.util.Util;
 
 @RestController
@@ -40,22 +41,27 @@ public class Oauth2CodeTestController implements ApplicationRunner {
         }
     }
 
-    @RequestMapping(value="/res/oauth2/url")
-    String testClient(HttpServletRequest request,String type,String host) throws Exception {
-    	if (Util.isEmpty(host))  host=HOST;
-    	if (type==null) type="";
-    	type=type.toLowerCase().trim();
-    	String url="/res/oauth2/url?type=[client|code|password|implicit]<&host=http://www.svein.com.cn>";
-    	if (type.equals("client"))
-    		url=OAuth2Util.getClientCredentialsTokenUrl(host, "pay", "e10adc3949ba59abbe56e057f20f883e", "api");
-    	else if (type.equals("code"))
-    		url=OAuth2Util.getAuthorizeCodeUrl(host, "pay", host+"/res/code", "api", "abcd");
-    	else if (type.equals("password"))
-    		url=OAuth2Util.getPasswordTokenUrl(host,"admin","123456","pay", "e10adc3949ba59abbe56e057f20f883e", "api");
-    	else if (type.equals("implicit"))
-    		url=OAuth2Util.getImplicitTokenUrl(host,"pay", "e10adc3949ba59abbe56e057f20f883e", "api",host+"/res/code");
-    	return url;
-    }
+	@RequestMapping(value="/res/oauth2/url")
+	String testClient(HttpServletRequest request,String type,String host, String secret, String clientId, String scope, String state) throws Exception {
+		if (type==null) type="";
+		type=type.toLowerCase().trim();
+		String url="/res/oauth2/url?type=[client|code|password|implicit]<&host=http://www.svein.com.cn><&secret=123456><&clientId=svas><&scope=api>";
+		clientId = Util.isEmpty(clientId)?"svas":clientId;
+		String pass = Util.isEmpty(secret)?"123456":secret;
+		secret = Util.isEmpty(secret)?"e10adc3949ba59abbe56e057f20f883e": StringUtil.encodePassword(secret);
+		scope = Util.isEmpty(scope)?"api":scope;
+		state = Util.isEmpty(state)?"abcd":state;
+		host = Util.isEmpty(host)?HOST:host;
+		if (type.equals("client"))
+			url=OAuth2Util.getClientCredentialsTokenUrl(host,clientId ,secret,scope);
+		else if (type.equals("code"))
+			url=OAuth2Util.getAuthorizeCodeUrl(host, clientId, host+"/res/code", scope, state);
+		else if (type.equals("password"))
+			url=OAuth2Util.getPasswordTokenUrl(host,"user",pass,clientId, secret, scope);
+		else if (type.equals("implicit"))
+			url=OAuth2Util.getImplicitTokenUrl(host,clientId, secret, scope,host+"/res/code");
+		return url;
+	}
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {

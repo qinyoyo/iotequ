@@ -8,6 +8,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,7 @@ public class UrlAccessDecisionManager implements AccessDecisionManager {
 				if (url.startsWith("/"+role.getAttribute()+"/")) return;
 			}
 		}
-		throw new AccessDeniedException("ACCESS_DENIED<"+url+">");
+		throw new AccessDeniedException("<"+ OAuth2Exception.ACCESS_DENIED +"> "+url+">");
 	}
 
 	@Override

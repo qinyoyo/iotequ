@@ -1,8 +1,6 @@
 package top.iotequ.pay.service;
 
 import org.springframework.lang.NonNull;
-import top.iotequ.ewallet.pojo.EwBill;
-import top.iotequ.ewallet.pojo.EwUser;
 import top.iotequ.pay.dto.request.*;
 import top.iotequ.pay.dto.response.*;
 import top.iotequ.pay.dto.response.UpdateInfoResponse.TradeAccount;

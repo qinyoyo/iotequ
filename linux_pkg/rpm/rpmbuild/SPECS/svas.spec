@@ -2,8 +2,8 @@
 
 Name:           svas
 Version:        3.2.0
-Release:        1016
-Summary:        Rpm package for Svas service
+Release:        1020
+Summary:        Rpm package for svas web service
 
 License:        GPL
 URL:            http://www.svein.com.cn
@@ -13,7 +13,7 @@ Source2:        %{name}.yml
 Source3:	%{name}.sql
 Source4:	%{name}.service
 Source5:	%{name}.init.d
-Requires:       mysql-community-server >= 5.7, java-1.8.0-openjdk
+# Requires:       mysql-community-server >= 5.7, java-1.8.0-openjdk     
 BuildRequires:	systemd
 %{?systemd_requires}
 
@@ -106,13 +106,32 @@ sed -i 's/port\s*:\s*12345/port : '"$portOfService"'/' /usr/local/%{name}/%{name
 sed -i 's/password\s*:\s*root/password : '"$passwordOfRoot"'/g' /usr/local/%{name}/%{name}.yml
 mysql -uroot --host=127.0.0.1 -p$passwordOfRoot < /usr/local/%{name}/%{name}.sql
 
+REQ=0
+if [ -f /lib64/libmysqlclient.so.20 ]; then 
+   REQ=1
+else 
+   echo Warning!!! File /lib64/libmysqlclient.so.20 not found! Need install mysqllient 5.7 or mysql server 5.7.
+   echo            If them installed, check you libaries seek path. 
+fi
+java -version 2>&1| grep -i -E "(openjdk|openjre|java).*version.*1\.8"
+if [ $? -eq 0 ]; then
+   if [ $REQ -eq 1 ]; then 
+      REQ=2
+   fi
+else
+   echo Warning!!! Java 1.8.x or openjdk 1.8.x not found.
+fi
 systemctl status >/dev/null 2>&1
 if [ $? -eq 0 ]; then
 	ln -s /%{_unitdir}/%{name}.service /etc/systemd/system/multi-user.target.wants/%{name}.service
-	systemctl start svas.service
+	if [ $REQ -eq 2 ]; then 
+	   echo To start the service, systemctl start %{name}
+	fi
 else
-	cp /usr/local/svas/svas.init.d /etc/init.d/svas
-	service svas start
+	cp /usr/local/%{name}/%{name}.init.d /etc/init.d/%{name}
+	if [ $REQ -eq 2 ]; then
+	   service %{name} start
+	fi
 fi
 
 ##### UNINSTALL SECTION #####
@@ -122,8 +141,8 @@ if [ $? -eq 0 ]; then
 	systemctl stop %{name}
 	rm -f /etc/systemd/system/multi-user.target.wants/%{name}.service
 else
-	service svas stop
-	rm -f /etc/init.d/svas
+	service %{name} stop
+	rm -f /etc/init.d/%{name}
 fi
 
 %postun

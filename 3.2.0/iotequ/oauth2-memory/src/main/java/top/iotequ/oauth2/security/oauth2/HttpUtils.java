@@ -33,13 +33,7 @@ import java.util.*;
 
 public class HttpUtils {
 
-	public static String  toString(Object o) {
-		if (o==null) return null;
-		else return o.toString();
-	}
-	public static boolean isEmpty(Object o) {
-		return (o==null || o.toString().isEmpty());
-	}
+
 
 
 	public static String getHttpString(HttpResponse response) throws Exception {
@@ -76,10 +70,10 @@ public class HttpUtils {
 		HttpPost request = new HttpPost(buildUrl(host, querys));
 		if (headers != null)
 			for (Map.Entry<String, Object> e : headers.entrySet()) {
-				request.addHeader(e.getKey(), toString(e.getValue()));
+				request.addHeader(e.getKey(), OAuth2Util.toString(e.getValue()));
 			}
 
-		if (!isEmpty(body)) {
+		if (!OAuth2Util.isEmpty(body)) {
 			request.setEntity(new StringEntity(body, "utf-8"));
 		}
 		return httpClient.execute(request);
@@ -94,14 +88,14 @@ public class HttpUtils {
         		if (0 < sbQuery.length()) {
         			sbQuery.append("&");
         		}
-        		if (isEmpty(query.getKey()) && !isEmpty(query.getValue())) {
+        		if (OAuth2Util.isEmpty(query.getKey()) && !OAuth2Util.isEmpty(query.getValue())) {
         			sbQuery.append(query.getValue());
                 }
-        		if (!isEmpty(query.getKey())) {
+        		if (!OAuth2Util.isEmpty(query.getKey())) {
         			sbQuery.append(query.getKey());
-        			if (!isEmpty(query.getValue())) {
+        			if (!OAuth2Util.isEmpty(query.getValue())) {
         				sbQuery.append("=");
-        				sbQuery.append(URLEncoder.encode(toString(query.getValue()), "utf-8"));
+        				sbQuery.append(URLEncoder.encode(OAuth2Util.toString(query.getValue()), "utf-8"));
         			}        			
                 }
         	}

@@ -11,7 +11,7 @@
 
 	<groupId>top.iotequ</groupId>
 	<artifactId>ewallet</artifactId>
-	<version>3.0.1-SNAPSHOT</version>
+	<version>3.2.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>ewallet</name>
 	<description>电子钱包管理</description>
@@ -22,17 +22,6 @@
 		<java.version>1.8</java.version>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
 	</properties>
-	<distributionManagement>
-		<repository>
-			<id>releases</id>
-			<url>http://192.168.1.120:8081/repository/maven-releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<url>http://192.168.1.120:8081/repository/maven-snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -42,14 +31,24 @@
 		        <dependency>
             <artifactId>pay-utility</artifactId>
             <groupId>top.iotequ</groupId>
-            <version>3.0.1-SNAPSHOT</version>
+            <version>3.2.0-SNAPSHOT</version>
         </dependency>
 		<dependency>
 			<groupId>top.iotequ</groupId>
 			<artifactId>framework</artifactId>
-			<version>3.0.1-SNAPSHOT</version>
+			<version>3.2.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
+	<!--    <distributionManagement>
+            <repository>
+                <id>releases</id>
+                <url>http://192.168.1.120:8081/repository/maven-releases/</url>
+            </repository>
+            <snapshotRepository>
+                <id>snapshots</id>
+                <url>http://192.168.1.120:8081/repository/maven-snapshots/</url>
+            </snapshotRepository>
+        </distributionManagement>-->
 	<build>
 		<resources>
 			<resource>
@@ -61,9 +60,8 @@
 					<include>*.properties</include>
 				</includes>
 				<filtering>true</filtering>
-			</resource>					
+			</resource>
 		</resources>
-		<finalName>${project.artifactId}-${project.version}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -98,10 +96,6 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>

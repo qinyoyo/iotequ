@@ -129,16 +129,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
         TokenStore tokenStore = getApplicationContext().getBean(TokenStore.class);
         http
-                .cors()
-                .and()
+                .cors().and()
 
                 .csrf().disable()
+                .httpBasic().and()
 
-                .httpBasic()
-                .and()
-
-                .authorizeRequests().antMatchers(loginList).permitAll()
-                .and()
+                .authorizeRequests().antMatchers(loginList).permitAll().and()
 
                 .authorizeRequests().antMatchers("/oauth/**").permitAll()
                 .anyRequest().authenticated()
@@ -151,30 +147,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                     }
                 })
                 .accessDecisionManager(new UrlAccessDecisionManager())
-                .and()
-
-                .formLogin()
-                .loginPage(loginPage)
-                .loginProcessingUrl(loginProcessingUrl)
-                .permitAll()
-                .and()
-
-                .logout()
-                .permitAll()
-                .and()
-
-                .rememberMe().tokenValiditySeconds(7 * 24 * 3600)
-                .and()
-
-                //.anonymous().principal("guest").authorities("ROLE_guest")  // 禁止匿名登录
-                //.and()
-
-                .headers().frameOptions().disable()
-                .and()
-                .sessionManagement()
-                .invalidSessionUrl(loginPage+"/invalidSession")  //回报异常
-//                .maximumSessions(1)
-//                .sessionRegistry(sessionRegistry)
         ;
     }
 

@@ -22,17 +22,6 @@
 		<java.version>1.8</java.version>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
 	</properties>
-<!--	<distributionManagement>
-		<repository>
-			<id>releases</id>
-			<url>http://192.168.1.120:8081/repository/maven-releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<url>http://192.168.1.120:8081/repository/maven-snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>-->
-
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -68,45 +57,21 @@
 			<artifactId>framework</artifactId>
 			<version>3.2.0-SNAPSHOT</version>
 		</dependency>
-		<dependency>
-			<groupId>top.iotequ</groupId>
-			<artifactId>reader</artifactId>
-			<version>3.2.0-SNAPSHOT</version>
-		</dependency>
 	</dependencies>
-	<profiles>
-		<profile>
-			<id>spring</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<properties>
-				<build.groupId>org.springframework.boot</build.groupId>
-				<build.artifactId>spring-boot-maven-plugin</build.artifactId>
-				<build.excludes></build.excludes>
-				<resource.excludes></resource.excludes>
-			</properties>
-		</profile>
-		<profile>
-			<id>maven</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<properties>
-				<build.groupId>org.apache.maven.plugins</build.groupId>
-				<build.artifactId>maven-compiler-plugin</build.artifactId>
-				<build.excludes>top/iotequ/CodegeneratorApplication.java</build.excludes>
-				<resource.excludes>application.yml</resource.excludes>
-			</properties>
-		</profile>
-	</profiles>
+	<!--    <distributionManagement>
+            <repository>
+                <id>releases</id>
+                <url>http://192.168.1.120:8081/repository/maven-releases/</url>
+            </repository>
+            <snapshotRepository>
+                <id>snapshots</id>
+                <url>http://192.168.1.120:8081/repository/maven-snapshots/</url>
+            </snapshotRepository>
+        </distributionManagement>-->
 	<build>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
-				<excludes>
-					<exclude>${resource.excludes}</exclude>
-				</excludes>
 			</resource>
 			<resource>
 				<directory>src/main/resources</directory>
@@ -116,14 +81,10 @@
 				<filtering>true</filtering>
 			</resource>
 		</resources>
-		<finalName>${project.artifactId}-${project.version}</finalName>
 		<plugins>
 			<plugin>
-				<groupId>${build.groupId}</groupId>
-				<artifactId>${build.artifactId}</artifactId>
-				<configuration>
-					<excludes>${build.excludes}</excludes>
-				</configuration>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

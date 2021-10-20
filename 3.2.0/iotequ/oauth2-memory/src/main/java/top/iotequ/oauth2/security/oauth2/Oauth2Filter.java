@@ -26,8 +26,6 @@ import java.util.Collection;
 @WebFilter(urlPatterns = {"/oauth/authorize"})
 public class Oauth2Filter extends GenericFilterBean {
 	private static final Logger log = LoggerFactory.getLogger(Oauth2Filter.class);
-    @Autowired
-    private ClientDetailsService iotequClientDetailsService;
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -51,11 +49,15 @@ public class Oauth2Filter extends GenericFilterBean {
         if (clientId == null || clientId.isEmpty()) {
             return null;
         }
-        ClientDetails client = iotequClientDetailsService.loadClientByClientId(clientId);
-        Collection<? extends GrantedAuthority> authorities = new ArrayList<>();
+        Collection<? extends GrantedAuthority> authorities = new ArrayList<GrantedAuthority>(){{add(new GrantedAuthority() {
+            @Override
+            public String getAuthority() {
+                return "ROLE_oauth2";
+            }
+        });}};
         AuthenticationToken auth = new AuthenticationToken(clientId,
-                null,
-                client.getAuthorities());
+                "oauth2",
+                authorities);
         return auth;
     }
 }
