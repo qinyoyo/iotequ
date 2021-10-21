@@ -1,8 +1,10 @@
 package top.iotequ.framework.exception;
 
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
 import org.springframework.security.oauth2.common.exceptions.InvalidClientException;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
@@ -19,8 +21,8 @@ public class GlobalErrorAttributes extends DefaultErrorAttributes {
 	private static final String SUCCESS="success";
 
 	@Override
-	public Map<String, Object> getErrorAttributes(WebRequest webRequest,boolean includeStackTrace) {
-		Map<String, Object> errorAttributes = super.getErrorAttributes(webRequest, includeStackTrace);
+	public Map<String, Object> getErrorAttributes(WebRequest webRequest, ErrorAttributeOptions options) {
+		Map<String, Object> errorAttributes = super.getErrorAttributes(webRequest, options);
 		Throwable exception = getError(webRequest);
 		if (exception!=null) 
 			 errorAttributes.put(ERROR_CLASS, exception.getClass().getName());
@@ -45,11 +47,22 @@ public class GlobalErrorAttributes extends DefaultErrorAttributes {
 								errorAttributes.put(ERROR_DESCRIPTION, exception.getMessage());
 						}
 						else {
-							if (errorAttributes.get(ERROR_CODE)==null)
+							String msg = exception.getMessage();
+							Pattern p = Pattern.compile("^<(.*)>");
+							Matcher m = p.matcher(msg);
+							if (m.find()) {
+								errorAttributes.put(ERROR_CODE, m.group(1));
+								errorAttributes.put(MESSAGE, msg.substring(m.end()));
+								errorAttributes.put(ERROR_DESCRIPTION, null);
+							} else {
 								errorAttributes.put(ERROR_CODE, IotequThrowable.ERROR);
-							if (exception!=null && errorAttributes.get(ERROR_DESCRIPTION)==null)
-								errorAttributes.put(ERROR_DESCRIPTION, exception.getMessage());
+								errorAttributes.put(MESSAGE, msg);
+							}
 						}
+					}
+					else if (code == 401) {
+						errorAttributes.put(MESSAGE, "401");
+						errorAttributes.put(ERROR_CODE,OAuth2Exception.ACCESS_DENIED);
 					}
 					else if (code == 404) {
 						errorAttributes.put(MESSAGE, "404");

@@ -3,10 +3,8 @@ package top.iotequ.oauth2.security.oauth2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
@@ -20,11 +18,11 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
 
 @WebFilter(urlPatterns = {"/oauth/authorize"})
 public class Oauth2Filter extends GenericFilterBean {
+    @Autowired
+    private ClientDetailsService iotequClientDetailsService;
 	private static final Logger log = LoggerFactory.getLogger(Oauth2Filter.class);
 
     @Override
@@ -49,15 +47,12 @@ public class Oauth2Filter extends GenericFilterBean {
         if (clientId == null || clientId.isEmpty()) {
             return null;
         }
-        Collection<? extends GrantedAuthority> authorities = new ArrayList<GrantedAuthority>(){{add(new GrantedAuthority() {
-            @Override
-            public String getAuthority() {
-                return "ROLE_oauth2";
-            }
-        });}};
-        AuthenticationToken auth = new AuthenticationToken(clientId,
-                "oauth2",
-                authorities);
-        return auth;
+        ClientDetails client = iotequClientDetailsService.loadClientByClientId(clientId);
+        if (client!=null) {
+            AuthenticationToken auth = new AuthenticationToken(clientId,
+                    client.getClientSecret(),
+                    client.getAuthorities());
+            return auth;
+        } else return null;
     }
 }

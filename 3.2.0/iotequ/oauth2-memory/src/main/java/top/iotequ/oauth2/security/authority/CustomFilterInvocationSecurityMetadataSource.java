@@ -20,7 +20,7 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
 	public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
 		@SuppressWarnings("unused")
 		FilterInvocation fi = (FilterInvocation) object;
-		if (fi.getRequestUrl().startsWith("/oauth/")) return null; // send to oauth2filter
+		if (fi.getRequestUrl().startsWith("/oauth/authorize")) return null; // send to oauth2filter
 		Collection<ConfigAttribute> collection = OAuth2Util.getAttributes(fi.getHttpRequest(),tokenStore);
 		if (collection==null || collection.isEmpty()) throw new IllegalArgumentException("<"+ OAuth2Exception.ACCESS_DENIED+">");
 		else return collection;

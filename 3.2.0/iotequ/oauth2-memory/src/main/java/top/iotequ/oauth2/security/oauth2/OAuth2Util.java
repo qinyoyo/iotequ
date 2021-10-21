@@ -19,14 +19,11 @@ import java.util.Map;
 
 public class OAuth2Util {
 	public static final String HTTP_HEADER_KEY = "Authorization";
-	public static String  toString(Object o) {
-		if (o==null) return null;
-		else return o.toString();
-	}
+
 	public static String getHost(HttpServletRequest request) {
-		StringBuffer surl = request.getRequestURL();
-		String suri = request.getRequestURI();
-		return surl.substring(0,surl.length()-suri.length()+1);
+		StringBuffer url = request.getRequestURL();
+		String uri = request.getRequestURI();
+		return url.substring(0,url.length()-uri.length()+1);
 	}
 	public static boolean isEmpty(Object o) {
 		return (o==null || o.toString().isEmpty());
@@ -76,15 +73,14 @@ public class OAuth2Util {
 
 	public static String getAuthorizeCodeUrl(@NonNull String host,@NonNull String clientId,@NonNull String redirectUrl,@NonNull String scope,String state) {
 		if (!host.endsWith("/")) host=host+"/";
-		return host+String.format("oauth/authorize?client_id=%s&response_type=code&scope=%s&redirect_uri=%s%s",
-				clientId,scope,redirectUrl,(state==null?"":"&state="+state));
+		return host+String.format("oauth/authorize?client_id=%s&response_type=code&scope=%s%s&redirect_uri=%s",
+				clientId,scope,(state==null?"":"&state="+state),redirectUrl);
 	}
 
 	public static String getTokenByCodeUrl(@NonNull String host,@NonNull String clientId,@NonNull String clientSecret,@NonNull String code,@NonNull String redirectUrl, String state) {
 		if (!host.endsWith("/")) host=host+"/";
-		String url = host+String.format("oauth/token?grant_type=authorization_code&code=%s&client_id=%s&client_secret=%s&redirect_uri=%s",
-				code,clientId,clientSecret,redirectUrl);
-		return isEmpty(state)?url:url+"&state="+state;
+		return host+String.format("oauth/token?grant_type=authorization_code&code=%s%s&client_id=%s&client_secret=%s&redirect_uri=%s",
+				code,isEmpty(state)?"":"&state="+state,clientId,clientSecret,redirectUrl);
 	}
 
 	public static Collection<ConfigAttribute> getAttributes(HttpServletRequest request,

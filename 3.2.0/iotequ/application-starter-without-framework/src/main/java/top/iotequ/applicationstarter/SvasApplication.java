@@ -14,7 +14,7 @@ import java.lang.management.RuntimeMXBean;
 import java.util.Arrays;
 
 @ServletComponentScan(basePackages = {"top.iotequ"})
-@SpringBootApplication(scanBasePackages= {"top.iotequ","svas"})
+@SpringBootApplication(scanBasePackages= {"top.iotequ"})
 @EnableAuthorizationServer
 @EnableResourceServer
 public class SvasApplication {

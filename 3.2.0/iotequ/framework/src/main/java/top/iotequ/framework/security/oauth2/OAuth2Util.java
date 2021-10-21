@@ -23,20 +23,25 @@ public class OAuth2Util {
 	public static boolean isEmpty(Object o) {
 		return (o==null || o.toString().isEmpty());
 	}
+	public static String getHost(HttpServletRequest request) {
+		StringBuffer url = request.getRequestURL();
+		String uri = request.getRequestURI();
+		return url.substring(0,url.length()-uri.length()+1);
+	}
 	public static String encodePassword(String password) {return StringUtil.encodePassword(password); }
 	public static String getPasswordTokenUrl(@NonNull String host,@NonNull String userName,@NonNull String password,
-			@NonNull String clientId,@NonNull String clientSecret,@NonNull String scope) {
+											 @NonNull String clientId,@NonNull String clientSecret,@NonNull String scope) {
 		if (!host.endsWith("/")) host=host+"/";
-		return host+String.format("oauth/token?username=%s&password=%s&grant_type=password&client_id=%s&client_secret=%s&scope=%s", 
+		return host+String.format("oauth/token?username=%s&password=%s&grant_type=password&client_id=%s&client_secret=%s&scope=%s",
 				userName,password,clientId,clientSecret,scope);
-	}	
-	
+	}
+
 	public static String getImplicitTokenUrl(@NonNull String host,@NonNull String clientId,@NonNull String clientSecret,@NonNull String scope,@NonNull String redirectUrl) {
 		if (!host.endsWith("/")) host=host+"/";
-		return host+String.format("oauth/token?grant_type=implicit&client_id=%s&client_secret=%s&scope=%s&redirect_uri=%s", 
+		return host+String.format("oauth/token?grant_type=implicit&client_id=%s&client_secret=%s&scope=%s&redirect_uri=%s",
 				clientId,clientSecret,scope,redirectUrl);
-	}	
-	
+	}
+
 	public static String getClientCredentialsTokenUrl(@NonNull String host,@NonNull String clientId,@NonNull String clientSecret,@NonNull String scope) {
 		if (!host.endsWith("/")) host=host+"/";
 		return host+String.format("oauth/token?grant_type=client_credentials&client_id=%s&client_secret=%s&scope=%s", clientId,clientSecret,scope);
@@ -44,14 +49,14 @@ public class OAuth2Util {
 
 	public static String getAuthorizeCodeUrl(@NonNull String host,@NonNull String clientId,@NonNull String redirectUrl,@NonNull String scope,String state) {
 		if (!host.endsWith("/")) host=host+"/";
-		return host+String.format("oauth/authorize?client_id=%s&response_type=code&scope=%s&redirect_uri=%s%s",
-				clientId,scope,redirectUrl,(state==null?"":"&state="+state));
+		return host+String.format("oauth/authorize?client_id=%s&response_type=code&scope=%s%s&redirect_uri=%s",
+				clientId,scope,(state==null?"":"&state="+state),redirectUrl);
 	}
 
-	public static String getTokenByCodeUrl(@NonNull String host,@NonNull String clientId,@NonNull String clientSecret,@NonNull String code,@NonNull String redirectUrl) {
+	public static String getTokenByCodeUrl(@NonNull String host,@NonNull String clientId,@NonNull String clientSecret,@NonNull String code,@NonNull String redirectUrl, String state) {
 		if (!host.endsWith("/")) host=host+"/";
-		return host+String.format("oauth/token?grant_type=authorization_code&code=%s&client_id=%s&client_secret=%s&redirect_uri=%s",
-				code,clientId,clientSecret,redirectUrl);
+		return host+String.format("oauth/token?grant_type=authorization_code&code=%s%s&client_id=%s&client_secret=%s&redirect_uri=%s",
+				code,isEmpty(state)?"":"&state="+state,clientId,clientSecret,redirectUrl);
 	}
 
 	public static Collection<ConfigAttribute> getAttributes(HttpServletRequest request,

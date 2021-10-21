@@ -1,6 +1,6 @@
 #端口以及主目录路径   
 server:
-   port : 8188
+   port : 12345
    servlet: 
       context-path : /
       session:
@@ -50,13 +50,13 @@ oauth2:
       authorities: svas,vein                 #可以访问的资源前缀列表，逗号分隔
       tokenValiditySeconds: 86400
       refreshTokenValiditySeconds: 600
-      redirectUris: localhost:12345/res/code
+      redirectUris: https://www.baidu.com
 
    client1:
       clientId: qinyoyo
       secret: 123456
-      scopes: app
-      grantTypes: code
+      scopes: api
+      grantTypes: client_credentials
       authorities: svas
       tokenValiditySeconds: 86400
       refreshTokenValiditySeconds: 600

@@ -32,7 +32,7 @@ import top.iotequ.oauth2.security.oauth2.OAuth2Util;
 import top.iotequ.oauth2.security.service.SecurityService;
 
 
-@Order(2)     // 重要，与 oauth2 config
+@Order(2)     // 重要，web config 必须在 oauth2 config 之前
 @Configuration
 @ComponentScan(basePackages = {"top.iotequ"})
 @EnableWebSecurity
@@ -45,9 +45,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter
     public static final String resourcePage = "/res";
     public static final String commonPage = "/common";
     public static final String errorPage = "/error";
-    public static final String loginProcessingUrl = "/login/login";
-    // public static final String loginErrorUrl = "/login/error";
-    // 默认值 public static final String logoutUrl = "/logout";
     public static final String[] whiteList = new String[]
             {
                 "/index.html", "/favicon.ico", "/dashboard", "/static/**",   // allow vue inside
@@ -57,8 +54,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter
                 commonPage + "/**"
             };
     public static final String[] loginList = new String[]{"/oauth/**", loginPage + "/**", "/log*", "/"}; // 登录需要的白名单，不能放到whiteList里，由于绕过了security，认证登录等无法实现
-
-    private static final Logger log = LoggerFactory.getLogger(SpringSecurityConfig.class);
 
     @Autowired
     private SecurityService userDetailsService;
@@ -101,20 +96,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter
         }
     }
 
-    PasswordEncoder passwordEncoder() {
-        return new PasswordEncoder() {
-            @Override
-            public String encode(CharSequence rawPassword) {
-                return OAuth2Util.encodePassword((String) rawPassword);
-            }
-
-            @Override
-            public boolean matches(CharSequence rawPassword, String encodedPassword) {
-                return encodedPassword.equals(OAuth2Util.encodePassword((String) rawPassword));
-            }
-        };
-    }
-
     @Override
     protected UserDetailsService userDetailsService() {
         return userDetailsService;
@@ -137,8 +118,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter
 
                 .authorizeRequests().antMatchers(loginList).permitAll().and()
 
-                //.authorizeRequests().antMatchers("/oauth/**").permitAll()
-                .authorizeRequests()
+                .authorizeRequests().antMatchers("/oauth/**").permitAll()
 
                 .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
                     public <O extends FilterSecurityInterceptor> O postProcess(O fsi) {
