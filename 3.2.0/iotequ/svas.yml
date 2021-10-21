@@ -46,10 +46,12 @@ oauth2:
       clientId: svas                         # 客户号
       secret: 123456                         # 安全密码
       scopes: api
-      grantTypes: client_credentials         # 授权方式
+      grantTypes: authorization_code         # 授权方式 password,authorization_code,implicit,client_credentials
       authorities: svas,vein                 #可以访问的资源前缀列表，逗号分隔
       tokenValiditySeconds: 86400
       refreshTokenValiditySeconds: 600
+      redirectUris: localhost:12345/res/code
+
    client1:
       clientId: qinyoyo
       secret: 123456

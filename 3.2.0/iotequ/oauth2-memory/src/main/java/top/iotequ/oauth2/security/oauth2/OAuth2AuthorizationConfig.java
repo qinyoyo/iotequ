@@ -59,6 +59,7 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
             for (int s=0;s<authorities.length;s++) authorities[s] = "ROLE_"+authorities[s];
             String[] scopes = env.getProperty(keyPre+"scopes").split(",");
             String secret = env.getProperty(keyPre+"secret");
+            String redirectUris = env.getProperty(keyPre+"redirectUris");
 
             builder.withClient(id)
                     .authorizedGrantTypes(types)
@@ -66,7 +67,10 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
                     .refreshTokenValiditySeconds(refresh==null?600:refresh)
                     .authorities(authorities)
                     .scopes(scopes)
-                    .secret(secret);  // 这里不能加密
+                    .secret(secret)  // 这里不能加密
+                    .autoApprove(true)
+                    .redirectUris(redirectUris)
+                    ;
         }
     }
 

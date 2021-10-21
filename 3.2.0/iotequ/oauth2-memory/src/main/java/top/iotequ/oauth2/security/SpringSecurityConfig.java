@@ -36,7 +36,8 @@ import top.iotequ.oauth2.security.service.SecurityService;
 @Configuration
 @ComponentScan(basePackages = {"top.iotequ"})
 @EnableWebSecurity
-public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
+public class SpringSecurityConfig extends WebSecurityConfigurerAdapter
+{
 
     @Autowired
     Environment env;
@@ -136,8 +137,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .authorizeRequests().antMatchers(loginList).permitAll().and()
 
-                .authorizeRequests().antMatchers("/oauth/**").permitAll()
-                .anyRequest().authenticated()
+                //.authorizeRequests().antMatchers("/oauth/**").permitAll()
+                .authorizeRequests()
 
                 .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
                     public <O extends FilterSecurityInterceptor> O postProcess(O fsi) {

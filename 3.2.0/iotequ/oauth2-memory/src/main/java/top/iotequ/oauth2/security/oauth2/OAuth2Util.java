@@ -23,6 +23,11 @@ public class OAuth2Util {
 		if (o==null) return null;
 		else return o.toString();
 	}
+	public static String getHost(HttpServletRequest request) {
+		StringBuffer surl = request.getRequestURL();
+		String suri = request.getRequestURI();
+		return surl.substring(0,surl.length()-suri.length()+1);
+	}
 	public static boolean isEmpty(Object o) {
 		return (o==null || o.toString().isEmpty());
 	}
@@ -75,10 +80,11 @@ public class OAuth2Util {
 				clientId,scope,redirectUrl,(state==null?"":"&state="+state));
 	}
 
-	public static String getTokenByCodeUrl(@NonNull String host,@NonNull String clientId,@NonNull String clientSecret,@NonNull String code,@NonNull String redirectUrl) {
+	public static String getTokenByCodeUrl(@NonNull String host,@NonNull String clientId,@NonNull String clientSecret,@NonNull String code,@NonNull String redirectUrl, String state) {
 		if (!host.endsWith("/")) host=host+"/";
-		return host+String.format("oauth/token?grant_type=authorization_code&code=%s&client_id=%s&client_secret=%s&redirect_uri=%s",
+		String url = host+String.format("oauth/token?grant_type=authorization_code&code=%s&client_id=%s&client_secret=%s&redirect_uri=%s",
 				code,clientId,clientSecret,redirectUrl);
+		return isEmpty(state)?url:url+"&state="+state;
 	}
 
 	public static Collection<ConfigAttribute> getAttributes(HttpServletRequest request,
