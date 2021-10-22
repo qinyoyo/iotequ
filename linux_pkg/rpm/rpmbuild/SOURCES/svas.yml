@@ -1,6 +1,6 @@
 #端口以及主目录路径   
 server:
-   port : 8188
+   port : 12345
    servlet: 
       context-path : /
       session:
@@ -24,9 +24,9 @@ logging:
    file: 
       name: log/svas.log
    level: 
-      root: info
-      org.springframework: info
-      top.iotequ: info
+      root: error
+      org.springframework: error
+      top.iotequ: debug
 
 
 #授权，svas配置
@@ -41,31 +41,25 @@ F265-49BD-87BC-FC8B-04F7-5A81-CDD9-9507:
 
 #配置是否需要开启oauth2安全鉴权，仅对不使用framework而使用oauth2-memory的应用使用
 oauth2:
-   totalClients: 0
+   totalClients: 1
    client0:
-      clientId: svas                            # 客户号
+      clientId: svas                         # 客户号
       secret: 123456                         # 安全密码
       scopes: api
-      grantTypes: client_credentials         # 授权方式
+      grantTypes: client_credentials         # 授权方式 password,authorization_code,implicit,client_credentials
       authorities: svas,vein                 #可以访问的资源前缀列表，逗号分隔
       tokenValiditySeconds: 86400
       refreshTokenValiditySeconds: 600
+
    client1:
-      clientId: v
+      clientId: qinyoyo
       secret: 123456
       scopes: api
-      grantTypes: client_credentials
-      authorities: vein
+      grantTypes: authorization_code
+      authorities: svas,vein
       tokenValiditySeconds: 86400
       refreshTokenValiditySeconds: 600
-   client2:
-      clientId: both
-      secret: 123456
-      scopes: api
-      grantTypes: client_credentials
-      authorities: vein,svas
-      tokenValiditySeconds: 86400
-      refreshTokenValiditySeconds: 600
+      redirectUris: https://www.baidu.com
 
 svas:
    matchTestSyncMinutes: 0  # 打开验证测试并设置同步等待时间
@@ -79,7 +73,7 @@ svas:
       port: 3306
       user: root
       password: root
-      schema: iotequ3
+      schema: svas
 
    adjust:
       autoUpdateTemplate: false   # 自动用验证数据更新字典
@@ -87,7 +81,4 @@ svas:
       multiMatchedWeight: 0       # 相同模板的多个词典多次匹配增加权重
       maxMatchedWeight: 0         # 最大匹配满足条件增加权重
       maxMatchedCondition: 100    # 最大匹配条件（差值必须大于该值)
-#   url: https://www.svein.com.cn
-#   client_id: svas
-#   client_secret: e10adc3949ba59abbe56e057f20f883e 
-#   scope: api
+
