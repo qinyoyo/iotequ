@@ -32,12 +32,12 @@ class Svas
 	public native  static int  svein_getUserAllInfo(String userNo, int includePhoto, Map<String,Object> info);
 	public native  static int  svein_removeUserNo(String userNo);  
 	public native  static int  svein_removeFinger(String userNo, int fingerNo);
-	public native  static int  svein_updateFinger(String userNo, int fingerNo, int fingerType, String temp);
+	public native  static int  svein_updateFinger(String userNo, int fingerNo, String fingerName, String temp);
 	public native  static int  svein_getFingerCount(String userNo,int onlyCountNeed, SvasFingerInfo fingers);
 	public native  static int  svein_getTemplates(String userNo, int fingerNo, SvasTemplates temp);
 	public native  static int  svein_matchFinger(String temp, int thresh, SvasMatched matched);
-	public native  static int  svein_addFinger(String userNo, int fingerNo, int fingerType,String temp, int warning);
-	public native  static int  svein_setFingers(String userNo, int type1,int warning1, String hexTemp1,int type2,int warning2,String hexTemp2);
+	public native  static int  svein_addFinger(String userNo, int fingerNo, String fingerName,String temp, int warning);
+	public native  static int  svein_setFingers(String userNo, String fingerName1,int warning1, String hexTemp1,String fingerName2,int warning2,String hexTemp2);
 	public native  static int  svein_setPhoto(String userNo, String photo);
 	public native  static int  svein_getEnvProperties(JniStringReturn result);
 	public static  int initial(SvasSetting settings) throws BeansException {

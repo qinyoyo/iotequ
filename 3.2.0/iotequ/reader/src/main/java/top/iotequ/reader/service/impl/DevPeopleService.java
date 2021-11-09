@@ -115,17 +115,18 @@ public class DevPeopleService extends CgDevPeopleService implements ApplicationL
 	private void sendFingerRegisteredInfo(String userNo,RestJson j) {
 		try {
 			List<SvasTemplates> list = svasService.getFingerInfo(userNo);
-			Integer type1=null,type2=null,count=0;
+			String type1=null,type2=null;
+			Integer count=0;
 			Boolean warning1=false, warning2=false;
 			if (!Util.isEmpty(list)) {
 				count = list.size();
 				for (SvasTemplates temp : list) {
 					if (temp.fingerNo == 1) {
-						type1 = temp.fingerType;
+						type1 = temp.fingerName;
 						warning1=temp.warning;
 					}
 					else if (temp.fingerNo == 2) {
-						type2 = temp.fingerType;
+						type2 = temp.fingerName;
 						warning2 = temp.warning;
 					}
 				};
@@ -144,7 +145,7 @@ public class DevPeopleService extends CgDevPeopleService implements ApplicationL
 		} catch (Exception e) {
 		}
 	}
-	private boolean addFingerAfterNotFound(String userNo, Integer fingerNo, Integer fingerType, String templates, Boolean warning) throws IotequException {
+	private boolean addFingerAfterNotFound(String userNo, Integer fingerNo, String fingerName, String templates, Boolean warning) throws IotequException {
 		DevPeople people=devPeopleDao.select(userNo);
 		if (people==null) return false;
 		try {
@@ -154,7 +155,7 @@ public class DevPeopleService extends CgDevPeopleService implements ApplicationL
 				String uno=svasService.getUserNo(people.getIdType(),people.getIdNumber(),people.getRealName(),userNo,null);
 				if (uno==null) return false;
 				if (uno.equals(userNo)) {
-					return svasService.addTemplate(userNo,fingerNo,fingerType,templates,warning);
+					return svasService.addTemplate(userNo,fingerNo,fingerName,templates,warning);
 				} else {
 					svasService.removeUserNo(uno);
 					return false;
@@ -182,19 +183,20 @@ public class DevPeopleService extends CgDevPeopleService implements ApplicationL
 		}
 		else if ("registerFinger".equals(action)) {
 			int fingerIndex=Integer.parseInt(request.getParameter("fingerIndex"));
-			int fingerType=Integer.parseInt(request.getParameter("fingerType"));
+			String fingerName=request.getParameter("fingerName");
+			if (fingerName==null) fingerName=request.getParameter("fingerType");
 			String template=request.getParameter("template");
 			boolean warning=Util.boolValue(request.getParameter("isWarning"));
 			boolean update=Util.boolValue(request.getParameter("update"));
 			try {
 				if (update) {
-					if (!svasService.updateTemplate(userNo, fingerIndex, fingerType, template)) {
+					if (!svasService.updateTemplate(userNo, fingerIndex, fingerName, template)) {
 						throw new IotequException(IotequThrowable.FAILURE, "未能修改成功");
 					}
-				} else if (!svasService.addTemplate(userNo, fingerIndex, fingerType, template, warning))
+				} else if (!svasService.addTemplate(userNo, fingerIndex, fingerName, template, warning))
 					throw new IotequException(IotequThrowable.FAILURE, "未能注册成功");
 			} catch (IotequException e) {
-				if ("svas_error_4".equals(e.getError())) addFingerAfterNotFound(userNo,fingerIndex,fingerType,template,warning);
+				if ("svas_error_4".equals(e.getError())) addFingerAfterNotFound(userNo,fingerIndex,fingerName,template,warning);
 			}
 			try {
 				SqlUtil.sqlExecute("update dev_people_mapping set status=? where user_no=?", "1", userNo);

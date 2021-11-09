@@ -144,16 +144,24 @@ public class SvasController {
 		return svasServer.svein_removeFinger(userNo, fingerNo);
 	}
 	@RequestMapping(value = "/update")
-	public Map<String,Object> update(String userNo,Integer fingerNo,Integer fingerType,String templates,HttpServletRequest request, HttpServletResponse response) {
-		return svasServer.svein_updateFinger(userNo, fingerNo, fingerType, templates);
+	public Map<String,Object> update(String userNo,Integer fingerNo,Integer fingerType,String fingerName, String templates,HttpServletRequest request, HttpServletResponse response) {
+		return svasServer.svein_updateFinger(userNo, fingerNo,
+				fingerName==null?(fingerType==null?"":fingerType.toString()) : fingerName,   // 保留fingerType 兼容以前版本
+				templates);
 	}
 	@RequestMapping(value = "/add")
-	public Map<String,Object> add(String userNo,Integer fingerNo,Integer fingerType,String templates,Boolean warning,HttpServletRequest request, HttpServletResponse response) {
-		return svasServer.svein_addFinger(userNo, fingerNo, fingerType,templates, warning);
+	public Map<String,Object> add(String userNo,Integer fingerNo,String fingerType,String fingerName, String templates,Boolean warning,HttpServletRequest request, HttpServletResponse response) {
+		return svasServer.svein_addFinger(userNo, fingerNo,
+				fingerName==null?(fingerType==null?"":fingerType.toString()) : fingerName,   // 保留fingerType 兼容以前版本
+				templates, warning);
 	}
 	@RequestMapping(value = "/set")
-	public Map<String,Object> set(String userNo,Integer fingerType1, Boolean warning1, String templates1, Integer fingerType2, Boolean warning2, String templates2,HttpServletRequest request, HttpServletResponse response) {
-		return svasServer.svein_setFingers(userNo, fingerType1, warning1,templates1,fingerType2,warning2,templates2);
+	public Map<String,Object> set(String userNo,String fingerType1, String fingerName1, Boolean warning1, String templates1, String fingerType2, String fingerName2, Boolean warning2, String templates2,HttpServletRequest request, HttpServletResponse response) {
+		return svasServer.svein_setFingers(userNo,
+				fingerName1==null?(fingerType1==null?"":fingerType1.toString()) : fingerName1,   // 保留fingerType 兼容以前版本
+				warning1,templates1,
+				fingerName2==null?(fingerType2==null?"":fingerType2.toString()) : fingerName2,   // 保留fingerType 兼容以前版本
+				warning2,templates2);
 	}
 	@RequestMapping(value = "/photo")
 	public Map<String,Object> photo(String userNo,String photo,HttpServletRequest request, HttpServletResponse response) {

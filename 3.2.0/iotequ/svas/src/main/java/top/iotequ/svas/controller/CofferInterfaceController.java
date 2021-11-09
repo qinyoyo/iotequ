@@ -78,7 +78,7 @@ public class CofferInterfaceController {
 				success = getBoolFromMap(e,"success");
 				if (!success) return e;
 				String userNo = getStringFromMap(e,"message");
-				e = svasServer.svein_addFinger(userNo, fingerNo, 11, templates, false);;
+				e = svasServer.svein_addFinger(userNo, fingerNo, "11", templates, false);;
 				success = getBoolFromMap(e,"success");
 				if (success)  {
                     result.put("success", true);

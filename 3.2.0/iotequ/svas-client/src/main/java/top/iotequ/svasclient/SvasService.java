@@ -273,14 +273,14 @@ public class SvasService implements ApplicationRunner, ApplicationContextAware, 
      *
      * @param userNo    用户号
      * @param fingerNo	手指编号
-     * @param fingerType	手指
+     * @param fingerName	手指
      * @param templates 指静脉词典，可包含1,2,3个辞书。一个注册手指最多三个辞书
      * @return 是否修改成功
      * @throws IotequException svas服务调用失败时返回的错误及代码
      */
-    public boolean updateTemplate(String userNo, Integer fingerNo, Integer fingerType, String templates) throws IotequException {
+    public boolean updateTemplate(String userNo, Integer fingerNo, String fingerName, String templates) throws IotequException {
         if (daysLeft <= 0) throw new IotequException(IotequThrowable.VERSION_EXPIRED, "软件已经过期");
-        boolean r = svasClient.updateTemplate(userNo, fingerNo, fingerType, templates);
+        boolean r = svasClient.updateTemplate(userNo, fingerNo, fingerName, templates);
         if (r) {
             appContext.publishEvent(new TemplatesChangedEvent(this, userNo, "update", getFingerCount(userNo)));
         }
@@ -292,15 +292,15 @@ public class SvasService implements ApplicationRunner, ApplicationContextAware, 
      *
      * @param userNo     用户号
      * @param fingerNo   手指编号，1或2
-     * @param fingerType 手指标识编号
+     * @param fingerName 手指标识编号
      * @param templates  指静脉词典，可包含1,2,3个辞书。一个注册手指最多三个辞书
      * @param warning    是否胁迫
      * @throws IotequException svas服务调用失败时返回的错误及代码
      * @return 是否注册成功
      */
-    public boolean addTemplate(String userNo, Integer fingerNo, Integer fingerType, String templates, Boolean warning) throws IotequException {
+    public boolean addTemplate(String userNo, Integer fingerNo, String fingerName, String templates, Boolean warning) throws IotequException {
         if (daysLeft <= 0) throw new IotequException(IotequThrowable.VERSION_EXPIRED, "软件已经过期");
-        boolean r = svasClient.addTemplate(userNo, fingerNo, fingerType, templates, warning);
+        boolean r = svasClient.addTemplate(userNo, fingerNo, fingerName, templates, warning);
         if (r) {
             appContext.publishEvent(new TemplatesChangedEvent(this, userNo, "add", getFingerCount(userNo)));
         }
@@ -310,19 +310,19 @@ public class SvasService implements ApplicationRunner, ApplicationContextAware, 
     /**
      * 一次设置两个手指模板
      * @param userNo  用户号
-     * @param fingerType1 编号1的手指类别
+     * @param fingerName1 编号1的手指类别
      * @param warning1 编号1的胁迫标识
      * @param templates1 编号1的模板
-     * @param fingerType2 编号2的手指类别
+     * @param fingerName2 编号2的手指类别
      * @param warning2 编号2的胁迫标识
      * @param templates2 编号2的模板
      * @return 是否注册成功
      * @throws IotequException  svas服务调用失败时返回的错误及代码
      */
 
-    public boolean setTemplates(String userNo, Integer fingerType1, Boolean warning1, String templates1, Integer fingerType2, Boolean warning2, String templates2) throws IotequException {
+    public boolean setTemplates(String userNo, String fingerName1, Boolean warning1, String templates1, String fingerName2, Boolean warning2, String templates2) throws IotequException {
         if (daysLeft <= 0) throw new IotequException(IotequThrowable.VERSION_EXPIRED, "软件已经过期");
-        boolean r = svasClient.setTemplates(userNo, fingerType1, warning1, templates1,fingerType2,warning2,templates2);
+        boolean r = svasClient.setTemplates(userNo, fingerName1, warning1, templates1,fingerName2,warning2,templates2);
         if (r) {
             appContext.publishEvent(new TemplatesChangedEvent(this, userNo, "update", getFingerCount(userNo)));
         }

@@ -502,7 +502,7 @@ public class SvasServer  implements ApplicationContextAware {
 		}
 		return map;
 	}
-	public Map<String,Object>  svein_updateFinger(String userNo, Integer fingerNo, Integer fingerType, String templates)   {
+	public Map<String,Object>  svein_updateFinger(String userNo, Integer fingerNo, String fingerName, String templates)   {
 		Map<String,Object> map=new HashMap<String,Object>();
 		if (trialDay<=0) {
 			map.put("success", false);
@@ -519,8 +519,8 @@ public class SvasServer  implements ApplicationContextAware {
 			map.put("message","please templates");
 		}	
 		else  {
-			if (fingerType==null) fingerType=0;
-			int r=Svas.instance.svein_updateFinger(userNo,fingerNo,fingerType,templates);
+			if (fingerName==null) fingerName="";
+			int r=Svas.instance.svein_updateFinger(userNo,fingerNo,fingerName,templates);
 	        log.debug("svein_updateFinger({},{},...)={}",userNo,fingerNo,r);
 			if (r==SUCCESS) {
 				map.put("success", true);
@@ -533,7 +533,7 @@ public class SvasServer  implements ApplicationContextAware {
 		return map;
 	}
 
-	public Map<String,Object>  svein_addFinger(String userNo, Integer fingerNo, Integer fingerType, String templates, Boolean warning)  {
+	public Map<String,Object>  svein_addFinger(String userNo, Integer fingerNo, String fingerName, String templates, Boolean warning)  {
 		Map<String,Object> map=new HashMap<String,Object>();
 		if (trialDay<=0) {
 			map.put("success", false);
@@ -550,7 +550,7 @@ public class SvasServer  implements ApplicationContextAware {
 			map.put("message","please templates");
 		}	
 		else  {			
-			int r=Svas.instance.svein_addFinger(userNo,fingerNo,(fingerType==null?0:fingerType),templates,(warning!=null && warning)?1:0);
+			int r=Svas.instance.svein_addFinger(userNo,fingerNo,(fingerName==null?"":fingerName),templates,(warning!=null && warning)?1:0);
 	        log.debug("svein_addFinger({},{},...,{})={}",userNo,fingerNo,(warning!=null && warning)?1:0,r);
 			if (r==SUCCESS) {
 				map.put("success", true);
@@ -563,7 +563,7 @@ public class SvasServer  implements ApplicationContextAware {
 		return map;
 	}
 
-	public Map<String,Object>  svein_setFingers(String userNo, Integer type1, Boolean warning1, String templates1, Integer type2, Boolean warning2, String templates2)  {
+	public Map<String,Object>  svein_setFingers(String userNo, String type1, Boolean warning1, String templates1, String type2, Boolean warning2, String templates2)  {
 		Map<String,Object> map=new HashMap<String,Object>();
 		if (trialDay<=0) {
 			map.put("success", false);
@@ -580,8 +580,8 @@ public class SvasServer  implements ApplicationContextAware {
 			map.put("message","please input <templates1> or <templates2>");
 			map.put("error", ERR_PARAMETER);
 		} else  {
-			int t1=type1;
-			int r=Svas.instance.svein_setFingers(userNo,(type1!=null?type1:0),(warning1!=null && warning1 ? 1 : 0) , templates1 ,(type2!=null?type2:0),(warning2!=null && warning2 ? 1 : 0),templates2);
+			int r=Svas.instance.svein_setFingers(userNo,(type1==null?"":type1),(warning1!=null && warning1 ? 1 : 0) , templates1 ,
+					(type2==null?"":type2),(warning2!=null && warning2 ? 1 : 0),templates2);
 			log.debug("svein_setFingers(...)={}",r);
 			if (r==SUCCESS) {
 				map.put("success", true);
@@ -640,7 +640,7 @@ public class SvasServer  implements ApplicationContextAware {
 				map.put("success", true);
 				map.put("templates",templates.templates) ;
 				map.put("fingerNo",templates.fingerNo) ;
-				map.put("fingerType",templates.fingerType) ;
+				map.put("fingerName",templates.fingerName) ;
 				map.put("warning",templates.warning) ;
 			} else {
 				map.put("success", false);

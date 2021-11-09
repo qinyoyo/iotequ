@@ -49,7 +49,7 @@ CREATE TABLE `dev_vein_info` (
   `finger_no` tinyint(8) NOT NULL COMMENT '手指编号',
   `templates` varchar(2000) NOT NULL COMMENT '指静脉信息',
   `warning` int(11) NOT NULL DEFAULT '0' COMMENT '胁迫',
-  `finger_type` int(2) NOT NULL,
+  `finger_name` varchar(15) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `user_no` (`user_no`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2532554 DEFAULT CHARSET=utf8 COMMENT='指静脉信息';

@@ -843,23 +843,22 @@ class SvasClient  {
 			return e.success;
 		}
 	}
-
 	/**
 	 * 更新用户的指静脉词典。如果该注册信息不存在，调用addTemplate操作。默认warning=false<br>
 	 * 该操作会删除已经存在的与本词典匹配的注册指静脉信息
 	 * @param userNo		用户号
 	 * @param fingerNo	手指编号
-	 * @param fingerType	手指
+	 * @param fingerName	手指
 	 * @param templates	指静脉词典，可包含1,2,3个辞书。一个注册手指最多三个辞书
 	 * @return 是否修改成功
 	 * @throws IotequException svas服务调用失败时返回的错误及代码
 	 */
-	public boolean updateTemplate(String userNo, Integer fingerNo, Integer fingerType, String templates) throws IotequException {
+	public boolean updateTemplate(String userNo, Integer fingerNo, String fingerName, String templates) throws IotequException {
 		if (Util.isEmpty(userNo) || fingerNo==null || Util.isEmpty(templates)) throw new IotequException(IotequThrowable.PARAMETER_ERROR,"参数不正确");
 		else if (svasServer!=null) {
 			try {
 				// svein_updateFinger(String userNo, Integer fingerNo, Integer fingerType, String templates)
-				Object o=EntityUtil.runMethod(svasServer, "svein_updateFinger",userNo,fingerNo,fingerType,templates);
+				Object o=EntityUtil.runMethod(svasServer, "svein_updateFinger",userNo,fingerNo,fingerName,templates);
 				if (o!=null) {
 					Map<String,Object> map=(Map<String,Object>)o;
 					Boolean b = getFromMap(map,Boolean.class);
@@ -874,8 +873,8 @@ class SvasClient  {
 			if (licenceUsed>=maxLicence) throw new SvasException(SvasException.ERR_LICENCE_OUT);
 			if (SqlUtil.sqlExist("select * from dev_vein_info where user_no=? and finger_no=?", userNo,fingerNo)) {
 				int i=0;
-				if (fingerType!=null && fingerType!=0)
-					i=SqlUtil.sqlExecute("update dev_vein_info set templates = ? , finger_type = ? where user_no=? and finger_no=?", templates,fingerType,userNo,fingerNo);
+				if (fingerName!=null)
+					i=SqlUtil.sqlExecute("update dev_vein_info set templates = ? , finger_name = ? where user_no=? and finger_no=?", templates,fingerName,userNo,fingerNo);
 				else
 					i=SqlUtil.sqlExecute("update dev_vein_info set templates = ? where user_no=? and finger_no=?", templates,userNo,fingerNo);
 				if (i!=1) throw new IotequException(IotequThrowable.FAILURE,"未能注册成功");
@@ -886,7 +885,7 @@ class SvasClient  {
 			Map<String, Object> req= new HashMap<String, Object>();
 			req.put("userNo", userNo);
 			req.put("fingerNo", fingerNo);
-			req.put("fingerType", fingerType);
+			req.put("fingerName", fingerName);
 			req.put("templates", templates);
 			SvasErrorInfo e=getFromHttp(url,req, SvasErrorInfo.class);
 			if (e.exists) throw new SvasException(SvasException.ERR_TEMPLATE_EXISTS);
@@ -895,84 +894,84 @@ class SvasClient  {
 	}
 
 	/**
-		 * 增加指静脉<br>
-		 * 该操作会删除已经存在的与本词典匹配的注册指静脉信息
-		 * @param userNo			用户号
-		 * @param fingerNo		手指编号，1或2
-		 * @param fingerType	手指类别标识 
-		 * @param templates		指静脉词典，可包含1,2,3个辞书。一个注册手指最多三个辞书
-		 * @param warning		是否胁迫
-		 * @return						是否注册成功
-		 * @throws IotequException    svas服务调用失败时返回的错误及代码
-		 */
-		public boolean addTemplate(String userNo, Integer fingerNo, Integer fingerType,String templates, Boolean warning) throws IotequException {
-			if (Util.isEmpty(userNo) || fingerNo==null || Util.isEmpty(templates)) throw new IotequException(IotequThrowable.PARAMETER_ERROR,"参数不正确");
-			else if (svasServer!=null) {
-				try {
-					// svein_addFinger(String userNo, Integer fingerNo, Integer fingerType, String templates, Boolean warning)
-					Object o=EntityUtil.runMethod(svasServer, "svein_addFinger",userNo,fingerNo,fingerType,templates,warning);
-					if (o!=null) {
-						Map<String,Object> map=(Map<String,Object>)o;
-						Boolean b = getFromMap(map,Boolean.class);
-						if (b)  return true;
-						return false;
-					} else return false;
-				} catch (Exception e) {
-					throw IotequException.newInstance(e);
-				}
-			} else if (svasUrl==null) {
-				checkUserLicence(userNo);
-				if (SqlUtil.sqlExist("select * from dev_vein_info where user_no=? and finger_no=?", userNo,fingerNo)) {
-					int i=SqlUtil.sqlExecute("update dev_vein_info set templates = ? , warning = ? where user_no=? and finger_no=?", 
-							templates,(warning!=null && warning? 1 : 0),userNo,fingerNo);
-					if (i!=1) {
-						throw new IotequException(IotequThrowable.FAILURE,"未能注册成功");
-					} 
-				} else {
-					SqlSessionTemplate sqlSessionTemplate=(SqlSessionTemplate) Util.getBean("sqlSessionTemplate");
-					int i=0;
-					if ("Oracle".equals(sqlSessionTemplate.getConfiguration().getDatabaseId())) {
-						i=SqlUtil.sqlExecute("insert into dev_vein_info (id,templates,warning,user_no,finger_no,finger_type) values(SEQUENCE_DEV_VEIN_INFO.nextval,?,?,?,?,?)", 
-								templates,(warning!=null && warning? 1 : 0),userNo,fingerNo,fingerType==null?0:fingerType);
-					} else i=SqlUtil.sqlExecute("insert into dev_vein_info (templates,warning,user_no,finger_no,finger_type) values(?,?,?,?,?)", 
-							templates,(warning!=null && warning? 1 : 0),userNo,fingerNo,fingerType==null?0:fingerType);
-					if (i!=1) {
-						throw new IotequException(IotequThrowable.FAILURE,"未能注册成功");
-					}	
-				}
-				return true;
-			} else {
-				String url=svasUrl+SVAS+add;
-				Map<String, Object> req= new HashMap<String, Object>();
-				req.put("userNo", userNo);
-				req.put("fingerNo", fingerNo);
-				req.put("fingerType", fingerType);
-				req.put("templates", templates);
-				req.put("warning", warning);
-				SvasErrorInfo e=getFromHttp(url,req, SvasErrorInfo.class);
-				if (e.exists) throw new SvasException(SvasException.ERR_TEMPLATE_EXISTS);
-				else return e.success;
-			}			
-		}
+	 * 增加指静脉<br>
+	 * 该操作会删除已经存在的与本词典匹配的注册指静脉信息
+	 * @param userNo			用户号
+	 * @param fingerNo		手指编号，1或2
+	 * @param fingerName	手指类别标识
+	 * @param templates		指静脉词典，可包含1,2,3个辞书。一个注册手指最多三个辞书
+	 * @param warning		是否胁迫
+	 * @return						是否注册成功
+	 * @throws IotequException    svas服务调用失败时返回的错误及代码
+	 */
 
+	public boolean addTemplate(String userNo, Integer fingerNo, String fingerName,String templates, Boolean warning) throws IotequException {
+		if (Util.isEmpty(userNo) || fingerNo==null || Util.isEmpty(templates)) throw new IotequException(IotequThrowable.PARAMETER_ERROR,"参数不正确");
+		else if (svasServer!=null) {
+			try {
+				// svein_addFinger(String userNo, Integer fingerNo, Integer fingerType, String templates, Boolean warning)
+				Object o=EntityUtil.runMethod(svasServer, "svein_addFinger",userNo,fingerNo,fingerName,templates,warning);
+				if (o!=null) {
+					Map<String,Object> map=(Map<String,Object>)o;
+					Boolean b = getFromMap(map,Boolean.class);
+					if (b)  return true;
+					return false;
+				} else return false;
+			} catch (Exception e) {
+				throw IotequException.newInstance(e);
+			}
+		} else if (svasUrl==null) {
+			checkUserLicence(userNo);
+			if (SqlUtil.sqlExist("select * from dev_vein_info where user_no=? and finger_no=?", userNo,fingerNo)) {
+				int i=SqlUtil.sqlExecute("update dev_vein_info set templates = ? , warning = ? where user_no=? and finger_no=?",
+						templates,(warning!=null && warning? 1 : 0),userNo,fingerNo);
+				if (i!=1) {
+					throw new IotequException(IotequThrowable.FAILURE,"未能注册成功");
+				}
+			} else {
+				SqlSessionTemplate sqlSessionTemplate=(SqlSessionTemplate) Util.getBean("sqlSessionTemplate");
+				int i=0;
+				if ("Oracle".equals(sqlSessionTemplate.getConfiguration().getDatabaseId())) {
+					i=SqlUtil.sqlExecute("insert into dev_vein_info (id,templates,warning,user_no,finger_no,finger_name) values(SEQUENCE_DEV_VEIN_INFO.nextval,?,?,?,?,?)",
+							templates,(warning!=null && warning? 1 : 0),userNo,fingerNo,fingerName==null?"":fingerName);
+				} else i=SqlUtil.sqlExecute("insert into dev_vein_info (templates,warning,user_no,finger_no,finger_name) values(?,?,?,?,?)",
+						templates,(warning!=null && warning? 1 : 0),userNo,fingerNo,fingerName==null?"":fingerName);
+				if (i!=1) {
+					throw new IotequException(IotequThrowable.FAILURE,"未能注册成功");
+				}
+			}
+			return true;
+		} else {
+			String url=svasUrl+SVAS+add;
+			Map<String, Object> req= new HashMap<String, Object>();
+			req.put("userNo", userNo);
+			req.put("fingerNo", fingerNo);
+			req.put("fingerName", fingerName);
+			req.put("templates", templates);
+			req.put("warning", warning);
+			SvasErrorInfo e=getFromHttp(url,req, SvasErrorInfo.class);
+			if (e.exists) throw new SvasException(SvasException.ERR_TEMPLATE_EXISTS);
+			else return e.success;
+		}
+	}
 	/**
 	 * 设置1-2个指静脉
 	 * @param userNo 用户号
-	 * @param fingerType1 第一个类别
+	 * @param fingerName1 第一个类别
 	 * @param warning1 第一个是否胁迫
 	 * @param templates1 第一个模板
-	 * @param fingerType2 第二个类别
+	 * @param fingerName2 第二个类别
 	 * @param warning2 第二个是否胁迫
 	 * @param templates2 第二个模板
 	 * @return 是否成功
 	 * @throws IotequException 错误
 	 */
-	public boolean setTemplates(String userNo, Integer fingerType1, Boolean warning1,String templates1,Integer fingerType2, Boolean warning2,String templates2) throws IotequException {
+	public boolean setTemplates(String userNo, String fingerName1, Boolean warning1,String templates1,String fingerName2, Boolean warning2,String templates2) throws IotequException {
 		if (Util.isEmpty(userNo) || (Util.isEmpty(templates1) && Util.isEmpty(templates2))) throw new IotequException(IotequThrowable.PARAMETER_ERROR,"参数不正确");
 		else if (svasServer!=null) {
 			try {
 				// svein_setFingers(String userNo, Integer type1, Boolean warning1, String templates1, Integer type2, Boolean warning2, String templates2)
-				Object o=EntityUtil.runMethod(svasServer, "svein_setFingers",userNo,fingerType1,warning1,templates1,fingerType2,warning2,templates2);
+				Object o=EntityUtil.runMethod(svasServer, "svein_setFingers",userNo,fingerName1,warning1,templates1,fingerName2,warning2,templates2);
 				if (o!=null) {
 					Map<String,Object> map=(Map<String,Object>)o;
 					Boolean b = getFromMap(map,Boolean.class);
@@ -988,22 +987,22 @@ class SvasClient  {
 			if (!Util.isEmpty(templates1)) {
 				int i=0;
 				if (SqlUtil.sqlExist("select * from dev_vein_info where user_no=? and finger_no=1", userNo)) {
-					i=SqlUtil.sqlExecute("update dev_vein_info set templates = ? , finger_type = ? , warning = ? where user_no=? and finger_no=1",
-							templates1,(fingerType1!=null?fingerType1:0),(warning1!=null && warning1 ? 1: 0),userNo);
+					i=SqlUtil.sqlExecute("update dev_vein_info set templates = ? , finger_name = ? , warning = ? where user_no=? and finger_no=1",
+							templates1,(fingerName1!=null?fingerName1:""),(warning1!=null && warning1 ? 1: 0),userNo);
 				} else {
-					i=SqlUtil.sqlExecute("insert into dev_vein_info (templates,warning,user_no,finger_no,finger_type) values(?,?,?,?,?)",
-							templates1,(warning1!=null && warning1? 1 : 0),userNo,1,fingerType1==null?0:fingerType1);
+					i=SqlUtil.sqlExecute("insert into dev_vein_info (templates,warning,user_no,finger_no,finger_name) values(?,?,?,?,?)",
+							templates1,(warning1!=null && warning1? 1 : 0),userNo,1,fingerName1==null?"":fingerName1);
 				}
 				if (i!=1) throw new IotequException(IotequThrowable.FAILURE,"未能注册成功");
 			}
 			if (!Util.isEmpty(templates2)) {
 				int i=0;
 				if (SqlUtil.sqlExist("select * from dev_vein_info where user_no=? and finger_no=2", userNo)) {
-					i=SqlUtil.sqlExecute("update dev_vein_info set templates = ? , finger_type = ? , warning = ? where user_no=? and finger_no=1",
-							templates2,(fingerType2!=null?fingerType2:0),(warning2!=null && warning2 ? 1: 0),userNo);
+					i=SqlUtil.sqlExecute("update dev_vein_info set templates = ? , finger_name = ? , warning = ? where user_no=? and finger_no=1",
+							templates2,(fingerName2!=null?fingerName2:""),(warning2!=null && warning2 ? 1: 0),userNo);
 				} else {
-					i=SqlUtil.sqlExecute("insert into dev_vein_info (templates,warning,user_no,finger_no,finger_type) values(?,?,?,?,?)",
-							templates2,(warning2!=null && warning2? 1 : 0),userNo,1,fingerType2==null?0:fingerType2);
+					i=SqlUtil.sqlExecute("insert into dev_vein_info (templates,warning,user_no,finger_no,finger_name) values(?,?,?,?,?)",
+							templates2,(warning2!=null && warning2? 1 : 0),userNo,1,fingerName2==null?"":fingerName2);
 				}
 				if (i!=1) throw new IotequException(IotequThrowable.FAILURE,"未能注册成功");
 			}
@@ -1012,10 +1011,10 @@ class SvasClient  {
 			String url=svasUrl+SVAS+set;
 			Map<String, Object> req= new HashMap<String, Object>();
 			req.put("userNo", userNo);
-			req.put("fingerType1", fingerType1);
+			req.put("fingerName1", fingerName1);
 			req.put("warning1", warning1);
 			req.put("templates1", templates1);
-			req.put("fingerType2", fingerType2);
+			req.put("fingerName2", fingerName2);
 			req.put("warning2", warning2);
 			req.put("templates2", templates2);
 			SvasErrorInfo e=getFromHttp(url,req, SvasErrorInfo.class);
@@ -1147,7 +1146,7 @@ class SvasClient  {
 				}
 			} else if (svasUrl==null) {	
 				checkUserLicence(userNo);
-				String sql="select finger_no,finger_type,templates,warning from dev_vein_info where user_no=?";
+				String sql="select finger_no,finger_name,templates,warning from dev_vein_info where user_no=?";
 				List<SvasTemplates> infos=SqlUtil.sqlQuery(SvasTemplates.class,sql, userNo);
 				return infos;
 			} else {

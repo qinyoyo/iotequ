@@ -13,7 +13,7 @@ public class SvasTypes {
     }
     static public class SvasTemplates {
         public int	  	fingerNo;
-        public int	  	fingerType;
+        public String  	fingerName;
         public String 	templates;
         public boolean 	warning;
     }
@@ -25,7 +25,7 @@ public class SvasTypes {
         public int	 	id;  // 数据记录指静脉的主键,用于调试查错等
         public int 		score;
         public int 	    fingerNo;
-        public int	  	fingerType;
+        public String  	fingerName;
         public boolean 	warning;
         public String 	userNo;
         public String 	name;

@@ -7,10 +7,10 @@
     <result column="finger_no" jdbcType="TINYINT" property="fingerNo" />
     <result column="templates" jdbcType="VARCHAR" property="templates" />
     <result column="warning" jdbcType="INTEGER" property="warning" />
-    <result column="finger_type" jdbcType="INTEGER" property="fingerType" />
+    <result column="finger_name" jdbcType="VARCHAR" property="fingerName" />
   </resultMap>
   <sql id = "selectSql">
-     SELECT id,user_no,finger_no,templates,warning,finger_type FROM dev_vein_info
+     SELECT id,user_no,finger_no,templates,warning,finger_name FROM dev_vein_info
   </sql>
   <insert id="insert" parameterType="top.iotequ.svasclient.db.pojo.SvasVeinInfo">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer" >
@@ -19,53 +19,53 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer" databaseId="SQLServer">
       SELECT @@IDENTITY
     </selectKey>
-    insert into dev_vein_info (user_no,finger_no,templates,warning,finger_type)
+    insert into dev_vein_info (user_no,finger_no,templates,warning,finger_name)
       values 
-      (#{userNo,jdbcType=VARCHAR},#{fingerNo,jdbcType=TINYINT},#{templates,jdbcType=VARCHAR},#{warning,jdbcType=INTEGER},#{fingerType,jdbcType=INTEGER})
+      (#{userNo,jdbcType=VARCHAR},#{fingerNo,jdbcType=TINYINT},#{templates,jdbcType=VARCHAR},#{warning,jdbcType=INTEGER},#{fingerName,jdbcType=VARCHAR})
   </insert>
   <insert id="insert" parameterType="top.iotequ.svasclient.db.pojo.SvasVeinInfo" databaseId="Oracle">
     <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer" >
       SELECT SEQUENCE_DEV_VEIN_INFO.nextval from DUAL
     </selectKey>
-    insert into dev_vein_info (id,user_no,finger_no,templates,warning,finger_type)
+    insert into dev_vein_info (id,user_no,finger_no,templates,warning,finger_name)
       values 
-      (#{id,jdbcType=INTEGER},#{userNo,jdbcType=VARCHAR},#{fingerNo,jdbcType=TINYINT},#{templates,jdbcType=VARCHAR},#{warning,jdbcType=INTEGER},#{fingerType,jdbcType=INTEGER})
+      (#{id,jdbcType=INTEGER},#{userNo,jdbcType=VARCHAR},#{fingerNo,jdbcType=TINYINT},#{templates,jdbcType=VARCHAR},#{warning,jdbcType=INTEGER},#{fingerName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertBatchWithoutId" parameterType="top.iotequ.svasclient.db.pojo.SvasVeinInfo">
-    insert into dev_vein_info (user_no,finger_no,templates,warning,finger_type)
+    insert into dev_vein_info (user_no,finger_no,templates,warning,finger_name)
       values 
     <foreach collection="list" item="item" index="index" separator=",">
-      (#{item.userNo,jdbcType=VARCHAR},#{item.fingerNo,jdbcType=TINYINT},#{item.templates,jdbcType=VARCHAR},#{item.warning,jdbcType=INTEGER},#{item.fingerType,jdbcType=INTEGER})
+      (#{item.userNo,jdbcType=VARCHAR},#{item.fingerNo,jdbcType=TINYINT},#{item.templates,jdbcType=VARCHAR},#{item.warning,jdbcType=INTEGER},#{item.fingerName,jdbcType=VARCHAR})
     </foreach>
   </insert>
   <insert id="insertBatchWithoutId" parameterType="top.iotequ.svasclient.db.pojo.SvasVeinInfo" databaseId="Oracle">
-     insert into dev_vein_info (id,user_no,finger_no,templates,warning,finger_type)
+     insert into dev_vein_info (id,user_no,finger_no,templates,warning,finger_name)
        select SEQUENCE_DEV_VEIN_INFO.nextval,cd.* from(
           <foreach collection="list" item="item" index="index" separator="union all">
-             select #{item.userNo,jdbcType=VARCHAR},#{item.fingerNo,jdbcType=TINYINT},#{item.templates,jdbcType=VARCHAR},#{item.warning,jdbcType=INTEGER},#{item.fingerType,jdbcType=INTEGER} from dual
+             select #{item.userNo,jdbcType=VARCHAR},#{item.fingerNo,jdbcType=TINYINT},#{item.templates,jdbcType=VARCHAR},#{item.warning,jdbcType=INTEGER},#{item.fingerName,jdbcType=VARCHAR} from dual
           </foreach>
        ) cd
   </insert>
   <insert id="insertBatchWithId" parameterType="top.iotequ.svasclient.db.pojo.SvasVeinInfo">
-    insert into dev_vein_info (id,user_no,finger_no,templates,warning,finger_type)
+    insert into dev_vein_info (id,user_no,finger_no,templates,warning,finger_name)
       values 
     <foreach collection="list" item="item" index="index" separator=",">
-      (#{item.id,jdbcType=INTEGER},#{item.userNo,jdbcType=VARCHAR},#{item.fingerNo,jdbcType=TINYINT},#{item.templates,jdbcType=VARCHAR},#{item.warning,jdbcType=INTEGER},#{item.fingerType,jdbcType=INTEGER})
+      (#{item.id,jdbcType=INTEGER},#{item.userNo,jdbcType=VARCHAR},#{item.fingerNo,jdbcType=TINYINT},#{item.templates,jdbcType=VARCHAR},#{item.warning,jdbcType=INTEGER},#{item.fingerName,jdbcType=VARCHAR})
     </foreach>
   </insert>
   <insert id="insertBatchWithId" parameterType="top.iotequ.svasclient.db.pojo.SvasVeinInfo" databaseId="SQLServer">
     set IDENTITY_INSERT dev_vein_info ON 
-    insert into dev_vein_info (id,user_no,finger_no,templates,warning,finger_type)
+    insert into dev_vein_info (id,user_no,finger_no,templates,warning,finger_name)
       values 
     <foreach collection="list" item="item" index="index" separator=",">
-      (#{item.id,jdbcType=INTEGER},#{item.userNo,jdbcType=VARCHAR},#{item.fingerNo,jdbcType=TINYINT},#{item.templates,jdbcType=VARCHAR},#{item.warning,jdbcType=INTEGER},#{item.fingerType,jdbcType=INTEGER})
+      (#{item.id,jdbcType=INTEGER},#{item.userNo,jdbcType=VARCHAR},#{item.fingerNo,jdbcType=TINYINT},#{item.templates,jdbcType=VARCHAR},#{item.warning,jdbcType=INTEGER},#{item.fingerName,jdbcType=VARCHAR})
     </foreach>
     set IDENTITY_INSERT dev_vein_info OFF 
   </insert>
   <insert id="insertBatchWithId" parameterType="top.iotequ.svasclient.db.pojo.SvasVeinInfo" databaseId="Oracle">
     insert all 
     <foreach collection="list" item="item" index="index">
-      into dev_vein_info (id,user_no,finger_no,templates,warning,finger_type) values(#{item.id,jdbcType=INTEGER},#{item.userNo,jdbcType=VARCHAR},#{item.fingerNo,jdbcType=TINYINT},#{item.templates,jdbcType=VARCHAR},#{item.warning,jdbcType=INTEGER},#{item.fingerType,jdbcType=INTEGER})
+      into dev_vein_info (id,user_no,finger_no,templates,warning,finger_name) values(#{item.id,jdbcType=INTEGER},#{item.userNo,jdbcType=VARCHAR},#{item.fingerNo,jdbcType=TINYINT},#{item.templates,jdbcType=VARCHAR},#{item.warning,jdbcType=INTEGER},#{item.fingerName,jdbcType=VARCHAR})
     </foreach>
     select 1 from dual
   </insert>
@@ -101,7 +101,7 @@
       finger_no = #{fingerNo,jdbcType=TINYINT},
       templates = #{templates,jdbcType=VARCHAR},
       warning = #{warning,jdbcType=INTEGER},
-      finger_type = #{fingerType,jdbcType=INTEGER}
+      finger_name = #{fingerName,jdbcType=VARCHAR}
       where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateSelective" parameterType="top.iotequ.svasclient.db.pojo.SvasVeinInfo">
@@ -111,7 +111,7 @@
         <if test="fingerNo != null"> finger_no = #{fingerNo,jdbcType=TINYINT},</if>
         <if test="templates != null"> templates = #{templates,jdbcType=VARCHAR},</if>
         <if test="warning != null"> warning = #{warning,jdbcType=INTEGER},</if>
-        <if test="fingerType != null"> finger_type = #{fingerType,jdbcType=INTEGER},</if>
+        <if test="fingerName != null"> finger_name = #{fingerName,jdbcType=VARCHAR},</if>
       </set>
       where id = #{id,jdbcType=INTEGER}
   </update>
@@ -122,7 +122,7 @@
       finger_no = #{record.fingerNo,jdbcType=TINYINT},
       templates = #{record.templates,jdbcType=VARCHAR},
       warning = #{record.warning,jdbcType=INTEGER},
-      finger_type = #{record.fingerType,jdbcType=INTEGER}
+      finger_name = #{record.fingerName,jdbcType=VARCHAR}
       where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="list" parameterType="top.iotequ.svasclient.db.pojo.SvasVeinInfo" resultMap="BaseResultMap">
@@ -133,7 +133,7 @@
         <if test="fingerNo != null"> and finger_no = #{fingerNo,jdbcType=TINYINT} </if>
         <if test="templates != null"> and templates like #{templates,jdbcType=VARCHAR} </if>
         <if test="warning != null"> and warning = #{warning,jdbcType=INTEGER} </if>
-        <if test="fingerType != null"> and finger_type = #{fingerType,jdbcType=INTEGER} </if>
+        <if test="fingerName != null"> and finger_name = #{fingerName,jdbcType=VARCHAR} </if>
   </select>
   <select id="listBy" parameterType="map" resultMap="BaseResultMap">
     <include refid="selectSql" />

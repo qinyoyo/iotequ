@@ -125,7 +125,11 @@ public class RegisterUserController {
 				for(SvasTemplates a: listT) {
 					C20Finger c=new C20Finger();
 					c.fignerIndex=(byte) a.fingerNo;
-					c.fingerType=(byte) a.fingerType;
+					try {
+						c.fingerType = Byte.valueOf(a.fingerName);
+					} catch (Exception e) {
+						c.fingerType = 0;
+					}
 					c.templates=a.templates;
 					c.warningfinger=(byte) (a.warning?1:0);
 					list.add(c);
@@ -197,17 +201,17 @@ public class RegisterUserController {
 			}
 
 			// 手指信息更新
-			Integer type1=null, type2=null;
+			String type1=null, type2=null;
 			Boolean warning1=null, warning2=null;
 			String temp1=null,temp2=null;
 			for (int i = 0; i < Fingers.size(); i++) {
 				C20Finger finger = Fingers.get(i);// 手指信息
 				if (finger.fignerIndex == 1) {
-					type1 = (int) finger.fingerType;
+					type1 = String.valueOf(finger.fingerType);
 					warning1 = finger.warningfinger == 0 ? false : true;
 					temp1 = finger.templates;
 				} else {
-					type2 = (int) finger.fingerType;
+					type2 = String.valueOf(finger.fingerType);
 					warning2 = finger.warningfinger == 0 ? false : true;
 					temp2 = finger.templates;
 				}
@@ -242,7 +246,7 @@ public class RegisterUserController {
 			List<SvasTemplates> listT=svasService.getFingerInfo(userNo);
 			if(!Util.isEmpty(listT)&&listT.size()!=0) {
 				for(SvasTemplates a: listT) {
-					if(a.fingerType==fingerType) {
+					if(a.fingerName.equals(String.valueOf(fingerType))) {
 						try {
 							svasService.removeTemplate(userNo, a.fingerNo);
 							Integer fingerNumber= svasService.getFingerCount(userNo);

@@ -44,9 +44,9 @@ public class SvasVeinInfo implements CgEntity {
     @CgFieldAnnotation(name="warning",jdbcType="INTEGER",nullable=false,format="")
     private Integer warning;		//胁迫 db field:warning
 
-    @SerializedName(value = "fingerType", alternate = {"finger_type","FINGER_TYPE"})
-    @CgFieldAnnotation(name="finger_type",jdbcType="INTEGER",nullable=false,format="")
-    private Integer fingerType;		//finger type db field:finger_type
+    @SerializedName(value = "fingerName", alternate = {"finger_name","FINGER_NAME"})
+    @CgFieldAnnotation(name="finger_name",jdbcType="VARCHAR",nullable=false,format="")
+    private String fingerName;		//finger type db field:finger_name
 
     @Override public Object getPkValue(){ return getId(); }
     @Override
