@@ -2,7 +2,7 @@
 
 Name:           svas
 Version:        3.2.0
-Release:        1020
+Release:        1111
 Summary:        Rpm package for svas web service
 
 License:        GPL
@@ -96,15 +96,6 @@ cp %{SOURCE4} $service_dir
 
 ##### POST INSTALL SECTION #####
 %post
-echo Initial... 
-exec 6<&0 0</dev/tty
-echo -n Please input the web service port:
-read portOfService
-echo -n Please input password of root for MYSQL:
-read passwordOfRoot
-sed -i 's/port\s*:\s*12345/port : '"$portOfService"'/' /usr/local/%{name}/%{name}.yml
-sed -i 's/password\s*:\s*root/password : '"$passwordOfRoot"'/g' /usr/local/%{name}/%{name}.yml
-mysql -uroot --host=127.0.0.1 -p$passwordOfRoot < /usr/local/%{name}/%{name}.sql
 
 REQ=0
 if [ -f /lib64/libmysqlclient.so.20 ]; then 
@@ -121,6 +112,12 @@ if [ $? -eq 0 ]; then
 else
    echo Warning!!! Java 1.8.x or openjdk 1.8.x not found.
 fi
+
+echo Please config your database and svas 
+echo like: sed -i 's/port\s*:\s*12345/port : '"$portOfService"'/' /usr/local/%{name}/%{name}.yml
+echo       sed -i 's/password\s*:\s*root/password : '"$passwordOfRoot"'/g' /usr/local/%{name}/%{name}.yml
+echo       mysql -uroot --host=127.0.0.1 -p$passwordOfRoot < /usr/local/%{name}/%{name}.sql
+
 systemctl status >/dev/null 2>&1
 if [ $? -eq 0 ]; then
 	ln -s /%{_unitdir}/%{name}.service /etc/systemd/system/multi-user.target.wants/%{name}.service
