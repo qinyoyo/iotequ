@@ -5,4 +5,7 @@
 *.rpm
 *.bak
 *.so
+*.deb
+*.jar
+
 
