@@ -13,7 +13,7 @@ if(xhr.status===200) {
         tagsView: true,
         fixedHeader: false,
         insideSpring: true,
-        sidebarLogo: true       
+        sidebarLogo: true
     },JSON.parse(xhr.responseText))
     console.log(window.userSettings)
 } else alert("打开配置文件/static/settings.json出错")

@@ -36,9 +36,13 @@ import { addBodyNode } from '@/utils/dom'
 
 import { isMobile } from '@/utils/cg'
 
+import svein from '@/svein-driver/sdk'
+console.log(svein.connect())
+
 import packageConfig from '../package.json'
 window.packageName = packageConfig.name
 window.packageVersion = packageConfig.version
+
 
 /**
  * If you don't want to use mock-server
@@ -101,9 +105,9 @@ window.$vue = new Vue({
   render: h => h(App)
 })
 
-String.prototype.trim = function(){  
+String.prototype.trim = function(){
   return this.replace(/(^\s+)|(\s+$)/g,"")
-} 
+}
 String.prototype.local = function() {
   if (!this) return ''
   const tt = this.split(' ')
@@ -152,7 +156,7 @@ Vue.prototype.$dialog = function(component, options) {
         const _this = this
         this.$on('close',function() {
           document.querySelectorAll('.'+domId).forEach(e=>e.remove())
-          if (_this && _this.$el && _this.$el.parentNode) { 
+          if (_this && _this.$el && _this.$el.parentNode) {
             const $d = _this.$el.parentNode.querySelector('#' + domId + ' + .el-dialog__wrapper')
             if ($d) $d.remove()
           }
