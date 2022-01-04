@@ -1,5 +1,5 @@
-const ffi = require("ffi-napi")
-const ref = require('ref-napi')
+import ffi from "ffi-napi"
+import ref from 'ref-napi'
 const callbackFunction = 'pointer'
 const stringBuffer = 'pointer'
 const byteBuffer = 'pointer'

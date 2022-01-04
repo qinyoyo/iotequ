@@ -36,9 +36,6 @@ import { addBodyNode } from '@/utils/dom'
 
 import { isMobile } from '@/utils/cg'
 
-import svein from '@/svein-driver/sdk'
-console.log(svein.connect())
-
 import packageConfig from '../package.json'
 window.packageName = packageConfig.name
 window.packageVersion = packageConfig.version

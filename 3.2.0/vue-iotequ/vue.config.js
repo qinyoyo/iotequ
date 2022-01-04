@@ -111,6 +111,7 @@ module.exports = {
       .when(process.env.NODE_ENV === 'development',
         config => config.devtool('cheap-source-map')
       )
+    /*
     config
       .when(process.env.NODE_ENV !== 'development',
         config => {
@@ -148,7 +149,7 @@ module.exports = {
             })
           config.optimization.runtimeChunk('single')
         }
-      )
+      ) */
   },
   transpileDependencies: [
     'element-ui', // babel-loader 默认会忽略所有 node_modules 中的文件。如果你想要通过 Babel 显式转译一个依赖，可以在这个选项中列出来

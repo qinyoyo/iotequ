@@ -1,6 +1,6 @@
 <template>
   <div class="login-container" @click="errorMessage=''">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" 
+    <el-form ref="loginForm" :model="loginForm" :rules="loginRules"
              class="form-container login-form" :style="loginStyle"
              autocomplete="on" label-position="left">
       <span><img src="/static/logo.png" class="logo-img"></span>
@@ -79,10 +79,10 @@
           v-model="loginForm.rememberMe"
           name="remember-me"
           :label="$t('login.remember')"
-        />      
+        />
       </el-form-item>
 
-      <el-button v-if="!isWechat" :loading="loading" type="primary" style="width:100%;margin-bottom:10px;" 
+      <el-button v-if="!isWechat" :loading="loading" type="primary" style="width:100%;margin-bottom:10px;"
                  @click.native.prevent="handleLogin">
         {{ loginText() }}
       </el-button>
@@ -208,7 +208,7 @@ export default {
   },
   mounted() {
     this.refreshRandCode()
-    document.getElementsByName('userName')[0].focus()    
+    document.getElementsByName('userName')[0].focus()
   },
   destroyed () {
     if (this.hasU53) {
@@ -256,7 +256,7 @@ export default {
         } catch (error) {
             _this.handleError(error)
             if (_this.hasU53) _this.u53read()
-        }      
+        }
       }
     },
     loginText() {
@@ -289,7 +289,7 @@ export default {
         this.isRegister = true
         this.loginForm.userName = ''
         document.getElementsByName('userName')[0].focus()
-      } 
+      }
       else if (type==='wechat') {
         const req = {
           url: '/login/wechatQrurl',
@@ -327,7 +327,7 @@ export default {
           } else {
             _this.checkOpenId()
           }
-        }).catch(_ =>  _this.checkOpenId() )      
+        }).catch(_ =>  _this.checkOpenId() )
       }
     },
     sendSms() {
@@ -342,8 +342,8 @@ export default {
           if (res) {
             if (res.success || res.error === 'sms_too_frequently') {
               if (that.isRegister) {
-                that.$router.push({ path: '/register', 
-                  query: { 
+                that.$router.push({ path: '/register',
+                  query: {
                     record : {
                       mobilePhone : that.loginForm.userName,
                       randCode: ''
@@ -390,7 +390,7 @@ export default {
       else {
         let msg = ''
         if (typeof error.error === 'string') msg=generateTitle((error.error.indexOf('.')>0 ? '' : 'error.')+error.error)
-        else if (typeof error.message === 'string' && error.message.toLowerCase().indexOf('proxy')< 0 ) msg = error.message 
+        else if (typeof error.message === 'string' && error.message.toLowerCase().indexOf('proxy')< 0 ) msg = error.message
         else msg = generateTitle('error.network_error')
         this.errorMessage = msg
       }
@@ -553,6 +553,6 @@ export default {
 @media screen and (min-aspect-ratio: 4/3) {
   .login-container {
     background-image: url(/static/login_back_h.jpg)!important;
-  }   
+  }
 }
 </style>
