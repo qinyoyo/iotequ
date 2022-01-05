@@ -18,7 +18,7 @@ import top.iotequ.svas.service.SvasTypes.*;
  *svas服务bean<br>
  * 一般不直接使用，请使用svasService或svasClient<br>
  * 本模块使用 maven package -Pspring可以打包成单独的微服务 jar包<br>
- * 本模块单独运行需要配置的参数<br> 
+ * 本模块单独运行需要配置的参数<br>
  * svas.host,svas.port,svas.user,svas.password,svas.database,svas.thresh
  * @author Qinyoyo
  * @version 1.0
@@ -27,7 +27,7 @@ import top.iotequ.svas.service.SvasTypes.*;
 @Component
 public class SvasServer  implements ApplicationContextAware {
 	@Autowired
-    private Environment env;  
+    private Environment env;
 	public static int THRESH = 448;
 	public static final int SUCCESS  = 0;
 	public static final int ERR_NO_MEMERY	=		1;
@@ -50,7 +50,7 @@ public class SvasServer  implements ApplicationContextAware {
 	public static final int ERR_DB_NOT_CONNECTED =	101;
 	public static final int ERR_NULL_IDNO		=	102;
 	private static final Logger log = LoggerFactory.getLogger(SvasServer.class);
-	private int trialDay=0;
+	private int validDay =0;
 	public static String  getError(int errorno) {
 		String err;
 		switch (errorno) {
@@ -67,7 +67,7 @@ public class SvasServer  implements ApplicationContextAware {
 			case  ERR_NOT_CHANGED : err = "没有任何更改"; break;
 			case  ERR_LOW_TEMPLATES: err = "模板之间不匹配"; break;
 			case  ERR_NOT_ACTIVITED : err = "svas没有正确激活"; break;
-			case  ERR_LICENCE_OUT: err = "Licence许可数量用完"; break;			
+			case  ERR_LICENCE_OUT: err = "Licence许可数量用完"; break;
 			case ERR_DB_NOT_CONNECTED : err = "数据库未连接"; break;
 			case ERR_NULL_IDNO : err = "错误的空编号"; break;
 			case ERR_CONFIG_LOST : err= "没有找到 svas.ini 或无权限" ;break;
@@ -81,19 +81,22 @@ public class SvasServer  implements ApplicationContextAware {
     public void setApplicationContext(ApplicationContext context) throws BeansException {
     	int r = svas_initial();
         if (r!=0) throw new BeansException (Svas.dllMode + " Svas 初始化错误(" + getError(r)	+ ")") {
-			private static final long serialVersionUID = 1L;} ;   
+			private static final long serialVersionUID = 1L;} ;
 		Integer v = Svas.instance.svein_getTrialDays();
-		trialDay=v;
-		if (trialDay>0 && trialDay<3650) {
+		validDay =v;
+		if (validDay >0 && validDay <3650) {
 			Timer timer = new Timer();
 			Calendar ca = Calendar.getInstance();
-			ca.add(Calendar.DATE, trialDay);
+			ca.add(Calendar.DATE, validDay);
 			timer.schedule(new TimerTask() {
 				@Override
 				public void run() {
-					trialDay=0;
-				}					
+					validDay =0;
+				}
 			}, ca.getTime());
+		} else {
+			Integer al = Svas.instance.svein_getLicenceAvailable();
+			if (al>0) validDay = 36500;
 		}
     }
 	private String getProperty(String firstSession ,String secondSession, String id) {
@@ -233,12 +236,12 @@ public class SvasServer  implements ApplicationContextAware {
 		Map<String,Object> map=new HashMap<String,Object>();
 		map.put("trialDays", v);
 		return map;
-	}	
+	}
 	public Map<String,Object>  svein_getUserNo(Integer idType, String idNo ,String name,String def,String prefix)  {
 		Map<String,Object> map=new HashMap<String,Object>();
-		if (trialDay<=0) {
+		if (validDay <=0) {
 			map.put("success", false);
-			map.put("message","version expired");	
+			map.put("message","version expired");
 			map.put("error", TRIAL_EXPIRED);
 			return map;
 		}
@@ -257,7 +260,7 @@ public class SvasServer  implements ApplicationContextAware {
 				log.debug("svein_getUserNo({},{},{},{},{})={} ,userNo={}",idType, idNo, name,def,prefix,r,userNo);
 			} else {
 				map.put("success", false);
-				map.put("error",r);		
+				map.put("error",r);
 				log.debug("svein_getUserNo({},{},{},{},{})={}",idType, idNo, name,def,prefix,r);
 			}
 		}
@@ -265,7 +268,7 @@ public class SvasServer  implements ApplicationContextAware {
 	}
 	public Map<String,Object>  svein_queryUserNo(Integer idType, String idNo)  {
 		Map<String,Object> map=new HashMap<String,Object>();
-		if (trialDay<=0) {
+		if (validDay <=0) {
 			map.put("success", false);
 			map.put("message","version expired");
 			map.put("error", TRIAL_EXPIRED);
@@ -292,7 +295,7 @@ public class SvasServer  implements ApplicationContextAware {
 	}
 	public Map<String,Object>  svein_getUserNoFromDict(String temp)  {
 		Map<String,Object> map=new HashMap<String,Object>();
-		if (trialDay<=0) {
+		if (validDay <=0) {
 			map.put("success", false);
 			map.put("message","version expired");
 			map.put("error", TRIAL_EXPIRED);
@@ -320,7 +323,7 @@ public class SvasServer  implements ApplicationContextAware {
 
 	public Map<String,Object>  svein_setUserNoForDict(String temp,String userNo)  {
 		Map<String,Object> map=new HashMap<String,Object>();
-		if (trialDay<=0) {
+		if (validDay <=0) {
 			map.put("success", false);
 			map.put("message","version expired");
 			map.put("error", TRIAL_EXPIRED);
@@ -348,7 +351,7 @@ public class SvasServer  implements ApplicationContextAware {
 
 	public Map<String,Object>  svein_getUserInfo(String userNo)  {
 		Map<String,Object> map=new HashMap<String,Object>();
-		if (trialDay<=0) {
+		if (validDay <=0) {
 			map.put("success", false);
 			map.put("message","version expired");
 			map.put("error", TRIAL_EXPIRED);
@@ -379,9 +382,9 @@ public class SvasServer  implements ApplicationContextAware {
 	}
 	public Map<String,Object>  svein_changeUserInfo(String userNo, Integer idType, String idNo, String name)  {
 		Map<String,Object> map=new HashMap<String,Object>();
-		if (trialDay<=0) {
+		if (validDay <=0) {
 			map.put("success", false);
-			map.put("message","version expired");	
+			map.put("message","version expired");
 			map.put("error", TRIAL_EXPIRED);
 			return map;
 		}
@@ -402,14 +405,14 @@ public class SvasServer  implements ApplicationContextAware {
 				map.put("success", true);
 			} else {
 				map.put("success", false);
-				map.put("error",r);		
+				map.put("error",r);
 			}
 		}
 		return map;
 	}
 	public Map<String,Object>  svein_getUserAllInfo(String userNo, Boolean includePhoto)  {
 		HashMap<String,Object> map=new HashMap<String,Object>();
-		if (trialDay<=0) {
+		if (validDay <=0) {
 			map.put("success", false);
 			map.put("message","version expired");
 			map.put("error", TRIAL_EXPIRED);
@@ -431,7 +434,7 @@ public class SvasServer  implements ApplicationContextAware {
 	}
 	public Map<String,Object>  svein_changeUserInfoByMap(HashMap<String,String> mapPeople)  {
 		Map<String,Object> map=new HashMap<String,Object>();
-		if (trialDay<=0) {
+		if (validDay <=0) {
 			map.put("success", false);
 			map.put("message","version expired");
 			map.put("error", TRIAL_EXPIRED);
@@ -455,9 +458,9 @@ public class SvasServer  implements ApplicationContextAware {
 	}
 	public Map<String,Object>  svein_removeUserNo(String userNo)  {
 		Map<String,Object> map=new HashMap<String,Object>();
-		if (trialDay<=0) {
+		if (validDay <=0) {
 			map.put("success", false);
-			map.put("message","version expired");	
+			map.put("message","version expired");
 			map.put("error", TRIAL_EXPIRED);
 			return map;
 		}
@@ -472,17 +475,17 @@ public class SvasServer  implements ApplicationContextAware {
 				map.put("success", true);
 			} else {
 				map.put("success", false);
-				map.put("error",r);				
+				map.put("error",r);
 			}
 		}
 		return map;
 	}
-	
+
 	public Map<String,Object>  svein_removeFinger(String userNo, Integer fingerNo) {
 		Map<String,Object> map=new HashMap<String,Object>();
-		if (trialDay<=0) {
+		if (validDay <=0) {
 			map.put("success", false);
-			map.put("message","version expired");	
+			map.put("message","version expired");
 			map.put("error", TRIAL_EXPIRED);
 			return map;
 		}
@@ -497,16 +500,16 @@ public class SvasServer  implements ApplicationContextAware {
 				map.put("success", true);
 			} else {
 				map.put("success", false);
-				map.put("error",r);				
+				map.put("error",r);
 			}
 		}
 		return map;
 	}
 	public Map<String,Object>  svein_updateFinger(String userNo, Integer fingerNo, String fingerName, String templates)   {
 		Map<String,Object> map=new HashMap<String,Object>();
-		if (trialDay<=0) {
+		if (validDay <=0) {
 			map.put("success", false);
-			map.put("message","version expired");	
+			map.put("message","version expired");
 			map.put("error", TRIAL_EXPIRED);
 			return map;
 		}
@@ -517,7 +520,7 @@ public class SvasServer  implements ApplicationContextAware {
 		} else if (SvasUtil.isEmpty(templates) ) {
 			map.put("success", false);
 			map.put("message","please templates");
-		}	
+		}
 		else  {
 			if (fingerName==null) fingerName="";
 			int r=Svas.instance.svein_updateFinger(userNo,fingerNo,fingerName,templates);
@@ -527,7 +530,7 @@ public class SvasServer  implements ApplicationContextAware {
 			} else {
 				map.put("success", false);
 				if (r==ERR_TEMPLATE_EXISTS)  map.put("exists",true);
-				map.put("error",r);				
+				map.put("error",r);
 			}
 		}
 		return map;
@@ -535,9 +538,9 @@ public class SvasServer  implements ApplicationContextAware {
 
 	public Map<String,Object>  svein_addFinger(String userNo, Integer fingerNo, String fingerName, String templates, Boolean warning)  {
 		Map<String,Object> map=new HashMap<String,Object>();
-		if (trialDay<=0) {
+		if (validDay <=0) {
 			map.put("success", false);
-			map.put("message","version expired");	
+			map.put("message","version expired");
 			map.put("error", TRIAL_EXPIRED);
 			return map;
 		}
@@ -548,8 +551,8 @@ public class SvasServer  implements ApplicationContextAware {
 		} else if (SvasUtil.isEmpty(templates) ) {
 			map.put("success", false);
 			map.put("message","please templates");
-		}	
-		else  {			
+		}
+		else  {
 			int r=Svas.instance.svein_addFinger(userNo,fingerNo,(fingerName==null?"":fingerName),templates,(warning!=null && warning)?1:0);
 	        log.debug("svein_addFinger({},{},...,{})={}",userNo,fingerNo,(warning!=null && warning)?1:0,r);
 			if (r==SUCCESS) {
@@ -557,7 +560,7 @@ public class SvasServer  implements ApplicationContextAware {
 			} else {
 				map.put("success", false);
 				if (r==ERR_TEMPLATE_EXISTS)  map.put("exists",true);
-				map.put("error",r);				
+				map.put("error",r);
 			}
 		}
 		return map;
@@ -565,7 +568,7 @@ public class SvasServer  implements ApplicationContextAware {
 
 	public Map<String,Object>  svein_setFingers(String userNo, String type1, Boolean warning1, String templates1, String type2, Boolean warning2, String templates2)  {
 		Map<String,Object> map=new HashMap<String,Object>();
-		if (trialDay<=0) {
+		if (validDay <=0) {
 			map.put("success", false);
 			map.put("message","version expired");
 			map.put("error", TRIAL_EXPIRED);
@@ -596,7 +599,7 @@ public class SvasServer  implements ApplicationContextAware {
 
 	public Map<String,Object>  svein_setPhoto(String userNo, String photo)  {
 		Map<String,Object> map=new HashMap<String,Object>();
-		if (trialDay<=0) {
+		if (validDay <=0) {
 			map.put("success", false);
 			map.put("message","version expired");
 			map.put("error", TRIAL_EXPIRED);
@@ -621,9 +624,9 @@ public class SvasServer  implements ApplicationContextAware {
 	}
 	public Map<String,Object>  svein_getTemplates(String userNo,Integer fingerNo)  {
 		Map<String,Object> map=new HashMap<String,Object>();
-		if (trialDay<=0) {
+		if (validDay <=0) {
 			map.put("success", false);
-			map.put("message","version expired");	
+			map.put("message","version expired");
 			map.put("error", TRIAL_EXPIRED);
 			return map;
 		}
@@ -644,17 +647,17 @@ public class SvasServer  implements ApplicationContextAware {
 				map.put("warning",templates.warning) ;
 			} else {
 				map.put("success", false);
-				map.put("error",r);				
+				map.put("error",r);
 			}
 		}
 		return map;
 	}
-	
+
 	public Map<String,Object>  svein_getFingerCount(String userNo)  {
 		Map<String,Object> map=new HashMap<String,Object>();
-		if (trialDay<=0) {
+		if (validDay <=0) {
 			map.put("success", false);
-			map.put("message","version expired");	
+			map.put("message","version expired");
 			map.put("error", TRIAL_EXPIRED);
 			return map;
 		}
@@ -684,9 +687,9 @@ public class SvasServer  implements ApplicationContextAware {
 			ret.put("message","please input <userNo>");
 			ret.put("error", ERR_PARAMETER);
 		} else {
-			if (trialDay<=0) {
+			if (validDay <=0) {
 				ret.put("success", false);
-				ret.put("message","version expired");	
+				ret.put("message","version expired");
 				ret.put("error", TRIAL_EXPIRED);
 				return ret;
 			}
@@ -703,7 +706,7 @@ public class SvasServer  implements ApplicationContextAware {
 				ret.put("list",null);
 			} else  {
 				ret.put("success", false);
-				ret.put("error",r);				
+				ret.put("error",r);
 			}
 		}
 		return ret;
@@ -717,7 +720,7 @@ public class SvasServer  implements ApplicationContextAware {
 	}
 	public Map<String,Object>  svein_matchFinger(String template,Integer thresh)  { // 结果通过result返回。result为调用者负责分配内存，1024字节。返回格式为 id,fingerNo,userNo,name,warning,... 最多返回4个结果
 		Map<String,Object> map=new HashMap<String,Object>();
-		if (trialDay<=0) {
+		if (validDay <=0) {
 			map.put("success", false);
 			map.put("message","version expired");
 			map.put("error", TRIAL_EXPIRED);
