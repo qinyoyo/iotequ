@@ -1,0 +1,9 @@
+#!/bin/bash
+systemctl stop svas
+cd /tmp/svaspatch0106
+mysql --host=127.0.0.1 --user=root --password=Passw0rd@Jw2021 < /tmp/svaspatch0106/patch.sql
+cp /tmp/svaspatch0106/svas.jar /usr/local/svas
+chown -f svas:svas /usr/local/svas/svas.jar
+chmod 755 /usr/local/svas/svas.jar
+systemctl start svas
+

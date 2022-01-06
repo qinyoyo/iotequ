@@ -1,10 +1,10 @@
 Package: svas
-Source: svas wec service
+Source: svas web service
 Version: 3.2.0
 Architecture: amd64
 Maintainer: Qinyoyo<qinyoyo@live.com>
 Installed-Size: 30000
-Depends: mysql-client(>=5.7.34) | mysql-community-server(>=5.7.34), java-1.8.0-openjdk|openjdk-8-jre-headless
+Depends: mysql-client(>=5.7.00) | mysql-community-server(>=5.7.00), java-1.8.0-openjdk|openjdk-8-jre-headless
 Section: service
 Priority: optional
 Multi-Arch: same

@@ -120,16 +120,16 @@ svas:
 wechat:
    loginUrl : https://www.svein.com.cn/res/wechat
    checkUrl : https://www.svein.com.cn/res/checkopenid
-   appid : wxfc498a6955abca31  
-   appSecret : 9220bdb59ffe332b23e51d3eed3fbd36
+   appid : your_wx_appid  
+   appSecret : your_app_secret
 
 #短信消息配置
 aliyunsms:
-   accessKeyId : LTAI2DBweLWVhcCB
-   secret : cuXJMDuGOhr5O7btkXfSZSjOtnbD3Q
-   signName : 智脉科技
-   templateCode : SMS_169642214
-   msgTemplateCode : SMS_169865398
+   accessKeyId : your_accessKeyId
+   secret : your_secret
+   signName : your_signame     # 智脉科技
+   templateCode : your_template  # SMS_169642214
+   msgTemplateCode : your_template_code # SMS_169865398
 #使用短消息的模块以及短信注册参数
 sms:
    modules: login,project,register,attendance

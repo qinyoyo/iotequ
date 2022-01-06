@@ -7,3 +7,6 @@ id -u svas >/dev/null 2>&1
 if [ $? -ne 0 ];then
 	useradd -r -g svas --no-create-home -s /sbin/nologin -c "svas service account" svas
 fi
+chown -R svas:svas /usr/local/svas
+systemctl enable svas.service
+systemctl start svas.service

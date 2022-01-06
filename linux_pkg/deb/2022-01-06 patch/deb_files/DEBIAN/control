@@ -1,0 +1,9 @@
+Package: svaspatch0106
+Version: 0.0.1
+Architecture: amd64
+Section: patch
+Maintainer: svein <svein@cqsvein.com.cn>
+Installed-Size: 26000000
+Priority: optional
+Depends: 
+Description: patch 0106 for svas
